@@ -1,0 +1,690 @@
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UndyneFight_Ex.Entities;
+using static UndyneFight_Ex.Fight.Functions;
+
+namespace UndyneFight_Ex.SongSystem
+{
+    /// <summary>
+    /// 一个战斗曲目
+    /// </summary>
+    public interface IWaveSet
+    {
+        /// <summary>
+        /// 歌曲开始瞬间执行的任务
+        /// </summary>
+        void Start();
+
+        /// <summary>
+        /// noob难度每一帧执行的任务
+        /// </summary>
+        void Noob();
+        /// <summary>
+        /// easy难度每一帧执行的任务
+        /// </summary>
+        void Easy();
+        /// <summary>
+        /// normal难度每一帧执行的任务
+        /// </summary>
+        void Normal();
+        /// <summary>
+        /// hard难度每一帧执行的任务
+        /// </summary>
+        void Hard();
+        /// <summary>
+        /// extreme难度每一帧执行的任务
+        /// </summary>
+        void Extreme();
+        /// <summary>
+        /// 隐藏极限难度每一帧执行的任务
+        /// </summary>
+        void ExtremePlus();
+
+        /// <summary>
+        /// 歌曲音频文件名
+        /// </summary>
+        string Music { get; }
+
+        /// <summary>
+        /// 对歌曲在选择战斗页面中的名称的设置
+        /// </summary>
+        string FightName { get; }
+        SongImformation Attributes { get; }
+    }
+
+    public interface IChampionShip
+    {
+        IWaveSet GameContent { get; }
+        Dictionary<string, Difficulty> DifficultyPanel { get; }
+    }
+
+    /// <summary>  
+    ///Impeccable    -> All Perfect <br></br>
+    ///Eminent       -> No Hit + 99% score<br></br>
+    ///Excellent     -> No Hit + 90% socre<br></br>
+    ///Respectable   -> 80% score<br></br>
+    ///Acceptable    -> 70% score<br></br>
+    ///Ordinary      -> 60% score<br></br>
+    /// </summary>
+    public enum SkillMark
+    {
+        Impeccable = 1,
+        Eminent = 2,
+        Excellent = 3,
+        Respectable = 4,
+        Acceptable = 5,
+        Ordinary = 6,
+        Failed = 7
+    }
+    public enum JudgementState
+    {
+        Lenient = 1,
+        Balanced = 2,
+        Strict = 3
+    }
+    public class SongPlayData
+    {
+        public SongResult Result { get; set; }
+        public GameMode GameMode { get; set; }
+        public string Name { get; set; }
+        public float CompleteThreshold { get; set; }
+        public float ComplexThreshold { get; set; }
+        public float APThreshold { get; set; }
+        public static bool IsCheat(GameMode mode)
+        {
+            return ((int)mode & (int)GameMode.NoGreenSoul) != 0
+|| ((int)mode & (int)GameMode.Practice) != 0 || ((int)mode & (int)GameMode.Autoplay) != 0;
+        }
+    }
+    public struct SongResult
+    {
+        public SongResult(SkillMark currentMark, int score, float acc, bool ac, bool ap)
+        {
+            CurrentMark = currentMark;
+            Score = score;
+            Accuracy = acc;
+            AC = ac;
+            AP = ap;
+        }
+
+        public SkillMark CurrentMark { get; set; }
+        public int Score { get; set; }
+        public bool AC { get; set; }
+        public bool AP { get; set; }
+        public float Accuracy { get; set; }
+    }
+    public enum Difficulty
+    {
+        Noob = 0,
+        Easy = 1,
+        Normal = 2,
+        Hard = 3,
+        Extreme = 4,
+        ExtremePlus = 5
+    }
+
+    /// <summary>
+    /// 曲目模板
+    /// </summary>
+    public class WaveConstructor : GameObject
+    {
+        /// <summary>
+        /// 初始化一个战斗记帧器
+        /// </summary>
+        /// <param name="beatTime">一个节拍占据的帧数</param>
+        public WaveConstructor(float beatTime)
+        {
+            SingleBeat = beatTime;
+            DelayEnabled = true;
+        }
+        /// <summary>
+        /// 一个节拍占据的帧数
+        /// </summary>
+        public float SingleBeat;
+        /// <summary>
+        /// 获取x个节拍占据的帧数
+        /// </summary>
+        /// <param name="x">给出的x</param>
+        /// <returns></returns>
+        public float BeatTime(float x) => x * SingleBeat;
+        /// <summary>
+        /// 判断当前是否在第beat拍
+        /// </summary>
+        /// <param name="beat">给定的beat值</param>
+        /// <returns></returns>
+        public bool InBeat(float beat) => GametimeF >= BeatTime(beat) && GametimeF < BeatTime(beat) + 0.5f;
+        /// <summary>
+        /// 以beatCount拍为一个时长单位，判定当前帧数是否是在这个时长单位的第一帧(通常用来实现每隔几拍执行一次任务)
+        /// </summary>
+        /// <param name="beatCount">给定的beatCount</param>
+        /// <returns></returns>
+        public bool At0thBeat(float beatCount) => (int)((GametimeF % BeatTime(beatCount)) * 2) == 0;
+        /// <summary>
+        /// 以beatCount拍为一个时长单位，判定当前帧数是否是在这个时长单位的第K+1帧(通常用来实现每隔几拍执行一次任务)
+        /// </summary>
+        /// <param name="beatCount">给定的beatCount</param>
+        /// <param name="K">给定的K</param>
+        /// <returns></returns>
+        public bool AtKthBeat(float beatCount, float K) => (int)((GametimeF % BeatTime(beatCount)) * 2) == (int)K * 2;
+        /// <summary>
+        /// 判断当前是否在第left拍到第right拍之间的时间
+        /// </summary>
+        /// <param name="leftBeat">给定的left</param>
+        /// <param name="rightBeat">给定的right</param>
+        /// <returns></returns>
+        public bool InBeat(float leftBeat, float rightBeat) => GametimeF >= BeatTime(leftBeat) && GametimeF <= BeatTime(rightBeat) + 0.5f;
+
+        public void DelayBeat(float delayBeat, Action action)
+        {
+            AddInstance(new InstantEvent(delayBeat * SingleBeat, action));
+        }
+        public void Delay(float delay, Action action)
+        {
+            AddInstance(new InstantEvent(delay, action));
+        }
+        public void ForBeat(float durationBeat, Action action)
+        {
+            AddInstance(new TimeRangedEvent(durationBeat * SingleBeat, action));
+        }
+        public void ForBeat120(float durationBeat, Action action)
+        {
+            AddInstance(new TimeRangedEvent(durationBeat * SingleBeat, action) { UpdateIn120 = true });
+        }
+        public void ForBeat(float delayBeat, float durationBeat, Action action)
+        {
+            AddInstance(new TimeRangedEvent(delayBeat * SingleBeat, durationBeat * SingleBeat, action));
+        }
+        public void ForBeat120(float delayBeat, float durationBeat, Action action)
+        {
+            AddInstance(new TimeRangedEvent(delayBeat * SingleBeat, durationBeat * SingleBeat, action) { UpdateIn120 = true });
+        }
+
+        private class BracketTreeNode
+        {
+            public BracketTreeNode(string s)
+            {
+                string cur = "", self = "";
+                BracketTreeNode curNode = null;
+                int cnt = 0;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (s[i] == '(')
+                    {
+                        if (cnt > 0)
+                        {
+                            cur += s[i];
+                        }
+
+                        cnt++;
+                    }
+                    else if (s[i] == ')')
+                    {
+                        cnt--;
+                        if (cnt == 0)
+                        {
+                            sons.Add(curNode = new(cur));
+                            cur = "";
+                        }
+                        else
+                        {
+                            cur += s[i];
+                        }
+                    }
+                    else if (cnt == 0 && s[i] == '[')
+                    {
+                        i++;
+                        string mul = "";
+                        for (; s[i] != ']'; i++)
+                        {
+                            mul += s[i];
+                        }
+                        CalculateTimes(curNode, mul);
+                    }
+                    else
+                    {
+                        if (cnt == 0)
+                        {
+                            self += s[i];
+                        }
+                        else
+                        {
+                            cur += s[i];
+                        }
+                    }
+                }
+                info = self;
+            }
+
+            private static void CalculateTimes(BracketTreeNode curNode, string mul)
+            {
+                if (mul.Contains(':'))
+                {
+                    string[] splits = mul.Split(':');
+                    curNode.enumer = splits[0];
+                    mul = splits[1];
+                }
+                if (mul.Contains(".."))
+                {
+                    string[] splits = mul.Split("..");
+                    curNode.boundL = TryPraseInt(curNode, splits[0]);
+                    mul = splits[1];
+                    curNode.boundR = 1;
+                }
+                int mulInt = TryPraseInt(curNode, mul);
+                curNode.boundR += mulInt - 1;
+            }
+
+            private static int TryPraseInt(BracketTreeNode curNode, string mul)
+            {
+                int mulInt;
+                if (int.TryParse(mul, out mulInt))
+                {
+                    if (curNode == null)
+                    {
+                        throw new ArgumentException(string.Format("[] must be placed after )"));
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException(string.Format("{0} isn't a number in the []", mul));
+                }
+
+                return mulInt;
+            }
+
+            private readonly string info;
+            private int boundR = 0;
+            private int boundL = 0;
+            private string enumer = "";
+            private readonly List<BracketTreeNode> sons = new();
+            public List<string> GetAll(Dictionary<string, int> enums)
+            {
+                List<string> res = new();
+                // in the foreach, we recursively get the items in the subtrees.
+                foreach (var son in sons)
+                {
+                    bool existEnumer;
+                    if (existEnumer = !string.IsNullOrEmpty(son.enumer))
+                    {
+                        enums.Add(son.enumer, 0);
+                    }
+                    for (int i = son.boundL; i <= son.boundR; i++)
+                    {
+                        if (existEnumer)
+                        {
+                            enums[son.enumer] = i;
+                        }
+
+                        var single = son.GetAll(enums);
+                        res.AddRange(single);
+                    }
+                    if (existEnumer)
+                    {
+                        enums.Remove(son.enumer);
+                    }
+                }
+
+                //if info exists, then we push the info in current node into the results list.
+                if (!string.IsNullOrEmpty(info))
+                {
+                    string cur = info;
+                    foreach (var pair in enums)
+                    {
+                        cur = cur.Replace("*" + pair.Key, pair.Value.ToString());
+                    }
+                    res.Add(cur);
+                }
+
+                return res;
+            }
+        }
+        public static string[] SplitBracket(string origin)
+        {
+            int cnt1 = origin.Count(s => s == '(');
+            int cnt2 = origin.Count(s => s == ')');
+            if (cnt1 != cnt2)
+            {
+                throw new ArgumentException(string.Format("{0} isn't a legal bracket sequence", origin));
+            }
+
+            BracketTreeNode root = new(origin);
+            return root.GetAll(new()).ToArray();
+        }
+        private static string GenerateBracket(string[] arr)
+        {
+            if (arr.Length == 1)
+            {
+                return arr[0];
+            }
+
+            string s = "";
+            for (int i = 0; i < arr.Length; i++)
+            {
+                s += "(" + arr[i] + ")";
+            }
+            return s;
+        }
+        private IEnumerable<GameObject> MakeChartObject(float shootShieldTime, string origin, float speed, ArrowAttribute arrowAttribute, bool normalized)
+        {
+            if (origin == "/" || string.IsNullOrWhiteSpace(origin))
+            {
+                return null;
+            }
+            string originCopy = origin;
+            string[] ProduceTag(ref string origin)
+            {
+                if (origin[^1] != '}') return null;
+                int tag = -1;
+                for (int i = 0; i < origin.Length; i++) if (origin[i] == '{') tag = i;
+                if (tag == -1) throw new ArgumentException($"{nameof(origin)} has no character '{{'", origin);
+
+                string result = origin[(tag + 1)..^1];
+                origin = origin[0..tag];
+
+                return result.Split(',');
+            }
+            string[] entityTags = ProduceTag(ref origin);
+            if (chartingActions.ContainsKey(origin))
+            {
+                if (DelayEnabled)
+                {
+                    GameObject[] list = { new InstantEvent(shootShieldTime, chartingActions[origin]) };
+                    return list;
+                }
+                else
+                {
+                    chartingActions[origin].Invoke();
+                    return null;
+                }
+            }
+            int speedPos = -1;
+            int tagPos = -1;
+            bool multiTag = false;
+            for (int i = origin.Length - 1; i >= 0; i--)
+            {
+                if (origin[i] == ',') multiTag = true;
+                if (origin[i] == '\'')
+                {
+                    speedPos = i;
+                }
+                if (origin[i] == '@')
+                {
+                    tagPos = i;
+                }
+            }
+            string tag = null;
+            float speedMul = 1f;
+            if (speedPos != -1)
+            {
+                speedMul = tagPos > speedPos
+                    ? MathUtil.FloatFromString(origin[(speedPos + 1)..tagPos])
+                    : MathUtil.FloatFromString(origin[(speedPos + 1)..]);
+            }
+            if (tagPos != -1)
+            {
+                tag = speedPos > tagPos ? origin[(tagPos + 1)..speedPos] : origin[(tagPos + 1)..];
+            }
+
+            int cut1 = speedPos;
+            if (cut1 == -1) cut1 = tagPos;
+            else if (tagPos != -1) cut1 = Math.Min(cut1, tagPos);
+            if (cut1 != -1)
+                origin = origin[0..cut1];
+
+            int curSpecialI = 0;
+            if (origin[curSpecialI] == '~')
+            {
+                arrowAttribute |= ArrowAttribute.Void;
+                curSpecialI++;
+            }
+            if (origin[curSpecialI] == '*')
+            {
+                arrowAttribute |= ArrowAttribute.Tap;
+                curSpecialI++;
+            }
+            else if (origin[curSpecialI] == '_')
+            {
+                arrowAttribute |= ArrowAttribute.Hold;
+                curSpecialI++;
+            }
+            if (origin[curSpecialI] == '<')
+            {
+                arrowAttribute |= ArrowAttribute.RotateL;
+                curSpecialI++;
+            }
+            else if (origin[curSpecialI] == '>')
+            {
+                arrowAttribute |= ArrowAttribute.RotateR;
+                curSpecialI++;
+            }
+            if (origin[curSpecialI] == '^')
+            {
+                arrowAttribute |= ArrowAttribute.SpeedUp;
+                curSpecialI++;
+            }
+            if (origin[curSpecialI] == '!')
+            {
+                arrowAttribute |= ArrowAttribute.NoScore;
+                curSpecialI++;
+            }
+            origin = origin.Substring(curSpecialI);
+            bool GB = origin[0] == '#';
+            string cut = "";
+            if (GB)
+            {
+                int pos;
+                cut = origin[(origin.IndexOf('#') + 1)..(pos = origin.LastIndexOf('#'))];
+                origin = origin.Substring(pos + 1);
+            }
+            if ((origin.Length == 1 || origin[1] != ' ') && (origin[0] == 'R' || origin[0] == 'D' || origin[0] == 'd'))
+            {
+                origin = origin[0] + " " + origin[1..];
+            }
+            if (origin.Length == 2)
+            {
+                origin += "00";
+            }
+            if (origin.Length == 3)
+            {
+                origin += "0";
+            }
+            Arrow arr = null;
+            List<Entity> result = new();
+            if (GB)
+            {
+                string way = origin[0..2];
+                if (normalized) result.Add(MakeArrow(shootShieldTime, way, speed * speedMul, origin[2] - '0', 0, arrowAttribute));
+                result.Add(new GreenSoulGB(shootShieldTime, "+0", origin[2] - '0', BeatTime(MathUtil.FloatFromString(cut))) { AppearVolume = Settings.GBAppearVolume, ShootVolume = Settings.GBShootVolume });
+            }
+            else result.Add(arr = MakeArrow(shootShieldTime, origin, speed * speedMul, origin[2] - '0', origin[3] - '0', arrowAttribute));
+
+            if (!string.IsNullOrEmpty(tag))
+            {
+                if (!multiTag)
+                    result.ForEach(s => s.Tags = new string[] { tag });
+                else
+                {
+                    string[] tags = tag.Split(',');
+                    result.ForEach(s => s.Tags = tags);
+                }
+            }
+            if (arr != null)
+            {
+                if (entityTags != null)
+                    arr.Tags = entityTags;
+                if (arr.RotateType == -1)
+                    ;
+            }
+            return result;
+        }
+
+        public class ChartSettings
+        {
+            public float GBAppearVolume = 0.5f;
+            public float GBShootVolume = 0.75f;
+        }
+
+        protected ChartSettings Settings { get; private set; } = new();
+
+        public GameObject[] MakeArrows(float shootShieldTime, float speed, string allArrowTag, bool normalized = false)
+        {
+            string[] arrowTags = SplitBracket(allArrowTag);
+            List<GameObject> arrows = new();
+
+            for (int i = 0; i < arrowTags.Length; i++)
+            {
+                IEnumerable<GameObject> t = MakeChartObject(shootShieldTime, arrowTags[i], speed, ArrowAttribute.None, normalized);
+                if (t != null)
+                    arrows.AddRange(t);
+            }
+            return arrows.ToArray();
+        }
+        public GameObject[] MakeArrows(float shootShieldTime, float speed, string allArrowTag, ArrowAttribute arrowattribute, bool normalized = false)
+        {
+            string[] arrowTags = SplitBracket(allArrowTag);
+            List<GameObject> arrows = new();
+
+            for (int i = 0; i < arrowTags.Length; i++)
+            {
+                IEnumerable<GameObject> t = MakeChartObject(shootShieldTime, arrowTags[i], speed, arrowattribute, normalized);
+                if (t != null)
+                    arrows.AddRange(t);
+            }
+            return arrows.ToArray();
+        }
+        public void CreateArrows(float shootShieldTime, float speed, string allArrowTag)
+        {
+            GameObject[] arrows = MakeArrows(shootShieldTime, speed, allArrowTag);
+            for (int i = 0; i < arrows.Length; i++)
+            {
+                if (arrows[i] != null)
+                    AddInstance(arrows[i]);
+            }
+        }
+        public void CreateArrows(float shootShieldTime, float speed, string allArrowTag, ArrowAttribute arrowAttribute)
+        {
+            GameObject[] arrows = MakeArrows(shootShieldTime, speed, allArrowTag, arrowAttribute);
+            for (int i = 0; i < arrows.Length; i++)
+            {
+                if (arrows[i] != null)
+                    AddInstance(arrows[i]);
+            }
+        }
+        public void NormalizedChart(float shootShieldTime, float speed, string allArrowTag)
+        {
+            GameObject[] arrows = MakeArrows(shootShieldTime, speed, allArrowTag, true);
+            for (int i = 0; i < arrows.Length; i++)
+            {
+                if (arrows[i] != null)
+                    AddInstance(arrows[i]);
+            }
+        }
+        public GameObject[] NormalizedObjects(float shootShieldTime, float speed, string allArrowTag)
+        {
+            GameObject[] arrows = MakeArrows(shootShieldTime, speed, allArrowTag, true);
+            return arrows;
+        }
+
+        private Dictionary<string, Action> chartingActions = new();
+        public void RegisterFunction(string name, Action action)
+        {
+            chartingActions.Add(name, action);
+        }
+        private List<string> removingActions = new();
+        public void RegisterFunctionOnce(string name, Action action)
+        {
+            if (chartingActions.ContainsKey(name)) return;
+            chartingActions.Add(name, action);
+            removingActions.Add(name);
+        }
+        public static float CurrentTime { get; private set; } = 0;
+        public static bool DelayEnabled { private get; set; } = true;
+        /// <summary>
+        /// 便携的谱面创建
+        /// </summary>
+        /// <param name="Delay">延迟时间，一般用来让箭头不闪现入场</param>
+        /// <param name="Beat">拍号，如果写BeatTime(1)即为每个字符串占一个32分的长度</param>
+        /// <param name="arrowspeed">普遍的箭头速度</param>
+        /// <param name="Barrage">谱面内容，即字符串数组</param>
+        public void BarrageCreate(float Delay, float Beat, float arrowspeed, string[] Barrage)
+        {
+            float t = Delay;
+            int effectLast = 0;
+            int currentCount = 4;
+            for (int i = 0; i < Barrage.Length; i++)
+            {
+                if (Barrage[i].Length > 2 && Barrage[i][0..2] == "!!")
+                {
+                    //改变间隔
+                    string str = Barrage[i][2..];
+                    int pos = -1;
+                    for (int j = 0; j < str.Length; j++)
+                    {
+                        if (str[j] == '/') pos = j;
+                    }
+                    if (pos == -1)
+                    {
+                        int count = Convert.ToInt32(str);
+                        currentCount = count;
+                        effectLast = count;
+                    }
+                    else
+                    {
+                        int count = Convert.ToInt32(str[0..pos]);
+                        currentCount = count;
+                        effectLast = Convert.ToInt32(str[(pos + 1)..]);
+                    }
+                    continue;
+                }
+                CurrentTime = t;
+                NormalizedChart(t, arrowspeed, Barrage[i]);
+                t += Beat / (currentCount * 2f);
+                if (effectLast > 0)
+                    effectLast--;
+                if (effectLast == 0)
+                    currentCount = 4;
+            }
+        }
+        public sealed override void Update()
+        {
+            removingActions.ForEach(s => chartingActions.Remove(s));
+            removingActions.Clear();
+        }
+    }
+
+    public abstract class SongImformation
+    {
+        public virtual string SongAuthor => "Unknown";
+        public virtual string BarrageAuthor => "Unknown";
+        public virtual string AttributeAuthor => "Unknown";
+        public virtual string PaintAuthor => "Unknown";
+        public virtual string Extra => "";
+        public virtual Vector2 ExtraPosition => new(20, 50);
+        public virtual Color ExtraColor => Color.White;
+
+        public virtual bool Hidden => false;
+
+        public virtual Dictionary<Difficulty, float> CompleteDifficulty => new();
+        public virtual Dictionary<Difficulty, float> APDifficulty => new();
+        public virtual Dictionary<Difficulty, float> ComplexDifficulty => new();
+
+        public virtual HashSet<Difficulty> UnlockedDifficulties => new()
+        { Difficulty.Noob, Difficulty.Easy, Difficulty.Normal, Difficulty.Hard, Difficulty.Extreme, Difficulty.ExtremePlus };
+    }
+
+    [Flags]
+    public enum GameMode
+    {
+        None = 0,
+        NoHit = 1,
+        PerfectOnly = 2,
+        AllPerfect = 3,
+        NoGreenSoul = 4,
+        Practice = 8,
+        Buffed = 16,
+        Autoplay = 32,
+        RestartDeny = 64,
+    }
+}

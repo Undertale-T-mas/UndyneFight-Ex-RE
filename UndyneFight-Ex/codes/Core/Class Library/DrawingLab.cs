@@ -1,0 +1,270 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using static UndyneFight_Ex.GameMain;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
+
+namespace UndyneFight_Ex
+{
+    public static class DrawingLab
+    {
+        private struct HSV
+        {
+            public int H, S, V;
+            public HSV(int h, int s, int v)
+            {
+                H = h;
+                S = s;
+                V = v;
+            }
+        }
+        /// <summary>
+        /// S,V,A均在[0, 255]取值，H通常在[0, 360]取值
+        /// </summary>
+        /// <param name="H_"></param>
+        /// <param name="S_"></param>
+        /// <param name="V_"></param>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static Vector4 HsvToRgb(float H_, int S_, int V_, int A)
+        {
+            int _H = (int)H_;
+            _H %= 360;
+            HSV hsv = new(_H, S_, V_);
+            float R = 0f, G = 0f, B = 0f;
+            if (hsv.S == 0)
+                return new Color(hsv.V, hsv.V, hsv.V).ToVector4();
+            float S = hsv.S * 1.0f / 255, V = hsv.V * 1.0f / 255;
+            int H1 = (int)(hsv.H * 1.0f / 60), H = hsv.H;
+            float F = H * 1.0f / 60 - H1;
+            float P = V * (1.0f - S);
+            float Q = V * (1.0f - F * S);
+            float T = V * (1.0f - (1.0f - F) * S);
+            switch (H1)
+            {
+                case 0: R = V; G = T; B = P; break;
+                case 1: R = Q; G = V; B = P; break;
+                case 2: R = P; G = V; B = T; break;
+                case 3: R = P; G = Q; B = V; break;
+                case 4: R = T; G = P; B = V; break;
+                case 5: R = V; G = P; B = Q; break;
+            }
+            R *= 255;
+            G *= 255;
+            B *= 255;
+            while (R > 255) R -= 255;
+            while (R < 0) R += 255;
+            while (G > 255) G -= 255;
+            while (G < 0) G += 255;
+            while (B > 255) B -= 255;
+            while (B < 0) B += 255;
+            return new Vector4(R / 255f, G / 255f, B / 255f, A / 255f);
+        }
+
+        public static void MaskDraw(Texture2D tex, Vector2 centre, Color color, float rotation, Vector2 rotateCentre, float depth, CollideRect mask)
+        {
+            float h = tex.Height;
+            float w = tex.Width;
+            MaskDraw(tex, new CollideRect(centre.X - w / 2f, centre.Y - h / 2f, w, h), color, rotation, Vector2.Zero, depth, mask);
+        }
+
+        public static void MaskDraw(Texture2D tex, CollideRect drawArea, Color color, float rotation, Vector2 rotateCentre, float depth, CollideRect mask)
+        {
+            color *= Surface.Normal.drawingAlpha;
+            Vector2 samplerPlace = Vector2.Zero;
+            Vector2 size = drawArea.Size;
+            if (mask.TopLeft.X > drawArea.X)
+            {
+                float detla = mask.TopLeft.X - drawArea.X;
+                samplerPlace.X += detla;
+                drawArea.X += detla;
+                drawArea.Width -= detla;
+                size.X -= detla;
+            }
+            if (mask.TopLeft.Y > drawArea.Y)
+            {
+                float detla2 = mask.TopLeft.Y - drawArea.Y;
+                samplerPlace.Y += detla2;
+                drawArea.Y += detla2;
+                drawArea.Height -= detla2;
+                size.Y -= detla2;
+            }
+            if (drawArea.Right > mask.Right)
+            {
+                float detla3 = drawArea.Right - mask.Right;
+                size.X -= detla3;
+                drawArea.Width -= detla3;
+            }
+            if (drawArea.Down > mask.Down)
+            {
+                float detla4 = drawArea.Down - mask.Down;
+                size.Y -= detla4;
+                drawArea.Height -= detla4;
+            }
+            if (!(size.X < 0f || size.Y < 0f))
+                MissionSpriteBatch.Draw(tex, drawArea.ToRectangle(), new Rectangle?(new Rectangle(samplerPlace.ToPoint(), size.ToPoint())), color, rotation, rotateCentre, SpriteEffects.None, depth);
+        }
+
+
+        public const float quarterAngle = (float)(0.5 * Math.PI);
+        public static void DrawLine(Vector2 P1, Vector2 P2, float width, Color cl, float depth)
+        {
+            Vector2 Centre = (P1 + P2) / 2;
+            float Angle = (float)Math.Atan2(P2.Y - P1.Y, P2.X - P1.X);
+            float dist = MathUtil.GetDistance(P1, P2) + 2;
+            DrawLine(Centre, Angle, dist, width, cl, depth);
+        }
+
+        /// <summary>
+        /// 画一个向量
+        /// </summary>
+        /// <param name="centre">向量中心位置</param>
+        /// <param name="rotation">向量旋转弧度</param>
+        public static void DrawVector(Vector2 centre, float rotation)
+        {
+            MissionSpriteBatch.Draw(GlobalResources.Sprites.debugArrow, centre, null, Color.White * 0.5f,
+                rotation, new Vector2(3, 3), 1.0f, SpriteEffects.None, 0.9999f);
+        }
+        /// <summary>
+        /// 绘制线条
+        /// </summary>
+        /// <param name="Centre">线条中心</param>
+        /// <param name="Angle">线条绕中心旋转角</param>
+        /// <param name="Length">线条长度</param>
+        /// <param name="width">线宽度</param>
+        /// <param name="cl">线条颜色</param>
+        public static void DrawLine(Vector2 Centre, float Angle, float Length, float width, Color cl, float depth)
+        {
+            MissionSpriteBatch.Draw(FightResources.Sprites.pixiv, Centre, null, cl * Surface.Normal.drawingAlpha, Angle, new Vector2(0.5f, 0.5f), new Vector2(Length, width), SpriteEffects.None, depth);
+        }
+
+        /// <summary>
+        /// 绘制一个矩形
+        /// </summary>
+        /// <param name="rect">矩形边界</param>
+        /// <param name="color">矩形颜色</param>
+        /// <param name="width">矩形边的宽度</param>
+        public static void DrawRectangle(CollideRect rect, Color color, float width, float depth)
+        {
+            Vector2 V2 = rect.TopLeft + new Vector2(0, rect.Height);
+            Vector2 V3 = rect.TopLeft + new Vector2(rect.Width, 0);
+            Vector2 V4 = rect.TopLeft + new Vector2(rect.Width, rect.Height);
+            DrawLine(rect.TopLeft, V2, width, color, depth);
+            DrawLine(rect.TopLeft, V3, width, color, depth);
+            DrawLine(V2, V4, width, color, depth);
+            DrawLine(V3, V4, width, color, depth);
+        }
+    }
+    public static class UsingShader
+    {
+        public static Shader BackGround { get; internal set; }
+    }
+    public class Shader
+    {
+        public Shader(Effect effect)
+        {
+            this.effect = effect;
+        }
+        private readonly Effect effect;
+        private string effectName = "NormalDrawing";
+        public string EffectName { get => effectName; set { effectName = value; effect.CurrentTechnique = effect.Techniques[value]; } }
+
+        public EffectParameterCollection Parameters => effect.Parameters;
+        public Dictionary<string, Action<Effect>> PartEvents { private get; set; }
+        public Action<Effect> StableEvents { private get; set; }
+
+        public void Update()
+        {
+            Shader shader = this;
+            shader.StableEvents?.Invoke(shader);
+            if (shader.PartEvents != null && shader.PartEvents.ContainsKey(shader.effectName))
+                shader.PartEvents[shader.effectName](shader.effect);
+        }
+
+        public static implicit operator Effect(Shader shader)
+        {
+            return shader.effect;
+        }
+
+    }
+    public class GLFont
+    {
+        public SpriteFont SFX;
+        public GLFont(string path, ContentManager cm)
+        {
+            SFX = cm.Load<SpriteFont>(path);
+        }
+        public void Draw(string texts, Vector2 location, Color color)
+        {
+            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha);
+        }
+        public void Draw(string texts, Vector2 location, Color color, SpriteBatch sb)
+        {
+            sb.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha);
+        }
+        public void CentreDraw(string texts, Vector2 location, Color color)
+        {
+            MissionSpriteBatch.DrawString(SFX, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
+        }
+        public void CentreDraw(string texts, Vector2 location, Color color, SpriteBatch sb)
+        {
+            sb.DrawString(SFX, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
+        }
+        public void Draw(string texts, Vector2 location, Color color, float scale, float depth)
+        {
+            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
+        }
+        public void LimitDraw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float lineLength, float lineDistance, float scale, float depth)
+        {
+            Vector2[] sizes = new Vector2[texts.Length];
+            for (int i = 0; i < texts.Length; i++)
+                sizes[i] = SFX.MeasureString(texts[i].ToString());
+
+            string curLine = "";
+            float cur = 0;
+            List<string> strings = new();
+            for (int i = 0; i < texts.Length; i++)
+            {
+                float v;
+                bool u;
+                cur += (v = sizes[i].X * scale);
+                if ((u = texts[i] == '\r' || texts[i] == '\n') || cur > lineLength)
+                {
+                    strings.Add(curLine);
+                    curLine = "";
+                    cur = v;
+                    if (u) continue;
+                }
+                curLine += texts[i];
+            }
+            strings.Add(curLine);
+            foreach (string s in strings)
+            {
+                GameMain.MissionSpriteBatch.DrawString(SFX, s, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
+                location.Y += lineDistance;
+            }
+        }
+        public void Draw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float rotation, float scale, float depth)
+        {
+            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, rotation, Vector2.Zero, scale, SpriteEffects.None, depth);
+        }
+        public void CentreDraw(string texts, Vector2 location, Color color, float scale, float depth)
+        {
+            try
+            {
+                MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, 0, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+            }
+            catch
+            {
+
+            }
+        }
+        public void CentreDraw(string texts, Vector2 location, Color color, float scale, float rotation, float depth)
+        {
+            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+        }
+    }
+}
