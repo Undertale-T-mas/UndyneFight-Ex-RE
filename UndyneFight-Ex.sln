@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UndyneFight-Ex", "UndyneFight-Ex\UndyneFight-Ex.csproj", "{5CC8C0A3-BF26-4591-8499-0D940D270034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhythm Recall", "Rhythm Recall\Rhythm Recall.csproj", "{CD6A9092-6926-4177-A513-774075036A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rhythm Recall", "Rhythm Recall\Rhythm Recall.csproj", "{CD6A9092-6926-4177-A513-774075036A5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecallCharter", "RecallCharter\RecallCharter.csproj", "{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CD6A9092-6926-4177-A513-774075036A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD6A9092-6926-4177-A513-774075036A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD6A9092-6926-4177-A513-774075036A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

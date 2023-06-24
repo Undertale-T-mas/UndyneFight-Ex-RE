@@ -17,9 +17,7 @@ namespace Rhythm_Recall.Waves
     {
         public TheFuneral()
         {
-            Game.game = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:4"));
+            Game.game = new Game(); 
             difficulties = new();
             difficulties.Add("div2", Difficulty.Normal);
             difficulties.Add("div1", Difficulty.Extreme);
@@ -27,10 +25,7 @@ namespace Rhythm_Recall.Waves
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
-        public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
-
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public Dictionary<string, Difficulty> DifficultyPanel => difficulties; 
 
         public IWaveSet GameContent => new Game();
         public partial class Game : WaveConstructor, IWaveSet

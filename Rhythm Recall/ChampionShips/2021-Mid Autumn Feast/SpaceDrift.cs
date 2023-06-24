@@ -862,6 +862,12 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(704 + 64, 704 + 128 - 24) && At0thBeat(8))
                 {
+                    Line a;
+                    CreateEntity(a = new Line(
+                        SimplifiedEasing.LinkEase(SimplifiedEasing.EaseOut(BeatTime(3), new Vector2(120, 120), new Vector2(240, 240), SimplifiedEasing.EaseState.Quart),
+                                                  SimplifiedEasing.EaseOut(BeatTime(3), new Vector2(240, 240), new Vector2(140, 240), SimplifiedEasing.EaseState.Quart),
+                                                  SimplifiedEasing.EaseOut(BeatTime(2), new Vector2(140, 240), new Vector2(240, 120), SimplifiedEasing.EaseState.Quart)).Easing,
+                        SimplifiedEasing.Stable(30).Easing));
                     CreateGB(new NormalGB(new(190, 300 + RandSignal() * 32), Heart.Centre, new(1, 1), 0, BeatTime(16), BeatTime(2)));
                 }
                 if (InBeat(832))
