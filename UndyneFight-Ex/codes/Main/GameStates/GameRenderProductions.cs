@@ -8,6 +8,11 @@ namespace UndyneFight_Ex
 {
     public static partial class GameStates
     {
+        public static float SurfaceScale => CurrentScene.CurrentDrawingSettings.SurfaceScale;
+        internal static Settings.SettingsManager.DataLibrary.DrawingQuality Quality => Settings.SettingsManager.DataLibrary.drawingQuality;
+         
+        public static GameWindow CurrentWindow => GameMain.CurrentWindow;
+
         private static GameRenderProductions.RenderEntities EntitiesDrawingProduction;
         internal static readonly RenderingManager MainScene = new RenderingManager();
         internal static void InitializeRendering()

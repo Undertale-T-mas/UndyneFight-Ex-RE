@@ -21,6 +21,7 @@ namespace UndyneFight_Ex
             public float sceneOutScale = 3.0f;
             public float outFadeScale = 0.86f;
             public float masterAlpha = 1.0f;
+            public float defaultWidth = 640f;
             public Vector2 screenDetla;
             public Vector2 shakings = new Vector2(0, 0);
             public float screenAngle = 0.0f;
@@ -36,6 +37,8 @@ namespace UndyneFight_Ex
             }
             private Vector4 extending;
 
+            public float SurfaceScale => defaultWidth / 640f;
+             
             public DrawingSettings()
             {
                 surfaces.Add("normal", Surface.Normal);

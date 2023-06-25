@@ -24,7 +24,7 @@ namespace UndyneFight_Ex
         }
         private static Vector2 Adapt(Vector2 origin)
         {
-            if (!HighQuality) return new(640, 480);
+            if (!HighQuality) return new Vector2(640, 480);
 
             float trueX, trueY;
             if (origin.X >= origin.Y * 4 / 3f) { trueX = origin.Y * 4 / 3; trueY = origin.Y; }
@@ -261,22 +261,8 @@ namespace UndyneFight_Ex
 
         public RenderTarget2D RenderPaint { get; private set; }
         public static Surface Normal { get; private set; }
-        public static Surface Hidden { get; private set; }
-
-        private static bool HighQuality => Settings.SettingsManager.DataLibrary.drawingQuality == Settings.SettingsManager.DataLibrary.DrawingQuality.High;
-
-        private static Vector2 Adapt(Vector2 origin)
-        {
-            if (!HighQuality) return new(640, 480);
-
-            float trueX, trueY;
-            if (origin.X >= origin.Y * 4 / 3f) { trueX = origin.Y * 4 / 3; trueY = origin.Y; }
-            else { trueY = origin.X * 0.75f; trueX = origin.X; }
-
-            return new(trueX, trueY);
-
-        }
-
+        public static Surface Hidden { get; private set; } 
+         
         public Color BackGroundColor { get; set; } = Color.Transparent;
         public bool DisableExpand { get; set; } = false;
         public event Action DoUpdate;
@@ -307,7 +293,7 @@ namespace UndyneFight_Ex
         {
             if (Transfer == TransferUse.ForceDefault)
             {
-                transfer = Matrix.CreateScale(AdaptingScale); transfer.M33 = 1;
+                transfer = Matrix.CreateScale(AdaptingScale / GameStates.SurfaceScale); transfer.M33 = 1;
             }
             else if (Transfer == TransferUse.Custom) transfer = CustomMatrix;
             MissionTarget = RenderPaint;

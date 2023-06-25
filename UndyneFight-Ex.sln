@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UndyneFight-Ex", "UndyneFig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rhythm Recall", "Rhythm Recall\Rhythm Recall.csproj", "{CD6A9092-6926-4177-A513-774075036A5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecallCharter", "RecallCharter\RecallCharter.csproj", "{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecallCharter", "RecallCharter\RecallCharter.csproj", "{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UndyneFight-RE", "UndyneFight-RE\UndyneFight-RE.csproj", "{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A428E8EB-DDA6-4C8A-9C87-21D009C1C29C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

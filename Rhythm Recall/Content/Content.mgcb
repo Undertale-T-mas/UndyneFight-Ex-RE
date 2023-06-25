@@ -620,6 +620,18 @@
 /processorParam:TextureFormat=Color
 /build:Fights/WoodenHall/sprawlHandBody.png;Fights/WoodenHall/sprawlHandsBody.png
 
+#begin FontTexture/A/A.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FontTexture/A/A.png
+
 #begin FontTexture/A/A(DIY)-01-01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -692,18 +704,6 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/A/A(DIY)-04-02.png
 
-#begin FontTexture/A/A.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:FontTexture/A/A.png
-
 #begin FontTexture/BackGround.jpeg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -715,6 +715,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:FontTexture/BackGround.jpeg
+
+#begin FontTexture/C/C.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FontTexture/C/C.png
 
 #begin FontTexture/C/C(DIY)-01-01.png
 /importer:TextureImporter
@@ -800,7 +812,7 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/C/C(DIY)-03-03.png
 
-#begin FontTexture/C/C.png
+#begin FontTexture/E/E.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -810,7 +822,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:FontTexture/C/C.png
+/build:FontTexture/E/E.png
 
 #begin FontTexture/E/E(DIY)01-01.png
 /importer:TextureImporter
@@ -1028,7 +1040,7 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/E/E(DIY)04-06.png
 
-#begin FontTexture/E/E.png
+#begin FontTexture/H/H.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1038,7 +1050,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:FontTexture/E/E.png
+/build:FontTexture/H/H.png
 
 #begin FontTexture/H/H(DIY)-01.png
 /importer:TextureImporter
@@ -1280,7 +1292,7 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/H/H(DIY)-05-13.png
 
-#begin FontTexture/H/H.png
+#begin FontTexture/L/L.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1290,19 +1302,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:FontTexture/H/H.png
-
-#begin FontTexture/L/L(1)(DIY)01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:FontTexture/L/L(1)(DIY)01.png
+/build:FontTexture/L/L.png
 
 #begin FontTexture/L/L(1).png
 /importer:TextureImporter
@@ -1315,6 +1315,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:FontTexture/L/L(1).png
+
+#begin FontTexture/L/L(1)(DIY)01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FontTexture/L/L(1)(DIY)01.png
 
 #begin FontTexture/L/L(2)(DIY)01.png
 /importer:TextureImporter
@@ -1388,7 +1400,7 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/L/L(DIY)03-04.png
 
-#begin FontTexture/L/L.png
+#begin FontTexture/M/M.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1398,7 +1410,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:FontTexture/L/L.png
+/build:FontTexture/M/M.png
 
 #begin FontTexture/M/M(DIY)01.png
 /importer:TextureImporter
@@ -1640,7 +1652,7 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/M/M(DIY)04-12.png
 
-#begin FontTexture/M/M.png
+#begin FontTexture/R/R.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1650,7 +1662,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:FontTexture/M/M.png
+/build:FontTexture/R/R.png
 
 #begin FontTexture/R/R(DIY)-01.png
 /importer:TextureImporter
@@ -1676,7 +1688,7 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/R/R(DIY)-02.png
 
-#begin FontTexture/R/R.png
+#begin FontTexture/T/T.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1686,7 +1698,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:FontTexture/R/R.png
+/build:FontTexture/T/T.png
 
 #begin FontTexture/T/T(DIY)-01.png
 /importer:TextureImporter
@@ -1844,18 +1856,6 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/T/T(DIY)-02-12.png
 
-#begin FontTexture/T/T.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:FontTexture/T/T.png
-
 #begin FontTexture/Title.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1867,6 +1867,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:FontTexture/Title.png
+
+#begin FontTexture/Y/Y.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FontTexture/Y/Y.png
 
 #begin FontTexture/Y/Y(DIY)-01.png
 /importer:TextureImporter
@@ -2132,18 +2144,6 @@
 /processorParam:TextureFormat=Color
 /build:FontTexture/Y/Y(DIY)-03-04.png
 
-#begin FontTexture/Y/Y.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:FontTexture/Y/Y.png
-
 #begin Musics/#1e86f2/song.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -2188,7 +2188,7 @@
 
 #begin Musics/ad,!U)~ZRr]/song.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/ad,!U)~ZRr]/song.wav
 

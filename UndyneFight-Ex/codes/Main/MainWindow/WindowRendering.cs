@@ -13,10 +13,12 @@ namespace UndyneFight_Ex
         }
         private void ResetDrawingSettings()
         {
+            Vector2 defaultSize = new Vector2(640, 480) * GameStates.SurfaceScale;
+
             #region screen matrix
             screenSize = new Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height);
             Vector2 size = screenSize;
-            if (drawingQuality != DrawingQuality.High) size = new(640, 480);
+            if (drawingQuality != DrawingQuality.High) size = new(defaultSize.X, defaultSize.Y);
             CurrentDrawingSettings.shakings = Entities.Advanced.ScreenShaker.ScreenShakeDetla;
 
             float trueX, trueY;
@@ -29,7 +31,7 @@ namespace UndyneFight_Ex
             // TODO: Add your update logic here
             float f = CurrentDrawingSettings.screenAngle + quarterAngle;
             float true_angle = basicAngle + f;
-            float true_scale = Min(size.X / 640, size.Y / 480) * CurrentDrawingSettings.screenScale;
+            float true_scale = Min(size.X / defaultSize.X, size.Y / defaultSize.Y) * CurrentDrawingSettings.screenScale;
             float x = (float)(screenDistance * -Cos(true_angle) * CurrentDrawingSettings.screenScale) + CurrentDrawingSettings.screenDetla.X * true_scale + trueX / 2 + GameStates.CurrentScene.CurrentDrawingSettings.shakings.X;
             float y = (float)(screenDistance * Sin(true_angle) * CurrentDrawingSettings.screenScale) + CurrentDrawingSettings.screenDetla.Y * true_scale + trueY / 2 + GameStates.CurrentScene.CurrentDrawingSettings.shakings.Y + extending.W * trueY;
             matrix = new Matrix

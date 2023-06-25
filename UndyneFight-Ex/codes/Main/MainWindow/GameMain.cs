@@ -24,6 +24,8 @@ namespace UndyneFight_Ex
     {
         private static GameMain instance;
 
+        public static GameWindow CurrentWindow => instance.Window;
+
         public static GraphicsDeviceManager Graphics { get; private set; }
         public static SpriteBatch MissionSpriteBatch { get; private set; }
 
@@ -234,7 +236,7 @@ namespace UndyneFight_Ex
                 });
                 task.RunSynchronously();
             }
-
+            GameInterface.UFEXSettings.DoUpdate();
             base.Update(gameTime);
         }
 
