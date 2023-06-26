@@ -9,7 +9,7 @@ namespace Rhythm_Recall.Waves
         {
             get
             {
-                SongSet fightSet = new SongSet("spring celebration");
+                SongSet fightSet = new("spring celebration");
                 fightSet.Push(typeof(Astronomia));
                 fightSet.Push(typeof(HellTaker));
                 fightSet.Push(typeof(IndihomePaketPhoenix));
@@ -20,7 +20,9 @@ namespace Rhythm_Recall.Waves
                     SubTitle = "Feb.9 9:30-12:00 + 14:00-17:00",
                     EditorName = "T-mas",
                     Introduce = "The first championship in Rhythm Recall!",
-                    IconPath = "ChampionShips\\TIcon",
+                    //IconPath = "ChampionShips\\TIcon",
+                    //IconPath = "ChampionShips\\TCS",
+                    IconPath = "ChampionShips\\cup_highres",
                     CheckTime = () => { return ChampionShip.ChampionShipStates.End; }
                 };
             }

@@ -10,7 +10,7 @@ namespace Rhythm_Recall.Waves
         {
             get
             {
-                SongSet fightSet = new SongSet("mid autumn");
+                SongSet fightSet = new("mid autumn");
                 fightSet.Push(typeof(SpaceDrift));
                 fightSet.Push(typeof(SustenanceOfMoon));
                 fightSet.Push(typeof(SpiningSetsugekka));
@@ -27,7 +27,8 @@ namespace Rhythm_Recall.Waves
                     SubTitle = "2021 Mid Autumn, 1:30-6:00",
                     EditorName = "T-mas",
                     Introduce = "Have fun in mid autumn!",
-                    IconPath = "ChampionShips\\TCS",
+                    //IconPath = "ChampionShips\\TCS",
+                    IconPath = "ChampionShips\\mid aut fes",
 
                     CheckTime = () =>
                     {

@@ -12,6 +12,7 @@ namespace UndyneFight_Ex.Entities
         public static int level = -1;
         public static string name;
         public static NameShower instance;
+        public static float nameAlpha = 1;
 
         public override void Draw()
         {
@@ -24,15 +25,15 @@ namespace UndyneFight_Ex.Entities
             {
                 case "White":
                     FightFont.Draw(showing,
-                        namePos, Color.White);
+                        namePos, Color.White * nameAlpha);
                     break;
                 case "Blue":
                     FightFont.Draw(showing,
-                        namePos, Color.LightBlue);
+                        namePos, Color.LightBlue * nameAlpha);
                     break;
                 case "Orange":
                     FightFont.Draw(showing,
-                        namePos, Color.Orange);
+                        namePos, Color.Orange * nameAlpha);
                     break;
                 default:
                     FightFont.CentreDraw((string.IsNullOrEmpty(PlayerManager.currentPlayer)
@@ -51,7 +52,7 @@ namespace UndyneFight_Ex.Entities
 
             int trueLV = (level != -1) ? (level) : (difficulty);
             FightFont.Draw("lv " + trueLV,
-                lvPos, GameMain.CurrentDrawingSettings.UIColor);
+                lvPos, GameMain.CurrentDrawingSettings.UIColor * nameAlpha);
         }
 
         public override void Update() { }

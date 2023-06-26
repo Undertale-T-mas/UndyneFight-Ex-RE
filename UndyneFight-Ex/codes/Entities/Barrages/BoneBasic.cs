@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using UndyneFight_Ex.SongSystem;
+using static System.Math;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
@@ -21,7 +22,7 @@ namespace UndyneFight_Ex.Entities
 
         protected bool autoDispose = true;
         private bool hasBeenInside = false;
-        public static CollideRect screen = new CollideRect(-50, -50, 740, 580);
+        public static CollideRect screen = new(-50, -50, 740, 580);
 
         public float Length { get; set; }
         public bool IsMasked { get; set; } = true;
@@ -59,7 +60,7 @@ namespace UndyneFight_Ex.Entities
             Depth = 0.5f - colorType * 0.02f;
 
             var spb = GameMain.MissionSpriteBatch;
-            CollideRect cl1 = new CollideRect(0, 0, 6, Length - 2);
+            CollideRect cl1 = new(0, 0, 6, Length - 2);
             Vector2 detla = GetVector2(Length / 2, Rotation + 90);
             spb.Draw(Sprites.boneBody, Centre, cl1.ToRectangle(), drawingColor * alpha, GetRadian(Rotation), new Vector2(3, Length / 2), 1.0f, SpriteEffects.None, 0.399f);
             spb.Draw(Sprites.boneHead, Centre - detla, null, drawingColor * alpha, GetRadian(Rotation), new Vector2(5, 3), 1.0f, SpriteEffects.None, 0.399f);
@@ -89,7 +90,7 @@ namespace UndyneFight_Ex.Entities
 
         public void GetCollide(Player.Heart Heart)
         {
-            Random rd = new Random();
+            Random rd = new();
             int d = rd.Next(0, 5);
             if (alpha <= 0.9f) return;
             float A, B, C, dist;
@@ -105,18 +106,19 @@ namespace UndyneFight_Ex.Entities
                 dist = (float)((A * Heart.Centre.X + B * Heart.Centre.Y + C) / Math.Sqrt(A * A + B * B));
             }
 
-            float res = Math.Max(Math.Abs(dist) - 4.5f, GetDistance(Heart.Centre, Centre) - Length / 2f - 3.5f);
+            float res = Max(Abs(dist) - 4.5f, GetDistance(Heart.Centre, Centre) - Length / 2f - 3.5f);
 
             int offset = 3 - (int)JudgeState;
 
             if (colorType == 1 && Heart.IsStable) return;
             if (colorType == 2 && Heart.IsMoved) return;
+            if (PlayerInstance.hpControl.protectTime > 0) return;
             if (res < 0)
             {
-                if (!hasHit)
-                    PushScore(0);
-                LoseHP(Heart);
-                hasHit = true;
+                    if (!hasHit)
+                        PushScore(0);
+                    LoseHP(Heart);
+                    hasHit = true;
             }
             else if (res <= 1.6f - offset * 0.4f)
             {

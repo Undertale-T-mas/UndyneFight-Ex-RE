@@ -45,7 +45,8 @@ namespace UndyneFight_Ex
 
             loader.RootDirectory = "Content\\Global";
 
-            championShip =      loader.Load<Texture2D>("UI\\cup");
+            //championShip =      loader.Load<Texture2D>("UI\\cup");
+            championShip =      loader.Load<Texture2D>("UI\\cup_highres");
             mainGame =          loader.Load<Texture2D>("UI\\maingame");
             achieveMents =      loader.Load<Texture2D>("UI\\stars");
             options =           loader.Load<Texture2D>("UI\\options");

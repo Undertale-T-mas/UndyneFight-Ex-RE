@@ -44,6 +44,7 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "OtokP";
                 public override string SongAuthor => "EBIMAYO";
                 public override string AttributeAuthor => "Tlottgodinf";
+                public override string Extra => "Fixed by TK";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Hard, 13.8f),
@@ -297,8 +298,8 @@ namespace Rhythm_Recall.Waves
                             "box2","(R)(R1)","/","/","/",   "/","/","/","/",
                             "R1","/","/","/",   "/","/","/","/",
 
+                            "/","/","/","/",   "R1","/","/","/",
                             "/","/","/","/",   "/","/","/","/",
-                            "R1","/","/","/",   "/","/","/","/",
                             "go","(R)(R1)","/","/","/",   "/","/","/","/",
                             "/","/","/","/",   "/","/","/","/",
                             #endregion

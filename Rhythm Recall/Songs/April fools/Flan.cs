@@ -7,6 +7,7 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static Extends.Someway;
 using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.Entities.EasingUtil;
 
 namespace Rhythm_Recall.Waves
 {
@@ -92,7 +93,7 @@ namespace Rhythm_Recall.Waves
                 //Piano
                 if (InBeat(15))
                 {
-                    SpecialRhythmCreate(BeatTime(1) / 8f, 5, 60, new string[]
+                    BarrageCreate(60, BeatTime(1), 5, new string[]
                     {
                         "(R)(+0)", "", "","",
                         "R", "", "",
@@ -102,24 +103,24 @@ namespace Rhythm_Recall.Waves
                         "", "R", "","R",
                         "", "R", "","R",
 
-                        "","R12","","+012",
-                        "","+012","","","",
+                        "","*^R12","","*>+012",
+                        "","","","","",
 
                         "R", "",
                         "R", "",
                         "R", "",
                         "R", "", "R",
 
-                        "","R12",
-                        "","+012","","","","","",
+                        "","*^R12",
+                        "","*<+012","","","","","",
 
                         "R", "",
                         "R", "",
                         "R", "", "",
                         "R", "", "R","",
 
-                        "R12","","+012",
-                        "","","","",
+                        "","*R12","","*^+012",
+                        "","","",
 
                         "R", "", "","",
                         "R", "", "",
@@ -129,8 +130,8 @@ namespace Rhythm_Recall.Waves
                         "", "R", "","R",
                         "", "R", "","R",
 
-                        "","R12","","+012",
-                        "","+012","","","",
+                        "","*<R12","","*>+012",
+                        "","*^+012","","","",
 
                         "R", "",
                         "R", "",
@@ -142,30 +143,29 @@ namespace Rhythm_Recall.Waves
                         "R", "",
                         "R", "", "",
                         "R", "", "R","",
-                        "!R1", "", "@+01","","~+01",
-                    }, new string[]
-                    {
-
-                    }, new Action[]
-                    {
-
+                        "^R1", "", "<+01","",">+01",
                     });
                 }
                 //Vocals
                 if (InBeat(33))
                 {
-                    SpecialRhythmCreate(BeatTime(1) / 4f, 6, 60, new string[]
+                    RegisterFunctionOnce("Shrink", () =>
                     {
-                        "WR012", "","",
-                        "R1", "R1",
-                        "","",
+                        ScreenDrawing.CameraEffect.Convulse(14, BeatTime(3.2f), RandBool());
+                        ScreenDrawing.CameraEffect.SizeShrink(7, BeatTime(3.2f));
+                    });
+                    BarrageCreate(60, BeatTime(2), 6, new string[]
+                    {
+                        "#4#R0(Shrink)", "","R1",
+                        "R1", "",
+                        "",
                         "R1", "R1",
                         "R1", "R1",
                         "R1", "R1",
                         "R1", "R1",
                         "R1","","","",
 
-                        "WR012","",
+                        "#4#R0(Shrink)",
                         "R1", "R1",
                         "R1", "R1",
                         "R1", "",
@@ -175,7 +175,7 @@ namespace Rhythm_Recall.Waves
                         "R1", "",
                         "","","",
 
-                        "WR112", "","",
+                        "#4#R1(Shrink)", "",
                         "R", "R",
                         "","R",
                         "R", "R",
@@ -183,14 +183,6 @@ namespace Rhythm_Recall.Waves
                         "R", "R",
                         "R", "R",
                         "","","","",
-                    },
-                    new string[]
-                    {
-
-                    },
-                    new Action[]
-                    {
-
                     });
                 }
                 if (InBeat(46.5f))
@@ -525,10 +517,57 @@ namespace Rhythm_Recall.Waves
                         TP();
                     }
                     SetPlayerBoxMission(0);
-                    SpecialRhythmCreate(BeatTime(0.125f), 6, 60, new string[]
+                    RegisterFunctionOnce("Displace", () =>
                     {
+                        Arrow[] arrow = GetAll<Arrow>();
+                        var offset = 15;
+                        for (int i = 0; i < arrow.Length; i++)
+                        {
+                            if (arrow[i].ArrowColor == 0)
+                                continue;
+                            if (arrow[i].Way == 0) arrow[i].Offset = new(0, offset);
+                            if (arrow[i].Way == 2) arrow[i].Offset = new(0, -offset);
+                        }
+                    });
+                    RegisterFunctionOnce("camrot", () =>
+                    {
+                        ScreenDrawing.ScreenAngle = Rand(-25, 25);
+                    });
+                    RegisterFunctionOnce("camre", () =>
+                    {
+                        ScreenDrawing.ScreenAngle = 0;
+                    });
+                    BarrageCreate(60, BeatTime(1), 6, new string[]
+                    {
+                        "Displace", "", "", "$3($3)",    "", "", "", "$3($3)",
+                        "", "", "", "",    "", "", "R", "R",
+                        "R", "R", "R", "R",    "R", "R", "R", "R",
+                        "R", "R", "R", "R",    "R", "R", "R", "R",
+                        "R", "", "", "",        "", "R", "R", "R",
+                        "R", "R", "R", "R",    "R", "R", "R", "R",
+                        "R", "R", "R", "R",    "R", "R", "R", "R",
+                        "R", "R", "R", "",    "", "", "^$1(^$3)", "",
+                        "", "", "R", "",    "R", "", "", "",
+                        "R", "", "R", "D",    "", "", "", "",
+                        "R", "", "R", "D",    "D", "D", "", "D",
+                        "", "R", "", "",    "", "", "", "R",
+                        "", "", "", "R",    "R", "R", "R", "R",
+                        "R", "R", "R", "R",    "R", "R", "", "R(R1)(camrot)",
+                        "", "R(R1)(camrot)", "", "R(R1)(camrot)",    "", "R(R1)(camrot)", "", "(camre)",
+                    });
+                    BarrageCreate(60, BeatTime(1), 6, new string[]
+                   {
                         "$01($21)","", "","",
                         "$01($21)","", "","",
+                        "$01($21)","", "","",
+                        "$01($21)","", "$01($21)","",
+                        "$01($21)", "$01($21)", "$01($21)", "$01($21)",
+                        "$01($21)", "", "$01($21)", "",
+                        "$01($21)","$01($21)", "","",
+                        "$01($21)","","$01($21)","",
+                        "$01($21)","", "","",
+                        "$01($21)","", "",
+
                         "$01($21)","", "","",
                         "$01($21)","", "$01($21)","",
                         "$01($21)", "$01($21)", "$01($21)", "$01($21)",
@@ -536,8 +575,20 @@ namespace Rhythm_Recall.Waves
                         "$01($21)","$01($21)",
                         "","",
                         "$01($21)","","$01($21)","",
-                        "$01($21)","", "","",
-                    }, new string[] { }, new Action[] { });
+                        "$01($21)","",
+
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                        "$01","+21", "+21","+21",
+                   });
                 }
                 if (time == 3511)
                 {
@@ -546,13 +597,53 @@ namespace Rhythm_Recall.Waves
                 if (time >= 3530)
                 {
                     //repeat 4 times
-                    if (time < 3530 + 190 * 4)
+                    if (time < 3530 + 190 * 4 - 120)
                     {
                         var dur = 190;
                         var ang = 0;
-                        ScreenDrawing.ScreenAngle = TKValueEasing.EaseOutBack((time - 3530) % dur,
-                            ang, 360, dur);
+                        ScreenDrawing.ScreenAngle = TKValueEasing.EaseOutBack((time - 3530) % dur, ang, 360, dur);
                     }
+                }
+                if (time == 4200)
+                {
+                    string[] rway = {
+                        "R1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                        "D1", "+01", "D1", "+01",
+                    };
+                    BarrageCreate(70, BeatTime(1.8f), 7, rway);
+                    BarrageCreate(60, BeatTime(0.5f), 7, new string[]
+                    {
+                        "", "", "", "R",     "", "", "R", "",
+                        "", "R", "", "",     "R", "", "", "R",
+                        "", "", "R", "",     "", "R", "", "R",
+                        "", "R", "", "",     "R", "", "", "",
+                        "", "", "R", "",     "", "R", "", "",
+                        "R", "", "", "R",     "", "R", "", "",
+                        "R", "", "", "R",     "", "", "", "",
+                        "", "", "R", "",     "R", "", "", "",
+                        "R", "", "", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                    });
                 }
             }
             public void Start()
@@ -563,7 +654,7 @@ namespace Rhythm_Recall.Waves
                 GametimeDelta = 660;
                 //GametimeDelta += BeatTime(17);
                 //GametimeDelta = 2120;
-                //GametimeDelta = 3490;
+                //GametimeDelta = 4190;
                 PlayOffset = GametimeDelta;
                 HeartAttribute.MaxHP = 3;
                 HeartAttribute.HP = 3;

@@ -37,9 +37,9 @@ namespace UndyneFight_Ex.Entities
         {
             if (isSoundPlayed) return;
             isSoundPlayed = true;
-            float volume = isSettingBased ? Settings.SettingsManager.DataLibrary.SpearBlockingVolume / 100f : 1f;
+            float volume = isSettingBased ? SettingsManager.DataLibrary.SpearBlockingVolume / 100f : 1f;
 
-            Fight.Functions.PlaySound(FightResources.Sounds.ArrowStuck, volume * scale);
+            PlaySound(FightResources.Sounds.ArrowStuck, volume * scale);
         }
         private void Init()
         {

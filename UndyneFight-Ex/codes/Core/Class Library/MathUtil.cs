@@ -246,14 +246,14 @@ namespace UndyneFight_Ex
         public static float Posmod(float a, float b)
         {
             var value = a % b;
-            if ((value < 0 && b > 0) || (value > 0 && b < 0))
+            while ((value < 0 && b > 0) || (value > 0 && b < 0))
                 value += b;
             return value;
         }
         public static int Posmod(int a, int b)
         {
             var value = a % b;
-            if ((value < 0 && b > 0) || (value > 0 && b < 0))
+            while ((value < 0 && b > 0) || (value > 0 && b < 0))
                 value += b;
             return value;
         }

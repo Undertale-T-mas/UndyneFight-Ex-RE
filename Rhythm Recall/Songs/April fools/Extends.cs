@@ -3,7 +3,6 @@ using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
-//using static AprilExtends.Determination.Game;
 using static Extends.DrawingUtil;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
@@ -53,7 +52,8 @@ namespace Extends
             //if (easeis) for (int t = 0; t < easings.Length; t++) positions[t] = easeresult[t];
             for (int t = 0; t < positions.Length - 1; t++)
             {
-                Line l = new(positions[t], positions[t + 1]) { Alpha = Alpha, Depth = Depth, DrawingColor = DrawingColor, Width = Width };
+                Line l = new(positions[t], positions[t + 1])
+                { Alpha = Alpha, Depth = Depth, DrawingColor = DrawingColor, Width = Width };
                 CreateEntity(l);
                 AddInstance(new TimeRangedEvent(0.5f, () =>
                 {
@@ -230,7 +230,7 @@ namespace Extends
             base.Dispose();
         }
         private bool hasBeenInside = false;
-        public static CollideRect screen = new CollideRect(-150, -150, 940, 780);
+        public static CollideRect screen = new(-150, -150, 940, 780);
         public void TestDispose()
         {
             bool ins = screen.Contain(Centre);
@@ -516,7 +516,7 @@ namespace Extends
         public void ChangeType(int color, int rotatingType, int breakType)
         {
             Image = Sprites.arrow[color, rotatingType, breakType];
-            var v = CreateShinyEffect(Microsoft.Xna.Framework.Color.White);
+            var v = CreateShinyEffect(Color.White);
             v.Depth = depth + 0.00001f;
             v.DarkerSpeed = 6f;
         }
@@ -548,7 +548,8 @@ namespace Extends
                     if (rhythm[i][1] == '<') b += (beat * 8) / (rhythm[i][0] - '0');
                 }
                 if (rhythm[i] == "/" || rhythm[i] == "") b += beat;
-                else if (rhythm[i][0] == '+' || rhythm[i][0] == 'R' || rhythm[i][0] == '$' || rhythm[i][0] == '(' || rhythm[i][0] == '-' || rhythm[i][0] == 'D' || rhythm[i][0] == '0' || rhythm[i][0] == '1' || rhythm[i][0] == '2' || rhythm[i][0] == '3' || rhythm[i][0] == '4' || rhythm[i][0] == '5' || rhythm[i][0] == '6' || rhythm[i][0] == '7' || rhythm[i][0] == '8' || rhythm[i][0] == '9')
+                else if (rhythm[i][0] is '+' or 'R' or '$' or '(' or '-' or 'D' or '0'
+                    or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9')
                 {
                     if (rhythm[i].Length > 2)
                     {
@@ -592,7 +593,7 @@ namespace Extends
         public static void RhythmCreate(float beat, float arrowspeed, float starttime, string[] rhythm, string[] eventsname, Action[] events)
         {
             float b = starttime;
-            UndyneFight_Ex.SongSystem.WaveConstructor a = new(beat);
+            WaveConstructor a = new(beat);
             for (int i = 0; i < rhythm.Length; i++)
             {
                 for (int c = 0; c < eventsname.Length; c++)
@@ -604,7 +605,8 @@ namespace Extends
                     if (rhythm[i][1] == '<') b += (beat * 8) / (rhythm[i][0] - '0');
                 }
                 if (rhythm[i] == "/" || rhythm[i] == "") b += beat;
-                else if (rhythm[i][0] == '+' || rhythm[i][0] == 'R' || rhythm[i][0] == '$' || rhythm[i][0] == '(' || rhythm[i][0] == '-' || rhythm[i][0] == 'D' || rhythm[i][0] == '0' || rhythm[i][0] == '1' || rhythm[i][0] == '2' || rhythm[i][0] == '3' || rhythm[i][0] == '4' || rhythm[i][0] == '5' || rhythm[i][0] == '6' || rhythm[i][0] == '7' || rhythm[i][0] == '8' || rhythm[i][0] == '9')
+                else if (rhythm[i][0] is '+' or 'R' or '$' or '(' or '-' or 'D' or '0'
+                    or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9')
                 {
                     if (rhythm[i].Length > 2)
                     {
@@ -652,7 +654,7 @@ namespace Extends
         public static void SpecialRhythmCreate(float beat, float arrowspeed, float starttime, string[] rhythm, string[] eventsname, Action[] events)
         {
             float b = starttime;
-            UndyneFight_Ex.SongSystem.WaveConstructor a = new(beat);
+            WaveConstructor a = new(beat);
             for (int i = 0; i < rhythm.Length; i++)
             {
                 for (int c = 0; c < eventsname.Length; c++)
@@ -690,7 +692,8 @@ namespace Extends
                     b += beat;
                 }
 
-                else if (rhythm[i][0] == '+' || rhythm[i][0] == 'R' || rhythm[i][0] == '$' || rhythm[i][0] == '(' || rhythm[i][0] == '-' || rhythm[i][0] == 'D' || rhythm[i][0] == '0' || rhythm[i][0] == '1' || rhythm[i][0] == '2' || rhythm[i][0] == '3' || rhythm[i][0] == '4' || rhythm[i][0] == '5' || rhythm[i][0] == '6' || rhythm[i][0] == '7' || rhythm[i][0] == '8' || rhythm[i][0] == '9')
+                else if (rhythm[i][0] is '+' or 'R' or '$' or '(' or '-' or 'D' or '0'
+                    or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9')
                 {
                     if (rhythm[i].Length > 2)
                     {
@@ -737,16 +740,7 @@ namespace Extends
         }
         public static int Rand0or1()
         {
-            int ret = 0;
-            if (Rand(0, 1) == 0)
-            {
-                ret = 1;
-            }
-            else if (LastRand == 1)
-            {
-                ret = -1;
-            }
-            return ret;
+            return Rand(0, 1) == 0 ? 1 : -1;
         }
 
     }
@@ -1448,8 +1442,10 @@ namespace Extends
         public static void Rain(float speed, float rotate, bool way)
         {
             float a = way ? -45 : 45;
-            DrawingUtil.Linerotatelong rain = new(Rand(-200, 860), a, rotate + 270 + Rand(-2.5f, 2.5f), 180, Rand(0.2f, 0.4f), Rand(9, 55), Color.White);
-            rain.width = Rand(2, 4);
+            Linerotatelong rain = new(Rand(-200, 860), a, rotate + 270 + Rand(-2.5f, 2.5f), 180, Rand(0.2f, 0.4f), Rand(9, 55), Color.White)
+            {
+                width = Rand(2, 4)
+            };
             if (Rand(1, 3) == 1)
             {
                 CreateEntity(rain);
@@ -1468,7 +1464,7 @@ namespace Extends
         {
             if (inDuration == 0)
             {
-                DrawingUtil.MaskSquare maskSquare = new(0, 0, 640, 480, (int)(inDuration + duration + outDuration), Color.Black, 1);
+                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(inDuration + duration + outDuration), Color.Black, 1);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(duration, outDuration + 1, () =>
                 {
@@ -1477,11 +1473,11 @@ namespace Extends
             }
             else if (inDuration <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(inDuration), String.Format("the parameter {0} must be greater than 0.", nameof(inDuration)));
+                throw new ArgumentOutOfRangeException(nameof(inDuration), string.Format("the parameter {0} must be greater than 0.", nameof(inDuration)));
             }
             else
             {
-                DrawingUtil.MaskSquare maskSquare = new(0, 0, 640, 480, (int)(inDuration + duration + outDuration), Color.Black, 0);
+                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(inDuration + duration + outDuration), Color.Black, 0);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(inDuration + 1, () =>
                 {
@@ -1497,7 +1493,7 @@ namespace Extends
         {
             if (induration == 0)
             {
-                DrawingUtil.MaskSquare maskSquare = new(0, 0, 640, 480, (int)(induration + duration + outduration), color, 1);
+                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(induration + duration + outduration), color, 1);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(duration, outduration + 1, () =>
                 {
@@ -1511,7 +1507,7 @@ namespace Extends
             }
             else
             {
-                DrawingUtil.MaskSquare maskSquare = new(0, 0, 640, 480, (int)(induration + duration + outduration), color, 0);
+                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(induration + duration + outduration), color, 0);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(induration + 1, () =>
                 {
@@ -1632,8 +1628,6 @@ namespace Extends
                 this.duration = duration;
                 this.rotate = rotate;
                 collidingBox = new CollideRect(0, 0, 40, 40);
-
-
             }
             public SpecialBox(CollideRect Area) : base(Area)
             {

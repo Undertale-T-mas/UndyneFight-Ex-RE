@@ -328,7 +328,7 @@ namespace Rhythm_Recall.Waves
             public override string SongAuthor => "Alstroemeria Records";
             public override string PaintAuthor => "OtokP";
 
-            public override string AttributeAuthor => "T-mas + TK (Extreme)";
+            public override string AttributeAuthor => GameStates.difficulty == 4 ? "T-mas + TK" : "T-mas";
 
             public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[] {
@@ -609,16 +609,12 @@ namespace Rhythm_Recall.Waves
         {
             if (InBeat(0.1f))
             {
-                HeartAttribute.MaxHP = 92;
-                HeartAttribute.KR = true;
-                Heart.EnabledRedShield = true;
                 float time = BeatTime(10);
                 Fortimes(27, (i) =>
                 {
                     CreateArrow(time, 2 * (i % 2), 5.0f, 1, 1);
                     time += BeatTime(4);
                 });
-                SetSoul(0);
             }
             if (InBeat(14))
             {
@@ -733,7 +729,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(138 + 64))
             {
-                Vector2 c1 = new Vector2(160, 200);
+                Vector2 c1 = new(160, 200);
                 for (int i = 0; i < 6; i++)
                 {
                     int step = i;
@@ -806,7 +802,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(522 - 4, 522))
             {
-                ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.8f + 1.0f * 0.2f;
+                ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.8f + 0.2f;
                 ScreenDrawing.ScreenAngle *= 0.8f;
             }
             if (InBeat(396))
@@ -871,16 +867,16 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(646, 648))
             {
-                Surface.Normal.drawingAlpha = Surface.Normal.drawingAlpha * 0.9f + 0.4f * 0.1f;
+                Surface.Normal.drawingAlpha = Surface.Normal.drawingAlpha * 0.9f + 0.04f;
             }
             if (InBeat(652, 660))
             {
-                Surface.Normal.drawingAlpha = Surface.Normal.drawingAlpha * 0.8f + 1.0f * 0.2f;
+                Surface.Normal.drawingAlpha = Surface.Normal.drawingAlpha * 0.8f + 0.2f;
             }
 
             if (InBeat(648, 652))
             {
-                int rd = Rand((int)-BeatTime(2), (int)BeatTime(6));
+                int rd = (int)Rand(-BeatTime(2), BeatTime(6));
                 float time = (Gametime - BeatTime(648));
                 ScreenDrawing.BackGroundColor = rd < time ? Color.White : Color.Gray;
             }
@@ -958,9 +954,12 @@ namespace Rhythm_Recall.Waves
                     SetSoul(4);
                     Player.heartInstance = Player.hearts[1];
                     SetSoul(0);
-                    ScreenDrawing.Shaders.RGBSplitting production1 = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
-                    production1.Intensity = 8.0f;
-                    production1.RandomDisturb = 2;
+                    ScreenDrawing.Shaders.RGBSplitting production1 = new(0.9f)
+                    {
+                        Disturbance = false,
+                        Intensity = 8.0f,
+                        RandomDisturb = 2
+                    };
                     ScreenDrawing.SceneRendering.InsertProduction(production1);
                     AddInstance(new TimeRangedEvent(BeatTime(1), 1, () =>
                     {
@@ -973,9 +972,12 @@ namespace Rhythm_Recall.Waves
                     SetSoul(4);
                     Player.heartInstance = Player.hearts[0];
                     SetSoul(0);
-                    ScreenDrawing.Shaders.RGBSplitting production1 = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
-                    production1.Intensity = 8.0f;
-                    production1.RandomDisturb = 2;
+                    ScreenDrawing.Shaders.RGBSplitting production1 = new(0.9f)
+                    {
+                        Disturbance = false,
+                        Intensity = 8.0f,
+                        RandomDisturb = 2
+                    };
                     ScreenDrawing.SceneRendering.InsertProduction(production1);
                     AddInstance(new TimeRangedEvent(BeatTime(1), 1, () =>
                     {
@@ -1334,11 +1336,16 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1674))
             {
+                Platform[] plat = GetAll<Platform>();
+                for (int i = 0; i < plat.Length; i++)
+                    plat[i].Dispose();
+                ScreenDrawing.UISettings.CreateUISurface();
                 SetSoul(2);
                 Heart.JumpTimeLimit = 1000000;
-                // BackGroundColor = Color.Gray;
-                // EffectName = "TranColorDrawing";
-                InstantSetBox(320, 10000, 10000);
+                ScreenDrawing.BackGroundColor = Color.White;
+                //EffectName = "TranColorDrawing";
+                InstantSetBox(320, 1000, 1000);
+
                 PlaySound(FightResources.Sounds.die1);
                 PlaySound(FightResources.Sounds.die1);
                 PlaySound(FightResources.Sounds.die2);
@@ -1346,9 +1353,13 @@ namespace Rhythm_Recall.Waves
                 CreateEntity(new BoxPiece(new Vector2(250, 290)));
                 CreateEntity(new BoxPiece(new Vector2(390, 290)));
             }
-            if (InBeat(1674.2f, 1674.2f + 128f))
+            if (InBeat(1674.2f, 1680.2f))
             {
-                ScreenDrawing.BackGroundColor *= 0.8f;
+                //ScreenDrawing.BackGroundColor *= 0.8f;
+                ScreenDrawing.UIColor *= 0.995f;
+                ScreenDrawing.HPBar.HPExistColor = Color.Lerp(new(0, 255, 0, 255), Color.Transparent, (GametimeF - BeatTime(1674.2f)) * 0.015f);
+                ScreenDrawing.HPBar.HPLoseColor = Color.Lerp(new(255, 0, 0, 255), Color.Transparent, (GametimeF - BeatTime(1674.2f)) * 0.015f);
+                NameShower.nameAlpha *= 0.995f;
             }
             if (InBeat(1674.2f, 1674 + 256) && !new CollideRect(-50, -50, 740, 580).Contain(Heart.Centre))
             {
@@ -2087,6 +2098,13 @@ namespace Rhythm_Recall.Waves
             //  SetSoul(3);
             //  Heart.UmbrellaAvailable = true;
             //  SetBox(290, 140, 140);
+            if (GameStates.difficulty == 4)
+            {
+                SetSoul(0);
+                HeartAttribute.MaxHP = 92;
+                HeartAttribute.KR = true;
+                Heart.EnabledRedShield = true;
+            }
         }
 
         public void ExtremePlus()

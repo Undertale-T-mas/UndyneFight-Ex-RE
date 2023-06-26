@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using UndyneFight_Ex.Fight;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.FightResources.Sounds;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -19,7 +22,7 @@ namespace UndyneFight_Ex.Remake.UI
             float alpha = 1.0f;
             public override void Draw()
             {
-                FightResources.Font.NormalFont.CentreDraw(_text, Centre, Color.LimeGreen * alpha, Scale, 0.44f);
+                Font.NormalFont.CentreDraw(_text, Centre, Color.LimeGreen * alpha, Scale, 0.44f);
             }
 
             public override void Update()
@@ -33,7 +36,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             public Button(ISelectChunk father, Vector2 centre, string text) : base(father)
             {
-                fontSize = FightResources.Font.NormalFont.SFX.MeasureString(text) * 1.331f;
+                fontSize = Font.NormalFont.SFX.MeasureString(text) * 1.331f;
                 this._centre = centre;
                 this._text = text;
                 UpdateIn120 = true;
@@ -50,7 +53,7 @@ namespace UndyneFight_Ex.Remake.UI
             public override void Draw()
             {
                 if (!this._father.DrawEnabled) return;
-                FightResources.Font.NormalFont.CentreDraw(_text, Centre, _drawingColor, sizeScale * DefaultScale, 0.4f);
+                Font.NormalFont.CentreDraw(_text, Centre, _drawingColor, sizeScale * DefaultScale, 0.4f);
             }
             float sizeScale = 1.0f;
             public override void Update()
@@ -59,20 +62,18 @@ namespace UndyneFight_Ex.Remake.UI
                 if (!this._father.Activated) return;
                 this.collidingBox.Size = fontSize;
                 this.Centre = _centre;
-
-                if (_mouseOn) this.sizeScale = MathHelper.Lerp(sizeScale, 1.16f, 0.1f);
-                else this.sizeScale = MathHelper.Lerp(sizeScale, 1.0f, 0.1f);
+                this.sizeScale = MathHelper.Lerp(sizeScale, _mouseOn ? 1.16f : 1.0f, 0.1f);
             }
 
             private void MouseClick()
             {
-                Functions.PlaySound(FightResources.Sounds.select);
+                PlaySound(select);
                 GameStates.InstanceCreate(new Shade(_centre, sizeScale * this.DefaultScale, _text));
             }
 
             private void MouseOnEvent()
             {
-                Functions.PlaySound(FightResources.Sounds.changeSelection);
+                PlaySound(changeSelection);
             }
         }
     }

@@ -23,9 +23,9 @@ namespace UndyneFight_Ex.Remake
         }
         public static void MainInitialize()
         {
-            GameInterface.GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SelectUI()); LateInitialize(); };
+            GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SelectUI()); LateInitialize(); };
 
-            GameInterface.UFEXSettings.Update += MouseSystem.Update;
+            UFEXSettings.Update += MouseSystem.Update;
             GameStartUp.Initialize += Resources.Initialize;
         }
 
