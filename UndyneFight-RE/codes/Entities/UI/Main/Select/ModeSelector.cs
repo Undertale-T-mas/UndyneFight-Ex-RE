@@ -1,33 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using UndyneFight_Ex.Fight;
 
 namespace UndyneFight_Ex.Remake.UI
 {
     internal partial class SelectUI
     {
         private class ModeSelector : Entity, ISelectChunk
-        {
-            private class Button : SelectingModule
-            {
-                public Button(ISelectChunk father, Vector2 centre, string text) : base(father)
-                {
-                    this.collidingBox.Size = FightResources.Font.NormalFont.SFX.MeasureString(text) * 1.1f;
-                    this.Centre = centre;
-                    this._text = text;
-                }
-                string _text;
-
-                public override void Draw()
-                {
-                    if (!this._father.Activated) return;
-                    FightResources.Font.NormalFont.CentreDraw(_text, Centre, _drawingColor);
-                }
-                public override void Update()
-                {
-                    base.Update(); 
-                }
-            }
-
+        { 
             public bool Activated { get; set; } = true;
+            public bool DrawEnabled { get; set; } = true;
 
             private VirtualFather _virtualFather;
 
@@ -42,8 +24,14 @@ namespace UndyneFight_Ex.Remake.UI
             }
 
             public override void Draw()
-            { 
-                if(!Activated) return;
+            {
+                Color color = this.Activated ? Color.Gold : Color.White;
+                DrawingLab.DrawLine(new(48, 135), new(208, 135), 3.0f, color, 0.5f);
+
+                FightResources.Font.NormalFont.CentreDraw("Mode", new(128, 60), color, 1.4f, 0.4f);
+                FightResources.Font.NormalFont.CentreDraw("Select", new(128, 103), color, 1.4f, 0.4f);
+
+                if (!Activated) return;
             }
 
             public void Selected(SelectingModule module)
@@ -51,10 +39,57 @@ namespace UndyneFight_Ex.Remake.UI
             }
 
             public override void Update()
-            { 
+            {
+                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                {
+                    int id = FocusID;
+                    for(int i = id + 1; i < all.Length; i++)
+                    {
+                        if (all[i].ModuleEnabled)
+                        {
+                            currentFocus.OffFocus();
+                            all[i].OnFocus(); 
+                            break;
+                        }
+                    }
+                }
+                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                {
+                    int id = FocusID;
+                    for (int i = id - 1; i >= 0; i--)
+                    {
+                        if (all[i].ModuleEnabled)
+                        {
+                            currentFocus.OffFocus();
+                            all[i].OnFocus(); 
+                            break;
+                        }
+                    }
+                }
+                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                {
+                    currentFocus.ConfirmKeyDown();
+                }
             }
 
             SelectingModule[] all;
+
+            SelectingModule currentFocus;
+            int focusID = -1;
+            int FocusID { 
+                get 
+                {
+                    if (focusID == -1) {
+                        for(int i = 0; i < all.Length; i++)
+                        {
+                            if (all[i] == currentFocus) return focusID = i;
+                        }
+                        throw new Exception();
+                    }
+                    else return focusID;
+                } 
+            }
+
             public override void Start()
             {
                 all = new SelectingModule[this.ChildObjects.Count];
@@ -66,6 +101,30 @@ namespace UndyneFight_Ex.Remake.UI
                 }
                 this._virtualFather = this.FatherObject as VirtualFather;
                 base.Start();
+            }
+
+            public void FocusOn(SelectingModule module)
+            {
+                currentFocus = module;
+                focusID = -1;
+            }
+
+            Button startButton, noHitButton, apButton, buffButton, practiceButton, ngsButton;
+
+            public ModeSelector()
+            {
+                UpdateIn120 = true;
+
+                this.AddChild(currentFocus = startButton = new Button(this, new(440, 100), "Start!") { DefaultScale = 1.7f, NeverEnable = true });
+                currentFocus.OnFocus();
+                this.AddChild(noHitButton = new Button(this, new(440, 210), "No Hit") ); 
+                this.AddChild(apButton = new Button(this, new(440, 290), "Perfect Only") ); 
+                this.AddChild(buffButton = new Button(this, new(440, 370), "Buffed") ); 
+                this.AddChild(practiceButton = new Button(this, new(440, 450), "Practice") ); 
+                this.AddChild(ngsButton = new Button(this, new(440, 530), "No Greensoul") );
+
+                noHitButton.LeftClick += () => practiceButton.State = noHitButton.ModuleSelected ? SelectState.Disabled : SelectState.False;
+                practiceButton.LeftClick += () => noHitButton.State = practiceButton.ModuleSelected ? SelectState.Disabled : SelectState.False;
             }
         }
     }
