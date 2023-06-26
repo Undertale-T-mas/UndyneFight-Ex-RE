@@ -140,20 +140,23 @@ namespace UndyneFight_Ex.Remake.UI
         {
             public VirtualFather()
             {
-                modeSelect = new ModeSelector();
-                this.AddChild(modeSelect);
-                CurrentActivate = modeSelect;
+                ModeSelect = new ModeSelector();
+                SongSelect = new SongSelector();
+                this.AddChild(ModeSelect);
+                this.AddChild(SongSelect);
+                CurrentActivate = ModeSelect;
             }
 
             public bool Activated => true;
 
-            ModeSelector modeSelect;
-            SongSelector songSelect;
+            public ModeSelector ModeSelect { get; init; }
+            public SongSelector SongSelect { get; init; }
 
-            public ISelectChunk CurrentActivate; 
+            public ISelectChunk CurrentActivate { get; set; }
 
-            public void Selected(ISelectChunk module)
+            public void Select(ISelectChunk module)
             {
+                if (CurrentActivate == module) return;
                 CurrentActivate.Deactivate();
                 CurrentActivate = module;
             }

@@ -18,6 +18,7 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Update()
         {
             temp = MouseSystem.TransferredPosition;
+            this.Depth = 0.7f;
         }
     }
 }

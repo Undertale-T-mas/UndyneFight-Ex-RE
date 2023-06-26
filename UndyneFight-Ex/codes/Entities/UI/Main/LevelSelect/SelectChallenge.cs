@@ -187,7 +187,7 @@ namespace UndyneFight_Ex.Entities
 
             Vector2 Position0 = new Vector2(320, 128);
             int yCnt = 0, pages = 0;
-            FightSystem.challenges.ForEach(challenge =>
+            FightSystem.Challenges.ForEach(challenge =>
             {
                 PushSelection(new ChallengeCard(challenge, Position0, this));
                 Position0.Y += 125;

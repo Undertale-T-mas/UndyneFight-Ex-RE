@@ -593,8 +593,8 @@ namespace UndyneFight_Ex.Entities
         private readonly string filePath;
 
         private static bool InChampionShip =>
-            FightSystem.currentChampionShip != null &&
-            FightSystem.currentChampionShip.CheckTime() == ChampionShipStates.Starting;
+            FightSystem.CurrentChampionShip != null &&
+            FightSystem.CurrentChampionShip.CheckTime() == ChampionShipStates.Starting;
 
         private class JudgeSelector : Entity
         {
@@ -932,12 +932,12 @@ namespace UndyneFight_Ex.Entities
             }
             else
             {
-                if (FightSystem.currentChampionShip != null && FightSystem.currentChampionShip.CheckTime() == ChampionShipStates.Starting)
+                if (FightSystem.CurrentChampionShip != null && FightSystem.CurrentChampionShip.CheckTime() == ChampionShipStates.Starting)
                 {
                     string text = "";
                     if (PlayerManager.CurrentUser != null)
                     {
-                        text = PlayerManager.CurrentUser.ChampionShipDiv(FightSystem.currentChampionShip.Title);
+                        text = PlayerManager.CurrentUser.ChampionShipDiv(FightSystem.CurrentChampionShip.Title);
                     }
                     GlobalResources.Font.NormalFont.CentreDraw(wave.FightName + " div." + text, new Vector2(320, 345), Color.White * alpha);
                 }
@@ -952,8 +952,8 @@ namespace UndyneFight_Ex.Entities
             string _type;
             if (PlayerManager.CurrentUser != null)
             {
-                if (FightSystem.currentChampionShip != null && FightSystem.currentChampionShip.CheckTime() == ChampionShipStates.Starting)
-                    _type = PlayerManager.CurrentUser.ChampionShipDiv(FightSystem.currentChampionShip.Title);
+                if (FightSystem.CurrentChampionShip != null && FightSystem.CurrentChampionShip.CheckTime() == ChampionShipStates.Starting)
+                    _type = PlayerManager.CurrentUser.ChampionShipDiv(FightSystem.CurrentChampionShip.Title);
                 else
                     return (Selections[currentSelect] as IGetDifficulty).ThisDifficulty;
             }

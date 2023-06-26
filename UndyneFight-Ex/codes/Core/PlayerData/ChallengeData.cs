@@ -59,7 +59,7 @@ namespace UndyneFight_Ex.UserService
             foreach (var next in info.Nexts.Values)
             {
                 SingleChallenge challenge;
-                AllData.Add(next.Title, challenge = new SingleChallenge(FightSystem.challengeDictionary[next.Title]));
+                AllData.Add(next.Title, challenge = new SingleChallenge(FightSystem.ChallengeDictionary[next.Title]));
                 challenge.Load(next);
             }
         }

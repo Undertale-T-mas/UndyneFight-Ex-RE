@@ -32,7 +32,7 @@ namespace UndyneFight_Ex.Entities
                 bool res1 = FightSystem.CurrentSongs != FightSystem.MainGameSongs, res2 = false;
                 if (res1)
                 {
-                    res2 = FightSystem.currentChampionShip.CheckTime() == ChampionShips.ChampionShip.ChampionShipStates.NotAvailable;
+                    res2 = FightSystem.CurrentChampionShip.CheckTime() == ChampionShips.ChampionShip.ChampionShipStates.NotAvailable;
                 }
                 retryAvailable = !res2;
                 if ((result.mode & GameMode.RestartDeny) == GameMode.RestartDeny) retryAvailable = false;

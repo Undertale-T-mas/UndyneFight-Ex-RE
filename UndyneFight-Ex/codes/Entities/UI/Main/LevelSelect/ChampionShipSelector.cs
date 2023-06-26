@@ -115,7 +115,7 @@ namespace UndyneFight_Ex.Entities
             }
 #endif
             FightSystem.SelectSongSet(championShip);
-            FightSystem.currentChampionShip = championShip;
+            FightSystem.CurrentChampionShip = championShip;
             InstanceCreate(new CModeSelector());
             selector.Dispose();
         }
@@ -134,7 +134,7 @@ namespace UndyneFight_Ex.Entities
             XPositionDetla = XPositionDetlaMission = 0;
             Vector2 Position0 = new Vector2(317, 127);
             int yCnt = 0;
-            foreach (ChampionShip s in FightSystem.championShips)
+            foreach (ChampionShip s in FightSystem.ChampionShips)
             {
 #if !DEBUG
                 if (s.CheckTime() == ChampionShip.ChampionShipStates.NotStart) continue;
@@ -240,8 +240,8 @@ namespace UndyneFight_Ex.Entities
             PushSelection(new APer(this));
 
 
-            bool InChampionShip = FightSystem.currentChampionShip != null
-                && FightSystem.currentChampionShip.CheckTime() == ChampionShipStates.Starting;
+            bool InChampionShip = FightSystem.CurrentChampionShip != null
+                && FightSystem.CurrentChampionShip.CheckTime() == ChampionShipStates.Starting;
             if (!InChampionShip)
             {
                 PushSelection(new Practice(this));

@@ -16,20 +16,26 @@ namespace UndyneFight_Ex.Remake.UI
             public void Activate()
             {
                 this.Activated = true;
+                this.DrawEnabled = true;
+                this._state = SelectState.Selected;
+                _virtualFather.Select(this);
             }
 
             public void Deactivate()
             {
                 this.Activated = false;
+                this.DrawEnabled = false;
+                this._state = SelectState.False;
             }
 
             public override void Draw()
             {
-                Color color = this.Activated ? Color.Gold : Color.White;
-                DrawingLab.DrawLine(new(48, 135), new(208, 135), 3.0f, color, 0.5f);
+                int k = -5;
+                Color color = _drawingColor;
+                DrawingLab.DrawLine(new(48, 127 + k), new(208, 127 + k), 3.0f, color, 0.5f);
 
-                FightResources.Font.NormalFont.CentreDraw("Mode", new(128, 60), color, 1.4f, 0.4f);
-                FightResources.Font.NormalFont.CentreDraw("Select", new(128, 103), color, 1.4f, 0.4f);
+                FightResources.Font.NormalFont.CentreDraw("Mode", new(128, 60 + k), color, 1.3f, 0.4f);
+                FightResources.Font.NormalFont.CentreDraw("Select", new(128, 98 + k), color, 1.3f, 0.4f);
 
                 if (!Activated) return;
             }
@@ -38,8 +44,30 @@ namespace UndyneFight_Ex.Remake.UI
             { 
             }
 
+            private SelectState _state = SelectState.Selected;
+            Color _drawingColor { get; set; }
             public override void Update()
             {
+                this.collidingBox = new(48, 60 - 5, 208 - 48, 127 - 60);
+                if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
+                {
+                    if (_state == SelectState.False) _state = SelectState.MouseOn;
+                    if (_state == SelectState.MouseOn && MouseSystem.IsLeftClick())
+                    {
+                        this.Activate();
+                    }
+                }
+                else if (_state == SelectState.MouseOn) { _state = SelectState.False; }
+
+                Color mission = _state switch
+                {
+                    SelectState.False => Color.White,
+                    SelectState.MouseOn => Color.PaleGoldenrod,
+                    SelectState.Selected => Color.Gold,
+                    _ => throw new ArgumentException()
+                };
+                _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
+
                 if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = FocusID;
@@ -123,6 +151,9 @@ namespace UndyneFight_Ex.Remake.UI
                 this.AddChild(practiceButton = new Button(this, new(440, 450), "Practice") ); 
                 this.AddChild(ngsButton = new Button(this, new(440, 530), "No Greensoul") );
 
+                startButton.LeftClick += () => {  
+                    this._virtualFather.SongSelect.Activate();
+                };
                 noHitButton.LeftClick += () => practiceButton.State = noHitButton.ModuleSelected ? SelectState.Disabled : SelectState.False;
                 practiceButton.LeftClick += () => noHitButton.State = practiceButton.ModuleSelected ? SelectState.Disabled : SelectState.False;
             }
