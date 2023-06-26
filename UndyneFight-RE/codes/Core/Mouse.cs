@@ -20,8 +20,10 @@ namespace UndyneFight_Ex.Remake
             Vector2 real = CurrentState.Position.ToVector2();
 
             Vector2 centre = new Vector2(320, 240) * GameStates.SurfaceScale;
-            Vector2 delta = real - ScreenSize / 2f;
-            delta = delta / (ScreenSize.X / (640f * GameStates.SurfaceScale));
+            Vector2 delta = real - ScreenSize / 2f; 
+
+            delta = delta / MathF.Min(
+                ScreenSize.X / (640f * GameStates.SurfaceScale), ScreenSize.Y / (480f * GameStates.SurfaceScale));
 
             Vector2 result = centre + delta;
             TransferredPosition = result;
@@ -33,6 +35,11 @@ namespace UndyneFight_Ex.Remake
         public static MouseState CurrentState => currentState;
 
         public static Vector2 TransferredPosition { get; private set; }
-        public static Vector2 ScreenSize { private get; set; }
+        public static Vector2 ScreenSize { private get; set; } = new Vector2(640, 480);
+
+        public static bool IsLeftClick()
+        {
+            return (lastState.LeftButton == ButtonState.Released) && (currentState.LeftButton == ButtonState.Pressed);
+        }
     }
 }

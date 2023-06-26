@@ -157,11 +157,13 @@ namespace Rhythm_Recall.Waves
                      Shaders.Swirl.Intensity = 1.0f;
                      Shaders.Swirl.Rotation = 15f;*/
 
-                DelayBeat(4, () => {
-                    ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Lens, 0.99f));
-                    SimplifiedEasing.RunEase((s) => Shaders.Lens.Congergence = s, SimplifiedEasing.EaseOut(BeatTime(16f), 120, SimplifiedEasing.EaseState.Quad));
-                    Shaders.Lens.Radius = 298;
-                    Shaders.Lens.Centre = new(320, 240);
+                DelayBeat(2, () => {
+                    ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
+                    Shaders.Blur.Factor = new(3, 0);
+                    Shaders.Blur.Sigma = 3.0f;
+                    SimplifiedEasing.RunEase((s) => Shaders.Blur.Sigma = s, 
+                        SimplifiedEasing.EaseOut(BeatTime(4), 3, 0,
+                        SimplifiedEasing.EaseState.Cubic));
                 });
                 //  ScreenDrawing.UISettings.CreateUISurface();
 

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using System.Text;
 using System.Threading.Tasks;
+using UndyneFight_Ex.GameInterface;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -25,6 +26,7 @@ namespace UndyneFight_Ex.Remake
             GameInterface.GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SelectUI()); LateInitialize(); };
 
             GameInterface.UFEXSettings.Update += MouseSystem.Update;
+            GameStartUp.Initialize += Resources.Initialize;
         }
 
         private static void WindowSizeChanged(object sender, EventArgs e)

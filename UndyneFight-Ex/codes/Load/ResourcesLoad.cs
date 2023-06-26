@@ -85,7 +85,7 @@ namespace UndyneFight_Ex
             CustomShaders.Cos1Ball =    new BallShapingShader(loader.Load<Effect>("Cos1Ball")) { };
             CustomShaders.StepSample =  new StepSampleShader(loader.Load<Effect>("StepSample")) { };
             CustomShaders.Scale =       new ScaleShader(loader.Load<Effect>("Scale"));
-          //  CustomShaders.Swirl =       new SwirlShader(loader.Load<Effect>("Swirl"));
+            CustomShaders.Swirl =       new SwirlShader(loader.Load<Effect>("Swirl"));
             CustomShaders.Blur =        new BlurShader(loader.Load<Effect>("Blur"));
             CustomShaders.FastBlur =    new FastBlurShader(loader.Load<Effect>("BlurLow"));
             CustomShaders.Lens =        new LensShader(loader.Load<Effect>("Lens"));

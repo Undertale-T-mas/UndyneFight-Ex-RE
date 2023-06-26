@@ -292,8 +292,8 @@ namespace UndyneFight_Ex
         {
             float scale = (1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale)) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.05f;
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
-            CollideRect cur = new CollideRect(0, -480 * extend.W, 640 * scale, 480 * (scale + extend.W));
-            cur.SetCentre(new Vector2(320, 240 - 240 * extend.W));
+            CollideRect cur = new CollideRect(0, -480 * extend.W, 640 * scale * GameStates.SurfaceScale, 480 * (scale + extend.W) * GameStates.SurfaceScale);
+            cur.SetCentre(new Vector2(320, 240 - 240 * extend.W) * GameStates.SurfaceScale);
             cur.Offset(-CurrentScene.CurrentDrawingSettings.screenDetla / CurrentScene.CurrentDrawingSettings.screenScale);
 
             if (cur.Contain(centre)) return false;

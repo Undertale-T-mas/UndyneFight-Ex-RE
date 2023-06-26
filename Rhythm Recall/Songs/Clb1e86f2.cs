@@ -211,6 +211,11 @@ namespace Rhythm_Recall.Waves
                         }, SimplifiedEasing.EaseOut(BeatTime(2), 1, SimplifiedEasing.EaseState.Linear), SimplifiedEasing.Stable(1));
                         game.DelayBeat(0.5f, () => { scatterP.Dispose(); rgbSplit.Dispose(); });
                     });
+                    game.RegisterFunctionOnce("RiseStart", () => {
+                        RunEase((s) => {
+                            ScreenDrawing.BackGroundColor = Color.BlueViolet * s;
+                        }, EaseOut(BeatTime(5), 0.16f, 0.26f, EaseState.Linear), EaseOut(BeatTime(3), 0.26f, 0.10f, EaseState.Linear));
+                    });
                     game.RegisterFunctionOnce("LightStart", () =>
                     {
                         lighting = new(0.74f);
@@ -275,7 +280,7 @@ namespace Rhythm_Recall.Waves
                         "(d0)(+01)", "", "(d0)(+01)", "",       "", "", "(d0)(+01)", "",
                         "(d0)(+01)", "", "(d0)(+01)", "",       "(d0)(+01)", "", "(d0)(+01)", "",
 
-                        "(d0)(+01)", "", "", "",       "(d0)(+01)", "", "(d0)(+01)", "",
+                        "(d0)(+01)", "", "", "",       "(d0)(+01)(RiseStart)", "", "(d0)(+01)", "",
                         "", "", "(d0)(+01)", "",       "(d0)(+01)", "", "(d0)(+01)", "",
                         "(d0)(+01)", "", "", "(n3)(+01)(LightStart)",       "", "", "($3)(+01)", "",
                         "$0", "$1", "$2", "$3",       ">$301(End)", "<$301", ">$301", "<$301",
@@ -355,29 +360,66 @@ namespace Rhythm_Recall.Waves
                     {
                         YEase(-17);
                     });
-
+                    Lighting.Light B = null;
+                    game.RegisterFunctionOnce("Beat", () => {
+                        RunEase(s =>
+                        {
+                            ScreenDrawing.LeftBoundDistance = ScreenDrawing.RightBoundDistance = s;
+                        },
+                            EaseOut(BeatTime(0.12f), 54, 68, EaseState.Quint),
+                            EaseOut(BeatTime(1.88f), 68, 54, EaseState.Cubic));
+                        ScreenDrawing.MakeFlicker(Color.BlueViolet * 0.33f);
+                        RunEase(s => {
+                            ScreenDrawing.ScreenScale = s;
+                            B.color = Color.BlueViolet * (s - 0.8f) * 3.5f;
+                            B.size = MathHelper.Lerp(560f, 340f, (s - 1) * 15);
+                        }, EaseOut(BeatTime(1.1f), 1.05f, 1.0f, EaseState.Cubic)); 
+                    }); 
+                    game.RegisterFunctionOnce("Pre", () => {
+                        B = new() { size = 340f, color = Color.BlueViolet * 0.63f, position = new(320, 240) };
+                        RunEase(s => { B.color = Color.BlueViolet * s; },
+                            EaseOut(BeatTime(2.4f), 0f, 0.63f, EaseState.Quad));
+                        lighting.Lights.Add(B);
+                    });
+                    game.RegisterFunctionOnce("Rotate", () => {
+                        RunEase(s => { ScreenDrawing.ScreenAngle = s; },
+                            EaseOut(BeatTime(0.81f), 0f, 2f, EaseState.Cubic),
+                            EaseIn(BeatTime(0.55f), 2f, 0f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.65f), 0f, -2f, EaseState.Cubic),
+                            EaseOut(BeatTime(1.1f), -2f, 0f, EaseState.Cubic) 
+                            
+                            );
+                        RunEase(s => { ScreenDrawing.MasterAlpha = s; }, false,
+                            Copy(EaseIn(BeatTime(0.25f), 0.37f, 1.0f, EaseState.Linear), 8), Stable(1, 1));
+                    });
+                    game.RegisterFunctionOnce("RL", () => {
+                        RunEase(s => { ScreenDrawing.ScreenAngle = s; }, EaseOut(BeatTime(0.5f), 3f, 0f, EaseState.Cubic));
+                    });
+                    game.RegisterFunctionOnce("RR", () => {
+                        RunEase(s => { ScreenDrawing.ScreenAngle = s; }, EaseOut(BeatTime(0.5f), -3f, 0f, EaseState.Cubic));
+                    });
                     BarrageCreate(BeatTime(2), BeatTime(2), 6.5f, new string[] {
-                        "", "", "", "",       "", "", "", "",
+                        "", "", "", "",       "", "", "", "Pre",
 
                         "(+0@X)", "", "", "",       "(+0)(+01'0.8@X,B)(XShakeA)", "", "(d0@X)", "",
-                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)", "", "", "",
-                        "(d0@X)", "", "(d0@X)", "",       "(+01'0.8@X,B)(XShakeB)", "", "(d0@X)", "",
-                        "(d0@X)", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeB)", "", "(d0@X)", "",
+                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)(Beat)", "", "", "",
+                        "(d0@X)", "", "(d0@X)", "",       "(+01'0.8@X,B)(XShakeB)(Beat)", "", "(d0@X)", "",
+                        "(d0@X)", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeB)(Beat)", "", "(d0@X)", "",
 
-                        "(d0@X)", "", "", "",       "(d0)(+01'0.8@X,B)(XShakeA)", "", "(d0@X)", "",
-                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)", "", "(d0@X)", "",
-                        "(d0@X)", "", "", "(d0@X)",       "(+01'0.8@X,B)(XShakeB)", "", "(d0@X)", "(YShakeB)",
-                        "*^$0'1.6(*^$2'1.6)", "", "", "(YShakeB)",       "*^$01'1.6(*^$21'1.6)", "", "", "",
+                        "(d0@X)", "", "", "",       "(d0)(+01'0.8@X,B)(XShakeA)(Beat)", "", "(d0@X)", "",
+                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)(Beat)", "", "(d0@X)", "",
+                        "(d0@X)", "", "", "(d0@X)",       "(+01'0.8@X,B)(XShakeB)(Beat)", "", "(d0@X)", "(YShakeB)",
+                        "*^$0'1.6(*^$2'1.6)(RL)", "", "", "(YShakeB)",       "*^$01'1.6(*^$21'1.6)(Beat)(RR)", "", "", "",
 
-                        "(d0@X)", "", "", "",       "(d0)(+01'0.8@X,B)(XShakeA)", "", "(d0@X)", "",
-                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)", "", "", "",
-                        "(d0@X)", "", "(d0@X)", "",       "(+01'0.8@X,B)(XShakeB)", "", "(d0@X)", "",
-                        "(d0@X)", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeB)", "", "(d0@X)", "",
+                        "(d0@X)", "", "", "",       "(d0)(+01'0.8@X,B)(XShakeA)(Beat)", "", "(d0@X)", "",
+                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)(Beat)", "", "", "",
+                        "(d0@X)", "", "(d0@X)", "",       "(+01'0.8@X,B)(XShakeB)(Beat)", "", "(d0@X)", "",
+                        "(d0@X)", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeB)(Beat)", "", "(d0@X)", "",
 
-                        "(d0@X)", "", "", "",       "(d0)(+01'0.8@X,B)(XShakeA)", "", "(d0@X)", "",
-                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)", "", "(d0@X)", "",
-                        "(d0@X)", "", "", "(d0@X)",       "(+01'0.8@X,B)(XShakeB)", "", "(n00@X)", "(YShakeD)",
-                        "$0@X,A", "(YShakeC)$2@X,A", "$0@X,A", "(YShakeD)$2@X,A",       "$0@X,A", "(YShakeC)$2@X,A", "$0@X,A", "$2@X,A",
+                        "(d0@X)", "", "", "",       "(d0)(+01'0.8@X,B)(XShakeA)(Beat)", "", "(d0@X)", "",
+                        "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)(Beat)", "", "(d0@X)", "",
+                        "(d0@X)", "", "", "(d0@X)",       "(+01'0.8@X,B)(XShakeB)(Beat)", "", "(n00@X)", "(YShakeD)",
+                        "$0@X,A(Rotate)", "(YShakeC)$2@X,A", "$0@X,A", "(YShakeD)$2@X,A",       "$0@X,A", "(YShakeC)$2@X,A", "$0@X,A", "$2@X,A",
                     });
                 }
             }
@@ -395,6 +437,17 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
 
                 base.Start();
+
+                ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
+                Shaders.Blur.Factor = new(3, 0);
+                Shaders.Blur.Sigma = 3.0f;
+                RunEase((s) => {
+                    ScreenDrawing.BackGroundColor = Color.BlueViolet * s;
+                }, EaseOut(BeatTime(6), 0.16f, EaseState.Linear));
+                RunEase((s) =>
+                {
+                    Shaders.Blur.Sigma = s;
+                }, false, EaseOut(BeatTime(9), 3.0f, 0.0f, EaseState.Quad), Stable(2, 0));
 
                 ScreenDrawing.LeftBoundDistance = ScreenDrawing.RightBoundDistance = 54f;
                 ScreenDrawing.BoundColor = Color.Lerp(Color.White, Color.Magenta, 0.3f + 0.7f) * 0.4f;

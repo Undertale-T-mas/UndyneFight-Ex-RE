@@ -236,6 +236,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Swirl.fx
 
+#begin Global/Shaders/Effect Library/Swirl.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Swirl.fx
+
 #begin Global/Shaders/Internal Effect/Light0.fx
 /importer:EffectImporter
 /processor:EffectProcessor

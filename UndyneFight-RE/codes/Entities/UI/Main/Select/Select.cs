@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
+using System.Net.Sockets;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -15,8 +17,7 @@ namespace UndyneFight_Ex.Remake.UI
             void Deactivate();
 
             bool Activated { get; }
-
-            void Register(SelectingModule module);
+             
             void Selected(SelectingModule module);
         }
         enum SelectState
@@ -30,14 +31,21 @@ namespace UndyneFight_Ex.Remake.UI
         /// </summary>
         private abstract class SelectingModule : Entity
         {
+            public SelectingModule(ISelectChunk father)
+            {
+                this._father = father;
+            }
+
             public int ID { get; protected set; }
             protected virtual void Selected() { this.State = SelectState.Selected; }
             protected virtual void Deselected() { this.State = SelectState.False; }
 
-            private ISelectChunk _father;
+            protected ISelectChunk _father;
 
             public SelectState State { private get; set; } = SelectState.False;
-            Color drawingColor;
+            protected Color _drawingColor;
+
+            protected event Action LeftClick;
 
             public override void Update()
             {
@@ -48,7 +56,8 @@ namespace UndyneFight_Ex.Remake.UI
                     SelectState.Selected => Color.Yellow,
                     _ => throw new ArgumentException(),
                 };
-                drawingColor = Color.Lerp(drawingColor, mission, 0.12f);
+                _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
+                if (!MouseSystem.Moved) return;
                 if (!_father.Activated)
                 {
                     State = SelectState.False;
@@ -56,14 +65,44 @@ namespace UndyneFight_Ex.Remake.UI
                 }
                 if(this.collidingBox.Contain(MouseSystem.TransferredPosition))
                 {
-
+                    if (this.State == SelectState.False) this.State = SelectState.MouseOn;
+                    if (MouseSystem.IsLeftClick())
+                    {
+                        if (this.State == SelectState.MouseOn)
+                        {
+                            this.State = SelectState.Selected;
+                            this._father.Selected(this);
+                        }
+                        else
+                        {
+                            this.State = SelectState.MouseOn;
+                        }
+                        LeftClick?.Invoke();
+                    }
+                }
+                else
+                {
+                    if (this.State == SelectState.MouseOn) this.State = SelectState.False;
                 }
             }
         }
-        private class ModeSelector : Entity
+        private class VirtualFather : GameObject 
         {
-            public override void Draw()
-            { 
+            public VirtualFather()
+            {
+                var modeselect = new ModeSelector();
+                this.AddChild(modeselect);
+                CurrentActivate = modeselect;
+            }
+
+            public bool Activated => true;
+
+            public ISelectChunk CurrentActivate; 
+
+            public void Selected(ISelectChunk module)
+            {
+                CurrentActivate.Deactivate();
+                CurrentActivate = module;
             }
 
             public override void Update()
@@ -75,7 +114,9 @@ namespace UndyneFight_Ex.Remake.UI
         {
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
 
+            this.AddChild(new MouseCursor());
             this.AddChild(new LineDistributer());
+            this.AddChild(new VirtualFather());
         }
 
         public override void Draw()

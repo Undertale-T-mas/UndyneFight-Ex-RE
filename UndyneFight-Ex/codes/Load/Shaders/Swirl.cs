@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UndyneFight_Ex
 {
@@ -12,18 +13,16 @@ namespace UndyneFight_Ex
                 {
                     StableEvents = (x) =>
                     {
-                        x.Parameters["iDense"].SetValue(13f);
+                        x.Parameters["iDense"].SetValue(Dense);
                         x.Parameters["iDistort"].SetValue(1 * Intensity);
-                        x.Parameters["iRadius"].SetValue(Radius);
-                        x.Parameters["iRadiusOut"].SetValue(RadiusOut);
-                        x.Parameters["iAngle"].SetValue(Rotation);
+                        x.Parameters["iRadius"].SetValue(new Vector2(Radius, RadiusOut));  
                     };
                 }
 
                 public float Intensity { private get; set; } = 1.0f;
-                public float Radius { private get; set; } = 1.0f;
-                public float RadiusOut { private get; set; } = 1.0f;
-                public float Rotation { private get; set; } = 0.0f;
+                public float Radius { private get; set; } = 100f;  
+                public float RadiusOut { private get; set; } = 100f;  
+                public float Dense { private get; set; } = 10f;  
             }
         }
     }
