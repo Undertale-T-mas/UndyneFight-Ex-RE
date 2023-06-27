@@ -155,14 +155,18 @@ namespace UndyneFight_Ex.Remake.UI
             }
             private static SongPack[] songPacks;
 
+            private SongList _currentSongList;
+
             public override void Start()
             {
                 this._virtualFather = this.FatherObject as VirtualFather;
                 Task task = Task.Run(() =>
                 {
                     songPacks = FetchSongPack();
+                    this.AddChild(new ImageDrawer());
                     this.AddChild(this._packMode = new PackMode(this));
                     this._packMode.Activate();
+                    this._currentSongList = _packMode;
                 });
             }
             PackMode _packMode;

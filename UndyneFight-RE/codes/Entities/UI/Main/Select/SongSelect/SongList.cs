@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -8,114 +8,10 @@ namespace UndyneFight_Ex.Remake.UI
     {
         private partial class SongSelector
         {
-            private abstract class SongList : Entity, ISelectChunk
+            public int SelectedID { get; private set; } = -1;
+
+            private abstract partial class SongList : Entity, ISelectChunk
             {
-                protected class LeafSelection : Button
-                {
-                    public LeafSelection(RootSelection rootSelection, Vector2 centre, string text) : base(rootSelection.Father, centre, text)
-                    {
-                        rootSelection.LinkLeaf(this);
-                        this.CentreDraw = false;
-                        this.SelectedScale = 1.1f; 
-                        this.ColorDisabled = Color.Transparent;
-                        this.State = SelectState.Disabled;
-                        this.Root = rootSelection;
-
-                        this.LeftClick += () => {
-                            if (this.State == SelectState.Selected)
-                            {
-                                this.Root.State = SelectState.Disabled;
-                            }
-                            else this.Root.State = SelectState.Selected;
-                        };
-                    }
-
-                    public RootSelection Root { get; init; }
-                    public bool SongAvailable { get; init; } = true;
-
-                    public override void Start()
-                    {
-                        base.Start();
-                        this.State = SelectState.Disabled;
-                        if (!SongAvailable) this.ColorSelected = Color.Red;
-                    }
-                    public override void Update()
-                    {
-                        base.Update();
-
-                        this.PositionDelta = Root.PositionDelta;
-                    }
-                }
-                protected class RootSelection : Button
-                {
-                    public RootSelection(SongList father, Vector2 centre, string text) : base(father, centre, text)
-                    {
-                        this._father = father;
-                        this.SelectedScale = 1.1f;
-                        this.CentreDraw = false;
-                        this.LeftClick += () => lerpRate = 0f;
-                        UpdateIn120 = true;
-                    }
-
-                    private new SongList _father;
-                    public SongList Father => _father;
-
-                    public RootSelection Last { private get; set; }
-
-                    private float lerpRate = 0.0f;
-                    private float maxHeight = 0f;
-                    private float currentHeight = 0f;
-
-                    private float sumLast = 0f;
-                    public float SumHeight => sumLast + this.currentHeight + 65;
-                     
-                    public override void Update()
-                    {
-                        if(Last != null) { this.sumLast = Last.sumLast + Last.currentHeight + 65; }
-                        this.PositionDelta = _father._positionDelta + new Vector2(0, sumLast);
-                        base.Update();
-
-                        if (State == SelectState.Selected || State == SelectState.Disabled)
-                            currentHeight = MathHelper.Lerp(currentHeight, maxHeight, lerpRate);
-                        else
-                            currentHeight = MathHelper.Lerp(currentHeight, 0f, lerpRate);
-                        lerpRate = MathHelper.Lerp(lerpRate, 0.19f, 0.06f);
-                        if(currentHeight > 2 && currentHeight < maxHeight - 2)
-                        {
-                            int id = 0;
-                            foreach (LeafSelection button in this._leave)
-                            {
-                                float y = id * 55f + (this.State == SelectState.Selected ? -25f : 75f);
-                                if (!button.ModuleSelected)
-                                    button.State = y < currentHeight ? SelectState.False : SelectState.Disabled;
-                                id++;
-                            }
-                        }
-                    }
-
-                    private List<LeafSelection> _leave = new List<LeafSelection>();
-                    public void LinkLeaf(LeafSelection leafSelection)
-                    {
-                        _leave.Add(leafSelection);
-                        maxHeight += 55f;
-                    }
-
-                    public override void Draw()
-                    {
-                        base.Draw();
-                        if(!_father.DrawEnabled) { return; }
-                        Vector2 pos1 = _centre + this.PositionDelta;
-                        pos1.Y += 50;
-                        //276, 60
-                        DrawingLab.DrawLine(new Vector2(272, pos1.Y), new(246, pos1.Y - 26), 3f, Color.Silver, 0.4f);
-                        DrawingLab.DrawLine(new Vector2(272, pos1.Y), new(611, pos1.Y), 3f, Color.Silver, 0.4f);
-                        DrawingLab.DrawLine(new Vector2(272, pos1.Y), new(272, pos1.Y + currentHeight), 3f, Color.Silver, 0.4f);
-                    }
-
-                    public override void Start()
-                    { 
-                    }
-                }
                 public SongList(SongSelector father)
                 {
                     this._father = father;
@@ -126,15 +22,26 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     this.all = new SelectingModule[this.ChildObjects.Count];
                     int i = 0;
+                    _images = new Texture2D[this.ChildObjects.Count];
                     foreach (var obj in this.ChildObjects) { 
-                        this.all[i] = (obj as SelectingModule); i++; 
+                        this.all[i] = (obj as SelectingModule); 
+                        if (all[i] is LeafSelection)
+                        {
+                            LeafSelection leaf = (LeafSelection)all[i];
+                            _images[i] = leaf.Illustration;
+                        }
+                        i++;
                     }
                     this.all[0].OnFocus();
                     base.Start();
                 }
+
                 protected RootSelection Head { set; private get; }
                 private SongSelector _father;
                 private Vector2 _positionDelta = Vector2.Zero;
+
+                private Texture2D[] _images;
+                public Texture2D[] Images => _images;
 
                 public bool Activated => _activated && _father.Activated; 
                 public bool DrawEnabled => Activated;
@@ -153,16 +60,16 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public void FocusOn(SelectingModule module)
                 {
-                    currentFocus = module;
+                    _currentFocus = module;
                     focusID = -1;
                 }
 
                 SelectingModule _lastSelected;
                 public void Selected(SelectingModule module)
                 {
-                    if (module == _lastSelected) return;
                     if (module is LeafSelection)
                     {
+                        if (module == _lastSelected) return;
                         LeafSelection leafLast = _lastSelected as LeafSelection;
                         LeafSelection leafCur = module as LeafSelection;
                         if (_lastSelected != null)
@@ -173,14 +80,16 @@ namespace UndyneFight_Ex.Remake.UI
                         
                         _lastSelected = module;
                         this._father.Selected(module);
+                        this._father.SelectedID = FocusID;
                     } 
                 } 
 
                 SelectingModule[] all;
 
-                SelectingModule currentFocus;
+                SelectingModule _currentFocus;
+                public SelectingModule CurrentFocus => _currentFocus;
                 int focusID = -1;
-                int FocusID
+                public int FocusID
                 {
                     get
                     {
@@ -188,7 +97,7 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             for (int i = 0; i < all.Length; i++)
                             {
-                                if (all[i] == currentFocus) return focusID = i;
+                                if (all[i] == _currentFocus) return focusID = i;
                             }
                             throw new Exception();
                         }
@@ -196,9 +105,14 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                 }
 
+                protected int SelectedID { get; private set; } = -1;
+
                 public sealed override void Update()
                 {
                     if (!this.Activated) return;
+
+                    if (_lastSelected != null && !_lastSelected.ModuleSelected) this._father.SelectedID = -1;
+
                     if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
                     {
                         int id = FocusID;
@@ -206,7 +120,7 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             if (all[i].ModuleEnabled)
                             {
-                                currentFocus.OffFocus();
+                                _currentFocus.OffFocus();
                                 all[i].OnFocus();
                                 break;
                             }
@@ -219,7 +133,7 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             if (all[i].ModuleEnabled)
                             {
-                                currentFocus.OffFocus();
+                                _currentFocus.OffFocus();
                                 all[i].OnFocus();
                                 break;
                             }
@@ -227,11 +141,11 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
                     {
-                        currentFocus.ConfirmKeyDown();
+                        _currentFocus.ConfirmKeyDown();
                     }
 
-                    float height = currentFocus.Centre.Y;
-                    if (currentFocus.IsMouseOn)
+                    float height = _currentFocus.Centre.Y;
+                    if (_currentFocus.IsMouseOn)
                     {
                         if (height > 660) wheelRemain += MathF.Min(20, (height - 660) * 0.2f);
                         if (height < 80) wheelRemain -= MathF.Min(20, (80 - height) * 0.2f);

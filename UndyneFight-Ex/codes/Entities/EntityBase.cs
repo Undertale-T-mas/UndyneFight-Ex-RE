@@ -272,6 +272,11 @@ namespace UndyneFight_Ex
             GameMain.MissionSpriteBatch.Draw(tex, area, null, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth + depthDetla);
             depthDetla += 0.00001f;
         }
+        public void FormalDraw(Texture2D tex, Rectangle area, Rectangle restrict, Color color)
+        {
+            GameMain.MissionSpriteBatch.Draw(tex, area, restrict, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth + depthDetla);
+            depthDetla += 0.00001f;
+        }
         public void FormalDraw(Texture2D tex, Vector2 centre, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
