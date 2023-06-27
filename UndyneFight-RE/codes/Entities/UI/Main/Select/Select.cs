@@ -41,17 +41,18 @@ namespace UndyneFight_Ex.Remake.UI
 
             public int ID { get; protected set; }
             public virtual void ConfirmKeyDown() {
-                if (this.State == SelectState.MouseOn)
+                if (this.State == SelectState.MouseOn || this.State == SelectState.False)
                 {
                     if (!NeverEnable)
                         this.State = SelectState.Selected;
+                    _father.Selected(this);
                 }
                 else if(this.State == SelectState.Selected)
                 {
                     this.State = SelectState.MouseOn;
                 }
                 LeftClick?.Invoke();
-            }
+            } 
             public virtual void OnFocus() { 
                 if (this.State == SelectState.False) {
                     this.State = SelectState.MouseOn;
@@ -71,9 +72,13 @@ namespace UndyneFight_Ex.Remake.UI
 
             protected ISelectChunk _father;
 
-            public SelectState State { protected get; set; } = SelectState.False;
+            public SelectState State { protected get; 
+                set; } =
+                SelectState.False;
             protected Color _drawingColor;
             protected bool _mouseOn;
+
+            public bool IsMouseOn => _mouseOn;
 
             public event Action LeftClick;
             public event Action MouseOn;
@@ -90,7 +95,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             public override void Update()
             {
-                if (!_father.Activated)
+                if (!_father.Activated && this.ModuleEnabled)
                 {
                     State = SelectState.False;
                     return;
@@ -104,8 +109,11 @@ namespace UndyneFight_Ex.Remake.UI
                     _ => throw new ArgumentException(),
                 };
                 _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
+                if (this.State == SelectState.Disabled)
+                    return;
                 bool isLeftClick = MouseSystem.IsLeftClick();
-                if (!(MouseSystem.Moved || isLeftClick) || (this.State == SelectState.Disabled)) return;
+                if (!(MouseSystem.Moved || isLeftClick)) 
+                    return;
                 if(_mouseOn = this.collidingBox.Contain(MouseSystem.TransferredPosition))
                 {
                     if (this.State == SelectState.False)
