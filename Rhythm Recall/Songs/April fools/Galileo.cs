@@ -21,8 +21,8 @@ namespace Rhythm_Recall.Waves
 
             difficulties = new()
             {
-                { "div.2", Difficulty.Extreme },
-                { "div.1", Difficulty.ExtremePlus }
+                { "div.2", Difficulty.Hard },
+                { "div.1", Difficulty.Extreme }
             };
         }
 
@@ -43,17 +43,17 @@ namespace Rhythm_Recall.Waves
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.ExtremePlus, 18f),
+                            new(Difficulty.Extreme, 18f),
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.ExtremePlus, 18f),
+                            new(Difficulty.Extreme, 18f),
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.ExtremePlus, 21f),
+                            new(Difficulty.Extreme, 21f),
                         }
                     );
                 public override string BarrageAuthor => "TK";
@@ -88,12 +88,12 @@ namespace Rhythm_Recall.Waves
             {
                 if (Gametime < 0) return;
             }
-            public void Extreme()
+            public void ExtremePlus()
             {
                 if (Gametime < 0) return;
             }
             #endregion
-            public void ExtremePlus()
+            public void Extreme()
             {
                 #region Intro
                 //Guitar
@@ -116,7 +116,7 @@ namespace Rhythm_Recall.Waves
                     });
                 }
                 if (InBeat(2.85f) || InBeat(9.75f) || InBeat(16.65f) || InBeat(24.25f)
-                     || InBeat(31.15f) || InBeat(38.75f) || InBeat(45.65f) || InBeat(52.55f))
+                     || InBeat(31.15f) || InBeat(38.75f) || InBeat(45.65f) || InBeat(52.85f))
                 {
                     CreateArrow(BeatTime(2), Rand(0, 3), 6, 0, 0);
                     CreateArrow(BeatTime(3), Rand(0, 3), 6, 0, 0);
@@ -625,19 +625,38 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 140, 140);
                     BarrageCreate(60, BeatTime(1), 7, new string[]
                     {
-                        "R", "", "", "", "", "", "",
-                        "R", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "",
-                        "R", "", "", "", "", "", "",
-                        "", "", "", "", "R", "", "",
-                        "","","", "R", "", "", "",
-                        "", "", "", "", "", "", "", "",
-                        "R", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "",
-                        "R", "", "", "", "", "", "",
-                        "R", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "",
-                        "R", "", "", "", "", "", "",
+                        "R", "", "", "",    "", "", "","R",
+                        "", "", "", "",     "", "","", "",
+                        "", "", "", "",     "","R", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "R", "", "","",     "","", "R", "",
+                        "", "","", "",      "", "", "", "",
+                        "", "","R", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "R", "", "", "",    "", "", "","R",
+                        "", "", "", "",     "", "","", "",
+                        "", "", "", "",     "","R", "", "",
+
+                        "$01", "", "$11", "", "$21", "", "$01","$31",
+                        "", "$21", "", "$01", "", "$21","","",
+                        "", "","", "R",     "", "", "","",
+                        "", "","R", "",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "R", "", "", "",    "", "", "","",
+                        "", "R", "", "",    "", "","","",
+                        "", "", "R", "",    "","", "", "",
+                        "", "", "", "",     "","", "R", "",
+                        "", "", "", "",     "", "", "", "",
+                        "", "", "R","",     "", "", "", "",
+                        "", "", "", "R",     "", "", "", "",
+                        "", "", "", "",     "", "", "", "",
+                        "R", "", "","",     "","","R", "",
+                        "", "", "", "",     "", "","","",
+                        "", "", "", "",    "R", "", "","",
+                        "", "", "", "",    "", "", "","",
+                        "", "", "", "",    "", "", "","",
+                        "", "", "", "",    "", "", "","",
+                        "", "", "", "",    "", "", "","",
                     });
                 }
                 if (InBeat(233))

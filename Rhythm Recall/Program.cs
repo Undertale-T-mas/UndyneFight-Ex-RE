@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using UndyneFight_Ex.Achievements;
 using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.IO.IOEvent;
 using static Rhythm_Recall.Resources;
 
 namespace Rhythm_Recall
@@ -45,15 +46,15 @@ namespace Rhythm_Recall
             Directory.CreateDirectory("Datas\\Global");
             if (!File.Exists("Datas\\Global\\TimeCheck.Tmpf"))
             {
-                UndyneFight_Ex.IO.IOEvent.WriteTmpFile("Datas\\Global\\TimeCheck", UndyneFight_Ex.IO.IOEvent.StringToByte(DateTime.UtcNow.ToFileTimeUtc().ToString() + "\n"));
+                WriteTmpFile("Datas\\Global\\TimeCheck", StringToByte(DateTime.UtcNow.ToFileTimeUtc().ToString() + "\n"));
             }
             else
             {
                 DateTime now = DateTime.UtcNow;
-                List<string> comp = UndyneFight_Ex.IO.IOEvent.ByteToString(UndyneFight_Ex.IO.IOEvent.ReadTmpfFile("Datas\\Global\\TimeCheck"));
+                List<string> comp = ByteToString(ReadTmpfFile("Datas\\Global\\TimeCheck"));
                 DateTime cmpNow = DateTime.FromFileTimeUtc(Convert.ToInt64(comp[0]));
                 int res = now.CompareTo(cmpNow);
-                if (now.CompareTo(cmpNow) == -1)
+                if (res == -1)
                 {
                     throw new Exception();
                 }
@@ -153,7 +154,7 @@ namespace Rhythm_Recall
             try
             {
 #endif
-            UndyneFight_Ex.Remake.Initialize.MainInitialize();
+            //UndyneFight_Ex.Remake.Initialize.MainInitialize();
             GameStartUp.StartGame();
 #if ThrowError
             }

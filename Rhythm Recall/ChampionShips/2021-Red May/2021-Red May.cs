@@ -10,17 +10,18 @@ namespace Rhythm_Recall.Waves
         {
             get
             {
-                SongSet fightSet = new SongSet("red may");
+                SongSet fightSet = new("red may");
                 fightSet.Push(typeof(UnderFell));
                 fightSet.Push(typeof(SuddenChange));
-                //   fightSet.Push(typeof(UnderFellPractice)); 
+                //fightSet.Push(typeof(UnderFellPractice)); 
                 return new ChampionShip(fightSet)
                 {
                     Title = "Red May 2021",
                     SubTitle = "May.3 13:45-17:30",
                     EditorName = "T-mas",
                     Introduce = "It's a \"red\" championship",
-                    IconPath = "ChampionShips\\TCS",
+                    //IconPath = "ChampionShips\\TCS",
+                    IconPath = "ChampionShips\\red_cup",
                     CheckTime = () =>
                     {
                         DateTime s = DateTime.Now;

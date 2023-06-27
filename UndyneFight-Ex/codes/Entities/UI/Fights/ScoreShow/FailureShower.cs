@@ -69,6 +69,7 @@ namespace UndyneFight_Ex.Entities
 
                 public RetrySelector(StateShower s) : base(false)
                 {
+                    NameShower.nameAlpha = 1;
                     SelectChanger += () =>
                     {
                         if (IsKeyPressed120f(InputIdentity.MainUp))

@@ -10,7 +10,7 @@ namespace Rhythm_Recall.Waves
         {
             get
             {
-                SongSet fightSet = new SongSet("new year");
+                SongSet fightSet = new("new year");
 
                 fightSet.Push(typeof(NightofKnights));
                 fightSet.Push(typeof(DreamBattle));

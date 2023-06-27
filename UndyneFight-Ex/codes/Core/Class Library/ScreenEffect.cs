@@ -76,11 +76,12 @@ namespace UndyneFight_Ex.Fight
                 public static void RemoveUISurface()
                 {
                     bufferProduction.ForEach(s => s.Dispose());
-                    MoveSurface(GameStates.CurrentScene.CurrentDrawingSettings.surfaces["normal"]);
-                    if (GameStates.CurrentScene.CurrentDrawingSettings.surfaces.ContainsKey("UI"))
+                    var surfaces = GameStates.CurrentScene.CurrentDrawingSettings.surfaces;
+                    MoveSurface(surfaces["normal"]);
+                    if (surfaces.ContainsKey("UI"))
                     {
-                        GameStates.CurrentScene.CurrentDrawingSettings.surfaces["UI"].Dispose();
-                        GameStates.CurrentScene.CurrentDrawingSettings.surfaces.Remove("UI");
+                        surfaces["UI"].Dispose();
+                        surfaces.Remove("UI");
                     }
                 }
             }
@@ -99,32 +100,7 @@ namespace UndyneFight_Ex.Fight
             {
                 public static void Rotate180(float time)
                 {
-                    if (time < 0)
-                        throw new ArgumentOutOfRangeException(nameof(time), string.Format("参数 {0} 必须为正数 或 0", nameof(time)));
-                    float last = 180;
-                    float tick = 0;
-
-                    float progress = 0;
-
-                    AddInstance(new TimeRangedEvent(0, time + 1, () =>
-                    {
-                        tick += 0.5f;
-                        if (tick < time)
-                        {
-                            float scale = tick / time;
-                            float newRot = MathUtil.Sigmoid01(MathF.Pow(scale, 0.7f));
-                            float del = (newRot - progress);
-                            progress = newRot;
-                            last -= del * 180f;
-                            ScreenAngle += del * 180f;
-                        }
-                        else
-                        {
-                            ScreenAngle += last;
-                            last = 0;
-                        }
-                    })
-                    { UpdateIn120 = true });
+                    Rotate(180, time);
                 }
                 public static void Rotate(float rotation, float time)
                 {

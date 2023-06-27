@@ -22,7 +22,7 @@ namespace UndyneFight_Ex.Remake
             Vector2 centre = new Vector2(320, 240) * GameStates.SurfaceScale;
             Vector2 delta = real - ScreenSize / 2f; 
 
-            delta = delta / MathF.Min(
+            delta /= MathF.Min(
                 ScreenSize.X / (640f * GameStates.SurfaceScale), ScreenSize.Y / (480f * GameStates.SurfaceScale));
 
             Vector2 result = centre + delta;

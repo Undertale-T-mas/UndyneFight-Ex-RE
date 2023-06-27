@@ -4,6 +4,7 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
+using Extends;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
@@ -42,11 +43,11 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    FightResources.Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
-                        FightResources.Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        FightResources.Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
                     }
                 }
 
@@ -82,7 +83,7 @@ namespace Rhythm_Recall.Waves
 
             class ThisImformation : SongImformation
             {
-                public override string BarrageAuthor => "T-mas";
+                public override string BarrageAuthor => GameStates.difficulty == 4 ? "T-mas, modded by TK" : "T-mas";
                 public override string SongAuthor => "Touhou";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -2197,14 +2198,14 @@ namespace Rhythm_Recall.Waves
                     InBeat(1856 - 32 + 88)
                     )
                 {
-                    Extends.DrawingUtil.ScreenAngle(360, BeatTime(6));
+                    DrawingUtil.ScreenAngle(360, BeatTime(6));
                 }
                 if (InBeat(352 + 89 + 54) || InBeat(1152 - 32 + 89 + 55))
                 {
-                    Extends.DrawingUtil.ScreenAngle(720, BeatTime(12));
+                    DrawingUtil.ScreenAngle(720, BeatTime(12));
                 }
                 if (InBeat(1984 - 32 + 80))
-                    Extends.DrawingUtil.ScreenAngle(2520, BeatTime(42));
+                    DrawingUtil.ScreenAngle(2520, BeatTime(42));
                 if (
                     InBeat(288 + 89 + 6) ||
                     InBeat(353 + 89 + 54 + 12) ||
@@ -2220,11 +2221,11 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1792))
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(240), 3, 0.0001f);
+                    DrawingUtil.LerpScreenScale(BeatTime(240), 3, 0.0001f);
                 }
                 if (InBeat(1984 - 32 + 80))
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(6), 1, 0.16f);
+                    DrawingUtil.LerpScreenScale(BeatTime(6), 1, 0.16f);
                 }
             }
             public void Start()

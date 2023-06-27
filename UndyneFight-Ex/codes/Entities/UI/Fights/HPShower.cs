@@ -61,19 +61,20 @@ namespace UndyneFight_Ex.Entities
 
             string hpString;
             var RoundHP = Round(HeartAttribute.HP, 2);
+            var CeilHP = Ceiling(HeartAttribute.HP);
             if (((CurrentScene as FightScene).Mode & GameMode.Practice) != 0)
                 hpString = "inf";
             else
             {
                 if (((CurrentScene as FightScene).Mode & GameMode.Buffed) == 0 && HeartAttribute.BuffedLevel == 0)
-                    hpString = Ceiling(RoundHP) + " / " + Ceiling(HeartAttribute.MaxHP);
+                    hpString = CeilHP + " / " + Ceiling(HeartAttribute.MaxHP);
                 else if (HeartAttribute.BuffedLevel != 0)
                 {
                     hpString = string.Format("{0:N2}", RoundHP + " / " + Ceiling(HeartAttribute.MaxHP));
                 }
                 else
                 {
-                    float hp = Ceiling(RoundHP), max = HeartAttribute.MaxHP;
+                    float hp = CeilHP, max = HeartAttribute.MaxHP;
                     float scale = 20 / max;
                     hpString = string.Format("{0:N2}", hp * scale) + " / 20.00";
                 }
