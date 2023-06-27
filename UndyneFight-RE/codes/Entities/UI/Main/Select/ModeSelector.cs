@@ -68,6 +68,8 @@ namespace UndyneFight_Ex.Remake.UI
                 };
                 _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
 
+                if(!this.Activated) return;
+
                 if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = FocusID;

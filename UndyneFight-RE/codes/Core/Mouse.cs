@@ -15,7 +15,9 @@ namespace UndyneFight_Ex.Remake
         {
             lastState = currentState;
             currentState = Mouse.GetState();
-            Moved = (lastState.Position != currentState.Position);
+
+            MouseWheelChanged = currentState.ScrollWheelValue - lastState.ScrollWheelValue;
+            Moved = (lastState.Position != currentState.Position) || MathF.Abs(MouseWheelChanged) > 0.1f;
 
             Vector2 real = CurrentState.Position.ToVector2();
 
@@ -36,6 +38,8 @@ namespace UndyneFight_Ex.Remake
 
         public static Vector2 TransferredPosition { get; private set; }
         public static Vector2 ScreenSize { private get; set; } = new Vector2(640, 480);
+
+        public static float MouseWheelChanged { get; private set; } = 0f;
 
         public static bool IsLeftClick()
         {
