@@ -28,7 +28,8 @@ namespace UndyneFight_Ex.Remake.UI
                             {
                                 DefaultScale = 1.1f,
                                 SongAvailable = pack.Availables.Contains(waveSet.Music),
-                                Illustration = pack.Images.ContainsKey(waveSet.Music) ? pack.Images[waveSet.Music] : null
+                                Illustration = pack.Images.ContainsKey(waveSet.Music) ? pack.Images[waveSet.Music] : null,
+                                FightObject = pack.ChampionshipMap.ContainsKey(waveSet) ? pack.ChampionshipMap[waveSet] : waveSet
                             });
                             curPosition.Y += 55;
                         }

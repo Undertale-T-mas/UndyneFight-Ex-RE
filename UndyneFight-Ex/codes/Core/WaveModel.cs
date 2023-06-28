@@ -122,7 +122,8 @@ namespace UndyneFight_Ex.SongSystem
         Normal = 2,
         Hard = 3,
         Extreme = 4,
-        ExtremePlus = 5
+        ExtremePlus = 5,
+        NotSelected = 6
     }
 
     /// <summary>

@@ -19,6 +19,7 @@ namespace UndyneFight_Ex.Remake.UI
                 this.DrawEnabled = true;
                 this._state = SelectState.Selected;
                 _virtualFather.Select(this);
+                _virtualFather.SongSelect.DrawEnabled = false;
             }
 
             public void Deactivate()
@@ -41,13 +42,24 @@ namespace UndyneFight_Ex.Remake.UI
             }
 
             public void Selected(SelectingModule module)
-            { 
+            {
+            }
+
+            private void TryActivate()
+            {
+                if (!MouseSystem.Moved) return;
+                float x = MouseSystem.TransferredPosition.X;
+                if (x > 231 && x < 644) this.Activate();
             }
 
             private SelectState _state = SelectState.Selected;
             Color _drawingColor { get; set; }
             public override void Update()
             {
+                if (this.DrawEnabled && !this.Activated)
+                {
+                    this.TryActivate();
+                }
                 this.collidingBox = new(48, 60 - 5, 208 - 48, 127 - 60);
                 if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
                 {

@@ -36,10 +36,10 @@ namespace UndyneFight_Ex.Remake.UI
             public override void Draw()
             {
                 Color color = _drawingColor;
-                DrawingLab.DrawLine(new(48, 127 + 90), new(208, 127 + 90), 3.0f, color, 0.5f);
+                DrawingLab.DrawLine(new(48, 127 + 95), new(208, 127 + 95), 3.0f, color, 0.5f);
 
-                FightResources.Font.NormalFont.CentreDraw("Song", new(128, 60 + 90), color, 1.3f, 0.4f);
-                FightResources.Font.NormalFont.CentreDraw("Select", new(128, 98 + 90), color, 1.3f, 0.4f);
+                FightResources.Font.NormalFont.CentreDraw("Song", new(128, 60 + 95), color, 1.3f, 0.4f);
+                FightResources.Font.NormalFont.CentreDraw("Select", new(128, 98 + 95), color, 1.3f, 0.4f);
 
                 if (!Activated) return;
             }
@@ -51,7 +51,13 @@ namespace UndyneFight_Ex.Remake.UI
 
             public void Selected(SelectingModule module)
             {
-
+                this._virtualFather.SelectSong(module.Extras);
+                this._virtualFather.DiffSelect.Activate();
+                this.Deactivate();
+            }
+            public void DeSelectSong()
+            {
+                this._virtualFather.SelectSong(null);
             }
 
             private SelectState _state = SelectState.False;
@@ -59,7 +65,8 @@ namespace UndyneFight_Ex.Remake.UI
 
             public override void Update()
             {
-                this.collidingBox = new(48, 60 + 90, 208 - 48, 127 - 60); 
+                if(this.DrawEnabled && !this.Activated) { this.TryActivate(); }
+                this.collidingBox = new(48, 60 + 95, 208 - 48, 127 - 60); 
                 if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
                 {
                     if (_state == SelectState.False) _state = SelectState.MouseOn;
@@ -79,12 +86,24 @@ namespace UndyneFight_Ex.Remake.UI
                 };
                 _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
 
+                if (!Activated) return;
                 if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
                 {
                     this._virtualFather.ModeSelect.Activate();
                     this.Deactivate();
                 }
-            } 
+            }
+
+            private void TryActivate()
+            {
+                if (!MouseSystem.Moved) return;
+                if (_virtualFather.CurrentDifficulty != Difficulty.NotSelected)
+                {
+                    if (!MouseSystem.IsLeftClick()) return;
+                }
+                float x = MouseSystem.TransferredPosition.X;
+                if (x > 231 && x < 644) this.Activate();
+            }
 
             private class SongPack
             {
@@ -93,6 +112,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public Dictionary<string, Texture2D> Images { get; init; } = new();
                 public HashSet<string> Availables { get; init; } = new();
+                public Dictionary<IWaveSet, IChampionShip> ChampionshipMap { get; init; } = new();
                 
                 public SongPack(SongSet songSet) : this(songSet, songSet.SongSetName)
                 { 
@@ -105,8 +125,12 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         object tmp = Activator.CreateInstance(songSet.Values[i]);
                         if (tmp is IWaveSet) this.AllSongs[i] = (IWaveSet)tmp;
-                        else if (tmp is IChampionShip) this.AllSongs[i] = ((IChampionShip)tmp).GameContent;
-
+                        else if (tmp is IChampionShip)
+                        {
+                            IChampionShip championShip;
+                            this.AllSongs[i] = (championShip = (IChampionShip)tmp).GameContent;
+                            ChampionshipMap.Add(this.AllSongs[i], championShip);
+                        }
                         string dir = "";
                         Resources.MainLoader.RootDirectory = "";
                         if (System.IO.Directory.Exists(dir = "Content\\Musics\\" + this.AllSongs[i].Music))

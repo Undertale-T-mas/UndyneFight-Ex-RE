@@ -29,6 +29,10 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             LeafSelection leaf = (LeafSelection)all[i];
                             _images[i] = leaf.Illustration;
+                            leaf.LeftClick += () =>
+                            {
+                                if (!leaf.ModuleSelected) this.DeSelect();
+                            };
                         }
                         i++;
                     }
@@ -44,7 +48,7 @@ namespace UndyneFight_Ex.Remake.UI
                 public Texture2D[] Images => _images;
 
                 public bool Activated => _activated && _father.Activated; 
-                public bool DrawEnabled => Activated;
+                public bool DrawEnabled => _father.DrawEnabled && this._activated;
 
                 private bool _activated = false;
 
@@ -65,20 +69,28 @@ namespace UndyneFight_Ex.Remake.UI
                 }
 
                 SelectingModule _lastSelected;
+                private void DeSelect()
+                {
+                    this._father.DeSelectSong();
+                }
                 public void Selected(SelectingModule module)
                 {
                     if (module is LeafSelection)
                     {
-                        if (module == _lastSelected) return;
-                        LeafSelection leafLast = _lastSelected as LeafSelection;
                         LeafSelection leafCur = module as LeafSelection;
+                        if (module == _lastSelected) { goto A; }
+                        LeafSelection leafLast = _lastSelected as LeafSelection;
                         if (_lastSelected != null)
                         {
                             _lastSelected.State = (leafLast.Root.ModuleSelected || (!leafLast.Root.ModuleEnabled)) ? SelectState.False : SelectState.Disabled;
-                            if (!leafLast.Root.ModuleEnabled && leafLast.Root != leafCur.Root) leafLast.Root.State = SelectState.Selected;
+                            if (!leafLast.Root.ModuleEnabled && leafLast.Root != leafCur.Root)
+                            {
+                                leafLast.Root.State = SelectState.Selected;
+                            }
                         }
                         
                         _lastSelected = module;
+                        A: module.Extras = leafCur.FightObject;
                         this._father.Selected(module);
                         this._father.SelectedID = FocusID;
                     } 

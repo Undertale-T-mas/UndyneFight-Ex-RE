@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 using System.Net.Sockets;
+using UndyneFight_Ex.SongSystem;
+using System.ComponentModel.Design.Serialization;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -72,8 +74,13 @@ namespace UndyneFight_Ex.Remake.UI
 
             protected ISelectChunk _father;
 
-            public SelectState State { protected get; 
-                set; } =
+            public SelectState State { protected get => _state;
+                set {
+                    if(_state == SelectState.Selected && value == SelectState.False) {
+                        ; }
+                    _state = value;
+                } }
+            private SelectState _state =
                 SelectState.False;
             protected Color _drawingColor;
             protected bool _mouseOn;
@@ -95,11 +102,6 @@ namespace UndyneFight_Ex.Remake.UI
 
             public override void Update()
             {
-                if (!_father.Activated && this.ModuleEnabled)
-                {
-                    State = SelectState.False;
-                    return;
-                }
                 Color mission = this.State switch
                 {
                     SelectState.False => ColorNormal,
@@ -109,6 +111,11 @@ namespace UndyneFight_Ex.Remake.UI
                     _ => throw new ArgumentException(),
                 };
                 _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
+                if (!_father.Activated && this.ModuleEnabled)
+                {
+                    //State = SelectState.False;
+                    return;
+                }
                 if (this.State == SelectState.Disabled)
                     return;
                 bool isLeftClick = MouseSystem.IsLeftClick();
@@ -150,8 +157,10 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 ModeSelect = new ModeSelector();
                 SongSelect = new SongSelector();
+                DiffSelect = new DifficultyUI(this);
                 this.AddChild(ModeSelect);
                 this.AddChild(SongSelect);
+                this.AddChild(DiffSelect);
                 CurrentActivate = ModeSelect;
             }
 
@@ -159,9 +168,37 @@ namespace UndyneFight_Ex.Remake.UI
 
             public ModeSelector ModeSelect { get; init; }
             public SongSelector SongSelect { get; init; }
+            public DifficultyUI DiffSelect { get; init; }
 
             public ISelectChunk CurrentActivate { get; set; }
 
+            public IWaveSet SongSelected { get; private set; }
+            public HashSet<Difficulty> DifficultyPanel { get; private set; }
+
+            public void SelectSong(object result)
+            {
+                if(result == null)
+                {
+                    DifficultyPanel = null;
+                    SongSelected = null;
+                    return;
+                }
+                if (result is IWaveSet)
+                {
+                    DifficultyPanel = new();
+                    for (int i = 0; i <= 4; i++) DifficultyPanel.Add((Difficulty)i);
+                    this.SongSelected = result as IWaveSet;
+                }
+                else if (result is IChampionShip)
+                {
+                    DifficultyPanel = new();
+                    IChampionShip championShip;
+                    this.SongSelected = (championShip = result as IChampionShip).GameContent;
+                    foreach(Difficulty difficulty in championShip.DifficultyPanel.Values) { 
+                        DifficultyPanel.Add(difficulty); 
+                    }
+                }
+            }
             public void Select(ISelectChunk module)
             {
                 if (CurrentActivate == module) return;
@@ -171,6 +208,13 @@ namespace UndyneFight_Ex.Remake.UI
 
             public override void Update()
             { 
+            }
+
+            public Difficulty CurrentDifficulty { get; private set; } = Difficulty.NotSelected;
+
+            internal void SelectDiff(Difficulty difficulty)
+            {
+                CurrentDifficulty = difficulty;
             }
         }
 

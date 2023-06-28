@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -32,6 +33,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                     public Texture2D Illustration { get; init; }
                     public string SongName { get; init; }
+                    public object FightObject { get; init; }
                     public RootSelection Root { get; init; }
                     public bool SongAvailable { get; init; } = true;
 
