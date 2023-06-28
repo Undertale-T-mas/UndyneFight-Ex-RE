@@ -74,8 +74,8 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("Summon", () =>
                 {
                     PlaySound(Sounds.pierce);
-                    float l = 320 - 256 / 2f;
-                    float r = 320 + 256 / 2f;
+                    float l = 320 - 128;
+                    float r = 320 + 128;
 
                     int count = 12;
                     List<DownBone> bones2 = new();
@@ -167,7 +167,7 @@ namespace Rhythm_Recall.Waves
                     builder1.Insert(BeatTime(2), ValueEasing.EaseOutCubic(4, 0, BeatTime(2)));
                     builder1.Insert(BeatTime(8), ValueEasing.Linear(4, RandSignal() * Rand(4f, 6f) * 50f, BeatTime(8)));
 
-                    Platform platform = new Platform(0, Vector2.Zero,
+                    Platform platform = new(0, Vector2.Zero,
                         builder.GetResult(), Motions.LengthRoute.autoFold, builder1.GetResult()
                         )
                     { LengthRouteParam = new float[] { 45, BeatTime(24) } };
@@ -182,8 +182,8 @@ namespace Rhythm_Recall.Waves
                         CreateBone(new UpBone(true, 7, 60));
                     });
 
-                    Line line = new Line(260f, 90);
-                    ValueEasing.EaseBuilder builder2 = new ValueEasing.EaseBuilder();
+                    Line line = new(260f, 90);
+                    ValueEasing.EaseBuilder builder2 = new();
                     builder2.Insert(BeatTime(4), ValueEasing.EaseInSine(0, 0.5f, BeatTime(4)));
                     builder2.Insert(BeatTime(4), ValueEasing.Alternate(2f, ValueEasing.Stable(0), ValueEasing.Linear(0.5f, 0.0f, BeatTime(4))));
                     builder2.Insert(BeatTime(4), ValueEasing.EaseOutSine(0.5f, 0.0f, BeatTime(4)));
@@ -220,9 +220,34 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.CameraEffect.SizeExpand(3.5f, BeatTime(2));
                 });
+                RegisterFunctionOnce("Line", () =>
+                {
+                    Line line = new(Rand(100, 540), 90);
+                    ValueEasing.EaseBuilder builder = new();
+                    builder.Insert(BeatTime(4), ValueEasing.EaseInSine(1, 0, BeatTime(4)));
+                    builder.Adjust = false;
+                    line.DrawingColor = Color.Aqua;
+                    builder.Run(s => line.Alpha = s);
+                    CreateEntity(line);
+                });
+                RegisterFunctionOnce("Line2", () =>
+                {
+                    CentreEasing.EaseBuilder builder2 = new();
+                    builder2.Insert(BeatTime(2), CentreEasing.EaseInQuad(new(0, 320), new(660, 320), BeatTime(2)));
+                    ValueEasing.EaseBuilder builder3 = new();
+                    builder3.Insert(BeatTime(2), ValueEasing.EaseOutSine(90, 270, BeatTime(2)));
+                    Line line = new(builder2.GetResult(), builder3.GetResult());
+                    ValueEasing.EaseBuilder builder = new();
+                    builder.Insert(BeatTime(4), ValueEasing.EaseInSine(1, 0, BeatTime(4)));
+                    builder.Adjust = false;
+                    line.DrawingColor = Color.Aqua;
+                    builder.Run(s => line.Alpha = s);
+                    line.ObliqueMirror = true;
+                    CreateEntity(line);
+                });
                 BarrageCreate(0, BeatTime(4), 1, new string[]{
-                    "Summon", "", "", "",  "", "", "", "",
-                    "", "", "", "",  "", "", "", "",
+                    "Summon(Line)", "", "Line", "Line",  "", "", "Line", "",
+                    "Line", "", "Line", "Line",  "", "", "Line2", "",
                     "Blue(Zoom)", "", "", "",  "", "", "", "",
                     "", "", "", "",  "", "", "", "",
                     "Trans(Summon2)(Zoom)", "", "", "",  "", "", "", "",
@@ -272,7 +297,7 @@ namespace Rhythm_Recall.Waves
                 {
                     for (int k = 0; k < 2; k++)
                     {
-                        CustomBone SideBone = new CustomBone(new Vector2(320, 320), Motions.PositionRoute.circle, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
+                        CustomBone SideBone = new(new Vector2(320, 320), Motions.PositionRoute.circle, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
                         {
                             PositionRouteParam = new float[] { 70, 1.8f, i * 90 },
                             LengthRouteParam = new float[] { 70 + k * 30, BeatTime(48) },
@@ -288,7 +313,7 @@ namespace Rhythm_Recall.Waves
                     }
                     if ((i % 2) == 0)
                     {
-                        CentreCircleBone bone = new CentreCircleBone(i * 45, 2, 0, 720)
+                        CentreCircleBone bone = new(i * 45, 2, 0, 720)
                         {
                             MissionLength = 30,
                         };
@@ -329,23 +354,16 @@ namespace Rhythm_Recall.Waves
                 if (AtKthBeat(2, 0))
                 {
                     PlaySound(Sounds.pierce);
-                    CreateBone(new UpBone(true, 390, 5, 65)
-                    {
-                        MarkScore = false
-                    });
-                    CreateBone(new CustomBone(new Vector2(445, 320), Motions.PositionRoute.linear, 90, 25)
+                    CreateBone(new UpBone(true, 390, 5, 65));
+                    CreateBone(new CustomBone(new Vector2(455, 320), Motions.PositionRoute.linear, 90, 25)
                     {
                         PositionRouteParam = new float[] { -5, 0 },
-                        MarkScore = false
                     }); ;
                 }
                 if (AtKthBeat(2, 1))
                 {
                     PlaySound(Sounds.pierce);
-                    CreateBone(new DownBone(true, 465, 5, 65)
-                    {
-                        MarkScore = false
-                    });
+                    CreateBone(new DownBone(true, 465, 5, 65));
                 }
             }
             if (InBeat(160, 188))
@@ -360,7 +378,6 @@ namespace Rhythm_Recall.Waves
                     {
                         bone.IsMasked = false;
                         bone.ColorType = Rand(1, 2);
-                        PlaySound(Sounds.Ding);
                     });
                     DelayBeat(4, () =>
                     {
