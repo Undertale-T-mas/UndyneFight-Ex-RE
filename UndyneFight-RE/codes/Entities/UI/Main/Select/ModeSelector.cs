@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using UndyneFight_Ex.Fight;
+using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -151,7 +152,17 @@ namespace UndyneFight_Ex.Remake.UI
                 focusID = -1;
             }
 
-            Button startButton, noHitButton, apButton, buffButton, practiceButton, ngsButton;
+            Button startButton, noHitButton, apButton, buffButton, practiceButton, ngsButton, autoButton;
+
+            public GameMode ModeSelected =>
+                (noHitButton.ModuleSelected ? GameMode.NoHit : GameMode.None) |
+                (apButton.ModuleSelected ? GameMode.PerfectOnly : GameMode.None) |
+                (buffButton.ModuleSelected ? GameMode.Buffed : GameMode.None) |
+                (practiceButton.ModuleSelected ? GameMode.Practice : GameMode.None) |
+                (ngsButton.ModuleSelected ? GameMode.NoGreenSoul : GameMode.None) |
+                (autoButton.ModuleSelected ? GameMode.Autoplay : GameMode.None);
+
+            public SelectingModule Focus => this.currentFocus;
 
             public ModeSelector()
             {
@@ -164,6 +175,7 @@ namespace UndyneFight_Ex.Remake.UI
                 this.AddChild(buffButton = new Button(this, new(440, 370), "Buffed") ); 
                 this.AddChild(practiceButton = new Button(this, new(440, 450), "Practice") ); 
                 this.AddChild(ngsButton = new Button(this, new(440, 530), "No Greensoul") );
+                this.AddChild(autoButton = new Button(this, new(440, 610), "Autoplay") );
 
                 startButton.LeftClick += () => {  
                     this._virtualFather.SongSelect.Activate();

@@ -10,7 +10,7 @@ namespace Rhythm_Recall.Waves
         {
             get
             {
-                SongSet fightSet = new("red may");
+                SongSet fightSet = new("Red May");
                 fightSet.Push(typeof(UnderFell));
                 fightSet.Push(typeof(SuddenChange));
                 //fightSet.Push(typeof(UnderFellPractice)); 

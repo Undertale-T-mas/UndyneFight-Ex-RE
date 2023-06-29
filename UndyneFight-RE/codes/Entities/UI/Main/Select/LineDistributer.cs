@@ -15,7 +15,7 @@ namespace UndyneFight_Ex.Remake.UI
                 //960, 720
 
                 //left side
-                float r1 = 231;
+                float r1 = 227;
                 DrawLine(new(r1, 65), new(r1, 585), Color.White);
                 DrawLine(new(r1, 65), new(r1 - 30, 35), Color.White);
 

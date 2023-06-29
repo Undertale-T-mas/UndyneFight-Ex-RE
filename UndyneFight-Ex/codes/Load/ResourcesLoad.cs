@@ -135,7 +135,7 @@ namespace UndyneFight_Ex
             //public static GLFont Chinese { get; internal set; }
         }
 
-        internal static class Sprites
+        public static class Sprites
         {
             public static Texture2D cursor;
             public static Texture2D login;

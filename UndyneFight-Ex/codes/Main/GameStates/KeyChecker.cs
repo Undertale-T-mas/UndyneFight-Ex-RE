@@ -88,8 +88,8 @@ namespace UndyneFight_Ex
                 });
             }
         }
-        internal static bool WordsChanged { get; private set; } = false;
-        internal static char CharInput { get; private set; }
+        public static bool WordsChanged { get; private set; } = false;
+        public static char CharInput { get; private set; }
         internal static KeyboardState currentKeyState2;
         internal static KeyboardState lastKeyState2;
 

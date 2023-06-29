@@ -12,10 +12,17 @@ namespace UndyneFight_Ex.Remake.UI
 {
     internal partial class SelectUI
     {
+        public static void Initialize()
+        {
+            SongSelector.Initialize();
+        }
         private partial class SongSelector : Entity, ISelectChunk
         { 
             public bool Activated { get; set; } = false;
             public bool DrawEnabled { get; set; } = false;
+            public Texture2D Illustration => _currentSongList.Illustration;
+
+            public SelectingModule Focus => null;
 
             private VirtualFather _virtualFather;
 
@@ -63,6 +70,8 @@ namespace UndyneFight_Ex.Remake.UI
             private SelectState _state = SelectState.False;
             private Color _drawingColor;
 
+            private int _timer = 0;
+
             public override void Update()
             {
                 if(this.DrawEnabled && !this.Activated) { this.TryActivate(); }
@@ -86,7 +95,11 @@ namespace UndyneFight_Ex.Remake.UI
                 };
                 _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
 
-                if (!Activated) return;
+                if (!Activated) { _timer = 0; return; }
+
+                _timer++;
+                if (_timer < 3) return;
+
                 if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
                 {
                     this._virtualFather.ModeSelect.Activate();
@@ -181,17 +194,18 @@ namespace UndyneFight_Ex.Remake.UI
 
             private SongList _currentSongList;
 
+            public static void Initialize()
+            {
+                songPacks = FetchSongPack();
+            }
             public override void Start()
             {
                 this._virtualFather = this.FatherObject as VirtualFather;
-                Task task = Task.Run(() =>
-                {
-                    songPacks = FetchSongPack();
-                    this.AddChild(new ImageDrawer());
-                    this.AddChild(this._packMode = new PackMode(this));
-                    this._packMode.Activate();
-                    this._currentSongList = _packMode;
-                });
+
+                this.AddChild(new ImageDrawer());
+                this.AddChild(this._packMode = new PackMode(this));
+                this._packMode.Activate();
+                this._currentSongList = _packMode;
             }
             PackMode _packMode;
             public SongSelector()

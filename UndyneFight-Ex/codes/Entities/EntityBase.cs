@@ -253,18 +253,25 @@ namespace UndyneFight_Ex
             GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth + depthDetla);
             depthDetla += 0.00001f;
         }
-        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle texArea, Color color, float rotation, Vector2 rotateCentre)
+        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(1, 1), rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth + depthDetla);
             depthDetla += 0.00001f;
         }
-        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle texArea, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
+        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(drawingScale, drawingScale), rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth + depthDetla);
+            depthDetla += 0.00001f;
+        }
+        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, Vector2 drawingScale, float rotation, Vector2 rotateCentre, SpriteEffects spriteEffects)
+        {
+            rotation = DrawingRotation(rotation);
+            if (NotInScene(tex, centre, drawingScale, rotation, rotateCentre)) return;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, spriteEffects, Depth + depthDetla);
             depthDetla += 0.00001f;
         }
         public void FormalDraw(Texture2D tex, Rectangle area, Color color)

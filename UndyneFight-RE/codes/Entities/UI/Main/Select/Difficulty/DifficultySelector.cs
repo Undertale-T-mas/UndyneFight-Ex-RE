@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -27,90 +26,25 @@ namespace UndyneFight_Ex.Remake.UI
                 { 
                 }
             }
-            private class DifficultySelection : SelectingModule
+
+            private void ChangeJudge(JudgementState judgeState)
             {
-                private Difficulty _difficulty;
-                private new DifficultyUI _father;
-                public DifficultySelection(DifficultyUI father, Difficulty difficulty, CollideRect area) : base(father)
-                {
-                    _difficulty = difficulty;
-                    _father = father;
-                    this.collidingBox = area;
-
-                    UpdateIn120 = true;
-
-                    LeftClick += () => {
-                        if (!this.ModuleSelected) _father._virtualFather.SelectDiff(Difficulty.NotSelected);
-                        Functions.PlaySound(FightResources.Sounds.select);
-                    };
-
-                    var map = father._virtualFather.SongSelected.Attributes.ComplexDifficulty;
-                    if (map.ContainsKey(difficulty)) this._difText = ((int)map[difficulty]).ToString();
-                    else this._difText = "?";
-
-                    switch(difficulty)
-                    {
-                        case Difficulty.Noob:
-                            _color = Color.White;
-                            _text = "nb";
-                            break;
-                        case Difficulty.Easy:
-                            _color = Color.LimeGreen;
-                            _text = "ez";
-                            break;
-                        case Difficulty.Normal:
-                            _color = Color.LightSkyBlue;
-                            _text = "nr";
-                            break;
-                        case Difficulty.Hard:
-                            _color = Color.MediumPurple;
-                            _text = "hd";
-                            break;
-                        case Difficulty.Extreme:
-                            _color = Color.Orange;
-                            _text = "ex";
-                            break;
-                        case Difficulty.ExtremePlus:
-                            _color = Color.Gray;
-                            _text = "ex+";
-                            break;
-                        default:
-                            throw new ArgumentException();
-                    }
-                }
-                Color _color;
-                string _difText;
-                string _text;
-
-                float _scale = 1.0f;
-
-                public Difficulty Difficulty => _difficulty;
-
-                public override void Draw()
-                {
-                    var normalFont = FightResources.Font.NormalFont;
-                    var fightFont = FightResources.Font.FightFont;
-                    fightFont.CentreDraw(_text, Centre - new Vector2(0, 12 + _scale * 2f), Color.Lerp(_color, _drawingColor, _scale));
-                    normalFont.CentreDraw(_difText, Centre + new Vector2(0, 12 - _scale * 2f), Color.Lerp(_color, _drawingColor, _scale), 1.1f, 0.1f);
-                }
-                public override void Update()
-                {
-                    if (_mouseOn || ModuleSelected)
-                    {
-                        this._scale = MathHelper.Lerp(_scale, 1, 0.1f);
-                    }
-                    else this._scale = MathHelper.Lerp(_scale, 0, 0.1f);
-
-                    base.Update();
-                }
+                this._virtualFather.ChangeJudge(judgeState);
             }
+
+            IWaveSet _currentSelection;
+
+            public SelectingModule Focus => null;
+
             private void UpdateChild()
             {
+                if (_currentSelection != null && _currentSelection == this._virtualFather.SongSelected && this.ChildObjects.Count != 0) return;
                 this.ChildObjects.Clear();
+                _currentSelection = this._virtualFather.SongSelected;
                 HashSet<Difficulty> diffPanel = this._virtualFather.DifficultyPanel;
                 int count = diffPanel.Count;
                 // L = 644, R = 930
-                const float L = 682, R = 924;
+                const float L = 676, R = 924;
                 float delta = count switch
                 {
                     1 => 0,
@@ -141,6 +75,30 @@ namespace UndyneFight_Ex.Remake.UI
                 }
 
                 _virtualFather.SelectDiff(Difficulty.NotSelected);
+
+                this.all = new DifficultySelection[count];
+                int j = 0;
+                foreach(GameObject module in this.ChildObjects)
+                {
+                    if (module is DifficultySelection)
+                    {
+                        this.all[j] = module as DifficultySelection;
+                        j++;
+                    }
+                }
+                if (_lastDifficulty == Difficulty.NotSelected)
+                    this.all[0].OnFocus();
+                else
+                {
+                    int id = 0;
+                    for(j = 0; j < all.Length; j++)
+                    {
+                        if ((int)all[j].Difficulty <= (int)_lastDifficulty) id = j;
+                    }
+                    this.all[id].OnFocus();
+                }
+
+                this.AddChild(new JudgementSelection(this));
             }
 
             VirtualFather _virtualFather;
@@ -168,6 +126,26 @@ namespace UndyneFight_Ex.Remake.UI
                 this._state = SelectState.False;
                 this._activated = false;
             }
+            DifficultySelection[] all;
+
+            SelectingModule _currentFocus;
+            public SelectingModule CurrentFocus => _currentFocus;
+            int focusID = -1;
+            public int FocusID
+            {
+                get
+                {
+                    if (focusID == -1)
+                    {
+                        for (int i = 0; i < all.Length; i++)
+                        {
+                            if (all[i] == _currentFocus) return focusID = i;
+                        }
+                        return -1;
+                    }
+                    else return focusID;
+                }
+            }
 
 
             private SelectState _state = SelectState.False;
@@ -183,9 +161,10 @@ namespace UndyneFight_Ex.Remake.UI
                 if (!Activated) return;
             }
 
+            private int _timer = 0;
             public override void Update()
             {
-                if (!this.Activated) { this.TryActivate(); }
+                if (!this.Activated) { _timer = 0; this.TryActivate(); }
                 this.collidingBox = new(48, 60 + 190, 208 - 48, 127 - 60);
 
                 if (_virtualFather.DifficultyPanel == null) {
@@ -215,10 +194,46 @@ namespace UndyneFight_Ex.Remake.UI
                 _drawingColor = Color.Lerp(_drawingColor, mission, 0.12f);
 
                 if (!Activated) return;
+
+                _timer++;
+                if (_timer < 3) return;
+
                 if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
                 {
                     this._virtualFather.SongSelect.Activate();
                     this.Deactivate();
+                }
+
+
+                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown) || GameStates.IsKeyPressed120f(InputIdentity.MainRight))
+                {
+                    int id = FocusID;
+                    for (int i = id + 1; i < all.Length; i++)
+                    {
+                        if (all[i].ModuleEnabled)
+                        {
+                            _currentFocus.OffFocus();
+                            all[i].OnFocus();
+                            break;
+                        }
+                    }
+                }
+                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp) || GameStates.IsKeyPressed120f(InputIdentity.MainLeft))
+                {
+                    int id = FocusID;
+                    for (int i = id - 1; i >= 0; i--)
+                    {
+                        if (all[i].ModuleEnabled)
+                        {
+                            _currentFocus.OffFocus();
+                            all[i].OnFocus();
+                            break;
+                        }
+                    }
+                }
+                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                {
+                    _currentFocus.ConfirmKeyDown();
                 }
             }
 
@@ -231,15 +246,18 @@ namespace UndyneFight_Ex.Remake.UI
             }
 
             public void FocusOn(SelectingModule module)
-            { 
-
+            {
+                _currentFocus = module;
+                focusID = -1;
             }
 
             SelectingModule _lastSelected;
+            Difficulty _lastDifficulty = Difficulty.NotSelected;
 
             public void Selected(SelectingModule module)
             {
-                this._virtualFather.SelectDiff((module as DifficultySelection).Difficulty);
+                if (module is not DifficultySelection) return;
+                this._virtualFather.SelectDiff(_lastDifficulty = (module as DifficultySelection).Difficulty);
                 if(_lastSelected != null && _lastSelected != module)
                 {
                     _lastSelected.State = SelectState.False;

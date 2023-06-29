@@ -41,6 +41,11 @@ namespace UndyneFight_Ex.GameInterface
             game.Run();
         }
 
+        public static void PushSongset(SongSet songset)
+        {
+            FightSystem.PushSongSet(songset);
+        }
+
         public static Type SetUpShower
         {
             set => Entities.StartingShower.TitleSetUp = value;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,11 @@ namespace UndyneFight_Ex.Remake
 {
     public static class MouseSystem
     {
+        internal static void Initialize()
+        {
+            ScreenSize = GameStates.CurrentWindow.ClientBounds.Size.ToVector2();
+        }
+
         internal static void Update()
         {
             lastState = currentState;

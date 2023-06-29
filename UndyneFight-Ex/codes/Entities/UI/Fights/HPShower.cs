@@ -74,7 +74,7 @@ namespace UndyneFight_Ex.Entities
                 }
                 else
                 {
-                    float hp = CeilHP, max = HeartAttribute.MaxHP;
+                    float hp = HeartAttribute.HP, max = HeartAttribute.MaxHP;
                     float scale = 20 / max;
                     hpString = string.Format("{0:N2}", hp * scale) + " / 20.00";
                 }

@@ -108,7 +108,7 @@ namespace UndyneFight_Ex
         }
 
         private static SongFightingScene.SceneParams lastParam;
-        internal static void StartSong(IWaveSet wave, Texture2D songIllustration, string path, int dif, JudgementState judgeState, GameMode mode)
+        public static void StartSong(IWaveSet wave, Texture2D songIllustration, string path, int dif, JudgementState judgeState, GameMode mode)
         {
             waveSet = wave;
             curMode = mode;

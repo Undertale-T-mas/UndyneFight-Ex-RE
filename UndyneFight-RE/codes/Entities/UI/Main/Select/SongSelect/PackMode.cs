@@ -23,6 +23,7 @@ namespace UndyneFight_Ex.Remake.UI
                         root.DefaultScale = 1.3f;
                         foreach(IWaveSet waveSet in pack.AllSongs)
                         {
+                            if (waveSet.Attributes != null && waveSet.Attributes.Hidden) continue;
                             LeafSelection selection;
                             this.AddChild(selection = new LeafSelection(root, curPosition + new Vector2(12, 0), waveSet.FightName)
                             {

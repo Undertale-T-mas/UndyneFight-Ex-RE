@@ -12,12 +12,17 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 protected class LeafSelection : Button
                 {
-                    public LeafSelection(RootSelection rootSelection, Vector2 centre, string text) : base(rootSelection.Father, centre, text)
+                    private static string Abbreviation(string origin)
+                    {
+                        if (origin.Length > 17) return origin[..7] + "..." + origin[^7..];
+                        else return origin;
+                    }
+                    public LeafSelection(RootSelection rootSelection, Vector2 centre, string text) : base(rootSelection.Father, centre, Abbreviation(text))
                     {
                         this.SongName = text;
                         rootSelection.LinkLeaf(this);
                         this.CentreDraw = false;
-                        this.SelectedScale = 1.1f; 
+                        this.SelectedScale = 1.07f; 
                         this.ColorDisabled = Color.Transparent;
                         this.State = SelectState.Disabled;
                         this.Root = rootSelection;
@@ -47,7 +52,21 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         base.Update();
 
+                        if (_mouseOn)
+                            this._lineScale = MathHelper.Lerp(_lineScale, 1.0f, 0.1f);
+                        else this._lineScale = MathHelper.Lerp(_lineScale, 0.0f, 0.1f);
+
                         this.PositionDelta = Root.PositionDelta;
+                    }
+
+                    float _lineScale = 0.0f;
+                    public override void Draw()
+                    { 
+                        base.Draw();
+                        if(!this._father.DrawEnabled) { return; }
+
+                        float y = (_centre + PositionDelta).Y + 42;
+                        DrawingLab.DrawLine(new Vector2(272, y), new Vector2(MathHelper.Lerp(525, 541, _lineScale), y), 3, _drawingColor * 0.8f, 0.1f);
                     }
                 }
             }
