@@ -12,6 +12,7 @@ namespace UndyneFight_Ex.Remake
             loader.RootDirectory = "Content\\ReEngine";
             UI.Cursor = loader.Load<Texture2D>("Mouse\\cursor");
             UI.Start = loader.Load<Texture2D>("UI\\start");
+            UI.Tick = loader.Load<Texture2D>("UI\\tick");
             MainLoader = loader;
 
             SelectUI.Initialize();
@@ -23,6 +24,7 @@ namespace UndyneFight_Ex.Remake
         {
             public static Texture2D Cursor { get; set; }
             public static Texture2D Start { get; set; }
+            public static Texture2D Tick { get; set; }
         }
     }
 }
