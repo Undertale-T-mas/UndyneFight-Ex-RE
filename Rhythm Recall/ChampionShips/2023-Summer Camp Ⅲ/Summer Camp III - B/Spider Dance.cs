@@ -21,8 +21,9 @@ namespace Rhythm_Recall.Waves
         }
         public IWaveSet GameContent => new Project();
         public Dictionary<string, Difficulty> DifficultyPanel => dif;
-        class Project : IWaveSet
+        class Project : WaveConstructor,IWaveSet
         {
+            public Project() : base(62.5f / (226f / 60f)) { }
             public string Music => "Spider Dance";
 
             public string FightName => "Spider Dance";
