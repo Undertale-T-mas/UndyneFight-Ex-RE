@@ -593,7 +593,9 @@ namespace UndyneFight_Ex.SongSystem
         private Dictionary<string, Action> chartingActions = new();
         public void RegisterFunction(string name, Action action)
         {
-            chartingActions.Add(name, action);
+            if (chartingActions.ContainsKey(name)) chartingActions[name] = action;
+            else
+                chartingActions.Add(name, action);
         }
         private List<string> removingActions = new();
         public void RegisterFunctionOnce(string name, Action action)

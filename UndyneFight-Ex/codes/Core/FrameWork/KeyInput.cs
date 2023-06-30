@@ -40,7 +40,8 @@ namespace UndyneFight_Ex
         Number0 = 31,
         Backspace = 32,
         Reset = 33,
-        Heal = 34
+        Heal = 34,
+        Tab = 35
     }
     public class IdentityChecker
     {

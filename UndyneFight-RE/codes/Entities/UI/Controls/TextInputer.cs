@@ -20,6 +20,9 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 (father as SmartSelector).ZKeyConfirm = false;
             }
+            this.ResultChanged += () => {
+                this.RightPosition = collidingBox.Left + 5 * FontScale + NormalFont.SFX.MeasureString(Result).X * FontScale;
+            };
         }
 
         public string Result => currentString;
@@ -29,22 +32,23 @@ namespace UndyneFight_Ex.Remake.UI
             if (ModuleSelected && appearTime % 66 <= 32)
             {
                 FormalDraw(GlobalResources.Sprites.cursor, new Vector2(collidingBox.TopLeft.X + 1 +
-                    NormalFont.SFX.MeasureString(currentString[..cursorPlace]).X * FontScale, collidingBox.TopLeft.Y + 4), Color.White * 1.0f, 1.2f * FontScale, 0.0f, Vector2.Zero);
+                    NormalFont.SFX.MeasureString(drawingString[..cursorPlace]).X * FontScale, collidingBox.TopLeft.Y + 4), Color.White * 1.0f, 1.2f * FontScale, 0.0f, Vector2.Zero);
             }
             if (IsMouseOn && _missionCursorPlace != cursorPlace || this.State == SelectState.MouseOn)
             {
                 FormalDraw(GlobalResources.Sprites.cursor, new Vector2(collidingBox.TopLeft.X + 1 +
-                    NormalFont.SFX.MeasureString(currentString[.._missionCursorPlace]).X * FontScale, collidingBox.TopLeft.Y + 4), Color.Gold * 0.7f, 1.2f * FontScale, 0.0f, Vector2.Zero);
+                    NormalFont.SFX.MeasureString(drawingString[.._missionCursorPlace]).X * FontScale, collidingBox.TopLeft.Y + 4), Color.Gold * 0.7f, 1.2f * FontScale, 0.0f, Vector2.Zero);
             }
-            if (currentString != null)
-                NormalFont.Draw(currentString, collidingBox.TopLeft + new Vector2(5 * FontScale, 2), Color.LightCoral, FontScale, this.Depth);
+            if (drawingString != null)
+                NormalFont.Draw(drawingString, collidingBox.TopLeft + new Vector2(5 * FontScale, 2), Color.LightCoral, FontScale, this.Depth);
             DrawingLab.DrawRectangle(collidingBox, this._drawingColor, 3f, 0.6f);
         }
 
         private int cursorPlace = 0, appearTime = 0;
         private string currentString = "";
+        protected string drawingString = "";
 
-        public float FontScale { private get; set; } = 1.0f;
+        public float FontScale { protected get; set; } = 1.0f;
 
         public void InputChar(char input)
         {
@@ -70,6 +74,9 @@ namespace UndyneFight_Ex.Remake.UI
 
         private int _missionCursorPlace = 0;
         protected event Action ResultChanged;
+
+        protected float RightPosition { get; private set; }
+
         public override void Update()
         {
             if((_mouseOn || State == SelectState.MouseOn) && ((CharInput != (char)1 && CharInput != (char)13) || IsKeyPressed120f(InputIdentity.Backspace)))
@@ -85,24 +92,27 @@ namespace UndyneFight_Ex.Remake.UI
             appearTime++;
             if (ModuleSelected)
             {
-                if (WordsChanged && appearTime > 1 && _father.Focus == this)
+                if (WordsChanged && appearTime > 1 && (_father.Focus == this || !_father.Focus.IsMouseOn))
                 {
                     InputChar(CharInput);
+                    drawingString = currentString;
                     ResultChanged?.Invoke();
                 }
                 if (WordsChanged) return;
-                if (IsKeyPressed120f(InputIdentity.Backspace) && _father.Focus == this)
+                if (IsKeyPressed120f(InputIdentity.Backspace) && (_father.Focus == this || !_father.Focus.IsMouseOn))
                 {
                     appearTime = 0;
-                    if (cursorPlace != 0)
-                    {
-                        currentString = string.Concat(currentString.AsSpan(0, cursorPlace - 1),
-                                        cursorPlace <= currentString.Length ? currentString[cursorPlace..] : "");
-                        cursorPlace--;
-                        ResultChanged?.Invoke();
-                    }
-                    this._missionCursorPlace = cursorPlace;
+                    DoDelete();
                 }
+
+                if (_mouseOn && MouseSystem.IsLeftClick())
+                {
+                    int pos = GetCursorPlace();
+                    this.cursorPlace = pos;
+                } 
+            }
+            if((_father.Focus == this || !_father.Focus.IsMouseOn))
+            {
                 if (IsKeyPressed120f(InputIdentity.MainLeft))
                 {
                     if (cursorPlace > 0)
@@ -117,18 +127,25 @@ namespace UndyneFight_Ex.Remake.UI
                     appearTime = 0;
                     this._missionCursorPlace = cursorPlace;
                 }
-
-                if(_mouseOn && MouseSystem.IsLeftClick())
-                {
-                    int pos = GetCursorPlace();
-                    this.cursorPlace = pos;
-                }
             }
 
             if (IsMouseOn && MouseSystem.Moved)
             {
                 this._missionCursorPlace = GetCursorPlace();
             }
+        }
+
+        private void DoDelete()
+        {
+            if (cursorPlace != 0)
+            {
+                currentString = string.Concat(currentString.AsSpan(0, cursorPlace - 1),
+                                cursorPlace <= currentString.Length ? currentString[cursorPlace..] : "");
+                cursorPlace--;
+                drawingString = currentString;
+                ResultChanged?.Invoke();
+            }
+            this._missionCursorPlace = cursorPlace;
         }
 
         private int GetCursorPlace()
@@ -149,11 +166,11 @@ namespace UndyneFight_Ex.Remake.UI
                 }
             }
             int pos = L;
-            if (pos > 0 && pos < currentString.Length)
+            if (pos > 0 && pos < drawingString.Length)
             {
                 float strX = collidingBox.Left + 5 * FontScale +
-                    (NormalFont.SFX.MeasureString(currentString[..(pos - 1)]).X +
-                    NormalFont.SFX.MeasureString(currentString[pos].ToString()).X * 0.5f) * FontScale;
+                    (NormalFont.SFX.MeasureString(drawingString[..(pos - 1)]).X +
+                    NormalFont.SFX.MeasureString(drawingString[pos].ToString()).X * 0.5f) * FontScale;
                 if (MouseSystem.TransferredPosition.X < strX - 3) pos -= 1;
             }
 
@@ -164,13 +181,15 @@ namespace UndyneFight_Ex.Remake.UI
         {
             //NormalFont.Draw(currentString, collidingBox.TopLeft + new Vector2(5 * FontScale, 2), Color.LightCoral, FontScale, this.Depth);
             float mouseX = MouseSystem.TransferredPosition.X;
-            float strX = collidingBox.Left + 5 * FontScale + NormalFont.SFX.MeasureString(currentString[..charLength]).X * FontScale;
+            float strX = collidingBox.Left + 5 * FontScale + NormalFont.SFX.MeasureString(drawingString[..charLength]).X * FontScale;
             return mouseX > strX;
         }
         public void SetString(string mission)
         {
-            cursorPlace = mission.Length;
+            _missionCursorPlace = cursorPlace = mission.Length;
             currentString = mission;
+            drawingString = mission;
+            this.ResultChanged?.Invoke();
         }
     }
 }
