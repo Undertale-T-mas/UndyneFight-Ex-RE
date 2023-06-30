@@ -24,6 +24,8 @@ namespace UndyneFight_Ex.Remake.UI
         public bool AlwaysActivate { get; protected set; }
         public bool MouseDisable { private get; set; } = true;
 
+        public bool KeyLocked { get; protected set; } = false;
+
         public virtual void ConfirmKeyDown()
         {
             if (this.State == SelectState.MouseOn || this.State == SelectState.False)
@@ -290,6 +292,7 @@ namespace UndyneFight_Ex.Remake.UI
             if (!this.Activated) return;
             if (this.ChildObjects.Count == 0) { return; }
 
+            if (this.CurrentSelected != null && this.CurrentSelected.KeyLocked) return;
             if (ZKeyConfirm)
             {
                 this.KeyEvent.Invoke();

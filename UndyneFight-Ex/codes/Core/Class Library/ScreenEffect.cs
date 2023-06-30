@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex.Fight
@@ -391,6 +392,13 @@ namespace UndyneFight_Ex.Fight
             {
                 get => ScreenExtending.Y;
                 set => ScreenExtending = new(ScreenExtending.X, value, ScreenExtending.Z, ScreenExtending.W);
+            }
+
+            public static Shaders.Filter ActivateShader(Shader shader, float depth = 0.5f)
+            {
+                Shaders.Filter textureFilter = new Shaders.Filter(shader, depth);
+                SceneRendering.InsertProduction(textureFilter);
+                return textureFilter;
             }
 
             public static class Shaders

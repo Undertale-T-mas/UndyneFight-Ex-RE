@@ -33,7 +33,7 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 ChildObjects.Clear();
                 ChildObjects.Add(new SmartInputer(allNames, this, new CollideRect(new Vector2(571, 66), new Vector2(330, 50))) { FontScale = 1.2f });
-                ChildObjects.Add(new TextInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(new PasswordInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
             }
             public override void Draw()
             {

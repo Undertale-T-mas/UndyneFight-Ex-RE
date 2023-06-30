@@ -72,6 +72,7 @@ namespace UndyneFight_Ex
                 defaultInput.Add(InputIdentity.Backspace, new() { Keys.Back });
                 defaultInput.Add(InputIdentity.Reset, new() { Keys.R });
                 defaultInput.Add(InputIdentity.Heal, new() { Keys.H });
+                defaultInput.Add(InputIdentity.Tab, new() { Keys.Tab });
             }
             private static List<KeyChecker> allCheckers = new();
             private static Dictionary<InputIdentity, List<Keys>> defaultInput = new();
