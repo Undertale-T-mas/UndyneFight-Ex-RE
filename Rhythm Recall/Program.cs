@@ -89,8 +89,8 @@ namespace Rhythm_Recall
             GameStartUp.PushChampionShip(MidAutumn2021.GetChampionShip);
             GameStartUp.PushChampionShip(NewYear2022.GetChampionShip);
             GameStartUp.PushChampionShip(SpringCelebration2022.GetChampionShip);
-            GameStartUp.PushChampionShip(Memory2022.GetChampionShip);
-            //GameStartUp.PushChampionShip(SpringCelebration2022.GetChampionShip);
+            GameStartUp.PushChampionShip(Memory2023.GetChampionShip);
+            GameStartUp.PushChampionShip(Summer_Camp_Ⅲ.GetChampionShip);
             SetAchievement();
             SetChallenge();
 #if !OSTPublish
