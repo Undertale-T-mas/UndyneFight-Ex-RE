@@ -24,7 +24,7 @@ namespace Rhythm_Recall.Waves
         public Dictionary<string, Difficulty> DifficultyPanel => dif;
         class Project : WaveConstructor,IWaveSet
         {
-            public Project() : base(62.5f / (226f / 60f)) { }
+            public Project() : base(62.5f / (148f / 60f)) { }
             public string Music => "Death By Glamour";
 
             public string FightName => "Death By Glamour";
