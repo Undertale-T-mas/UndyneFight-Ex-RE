@@ -249,10 +249,16 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 _currentFocus = module;
                 focusID = -1;
+                if(module is DifficultySelection)
+                {
+                    this.FocusDifficulty = (module as DifficultySelection).Difficulty;
+                }
             }
 
             SelectingModule _lastSelected;
             Difficulty _lastDifficulty = Difficulty.NotSelected;
+
+            public Difficulty FocusDifficulty { get; private set; } = Difficulty.NotSelected;
 
             public void Selected(SelectingModule module)
             {

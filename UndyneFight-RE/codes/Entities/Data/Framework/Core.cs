@@ -6,20 +6,26 @@ using UndyneFight_Ex.UserService;
 
 namespace UndyneFight_Ex.Remake.Data
 {
-    public abstract class Datum<T> : ISaveLoad
+    public abstract class Datum : ISaveLoad
     {
-        public Datum(string name){
+        protected string Name { get; private set; }
+        public Datum(string name)
+        {
             this.Name = name;
         }
-
-        public T Value { get; set; }
-        protected string Name { get; private set; }
 
         public virtual List<ISaveLoad> Children => null;
 
         public abstract void Load(SaveInfo info);
+        public abstract SaveInfo Save();
+    }
+    public abstract class Datum<T> : Datum
+    { 
+        public Datum(string name) : base(name)
+        {  }
+        public T Value { get; set; }
 
-        public virtual SaveInfo Save() 
+        public override SaveInfo Save() 
         {
             return new SaveInfo(Name + ":" + "value=" + Value.ToString());
         }
@@ -44,6 +50,16 @@ namespace UndyneFight_Ex.Remake.Data
         public override void Load(SaveInfo info)
         {
             this.Value = info.FloatValue;
+        } 
+    }    
+    public class DatumString : Datum<string>
+    {
+        public DatumString(string name) : base(name) {  
+        } 
+
+        public override void Load(SaveInfo info)
+        {
+            this.Value = info.StringValue;
         } 
     }
     public class DatumBool : Datum<bool>
@@ -100,6 +116,22 @@ namespace UndyneFight_Ex.Remake.Data
             }
             SaveInfo result = new(str);
             return result;
+        }
+    }
+
+    public abstract class DataBranch : Datum
+    {
+        public new List<ISaveLoad> Children { get; private set; } = new List<ISaveLoad>();
+
+        public DataBranch(string name) : base(name)
+        {
+        } 
+
+        public override SaveInfo Save()
+        {
+            SaveInfo info = new(Name + "{");
+            this.Children.ForEach(s => info.PushNext(s.Save()));
+            return info;
         }
     }
 }

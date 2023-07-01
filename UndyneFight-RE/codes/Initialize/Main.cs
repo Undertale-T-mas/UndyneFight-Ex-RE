@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System.Text;
 using System.Threading.Tasks;
 using UndyneFight_Ex.GameInterface;
+using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -22,12 +23,13 @@ namespace UndyneFight_Ex.Remake
             GameStates.CurrentWindow.ClientSizeChanged += WindowSizeChanged;
         }
         public static void MainInitialize()
-        {
-          //  GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SelectUI()); LateInitialize(); };
+        { 
+            FileData.Initialize();
+            //  GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SelectUI()); LateInitialize(); };
             GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.UserUI()); LateInitialize(); };
 
             UFEXSettings.Update += MouseSystem.Update;
-            GameStartUp.Initialize += Resources.Initialize;
+            GameStartUp.Initialize += Resources.Initialize; 
         }
 
         private static void WindowSizeChanged(object sender, EventArgs e)

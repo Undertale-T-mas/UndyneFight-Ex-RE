@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Security.Cryptography;
 using UndyneFight_Ex.Fight;
 using static System.Net.Mime.MediaTypeNames;
@@ -33,10 +34,8 @@ namespace UndyneFight_Ex.Remake.UI
         public Vector2 PositionDelta { get; protected set; } = Vector2.Zero;
 
         public float DefaultScale { private get; set; } = 1.4f;
-        protected float SelectedScale { private get; set; } = 1.1f; 
-
-        private bool _enabled = false;
-        public bool Enabled => _enabled;
+        protected float SelectedScale { private get; set; } = 1.1f;  
+        public bool Ticked => _ticked;
 
         public override void Draw()
         {
@@ -83,6 +82,11 @@ namespace UndyneFight_Ex.Remake.UI
         private void MouseOnEvent()
         {
             Functions.PlaySound(FightResources.Sounds.changeSelection);
+        }
+
+        internal void Tick()
+        {
+            this._ticked = !_ticked;
         }
     }
 }

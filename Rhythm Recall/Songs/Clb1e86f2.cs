@@ -17,10 +17,12 @@ namespace Rhythm_Recall.Waves
         public Clb1e86f2()
         {
             Game.game = new Game();
-            difficulties = new();
-            difficulties.Add("div2", Difficulty.Normal);
-            difficulties.Add("div1", Difficulty.Extreme);
-            difficulties.Add("div0", Difficulty.ExtremePlus);
+            difficulties = new()
+            {
+                { "div2", Difficulty.Normal },
+                { "div1", Difficulty.Extreme },
+                { "div0", Difficulty.ExtremePlus }
+            };
             //    this.difficulties.Add("Anomaly Test", Difficulty.ExtremePlus);
         }
 
@@ -444,9 +446,11 @@ namespace Rhythm_Recall.Waves
 
                 base.Start();
 
-                ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
+                Filter filter;
+                ScreenDrawing.SceneRendering.InsertProduction(filter = new Filter(Shaders.Blur, 0.99f));
                 Shaders.Blur.Factor = new(3, 0);
-                Shaders.Blur.Sigma = 3.0f;
+                Shaders.Blur.Sigma = 3.0f;  
+
                 RunEase((s) => {
                     ScreenDrawing.BackGroundColor = Color.BlueViolet * s;
                 }, EaseOut(BeatTime(6), 0.16f, EaseState.Linear));

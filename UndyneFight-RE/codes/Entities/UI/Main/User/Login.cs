@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using System.Xml;
 using System;
 using System.Linq;
+using UndyneFight_Ex.Remake.Data;
+using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -45,7 +47,16 @@ namespace UndyneFight_Ex.Remake.UI
                 string result = PlayerManager.TryLogin(_account.Result, _password.Result);
                 if (result == "Success!")
                 {
-                    
+                    FileData.GlobalData.Memory.AutoAuthentic.Value = _autoAuthentic.Ticked;
+                    if(_autoAuthentic.Ticked || _remember.Ticked)
+                    {
+                        FileData.GlobalData.Memory.RememberUser.Value = _account.Result;
+                    }
+                    FileData.SaveGlobal();
+                    this.Dispose();
+                    this.FatherObject?.FatherObject?.Dispose();
+                    PlayerManager.Login(_account.Result);
+                    GameStates.InstanceCreate(new SelectUI());
                 }
                 else
                 {
@@ -114,17 +125,46 @@ namespace UndyneFight_Ex.Remake.UI
             private string[] allNames;
             Button _confirm, _cancel;
             TextInputer _account, _password;
+            TickBox _remember, _autoAuthentic;
             private void SetChild()
             {
                 ChildObjects.Clear();
                 ChildObjects.Add(_account =  new SmartInputer(allNames, this, new CollideRect(new Vector2(571, 66), new Vector2(330, 50))) { FontScale = 1.2f });
                 ChildObjects.Add(_password =  new PasswordInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
-                ChildObjects.Add(new TickBox(this, new Vector2(543, 255),"Remember me") { DefaultScale = 1.1f });
-                ChildObjects.Add(new TickBox(this, new Vector2(800, 255),"Auto login") { DefaultScale = 1.1f });
+                ChildObjects.Add(_remember = new TickBox(this, new Vector2(543, 255),"Remember me") { DefaultScale = 1.1f });
+                ChildObjects.Add(_autoAuthentic = new TickBox(this, new Vector2(800, 255),"Auto login") { DefaultScale = 1.1f });
 
                 ChildObjects.Add(_confirm =  new Button(this, new Vector2(543, 315), "Confirm") { NeverEnable = true });
                 ChildObjects.Add(_cancel =  new Button(this, new Vector2(800, 315), "Cancel") { NeverEnable = true });
+
+                if (FileData.GlobalData.Memory.AutoAuthentic)
+                {
+                    //Auto authentic
+                    AutoAuthentic(FileData.GlobalData.Memory.RememberUser);
+                    GameStates.InstanceCreate(new InstantEvent(2, () => {
+                        this.FatherObject?.FatherObject?.Dispose();
+                    }));
+                    GameStates.InstanceCreate(new SelectUI());
+                }
+                else if(PlayerManager.CurrentUser != null)
+                {
+                    GameStates.InstanceCreate(new InstantEvent(2, () => {
+                        this.FatherObject?.FatherObject?.Dispose();
+                    }));
+                    GameStates.InstanceCreate(new SelectUI());
+                }
+                else if(FileData.GlobalData.Memory.RememberUser != "null")
+                {
+                    _account.SetString(FileData.GlobalData.Memory.RememberUser);
+                    _remember.Tick();
+                }
             }
+
+            private void AutoAuthentic(string rememberedUser)
+            {
+                PlayerManager.Login(_account.Result);
+            }
+
             public override void Draw()
             {
                 NormalFont.CentreDraw("Login", this.Centre, DrawingColor, 1.8f * _secondaryScale, 0.1f);
