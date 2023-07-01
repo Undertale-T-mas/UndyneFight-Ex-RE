@@ -38,7 +38,7 @@ namespace Rhythm_Recall.Waves
             {
                 public override string SongAuthor => "SK_kent";
                 public override string BarrageAuthor => "zKronO vs Tlottgodinf";
-                public override string AttributeAuthor => "ParaDOXXX feat. Woem";
+                public override string AttributeAuthor => "Woem feat. ParaDOXXX";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                 new KeyValuePair<Difficulty, float>[]
@@ -158,9 +158,45 @@ namespace Rhythm_Recall.Waves
                         EaseOut(BeatTime(72), -4f, EaseState.Sine)
                         );
                     });
-                    BarrageCreate(0, BeatTime(1), 7, new string[]
-                    {
-                        "FadeOut"
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {   //0
+                        "FadeOut","","","",    "","","","",    "","","","",    "","","","",
+                        //1
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //2
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //3
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //4
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //5
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //6
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //7
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //8
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //9
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        //注意每4个字符串为1beat
+                    });
+                }
+                if (InBeat(76))
+                {
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {   //10
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
                     });
                 }
             }
@@ -170,7 +206,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-                GametimeDelta = -1.5f;
+                GametimeDelta = -1.5f ;
                 SetSoul(1);
                 InstantSetBox(new Vector2(320,240), 84, 84);
                 InstantTP(320, 240);
