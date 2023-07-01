@@ -57,6 +57,16 @@ namespace UndyneFight_Ex
             else GameStates.CheatAffirmed();
             Save();
         }
+        public static string TryLogin(string name, string password)
+        {
+            if (playerInfos.ContainsKey(name))
+            {
+                if (playerInfos[name].CheckPassword(password))
+                    return "Success!";
+                else return "Wrong password!";
+            }
+            else return "No such user!";
+        }
 
         public static void Save()
         {

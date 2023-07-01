@@ -76,6 +76,12 @@ namespace UndyneFight_Ex.Remake.UI
                 ModeSelect = new ModeSelector();
                 SongSelect = new SongSelector();
                 DiffSelect = new DifficultyUI(this);
+
+                if(PlayerManager.CurrentUser != null)
+                {
+                    this.AddChild(new DataShow(PlayerManager.CurrentUser));
+                }
+
                 this.AddChild(ModeSelect);
                 this.AddChild(SongSelect);
                 this.AddChild(DiffSelect);

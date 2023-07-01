@@ -212,5 +212,13 @@ namespace UndyneFight_Ex.UserService
         {
             return _songManager.Require(curFight);
         }
+        public bool CheckPassword(string password)
+        {
+            if(this._password == MathUtil.StringHash(password))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

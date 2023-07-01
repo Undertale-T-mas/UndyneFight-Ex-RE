@@ -38,6 +38,7 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Update()
         {
             base.Update();
+            if (!this.ModuleSelected) return;
             if (IsKeyPressed120f(InputIdentity.Tab))
             {
                 if (_inProtected) this.drawingString = Result;

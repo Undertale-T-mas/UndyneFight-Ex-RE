@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:ReEngine/Mouse/cursor.png
 
+#begin ReEngine/Musics/Dream diver_INTRO.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:ReEngine/Musics/Dream diver_INTRO.mp3
+
+#begin ReEngine/Musics/Dream diver_LOOP.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:ReEngine/Musics/Dream diver_LOOP.mp3
+
 #begin ReEngine/UI/start.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -48,4 +60,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ReEngine/UI/startFore.png
+
+#begin ReEngine/UI/tick.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/UI/tick.png
 

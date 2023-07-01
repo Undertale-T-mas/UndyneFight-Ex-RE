@@ -61,6 +61,8 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 this._enabled = _father.ModuleSelected;
                 this._secondaryEnabled = false;
+
+                if(_father._tips == null ||  _father._tips.Length == 0) { this._enabled = this._secondaryEnabled = false; return; }
                 if (_enabled)
                 {
                     if (string.IsNullOrEmpty(this._father.Result)) this._enabled = false; 

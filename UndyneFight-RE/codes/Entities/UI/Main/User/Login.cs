@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using System.Xml;
 using System;
 using System.Linq;
+using UndyneFight_Ex.Remake.Data;
+using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -21,6 +23,45 @@ namespace UndyneFight_Ex.Remake.UI
                 this.collidingBox.Size = new Vector2(135, 75);
                 this.SetChild();
                 this.OneSelectionOnly = true;
+
+                this.KeyEvent = LoginKeyChange;
+
+                this.OnSelected += Selected;
+            }
+
+            private void Selected()
+            {
+                SelectingModule selected = CurrentSelected;
+                if(selected == _confirm)
+                {
+                    DoConfirm();
+                }
+                else if(selected == _cancel)
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            private void DoConfirm()
+            {
+                string result = PlayerManager.TryLogin(_account.Result, _password.Result);
+                if (result == "Success!")
+                {
+                    FileData.GlobalData.Memory.AutoAuthentic.Value = _autoAuthentic.Ticked;
+                    if(_autoAuthentic.Ticked || _remember.Ticked)
+                    {
+                        FileData.GlobalData.Memory.RememberUser.Value = _account.Result;
+                    }
+                    FileData.SaveGlobal();
+                    this.Dispose();
+                    this.FatherObject?.FatherObject?.Dispose();
+                    PlayerManager.Login(_account.Result);
+                    GameStates.InstanceCreate(new SelectUI());
+                }
+                else
+                {
+                    GameStates.InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red});
+                }
             }
 
             private void NameInitialize()
@@ -28,13 +69,102 @@ namespace UndyneFight_Ex.Remake.UI
                 allNames = PlayerManager.playerInfos.Keys.ToArray();
             }
 
+            // 0
+            // 1
+            //2 3
+            //4 5
+            int[] _downNext = { 1, 2, 4, 5, 4, 5};
+            int[] _upNext = { 0, 0, 1, 1, 2, 3};
+            private void LoginKeyChange()
+            {
+                if (GameStates.IsKeyPressed120f(InputIdentity.MainRight) && currentFocus is not TextInputer)
+                {
+                    int id = FocusID;
+                    for (int i = id + 1; i < all.Length; i++)
+                    {
+                        if (all[i].ModuleEnabled)
+                        {
+                            currentFocus.OffFocus();
+                            all[i].OnFocus();
+                            break;
+                        }
+                    }
+                }
+                else if (GameStates.IsKeyPressed120f(InputIdentity.MainLeft) && currentFocus is not TextInputer)
+                {
+                    int id = FocusID;
+                    for (int i = id - 1; i >= 0; i--)
+                    {
+                        if (all[i].ModuleEnabled)
+                        {
+                            currentFocus.OffFocus();
+                            all[i].OnFocus();
+                            break;
+                        }
+                    }
+                }
+
+                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                {
+                    int id = _downNext[FocusID];
+                    currentFocus.OffFocus();
+                    all[id].OnFocus();
+                }
+                if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                {
+                    int id = _upNext[FocusID];
+                    currentFocus.OffFocus();
+                    all[id].OnFocus();
+                }
+                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                {
+                    currentFocus?.ConfirmKeyDown();
+                }
+            }
+
             private string[] allNames;
+            Button _confirm, _cancel;
+            TextInputer _account, _password;
+            TickBox _remember, _autoAuthentic;
             private void SetChild()
             {
                 ChildObjects.Clear();
-                ChildObjects.Add(new SmartInputer(allNames, this, new CollideRect(new Vector2(571, 66), new Vector2(330, 50))) { FontScale = 1.2f });
-                ChildObjects.Add(new PasswordInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(_account =  new SmartInputer(allNames, this, new CollideRect(new Vector2(571, 66), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(_password =  new PasswordInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(_remember = new TickBox(this, new Vector2(543, 255),"Remember me") { DefaultScale = 1.1f });
+                ChildObjects.Add(_autoAuthentic = new TickBox(this, new Vector2(800, 255),"Auto login") { DefaultScale = 1.1f });
+
+                ChildObjects.Add(_confirm =  new Button(this, new Vector2(543, 315), "Confirm") { NeverEnable = true });
+                ChildObjects.Add(_cancel =  new Button(this, new Vector2(800, 315), "Cancel") { NeverEnable = true });
+
+                if (FileData.GlobalData.Memory.AutoAuthentic)
+                {
+                    //Auto authentic
+                    AutoAuthentic(FileData.GlobalData.Memory.RememberUser);
+                    GameStates.InstanceCreate(new InstantEvent(2, () => {
+                        this.FatherObject?.FatherObject?.Dispose();
+                    }));
+                    GameStates.InstanceCreate(new SelectUI());
+                }
+                else if(PlayerManager.CurrentUser != null)
+                {
+                    GameStates.InstanceCreate(new InstantEvent(2, () => {
+                        this.FatherObject?.FatherObject?.Dispose();
+                    }));
+                    GameStates.InstanceCreate(new SelectUI());
+                }
+                else if(FileData.GlobalData.Memory.RememberUser != "null")
+                {
+                    _account.SetString(FileData.GlobalData.Memory.RememberUser);
+                    _remember.Tick();
+                }
             }
+
+            private void AutoAuthentic(string rememberedUser)
+            {
+                PlayerManager.Login(_account.Result);
+            }
+
             public override void Draw()
             {
                 NormalFont.CentreDraw("Login", this.Centre, DrawingColor, 1.8f * _secondaryScale, 0.1f);
