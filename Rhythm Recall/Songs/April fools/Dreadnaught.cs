@@ -61,7 +61,7 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "zKronO vs Tlottgodinf";
                 public override string AttributeAuthor => "Tlottgodinf x zKronO";
                 public override string PaintAuthor => "Sour";
-                public override string SongAuthor => "SKJD-X";
+                public override string SongAuthor => "SK_kent";
             }
             public SongImformation Attributes => new ThisImformation();
             private bool notRegistered = true;

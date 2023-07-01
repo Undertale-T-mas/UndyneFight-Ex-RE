@@ -36,9 +36,9 @@ namespace Rhythm_Recall.Waves
             public SongImformation Attributes => new Information();
             class Information : SongImformation
             {
-                public override string SongAuthor => "Unknown";
-                public override string BarrageAuthor => "Unknown";
-                public override string AttributeAuthor => "Unknown";
+                public override string SongAuthor => "SK_kent";
+                public override string BarrageAuthor => "zKronO vs Tlottgodinf";
+                public override string AttributeAuthor => "Woem feat. ParaDOXXX";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                 new KeyValuePair<Difficulty, float>[]
@@ -85,9 +85,9 @@ namespace Rhythm_Recall.Waves
             private class Winder : Entity
             {
                 public float Intensity { set; get; } = 10;
-                public float Speed { set; get; } = 40f;
+                public float Speed { set; get; } = 11f;
                 public float Length { set; get; } = 300f;
-                public float BasicSpeed { set; get; } = 1f;
+
 
                 public Winder()
                 {
@@ -103,9 +103,7 @@ namespace Rhythm_Recall.Waves
                 public override void Update()
                 {
                     timer++;
-                    if (timer % Intensity < 1) CreateEntity(new Wind(Speed,Length));
-                    Speed = 40f* BasicSpeed;
-                    Length = 300f*BasicSpeed;
+                    if (timer % Intensity == 0) CreateEntity(new Wind(Speed,Length));
                 }
                 class Wind : Entity
                 {
@@ -135,13 +133,13 @@ namespace Rhythm_Recall.Waves
                     }
                 }
             }
-            Winder r = new();
             public void ExtremePlus()
             {
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
                 if (InBeat(0))
                 {
-                    
+                    Winder r = new();
+                    CreateEntity(r);
                     
                     RegisterFunction("FadeOut", () =>
                     {
@@ -149,8 +147,8 @@ namespace Rhythm_Recall.Waves
                         {
                             ScreenDrawing.MasterAlpha = s;
                         },
-                        Stable(BeatTime(4),0),
-                        EaseIn(BeatTime(78), 1, EaseState.Sine)
+                        Stable(BeatTime(8),0),
+                        EaseIn(BeatTime(24), 1, EaseState.Sine)
                         );
                         RunEase((q) =>
                         {
@@ -159,16 +157,46 @@ namespace Rhythm_Recall.Waves
                         Stable(BeatTime(8),5f),
                         EaseOut(BeatTime(72), -4f, EaseState.Sine)
                         );
-                        RunEase((f) =>
-                        {
-                            r.BasicSpeed = f;
-                        },
-                        Stable(BeatTime(4), 0.1f),
-                        EaseIn(BeatTime(78), 0.9f, EaseState.Quad));
                     });
-                    BarrageCreate(0, BeatTime(1), 7, new string[]
-                    {
-                        "FadeOut"
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {   //0
+                        "FadeOut","","","",    "","","","",    "","","","",    "","","","",
+                        //1
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //2
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //3
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //4
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //5
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //6
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //7
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //8
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "","","","",    "","","","",    "","","","",    "","","","",
+                        //9
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        //注意每4个字符串为1beat
+                    });
+                }
+                if (InBeat(76))
+                {
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {   //10
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
                     });
                 }
             }
@@ -178,8 +206,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-                CreateEntity(r);
-                GametimeDelta = -1.5f;
+                GametimeDelta = -1.5f ;
                 SetSoul(1);
                 InstantSetBox(new Vector2(320,240), 84, 84);
                 InstantTP(320, 240);

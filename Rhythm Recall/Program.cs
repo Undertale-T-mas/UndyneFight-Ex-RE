@@ -116,6 +116,7 @@ namespace Rhythm_Recall
             test.Push(typeof(AprilExtends.Rrharil));
             test.Push(typeof(MEGALOVANIA));
             test.Push(typeof(RIP));
+            test.Push(typeof(BrokenAltair));
 
 #if DEBUG
             GameStartUp.PushSongset(test);
@@ -128,7 +129,6 @@ namespace Rhythm_Recall
                 //typeof(AprilExtends.Seraphim),
                 //typeof(Clb1e86f2),
                 //typeof(BrainPower),
-                //typeof(BrokenAltair), 
                 //typeof(Weekender), 
                 typeof(DreadNaught),
                 //typeof(TheFuneral),
