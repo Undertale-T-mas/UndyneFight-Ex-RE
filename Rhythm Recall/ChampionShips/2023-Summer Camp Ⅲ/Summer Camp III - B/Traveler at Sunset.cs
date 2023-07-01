@@ -35,9 +35,9 @@ namespace Rhythm_Recall.Waves
             public SongImformation Attributes => new Information();
             class Information : SongImformation
             {
-                public override string SongAuthor => "Unknown";
-                public override string BarrageAuthor => "Unknown";
-                public override string AttributeAuthor => "Unknown";
+                public override string SongAuthor => "SK_kent";
+                public override string BarrageAuthor => "zKronO vs Tlottgodinf";
+                public override string AttributeAuthor => "ParaDOXXX feat. Woem";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                 new KeyValuePair<Difficulty, float>[]
