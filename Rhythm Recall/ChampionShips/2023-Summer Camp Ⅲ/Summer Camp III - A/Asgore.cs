@@ -24,7 +24,7 @@ namespace Rhythm_Recall.Waves
         public Dictionary<string, Difficulty> DifficultyPanel => dif;
         class Project : WaveConstructor,IWaveSet
         {
-            public Project() : base(62.5f / (114.85f / 60f)) { }
+            public Project() : base(62.5f / (114.85f/ 60f)) { }
             public string Music => "Asgore";
 
             public string FightName => "Asgore";
@@ -32,8 +32,8 @@ namespace Rhythm_Recall.Waves
             public SongImformation Attributes => new Information();
             class Information : SongImformation
             {
-                public override string SongAuthor => "Unknown";
-                public override string BarrageAuthor => "Unknown";
+                public override string SongAuthor => "Toby Fox";
+                public override string BarrageAuthor => "Tlottgodinf";
                 public override string AttributeAuthor => "Unknown";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
@@ -80,7 +80,60 @@ namespace Rhythm_Recall.Waves
             #endregion
             public void Hard()
             {
+                if (InBeat(0))
+                {
+                    RegisterFunctionOnce("MoveBox", () =>
+                    {
+                    RunEase((s) => { InstantSetBox(240, s.X, s.Y); },
+                            Stable(0, new Vector2(84, 84)),
+                            EaseOut(BeatTime(1f),new Vector2(0,50),EaseState.Quart),
+                            EaseOut(BeatTime(1f),new Vector2(50,80),EaseState.Quart),
+                            EaseOut(BeatTime(1f),new Vector2(50,120),EaseState.Quart)
+                            );
+                    });
+                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    {
+                        "MoveBox(R)","","","",   "","","","",
+                        "R","","","",   "","","","",
+                        "R","","","",   "","","","",
+                        "","","","",   "R","","","",
 
+                        "R","","","",   "","","R","",
+                        "","","","",   "R","","","",
+                        "R","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "(R)","","","",   "","","","",
+                        "R","","","",   "","","","",
+                        "R","","","",   "","","","",
+                        "","","","",   "R","","","",
+
+                        "R","","","",   "","","R","",
+                        "","","","",   "R","","","",
+                        "R","","","",   "","","","",
+                        "","","","",   "","","","",
+                        //
+                        "(R)","","","",   "","","","",
+                        "R","","","",   "","","","",
+                        "R","","","",   "","","","",
+                        "","","","",   "R","","","",
+
+                        "R","","","",   "","","R","",
+                        "","","","",   "R","","","",
+                        "R","","","",   "","","","",
+                        "","","","",   "R","","","",
+
+                        "R","","","",   "","","R","",
+                        "","","","",   "R","","","",
+                        "R","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "R","","R","",
+                        "R","","","",   "","","","",
+                        "","","","",   "","","","",
+                    });
+                }
             }
             public void Noob()
             {
@@ -88,7 +141,10 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-
+                GametimeDelta = -2.125f;
+                InstantSetBox(240, 84, 84);
+                SetSoul(0);
+                InstantTP(320,240);
             }
         }
     }

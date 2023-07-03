@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
@@ -35,9 +36,9 @@ namespace Rhythm_Recall.Waves
             public SongImformation Attributes => new Information();
             class Information : SongImformation
             {
-                public override string SongAuthor => "Unknown";
-                public override string BarrageAuthor => "Unknown";
-                public override string AttributeAuthor => "Unknown";
+                public override string SongAuthor => "SK_kent";
+                public override string BarrageAuthor => "zKronO vs Tlottgodinf";
+                public override string AttributeAuthor => "Woem feat. ParaDOXXX";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                 new KeyValuePair<Difficulty, float>[]
@@ -81,99 +82,66 @@ namespace Rhythm_Recall.Waves
                 throw new NotImplementedException();
             }
             #endregion
-            private class Rainer : Entity
+            private class Winder : Entity
             {
-                public float Intensity { set; private get; } = 0;
-                public float Speed { set; private get; } = 3f;
+                public float Intensity { set; get; } = 10;
+                public float Speed { set; get; } = 40f;
+                public float Length { set; get; } = 300f;
+                public float BasicSpeed { set; get; } = 1f;
 
-                public Rainer()
+                public Winder()
                 {
-                    Rotation = 10f;
                     UpdateIn120 = true;
                 }
-
-                private class WindParticle : Entity
-                {
-                    private readonly float randVal = 0;
-                    private readonly Rainer rainer;
-                    private readonly float alpha = 0;
-                    private readonly float speed = 0;
-
-                    public WindParticle(Rainer rainer)
-                    {
-                        UpdateIn120 = true;
-                        speed = Rand(0f, 1f) + rainer.Speed;
-                        Rotation = 0;
-                        alpha = Rand(0.3f, 0.5f);
-                        this.rainer = rainer;
-                        Centre = new(320, Rand(-240,240));
-                        randVal = Rand(0f, 1f);
-                    }
-
-                    public override void Draw()
-                    {
-                        if (rainer.Intensity <= randVal) return;
-                    }
-
-                    public override void Update()
-                    {
-                        Vector2 del = GetVector2(speed / 1.5f, rainer.Rotation + Rotation);
-                        Centre += del;
-                        if (Centre.X < -499) Dispose();
-                    }
-                }
-                private class RainDrop : Entity
-                {
-                    private readonly float length;
-                    private readonly float randVal = 0;
-                    private readonly Rainer rainer;
-                    private readonly float alpha = 0;
-                    private readonly float speed = 0;
-
-                    public RainDrop(Rainer rainer)
-                    {
-                        controlLayer = rainer.controlLayer;
-                        UpdateIn120 = true;
-                        speed = Rand(0f, 1f) + rainer.Speed;
-                        Rotation = 0;
-                        alpha = Rand(0.3f, 0.5f);
-                        this.rainer = rainer;
-                        Centre = new(320, Rand(-240, 240));
-                        length = Rand(6, 11) + rainer.Speed * 1f;
-                        randVal = Rand(0f, 1f);
-                    }
-
-                    public override void Draw()
-                    {
-                        if (rainer.Intensity <= randVal) return;
-                        Vector2 del = GetVector2(length / 2, rainer.Rotation + Rotation + 80);
-                        DrawingLab.DrawLine(Centre + del, Centre - del, 2, Color.LightBlue * alpha, 0.99f);
-                    }
-
-                    public override void Update()
-                    {
-                        Vector2 del = GetVector2(speed / 1.5f, rainer.Rotation + Rotation);
-                        Centre += del;
-                        if (Centre.X < -499) Dispose();
-                    }
-                }
-
+                public float timer = 0;
                 public override void Draw()
                 {
+                    
+                    
                 }
 
                 public override void Update()
                 {
-                    var drop = new RainDrop(this);
-                    AddChild(drop);
+                    timer++;
+                    if (timer % Intensity < 1) CreateEntity(new Wind(Speed,Length));
+                    Speed = 40f* BasicSpeed;
+                    Length = 300f*BasicSpeed;
+                }
+                class Wind : Entity
+                {
+                    float Speed;
+                    float Width = 1.5f;
+                    Vector2 point1;
+                    Vector2 point2;
+                    public Wind(float Speed, float length)
+                    {
+                        this.Speed = Speed;
+                        point1 = new(660, Rand(10, 470));
+                        point2 = new(660 + length, LastRand);
+                    }
+                    float timer = 0;
+                    public float Colordepth = Rand(0.300f, 0.500f);
+                    public override void Draw()
+                    {
+                        DrawingLab.DrawLine(point1,point2,Width,Color.White*Colordepth,0.1f);
+                    }
+
+                    public override void Update()
+                    {
+                        timer++;
+                        point1 += new Vector2(-Speed, 0);
+                        point2 += new Vector2(-Speed, 0);
+                        if (timer >= 900 / Speed + 30) this.Dispose();
+                    }
                 }
             }
+            Winder r = new();
             public void ExtremePlus()
             {
-                if(InBeat(0))
+                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
+                if (InBeat(0))
                 {
-                    Rainer r = new();
-                    CreateEntity(r);
+                    
                     
                     RegisterFunction("FadeOut", () =>
                     {
@@ -181,8 +149,8 @@ namespace Rhythm_Recall.Waves
                         {
                             ScreenDrawing.MasterAlpha = s;
                         },
-                        Stable(BeatTime(8),0),
-                        EaseIn(BeatTime(24), 1, EaseState.Sine)
+                        Stable(BeatTime(4),0),
+                        EaseIn(BeatTime(78), 1, EaseState.Sine)
                         );
                         RunEase((q) =>
                         {
@@ -191,10 +159,71 @@ namespace Rhythm_Recall.Waves
                         Stable(BeatTime(8),5f),
                         EaseOut(BeatTime(72), -4f, EaseState.Sine)
                         );
+                        RunEase((f) =>
+                        {
+                            r.BasicSpeed = f;
+                        },
+                        Stable(BeatTime(4), 0.1f),
+                        EaseIn(BeatTime(78), 0.9f, EaseState.Quad));
                     });
-                    BarrageCreate(0, BeatTime(1), 7, new string[]
-                    {
-                        "FadeOut"
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {   //0
+                        "FadeOut","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //1
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //2
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //3
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //4
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //5
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //6
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //7
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //8
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //9
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //注意每4个字符串为1beat
+                    });
+                }
+                if (InBeat(76))
+                {
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {   //10
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
                     });
                 }
             }
@@ -204,11 +233,11 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-                ScreenDrawing.ScreenPositionDetla = new(320, 240);
+                CreateEntity(r);
                 GametimeDelta = -1.5f;
-                SetSoul(0);
-                InstantSetBox(new Vector2(0,0), 84, 84);
-                InstantTP(0, 0);
+                SetSoul(1);
+                InstantSetBox(new Vector2(320,240), 84, 84);
+                InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
             }
