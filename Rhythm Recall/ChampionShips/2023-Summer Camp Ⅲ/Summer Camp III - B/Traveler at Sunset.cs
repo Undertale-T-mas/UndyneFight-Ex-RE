@@ -62,6 +62,8 @@ namespace Rhythm_Recall.Waves
                     }
                     );
             }
+            ScreenDrawing.Shaders.Blur Blur;
+            RenderProduction production;
             #region disused
             public void Noob()
             {
@@ -141,8 +143,6 @@ namespace Rhythm_Recall.Waves
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
                 if (InBeat(0))
                 {
-                    
-                    
                     RegisterFunction("FadeOut", () =>
                     {
                         RunEase((s) =>
@@ -166,6 +166,24 @@ namespace Rhythm_Recall.Waves
                         Stable(BeatTime(4), 0.1f),
                         EaseIn(BeatTime(78), 0.9f, EaseState.Quad));
                     });
+                    RegisterFunction("GaussBlur", () =>
+                    {
+                        RunEase((s) =>
+                        {
+                            Blur.Sigma = s;
+                        }, Stable(BeatTime(0), 2.2f),
+                        EaseOut(BeatTime(16), -2.2f, EaseState.Quad));
+                    });
+                    /*RegisterFunction("Load", () =>
+                    {
+                        CEaseBuilder CEB = new CEaseBuilder();
+                        CEB.Insert(EaseIn(BeatTime(8), new Vector2(0, 0), new Vector2(320, 240), EaseState.Linear));
+                        CEaseBuilder CEB1 = new CEaseBuilder();
+                        CEB1.Insert(EaseIn(BeatTime(8), new Vector2(640, 480), new Vector2(320, 240), EaseState.Linear));
+                        VEaseBuilder CEB2 = new VEaseBuilder();
+                        CEB2.Insert(Stable(BeatTime(8), 0));
+                        Line a = new(CEB.GetResult(), CEB2.GetResult()) { Alpha = 0.7f };
+                    });*/
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
@@ -176,42 +194,42 @@ namespace Rhythm_Recall.Waves
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //2
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //3
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //4
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //5
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //6
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //7
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //8
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //9
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
@@ -233,6 +251,10 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
+                production = Blur = new ScreenDrawing.Shaders.Blur(0.505f);
+                ScreenDrawing.SceneRendering.InsertProduction(production);
+                Blur.Sigma = 0f;
+
                 CreateEntity(r);
                 GametimeDelta = -1.5f;
                 SetSoul(1);
