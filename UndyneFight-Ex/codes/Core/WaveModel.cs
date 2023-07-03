@@ -63,10 +63,10 @@ namespace UndyneFight_Ex.SongSystem
     /// <summary>  
     ///Impeccable    -> All Perfect <br></br>
     ///Eminent       -> No Hit + 99% score<br></br>
-    ///Excellent     -> No Hit + 90% socre<br></br>
-    ///Respectable   -> 80% score<br></br>
-    ///Acceptable    -> 70% score<br></br>
-    ///Ordinary      -> 60% score<br></br>
+    ///Excellent     -> No Hit + 98% socre<br></br>
+    ///Respectable   -> 96% score<br></br>
+    ///Acceptable    -> 92% score<br></br>
+    ///Ordinary      -> 75% score<br></br>
     /// </summary>
     public enum SkillMark
     {

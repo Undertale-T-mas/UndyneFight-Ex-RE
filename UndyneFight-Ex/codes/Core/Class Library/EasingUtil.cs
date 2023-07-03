@@ -25,7 +25,8 @@ namespace UndyneFight_Ex.Entities
                 {
                     easingObject.AppearTime += 0.5f;
                     func.Invoke(ease.Easing.Invoke(easingObject));
-                }));
+                })
+                { UpdateIn120 = true });
                 easingObject.AppearTime += 0.5f;
                 func.Invoke(ease.Easing.Invoke(easingObject));
             }
@@ -47,7 +48,8 @@ namespace UndyneFight_Ex.Entities
                 {
                     easingObject.AppearTime += 0.5f;
                     func.Invoke(ease.Easing.Invoke(easingObject));
-                }));
+                })
+                { UpdateIn120 = true });
                 easingObject.AppearTime += 0.5f;
                 func.Invoke(ease.Easing.Invoke(easingObject));
             }

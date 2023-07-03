@@ -141,7 +141,7 @@ namespace UndyneFight_Ex.Remake.UI
                                 break;
                             }
                         }
-                        if (flag) this._secondaryTip += origin[result.Length..];
+                        if (flag) this._secondaryTip += "/" + origin[result.Length..];
                     }
                 }
                 if (GameStates.IsKeyPressed120f(InputIdentity.Tab))
