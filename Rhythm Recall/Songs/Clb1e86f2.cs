@@ -430,12 +430,24 @@ namespace Rhythm_Recall.Waves
                         "$0@X,A(Rotate)", "(YShakeC)$2@X,A", "$0@X,A", "(YShakeD)$2@X,A",       "$0@X,A(WAVE)", "(YShakeC)$2@X,A", "$0@X,A", "$2@X,A",
                     });
                 }
+                public static void Area02()
+                {
+                    game.RegisterFunctionOnce("ColorChange", () => {
+                        ScreenDrawing.BoundColor = Color.Aqua;
+                    });
+                    BarrageCreate(BeatTime(2), BeatTime(2), 6.5f, new string[] {
+                        "", "", "", "",       "", "", "", "(ColorChange)",
+
+                        "R1", "", "", "",       "", "", "", "",
+                    });
+                }
             }
             public void Extreme()
             {
                 if (InBeat(4f)) EXBarrage.Intro0();
                 if (InBeat(4f + 32f)) EXBarrage.Intro1();
                 if (InBeat(4f + 64f)) EXBarrage.Area01();
+                if (InBeat(4f + 96f)) EXBarrage.Area02();
             }
 
             public override void Start()
