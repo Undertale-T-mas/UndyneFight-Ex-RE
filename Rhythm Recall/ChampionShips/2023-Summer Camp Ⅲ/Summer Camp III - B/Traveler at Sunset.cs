@@ -174,16 +174,6 @@ namespace Rhythm_Recall.Waves
                         }, Stable(BeatTime(0), 2.2f),
                         EaseOut(BeatTime(16), -2.2f, EaseState.Quad));
                     });
-                    /*RegisterFunction("Load", () =>
-                    {
-                        CEaseBuilder CEB = new CEaseBuilder();
-                        CEB.Insert(EaseIn(BeatTime(8), new Vector2(0, 0), new Vector2(320, 240), EaseState.Linear));
-                        CEaseBuilder CEB1 = new CEaseBuilder();
-                        CEB1.Insert(EaseIn(BeatTime(8), new Vector2(640, 480), new Vector2(320, 240), EaseState.Linear));
-                        VEaseBuilder CEB2 = new VEaseBuilder();
-                        CEB2.Insert(Stable(BeatTime(8), 0));
-                        Line a = new(CEB.GetResult(), CEB2.GetResult()) { Alpha = 0.7f };
-                    });*/
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
@@ -238,11 +228,121 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(72))
                 {
+                    RegisterFunction("LoadA", () =>
+                    {
+                        Line a = new(EaseOut(BeatTime(2), new Vector2(0, 0), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), -40).Easing) { Alpha = 0.7f };
+                        Line b = new(EaseOut(BeatTime(2), new Vector2(640, 480), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), -40).Easing) { Alpha = 0.7f };
+                        Line[]line = { a, b };
+                        foreach(Line l in line)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 6; i++)
+                            {
+                                l.InsertRetention(new(i * 3, 0.7f - i * 0.07f));
+                            }
+                            DelayBeat(4f, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunction("LoadB", () =>
+                    {
+                        Line a = new(EaseOut(BeatTime(2), new Vector2(640, 0), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), 40).Easing) { Alpha = 0.7f };
+                        Line b = new(EaseOut(BeatTime(2), new Vector2(0, 480), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), 40).Easing) { Alpha = 0.7f };
+                        Line[] line = { a, b };
+                        foreach (Line l in line)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 6; i++)
+                            {
+                                l.InsertRetention(new(i * 3, 0.7f - i * 0.07f));
+                            }
+                            DelayBeat(4f, () => { l.Dispose(); });
+                        }
+                        DelayBeat(2, () =>
+                        {
+                            float k = -20f;
+                            AddInstance(new TimeRangedEvent(20f, () =>
+                            {
+                                Line c = new(new Vector2(320 + (-20 + k) * (-20 + k) * 0.0625f - 100, 240), 130) { Alpha = 0.75f };
+                                Line d = new(new Vector2(320 - (-20 + k) * (-20 + k) * 0.0625f + 100, 240), 130) { Alpha = 0.75f };
+                                CreateEntity(c);
+                                CreateEntity(d);
+                                AddInstance(new TimeRangedEvent(10, () =>
+                                {
+                                    c.Alpha -= 0.075f;
+                                    d.Alpha -= 0.075f;
+                                }));
+                                k--;
+                                DelayBeat(2, () => { c.Dispose(); d.Dispose(); });
+                            }));
+                        });//你要不要看看你写了个什么史
+                    });
+                    RegisterFunction("KickA", () =>
+                    {
+                        Line a=new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 0), new Vector2(120, 90), EaseState.Quart),
+                            Stable(BeatTime(0.2f),new Vector2(320,240))).Easing, 
+                            Stable(BeatTime(1), -37.5f).Easing)
+                        { Alpha = 0.75f };
+                        Line b = new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 480), new Vector2(120, 480 - 90), EaseState.Quart),
+                            Stable(BeatTime(0.2f), new Vector2(160, 120))).Easing,
+                            Stable(BeatTime(1), 37.5f).Easing)
+                        { Alpha = 0.75f };
+                        Line[] lines = { a, b };
+                        foreach (Line l in lines)
+                        {
+                            CreateEntity(l);
+                            l.TransverseMirror = true;
+                            for (int i = 0; i < 5; i++)
+                            {
+                                l.InsertRetention(new(i * 3, 0.75f - i * 0.05f));
+                            }
+                            DelayBeat(0, () => { l.AlphaDecrease(BeatTime(1), 0.75f); });
+                            DelayBeat(1, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunction("KickB1", () => { });
+                    RegisterFunction("KickB2", () => { });
+                    RegisterFunction("KickB3", () => { });
+                    RegisterFunction("KickB4", () => { });
+                    /*RegisterFunction("KickB4", () => { });
+                    RegisterFunction("KickB4", () => { });
+                    RegisterFunction("KickB4", () => { });
+                    RegisterFunction("KickB4", () => { });*/
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //10
-                        "R","+1","+1","+1",    "+1","+1","+1","+1",
-                        "+11","+11","+11","+11",   "+11","+11","+11","+11",
-                        "(*$0'2)(*$2'2)","","","",    "","","","",
+                        "R(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
+                        "+11(LoadB)","+11","+11","+11",   "+11","+11","+11","+11",
+                        //11
+                        "(*$0'2)(*$2'2)(KickA)","","","",    "","","","",
+                        "(D)(+01)","","","",    "","","","",
+                        "(D)(+01)","","","",    "","","","",
+                        "R","","","",    "R","","","",
+                        //12
+                        "R","","","",    "","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        //13
+                        "R","","","",    "","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        //14
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "","","","",
+                        //15
+                        "(KickA)()","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //16
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //17
+                        "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
