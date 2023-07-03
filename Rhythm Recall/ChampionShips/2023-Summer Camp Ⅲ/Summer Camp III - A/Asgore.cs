@@ -84,12 +84,11 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("MoveBox", () =>
                     {
-                    RunEase((s) => { InstantSetBox(240, s.X, s.Y); },
-                            Stable(0, new Vector2(84, 84)),
-                            EaseOut(BeatTime(1f),new Vector2(0,50),EaseState.Quart),
-                            EaseOut(BeatTime(1f),new Vector2(50,80),EaseState.Quart),
-                            EaseOut(BeatTime(1f),new Vector2(50,120),EaseState.Quart)
-                            );
+                        RunEase((s) => { InstantSetBox(240, s.X, s.Y); },
+                                EaseOut(BeatTime(1f), new Vector2(84, 84), new Vector2(84, 134), EaseState.Quart),
+                                EaseOut(BeatTime(1f), new Vector2(50, 80), EaseState.Quart),
+                                EaseOut(BeatTime(1f), new Vector2(50, 120), EaseState.Quart)
+                                );
                     });
                     BarrageCreate(0, BeatTime(1), 6, new string[]
                     {

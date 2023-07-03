@@ -16,6 +16,11 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 DrawingLab.DrawLine(start, end, size, color, 0.5f);
             }
+            public override void Start()
+            {
+                this._virtualFather = FatherObject as VirtualFather;
+                base.Start();
+            }
             public LoginUI()
             {
                 //L = 65, R = 325
@@ -27,8 +32,9 @@ namespace UndyneFight_Ex.Remake.UI
                 this.KeyEvent = LoginKeyChange;
 
                 this.OnSelected += Selected;
+                this.OnActivated += () => _virtualFather?.Select(this);
             }
-
+            private VirtualFather _virtualFather;
             private void Selected()
             {
                 SelectingModule selected = CurrentSelected;
@@ -169,6 +175,7 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 NormalFont.CentreDraw("Login", this.Centre, DrawingColor, 1.8f * _secondaryScale, 0.1f);
 
+                if (!Activated) return;
                 NormalFont.CentreDraw("Account", new Vector2(480, 65), Color.White, 1.3f, 0.1f);
                 NormalFont.CentreDraw("Name", new Vector2(480, 100), Color.White, 1.3f, 0.1f);
 

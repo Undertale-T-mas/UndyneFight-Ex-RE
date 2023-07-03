@@ -13,25 +13,22 @@ using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex.Remake.UI
 {
-    internal partial class UserUI : Entity
+    internal partial class SettingUI : Entity
     {
-        private class VirtualFather : GameObject
-        {  
+        private partial class VirtualFather : GameObject
+        {
             public VirtualFather()
-            {
-                Login = new LoginUI(); Register = new RegisterUI();
-                this.AddChild(Login); this.AddChild(Register);
-                Login.Activate();
-                CurrentActivate = Login;
+            { 
+                this.AddChild(_audioSetting = new());  
+                _audioSetting.Activate();
+                CurrentActivate = _audioSetting;  
             }
+            AudioSetting _audioSetting;
 
-            public bool Activated => true;
+            public bool Activated => true; 
 
-            public LoginUI Login { get; init; } 
-            public RegisterUI Register { get; init; } 
+            public ISelectChunk CurrentActivate { get; set; }
 
-            public ISelectChunk CurrentActivate { get; set; } 
-             
             public void Select(ISelectChunk module)
             {
                 if (CurrentActivate == module) return;
@@ -40,15 +37,14 @@ namespace UndyneFight_Ex.Remake.UI
             }
 
             public override void Update()
-            { 
-            } 
+            {
+            }
         }
 
-        public UserUI()
+        public SettingUI()
         {
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
-
-
+             
             if (PlayerManager.CurrentUser != null)
             {
                 this.Dispose();
@@ -61,12 +57,12 @@ namespace UndyneFight_Ex.Remake.UI
         }
 
         public override void Draw()
-        { 
+        {
 
         }
 
         public override void Update()
-        { 
+        {
         }
     }
 }

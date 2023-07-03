@@ -149,8 +149,8 @@ namespace Rhythm_Recall.Waves
                         {
                             ScreenDrawing.MasterAlpha = s;
                         },
-                        Stable(BeatTime(4),0),
-                        EaseIn(BeatTime(78), 1, EaseState.Sine)
+                        Stable(BeatTime(8),0),
+                        EaseIn(BeatTime(64), 1, EaseState.Sine)
                         );
                         RunEase((q) =>
                         {
@@ -163,7 +163,7 @@ namespace Rhythm_Recall.Waves
                         {
                             r.BasicSpeed = f;
                         },
-                        Stable(BeatTime(4), 0.1f),
+                        Stable(BeatTime(8), 0.1f),
                         EaseIn(BeatTime(78), 0.9f, EaseState.Quad));
                     });
                     RegisterFunction("GaussBlur", () =>
@@ -187,9 +187,11 @@ namespace Rhythm_Recall.Waves
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
+                        "","","","",
+                        "","","","",    "","","","",
                         "","","","",    "","","","",
                         //1
-                        "","","","",    "","","","",
+                        "R","","","",    "R","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
@@ -217,10 +219,8 @@ namespace Rhythm_Recall.Waves
                         "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
-                        "","","","",    "","","","",
                         //7
                         "GaussBlur","","","",    "","","","",
-                        "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //8
@@ -236,12 +236,16 @@ namespace Rhythm_Recall.Waves
                         //注意每4个字符串为1beat
                     });
                 }
-                if (InBeat(76))
+                if (InBeat(72))
                 {
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //10
-                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
-                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "R","+1","+1","+1",    "+1","+1","+1","+1",
+                        "+11","+11","+11","+11",   "+11","+11","+11","+11",
+                        "(*$0'2)(*$2'2)","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
                     });
                 }
             }
@@ -262,6 +266,14 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
+                bool jump = true;
+                if (jump)
+                {
+                    GametimeDelta = -1.5f + BeatTime(72);
+                    PlayOffset = BeatTime(72);
+                    ScreenDrawing.MasterAlpha = 1f;
+                    ScreenDrawing.ScreenScale = 1f;
+                }
             }
         }
     }

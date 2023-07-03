@@ -29,6 +29,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Draw()
         {
+            if (!_father.DrawEnabled) return;
             if (ModuleSelected && appearTime % 66 <= 32)
             {
                 FormalDraw(GlobalResources.Sprites.cursor, new Vector2(collidingBox.TopLeft.X + 1 +
@@ -79,6 +80,11 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Update()
         {
+            if (!_father.Activated)
+            {
+                base.Update();
+                return;
+            }
             if((_mouseOn || State == SelectState.MouseOn) && ((CharInput != (char)1 && CharInput != (char)13) || IsKeyPressed120f(InputIdentity.Backspace)))
             {
                 if (this.State != SelectState.Selected)
@@ -111,7 +117,7 @@ namespace UndyneFight_Ex.Remake.UI
                     this.cursorPlace = pos;
                 } 
             }
-            if((_father.Focus == this || !_father.Focus.IsMouseOn))
+            if((_father.Focus == this || (_father.Focus != null && !_father.Focus.IsMouseOn)))
             {
                 if (IsKeyPressed120f(InputIdentity.MainLeft))
                 {
