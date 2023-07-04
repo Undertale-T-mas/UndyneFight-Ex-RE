@@ -36,6 +36,7 @@ namespace Rhythm_Recall.Waves
             public SongImformation Attributes => new Information();
             class Information : SongImformation
             {
+                public Information() { this.MusicOptimized = true; }
                 public override string SongAuthor => "SK_kent";
                 public override string BarrageAuthor => "zKronO vs Tlottgodinf";
                 public override string AttributeAuthor => "Woem feat. ParaDOXXX";

@@ -171,6 +171,8 @@ namespace UndyneFight_Ex
         }, () =>
         {
             // loadingAction
+            if (songParams.Waveset.Attributes != null && songParams.Waveset.Attributes.MusicOptimized)
+                songParams.MusicOptimized = true;
             SongLoadingScene.songParams.LoadMusic();
         })
         {
