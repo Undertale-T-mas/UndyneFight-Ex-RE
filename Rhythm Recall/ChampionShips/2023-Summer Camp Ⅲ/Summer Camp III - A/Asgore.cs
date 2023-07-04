@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Extends;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
@@ -80,57 +81,332 @@ namespace Rhythm_Recall.Waves
             #endregion
             public void Hard()
             {
+                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
                 if (InBeat(0))
                 {
                     RegisterFunctionOnce("MoveBox", () =>
                     {
                         RunEase((s) => { InstantSetBox(240, s.X, s.Y); },
-                                EaseOut(BeatTime(1f), new Vector2(84, 84), new Vector2(84, 134), EaseState.Quart),
-                                EaseOut(BeatTime(1f), new Vector2(50, 80), EaseState.Quart),
-                                EaseOut(BeatTime(1f), new Vector2(50, 120), EaseState.Quart)
-                                );
+                                    Stable(0, new Vector2(80, 80)),
+                                    EaseOut(BeatTime(1f), new Vector2(0, 40), EaseState.Quart),
+                                    EaseOut(BeatTime(1f), new Vector2(20, 80), EaseState.Quart),
+                                    EaseOut(BeatTime(1f), new Vector2(40, 120), EaseState.Quart)
+                                    );
+                    });
+                    RegisterFunctionOnce("Line", () =>
+                    {
+                        for (int a = 0; a < 8; a++)
+                        {
+                            int x = a;
+                            DelayBeat(0.25f * a, () =>
+                            {
+                                Line l = new(640 * ((x + 1) / 9f), 90) { Alpha = 0.3f };
+                                l.AlphaDecrease(BeatTime(2f));
+                                CreateEntity(l);
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("Kick", () =>
+                    {
+                        var v = LinkEase(
+                             Stable(0, new Vector2(0, 480)),
+                             EaseOut(BeatTime(0.75f), new Vector2(0, BoxStates.Down - 480), EaseState.Quad)
+                             );
+                        var r = Stable(0, 0);
+                        Line l = new(v.Easing, r.Easing);
+                        CreateEntity(l);
+                        l.AlphaDecrease(BeatTime(1));
+                        l.VerticalMirror = true;
+                    });
+                    RegisterFunctionOnce("Stop", () =>
+                    {
+                        var c1 = LinkEase(
+                            EaseOut(BeatTime(0.75f), new Vector2(160, 0), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(160, 0)),
+                            EaseOut(BeatTime(0.75f), new Vector2(160, 0), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(320, 0)),
+                            EaseOut(BeatTime(0.75f), new Vector2(-480, 0), EaseState.Cubic)
+                            );
+                        var c2 = LinkEase(
+                            EaseOut(BeatTime(0.75f), new Vector2(0, 120), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(0, 120)),
+                            EaseOut(BeatTime(0.75f), new Vector2(0, 120), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(0, 240)),
+                            EaseOut(BeatTime(0.75f), new Vector2(0, -360), EaseState.Cubic)
+                            );
+                        Line l = new(c1.Easing, c2.Easing);
+                        CreateEntity(l);
+                        ShadowLibrary.LineShadow(BeatTime(0.125f), 0.8f, 8, l);
+                        l.ObliqueMirror = true;
+                        l.TransverseMirror = true;
+                        l.VerticalMirror = true;
                     });
                     BarrageCreate(0, BeatTime(1), 6, new string[]
                     {
-                        "MoveBox(R)","","","",   "","","","",
-                        "R","","","",   "","","","",
-                        "R","","","",   "","","","",
-                        "","","","",   "R","","","",
+                        "MoveBox","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Line","","","",   "Kick","","","",
+                        "","","","",   "Kick","","","",
 
-                        "R","","","",   "","","R","",
-                        "","","","",   "R","","","",
-                        "R","","","",   "","","","",
+                        "Line","","","",   "Kick","","","",
+                        "","","","",   "Kick","","","",
+                        "Line","","","",   "Kick","","","",
+                        "","","","",   "Kick","","","",
+
+                        "Line","","","",   "Kick","","","",
+                        "","","","",   "Kick","","","",
+                        "Line","","","",   "Kick","","","",
+                        "","","","",   "Kick","","","",
+
+                        "Line","","","",   "Kick","","","",
+                        "","","","",   "Kick","","","",
+                        "Line","","","",   "Kick","","","",
+                        "","","","",   "Kick","","","",
+                        //
+                        "Stop","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Line","","","",   "","","","",
                         "","","","",   "","","","",
 
-                        "(R)","","","",   "","","","",
-                        "R","","","",   "","","","",
-                        "R","","","",   "","","","",
-                        "","","","",   "R","","","",
+                        "Line","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Line","","","",   "","","","",
+                        "","","","",   "","","","",
 
-                        "R","","","",   "","","R","",
-                        "","","","",   "R","","","",
-                        "R","","","",   "","","","",
+                        "Line","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Line","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Line","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Line","","","",   "","","","",
+                        "","","","",   "","","","",
+                    });
+                }
+                if (InBeat(28))
+                {
+                    RegisterFunctionOnce("MoveBox", () =>
+                    {
+                        RunEase((s) => { InstantSetBox(240, s.X, s.Y); },
+                                    Stable(0, new Vector2(140, 320)),
+                                    EaseOut(BeatTime(1f), -new Vector2(40, 120), EaseState.Quart),
+                                    EaseOut(BeatTime(1f), -new Vector2(20, 80), EaseState.Quart),
+                                    EaseOut(BeatTime(1f), -new Vector2(-4, 40 - 4), EaseState.Quart)
+                                    );
+                        DelayBeat(2, () =>
+                        {
+                            SetSoul(1);
+                            TP();
+                            SetGreenBox();
+                        });
+                    });
+                    RegisterFunctionOnce("Line", () =>
+                    {
+
+                        for (int a = 0; a < 8; a++)
+                        {
+                            int x = a;
+                            DelayBeat(0.25f * a, () =>
+                            {
+                                Line l = new(new Vector2(0, 480 * ((x + 1) / 9f)), 0) { Alpha = 0.3f };
+                                l.AlphaDecrease(BeatTime(2f));
+                                CreateEntity(l);
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("Kick", () =>
+                    {
+                        var v = LinkEase(
+                             Stable(0, new Vector2(0, 480)),
+                             EaseOut(BeatTime(1), new Vector2(0, BoxStates.Down - 480), EaseState.Quad)
+                             );
+                        var r = Stable(0, 0);
+                        Line l = new(v.Easing, r.Easing);
+                    });
+                    RegisterFunctionOnce("Stop", () =>
+                    {
+                        var c1 = LinkEase(
+                            EaseOut(BeatTime(0.75f), new Vector2(160, 0), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(160, 0)),
+                            EaseOut(BeatTime(0.75f), new Vector2(160, 0), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(320, 0)),
+                            EaseOut(BeatTime(0.75f), new Vector2(-480, 0), EaseState.Cubic)
+                            );
+                        var c2 = LinkEase(
+                            EaseOut(BeatTime(0.75f), new Vector2(0, 120), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(0, 120)),
+                            EaseOut(BeatTime(0.75f), new Vector2(0, 120), EaseState.Cubic),
+                            Stable(BeatTime(0.25f), new Vector2(0, 240)),
+                            EaseOut(BeatTime(0.75f), new Vector2(0, -360), EaseState.Cubic)
+                            );
+                        Line l = new(c1.Easing, c2.Easing);
+                        CreateEntity(l);
+                        ShadowLibrary.LineShadow(BeatTime(0.125f), 0.8f, 8, l);
+                        l.ObliqueMirror = true;
+                        l.TransverseMirror = true;
+                        l.VerticalMirror = true;
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    {
+
+                        "MoveBox","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Line","","","",   "","","","",
+                        "","","","",   "(R)(D1)","","","",
+
+                        "(Line)(R)(D1)","","","",   "","","(R)(D1)","",
+                        "","","","",   "(R)(D1)","","","",
+                        "Line(R)(D1)","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "(Line)(R)(D1)","","","",   "","","","",
+                        "(R)(D1)","","","",   "","","","",
+                        "Line(R)(D1)","","","",   "","","","",
+                        "","","","",   "(R)(D1)","","","",
+
+                        "(Line)(R)(D1)","","","",   "","","(R)(D1)","",
+                        "","","","",   "(R)(D1)","","","",
+                        "Line(R)(D1)","","","",   "","","","",
                         "","","","",   "","","","",
                         //
-                        "(R)","","","",   "","","","",
-                        "R","","","",   "","","","",
-                        "R","","","",   "","","","",
-                        "","","","",   "R","","","",
+                        "(*^$0)(*^+21)Stop","","","",   "","","","",
+                        "(*^$0)(*^+21)","","","",   "","","","",
+                        "Line(*^$0)(*^+21)","","","",   "","","","",
+                        "","","","",   "(*R)(*D1)","","","",
 
-                        "R","","","",   "","","R","",
-                        "","","","",   "R","","","",
-                        "R","","","",   "","","","",
-                        "","","","",   "R","","","",
+                        "(Line)(*R)(*D1)","","","",   "","","(*R)(*D1)","",
+                        "","","","",   "(*R)(*D1)","","","",
+                        "Line(*R)(*D1)","","","",   "","","","",
+                        "","","","",   "(*R)(*D1)","","","",
 
-                        "R","","","",   "","","R","",
-                        "","","","",   "R","","","",
-                        "R","","","",   "","","","",
+                        "(Line)(*R)(*D1)","","","",   "","","(*R)(*D1)","",
+                        "","","","",   "(*R)(*D1)","","","",
+                        "Line(*R)(*D1)","","","",   "","","","",
                         "","","","",   "","","","",
 
+                        "Line","","","",   "","","","",
+                        "","","","",   "(*R'1.1)(*+21'1.1)","","(*+2'1.3)(*+21'1.3)","",
+                        "(*+2'1.5)(*+21'1.5)","","","",   "","","","",
                         "","","","",   "","","","",
-                        "","","","",   "R","","R","",
-                        "R","","","",   "","","","",
-                        "","","","",   "","","","",
+                    });
+                }
+                if (InBeat(58))
+                {
+                    RegisterFunctionOnce("CloneA", () =>
+                    {
+                        Arrow[] Ar = GetAll<Arrow>("CloneA");
+                        for (int a = 0; a < Ar.Length; a++) 
+                        {
+                            int x = a;
+                            if (x % 2 == 0)
+                            {
+                                ShadowLibrary.SetOffset(Ar[x], 400);
+                                DelayBeat(0.5f+x * 0.125f, () =>
+                                {
+                                    RunEase((s) =>
+                                    {
+                                        ShadowLibrary.SetOffset(Ar[x], s);
+                                    },
+                                    EaseOut(BeatTime(1.5f), 400, 0, EaseState.Sine));
+                                });
+                            }
+                            else
+                            {
+                                ShadowLibrary.SetOffset(Ar[x], -400);
+                                DelayBeat(0.5f+x * 0.125f, () =>
+                                {
+                                    RunEase((s) =>
+                                    {
+                                        ShadowLibrary.SetOffset(Ar[x], s);
+                                    },
+                                    EaseOut(BeatTime(1.5f), -400, 0, EaseState.Sine));
+                                });
+                            }
+                        }
+                    });
+                    RegisterFunctionOnce("CloneB", () =>
+                    {
+                        Arrow[] Ar = GetAll<Arrow>("CloneB");
+                        for (int a = 0; a < Ar.Length; a++)
+                        {
+                            int x = a;
+                            if (x % 2 == 0)
+                            {
+                                ShadowLibrary.SetOffset(Ar[x], 400);
+                                DelayBeat(0.5f + x * 0.125f, () =>
+                                {
+                                    RunEase((s) =>
+                                    {
+                                        ShadowLibrary.SetOffset(Ar[x], s);
+                                    },
+                                    EaseOut(BeatTime(1.5f), 400, 0, EaseState.Sine));
+                                });
+                            }
+                            else
+                            {
+                                ShadowLibrary.SetOffset(Ar[x], -400);
+                                DelayBeat(0.5f + x * 0.125f, () =>
+                                {
+                                    RunEase((s) =>
+                                    {
+                                        ShadowLibrary.SetOffset(Ar[x], s);
+                                    },
+                                    EaseOut(BeatTime(1.5f), -400, 0, EaseState.Sine));
+                                });
+                            }
+                        }
+                    });
+                    RegisterFunctionOnce("Reset", () =>
+                    {
+
+                    });
+                    BarrageCreate(BeatTime(5), BeatTime(1), 6, new string[]
+                    {
+                        "CloneA","","","",   "","","","",
+                        "(R1)","","","",   "","","","",
+                        "(R1)(D{CloneA})","+0{CloneA}","+0{CloneA}(CloneB)","+0{CloneA}",   "+0{CloneA}","+0{CloneA}","+0{CloneA}","+0{CloneA}",
+
+                        "(+0{CloneA})(D1)","","","",   "R","","(+0)(D1)","", 
+                        "","","(R1)(D{CloneB})","+0{CloneB}",   "+0{CloneB}","+0{CloneB}","(+0{CloneB})(D1)","",                  
+                        "","","R","",   "(+0)(D1)","","","",
+                        "(R)(D1)","","","",  "(R)(D1)","","","",
+
+                        "(R)(D1)","","","",   "R","","(+0)(D1)","",
+                        "","","R","",   "+01(CloneB)","","(+0)(D1)","",                       
+                        "","","R","",   "(+0)(D1)","","","",   
+                        "(R)(D1)","","","",   "(R1)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
+
+                        "(+0{CloneB})(D1)","","","",   "R","","(+0)(D1)","",
+                        "","","R","",   "(+0)(D1)(CloneB)","","(R)(D1)","",                        
+                        "","","R","",   "(+0)(D1)","","","",
+                        "R","","","",   "(R1)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
+
+                        "(+0{CloneB})(D1)","","R","",   "+01","","(+0)(D1)","",
+                        "","","R","",   "(+0)(D1)","","","",
+                        "(R)(D1)","","","",   "R","+11","-1","",
+                        "","","R(CloneB)","-11",   "+1","","","",
+                        //
+                        "*^R1'1.5","","","",   "","","*^R1'1.5","",
+                        "","","R{CloneB}","+0{CloneB}",   "+0{CloneB}","+0{CloneB}","(+0{CloneB})(*^R1'1.5)","",
+                        "","","","",   "*^R1'1.5","","","",
+                        "*^R1'1.5","","","",   "*^R1'1.5","","","",
+
+                        "*^R1'1.5","","","",   "","","*^R1'1.5","",
+                        "","","","",   "(CloneB)","","*^R1'1.5","",
+                        "","","","",   "*^R1'1.5","","","",
+                        "*^R1'1.5","","","",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
+
+                        "(+0{CloneB})(*^D1'1.5)","","","",   "","","*^R1'1.5","",
+                        "","","","",   "(CloneB)","","*^R1'1.5","",
+                        "","","","",   "*^R1'1.5","","","",
+                        "*^R1'1.5","","","",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
+
+                        "(+0{CloneB})(*^D1'1.5)","","","",   "","","R","",
+                        "","","","",   "R1","","","",
+                        "R","","+11","",   "","","R","",
+                        "","","R'0.85","+1'0.85",   "+1'0.85","","","",
+
                     });
                 }
             }
@@ -141,9 +417,19 @@ namespace Rhythm_Recall.Waves
             public void Start()
             {
                 GametimeDelta = -2.125f;
-                InstantSetBox(240, 84, 84);
+                PlayOffset = 0;
+                InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
+                bool jump = false;
+                if (jump==true)
+                {
+                    SetSoul(1);
+                    GametimeDelta = -5.4f+ BeatTime(58);
+                    PlayOffset = BeatTime(58);
+                    ScreenDrawing.MasterAlpha = 1f;
+                    ScreenDrawing.ScreenScale = 1f;
+                }
             }
         }
     }

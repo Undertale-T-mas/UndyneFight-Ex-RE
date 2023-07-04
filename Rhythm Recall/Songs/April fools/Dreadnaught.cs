@@ -8,6 +8,7 @@ using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
+using static Extends.ShadowLibrary;
 
 namespace Rhythm_Recall.Waves
 {
@@ -66,33 +67,7 @@ namespace Rhythm_Recall.Waves
             public SongImformation Attributes => new ThisImformation();
             private bool notRegistered = true;
             public static Game game;
-            public void LineShadow(int times, Line line)
-            {
-                for (int i = 0; i < times; i++)
-                {
-                    int t = i;
-                    line.InsertRetention(new(t * 0.5f, 0.24f - 0.24f / times * t));
-
-                }
-            }
-            public void LineShadow(float deep, int times, Line line)
-            {
-                for (int i = 0; i < times; i++)
-                {
-                    int t = i;
-                    line.InsertRetention(new(t * 0.5f, deep - deep / times * t));
-
-                }
-            }
-            public void LineShadow(float delay, float deep, int times, Line line)
-            {
-                for (int i = 0; i < times; i++)
-                {
-                    int t = i;
-                    line.InsertRetention(new(t * delay, deep - deep / times * t));
-
-                }
-            }
+           
             public void ScreenScaleAdd(float scale, float time)
             {
                 ValueEasing.EaseBuilder e1 = new();
