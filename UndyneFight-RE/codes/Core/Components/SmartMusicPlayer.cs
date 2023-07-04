@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 namespace UndyneFight_Ex.Remake.Components
 {
+    /// <summary>
+    /// Receivable events: MusicFadeOut 
+    /// </summary>
     public class SmartMusicPlayer : GameObject
     {
-        public SmartMusicPlayer() { UpdateIn120 = true; }
+        public SmartMusicPlayer() { UpdateIn120 = true; CrossScene = true; }
         private struct PeriodData
         {
             public PeriodData(MusicPlayer player, float changeTime, bool isLoop)
@@ -32,12 +35,23 @@ namespace UndyneFight_Ex.Remake.Components
         }
         List<PeriodData> periods = new List<PeriodData>();
         PeriodData currentPeriod;
-        int currentIndex = 0;
+        int currentIndex = -1;
 
+        bool _inFadeOut = false;
         public override void Update()
-        { 
-            if(currentPeriod.Player == null) return;
+        {
+            var list = GameStates.DetectEvent("MusicFadeOut");
+            if(list != null && list.Count > 0)
+            {
+                _inFadeOut = true;
+                list[0].Dispose();
+                currentIndex = -1;
+                currentPeriod.Player.FadeOut();
+            }
+            if (currentPeriod.Player == null) return;
             currentPeriod.Player.Update();
+            if (_inFadeOut && currentPeriod.Player.Disposed) this.Dispose();
+            if (currentIndex == -1) return;
             if(currentPeriod.Player.PlayTime >= currentPeriod.ChangeTime)
             {
                 if (!currentPeriod.IsLoop)
@@ -46,9 +60,19 @@ namespace UndyneFight_Ex.Remake.Components
                 currentPeriod.Player.Play();
             }
         }
+        public void Stop()
+        {
+            currentIndex = -1;
+            currentPeriod.Player.Stop();
+        }
+        public void FadeOut()
+        {
+            currentIndex = -1;
+            currentPeriod.Player.FadeOut();
+        }
     }
     /// <summary>
-    /// Receivable events: MusicFadeOut, MusicStop
+    /// Receivable events: MusicFadeOut 
     /// </summary>
     public class MusicPlayer : GameObject
     {
@@ -69,9 +93,11 @@ namespace UndyneFight_Ex.Remake.Components
         {
             if(this._audio.IsEnd) { return; }
             var list = GameStates.DetectEvent("MusicFadeOut");
-            if (list != null && list.Count > 0) { this.FadeOut(); list[0].Dispose(); }
+            if (list != null && list.Count > 0) { 
+                this.FadeOut(); list[0].Dispose(); }
             if (isFadingOut) {
                 this.fadeOutScale -= 0.02f;
+                _audio.Volume = this.fadeOutScale;
                 if(this.fadeOutScale <= 0) { this.Stop(); this.Dispose(); }
             }
             if (IsLoop) {
@@ -82,10 +108,13 @@ namespace UndyneFight_Ex.Remake.Components
                 PlayTime += 0.5f;
 
             bool timeAccessible;
-            float trueTime = _audio.TryGetPosition(out timeAccessible);
-            if (timeAccessible)
+            if (!_audio.IsEnd)
             {
-                TruePlayTime = trueTime;
+                float trueTime = _audio.TryGetPosition(out timeAccessible);
+                if (timeAccessible)
+                {
+                    TruePlayTime = trueTime;
+                }
             }
             if(FadeIn && PlayTime < IntroTime)
             {
@@ -101,13 +130,13 @@ namespace UndyneFight_Ex.Remake.Components
         public float IntroVolume { get; set; } = 0.0f;
         public float IntroTime { get; set; } = 30.0f;
 
-        void FadeOut()
+     public   void FadeOut()
         {
             this.IsLoop = false;
             this.isFadingOut= true;
             this._audio.Volume = fadeOutScale;
         }
-        void Stop()
+      public  void Stop()
         {
             this.IsLoop = false;
             this._audio.Stop();

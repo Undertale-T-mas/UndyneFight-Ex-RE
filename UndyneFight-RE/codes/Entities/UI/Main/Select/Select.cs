@@ -68,9 +68,13 @@ namespace UndyneFight_Ex.Remake.UI
 
                 string dir;
                 if (System.IO.Directory.Exists(dir = "Content\\Musics\\" + SongSelected.Music))
-                    dir += "\\song";
+                    dir += "\\song"; 
 
-                GameStates.StartSong(SongSelected, SongSelect.Illustration, dir, (int)CurrentDifficulty, CurrentJudgementState, ModeSelect.ModeSelected);
+                GameStates.Broadcast(new(null, "MusicFadeOut"));
+                int dif = (int)CurrentDifficulty;
+                GameStates.InstanceCreate(new InstantEvent(2, () => {
+                    GameStates.StartSong(SongSelected, SongSelect.Illustration, dir, dif, CurrentJudgementState, ModeSelect.ModeSelected);
+                }));
             }
 
             public VirtualFather()
