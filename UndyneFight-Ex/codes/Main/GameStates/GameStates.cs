@@ -165,7 +165,7 @@ namespace UndyneFight_Ex
             Fight.FightStates.roundType = false;
             Fight.FightStates.finishSelecting = true;
 
-            Microsoft.Xna.Framework.Media.MediaPlayer.Volume = 1.0f;
+            Microsoft.Xna.Framework.Media.MediaPlayer.Volume = Settings.SettingsManager.DataLibrary.masterVolume / 100f;
             GameMain.gameSpeed = 1.0f;
         }
 
@@ -208,5 +208,11 @@ namespace UndyneFight_Ex
             textWriter.Flush();
             stream.Close();
         }
+
+        public static void Broadcast(GameEventArgs gameEventArgs)
+        {
+            currentScene.Broadcast(gameEventArgs);
+        }
+        public static List<GameEventArgs> DetectEvent(string ActionName) => currentScene.DetectEvent(ActionName);
     }
 }

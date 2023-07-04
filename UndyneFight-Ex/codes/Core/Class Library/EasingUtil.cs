@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
 
@@ -283,6 +284,27 @@ namespace UndyneFight_Ex.Entities
             return EaseOut(time, Vector2.Zero, end, state);
         }
 
+        public static EaseUnit<Vector2> SineWave(Vector2 start, Vector2 end, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, Vector2> sine = (t) => Vector2.Lerp(start, end, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<Vector2>((start + end) / 2f, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<Vector2> SineWave(Vector2 impact, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, Vector2> sine = (t) => Vector2.Lerp(-impact, impact, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<Vector2>(Vector2.Zero, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<float> SineWave(float start, float end, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, float> sine = (t) => MathHelper.Lerp(start, end, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<float>((start + end) / 2f, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<float> SineWave(float impact, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, float> sine = (t) => MathHelper.Lerp(-impact, impact, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<float>(0, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+
         public static EaseUnit<float> EaseIn(float time, float start, float end, EaseState state)
         {
             return state switch
@@ -327,6 +349,7 @@ namespace UndyneFight_Ex.Entities
         {
             return EaseOut(time, 0, end, state);
         }
+        
         public static EaseUnit<Vector2> Stable(float time, Vector2 value)
         {
             return new(value, value, time, (s) => value);

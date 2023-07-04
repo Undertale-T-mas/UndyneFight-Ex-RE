@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
+using MyMonoGame;
 using System;
+using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace UndyneFight_Ex
 {
@@ -13,6 +16,8 @@ namespace UndyneFight_Ex
             void Stop();
             TimeSpan GetDuration();
             bool IsEnd { get; }
+            bool OnPlay { get; }
+            float Volume { set; }
         }
         private class EffectPlayer : IAudioSource
         {
@@ -39,6 +44,56 @@ namespace UndyneFight_Ex
                 effect.Stop();
             }
             public bool IsEnd => effect.State == SoundState.Stopped;
+            public bool OnPlay => effect.State == SoundState.Playing;
+
+            public float Volume { set => effect.Volume = value; }
+        }
+        private class DynamicSongPlayer : IAudioSource
+        {
+            public DynamicSongPlayer(string path)
+            {
+                _dynamicSong = new(path);
+            }
+            DynamicSong _dynamicSong;
+            List<DynamicSongInstance> allInstances = new();
+
+            private void Update() { 
+                this.allInstances.RemoveAll(s => s.State == SoundState.Stopped); 
+            }
+
+            public bool IsEnd { get { this.Update(); return allInstances.Count == 0; } }
+
+            public bool OnPlay { get { this.Update(); return allInstances.Count > 0; } }
+
+            public float Volume { set { this.allInstances[0].Volume = value; } }
+
+            public TimeSpan GetDuration()
+            {
+                return new TimeSpan(0, 0, 0, 0, 0);
+            }
+
+            public void Start()
+            {
+                DynamicSongInstance currentInstance;
+                allInstances.Add(currentInstance = _dynamicSong.CreateInstance());
+                currentInstance.Play();
+            }
+
+            public void Stop()
+            {
+                this.allInstances.ForEach(s => { s.Stop(); });
+                this.allInstances.Clear();
+            }
+
+            internal float GetPosition()
+            {
+                return this.allInstances[0].GetPosition();
+            }
+
+            internal void SetPosition(float position)
+            {
+                this.allInstances[0].SetPosition(position / 62.5f * 1000f);
+            }
         }
         private class SongPlayer : IAudioSource
         {
@@ -72,23 +127,33 @@ namespace UndyneFight_Ex
                 return song.Duration;
             }
             public bool IsEnd => MediaPlayer.State == MediaState.Stopped;
+            public bool OnPlay => MediaPlayer.State == MediaState.Playing;
+
+            public float Volume { set => MediaPlayer.Volume = value * Settings.SettingsManager.DataLibrary.masterVolume / 100f; }
         }
         IAudioSource source;
-        public Audio(string path) : this(path, Fight.Functions.Loader) { }
+        public float Volume { set => source.Volume = value; }
+        public Audio(string path) : this(path, Fight.Functions.Loader) {  }
         public Audio(string path, ContentManager loader)
         {
+            if (path.EndsWith(".ogg"))
+            {
+                source = new DynamicSongPlayer(loader.RootDirectory + "\\" + path);
+                return;
+            }
             object result = loader.Load<object>(path);
             if (result is SoundEffect) source = new EffectPlayer(result as SoundEffect);
-            else if (result is Song) source = new SongPlayer(result as Song);
+            else if (result is Song) source = new SongPlayer(result as Song); source.Volume = 1f;
         }
         public Audio(SoundEffect effect)
         {
-            source = new EffectPlayer(effect);
+            source = new EffectPlayer(effect); source.Volume = 1f;
         }
         public Audio(Song song)
         {
-            source = new SongPlayer(song);
-        }
+            source = new SongPlayer(song); source.Volume = 1f;
+        } 
+        public bool OnPlay => source.OnPlay;
         public float PlayPosition { private get; set; }
         public TimeSpan SongDuration => source.GetDuration();
         public void Play()
@@ -103,12 +168,26 @@ namespace UndyneFight_Ex
         }
         public bool IsEnd => source.IsEnd;
 
+        public bool TrySetPosition(float position)
+        {
+            if(source is DynamicSongPlayer)
+            {
+                (source as DynamicSongPlayer).SetPosition(position);
+                return true;
+            }
+            return false;
+        }
         public float TryGetPosition(out bool result)
         {
             if (source is SongPlayer)
             {
                 result = true;
                 return (float)(MediaPlayer.PlayPosition.TotalMilliseconds * 62.5 / 1000);
+            }
+            else if(source is DynamicSongPlayer)
+            {
+                result = true;
+                return (source as DynamicSongPlayer).GetPosition() / 1000f * 62.5f;
             }
             else result = false;
             return -1;

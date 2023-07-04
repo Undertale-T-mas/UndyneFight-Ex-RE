@@ -521,6 +521,10 @@ namespace UndyneFight_Ex
             }
             return false;
         }
+        public void Broadcast(string info)
+        {
+            GameStates.Broadcast(new GameEventArgs(this, info));
+        }
         public string[] Tags
         {
             set

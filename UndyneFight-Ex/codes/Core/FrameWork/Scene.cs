@@ -81,6 +81,17 @@ namespace UndyneFight_Ex
             if (stopTime > 0.01f) return;
             depthDetla = 0;
         }
+        private Dictionary<string, List<GameEventArgs>> GameEvents { get; set; } = new Dictionary<string, List<GameEventArgs>>();
+        public void Broadcast(GameEventArgs gameEventArgs)
+        {
+            if (!GameEvents.ContainsKey(gameEventArgs.ActionName))
+                GameEvents.Add(gameEventArgs.ActionName, new());
+            GameEvents[gameEventArgs.ActionName].Add(gameEventArgs);
+        }
+        public List<GameEventArgs> DetectEvent(string ActionName)
+        {
+            return GameEvents.ContainsKey(ActionName) ? GameEvents[ActionName] : null;
+        }
 
         public List<GameObject> GlobalObjects() => objects.FindAll(s => s.CrossScene);
 
@@ -101,6 +112,10 @@ namespace UndyneFight_Ex
                 if (s.UpdateEnabled)
                     s.TreeUpdate();
             });
+            foreach(var v in GameEvents)
+            {
+                v.Value.RemoveAll(s => s.Disposed);
+            }
 
             if (stopTime >= 0.4f)
                 stopTime -= 0.50001f;

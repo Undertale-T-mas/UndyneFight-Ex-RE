@@ -36,6 +36,7 @@ namespace UndyneFight_Ex.Remake.UI
         public float DefaultScale { private get; set; } = 1.4f;
         protected float SelectedScale { private get; set; } = 1.1f;  
         public bool Ticked => _ticked;
+        public bool DefaultValue { set { this._ticked = value; } }
 
         public override void Draw()
         {

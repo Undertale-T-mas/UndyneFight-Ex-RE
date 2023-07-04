@@ -9,6 +9,8 @@ using System.Net.Sockets;
 using UndyneFight_Ex.SongSystem;
 using System.ComponentModel.Design.Serialization;
 using Microsoft.Xna.Framework.Graphics;
+using UndyneFight_Ex.Remake.Components;
+using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -158,6 +160,17 @@ namespace UndyneFight_Ex.Remake.UI
             this.AddChild(new MouseCursor());
             this.AddChild(new LineDistributer());
             this.AddChild(new VirtualFather());
+
+            SmartMusicPlayer smartPlayer = new();
+            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_INTRO), 2398, false);
+            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_LOOP), 4801, true);
+            GameStates.InstanceCreate(smartPlayer); smartPlayer.Play();
+         /*   GameStates.InstanceCreate(new InstantEvent(2397, () => { 
+                GameStates.InstanceCreate(
+                    new MusicPlayer(Resources.Musics.DreamDiver_LOOP) { IsLoop = false }
+                ); 
+
+            }));*/
         }
 
         public override void Draw()
