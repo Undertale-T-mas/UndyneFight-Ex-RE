@@ -62,6 +62,8 @@ namespace Rhythm_Recall.Waves
                     }
                     );
             }
+            ScreenDrawing.Shaders.Blur Blur;
+            RenderProduction production;
             #region disused
             public void Noob()
             {
@@ -141,16 +143,14 @@ namespace Rhythm_Recall.Waves
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
                 if (InBeat(0))
                 {
-                    
-                    
                     RegisterFunction("FadeOut", () =>
                     {
                         RunEase((s) =>
                         {
                             ScreenDrawing.MasterAlpha = s;
                         },
-                        Stable(BeatTime(4),0),
-                        EaseIn(BeatTime(78), 1, EaseState.Sine)
+                        Stable(BeatTime(8),0),
+                        EaseIn(BeatTime(64), 1, EaseState.Sine)
                         );
                         RunEase((q) =>
                         {
@@ -163,67 +163,189 @@ namespace Rhythm_Recall.Waves
                         {
                             r.BasicSpeed = f;
                         },
-                        Stable(BeatTime(4), 0.1f),
+                        Stable(BeatTime(8), 0.1f),
                         EaseIn(BeatTime(78), 0.9f, EaseState.Quad));
+                    });
+                    RegisterFunction("GaussBlur", () =>
+                    {
+                        RunEase((s) =>
+                        {
+                            Blur.Sigma = s;
+                        }, Stable(BeatTime(0), 2.2f),
+                        EaseOut(BeatTime(16), -2.2f, EaseState.Quad));
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
+                        "","","","",
+                        "","","","",    "","","","",
                         "","","","",    "","","","",
                         //1
-                        "","","","",    "","","","",
+                        "R","","","",    "R","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //2
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //3
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //4
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //5
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //6
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //7
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //8
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //9
-                        "","","","",    "","","","",
+                        "GaussBlur","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //注意每4个字符串为1beat
                     });
                 }
-                if (InBeat(76))
+                if (InBeat(72))
                 {
+                    RegisterFunction("LoadA", () =>
+                    {
+                        Line a = new(EaseOut(BeatTime(2), new Vector2(0, 0), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), -40).Easing) { Alpha = 0.7f };
+                        Line b = new(EaseOut(BeatTime(2), new Vector2(640, 480), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), -40).Easing) { Alpha = 0.7f };
+                        Line[]line = { a, b };
+                        foreach(Line l in line)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 6; i++)
+                            {
+                                l.InsertRetention(new(i * 3, 0.7f - i * 0.07f));
+                            }
+                            DelayBeat(4f, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunction("LoadB", () =>
+                    {
+                        Line a = new(EaseOut(BeatTime(2), new Vector2(640, 0), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), 40).Easing) { Alpha = 0.7f };
+                        Line b = new(EaseOut(BeatTime(2), new Vector2(0, 480), new Vector2(320, 240), EaseState.Quad).Easing, Stable(BeatTime(2), 40).Easing) { Alpha = 0.7f };
+                        Line[] line = { a, b };
+                        foreach (Line l in line)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 6; i++)
+                            {
+                                l.InsertRetention(new(i * 3, 0.7f - i * 0.07f));
+                            }
+                            DelayBeat(4f, () => { l.Dispose(); });
+                        }
+                        DelayBeat(2, () =>
+                        {
+                            float k = -20f;
+                            AddInstance(new TimeRangedEvent(20f, () =>
+                            {
+                                Line c = new(new Vector2(320 + (-20 + k) * (-20 + k) * 0.0625f - 100, 240), 130) { Alpha = 0.75f };
+                                Line d = new(new Vector2(320 - (-20 + k) * (-20 + k) * 0.0625f + 100, 240), 130) { Alpha = 0.75f };
+                                CreateEntity(c);
+                                CreateEntity(d);
+                                AddInstance(new TimeRangedEvent(10, () =>
+                                {
+                                    c.Alpha -= 0.075f;
+                                    d.Alpha -= 0.075f;
+                                }));
+                                k--;
+                                DelayBeat(2, () => { c.Dispose(); d.Dispose(); });
+                            }));
+                        });//你要不要看看你写了个什么史
+                    });
+                    RegisterFunction("KickA", () =>
+                    {
+                        Line a=new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 0), new Vector2(120, 90), EaseState.Quart),
+                            Stable(BeatTime(0.2f),new Vector2(320,240))).Easing, 
+                            Stable(BeatTime(1), -37.5f).Easing)
+                        { Alpha = 0.75f };
+                        Line b = new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 480), new Vector2(120, 480 - 90), EaseState.Quart),
+                            Stable(BeatTime(0.2f), new Vector2(160, 120))).Easing,
+                            Stable(BeatTime(1), 37.5f).Easing)
+                        { Alpha = 0.75f };
+                        Line[] lines = { a, b };
+                        foreach (Line l in lines)
+                        {
+                            CreateEntity(l);
+                            l.TransverseMirror = true;
+                            for (int i = 0; i < 5; i++)
+                            {
+                                l.InsertRetention(new(i * 3, 0.75f - i * 0.05f));
+                            }
+                            DelayBeat(0, () => { l.AlphaDecrease(BeatTime(1), 0.75f); });
+                            DelayBeat(1, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunction("KickB1", () => { });
+                    RegisterFunction("KickB2", () => { });
+                    RegisterFunction("KickB3", () => { });
+                    RegisterFunction("KickB4", () => { });
+                    /*RegisterFunction("KickB4", () => { });
+                    RegisterFunction("KickB4", () => { });
+                    RegisterFunction("KickB4", () => { });
+                    RegisterFunction("KickB4", () => { });*/
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //10
-                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
-                        "R(R)","","","",    "","","","",    "","","","",    "","","","",
+                        "R(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
+                        "+11(LoadB)","+11","+11","+11",   "+11","+11","+11","+11",
+                        //11
+                        "(*$0'2)(*$2'2)(KickA)","","","",    "","","","",
+                        "(D)(+01)","","","",    "","","","",
+                        "(D)(+01)","","","",    "","","","",
+                        "R","","","",    "R","","","",
+                        //12
+                        "R","","","",    "","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        //13
+                        "R","","","",    "","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        //14
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "R","","","",
+                        "R","","","",    "","","","",
+                        //15
+                        "(KickA)()","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //16
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        //17
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
+                        "","","","",    "","","","",
                     });
                 }
             }
@@ -233,6 +355,10 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
+                production = Blur = new ScreenDrawing.Shaders.Blur(0.505f);
+                ScreenDrawing.SceneRendering.InsertProduction(production);
+                Blur.Sigma = 0f;
+
                 CreateEntity(r);
                 GametimeDelta = -1.5f;
                 SetSoul(1);
@@ -240,6 +366,14 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
+                bool jump = true;
+                if (jump)
+                {
+                    GametimeDelta = -1.5f + BeatTime(72);
+                    PlayOffset = BeatTime(72);
+                    ScreenDrawing.MasterAlpha = 1f;
+                    ScreenDrawing.ScreenScale = 1f;
+                }
             }
         }
     }
