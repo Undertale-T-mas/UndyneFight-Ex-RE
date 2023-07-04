@@ -138,7 +138,9 @@ namespace UndyneFight_Ex
         {
             if (path.EndsWith(".ogg"))
             {
-                source = new DynamicSongPlayer(loader.RootDirectory + "\\" + path);
+                if (string.IsNullOrEmpty(loader.RootDirectory))
+                    source = new DynamicSongPlayer(path);
+                else source = new DynamicSongPlayer(loader.RootDirectory + "\\" + path);
                 return;
             }
             object result = loader.Load<object>(path);
@@ -158,9 +160,15 @@ namespace UndyneFight_Ex
         public TimeSpan SongDuration => source.GetDuration();
         public void Play()
         {
-            if (MathF.Abs(PlayPosition) > 0.01f)
-                (source as SongPlayer)?.SetPosition(PlayPosition);
+            if (MathF.Abs(PlayPosition) > 0.01f) {
+                if (source is SongPlayer)
+                    (source as SongPlayer).SetPosition(PlayPosition); 
+            }
             source.Start();
+            if (MathF.Abs(PlayPosition) > 0.01f) { 
+                if (source is DynamicSongPlayer) 
+                    (source as DynamicSongPlayer).SetPosition(PlayPosition); 
+            }
         }
         public void Stop()
         {
