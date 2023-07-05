@@ -562,9 +562,10 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("pre", () =>
                     {
                         s = new();
-                        s.BasicSpeed = 2f;
-                        s.Width = 2.5f;
-                        s.DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.5f);
+                        s.BasicSpeed = 3f;
+                        s.Width = 3.5f;
+                        s.DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.7f);
+                        s.Direction = true;
                         GameStates.InstanceCreate(s);
                     });
                     
