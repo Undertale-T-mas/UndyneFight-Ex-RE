@@ -310,7 +310,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunction("KickB4", () => { });*/
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //10
-                        "R(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
+                        "$0(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
                         "+11(LoadB)","+11","+11","+11",   "+11","+11","+11","+11",
                         //11
                         "(*$0'2)(*$2'2)(KickA)","","","",    "","","","",

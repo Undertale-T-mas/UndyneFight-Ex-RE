@@ -164,6 +164,8 @@ namespace UndyneFight_Ex
                 if (IsKeyPressed120f(Keys.D5)) GameMain.GameSpeed = 0.5f;
                 if (IsKeyPressed120f(Keys.D6)) GameMain.GameSpeed = 0.7f;
                 if (IsKeyPressed120f(Keys.D7)) GameMain.GameSpeed = 1f;
+                if (IsKeyPressed120f(Keys.D8)) GameMain.GameSpeed = 1.5f;
+                if (IsKeyPressed120f(Keys.D9)) GameMain.GameSpeed = 2f;
             }
             if (IsKeyPressed120f(Keys.H) && CurrentScene is FightScene) (CurrentScene as FightScene).PlayerInstance.hpControl.Regenerate();
 #endif  

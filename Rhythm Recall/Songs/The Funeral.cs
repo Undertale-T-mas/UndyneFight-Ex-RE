@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
+using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
@@ -211,15 +212,35 @@ namespace Rhythm_Recall.Waves
             {
                 if (InBeat(0.5f))
                 {
-                    InstantSetBox(240, 100, 100);
-                    SetSoul(0);
-                }
-                if (InBeat(1)) CreateEntity(new Knife(100, new(320, 240), 32));
+                    SetSoul(Souls.YellowSoul);
+                    InstantSetBox(260, 150, 100);
+                    BoxUtils.Vertexify();
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(1, 0.35f), 
+                        new Vector2(340, 350)
+                        );
+                    ;
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(2, 0.65f), 
+                        new Vector2(300, 350)
+                        ); 
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(5, 0.35f), 
+                        new Vector2(300, 250)
+                        );
+                    ;
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(6, 0.65f), 
+                        new Vector2(340, 250)
+                        ); 
+                    InstantTP(320, 260);
+                } 
 
             }
 
             public void Hard()
             {
+                
             }
 
             public void Extreme()

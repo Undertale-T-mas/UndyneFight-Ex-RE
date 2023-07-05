@@ -420,6 +420,13 @@ namespace UndyneFight_Ex.Fight
         {
             Player.heartInstance.ChangeColor(type);
         }
+        /// <summary>
+        /// 改变玩家灵魂状态。
+        /// </summary> 
+        public static void SetSoul(Player.MoveState state)
+        {
+            Player.heartInstance.ChangeState(state);
+        }
 
         private static Arrow last;
 
@@ -953,7 +960,7 @@ namespace UndyneFight_Ex.Fight
         public static Player.Heart CreateHeart(float yCentre, float width, float height)
         {
             CollideRect rect = new(new Vector2(320 - width / 2, yCentre - height / 2), new(width, height));
-            return Heart.InstantSplit(rect);
+            return Heart.InstantSplit(rect); 
         }
     }
 }

@@ -287,7 +287,9 @@ namespace UndyneFight_Ex.Entities
             SongIllustration = currentParam.SongIllustration;
 
             if (waveset is GameObject) InstanceCreate(waveset as GameObject);
+#if DEBUG
             InstanceCreate(new SongConditionOptimizer(this));
+#endif
         }
 
         private void UpdateSong()
