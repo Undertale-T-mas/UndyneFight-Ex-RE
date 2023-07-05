@@ -2768,4 +2768,41 @@ namespace Extends
             }
         }
     }
+    public static class ShadowLibrary
+    {
+        public static void LineShadow(int times, Line line)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                int t = i;
+                line.InsertRetention(new(t * 0.5f, 0.24f - 0.24f / times * t));
+
+            }
+        }
+        public static void LineShadow(float deep, int times, Line line)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                int t = i;
+                line.InsertRetention(new(t * 0.5f, deep - deep / times * t));
+
+            }
+        }
+        public static void LineShadow(float delay, float deep, int times, Line line)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                int t = i;
+                line.InsertRetention(new(t * delay, deep - deep / times * t));
+
+            }
+        }
+        public static void SetOffset(Arrow arrow, float offset)
+        {
+            if (arrow.Way == 0) arrow.Offset = new(0, offset);
+            if (arrow.Way == 1) arrow.Offset = new(offset, 0);
+            if (arrow.Way == 2) arrow.Offset = new(0, -offset);
+            if (arrow.Way == 3) arrow.Offset = new(-offset, 0);
+        }
+    }
 }
