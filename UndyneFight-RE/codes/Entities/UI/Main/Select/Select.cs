@@ -38,12 +38,18 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public override void Draw()
                 { 
-                    this.FormalDraw(Image, this.Centre, null, _drawingColor, Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.None);
-                    this.FormalDraw(Image, this.Centre, null, _drawingColor, Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.FlipHorizontally);
+                    this.FormalDraw(Image, this.Centre, null, _drawingColor * alpha1, Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.None);
+                    this.FormalDraw(Image, this.Centre, null, _drawingColor * (1.6f - alpha1), Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.FlipHorizontally);
+
+                    Resources.Font.Normal.CentreDraw("开始", this.Centre - new Vector2(0, 20), _drawingColor, 1.2f, 0.2f);
                 }
                 bool _available;
+                float alpha1 = 0.7f;
+                float time = 0.0f;
                 public override void Update()
                 {
+                    alpha1 = MathF.Sin(time) * 0.2f + 0.8f;
+                    time += 0.01f;
                     Color notAvailable = Color.Purple;
                     bool available = _virtualFather.SongSelected != null && _virtualFather.CurrentDifficulty != Difficulty.NotSelected;
                     this._available = available;

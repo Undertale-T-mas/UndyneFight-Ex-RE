@@ -90,9 +90,12 @@ namespace Rhythm_Recall.Waves
             private class Winder : Entity
             {
                 public float Intensity { set; get; } = 10;
-                public float Speed { set; get; } = 40f;
+                private float Speed { set; get; } = 40f;
                 public float Length { set; get; } = 300f;
                 public float BasicSpeed { set; get; } = 1f;
+                public Color DrawingColor { set; get; } = Color.White;
+                public bool Direction { set; get; } = false;
+                public float Width { get; set; } = 1.5f;
 
                 public Winder()
                 {
@@ -108,9 +111,12 @@ namespace Rhythm_Recall.Waves
                 public override void Update()
                 {
                     timer++;
-                    if (timer % Intensity < 1) CreateEntity(new Wind(Speed,Length));
-                    Speed = 40f* BasicSpeed;
-                    Length = 300f*BasicSpeed;
+                    if (timer % Intensity < 1)
+                    {
+                        Speed = 40f * BasicSpeed;
+                        Length = 150f * (BasicSpeed + 1);
+                        CreateEntity(new Wind(Speed * Rand(0.8f, 1.4f), Length, DrawingColor, Width, Direction));
+                    }
                 }
                 class Wind : Entity
                 {
@@ -118,17 +124,29 @@ namespace Rhythm_Recall.Waves
                     float Width = 1.5f;
                     Vector2 point1;
                     Vector2 point2;
-                    public Wind(float Speed, float length)
+                    Color color;
+                    public Wind(float Speed, float length, Color color, float width, bool dir = false)
                     {
+                        this.Width = width;
+                        this.color = color;
                         this.Speed = Speed;
-                        point1 = new(660, Rand(10, 470));
-                        point2 = new(660 + length, LastRand);
+                        if (dir)
+                        {
+                            this.Speed = -Speed;
+                            point1 = new(-20, Rand(10, 470));
+                            point2 = new(-20 + length, LastRand);
+                        }
+                        else
+                        {
+                            point1 = new(660, Rand(10, 470));
+                            point2 = new(660 + length, LastRand);
+                        }
                     }
                     float timer = 0;
                     public float Colordepth = Rand(0.300f, 0.500f);
                     public override void Draw()
                     {
-                        DrawingLab.DrawLine(point1,point2,Width,Color.White*Colordepth,0.1f);
+                        DrawingLab.DrawLine(point1,point2,Width, color * Colordepth,0.1f);
                     }
 
                     public override void Update()
@@ -140,7 +158,7 @@ namespace Rhythm_Recall.Waves
                     }
                 }
             }
-            Winder r = new();
+            Winder r = new(), s = null;
             public void ExtremePlus()
             {
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
@@ -489,101 +507,77 @@ namespace Rhythm_Recall.Waves
                             Stable(0, 0));
                     });
                     RegisterFunctionOnce("a", () => { });
+                    RegisterFunctionOnce("winder", () => { 
+                        r.Intensity = 6.0f;
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //10
                         "$0(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
                         "+11(LoadB)","+11","+11","+11",   "+11","+11","+11","+11",
                         //11
                         "(*$0'2)(*$2'2)(KickA)","","","",    "","","","",
-                        "(D)(+01)","","","",    "","","","",
-                        "(D)(+01)","","","",    "","","","",
-                        "D","","","",    "D","","","",
+                        "(d)(+01)","","","",    "","","","",
+                        "(d)(+01)","","","",    "","","","",
+                        "d","","","",    "d","","","",
                         //12
-                        "D","","","",    "","","","",
-                        "D1","","","",    "D1","","","",
-                        "D1","","","",    "D1","","","",
-                        "D1","","","",    "D1","","","",
+                        "d","","","",    "","","","",
+                        "d1","","","",    "d1","","","",
+                        "d1","","","",    "d1","","","",
+                        "d1","","","",    "d1","","","",
                         //13
-                        "(D)(+21)","","","",    "","","","",
-                        "D","","","",    "D","","","",
-                        "D","","","",    "D","","","",
-                        "D","","","",    "D","","","",
+                        "(d)(+21)","","","",    "","","","",
+                        "d","","","",    "d","","","",
+                        "d","","","",    "d","","","",
+                        "d","","","",    "d","","","",
                         //14
-                        "D1","","","",    "D1","","","",
-                        "D1","","","",    "D1","","","",
-                        "D1","","","",    "D1","","","",
-                        "D1","","","",    "","","","",
+                        "d1","","","",    "d1","","","",
+                        "d1","","","",    "d1","","","",
+                        "d1","","","",    "d1","","","",
+                        "d1","","","",    "","","","",
                         //15
-                        "(Step)(KickB1)(Bound)(D)(+0)(+21)","","","",    "","","","",
-                        "(D)(+0)","","","",    "","","","",
-                        "(KickA)(ConvR)(SplitterR)(D)(+0)(+01)","","","",    "","","","",
-                        "D","","","",    "D","","","",
+                        "(Step)(KickB1)(Bound)(d)(+0)(+21)(winder)","","","",    "","","","",
+                        "(d)(+0)","","","",    "","","","",
+                        "(KickA)(ConvR)(SplitterR)(d)(+0)(+01)","","","",    "","","","",
+                        "d","","","",    "d","","","",
                         //16
-                        "(Step)(KickB2)(D)(+21)(+01)","","","",    "","","","",
-                        "(Step)(D1)(+01)","","","",    "D1","","","",
-                        "(KickA)(ConvL)(SplitterL)(D)(+01)(+01)","","","",    "D1","","","",
-                        "D1","","","",    "D1","","","",
+                        "(Step)(KickB2)(d)(+21)(+01)","","","",    "","","","",
+                        "(Step)(d1)(+01)","","","",    "d1","","","",
+                        "(KickA)(ConvL)(SplitterL)(d)(+01)(+01)","","","",    "d1","","","",
+                        "d1","","","",    "d1","","","",
                         //17
-                        "(Step)(KickB1)(D)(+21)","","","",    "","","","",
-                        "","","","",    "D","","","",
-                        "(KickA)(ConvR)(SplitterR)(D)(+0)(+01)","","","",    "D","","","",
-                        "D","","","",    "D","","","",
+                        "(Step)(KickB1)(d)(+21)","","","",    "","","","",
+                        "","","","",    "d","","","",
+                        "(KickA)(ConvR)(SplitterR)(d)(+0)(+01)","","","",    "d","","","",
+                        "d","","","",    "d","","","",
                         //18
-                        "(Step)(KickB2)(#7.75#$0)(+2)(SoulR)","","","",    "","","","",
+                        "(Step)(KickB2)(#7.75#$0)(*+2)(SoulR)","","","",    "","","","",
                         "(Step)","","","",    "","","","",
-                        "(KickA)(ConvL)(SplitterL)(#3.75#$21)(+21)(SoulL)","","","",    "","","","",
+                        "(KickA)(ConvL)(SplitterL)(#3.75#$21)(*+21)(SoulL)","","","",    "","","","",
                         "","","","",    "","","","",
                     });
                 }
-                if (InBeat(72+68))
+                if (InBeat(72+64))
                 {
-                    /*
-                    RegisterFunctionOnce("a", () =>
+                    
+                    RegisterFunctionOnce("pre", () =>
                     {
+                        s = new();
+                        s.BasicSpeed = 2f;
+                        s.Width = 2.5f;
+                        s.DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.5f);
+                        GameStates.InstanceCreate(s);
                     });
-                    */
+                    
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {
-                        //19
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        //20
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        //21
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        //22
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        //23
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        //24
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        //25
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        //26
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
-                        "","","","",    "","","","",
+                        //pre
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "(pre)", "", "", "",    
+                        //1
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
                     });
                 }
             }

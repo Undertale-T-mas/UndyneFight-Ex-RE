@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ReEngine/Font/chinese.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ReEngine/Font/chinese.spritefont
+
 #begin ReEngine/Mouse/cursor.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -19,6 +19,8 @@ namespace UndyneFight_Ex.Remake
             Musics.DreamDiver_INTRO = new("ReEngine\\Musics\\Dream diver_INTRO.ogg");
             Musics.DreamDiver_LOOP = new("ReEngine\\Musics\\Dream diver_LOOP.ogg");
 
+            Font.Normal = new GLFont("Font\\chinese", loader);
+
             MainLoader = loader;
 
             SelectUI.Initialize();
@@ -37,6 +39,10 @@ namespace UndyneFight_Ex.Remake
         {
             public static Audio DreamDiver_INTRO { get; set; }
             public static Audio DreamDiver_LOOP { get; set; }
+        }
+        public static class Font
+        {
+            public static GLFont Normal { get; set; }
         }
     }
 }
