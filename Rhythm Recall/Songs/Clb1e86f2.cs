@@ -53,7 +53,13 @@ namespace Rhythm_Recall.Waves
             }
 
             public void Hard()
-            { 
+            {
+                Line line = new(LinkEase(
+                        EaseOut(BeatTime(2), new Vector2(320, 240), new Vector2(640, 240), EaseState.Linear),
+                        EaseOut(BeatTime(2), new Vector2(640, 240), new Vector2(320, 240), EaseState.Back),
+                        EaseOut(BeatTime(2), new Vector2(320, 240), new Vector2(0, 240), EaseState.Circ)
+                    ).Easing,
+                    Stable(9999, 45).Easing);
             }
 
             private static class EXBarrage

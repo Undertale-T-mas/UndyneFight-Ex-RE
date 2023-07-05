@@ -151,6 +151,11 @@ namespace UndyneFight_Ex.Remake.UI
                 if (this.State == SelectState.MouseOn) this.State = SelectState.False;
             }
         }
+
+        internal void CheckMouse()
+        {
+            this._mouseOn = this.collidingBox.Contain(MouseSystem.TransferredPosition);
+        }
     }
     interface ISelectChunk
     {
@@ -233,6 +238,7 @@ namespace UndyneFight_Ex.Remake.UI
         public bool ZKeyConfirm { get; internal set; } = true;
 
         private SelectState _state = SelectState.False;
+        protected SelectState State { get => _state ; set => _state = value; }
 
         protected void KeyEventNormal()
         {
@@ -278,7 +284,7 @@ namespace UndyneFight_Ex.Remake.UI
                     this.Activate();
                 }
             }
-            else if (_state == SelectState.MouseOn) { _state = SelectState.False; }
+            else if (_state == SelectState.MouseOn && MouseSystem.Moved) { _state = SelectState.False; }
 
             Color mission = _state switch
             {
@@ -293,6 +299,7 @@ namespace UndyneFight_Ex.Remake.UI
             if (this.ChildObjects.Count == 0) { return; }
 
             if (this.CurrentSelected != null && this.CurrentSelected.KeyLocked) return;
+            if (currentFocus == null) return;
             if (ZKeyConfirm)
             {
                 this.KeyEvent.Invoke();

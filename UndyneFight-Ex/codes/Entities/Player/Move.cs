@@ -24,11 +24,13 @@ namespace UndyneFight_Ex.Entities
 
                 public static void MoveAsPurple()
                 {
+                    RectangleBox _curBox = mission.controlingBox as RectangleBox;
+
                     if (mission.lastChangeTime >= 3)
                     {
-                        mission.purpleLineLength = mission.controlingBox.CollidingBox.Width;
+                        mission.purpleLineLength = _curBox.CollidingBox.Width;
 
-                        mission.Centre += (mission.controlingBox.Centre - mission.lastBoxCentre);
+                        mission.Centre += (_curBox.Centre - mission.lastBoxCentre);
                     }
 
                     Vector2 moving = Vector2.Zero;
@@ -47,9 +49,9 @@ namespace UndyneFight_Ex.Entities
                     currentLine = Math.Clamp(currentLine, 1, mission.purpleLineCount);
 
                     int count = mission.purpleLineCount + 1;
-                    float detla = mission.controlingBox.CollidingBox.Height / count;
+                    float detla = _curBox.CollidingBox.Height / count;
 
-                    Vector2 detla2 = new(0, detla * currentLine + mission.controlingBox.Up - mission.Centre.Y);
+                    Vector2 detla2 = new(0, detla * currentLine + _curBox.Up - mission.Centre.Y);
                     mission.positionRest.Y = detla2.Y;
 
                     if (moving != Vector2.Zero)
@@ -63,11 +65,11 @@ namespace UndyneFight_Ex.Entities
 
                     mission.collidingBox.Offset(moving * 0.5f);
 
-                    if (mission.collidingBox.X < mission.controlingBox.Left)
-                        mission.collidingBox.X = mission.controlingBox.Left;
-                    else if (mission.collidingBox.Right > mission.controlingBox.Right)
-                        mission.collidingBox.X = mission.controlingBox.Right - 16;
-                    mission.lastBoxCentre = mission.controlingBox.Centre;
+                    if (mission.collidingBox.X < _curBox.Left)
+                        mission.collidingBox.X = _curBox.Left;
+                    else if (mission.collidingBox.Right > _curBox.Right)
+                        mission.collidingBox.X = _curBox.Right - 16;
+                    mission.lastBoxCentre = _curBox.Centre;
                 }
 
                 public static void MoveAsOrange()
@@ -133,18 +135,20 @@ namespace UndyneFight_Ex.Entities
                     }
 
                     mission.collidingBox.Offset(moving * 0.5f);
-                    if (mission.collidingBox.X < mission.controlingBox.Left)
-                        mission.collidingBox.X = mission.controlingBox.Left;
-                    else if (mission.collidingBox.Right > mission.controlingBox.Right)
-                        mission.collidingBox.X = mission.controlingBox.Right - 16;
-                    if (mission.collidingBox.Y < mission.controlingBox.Up)
-                        mission.collidingBox.Y = mission.controlingBox.Up;
-                    else if (mission.collidingBox.Down > mission.controlingBox.Down)
-                        mission.collidingBox.Y = mission.controlingBox.Down - 16;
+                    RectangleBox _curBox = mission.controlingBox as RectangleBox;
+                    if (mission.collidingBox.X < _curBox.Left)
+                        mission.collidingBox.X = _curBox.Left;
+                    else if (mission.collidingBox.Right > _curBox.Right)
+                        mission.collidingBox.X = _curBox.Right - 16;
+                    if (mission.collidingBox.Y < _curBox.Up)
+                        mission.collidingBox.Y = _curBox.Up;
+                    else if (mission.collidingBox.Down > _curBox.Down)
+                        mission.collidingBox.Y = _curBox.Down - 16;
                 }
 
                 public static void MoveAsRed()
                 {
+                    RectangleBox _curBox = mission.controlingBox as RectangleBox;
                     Vector2 moving = Vector2.Zero;
 
                     if (IsKeyDown(Keys_[2]))
@@ -171,18 +175,19 @@ namespace UndyneFight_Ex.Entities
                     Vector2 finalMoving = GetVector2(moving.Length(), (float)Math.Atan2(moving.Y, moving.X) / MathUtil.PI * 180 + mission.missionRotation);
 
                     mission.collidingBox.Offset(finalMoving * 0.5f);
-                    if (mission.collidingBox.X < mission.controlingBox.Left)
-                        mission.collidingBox.X = mission.controlingBox.Left;
-                    else if (mission.collidingBox.Right > mission.controlingBox.Right)
-                        mission.collidingBox.X = mission.controlingBox.Right - 16;
-                    if (mission.collidingBox.Y < mission.controlingBox.Up)
-                        mission.collidingBox.Y = mission.controlingBox.Up;
-                    else if (mission.collidingBox.Down > mission.controlingBox.Down)
-                        mission.collidingBox.Y = mission.controlingBox.Down - 16;
+                    if (mission.collidingBox.X < _curBox.Left)
+                        mission.collidingBox.X = _curBox.Left;
+                    else if (mission.collidingBox.Right > _curBox.Right)
+                        mission.collidingBox.X = _curBox.Right - 16;
+                    if (mission.collidingBox.Y < _curBox.Up)
+                        mission.collidingBox.Y = _curBox.Up;
+                    else if (mission.collidingBox.Down > _curBox.Down)
+                        mission.collidingBox.Y = _curBox.Down - 16;
                 }
 
                 public static void MoveAsBlue()
                 {
+                    RectangleBox _curBox = mission.controlingBox as RectangleBox;
                     float trueRot = (mission.missionRotation + 90) % 360;
 
                     int jumpKey = 2;
@@ -217,28 +222,28 @@ namespace UndyneFight_Ex.Entities
                     mission.Centre += GetVector2(xMoved * 0.5f, mission.missionRotation);
 
                     bool res = false;
-                    if (mission.collidingBox.X < mission.controlingBox.Left)
+                    if (mission.collidingBox.X < _curBox.Left)
                     {
-                        res = (mission.YFacing == 2 && mission.collidingBox.X < mission.controlingBox.Left - 0.029f);
-                        mission.collidingBox.X = mission.controlingBox.Left;
+                        res = (mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.029f);
+                        mission.collidingBox.X = _curBox.Left;
                         oldCentre.X = mission.Centre.X;
                     }
-                    else if (mission.collidingBox.Right > mission.controlingBox.Right)
+                    else if (mission.collidingBox.Right > _curBox.Right)
                     {
-                        res = (mission.YFacing == 0 && mission.collidingBox.Right > mission.controlingBox.CollidingBox.Right + 0.029f);
-                        mission.collidingBox.X = mission.controlingBox.Right - 16;
+                        res = (mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.029f);
+                        mission.collidingBox.X = _curBox.Right - 16;
                         oldCentre.X = mission.Centre.X;
                     }
-                    if (mission.collidingBox.Y < mission.controlingBox.Up)
+                    if (mission.collidingBox.Y < _curBox.Up)
                     {
-                        res = (mission.YFacing == 3 && mission.collidingBox.Up < mission.controlingBox.CollidingBox.Up - 0.029f);
-                        mission.collidingBox.Y = mission.controlingBox.Up;
+                        res = (mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.029f);
+                        mission.collidingBox.Y = _curBox.Up;
                         oldCentre.Y = mission.Centre.Y;
                     }
-                    else if (mission.collidingBox.Down > mission.controlingBox.Down)
+                    else if (mission.collidingBox.Down > _curBox.Down)
                     {
-                        res = (mission.YFacing == 1 && mission.collidingBox.Down > mission.controlingBox.CollidingBox.Down + 0.029f);
-                        mission.collidingBox.Y = mission.controlingBox.Down - 16;
+                        res = (mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.029f);
+                        mission.collidingBox.Y = _curBox.Down - 16;
                         oldCentre.Y = mission.Centre.Y;
                     }
                     if (res && mission.isForced)
@@ -355,6 +360,7 @@ namespace UndyneFight_Ex.Entities
 
                 public static void MoveAsGray()
                 {
+                    RectangleBox _curBox = mission.controlingBox as RectangleBox;
                     float trueRot = (mission.missionRotation + 90) % 360;
                     float strength = 1.8f;
 
@@ -376,29 +382,29 @@ namespace UndyneFight_Ex.Entities
                     }
 
                     bool res = false;
-                    if (mission.collidingBox.X < mission.controlingBox.Left)
+                    if (mission.collidingBox.X < _curBox.Left)
                     {
-                        res = (mission.YFacing == 2 && mission.collidingBox.X < mission.controlingBox.Left - 0.9f);
+                        res = (mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.9f);
 
-                        mission.collidingBox.X = mission.controlingBox.Left;
+                        mission.collidingBox.X = _curBox.Left;
                     }
-                    else if (mission.collidingBox.Right > mission.controlingBox.Right)
+                    else if (mission.collidingBox.Right > _curBox.Right)
                     {
-                        res = (mission.YFacing == 0 && mission.collidingBox.Right > mission.controlingBox.CollidingBox.Right + 0.9f);
+                        res = (mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.9f);
 
-                        mission.collidingBox.X = mission.controlingBox.Right - 16;
+                        mission.collidingBox.X = _curBox.Right - 16;
                     }
-                    if (mission.collidingBox.Y < mission.controlingBox.Up)
+                    if (mission.collidingBox.Y < _curBox.Up)
                     {
-                        res = (mission.YFacing == 3 && mission.collidingBox.Up < mission.controlingBox.CollidingBox.Up - 0.9f);
+                        res = (mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.9f);
 
-                        mission.collidingBox.Y = mission.controlingBox.Up;
+                        mission.collidingBox.Y = _curBox.Up;
                     }
-                    else if (mission.collidingBox.Down > mission.controlingBox.Down)
+                    else if (mission.collidingBox.Down > _curBox.Down)
                     {
-                        res = (mission.YFacing == 1 && mission.collidingBox.Down > mission.controlingBox.CollidingBox.Down + 0.9f);
+                        res = (mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.9f);
 
-                        mission.collidingBox.Y = mission.controlingBox.Down - 16;
+                        mission.collidingBox.Y = _curBox.Down - 16;
                     }
 
                     foreach (var v in GravityLine.GravityLines)
@@ -431,6 +437,7 @@ namespace UndyneFight_Ex.Entities
 
                 public static void MoveAsBlueOrange()
                 {
+                    RectangleBox _curBox = mission.controlingBox as RectangleBox;
                     float trueRot = (mission.missionRotation + 90) % 360;
 
                     int jumpKey = 2;
@@ -463,28 +470,28 @@ namespace UndyneFight_Ex.Entities
                     mission.Centre += GetVector2(xMoved, mission.missionRotation);
 
                     bool res = false;
-                    if (mission.collidingBox.X < mission.controlingBox.Left)
+                    if (mission.collidingBox.X < _curBox.Left)
                     {
-                        res = (mission.YFacing == 2 && mission.collidingBox.X < mission.controlingBox.Left - 0.009f);
-                        mission.collidingBox.X = mission.controlingBox.Left;
+                        res = (mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.009f);
+                        mission.collidingBox.X = _curBox.Left;
                         oldCentre.X = mission.Centre.X;
                     }
-                    else if (mission.collidingBox.Right > mission.controlingBox.Right)
+                    else if (mission.collidingBox.Right > _curBox.Right)
                     {
-                        res = (mission.YFacing == 0 && mission.collidingBox.Right > mission.controlingBox.CollidingBox.Right + 0.009f);
-                        mission.collidingBox.X = mission.controlingBox.Right - 16;
+                        res = (mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.009f);
+                        mission.collidingBox.X = _curBox.Right - 16;
                         oldCentre.X = mission.Centre.X;
                     }
-                    if (mission.collidingBox.Y < mission.controlingBox.Up)
+                    if (mission.collidingBox.Y < _curBox.Up)
                     {
-                        res = (mission.YFacing == 3 && mission.collidingBox.Up < mission.controlingBox.CollidingBox.Up - 0.009f);
-                        mission.collidingBox.Y = mission.controlingBox.Up;
+                        res = (mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.009f);
+                        mission.collidingBox.Y = _curBox.Up;
                         oldCentre.Y = mission.Centre.Y;
                     }
-                    else if (mission.collidingBox.Down > mission.controlingBox.Down)
+                    else if (mission.collidingBox.Down > _curBox.Down)
                     {
-                        res = (mission.YFacing == 1 && mission.collidingBox.Down > mission.controlingBox.CollidingBox.Down + 0.009f);
-                        mission.collidingBox.Y = mission.controlingBox.Down - 16;
+                        res = (mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.009f);
+                        mission.collidingBox.Y = _curBox.Down - 16;
                         oldCentre.Y = mission.Centre.Y;
                     }
                     if (res && mission.isForced)

@@ -9,8 +9,8 @@ namespace UndyneFight_Ex
     public abstract class RenderProduction : IComparable<RenderProduction>
     {
         private static bool HighQuality => Settings.SettingsManager.DataLibrary.drawingQuality == Settings.SettingsManager.DataLibrary.DrawingQuality.High;
-        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / 640f, ScreenSize.Y / 480f) : 1;
-        protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new(640, 480);
+        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / (640f * GameStates.SurfaceScale), ScreenSize.Y / (480f * GameStates.SurfaceScale)) : 1;
+        protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new Vector2(640, 480) * GameStates.SurfaceScale;
 
         protected static GraphicsDevice WindowDevice => GameMain.Graphics.GraphicsDevice;
         protected static SpriteBatch spriteBatch => GameMain.MissionSpriteBatch;
@@ -24,7 +24,7 @@ namespace UndyneFight_Ex
         }
         private static Vector2 Adapt(Vector2 origin)
         {
-            if (!HighQuality) return new Vector2(640, 480);
+            if (!HighQuality) return new Vector2(640, 480) * GameStates.SurfaceScale;
 
             float trueX, trueY;
             if (origin.X >= origin.Y * 4 / 3f) { trueX = origin.Y * 4 / 3; trueY = origin.Y; }
@@ -232,7 +232,7 @@ namespace UndyneFight_Ex
         {
             Name = name;
             SizeLock = lockSize;
-            RenderPaint = SizeLock ? new RenderTarget2D(WindowDevice, (int)ScreenSize.X, (int)ScreenSize.Y) : new RenderTarget2D(WindowDevice, 640, 480);
+            RenderPaint = SizeLock ? new RenderTarget2D(WindowDevice, (int)ScreenSize.X, (int)ScreenSize.Y) : new RenderTarget2D(WindowDevice, (int)(640 * GameStates.SurfaceScale), (int)(480 * GameStates.SurfaceScale));
         }
         public override void Dispose()
         {
@@ -271,7 +271,7 @@ namespace UndyneFight_Ex
         {
             DoUpdate?.Invoke();
             Vector4 extending = DisableExpand ? Vector4.Zero : GameStates.CurrentScene.CurrentDrawingSettings.Extending;
-            Vector2 size = !SizeLock ? AdaptedSize : new(640, 480);
+            Vector2 size = !SizeLock ? AdaptedSize : new Vector2(640, 480) * GameStates.SurfaceScale;
             int missionX = (int)size.X, missionY = (int)(size.Y * (1 + extending.W));
             if (RenderPaint.Bounds.Size != new Point(missionX, missionY))
             {

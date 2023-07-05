@@ -682,6 +682,7 @@ namespace UndyneFight_Ex.SongSystem
         public virtual Color ExtraColor => Color.White;
 
         public virtual bool Hidden => false;
+        public bool MusicOptimized { get; set; } = false;
 
         public virtual Dictionary<Difficulty, float> CompleteDifficulty => new();
         public virtual Dictionary<Difficulty, float> APDifficulty => new();

@@ -104,6 +104,7 @@ namespace Rhythm_Recall
 
             SongSet test = new SongSet("Test");
             test.Push(typeof(Clb1e86f2));
+            test.Push(typeof(TheFuneral));
             test.Push(typeof(Flan));
             test.Push(typeof(Galileo));
             test.Push(typeof(LoveAndHate));

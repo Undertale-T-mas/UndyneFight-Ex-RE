@@ -76,6 +76,7 @@ namespace UndyneFight_Ex.Remake.UI
                 FightResources.Font.NormalFont.Draw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, 0.4f);
         }
         float sizeScale = 1.0f;
+        protected float CurrentScaleFactor { set => sizeScale = value; }
         public override void Update()
         {
             base.Update();

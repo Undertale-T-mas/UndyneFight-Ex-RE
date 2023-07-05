@@ -9,6 +9,8 @@ using System.Net.Sockets;
 using UndyneFight_Ex.SongSystem;
 using System.ComponentModel.Design.Serialization;
 using Microsoft.Xna.Framework.Graphics;
+using UndyneFight_Ex.Remake.Components;
+using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -36,12 +38,18 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public override void Draw()
                 { 
-                    this.FormalDraw(Image, this.Centre, null, _drawingColor, Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.None);
-                    this.FormalDraw(Image, this.Centre, null, _drawingColor, Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.FlipHorizontally);
+                    this.FormalDraw(Image, this.Centre, null, _drawingColor * alpha1, Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.None);
+                    this.FormalDraw(Image, this.Centre, null, _drawingColor * (1.6f - alpha1), Vector2.One * 1.93f, 0, ImageCentre, SpriteEffects.FlipHorizontally);
+
+                    Resources.Font.Normal.CentreDraw("开始", this.Centre - new Vector2(0, 20), _drawingColor, 1.2f, 0.2f);
                 }
                 bool _available;
+                float alpha1 = 0.7f;
+                float time = 0.0f;
                 public override void Update()
                 {
+                    alpha1 = MathF.Sin(time) * 0.2f + 0.8f;
+                    time += 0.01f;
                     Color notAvailable = Color.Purple;
                     bool available = _virtualFather.SongSelected != null && _virtualFather.CurrentDifficulty != Difficulty.NotSelected;
                     this._available = available;
@@ -66,9 +74,13 @@ namespace UndyneFight_Ex.Remake.UI
 
                 string dir;
                 if (System.IO.Directory.Exists(dir = "Content\\Musics\\" + SongSelected.Music))
-                    dir += "\\song";
+                    dir += "\\song"; 
 
-                GameStates.StartSong(SongSelected, SongSelect.Illustration, dir, (int)CurrentDifficulty, CurrentJudgementState, ModeSelect.ModeSelected);
+                GameStates.Broadcast(new(null, "MusicFadeOut"));
+                int dif = (int)CurrentDifficulty;
+                GameStates.InstanceCreate(new InstantEvent(2, () => {
+                    GameStates.StartSong(SongSelected, SongSelect.Illustration, dir, dif, CurrentJudgementState, ModeSelect.ModeSelected);
+                }));
             }
 
             public VirtualFather()
@@ -158,6 +170,17 @@ namespace UndyneFight_Ex.Remake.UI
             this.AddChild(new MouseCursor());
             this.AddChild(new LineDistributer());
             this.AddChild(new VirtualFather());
+
+            SmartMusicPlayer smartPlayer = new();
+            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_INTRO), 2398, false);
+            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_LOOP), 4801, true);
+            GameStates.InstanceCreate(smartPlayer); smartPlayer.Play();
+         /*   GameStates.InstanceCreate(new InstantEvent(2397, () => { 
+                GameStates.InstanceCreate(
+                    new MusicPlayer(Resources.Musics.DreamDiver_LOOP) { IsLoop = false }
+                ); 
+
+            }));*/
         }
 
         public override void Draw()

@@ -11,6 +11,14 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\bin\**" />
+    <Compile Remove="Content\obj\**" />
+    <EmbeddedResource Remove="Content\bin\**" />
+    <EmbeddedResource Remove="Content\obj\**" />
+    <None Remove="Content\bin\**" />
+    <None Remove="Content\obj\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
@@ -24,7 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UndyneFight-Ex\UndyneFight-Ex.csproj" />
-    <ProjectReference Include="..\UndyneFight-RE\UndyneFight-RE.csproj" />
+    <ProjectReference Include="..\UndyneFight-RE\UndyneFight_RE.csproj" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

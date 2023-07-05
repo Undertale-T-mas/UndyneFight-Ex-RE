@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq.Expressions;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -26,8 +28,10 @@ namespace UndyneFight_Ex.Entities
             if (MissionVertexs == null) return;
             float scale = MovingScale * 0.6f;
             for (int i = 0; i < Vertexs.Length; i++)
-                Vertexs[i] = Vertexs[i] * (1 - scale) + MissionVertexs[i] * scale;
-
+            {
+                float scaleBuff = MathF.Max(0, 1 - scale - Vector2.Distance(Vertexs[i], MissionVertexs[i]));
+                Vertexs[i] = Vertexs[i] * (1 - (scale + scaleBuff)) + MissionVertexs[i] * (scale + scaleBuff);
+            }
             curAlpha = detect != null && detect.SoulType == 1
                 ? curAlpha * 0.9f + GreenSoulAlpha * 0.1f : curAlpha * 0.9f + 1 * 0.1f;
         }
@@ -56,29 +60,111 @@ namespace UndyneFight_Ex.Entities
             boxs.Add(this);
             instance = this;
         }
-        public FightBox(Player.Heart p) : this() { detect = p; }
+        public FightBox(Player.Heart p) : this() {
+            detect = p; 
+        }
 
         public float MovingScale { get; set; } = 0.15f;
     }
     public class VertexBox : FightBox
     {
+        public VertexBox(RectangleBox rectangleBox)
+        {
+            this.MissionVertexs = new Vector2[4];
+            this.Vertexs = new Vector2[4];
+            this.MissionVertexs[0] = rectangleBox.CollidingBox.TopRight;
+            this.MissionVertexs[1] = rectangleBox.CollidingBox.BottomRight;
+            this.MissionVertexs[2] = rectangleBox.CollidingBox.BottomLeft;
+            this.MissionVertexs[3] = rectangleBox.CollidingBox.TopLeft;
+            Array.Copy(this.MissionVertexs, this.Vertexs, 4);
+        }
+
         public override void Draw()
         {
+            base.Draw();
         }
 
         public override void InstanceMove(object v)
         {
-            throw new NotImplementedException();
+            if (v is not Vector2[]) throw new ArgumentException($"{nameof(v)} has to be an vector array");
+
+            Vector2[] temp = v as Vector2[];
+            if(temp.Length != MissionVertexs.Length) 
+                throw new ArgumentOutOfRangeException($"{nameof(v)} must be in same length with vertex count");
+
+            this.MissionVertexs = this.Vertexs = temp;
         }
 
         public override void MoveTo(object v)
         {
-            throw new NotImplementedException();
+            if (v is not Vector2[]) throw new ArgumentException($"nameof(v) has to be an vector array");
+
+            Vector2[] temp = v as Vector2[];
+            if (temp.Length != MissionVertexs.Length)
+                throw new ArgumentOutOfRangeException($"{nameof(v)} must be in same length with vertex count");
+
+            this.MissionVertexs = temp;
+        }
+
+        public int Split(int originID, float scale)
+        {
+            if (scale < 0 || scale > 1) throw new ArgumentOutOfRangeException($"{nameof(scale)} has to be in [0, 1]");
+            if (originID != this.MissionVertexs.Length - 1) {
+                Vector2 a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
+                Vector2 pos = Vector2.Lerp(a, b, scale);
+
+                Vector2[] temp = new Vector2[MissionVertexs.Length + 1];
+                Array.Copy(MissionVertexs, 0, temp, 0, originID + 1);
+                temp[originID + 1] = pos;
+                Array.Copy(MissionVertexs, originID + 1, temp, originID + 2, MissionVertexs.Length - originID - 1);
+
+                MissionVertexs = temp;
+
+                temp = new Vector2[Vertexs.Length + 1];
+                Array.Copy(Vertexs, 0, temp, 0, originID + 1);
+                temp[originID + 1] = pos;
+                Array.Copy(Vertexs, originID + 1, temp, originID + 2, Vertexs.Length - originID - 1);
+
+                Vertexs = temp;
+            }
+            else
+            { 
+                Vector2 a = this.Vertexs[originID], b = this.Vertexs[0];
+                Vector2 pos = Vector2.Lerp(a, b, scale);
+
+                Vector2[] temp = new Vector2[MissionVertexs.Length + 1];
+                Array.Copy(MissionVertexs, temp, MissionVertexs.Length);
+                temp[originID + 1] = pos;
+
+                MissionVertexs = temp;
+                
+                temp = new Vector2[Vertexs.Length + 1];
+                Array.Copy(Vertexs, temp, Vertexs.Length);
+                temp[originID + 1] = pos;
+
+                Vertexs = temp; 
+            }
+
+            return originID + 1;
+        }
+
+        public void SetPosition(int originID, Vector2 position)
+        {
+            this.MissionVertexs[originID] = position;
         }
 
         public override void Update()
         {
             base.Update();
+            float x1 = Vertexs[0].X, x2 = Vertexs[0].X, y1 = Vertexs[0].Y, y2 = Vertexs[0].Y;
+            for(int i =  1; i < Vertexs.Length; i++)
+            {
+                x1 = MathF.Min(x1, Vertexs[i].X);
+                x2 = MathF.Max(x2, Vertexs[i].X);
+                y1 = MathF.Min(y1, Vertexs[i].Y);
+                y2 = MathF.Max(y2, Vertexs[i].Y);
+            }
+            this.collidingBox = new(x1, y1, x2 - x1, y2 - y1);
         }
     }
     public class RectangleBox : FightBox

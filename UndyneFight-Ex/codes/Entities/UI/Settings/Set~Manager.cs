@@ -46,11 +46,11 @@ namespace UndyneFight_Ex.Settings
             _textSelection.Update();
         }
     }
-    internal static class SettingsManager
+    public static class SettingsManager
     {
         public static Type[] Settings { get; private set; }
 
-        public static void Initialize()
+        internal static void Initialize()
         {
             Settings = new Type[]
             {

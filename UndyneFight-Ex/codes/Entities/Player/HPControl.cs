@@ -104,7 +104,7 @@ namespace UndyneFight_Ex.Entities
                 playerHurt.CreateInstance().Play();
                 CreateParticles(new Color(140, 0, 0, 100), 2f, 8f, heart.Centre, kr ? 4 : 16, 4);
 
-                CreateParticles(Color.Lerp(heart.DrawingColor * 0.4f, new Color(100, 0, 0, 100), 0.5f), 2f, 8f, heart.Centre, 6, 4);
+                CreateParticles(Color.Lerp(heart.CurrentMoveState.StateColor * 0.4f, new Color(100, 0, 0, 100), 0.5f), 2f, 8f, heart.Centre, 6, 4);
             }
 
             public void ResetKR()
