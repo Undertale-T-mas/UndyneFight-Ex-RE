@@ -825,7 +825,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                     });
                 }
-                if (InBeat(140))
+                if (InBeat(130))
                 {
                     RegisterFunctionOnce("Lead1", () =>
                     {
@@ -1034,6 +1034,13 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                     });
                 }
+                if(InBeat(158))
+                {
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    {
+
+                    });
+                }
             }
             public void Noob()
             {
@@ -1050,8 +1057,8 @@ namespace Rhythm_Recall.Waves
                 if (jump==true)
                 {
                     SetSoul(1);
-                    GametimeDelta = -5.4f+ BeatTime(94);
-                    PlayOffset = BeatTime(94);
+                    GametimeDelta = -5.4f+ BeatTime(130);
+                    PlayOffset = BeatTime(130);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
                 }

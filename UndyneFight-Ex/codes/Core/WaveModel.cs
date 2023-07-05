@@ -607,19 +607,19 @@ namespace UndyneFight_Ex.SongSystem
         public static float CurrentTime { get; private set; } = 0;
         public static bool DelayEnabled { private get; set; } = true;
         /// <summary>
-        /// <para>便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）</para>
-        /// 箭头：
-        /// <para>*0.特性    "!"无分，   "^"加速，     ">"右旋转，     "*"Tap，   "~"Void，      "_"Hold</para>
-        /// <para>1.方向    "R"随机，     "D"跟上次不一样，     "+/-x"上一个方向的 +/-x方向，   "$x"固定在x方向</para>
-        /// <para>*2.颜色    "0"蓝，       "1"红</para>
-        /// <para>*3.旋转    "0"无，       "1"黄矛，      "2"斜矛</para>
-        /// <para>组合：(R)(+0)才是两个叠在一起，R(+0)会无效</para>
-        /// <para>GB：#xx#yz</para>
-        /// <para>#xx#表示停留节拍，y表示方向（用法和箭头相同），z表示颜色</para>
-        /// <para>事件用RegisterFunction()或RegisterFunctionOnce()然后放进字符里面</para>
-        /// <para>比如RegisterFunctionOnce("func", ()=> {});</para>
-        /// <para>"(func)(R)"，即会发动事件和做一根随机蓝矛</para>
-        /// <para>"!!X*/Y"，即会在接下来的Y拍切成8 * X 分音符</para>
+        /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>
+        /// 箭头：<br/>
+        /// *0.特性    "!"无分，   "^"加速，     ">"右旋转，     "*"Tap，   "~"Void，      "_"Hold<br/>
+        /// 1.方向    "R"随机，     "D"跟上次不一样，     "+/-x"上一个方向的 +/-x方向，   "$x"固定在x方向<br/>
+        /// *2.颜色    "0"蓝，       "1"红<br/>
+        /// *3.旋转    "0"无，       "1"黄矛，      "2"斜矛<br/>
+        /// 组合：(R)(+0)才是两个叠在一起，R(+0)会无效<br/>
+        /// GB：#xx#yz<br/>
+        /// #xx#表示停留节拍，y表示方向（用法和箭头相同），z表示颜色<br/>
+        /// 事件用RegisterFunction()或RegisterFunctionOnce()然后放进字符里面<br/>
+        /// 比如RegisterFunctionOnce("func", ()=> {});<br/>
+        /// "(func)(R)"，即会发动事件和做一根随机蓝矛<br/>
+        /// "!!X*/Y"，即会在接下来的Y拍切成8 * X 分音符<br/>
         /// </summary>
         /// <param name="Delay">延迟时间，一般用来让箭头不闪现入场</param>
         /// <param name="Beat">拍号，如果写BeatTime(1)即为每个字符串占一个32分的长度</param>
@@ -682,7 +682,6 @@ namespace UndyneFight_Ex.SongSystem
         public virtual Color ExtraColor => Color.White;
 
         public virtual bool Hidden => false;
-        public bool MusicOptimized { get; set; } = false;
 
         public virtual Dictionary<Difficulty, float> CompleteDifficulty => new();
         public virtual Dictionary<Difficulty, float> APDifficulty => new();
