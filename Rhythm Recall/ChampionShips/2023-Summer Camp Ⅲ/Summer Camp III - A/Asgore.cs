@@ -364,52 +364,674 @@ namespace Rhythm_Recall.Waves
                     {
 
                     });
+                    RegisterFunctionOnce("Lead1", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 1 / 5, 480 * 1 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 2 / 5, 480 * 1 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 3 / 5, 480 * 1 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 4 / 5, 480 * 1 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2=new(c2, r2);
+                        Line l3=new(c3, r3);
+                        Line l4=new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.25f,()=> { CreateEntity(l2); });
+                        DelayBeat(0.5f, () => { CreateEntity(l3); });
+                        DelayBeat(0.75f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead2", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 4 / 5, 480 * 4 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 3 / 5, 480 * 4 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 2 / 5, 480 * 4 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 1 / 5, 480 * 4 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.5f, () => { CreateEntity(l2); });
+                        DelayBeat(0.75f, () => { CreateEntity(l3); });
+                        DelayBeat(1f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead3", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 1 / 5, 480 * 1 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 1 / 5, 480 * 2 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 1 / 5, 480 * 3 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 1 / 5, 480 * 4 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.25f, () => { CreateEntity(l2); });
+                        DelayBeat(0.5f, () => { CreateEntity(l3); });
+                        DelayBeat(0.75f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead4", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 4 / 5, 480 * 4 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 4 / 5, 480 * 3 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 4 / 5, 480 * 2 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 4 / 5, 480 * 1 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.5f, () => { CreateEntity(l2); });
+                        DelayBeat(0.75f, () => { CreateEntity(l3); });
+                        DelayBeat(1f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("LeadEnd", () =>
+                    {
+                        var c = LinkEase(
+                            Stable(0,new Vector2(320,240+42)),
+                            EaseOut(BeatTime(1),-new Vector2(0,84),EaseState.Sine),
+                            EaseIn(BeatTime(1),new Vector2(0,240 + 84), EaseState.Sine),
+                            EaseOut(BeatTime(1), new Vector2(0, 240 + 84), EaseState.Linear)
+                            ).Easing;
+                        var r = Stable(0, 0).Easing;
+                        Line l = new(c, r) {VerticalMirror=true,Alpha=0.7f};
+                        var c1 = LinkEase(
+                            Stable(0, new Vector2(320-42, 240)),
+                            EaseOut(BeatTime(1), new Vector2(84,0), EaseState.Sine),
+                            EaseIn(BeatTime(1), -new Vector2(320 + 84,0), EaseState.Sine),
+                            EaseOut(BeatTime(1), -new Vector2(320 + 84,0), EaseState.Linear)
+                            ).Easing;
+                        var r1 = Stable(0, 90).Easing;
+                        Line l1 = new(c1, r1) { TransverseMirror = true,Alpha=0.7f };
+                        CreateEntity(l,l1);
+                        DelayBeat(8, () => { l.Dispose();l1.Dispose(); });
+                        ScreenDrawing.CameraEffect.SizeExpand(9f, BeatTime(2.5f));
+                        ScreenDrawing.CameraEffect.Convulse(5, BeatTime(2f), false);
+                        DelayBeat(2, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), true); });
+                    });
+                    RegisterFunctionOnce("Shake", () =>
+                    {
+                        ScreenDrawing.MakeFlicker(Color.White * 0.25f);
+                        if (RandBool()==true)
+                        {
+                            RunEase((s) =>
+                            {
+                                ScreenDrawing.ScreenAngle = s;
+                            },
+                            Stable(0, 0),
+                            EaseOut(BeatTime(0.125f), 3, EaseState.Quad),
+                            EaseOut(BeatTime(0.875f), -3, EaseState.Sine));
+                            Line l = new(Rand(80, 480), 90);
+                            Line l2 = new(LastRand + 80, 90);
+                            CreateEntity(l, l2);
+                            l.AlphaDecrease(BeatTime(0.5f));
+                            l2.AlphaDecrease(BeatTime(0.5f));
+                        }
+                        else
+                        {
+                            RunEase((s) =>
+                            {
+                                ScreenDrawing.ScreenAngle = s;
+                            },
+                            Stable(0, 0),
+                            EaseOut(BeatTime(0.125f), -3, EaseState.Quad),
+                            EaseOut(BeatTime(0.325f), 3, EaseState.Sine));
+                            Line l = new(Rand(80, 400), 90);
+                            Line l2 = new(LastRand + 160, 90);
+                            CreateEntity(l, l2);
+                            l.AlphaDecrease(BeatTime(0.5f));
+                            l2.AlphaDecrease(BeatTime(0.5f));
+                        }
+
+                    });
                     BarrageCreate(BeatTime(5), BeatTime(1), 6, new string[]
                     {
                         "CloneA","","","",   "","","","",
                         "(R1)","","","",   "","","","",
                         "(R1)(D{CloneA})","+0{CloneA}","+0{CloneA}(CloneB)","+0{CloneA}",   "+0{CloneA}","+0{CloneA}","+0{CloneA}","+0{CloneA}",
 
-                        "(+0{CloneA})(D1)","","","",   "R","","(+0)(D1)","", 
-                        "","","(R1)(D{CloneB})","+0{CloneB}",   "+0{CloneB}","+0{CloneB}","(+0{CloneB})(D1)","",                  
+                        "(+0{CloneA})(D1)(Lead1)","","","",   "R","","(+0)(D1)","", 
+                        "","","(R1)(D{CloneB})","+0{CloneB}",   "+0{CloneB}","+0{CloneB}","(+0{CloneB})(D1)(Lead2)","",
                         "","","R","",   "(+0)(D1)","","","",
                         "(R)(D1)","","","",  "(R)(D1)","","","",
 
-                        "(R)(D1)","","","",   "R","","(+0)(D1)","",
-                        "","","R","",   "+0(CloneB)","","(+0)(D1)","",                       
+                        "(R)(D1)(Lead3)","","","",   "R","","(+0)(D1)","",
+                        "","","R","",   "+0(CloneB)","","(+0)(D1)(Lead4)","",
                         "","","R","",   "(+0)(D1)","","","",   
                         "(R)(D1)","","","",   "(R1)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
 
-                        "(+0{CloneB})(D1)","","","",   "R","","(+0)(D1)","",
-                        "","","R","",   "(+0)(D1)(CloneB)","","(R)(D1)","",                        
+                        "(+0{CloneB})(D1)(Lead1)","","","",   "R","","(+0)(D1)","",
+                        "","","R","",   "(+0)(D1)(CloneB)","","(R)(D1)(Lead4)","",                        
                         "","","R","",   "(+0)(D1)","","","",
                         "R","","","",   "(R1)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
 
-                        "(+0{CloneB})(D1)","","R","",   "+0","","(+0)(D1)","",
+                        "(+0{CloneB})(D1)(LeadEnd)","","R","",   "+0","","(+0)(D1)","",
                         "","","R","",   "(+0)(D1)","","","",
                         "(R)(D1)","","","",   "R","+11","-1","",
-                        "","","R(CloneB)","-11",   "+1","","","",
+                        "","","R(CloneB)","-11",   "+1","","","(Shake)",
                         //
-                        "*^R1'1.5","","","",   "","","*^R1'1.5","",
-                        "","","R{CloneB}","+0{CloneB}",   "+0{CloneB}","+0{CloneB}","(+0{CloneB})(*^R1'1.5)","",
-                        "","","","",   "*^R1'1.5","","","",
-                        "*^R1'1.5","","","",   "*^R1'1.5","","","",
+                        "*^R1'1.5","","","",   "","(Shake)","*^R1'1.5","",
+                        "","","R{CloneB}","+0{CloneB}",   "+0{CloneB}","+0{CloneB}(Shake)","(+0{CloneB})(*^R1'1.5)","",
+                        "","","","(Shake)",   "*^R1'1.5","","","(Shake)",
+                        "*^R1'1.5","","","(Shake)",   "*^R1'1.5","","","(Shake)",
 
-                        "*^R1'1.5","","","",   "","","*^R1'1.5","",
-                        "","","","",   "(CloneB)","","*^R1'1.5","",
-                        "","","","",   "*^R1'1.5","","","",
-                        "*^R1'1.5","","","",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
+                        "*^R1'1.5","","","",   "","(Shake)","*^R1'1.5","",
+                        "","","","",   "(CloneB)","(Shake)","*^R1'1.5","",
+                        "","","","(Shake)",   "*^R1'1.5","","","(Shake)",
+                        "*^R1'1.5","","","(Shake)",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}(Shake)",
 
-                        "(+0{CloneB})(*^D1'1.5)","","","",   "","","*^R1'1.5","",
-                        "","","","",   "(CloneB)","","*^R1'1.5","",
-                        "","","","",   "*^R1'1.5","","","",
-                        "*^R1'1.5","","","",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
+                        "(+0{CloneB})(*^D1'1.5)","","","",   "","(Shake)","*^R1'1.5","",
+                        "","","","",   "(CloneB)","(Shake)","*^R1'1.5","",
+                        "","","","(Shake)",   "*^R1'1.5","","","(Shake)",
+                        "*^R1'1.5","","","(Shake)",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
 
-                        "(+0{CloneB})(*^D1'1.5)","","","",   "","","R","",
+                        "(+0{CloneB})(*^D1'1.5)(LeadEnd)","","","",   "","","R","",
                         "","","","",   "R1","","","",
                         "R","","+11","",   "","","R","",
                         "","","R'0.85","+1'0.85",   "+1'0.85","","","",
 
+                    });
+                }
+                if (InBeat(98))
+                {
+                    RegisterFunctionOnce("Lead1", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 4 / 5, 480 * 4 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 3 / 5, 480 * 4 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 2 / 5, 480 * 4 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 1 / 5, 480 * 4 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.25f, () => { CreateEntity(l2); });
+                        DelayBeat(0.5f, () => { CreateEntity(l3); });
+                        DelayBeat(0.75f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead2", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 1 / 5, 480 * 1 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 2 / 5, 480 * 1 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 3 / 5, 480 * 1 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 4 / 5, 480 * 1 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.5f, () => { CreateEntity(l2); });
+                        DelayBeat(0.75f, () => { CreateEntity(l3); });
+                        DelayBeat(1f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead3", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 4 / 5, 480 * 4 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 4 / 5, 480 * 3 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 4 / 5, 480 * 2 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 4 / 5, 480 * 1 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.25f, () => { CreateEntity(l2); });
+                        DelayBeat(0.5f, () => { CreateEntity(l3); });
+                        DelayBeat(0.75f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead4", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 1 / 5, 480 * 1 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 1 / 5, 480 * 2 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 1 / 5, 480 * 3 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 1 / 5, 480 * 4 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.5f, () => { CreateEntity(l2); });
+                        DelayBeat(0.75f, () => { CreateEntity(l3); });
+                        DelayBeat(1f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("LeadEnd", () =>
+                    {
+                        var c = LinkEase(
+                            Stable(0, new Vector2(320, 240 +BoxStates.Height/2)),
+                            EaseOut(BeatTime(1), -new Vector2(0, BoxStates.Height), EaseState.Sine),
+                            EaseIn(BeatTime(1), new Vector2(0, 240 + BoxStates.Height), EaseState.Sine),
+                            EaseOut(BeatTime(1), new Vector2(0, 240 + BoxStates.Height), EaseState.Linear)
+                            ).Easing;
+                        var r = Stable(0, 0).Easing;
+                        Line l = new(c, r) { VerticalMirror = true, Alpha = 0.7f };
+                        var c1 = LinkEase(
+                            Stable(0, new Vector2(320 - BoxStates.Width/2, 240)),
+                            EaseOut(BeatTime(1), new Vector2(BoxStates.Width, 0), EaseState.Sine),
+                            EaseIn(BeatTime(1), -new Vector2(320 + BoxStates.Width, 0), EaseState.Sine),
+                            EaseOut(BeatTime(1), -new Vector2(320 + BoxStates.Width, 0), EaseState.Linear)
+                            ).Easing;
+                        var r1 = Stable(0, 90).Easing;
+                        Line l1 = new(c1, r1) { TransverseMirror = true, Alpha = 0.7f };
+                        CreateEntity(l, l1);
+                        DelayBeat(8, () => { l.Dispose(); l1.Dispose(); });
+                        ScreenDrawing.CameraEffect.SizeExpand(9f, BeatTime(2.5f));
+                        ScreenDrawing.CameraEffect.Convulse(5, BeatTime(2f), true);
+                        DelayBeat(2, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), false); });
+                    });
+                    RegisterFunctionOnce("SetBox", () =>
+                    {
+                        SetBox(240, 84 * 2f, 84 * 2f);
+                        SetSoul(0);
+                    });
+                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    {
+                        "SetBox(Lead1)","","","",   "","","","",
+                        "","","","",   "","","(Lead2)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "(Lead3)","","","",   "","","","",
+                        "","","","",   "","","(Lead4)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Lead1","","","",   "","","","",
+                        "","","","",   "","","Lead4","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "LeadEnd","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        //
+                        "(Lead1)","","","",   "","","","",
+                        "","","","",   "","","(Lead2)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "(Lead3)","","","",   "","","","",
+                        "","","","",   "","","(Lead4)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Lead1","","","",   "","","","",
+                        "","","","",   "","","Lead4","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "LeadEnd","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                    });
+                }
+                if (InBeat(140))
+                {
+                    RegisterFunctionOnce("Lead1", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 4 / 5, 480 * 4 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 3 / 5, 480 * 4 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 2 / 5, 480 * 4 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 1 / 5, 480 * 4 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.25f, () => { CreateEntity(l2); });
+                        DelayBeat(0.5f, () => { CreateEntity(l3); });
+                        DelayBeat(0.75f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead2", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 1 / 5, 480 * 1 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 2 / 5, 480 * 1 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 3 / 5, 480 * 1 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 4 / 5, 480 * 1 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), 80),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.5f, () => { CreateEntity(l2); });
+                        DelayBeat(0.75f, () => { CreateEntity(l3); });
+                        DelayBeat(1f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead3", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 4 / 5, 480 * 4 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 4 / 5, 480 * 3 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 4 / 5, 480 * 2 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 4 / 5, 480 * 1 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.25f, () => { CreateEntity(l2); });
+                        DelayBeat(0.5f, () => { CreateEntity(l3); });
+                        DelayBeat(0.75f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("Lead4", () =>
+                    {
+                        var c1 = Stable(0, new Vector2(640 * 1 / 5, 480 * 1 / 5)).Easing;
+                        var c2 = Stable(0, new Vector2(640 * 1 / 5, 480 * 2 / 5)).Easing;
+                        var c3 = Stable(0, new Vector2(640 * 1 / 5, 480 * 3 / 5)).Easing;
+                        var c4 = Stable(0, new Vector2(640 * 1 / 5, 480 * 4 / 5)).Easing;
+                        var r1 = LinkEase(
+                            Stable(0, -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r2 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r3 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        var r4 = LinkEase(
+                            Stable(BeatTime(0), -10),
+                            EaseOut(BeatTime(0.5f), 10, EaseState.Sine)
+                            ).Easing;
+                        Line l1 = new(c1, r1);
+                        Line l2 = new(c2, r2);
+                        Line l3 = new(c3, r3);
+                        Line l4 = new(c4, r4);
+                        l1.AlphaDecrease(BeatTime(1));
+                        l2.AlphaDecrease(BeatTime(1.25f));
+                        l3.AlphaDecrease(BeatTime(1.5f));
+                        l4.AlphaDecrease(BeatTime(1.75f));
+                        CreateEntity(l1);
+                        DelayBeat(0.5f, () => { CreateEntity(l2); });
+                        DelayBeat(0.75f, () => { CreateEntity(l3); });
+                        DelayBeat(1f, () => { CreateEntity(l4); });
+                    });
+                    RegisterFunctionOnce("LeadEnd", () =>
+                    {
+                        var c = LinkEase(
+                            Stable(0, new Vector2(320, 240 + BoxStates.Height / 2)),
+                            EaseOut(BeatTime(1), -new Vector2(0, BoxStates.Height), EaseState.Sine),
+                            EaseIn(BeatTime(1), new Vector2(0, 240 + BoxStates.Height), EaseState.Sine),
+                            EaseOut(BeatTime(1), new Vector2(0, 240 + BoxStates.Height), EaseState.Linear)
+                            ).Easing;
+                        var r = Stable(0, 0).Easing;
+                        Line l = new(c, r) { VerticalMirror = true, Alpha = 0.7f };
+                        var c1 = LinkEase(
+                            Stable(0, new Vector2(320 - BoxStates.Width / 2, 240)),
+                            EaseOut(BeatTime(1), new Vector2(BoxStates.Width, 0), EaseState.Sine),
+                            EaseIn(BeatTime(1), -new Vector2(320 + BoxStates.Width, 0), EaseState.Sine),
+                            EaseOut(BeatTime(1), -new Vector2(320 + BoxStates.Width, 0), EaseState.Linear)
+                            ).Easing;
+                        var r1 = Stable(0, 90).Easing;
+                        Line l1 = new(c1, r1) { TransverseMirror = true, Alpha = 0.7f };
+                        CreateEntity(l, l1);
+                        DelayBeat(8, () => { l.Dispose(); l1.Dispose(); });
+                        ScreenDrawing.CameraEffect.SizeExpand(9f, BeatTime(2.5f));
+                        ScreenDrawing.CameraEffect.Convulse(5, BeatTime(2f), true);
+                        DelayBeat(2, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), false); });
+                    });
+                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    {
+                        "(Lead1)","","","",   "","","","",
+                        "","","","",   "","","(Lead2)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "(Lead3)","","","",   "","","","",
+                        "","","","",   "","","(Lead4)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Lead1","","","",   "","","","",
+                        "","","","",   "","","Lead4","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "LeadEnd","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        //
+                        "(Lead1)","","","",   "","","","",
+                        "","","","",   "","","(Lead2)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "(Lead3)","","","",   "","","","",
+                        "","","","",   "","","(Lead4)","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Lead1","","","",   "","","","",
+                        "","","","",   "","","Lead4","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "LeadEnd","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
                     });
                 }
             }
@@ -424,12 +1046,12 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
-                bool jump = false;
+                bool jump = true;
                 if (jump==true)
                 {
                     SetSoul(1);
-                    GametimeDelta = -5.4f+ BeatTime(58);
-                    PlayOffset = BeatTime(58);
+                    GametimeDelta = -5.4f+ BeatTime(94);
+                    PlayOffset = BeatTime(94);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
                 }

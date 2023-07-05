@@ -711,6 +711,14 @@ namespace UndyneFight_Ex.Fight
         {
             InstanceCreate(et);
         }
+        public static void CreateEntity(params Entity[] et)
+        {
+            for (int a = 0; a < et.Length; a++)
+            {
+                int x = a;
+                InstanceCreate(et[x]);
+            }
+        }
         /// <summary>
         /// 创建任意实例
         /// </summary>
