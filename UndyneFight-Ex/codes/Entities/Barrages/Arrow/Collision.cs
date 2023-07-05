@@ -332,7 +332,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Dispose()
         {
-            GameStates.InstanceCreate(new BreakArrow(2, Rotation, ArrowColor, rotatingType, Centre, Scale * DrawingScale));
+            GameStates.InstanceCreate(new BreakArrow(2, Rotation + additiveRotation, ArrowColor, rotatingType, Centre, Scale * DrawingScale));
             arrows.Remove(this);
 
             base.Dispose();

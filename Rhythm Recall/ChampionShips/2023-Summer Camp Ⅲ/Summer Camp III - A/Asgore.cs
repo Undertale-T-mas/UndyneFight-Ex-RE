@@ -79,11 +79,16 @@ namespace Rhythm_Recall.Waves
                 throw new NotImplementedException();
             }
             #endregion
+            static Arrow.UnitEasing easeA = null, easeB = null, easeC = null;
+            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null;
             public void Hard()
             {
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
                 if (InBeat(0))
                 {
+                    easeX = new();
+                    easeX.RevolutionEase(Stable(1, -45));
+                    AddInstance(easeX);
                     RegisterFunctionOnce("MoveBox", () =>
                     {
                         RunEase((s) => { InstantSetBox(240, s.X, s.Y); },
@@ -250,6 +255,7 @@ namespace Rhythm_Recall.Waves
                         l.TransverseMirror = true;
                         l.VerticalMirror = true;
                     });
+                    easeX.TagApply("X");
                     BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
                     {
 
@@ -273,24 +279,24 @@ namespace Rhythm_Recall.Waves
                         "Line(R)(D1)","","","Kick",   "","","","",
                         "","","","Kick",   "","","","",
                         //
-                        "(*^$0)(*^+21)Stop","","","",   "","","","",
-                        "(*^$0)(*^+21)","","","",   "","","","",
-                        "Line(*^$0)(*^+21)","","","Kick",   "","","","",
-                        "","","","Kick",   "(*R)(*D1)","","","",
+                        "(*^$002@X)(*^+212@X)Stop","","","",   "","","","",
+                        "(*^$002@X)(*^+212@X)","","","",   "","","","",
+                        "Line(*^$002@X)(*^+212@X)","","","Kick",   "","","","",
+                        "","","","Kick",   "(*R02@X)(*D12@X)","","","",
 
-                        "(Line)(*R)(*D1)","","","Kick",   "","","(*R)(*D1)","",
-                        "","","","Kick",   "(*R)(*D1)","","","",
-                        "Line(*R)(*D1)","","","Kick",   "","","","",
-                        "","","","Kick",   "(*R)(*D1)","","","",
+                        "(Line)(*R02@X)(*D12@X)","","","Kick",   "","","(*R02@X)(*D12@X)","",
+                        "","","","Kick",   "(*R02@X)(*D12@X)","","","",
+                        "Line(*R02@X)(*D12@X)","","","Kick",   "","","","",
+                        "","","","Kick",   "(*R02@X)(*D12@X)","","","",
 
-                        "(Line)(*R)(*D1)","","","Kick",   "","","(*R)(*D1)","",
-                        "","","","Kick",   "(*R)(*D1)","","","",
-                        "Line(*R)(*D1)","","","Kick",   "","","","",
+                        "(Line)(*R02@X)(*D12@X)","","","Kick",   "","","(*R02@X)(*D12@X)","",
+                        "","","","Kick",   "(*R02@X)(*D12@X)","","","",
+                        "Line(*R02@X)(*D12@X)","","","Kick",   "","","","",
                         "","","","Kick",   "","","","",
 
                         "Line","","","Kick",   "Kick","","","",
-                        "","","","Kick",   "(*R'1.1)(*+21'1.1)Kick","","(*+2'1.3)(*+21'1.3)","",
-                        "(*+2'1.5)(*+21'1.5)","","","",   "","","","",
+                        "","","","Kick",   "(*R02@X'1.1)(*+212@X'1.1)Kick","","(*+202@X'1.3)(*+212@X'1.3)","",
+                        "(*+202@X'1.5)(*+212@X'1.5)","","","",   "","","","",
                         "","","","",   "","","","",
                     });
                 }
@@ -563,6 +569,7 @@ namespace Rhythm_Recall.Waves
                         }
 
                     });
+                    easeX.TagApply("X");
                     BarrageCreate(BeatTime(5), BeatTime(1), 6, new string[]
                     {
                         "CloneA","","","",   "","","","",
@@ -589,20 +596,20 @@ namespace Rhythm_Recall.Waves
                         "(R)(D1)","","","",   "R","+11","-1","",
                         "","","R(CloneB)","-11",   "+1","","","(Shake)",
                         //
-                        "*^R1'1.5","","","",   "","(Shake)","*^R1'1.5","",
-                        "","","R{CloneB}","+0{CloneB}",   "+0{CloneB}","+0{CloneB}(Shake)","(+0{CloneB})(*^R1'1.5)","",
-                        "","","","(Shake)",   "*^R1'1.5","","","(Shake)",
-                        "*^R1'1.5","","","(Shake)",   "*^R1'1.5","","","(Shake)",
+                        "*^R12@X'1.5","","","",   "","(Shake)","*^R12@X'1.5","",
+                        "","","R{CloneB}","+0{CloneB}",   "+0{CloneB}","+0{CloneB}(Shake)","(+0{CloneB})(*^R12@X'1.5)","",
+                        "","","","(Shake)",   "*^R12@X'1.5","","","(Shake)",
+                        "*^R12@X'1.5","","","(Shake)",   "*^R12@X'1.5","","","(Shake)",
 
-                        "*^R1'1.5","","","",   "","(Shake)","*^R1'1.5","",
-                        "","","","",   "(CloneB)","(Shake)","*^R1'1.5","",
-                        "","","","(Shake)",   "*^R1'1.5","","","(Shake)",
-                        "*^R1'1.5","","","(Shake)",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}(Shake)",
+                        "*^R12@X'1.5","","","",   "","(Shake)","*^R12@X'1.5","",
+                        "","","","",   "(CloneB)","(Shake)","*^R12@X'1.5","",
+                        "","","","(Shake)",   "*^R12@X'1.5","","","(Shake)",
+                        "*^R12@X'1.5","","","(Shake)",   "(*^R12@X'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}(Shake)",
 
-                        "(+0{CloneB})(*^D1'1.5)","","","",   "","(Shake)","*^R1'1.5","",
-                        "","","","",   "(CloneB)","(Shake)","*^R1'1.5","",
-                        "","","","(Shake)",   "*^R1'1.5","","","(Shake)",
-                        "*^R1'1.5","","","(Shake)",   "(*^R1'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
+                        "(+0{CloneB})(*^D12@X'1.5)","","","",   "","(Shake)","*^R12@X'1.5","",
+                        "","","","",   "(CloneB)","(Shake)","*^R12@X'1.5","",
+                        "","","","(Shake)",   "*^R12@X'1.5","","","(Shake)",
+                        "*^R12@X'1.5","","","(Shake)",   "(*^R12@X'1.5)(D{CloneB})","+0{CloneB}","+0{CloneB}","+0{CloneB}",
 
                         "(+0{CloneB})(*^D1'1.5)(LeadEnd)","","","",   "","","R","",
                         "","","","",   "R1","","","",
@@ -1053,7 +1060,7 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
-                bool jump = true;
+                bool jump = false;
                 if (jump==true)
                 {
                     SetSoul(1);

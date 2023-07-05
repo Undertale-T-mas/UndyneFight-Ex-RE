@@ -816,6 +816,27 @@ namespace UndyneFight_Ex.Entities
             return new EaseUnit<float>(main.Start + addon, main.End + addon,
                 main.Time, (s) => { return main.Easing.Invoke(s) + addon; });
         }
+
+        public static EaseUnit<Vector2> SineWave(Vector2 start, Vector2 end, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, Vector2> sine = (t) => Vector2.Lerp(start, end, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<Vector2>((start + end) / 2f, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<Vector2> SineWave(Vector2 impact, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, Vector2> sine = (t) => Vector2.Lerp(-impact, impact, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<Vector2>(Vector2.Zero, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<float> SineWave(float start, float end, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, float> sine = (t) => MathHelper.Lerp(start, end, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<float>((start + end) / 2f, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<float> SineWave(float impact, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, float> sine = (t) => MathHelper.Lerp(-impact, impact, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<float>(0, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
     }
     public struct EaseUnit<T>
     {

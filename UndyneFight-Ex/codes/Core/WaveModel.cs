@@ -673,6 +673,7 @@ namespace UndyneFight_Ex.SongSystem
 
     public abstract class SongImformation
     {
+        public bool MusicOptimized { get; protected set; } = false;
         public virtual string SongAuthor => "Unknown";
         public virtual string BarrageAuthor => "Unknown";
         public virtual string AttributeAuthor => "Unknown";

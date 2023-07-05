@@ -310,6 +310,11 @@ namespace UndyneFight_Ex.Fight
                 set => GameMain.CurrentDrawingSettings.themeColor = value;
                 get => GameMain.CurrentDrawingSettings.themeColor;
             }
+            public static Color BoxBackColor
+            {
+                set => Surface.Hidden.BackGroundColor = value;
+                get => Surface.Hidden.BackGroundColor;
+            }
 
             public static void MakeFlicker(Color color)
             {

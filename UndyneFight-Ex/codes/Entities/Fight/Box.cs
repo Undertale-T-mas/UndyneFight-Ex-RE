@@ -25,6 +25,8 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
+            curAlpha = detect != null && detect.SoulType == 1
+                ? curAlpha * 0.9f + GreenSoulAlpha * 0.1f : curAlpha * 0.9f + 1 * 0.1f;
             if (MissionVertexs == null) return;
             float scale = MovingScale * 0.6f;
             for (int i = 0; i < Vertexs.Length; i++)
@@ -32,8 +34,6 @@ namespace UndyneFight_Ex.Entities
                 float scaleBuff = MathF.Max(0, 1 - scale - Vector2.Distance(Vertexs[i], MissionVertexs[i]));
                 Vertexs[i] = Vertexs[i] * (1 - (scale + scaleBuff)) + MissionVertexs[i] * (scale + scaleBuff);
             }
-            curAlpha = detect != null && detect.SoulType == 1
-                ? curAlpha * 0.9f + GreenSoulAlpha * 0.1f : curAlpha * 0.9f + 1 * 0.1f;
         }
         public override void Draw()
         {
@@ -68,7 +68,7 @@ namespace UndyneFight_Ex.Entities
     }
     public class VertexBox : FightBox
     {
-        public VertexBox(RectangleBox rectangleBox)
+        public VertexBox(Player.Heart heart, RectangleBox rectangleBox) : base(heart)
         {
             this.MissionVertexs = new Vector2[4];
             this.Vertexs = new Vector2[4];
@@ -187,6 +187,14 @@ namespace UndyneFight_Ex.Entities
         public RectangleBox(Player.Heart p) : base(p)
         {
             collidingBox = new CollideRect(0, 0, 640, 480);
+            gravityLines[0] = right;
+            gravityLines[1] = down;
+            gravityLines[2] = left;
+            gravityLines[3] = up;
+        }
+        public RectangleBox(Player.Heart p, CollideRect area) : base(p)
+        {
+            collidingBox = area;
             gravityLines[0] = right;
             gravityLines[1] = down;
             gravityLines[2] = left;
