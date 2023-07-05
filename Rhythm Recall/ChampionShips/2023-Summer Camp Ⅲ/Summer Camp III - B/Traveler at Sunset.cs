@@ -6,6 +6,7 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
+using UndyneFight_Ex.Remake;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
@@ -159,6 +160,8 @@ namespace Rhythm_Recall.Waves
                 }
             }
             Winder r = new(), s = null;
+            static Arrow.UnitEasing easeA = null, easeB = null, easeC = null;
+            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null;
             public void ExtremePlus()
             {
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
@@ -556,9 +559,14 @@ namespace Rhythm_Recall.Waves
                         "","","","",    "","","","",
                     });
                 }
-                if (InBeat(72+64))
-                {
-                    
+                if (InBeat(72 + 64))
+                { 
+                    AddInstance(easeA = new Arrow.UnitEasing()
+                    {
+                        ApplyTime = BeatTime(1.6f),
+                        RotationEase = SimplifiedEasing.EaseOut(BeatTime(1.5f), 0, -45, SimplifiedEasing.EaseState.Sine) 
+                        
+                    });
                     RegisterFunctionOnce("pre", () =>
                     {
                         s = new();
@@ -567,6 +575,7 @@ namespace Rhythm_Recall.Waves
                         s.DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.7f);
                         s.Direction = true;
                         GameStates.InstanceCreate(s);
+                        easeA.TagApply("A");
                     });
                     
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
@@ -579,6 +588,95 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
+                        //2
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",     
+                        //3
+                        "d", "", "", "",    "d", "", "d", "",    
+                        "", "", "d1", "",    "d1", "", "", "",    
+                        "d", "", "d", "",    "", "", "d1", "",    
+                        "d1", "", "d1", "",    "d", "", "d", "",    
+                        //4
+                        "d", "", "", "",    "d", "", "d", "",    
+                        "", "", "d1", "",    "d1", "", "", "",    
+                        "d", "", "d", "",    "d1", "", "d1", "",    
+                        "d1(d)", "", "d", "",    "d", "", "d", "",    
+                        //5
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        //6
+                        "d(d1)", "", "", "",    "d1", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d1", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        //7
+                        "(d1)(d)", "", "+1", "",    "+1", "", "+1", "",
+                        "-1", "", "-1", "",    "-1", "", "-1", "",
+                        "(d)(n01)", "", "+11", "",    "+11", "", "+11", "",
+                        "-11", "", "-11", "",    "-11", "", "-11", "",
+                        //8 
+                        "-11", "+0", "-11", "+0",    "-11", "+0", "-11", "+0", 
+                        "*$312@A", "*$302@A", "*$312@A", "*$302@A",    "*$112@A", "*$102@A", "*$112@A", "*$102@A",
+                        "(*^$00'1.8)(*^$20'1.8)", "", "", "",    "", "", "$10", "",
+                        "$30", "", "", "",    "", "", "", "",
+                    });
+                }
+                if (InBeat(72 + 128))
+                {  
+                    RegisterFunctionOnce("pre", () =>
+                    {
+                        SetSoul(Souls.RedSoul);
+                    });
+                    
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "(pre)", "", "", "",    
+                        //1
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        //2
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",     
+                        //3
+                        "d", "", "", "",    "d", "", "d", "",    
+                        "", "", "d1", "",    "d1", "", "", "",    
+                        "d", "", "d", "",    "", "", "d1", "",    
+                        "d1", "", "d1", "",    "d", "", "d", "",    
+                        //4
+                        "d", "", "", "",    "d", "", "d", "",    
+                        "", "", "d1", "",    "d1", "", "", "",    
+                        "d", "", "d", "",    "d1", "", "d1", "",    
+                        "d1(d)", "", "d", "",    "d", "", "d", "",    
+                        //5
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        //6
+                        "d(d1)", "", "", "",    "d1", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        "d(d1)", "", "", "",    "d1", "", "", "",
+                        "d(d1)", "", "", "",    "d", "", "", "",
+                        //7
+                        "(d1)(d)", "", "+1", "",    "+1", "", "+1", "",
+                        "-1", "", "-1", "",    "-1", "", "-1", "",
+                        "(d)(n01)", "", "+11", "",    "+11", "", "+11", "",
+                        "-11", "", "-11", "",    "-11", "", "-11", "",
+                        //8 
+                        "-11", "+0", "-11", "+0",    "-11", "+0", "-11", "+0", 
+                        "*$312@A", "*$302@A", "*$312@A", "*$302@A",    "*$112@A", "*$102@A", "*$112@A", "*$102@A",
+                        "(*^$00'1.8)(*^$20'1.8)", "", "", "",    "", "", "$10", "",
+                        "$30", "", "", "",    "", "", "", "",
                     });
                 }
             }
@@ -608,11 +706,12 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
-                    GametimeDelta = -1.5f + BeatTime(72);
-                    PlayOffset = BeatTime(72);
+                    int beat = 72 + 64;
+                    GametimeDelta = -1.5f + BeatTime(beat);
+                    PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
                 }

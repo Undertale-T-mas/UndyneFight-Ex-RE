@@ -506,7 +506,7 @@ namespace UndyneFight_Ex.Fight
         /// <param name="attribute">箭头的属性标签</param>
         public static void CreateArrow(float shootShieldTime, int way, float speed, int color, int rotatingType, ArrowAttribute attribute)
         {
-            Arrow arr = new Arrow(Heart, shootShieldTime + GametimeF, way % 4, speed, color, rotatingType);
+            Arrow arr = new Arrow(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
             last = arr;
 
             GiveAttribute(arr, attribute);
@@ -523,13 +523,13 @@ namespace UndyneFight_Ex.Fight
         /// <param name="rotatingType">旋转模式，0正常，1黄，2绿</param>
         public static Arrow MakeArrow(float shootShieldTime, int way, float speed, int color, int rotatingType)
         {
-            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 4) % 4, speed, color, rotatingType);
+            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
             last = arr;
             return arr;
         }
         public static Arrow MakeArrow(float shootShieldTime, int way, float speed, int color, int rotatingType, ArrowAttribute attribute)
         {
-            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 4) % 4, speed, color, rotatingType);
+            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
             if ((attribute & ArrowAttribute.SpeedUp) == ArrowAttribute.SpeedUp)
                 arr.IsSpeedup = true;
 
