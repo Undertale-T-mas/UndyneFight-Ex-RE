@@ -134,7 +134,7 @@ namespace Rhythm_Recall.Waves
                         {
                             this.Speed = -Speed;
                             point1 = new(-20, Rand(10, 470));
-                            point2 = new(-20 + length, LastRand);
+                            point2 = new(-20 - length, LastRand);
                         }
                         else
                         {
@@ -562,9 +562,10 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("pre", () =>
                     {
                         s = new();
-                        s.BasicSpeed = 2f;
-                        s.Width = 2.5f;
-                        s.DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.5f);
+                        s.BasicSpeed = 2.4f;
+                        s.Width = 3.5f;
+                        s.DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.7f);
+                        s.Direction = true;
                         GameStates.InstanceCreate(s);
                     });
                     
