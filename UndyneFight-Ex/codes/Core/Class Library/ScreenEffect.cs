@@ -677,27 +677,47 @@ namespace UndyneFight_Ex.Fight
                     private static RenderTarget2D screen;
                     public float Sigma { get => blurShader.Sigma; set => blurShader.Sigma = value; }
 
+                    public bool Glittering { get; set; } = false;
+                    public float GlitterScale { get; set; } = 0.0f;
+
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
                         if (Sigma <= 0.05f) return obj;
+                        if(Glittering)
+                        {
+                            this.BlendState = BlendState.Opaque;
+                            CopyRenderTarget(HelperTarget, obj); 
+                        }
                         Shader = blurShader = GlobalResources.Effects.CustomShaders.Blur;
 
-                        MissionTarget = screen;
-                        blurShader.Factor = new(1, 0);
+                        float scale = Glittering ? 1.1f : 1;
+
+                        this.BlendState = BlendState.Additive;
+                        MissionTarget = HelperTarget2;
+                        blurShader.Factor = new Vector2(1, 0) * scale;
                         DrawTexture(obj, Vector2.Zero);
 
                         MissionTarget = obj;
-                        blurShader.Factor = new(0, 1);
-                        DrawTexture(screen, Vector2.Zero);
+                        blurShader.Factor = new Vector2(0, 1) * scale;
+                        DrawTexture(HelperTarget2, Vector2.Zero);
 
-                        MissionTarget = screen;
-                        blurShader.Factor = new(1, 1);
+                        MissionTarget = HelperTarget2;
+                        blurShader.Factor = new Vector2(1, 1) * scale;
                         DrawTexture(obj, Vector2.Zero);
 
                         MissionTarget = obj;
-                        blurShader.Factor = new(1, -1);
-                        DrawTexture(screen, Vector2.Zero);
+                        blurShader.Factor = new Vector2(1, -1) * scale;
+                        DrawTexture(HelperTarget2, Vector2.Zero);
 
+                        if (Glittering)
+                        {
+                            this.MissionTarget = screen;
+                            this.BlendState = BlendState.Additive;
+                            //  this.DrawTextures(new Texture2D[] { HelperTarget, obj }, HelperTarget.Bounds, null, new Color[] { Color.White * (1 - GlitterScale * 0.35f), Color.White * GlitterScale});
+                            this.DrawTextures(new Texture2D[] { HelperTarget, MissionTarget }, HelperTarget.Bounds, null, new Color[] { Color.White, Color.White * GlitterScale});
+
+                            return MissionTarget;
+                        }
                         return MissionTarget;
                     }
                 }

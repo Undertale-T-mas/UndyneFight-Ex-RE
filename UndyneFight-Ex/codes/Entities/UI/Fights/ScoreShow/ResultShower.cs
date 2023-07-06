@@ -112,6 +112,10 @@ namespace UndyneFight_Ex.Entities
                 {
                     PushModifiers("AutoPlay");
                 }
+                if(Settings.SettingsManager.DataLibrary.PauseCheating && scoreResult.isPaused)
+                {
+                    PushModifiers("Paused");
+                }
                 if (ModifiersUsed) return;
 
                 ModesUsed = "None";

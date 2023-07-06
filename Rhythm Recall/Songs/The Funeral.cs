@@ -120,7 +120,11 @@ namespace Rhythm_Recall.Waves
                 production3 = Blur = new Blur(0.505f);
                 grayProduction = new Filter(Shaders.Gray, 0.998f);
 
-                Blur.Sigma = 0.0f;
+                Blur.Sigma = 3.5f;
+                Blur.Glittering = true;
+                Blur.GlitterScale = 0.8f;
+
+                ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
                 // ScreenDrawing.SceneRendering.InsertProduction(production1);
                 //  ScreenDrawing.SceneRendering.InsertProduction(production2);
@@ -158,14 +162,14 @@ namespace Rhythm_Recall.Waves
                      Shaders.Swirl.Intensity = 1.0f;
                      Shaders.Swirl.Rotation = 15f;*/
 
-                DelayBeat(2, () => {
+               /* DelayBeat(2, () => {
                     ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
                     Shaders.Blur.Factor = new(3, 0);
                     Shaders.Blur.Sigma = 3.0f;
                     SimplifiedEasing.RunEase((s) => Shaders.Blur.Sigma = s, 
                         SimplifiedEasing.EaseOut(BeatTime(4), 3, 0,
                         SimplifiedEasing.EaseState.Cubic));
-                });
+                });*/
                 //  ScreenDrawing.UISettings.CreateUISurface();
 
                 //      CreateLine(150, 100);

@@ -55,6 +55,7 @@ namespace UndyneFight_Ex.Remake.UI
                             {
                                 int value = bottomButton[currentFocus];
                                 value++;
+                                if (all.Length <= value) return;
                                 currentFocus.OffFocus();
                                 all[value].OnFocus();
                             }
@@ -62,9 +63,14 @@ namespace UndyneFight_Ex.Remake.UI
                         if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
                         {
                             int id = FocusID;
+                            float x = all[id].Centre.X;
+                            bool isLeft = x < 640f;
                             for (int i = id + 1; i < all.Length; i++)
                             {
-                                if (all[i].ModuleEnabled)
+                                float x2 = all[i].Centre.X;
+                                bool isLeft2 = x2 < 640f;
+
+                                if (isLeft == isLeft2)
                                 {
                                     currentFocus.OffFocus();
                                     all[i].OnFocus();
@@ -75,9 +81,15 @@ namespace UndyneFight_Ex.Remake.UI
                         else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
                         {
                             int id = FocusID;
+                            float x = all[id].Centre.X;
+                            bool isLeft = x < 640f;
                             for (int i = id - 1; i >= 0; i--)
                             {
-                                if (all[i].ModuleEnabled)
+                                if (i >= all.Length - 2) continue;
+                                float x2 = all[i].Centre.X;
+                                bool isLeft2 = x2 < 640f;
+
+                                if (isLeft == isLeft2)
                                 {
                                     currentFocus.OffFocus();
                                     all[i].OnFocus();
