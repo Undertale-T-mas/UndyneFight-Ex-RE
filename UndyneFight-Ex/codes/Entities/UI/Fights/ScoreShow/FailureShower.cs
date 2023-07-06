@@ -41,7 +41,7 @@ namespace UndyneFight_Ex.Entities
                 else retryAvailable = true;
                 if ((result.mode & GameMode.RestartDeny) == GameMode.RestartDeny) retryAvailable = false;
 
-                PlayerManager.RecordMark(result.wave.FightName, difficulty, SkillMark.Failed, instance.score / 2, false, false, 0);
+                PlayerManager.RecordMark(result.wave.FightName, difficulty, SkillMark.Failed, instance.score / 2, false, false, 0, 0);
                 if (changedSong)
                 {
                     tryCount = 0;

@@ -242,6 +242,10 @@ namespace UndyneFight_Ex.Entities
             void WinFight()
             {
                 StateShower ss = StateShower.instance;
+                if (isPaused)
+                {
+                    ss.PauseTime = this.pauseTime;
+                }
                 ResetFightState(false);
                 ResetScene(new WinScene(ss, PlayerInstance.GameAnalyzer));
             }
@@ -250,7 +254,7 @@ namespace UndyneFight_Ex.Entities
                 SongResult result;
                 result = StateShower.instance.GenerateResult();
                 PlayerManager.RecordMark(currentParam.Waveset.FightName, currentParam.difficulty,
-                    result.CurrentMark, result.Score, result.AC, result.AP, result.Accuracy);
+                    result.CurrentMark, result.Score, result.AC, result.AP, result.Accuracy, 0);
                 PlayerManager.Save();
                 ResetFightState(false);
                 _challenge.ResultBuffer.Add(result);
@@ -311,9 +315,9 @@ namespace UndyneFight_Ex.Entities
         private void TempIntro()
         {
             // debug
-            _challenge.ResultBuffer.Add(new SongResult(SkillMark.Impeccable, 0, 0.99f, false, false));
-            _challenge.ResultBuffer.Add(new SongResult(SkillMark.Excellent, 0, 0.98f, true, false));
-            _challenge.ResultBuffer.Add(new SongResult(SkillMark.Acceptable, 0, 0.96f, true, true));
+            _challenge.ResultBuffer.Add(new SongResult(SkillMark.Impeccable, 0, 0.99f, false, false, 0));
+            _challenge.ResultBuffer.Add(new SongResult(SkillMark.Excellent, 0, 0.98f, true, false, 0));
+            _challenge.ResultBuffer.Add(new SongResult(SkillMark.Acceptable, 0, 0.96f, true, true, 0));
             ResetScene(new ChallengeWinScene(_challenge));
         }
         public override void Dispose()
@@ -328,7 +332,12 @@ namespace UndyneFight_Ex.Entities
                 : new TryAgainScene(new RecordSelector()));
         }
         bool isPaused = false;
-        internal override void AlternatePause()
+        float pauseTime = 0.0f;
+        public override void WhenPaused()
+        {
+            pauseTime += 0.5f;
+        }
+        public override void AlternatePause()
         {
             if (isPaused)
             {

@@ -148,7 +148,11 @@ namespace UndyneFight_Ex
             return SceneRendering.Draw(mission);
         }
 
-        internal virtual void AlternatePause()
+        public virtual void AlternatePause()
+        {
+
+        }
+        public virtual void WhenPaused()
         {
 
         }
