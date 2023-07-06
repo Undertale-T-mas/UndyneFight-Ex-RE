@@ -114,7 +114,7 @@ namespace UndyneFight_Ex
             GameMain.MissionSpriteBatch.Draw(s, pos, from, color);
             GameMain.MissionSpriteBatch.End();
         }
-        protected void DrawTextures(Texture2D[] tex, Rectangle pos, Rectangle? from, Color color)
+        protected void DrawTextures(Texture2D[] tex, Rectangle pos, Rectangle? from, Color[] colors)
         {
             for (int i = 0; i < tex.Length; i++)
                 if (tex[i] == MissionTarget)
@@ -132,9 +132,15 @@ namespace UndyneFight_Ex
             {
                 GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, null, null, null, null, enabledMatrix ? matrix : null);
             }
-            foreach (Texture2D s in tex)
-                GameMain.MissionSpriteBatch.Draw(s, pos, from, color);
+            for(int i = 0; i < tex.Length; ++i)
+                GameMain.MissionSpriteBatch.Draw(tex[i], pos, from, colors[i]);
             GameMain.MissionSpriteBatch.End();
+        }
+        protected void DrawTextures(Texture2D[] tex, Rectangle pos, Rectangle? from, Color color)
+        {
+            Color[] colors = new Color[tex.Length];
+            for (int i = 0; i < tex.Length; i++) colors[i] = color;
+            this.DrawTextures(tex, pos, from, colors);
         }
         protected void DrawTextures(Texture2D[] s, Rectangle bound)
         {

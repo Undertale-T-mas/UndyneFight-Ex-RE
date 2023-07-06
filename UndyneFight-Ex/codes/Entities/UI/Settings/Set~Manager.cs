@@ -87,6 +87,8 @@ namespace UndyneFight_Ex.Settings
             public static float ArrowDelay { get; set; } = 0.0f;
             public static float ArrowScale { get; set; } = 1.0f;
             public static bool Mirror { get; set; } = false;
+            public static bool PauseCheating { get; set; } = true;
+            public static float DrawFPS { get; set; } = 60f;
         }
     }
 }
