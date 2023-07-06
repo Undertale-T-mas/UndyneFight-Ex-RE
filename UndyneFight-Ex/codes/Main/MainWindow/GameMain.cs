@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static System.MathF;
 
@@ -111,7 +112,8 @@ namespace UndyneFight_Ex
 
         public static void ResetRendering()
         {
-            instance.CilentBoundChanged();
+            instance.CilentBoundChanged(); 
+            Graphics.SynchronizeWithVerticalRetrace = false;
         }
 
         /// <summary>

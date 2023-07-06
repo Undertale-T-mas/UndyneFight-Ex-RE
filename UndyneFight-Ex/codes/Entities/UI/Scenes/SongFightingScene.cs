@@ -21,7 +21,7 @@ namespace UndyneFight_Ex.Entities
                 UpdateIn120 = true;
                 fatherScene = scene;
             }
-            const float deltaDured = 2.1f;
+            const float deltaDured = 3.1f;
 
             int index = 0;
             float[] data = new float[55];

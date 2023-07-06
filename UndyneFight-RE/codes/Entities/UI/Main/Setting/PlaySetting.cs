@@ -33,16 +33,21 @@ namespace UndyneFight_Ex.Remake.UI
                         DefaultScale = 1.2f,
                         DefaultValue = Settings.SettingsManager.DataLibrary.perciseWarning
                     });
+                    this.AddChild(_pauseCheat = new(this, new(764, 100), "Pause is\n cheat") { 
+                        DefaultScale = 1.2f,
+                        DefaultValue = Settings.SettingsManager.DataLibrary.PauseCheating
+                    });
                     this.OnActivated += () => {
                         _arrowScale.SetValue(DataLibrary.ArrowScale);
                         _arrowSpeed.SetValue(DataLibrary.ArrowSpeed);
                         _mirror.DefaultValue = DataLibrary.Mirror;
                         _perciseWarn.DefaultValue = DataLibrary.perciseWarning;
+                        _pauseCheat.DefaultValue = DataLibrary.PauseCheating;
                     };
 
                 }
                 ScrollBar _arrowScale, _arrowSpeed;
-                TickBox _mirror, _perciseWarn;
+                TickBox _mirror, _perciseWarn, _pauseCheat;
 
                 public override void Apply()
                 {
@@ -50,6 +55,7 @@ namespace UndyneFight_Ex.Remake.UI
                     DataLibrary.ArrowSpeed = _arrowSpeed.GetValue();
                     DataLibrary.Mirror = _mirror.Ticked;
                     DataLibrary.perciseWarning = _perciseWarn.Ticked;
+                    DataLibrary.PauseCheating = _pauseCheat.Ticked;
                 }
             }
         }
