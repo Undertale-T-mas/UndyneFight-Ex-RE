@@ -291,6 +291,7 @@ namespace UndyneFight_Ex
         public Matrix CustomMatrix { get; private set; } = Matrix.Identity;
         public void Draw(Entity[] entities, Matrix transfer)
         {
+            Entity.depthDetla = 0;
             if (Transfer == TransferUse.ForceDefault)
             {
                 transfer = Matrix.CreateScale(AdaptingScale / GameStates.SurfaceScale); transfer.M33 = 1;

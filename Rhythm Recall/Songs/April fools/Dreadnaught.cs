@@ -2560,7 +2560,7 @@ namespace Rhythm_Recall.Waves
                                             DelayBeat(i, () =>
                         */
                     })
-                    { sound = false };
+                    { PlaySound = false };
                     CreateEntity(t);
                     SetSoul(2);
                     InstantSetBox(new Vector2(320, 240), 180, 500);
@@ -5586,7 +5586,7 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(i+0.5f, () =>
 */
                     })
-                    { sound = false };
+                    { PlaySound = false };
                     CreateEntity(t);
                     SetSoul(2);
                     InstantSetBox(new Vector2(320, 240), 180, 500);
@@ -8519,7 +8519,7 @@ namespace Rhythm_Recall.Waves
                                             DelayBeat(i + 0.5f, () =>
                         */
                     })
-                    { sound = false };
+                    { PlaySound = false };
                     CreateEntity(t);
                     SetSoul(2);
                     InstantSetBox(new Vector2(320, 240), 180, 500);

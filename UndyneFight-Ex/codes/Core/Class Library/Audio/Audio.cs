@@ -18,6 +18,9 @@ namespace UndyneFight_Ex
             bool IsEnd { get; }
             bool OnPlay { get; }
             float Volume { set; }
+
+            void Resume();
+            void Pause();
         }
         private class EffectPlayer : IAudioSource
         {
@@ -43,6 +46,17 @@ namespace UndyneFight_Ex
             {
                 effect.Stop();
             }
+
+            public void Resume()
+            {
+                effect.Resume();
+            }
+
+            public void Pause()
+            {
+                effect.Pause();
+            }
+
             public bool IsEnd => effect.State == SoundState.Stopped;
             public bool OnPlay => effect.State == SoundState.Playing;
 
@@ -94,6 +108,16 @@ namespace UndyneFight_Ex
             {
                 this.allInstances[0].SetPosition(position / 62.5f * 1000f);
             }
+
+            public void Resume()
+            {
+                this.allInstances[0].Pause();
+            }
+
+            public void Pause()
+            {
+                this.allInstances[0].Resume();
+            }
         }
         private class SongPlayer : IAudioSource
         {
@@ -126,6 +150,17 @@ namespace UndyneFight_Ex
             {
                 return song.Duration;
             }
+
+            public void Resume()
+            {
+                MediaPlayer.Resume();
+            }
+
+            public void Pause()
+            {
+                MediaPlayer.Pause();
+            }
+
             public bool IsEnd => MediaPlayer.State == MediaState.Stopped;
             public bool OnPlay => MediaPlayer.State == MediaState.Playing;
 
@@ -199,6 +234,16 @@ namespace UndyneFight_Ex
             }
             else result = false;
             return -1;
+        }
+
+        internal void Resume()
+        { 
+            source.Resume();
+        }
+
+        internal void Pause()
+        { 
+            source.Pause();
         }
     }
 }

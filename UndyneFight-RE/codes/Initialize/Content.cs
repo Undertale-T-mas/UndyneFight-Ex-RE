@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using System.Runtime.CompilerServices;
@@ -21,6 +22,10 @@ namespace UndyneFight_Ex.Remake
 
             Font.Normal = new GLFont("Font\\chinese", loader);
 
+            Sounds.YellowShoot = loader.Load<SoundEffect>("Sounds\\shoot");
+
+            FightSprites.SoulShoot = loader.Load<Texture2D>("FightSprites\\soulBullet");
+
             MainLoader = loader;
 
             SelectUI.Initialize();
@@ -39,6 +44,14 @@ namespace UndyneFight_Ex.Remake
         {
             public static Audio DreamDiver_INTRO { get; set; }
             public static Audio DreamDiver_LOOP { get; set; }
+        }
+        public static class Sounds
+        {
+            public static SoundEffect YellowShoot { get; set; }
+        }
+        public static class FightSprites
+        {
+            public static Texture2D SoulShoot { get; set; }
         }
         public static class Font
         {

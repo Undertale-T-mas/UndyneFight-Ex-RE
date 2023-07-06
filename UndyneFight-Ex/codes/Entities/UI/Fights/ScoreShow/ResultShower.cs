@@ -8,6 +8,12 @@ namespace UndyneFight_Ex.Entities
 {
     internal partial class StateShower
     {
+        private bool isPaused = false;
+        internal void PauseUsed()
+        {
+            isPaused = true;
+        }
+
         internal partial class ResultShower : Entity
         {
             RatingResult ratingResult;
@@ -102,6 +108,10 @@ namespace UndyneFight_Ex.Entities
                 if (((int)scoreResult.mode & (int)GameMode.Autoplay) != 0)
                 {
                     PushModifiers("AutoPlay");
+                }
+                if(scoreResult.isPaused)
+                {
+                    PushModifiers("Paused");
                 }
                 if (ModifiersUsed) return;
 

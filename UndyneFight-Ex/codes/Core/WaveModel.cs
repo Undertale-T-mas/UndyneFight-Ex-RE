@@ -703,6 +703,7 @@ namespace UndyneFight_Ex.SongSystem
         Practice = 8,
         Buffed = 16,
         Autoplay = 32,
-        RestartDeny = 64,
+        RestartDeny = 64, 
+        PauseDeny = 256
     }
 }

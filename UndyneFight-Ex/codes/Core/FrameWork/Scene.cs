@@ -70,6 +70,8 @@ namespace UndyneFight_Ex
         public static ContentManager Loader { get; private set; }
         internal Selector BaseSelector { get; set; }
 
+        public bool Pausable { get; protected set; } = false;
+
         internal float stopTime = 0;
 
         public void InstanceCreate(GameObject t)
@@ -97,7 +99,6 @@ namespace UndyneFight_Ex
 
         public override void Update()
         {
-            depthDetla = 0;
             if (!BeingUpdated)
             {
                 BeingUpdated = true;
@@ -145,6 +146,11 @@ namespace UndyneFight_Ex
         public RenderTarget2D DrawAll(RenderTarget2D mission)
         {
             return SceneRendering.Draw(mission);
+        }
+
+        internal virtual void AlternatePause()
+        {
+
         }
     }
 }

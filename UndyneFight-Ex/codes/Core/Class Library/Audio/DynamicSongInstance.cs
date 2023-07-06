@@ -112,6 +112,11 @@ namespace MyMonoGame
             }
         }
 
+        internal void Resume()
+        {
+            this.dynamicSound.Resume();
+        }
+
         private bool _enabled = true;
         public bool IsLoop { get; set; } = false;
     }

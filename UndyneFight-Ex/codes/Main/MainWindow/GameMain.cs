@@ -186,6 +186,19 @@ namespace UndyneFight_Ex
         private static float speedRematcher = 1.0f;
         #endregion
 
+        private void TryExit()
+        {
+            if (GameStates.CurrentScene.Pausable)
+            {
+                if (GameStates.Paused)
+                    GameStates.RunGameResume();
+                else GameStates.RunGamePause();
+            }
+            else this.Exit();
+        }
+
+        bool escPressed = false;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -198,8 +211,12 @@ namespace UndyneFight_Ex
             TargetElapsedTime = new TimeSpan(0, 0, 0, 0, Math.Max(1, (int)(8f / gameSpeed * speedRematcher)));
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
+            {
+                if (!escPressed)
+                    TryExit();
+                escPressed = true;
+            }
+            else escPressed = false;
             if (GameStates.IsKeyPressed120f(InputIdentity.FullScreen)) ToggleFullScreen();
             #endregion
 

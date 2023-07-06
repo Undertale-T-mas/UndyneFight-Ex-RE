@@ -97,7 +97,7 @@ namespace UndyneFight_Ex.Entities
             private readonly Type wavesetType;
             public int difficulty;
             private readonly string musicPath;
-            public readonly GameMode mode;
+            public GameMode mode;
 
             public JudgementState JudgeState;
 
@@ -275,6 +275,8 @@ namespace UndyneFight_Ex.Entities
             InstanceCreate(ScoreState = new StateShower(waveset, currentParam.difficulty, JudgeState, currentParam.mode, currentParam.MusicDuration));
             InstanceCreate(Time = new TimeShower());
             StartBattle();
+            if ((mode & GameMode.PauseDeny) == 0)
+                this.Pausable = true;
             PlayerInstance = new Player();
             InstanceCreate(PlayerInstance);
             waveset.Start();
@@ -324,6 +326,21 @@ namespace UndyneFight_Ex.Entities
         {
             ResetScene(!isReplay ? new TryAgainScene(StateShower.instance)
                 : new TryAgainScene(new RecordSelector()));
+        }
+        bool isPaused = false;
+        internal override void AlternatePause()
+        {
+            if (isPaused)
+            {
+                music.Resume();
+                isPaused = false;
+            } 
+            else
+            {
+                this.ScoreState.PauseUsed();
+                isPaused = true;
+                music.Pause();
+            }
         }
     }
 }

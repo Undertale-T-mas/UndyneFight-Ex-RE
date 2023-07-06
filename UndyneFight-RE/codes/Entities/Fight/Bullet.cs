@@ -13,8 +13,12 @@ namespace UndyneFight_Ex.Remake.Entities
     {
         public SoulBullet(Player.Heart heart) {
             UpdateIn120 = true;
-            this._origin = heart.Centre;
-            this.PositionRoute = EasingUtil.CentreEasing.Linear(MathUtil.GetVector2(10, heart.Rotation + 90));
+            this._origin = heart.Centre + MathUtil.GetVector2(14, heart.Rotation + 90);
+            this.PositionRoute = EasingUtil.CentreEasing.Linear(MathUtil.GetVector2(16, heart.Rotation + 90));
+            this.Image = Resources.FightSprites.SoulShoot;
+            Fight.Functions.PlaySound(Resources.Sounds.YellowShoot);
+            this.Rotation = heart.Rotation + 180;
+            this.AngelMode = true;
         }
 
         public Func<ICustomMotion, Vector2> PositionRoute { get; set; }
@@ -32,6 +36,9 @@ namespace UndyneFight_Ex.Remake.Entities
         { 
             this._delta = this.PositionRoute.Invoke(this);
             this.Centre = this._delta + _origin;
+            this.AppearTime += 0.5f;
+            this.Depth = 0.5f;
+            this.Alpha = 1.0f; 
         }
     }
 }

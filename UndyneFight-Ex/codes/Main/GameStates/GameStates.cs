@@ -44,7 +44,8 @@ namespace UndyneFight_Ex
 
         internal static void StateUpdate()
         {
-            GameMain.gameTime += 0.5f;
+            if (!Paused)
+                GameMain.gameTime += 0.5f;
             if (currentScene != missionScene)
             {
                 currentScene = missionScene;
@@ -60,7 +61,8 @@ namespace UndyneFight_Ex
                 GameMain.ExitGame();
                 throw new Exception("You Dirty Hacker!");
             }
-            currentScene.SceneUpdate();
+            if (!Paused)
+                currentScene.SceneUpdate();
         }
 
         internal static Entity[] GetEntities()
