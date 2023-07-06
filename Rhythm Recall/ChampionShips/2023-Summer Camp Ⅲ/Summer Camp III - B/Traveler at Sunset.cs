@@ -39,7 +39,7 @@ namespace Rhythm_Recall.Waves
             {
                 public Information() { this.MusicOptimized = true; }
                 public override string SongAuthor => "SK_kent";
-                public override string BarrageAuthor => "zKronO vs Tlottgodinf";
+                public override string BarrageAuthor => "zKronO vs Tlottgodinf vs T-mas";
                 public override string AttributeAuthor => "Woem feat. ParaDOXXX";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
@@ -501,7 +501,6 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(3.25f), 1.2f, 0, EaseState.Linear),
                             Stable(0, 0));
                     });
-                    RegisterFunctionOnce("a", () => { });
                     RegisterFunctionOnce("SoulR", () =>
                     {
                         RunEase(s => Heart.Rotation = -s * 2,
@@ -512,6 +511,16 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("a", () => { });
                     RegisterFunctionOnce("winder", () => { 
                         r.Intensity = 6.0f;
+                    });
+                    RegisterFunctionOnce("UaD", () =>
+                    {
+                        RunEase((s) =>
+                        {
+                            InstantSetBox(s, 84, 84);
+                            InstantTP(new Vector2(320, s));
+                        }, EaseIn(BeatTime(4), 240, -86, EaseState.Quad),
+                        EaseOut(BeatTime(4), -86, 240, EaseState.Cubic),
+                        Stable(0, 240));
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //10
@@ -555,12 +564,36 @@ namespace Rhythm_Recall.Waves
                         //18
                         "(Step)(KickB2)(#7.75#$0)(*+2)(SoulR)","","","",    "","","","",
                         "(Step)","","","",    "","","","",
-                        "(KickA)(ConvL)(SplitterL)(#3.75#$21)(*+21)(SoulL)","","","",    "","","","",
+                        "(KickA)(ConvL)(SplitterL)(#3.75#$21)(*+21)(SoulL)(UaD)","","","",    "","","","",
                         "","","","",    "","","","",
                     });
                 }
                 if (InBeat(72 + 64))
-                { 
+
+                {
+                    RegisterFunctionOnce("DownLine", () =>
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Line a = new(LinkEase(Stable(0, new Vector2(0, 0)),
+                                EaseOut(BeatTime(3), new Vector2(320, 0), new Vector2(320, i * i * 20), EaseState.Quad),
+                                Stable(BeatTime(1), new Vector2(320, i * i * 20))).Easing, Stable(0, 0).Easing)
+                            { Alpha = 0.75f - i * 0.12f };
+                            CreateEntity(a);
+                            a.AlphaDecrease(BeatTime(2));
+                            DelayBeat(2, () =>
+                            {
+                                a.AlphaDecrease(BeatTime(2));
+                            });
+                            DelayBeat(4, () => { a.Dispose(); });
+                        }
+                    });
+                    AddInstance(easeA = new Arrow.UnitEasing()
+                    {
+                        ApplyTime = BeatTime(1.6f),
+                        RotationEase = SimplifiedEasing.EaseOut(BeatTime(1.5f), 0, -45, SimplifiedEasing.EaseState.Sine) 
+                        
+                    }); 
                     RegisterFunctionOnce("pre", () =>
                     {
                         s = new();
@@ -578,7 +611,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "(pre)", "", "", "",    
                         //1
-                        "", "", "", "",    "", "", "", "",    
+                        "DownLine", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
@@ -753,6 +786,62 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",   
+                    });
+                }
+                if (InBeat(360))
+                {
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "", 
+
+                        //1
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+
+                        //2
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+                        //3
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+ 
+                        //4
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+ 
+                        //5
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+
+                        //6
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+
+                        //7
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+
+                        //8 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
                     });
                 }
             }
