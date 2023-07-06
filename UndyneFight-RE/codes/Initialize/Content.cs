@@ -26,6 +26,21 @@ namespace UndyneFight_Ex.Remake
 
             FightSprites.SoulShoot = loader.Load<Texture2D>("FightSprites\\soulBullet");
 
+            for(int i = 0; i < 18; i++)
+            {
+                FightSprites.ParasolMett[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_parasolmett_" + i);
+            }
+            for(int i = 0; i < 2; i++)
+            {
+                FightSprites.MettBomb[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_" + i);
+            }
+            for(int i = 0; i < 7; i++)
+            {
+                FightSprites.MettBombCoreBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_coreblast_" + i);
+                FightSprites.MettBombHorBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_horblast_" + i);
+                FightSprites.MettBombVerBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_verblast_" + i);
+            }
+
             MainLoader = loader;
 
             SelectUI.Initialize();
@@ -52,6 +67,11 @@ namespace UndyneFight_Ex.Remake
         public static class FightSprites
         {
             public static Texture2D SoulShoot { get; set; }
+            public static Texture2D[] ParasolMett { get; private set; } = new Texture2D[18];
+            public static Texture2D[] MettBomb { get; private set; } = new Texture2D[2];
+            public static Texture2D[] MettBombCoreBlast { get; private set; } = new Texture2D[7];
+            public static Texture2D[] MettBombVerBlast { get; private set; } = new Texture2D[7];
+            public static Texture2D[] MettBombHorBlast { get; private set; } = new Texture2D[7];
         }
         public static class Font
         {

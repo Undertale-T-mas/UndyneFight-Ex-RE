@@ -126,6 +126,7 @@ namespace UndyneFight_Ex.Remake.Data
 
         public DataBranch(string name) : base(name)
         {
+            this.InitialText = "{";
         } 
 
         public override SaveInfo Save()
