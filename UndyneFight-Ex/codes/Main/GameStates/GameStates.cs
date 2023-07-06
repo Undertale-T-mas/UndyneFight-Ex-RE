@@ -63,6 +63,7 @@ namespace UndyneFight_Ex
             }
             if (!Paused)
                 currentScene.SceneUpdate();
+            else currentScene.WhenPaused();
         }
 
         internal static Entity[] GetEntities()

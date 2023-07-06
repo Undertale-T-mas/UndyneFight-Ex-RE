@@ -21,10 +21,15 @@ namespace UndyneFight_Ex.UserService
             public bool AP => isAP;
 
             public float Accuracy { get; set; }
+            public float PauseTime { get; set; }
 
             public void UpdateNew(SongResult result)
             {
                 int newScore = result.Score;
+                if(result.Accuracy > this.Accuracy)
+                {
+                    this.PauseTime = result.PauseTime;
+                }
                 score = Math.Max(newScore, score);
                 isAC |= result.AC;
                 isAP |= result.AP;
@@ -40,6 +45,7 @@ namespace UndyneFight_Ex.UserService
                 Accuracy = MathUtil.FloatFromString(info["Accuracy"]);
                 score = Convert.ToInt32(info["score"]);
                 mark = ToMark(info["mark"]);
+                PauseTime = info.keysForIndexs.ContainsKey("pause") ? MathUtil.FloatFromString(info["pause"]) : 0;
             }
             public SongState(Difficulty dif, SongResult result)
             {
@@ -56,6 +62,7 @@ namespace UndyneFight_Ex.UserService
                     ",AC=" + (isAC ? "true" : "false") +
                     ",AP=" + (isAP ? "true" : "false") +
                     ",Accuracy=" + MathUtil.FloatToString(Accuracy, 5) +
+                    ",pause=" + MathUtil.FloatToString(PauseTime, 2) +
                     ",mark=" + mark.ToString());
                 return info;
             }

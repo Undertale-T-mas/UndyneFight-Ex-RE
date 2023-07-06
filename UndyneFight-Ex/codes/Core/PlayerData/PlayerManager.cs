@@ -88,11 +88,11 @@ namespace UndyneFight_Ex
 
             Save();
         }
-        public static void RecordMark(string songName, int difficulty, SongSystem.SkillMark mark, int score, bool fc, bool ap, float acc)
+        public static void RecordMark(string songName, int difficulty, SongSystem.SkillMark mark, int score, bool fc, bool ap, float acc, float pauseTime)
         {
             if (string.IsNullOrEmpty(currentPlayer)) return;
 
-            RecordMark(songName, difficulty, new SongSystem.SongResult(mark, score, acc, fc, ap));
+            RecordMark(songName, difficulty, new SongSystem.SongResult(mark, score, acc, fc, ap, pauseTime));
         }
 
         public static void Remove(string s)

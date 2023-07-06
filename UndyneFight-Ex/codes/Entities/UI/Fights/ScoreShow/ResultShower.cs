@@ -9,6 +9,9 @@ namespace UndyneFight_Ex.Entities
     internal partial class StateShower
     {
         private bool isPaused = false;
+
+        public float PauseTime { get; internal set; } = 0f;
+
         internal void PauseUsed()
         {
             isPaused = true;
@@ -64,7 +67,7 @@ namespace UndyneFight_Ex.Entities
                 UpdateIn120 = true;
 
                 #region 分数保存 
-                SongResult result = new(mark, score, scoreResult.judgeState != JudgementState.Lenient ? GetScorePercent() : 0, AC, AP);
+                SongResult result = new(mark, score, scoreResult.judgeState != JudgementState.Lenient ? GetScorePercent() : 0, AC, AP, scoreResult.PauseTime);
                 var att = gamePlayed.Attributes;
                 playData = gamePlayed.Attributes != null
                     ? new SongPlayData()
@@ -108,10 +111,6 @@ namespace UndyneFight_Ex.Entities
                 if (((int)scoreResult.mode & (int)GameMode.Autoplay) != 0)
                 {
                     PushModifiers("AutoPlay");
-                }
-                if(scoreResult.isPaused)
-                {
-                    PushModifiers("Paused");
                 }
                 if (ModifiersUsed) return;
 

@@ -398,16 +398,17 @@ namespace UndyneFight_Ex.Entities
             {
                 Heart v = new()
                 {
-                    speed = speed,
-                    jumpTimeLimit = jumpTimeLimit,
-                    SoulType = SoulType,
-                    purpleLineCount = purpleLineCount,
-                    gravity = gravity,
-                    jumpSpeed = jumpSpeed,
-                    umbrellaAvailable = umbrellaAvailable,
-                    umbrellaSpeed = umbrellaSpeed,
-                    Centre = Centre,
-                    Alpha = Alpha
+                    speed = this.speed,
+                    jumpTimeLimit = this.jumpTimeLimit,
+                    SoulType = this.SoulType,
+                    purpleLineCount = this.purpleLineCount,
+                    gravity = this.gravity,
+                    jumpSpeed = this.jumpSpeed,
+                    umbrellaAvailable = this.umbrellaAvailable,
+                    umbrellaSpeed = this.umbrellaSpeed,
+                    Centre = this.Centre,
+                    Alpha = this.Alpha,
+                    _currentMoveState = this._currentMoveState,
                 };
                 v.controlingBox.InstanceMove(controlingBox.CollidingBox);
 
@@ -431,7 +432,8 @@ namespace UndyneFight_Ex.Entities
                     umbrellaAvailable = umbrellaAvailable,
                     umbrellaSpeed = umbrellaSpeed,
                     Centre = area.GetCentre(),
-                    Alpha = Alpha
+                    Alpha = Alpha,
+                    _currentMoveState = this._currentMoveState
                 };
                 v.controlingBox.InstanceMove(area);
 

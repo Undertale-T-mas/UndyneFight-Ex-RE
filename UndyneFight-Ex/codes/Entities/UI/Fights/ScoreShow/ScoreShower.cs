@@ -15,7 +15,7 @@ namespace UndyneFight_Ex.Entities
 
         internal SongResult GenerateResult()
         {
-            SongResult result = new(GenerateCurrentMark(), score, CurrentScorePercent(), AC, AP);
+            SongResult result = new(GenerateCurrentMark(), score, CurrentScorePercent(), AC, AP, this.PauseTime);
             return result;
         }
 

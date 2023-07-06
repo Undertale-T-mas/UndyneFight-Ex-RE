@@ -88,6 +88,7 @@ namespace UndyneFight_Ex.SongSystem
     {
         public SongResult Result { get; set; }
         public GameMode GameMode { get; set; }
+        public float PauseTime { get; set; }
         public string Name { get; set; }
         public float CompleteThreshold { get; set; }
         public float ComplexThreshold { get; set; }
@@ -100,13 +101,14 @@ namespace UndyneFight_Ex.SongSystem
     }
     public struct SongResult
     {
-        public SongResult(SkillMark currentMark, int score, float acc, bool ac, bool ap)
+        public SongResult(SkillMark currentMark, int score, float acc, bool ac, bool ap, float pauseTime)
         {
             CurrentMark = currentMark;
             Score = score;
             Accuracy = acc;
             AC = ac;
             AP = ap;
+            this.PauseTime = pauseTime;
         }
 
         public SkillMark CurrentMark { get; set; }
@@ -114,6 +116,7 @@ namespace UndyneFight_Ex.SongSystem
         public bool AC { get; set; }
         public bool AP { get; set; }
         public float Accuracy { get; set; }
+        public float PauseTime { get; set; }
     }
     public enum Difficulty
     {
