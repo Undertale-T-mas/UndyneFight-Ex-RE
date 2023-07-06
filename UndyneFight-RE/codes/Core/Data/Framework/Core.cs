@@ -8,7 +8,8 @@ namespace UndyneFight_Ex.Remake.Data
 {
     public abstract class Datum : ISaveLoad
     {
-        protected string Name { get; private set; }
+        public string Name { get; private set; }
+        public string InitialText { get; set; }
         public Datum(string name)
         {
             this.Name = name;
@@ -44,7 +45,7 @@ namespace UndyneFight_Ex.Remake.Data
     }
     public class DatumFloat : Datum<float>
     {
-        public DatumFloat(string name) : base(name) {  
+        public DatumFloat(string name) : base(name) {
         } 
 
         public override void Load(SaveInfo info)
@@ -121,7 +122,7 @@ namespace UndyneFight_Ex.Remake.Data
 
     public abstract class DataBranch : Datum
     {
-        public new List<ISaveLoad> Children { get; private set; } = new List<ISaveLoad>();
+        public new List<Datum> Children { get; private set; } = new List<Datum>();
 
         public DataBranch(string name) : base(name)
         {
@@ -132,6 +133,16 @@ namespace UndyneFight_Ex.Remake.Data
             SaveInfo info = new(Name + "{");
             this.Children.ForEach(s => info.PushNext(s.Save()));
             return info;
+        }
+        public override void Load(SaveInfo info)
+        {
+            /*
+            if (!info.Nexts.ContainsKey("UserMemory")) info.PushNext(new("UserMemory{")); 
+            this.Memory.Load(info.Nexts["UserMemory"]);*/
+            this.Children.ForEach(s => {
+                if (!info.Nexts.ContainsKey(s.Name)) info.PushNext(new(s.Name + s.InitialText));
+                s.Load(info.Nexts[s.Name]);
+            });
         }
     }
 }

@@ -19,8 +19,7 @@ namespace UndyneFight_Ex.Remake.Data
             if(info == null) { info = new("UFEx_RE_ROOT{"); }
             if (info.Title == "StartInfo->") info = info.Nexts["UFEx_RE_ROOT"];
 
-            if (!info.Nexts.ContainsKey("UserMemory")) info.PushNext(new("UserMemory{")); 
-            this.Memory.Load(info.Nexts["UserMemory"]);
+            base.Load(info);
         }
     }
 }
