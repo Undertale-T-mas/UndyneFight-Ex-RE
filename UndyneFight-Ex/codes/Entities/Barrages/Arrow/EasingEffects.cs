@@ -84,18 +84,25 @@ namespace UndyneFight_Ex.Entities
 
             public override void Start()
             {
+                Reset();
+                base.Start();
+            }
+
+            private void Reset()
+            {
+                _easingTimeMax = 0;
                 if (positionEaseEnabled) _easingTimeMax = MathF.Max(_easingTimeMax, positionEase.Time);
                 if (rotationEaseEnabled) _easingTimeMax = MathF.Max(_easingTimeMax, rotationEase.Time);
                 if (distanceEaseEnabled) _easingTimeMax = MathF.Max(_easingTimeMax, distanceEase.Time);
 
                 maxIndex = ToArrayIndex(_easingTimeMax) + 1;
-                positionBuffer = new Vector2[maxIndex];
-                rotationBuffer = new float[maxIndex];
-                distanceBuffer = new float[maxIndex];
-
-                base.Start();
+                if (maxIndex > 0)
+                {
+                    positionBuffer = new Vector2[maxIndex];
+                    rotationBuffer = new float[maxIndex];
+                    distanceBuffer = new float[maxIndex];
+                }
             }
-
             public float ApplyTime { get; set; } = 60;
             private float _easingTimeMax = 0;
 
@@ -107,9 +114,9 @@ namespace UndyneFight_Ex.Entities
             private bool rotationEaseEnabled = false;
             private bool distanceEaseEnabled = false;
 
-            public EaseUnit<Vector2> PositionEase { set { positionEase = value; positionEaseEnabled = true; } }
-            public EaseUnit<float> RotationEase { set { rotationEase = value; rotationEaseEnabled = true; } }
-            public EaseUnit<float> DistanceEase { set { distanceEase = value; distanceEaseEnabled = true; } }
+            public EaseUnit<Vector2> PositionEase { set { positionEase = value; positionEaseEnabled = true; arrayIndex = -1; Reset(); } }
+            public EaseUnit<float> RotationEase { set { rotationEase = value; rotationEaseEnabled = true; arrayIndex = -1; Reset(); } }
+            public EaseUnit<float> DistanceEase { set { distanceEase = value; distanceEaseEnabled = true; arrayIndex = -1; Reset(); } }
 
             private Vector2[] positionBuffer;
             private float[] rotationBuffer;
@@ -125,6 +132,7 @@ namespace UndyneFight_Ex.Entities
             public float Rotation { get; set; } = 0f;
             public float Distance { get; set; } = 0f;
             public Vector2 CentrePosition { get; set; }
+            public float SelfRotation { get; set; } = 0f;
 
             int maxIndex = 0;
             int arrayIndex = -1;
@@ -135,6 +143,7 @@ namespace UndyneFight_Ex.Entities
             {
                 float time = ApplyTime - arr.TimeDelta;
                 if (time < 0.5f) return;
+                if (MathF.Abs(SelfRotation) > 1) { arr.SelfRotationOffset = SelfRotation; }
                 int l = ToArrayIndex(time), r = l + 1;
 
                 if (l >= maxIndex + 2) return;

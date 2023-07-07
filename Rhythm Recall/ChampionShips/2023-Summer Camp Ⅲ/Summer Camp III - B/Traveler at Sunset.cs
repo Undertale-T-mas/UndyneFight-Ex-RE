@@ -160,8 +160,8 @@ namespace Rhythm_Recall.Waves
                 }
             }
             Winder r = new(), s = null;
-            static Arrow.UnitEasing easeA = null, easeB = null, easeC = null;
-            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null;
+            static Arrow.UnitEasing easeA = null, easeB = null, easeC = null, easeD, easeE, easeF, easeG;
+            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW;
             public void ExtremePlus()
             {
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
@@ -737,11 +737,18 @@ namespace Rhythm_Recall.Waves
                 {
                     easeA.TagApply("B");
                     easeB.TagApply("A");
-                    easeX = new();
-                    AddInstance(easeX);
                     easeX.RevolutionEase(Stable(2, -45));
                     RegisterFunctionOnce("pre", () => {
                         easeX.TagApply("X");
+                        Arrow[] all = GetAll<Arrow>();
+                        foreach(Arrow arr in  all)
+                        {
+                            arr.LateWaitingScale = 0.3f;
+                        }
+                    });
+                    RegisterFunctionOnce("changeEase", () => {
+                        easeA.ApplyTime = BeatTime(3);
+                        easeB.ApplyTime = BeatTime(3);
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7.2f, new string[]
                     {
@@ -769,25 +776,177 @@ namespace Rhythm_Recall.Waves
                         "$30", "", "$31", "$00",    "$01", "", "$01", "",
                         "(*$00'1.2)(*$20'1.2)", "", "(*$01'1.2)(*$21'1.2)", "",    "(*$00'1.2)(*$20'1.2)", "", "(*$01'1.2)(*$21'1.2)", "",   
                         //5
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",  
+                        "$1", "$2", "$1", "",    "$31", "", "$1", "$0",
+                        "$1", "", "$11", "",    "$31", "", "$1", "$2",
+                        "$1", "", "$11", "$01",    "$11", "", "$1", "$0",
+                        "$1", "", "", "",    
                         //6
+                        "$31", "", "$11", "",    "$2", "$1", "$01", "$11",
+                        "$2", "$1", "$0", "",    "$31", "", "$11", "",
+                        "$31", "", "$2", "$1",    "$0", "", "$3", "",
+                        "$1", "", "$21", "$11(changeEase)",    "$01", "", "$3", "",      
+                        //7
+                        "*$212@X'1.2(*$012@X'1.2)", "", "$1", "",    "$01", "$11", "$2", "$1",
+                        "$0", "", "$21", "$11",    "$01", "", "$3", "",
+                        "$31", "", "$0", "$1",    "$2", "", "$21", "$11",
+                        "$01", "", "$0", "$1",    "$2", "", "", "",    
+                        //8
+                        "*$212@A'1.2(*$012@A'1.2)", "", "*$202@B'1.2(*$002@B'1.2)", "*$212@A'1.2(*$012@A'1.2)",    "*$202@B'1.2(*$002@B'1.2)", "", "*$212@A'1.2(*$012@A'1.2)", "",
+                        "*$202@B'1.2(*$002@B'1.2)", "", "*$212@A'1.2(*$012@A'1.2)", "*$202@B'1.2(*$002@B'1.2)",    "*$212@A'1.2(*$012@A'1.2)", "", "(*$202@B'1.2)(*$002@B'1.2) ", "",
+                        "(*$212@A'1.2)(*$012@A'1.2) ", "", "*$302@A", "*$312@B",    "*$302@A", "*$312@B", "*$302@A", "",
+                        "", "", "", "",    "", "", "", "",   
+                    });
+                }
+                if (InBeat(328))
+                {
+                    easeX.RevolutionEase(Stable(1, 13));
+                    easeY.RevolutionEase(Stable(1, 26));
+                    easeZ.RevolutionEase(Stable(1, 39));
+                    easeX.TagApply("X");
+                    easeY.TagApply("Y");
+                    easeZ.TagApply("Z");
+                    easeU.RevolutionEase(Stable(1, 52));
+                    easeV.RevolutionEase(Stable(1, 65));
+                    easeW.RevolutionEase(Stable(1, 78));
+                    easeU.TagApply("U");
+                    easeV.TagApply("V");
+                    easeW.TagApply("W");
+
+                    float selfRota = 30f;
+                    easeX.SelfRotationEase(Stable(1, selfRota));
+                    easeY.SelfRotationEase(Stable(1, selfRota));
+                    easeZ.SelfRotationEase(Stable(1, selfRota));
+                    easeU.SelfRotationEase(Stable(1, selfRota));
+                    easeV.SelfRotationEase(Stable(1, selfRota));
+                    easeW.SelfRotationEase(Stable(1, selfRota));
+
+                    float time = BeatTime(1.5f);
+                    easeA.ApplyTime = time;
+                    easeB.ApplyTime = time;
+                    easeC.ApplyTime = time;
+                    easeD.ApplyTime = time;
+                    easeE.ApplyTime = time;
+                    easeF.ApplyTime = time;
+                    easeA.RotationEase = Linear(3f, -13);
+                    easeB.RotationEase = Linear(4f, -26);
+                    easeC.RotationEase = Linear(5f, -39);
+                    easeD.RotationEase = Linear(6f, -52);
+                    easeE.RotationEase = Linear(7f, -65);
+                    easeF.RotationEase = Linear(8f, -78);
+                    easeA.SelfRotation = -selfRota;
+                    easeB.SelfRotation = -selfRota;
+                    easeC.SelfRotation = -selfRota;
+                    easeD.SelfRotation = -selfRota;
+                    easeE.SelfRotation = -selfRota;
+                    easeF.SelfRotation = -selfRota;
+
+                    easeA.TagApply("A");
+                    easeB.TagApply("B");
+                    easeC.TagApply("C");
+                    easeD.TagApply("D");
+                    easeE.TagApply("E");
+                    easeF.TagApply("F");
+
+                    (CurrentScene as SongFightingScene).Accuracy.SpecifyTime = 0.71f;
+
+                    RegisterFunctionOnce("pre", () => {
+                        Heart.RotateTo(-45); 
+                    });
+
+                    // Generate the Snakes
+                    BarrageCreate(BeatTime(4 + 2), BeatTime(1), 8, new string[] {  
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "", 
+
+                        //1
+                        "$0", "~_!$0", "~_!$0", "~_!$0",    "~_!$0", "~_!$0", "~_!$0", "!!24/6",  
+                        "~_!$0@X", "~_!$0@Y", "~_!$0@Z", "~_!$0@U", "~_!$0@V", "~_$0@W",
+
+                        "$1", "~_!$1", "~_!$1", "~_!$1",    "~_!$1", "~_!$1", "~_!$1", "!!24/6",
+                        "~_!$1@A", "~_!$1@B", "~_!$1@C", "~_!$1@D", "~_!$1@E", "~_$1@F",
+
+                        "$0", "~_!$0", "~_!$0", "~_!$0",    "~_!$0", "~_!$0", "~_!$0", "!!24/6",
+                        "~_!$0@X", "~_!$0@Y", "~_!$0@Z", "~_!$0@U", "~_!$0@V", "~_$0@W",
+
+                        "$1", "~_!$1", "~_!$1", "~_!$1",    "~_!$1", "~_!$1", "~_!$1", "!!24/6",
+                        "~_!$1@A", "~_!$1@B", "~_!$1@C", "~_!$1@D", "~_!$1@E", "~_$1@F",
+
+                        "$0", "~_!$0", "~_!$0", "~_!$0",    "~_!$0", "~_!$0", "~_!$0", "!!24/6",
+                        "~_!$0@X", "~_!$0@Y", "~_!$0@Z", "~_!$0@U", "~_!$0@V", "~_$0@W",
+
+                        "$1", "~_!$1", "~_!$1", "~_!$1",    "~_!$1", "~_!$1", "~_!$1", "!!24/6",
+                        "~_!$1@A", "~_!$1@B", "~_!$1@C", "~_!$1@D", "~_!$1@E", "~_$1@F",
+
+                        "$0", "~_!$0", "~_!$0", "~_!$0",    "~_!$0", "~_!$0", "~_!$0", "!!24/6",
+                        "~_!$0@X", "~_!$0@Y", "~_!$0@Z", "~_!$0@U", "~_!$0@V", "~_$0@W",
+                       
+                        "$1", "~_!$1", "~_!$1", "!!24/6",
+                        "~_!$1@X", "~_!$1@Y", "~_!$1@Z", "~_!$1@U", "~_!$1@V", "~_$1@W", 
+                        "$2", "~_!$2", "~_!$2", "",
+
+                        //2
+                        "$21", "~_!$21", "~_!$21", "~_!$21",    "~_!$21", "~_!$21", "~_!$21", "!!24/6",
+                        "~_!$21@X", "~_!$21@Y", "~_!$21@Z", "~_!$21@U", "~_!$21@V", "~_$21@W",
+
+                        "$31", "~_!$31", "~_!$31", "~_!$31",    "~_!$31", "~_!$31", "~_!$31", "!!24/6",
+                        "~_!$31@A", "~_!$31@B", "~_!$31@C", "~_!$31@D", "~_!$31@E", "~_$31@F",
+
+                        "$21", "~_!$21", "~_!$21", "~_!$21",    "~_!$21", "~_!$21", "~_!$21", "!!24/6",
+                        "~_!$21@X", "~_!$21@Y", "~_!$21@Z", "~_!$21@U", "~_!$21@V", "~_$21@W",
+
+                        "$31", "~_!$31", "~_!$31", "~_!$31",    "~_!$31", "~_!$31", "~_!$31", "!!24/6",
+                        "~_!$31@A", "~_!$31@B", "~_!$31@C", "~_!$31@D", "~_!$31@E", "~_$31@F",
+
+                        "$21", "~_!$21", "~_!$21", "~_!$21",    "~_!$21", "~_!$21", "~_!$21", "!!24/6",
+                        "~_!$21@X", "~_!$21@Y", "~_!$21@Z", "~_!$21@U", "~_!$21@V", "~_$21@W",
+
+                        "$31", "~_!$31", "~_!$31", "~_!$31",    "~_!$31", "~_!$31", "~_!$31", "!!24/6",
+                        "~_!$31@A", "~_!$31@B", "~_!$31@C", "~_!$31@D", "~_!$31@E", "~_$31@F",
+
+                        "$21", "~_!$21", "~_!$21", "~_!$21",    "~_!$21", "~_!$21", "~_!$21", "!!24/6",
+                        "~_!$21@X", "~_!$21@Y", "~_!$21@Z", "~_!$21@U", "~_!$21@V", "~_$21@W",
+
+                        "$31", "~_!$31", "~_!$31", "!!24/6",
+                        "~_!$31@X", "~_!$31@Y", "~_!$31@Z", "~_!$31@U", "~_!$31@V", "~_$31@W",
+                        "$01", "~_!$01", "~_!$01", "",
+                    });
+                    easeG.PositionEase = LinkEase(
+                        Stable(BeatTime(1.4f), new Vector2(0, -245)) ,
+                        EaseOut(BeatTime(1.1f), new Vector2(0, -245), new Vector2(0, 0), EaseState.Elastic)
+                        );
+                    easeG.ApplyTime = BeatTime(2.5f);
+                    easeG.TagApply("G");
+                    
+                    BarrageCreate(BeatTime(4), BeatTime(2), 12, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "", 
+
+                        //1
+                        "(*$01@G)(*$21@G)", "", "", "",    "(*$01@G)(*$21@G)", "", "", "",
+                        "(*$01@G)(*$21@G)", "", "", "",    "(*$01@G)(*$21@G)", "", "", "",
+                        "(*$01@G)(*$21@G)", "", "", "",    "(*$01@G)(*$21@G)", "", "", "",
+                        "(*$01@G)(*$21@G)", "", "", "",    "", "", "", "",     
+
+                        //2
+                        "(*$00@G)(*$20@G)", "", "", "",    "(*$00@G)(*$20@G)", "", "", "",
+                        "(*$00@G)(*$20@G)", "", "", "",    "(*$00@G)(*$20@G)", "", "", "",
+                        "(*$00@G)(*$20@G)", "", "", "",    "(*$00@G)(*$20@G)", "", "", "",
+                        "(*$00@G)(*$20@G)", "", "", "(*$00)(*$20)",    "", "", "", "",     
+                        //3
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",     
+ 
+                        //4
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",      
-                        //7
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",    
-                        //8
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",   
                     });
                 }
                 if (InBeat(360))
@@ -868,6 +1027,24 @@ namespace Rhythm_Recall.Waves
                         EaseOut(BeatTime(2), -90, -45, EaseState.Sine))
 
                 });
+                AddInstance(easeC = new Arrow.UnitEasing());
+                AddInstance(easeD = new Arrow.UnitEasing());
+                AddInstance(easeE = new Arrow.UnitEasing());
+                AddInstance(easeF = new Arrow.UnitEasing()); 
+                AddInstance(easeG = new Arrow.UnitEasing()); 
+
+                easeX = new();
+                AddInstance(easeX);
+                easeY = new();
+                AddInstance(easeY);
+                easeZ = new();
+                AddInstance(easeZ);
+                easeU = new();
+                AddInstance(easeU);
+                easeV = new();
+                AddInstance(easeV);
+                easeW = new();
+                AddInstance(easeW);
 
                 production = Blur = new ScreenDrawing.Shaders.Blur(0.505f);
                 production1 = new ScreenDrawing.Shaders.Filter(Shaders.StepSample, 0.51f);
@@ -892,7 +1069,7 @@ namespace Rhythm_Recall.Waves
                 bool jump = true;
                 if (jump)
                 {
-                    int beat = 72 + 192;
+                    int beat = 328;
                     GametimeDelta = -1.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;

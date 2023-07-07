@@ -153,7 +153,7 @@ namespace UndyneFight_Ex.Entities
         }
         private Challenge _challenge = null;
         private int _challengeProgress;
-        internal AccuracyBar Accuracy { get; set; }
+        public AccuracyBar Accuracy { get; set; }
         internal StateShower ScoreState { get; set; }
         internal TimeShower Time { get; set; }
         public JudgementState JudgeState => currentParam.JudgeState;

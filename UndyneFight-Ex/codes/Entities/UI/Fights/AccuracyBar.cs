@@ -5,7 +5,7 @@ using static UndyneFight_Ex.FightResources;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal class AccuracyBar : Entity
+    public class AccuracyBar : Entity
     {
         internal class MultiTag : Entity
         {
@@ -99,7 +99,7 @@ namespace UndyneFight_Ex.Entities
             appearTime++;
             Centre = Centre * 0.9f + new Vector2(320, 482) * 0.1f;
 
-            if (appearTime % 3 == 0)
+            if (appearTime % 4 == 0 && EnabledGolden)
             {
                 Arrow[] arrows = AllArrows.ToArray();
                 Array.Sort(arrows);
@@ -129,7 +129,7 @@ namespace UndyneFight_Ex.Entities
                 };
                 for (int i = 0; i < arrows.Length; i++)
                 {
-                    if (i != 0 && arrows[i].BlockTime - arrows[i - 1].BlockTime > 0.6f)
+                    if (i != 0 && arrows[i].BlockTime - arrows[i - 1].BlockTime > SpecifyTime)
                     {
                         add();
                     }
@@ -138,6 +138,8 @@ namespace UndyneFight_Ex.Entities
                 add();
             }
         }
+        public float SpecifyTime { get; set; } = 0.6f;
+        public bool EnabledGolden { get; set; } = true;
 
         public List<Arrow> AllArrows { get; init; } = new();
         public Dictionary<string, List<Arrow>> TaggedArrows { get; init; } = new();
