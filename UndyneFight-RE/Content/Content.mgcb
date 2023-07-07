@@ -13,6 +13,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ReEngine/FightSprites/Mettaton/blockA.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/FightSprites/Mettaton/blockA.jpg
+
+#begin ReEngine/FightSprites/Mettaton/blockB.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/FightSprites/Mettaton/blockB.jpg
+
 #begin ReEngine/FightSprites/Mettaton/spr_parasolmett_0.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -547,6 +571,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:ReEngine/Musics/Dream diver_LOOP.mp3
+
+#begin ReEngine/Sounds/bomb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ReEngine/Sounds/bomb.wav
+
+#begin ReEngine/Sounds/objBurst.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ReEngine/Sounds/objBurst.wav
 
 #begin ReEngine/Sounds/shoot.wav
 /importer:WavImporter

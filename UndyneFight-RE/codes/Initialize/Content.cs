@@ -23,8 +23,12 @@ namespace UndyneFight_Ex.Remake
             Font.Normal = new GLFont("Font\\chinese", loader);
 
             Sounds.YellowShoot = loader.Load<SoundEffect>("Sounds\\shoot");
+            Sounds.TargetBurst = loader.Load<SoundEffect>("Sounds\\objBurst");
+            Sounds.Bomb = loader.Load<SoundEffect>("Sounds\\bomb");
 
             FightSprites.SoulShoot = loader.Load<Texture2D>("FightSprites\\soulBullet");
+            FightSprites.MettBlockA = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockA");
+            FightSprites.MettBlockB = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockB");
 
             for(int i = 0; i < 18; i++)
             {
@@ -63,10 +67,14 @@ namespace UndyneFight_Ex.Remake
         public static class Sounds
         {
             public static SoundEffect YellowShoot { get; set; }
+            public static SoundEffect TargetBurst { get; set; }
+            public static SoundEffect Bomb { get; internal set; }
         }
         public static class FightSprites
         {
             public static Texture2D SoulShoot { get; set; }
+            public static Texture2D MettBlockA { get; set; }
+            public static Texture2D MettBlockB { get; set; }
             public static Texture2D[] ParasolMett { get; private set; } = new Texture2D[18];
             public static Texture2D[] MettBomb { get; private set; } = new Texture2D[2];
             public static Texture2D[] MettBombCoreBlast { get; private set; } = new Texture2D[7];

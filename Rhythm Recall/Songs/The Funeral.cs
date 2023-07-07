@@ -7,10 +7,12 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
+using UndyneFight_Ex.Remake.Entities;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 
 namespace Rhythm_Recall.Waves
 {
@@ -124,7 +126,7 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                ScreenDrawing.SceneRendering.InsertProduction(Blur);
+             //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
                 // ScreenDrawing.SceneRendering.InsertProduction(production1);
                 //  ScreenDrawing.SceneRendering.InsertProduction(production2);
@@ -238,8 +240,18 @@ namespace Rhythm_Recall.Waves
                         new Vector2(340, 250)
                         ); 
                     InstantTP(320, 260);
-                } 
-
+                }
+                if (InBeat(1f))
+                {
+                    Heart.RotateTo(180);
+                    GameStates.InstanceCreate(new Bomb(BeatTime(1)) {
+                        PositionRoute = 
+                            LinkEase(
+                                Linear(BeatTime(4), new Vector2(-10, 100), new Vector2(320, 100)),
+                                Stable(BeatTime(1), Vector2.Zero),
+                                Linear(BeatTime(4), new Vector2(320, 100), new Vector2(750, 100))).Easing
+                    });
+                }
             }
 
             public void Hard()

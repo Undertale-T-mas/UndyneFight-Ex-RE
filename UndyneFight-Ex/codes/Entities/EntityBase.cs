@@ -235,7 +235,7 @@ namespace UndyneFight_Ex
     }
     public abstract class Entity : GameObject
     {
-        public bool AngelMode { set; private get; } = false;
+        public bool AngelMode { set; get; } = false;
         public static float depthDetla = 0.00f;
         private float DrawingRotation(float rotation) => AngelMode ? MathUtil.GetRadian(rotation) : rotation;
 
@@ -336,13 +336,13 @@ namespace UndyneFight_Ex
 
         private Texture2D image;
         protected Vector2 ImageCentre { get; set; }
-        protected Texture2D Image
+        public Texture2D Image
         {
             get
             {
                 return image;
             }
-            set
+            protected set
             {
                 image = value;
                 ImageCentre = new Vector2(value.Width, value.Height) / 2.0f;
@@ -524,6 +524,13 @@ namespace UndyneFight_Ex
         public void Broadcast(string info)
         {
             GameStates.Broadcast(new GameEventArgs(this, info));
+        }
+        public Tuple<bool, GameEventArgs> TryDetect(string tagName)
+        {
+            var result = GameStates.DetectEvent(tagName);
+            if (result == null) return new(false, null);
+            if (result.Count == 0) return new(false, null);
+            return new(true, result[0]);
         }
         public string[] Tags
         {

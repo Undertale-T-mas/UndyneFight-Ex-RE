@@ -261,6 +261,23 @@ namespace UndyneFight_Ex.Entities
             Back = 9,
             Bounce = 10
         }
+        public static EaseUnit<Vector2> Linear(float time, Vector2 start, Vector2 end)
+        {
+            return new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.Linear(start, end, time));
+        }
+        public static EaseUnit<Vector2> Linear(float time, Vector2 end)
+        {
+            return Linear(time, Vector2.Zero, end);
+        }
+        public static EaseUnit<float> Linear(float time, float start, float end)
+        {
+            return new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.Linear(start, end, time));
+        }
+        public static EaseUnit<float> Linear(float time, float end)
+        {
+            return Linear(time, 0, end);
+        }
+
         /// <summary>
         /// 返回一个<see cref="Vector2"/>的<see langword="由慢到快的缓动"/>
         /// </summary>

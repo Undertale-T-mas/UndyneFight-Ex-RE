@@ -19,6 +19,7 @@ namespace UndyneFight_Ex.Remake.Entities
             Fight.Functions.PlaySound(Resources.Sounds.YellowShoot);
             this.Rotation = heart.Rotation + 180;
             this.AngelMode = true;
+            this.Broadcast("Bullet");
         }
 
         public Func<ICustomMotion, Vector2> PositionRoute { get; set; }
@@ -29,6 +30,9 @@ namespace UndyneFight_Ex.Remake.Entities
         public float AppearTime { get; set; } = 0.0f;
 
         public Vector2 CentrePosition => _delta;
+
+        public bool Hitting { get; internal set; }
+
         Vector2 _delta;
         Vector2 _origin;
 
@@ -38,7 +42,14 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Centre = this._delta + _origin;
             this.AppearTime += 0.5f;
             this.Depth = 0.5f;
-            this.Alpha = 1.0f; 
+            this.Alpha = 1.0f;
+
+            if (AppearTime >= 35f) this.Dispose();
+        }
+
+        internal void HitTarget()
+        {
+            this.Hitting = true;
         }
     }
 }
