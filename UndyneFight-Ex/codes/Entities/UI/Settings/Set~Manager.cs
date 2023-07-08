@@ -46,11 +46,11 @@ namespace UndyneFight_Ex.Settings
             _textSelection.Update();
         }
     }
-    internal static class SettingsManager
+    public static class SettingsManager
     {
         public static Type[] Settings { get; private set; }
 
-        public static void Initialize()
+        internal static void Initialize()
         {
             Settings = new Type[]
             {
@@ -82,11 +82,13 @@ namespace UndyneFight_Ex.Settings
             public static int reduceBlueAmount = 0;
             public static DrawingQuality drawingQuality = DrawingQuality.High;
 
-            public static int SpearBlockingVolume { get; internal set; } = 100;
-            public static float ArrowSpeed { get; internal set; } = 1.0f;
-            public static float ArrowDelay { get; internal set; } = 0.0f;
-            public static float ArrowScale { get; internal set; } = 1.0f;
-            public static bool Mirror { get; internal set; } = false;
+            public static int SpearBlockingVolume { get; set; } = 100;
+            public static float ArrowSpeed { get; set; } = 1.0f;
+            public static float ArrowDelay { get; set; } = 0.0f;
+            public static float ArrowScale { get; set; } = 1.0f;
+            public static bool Mirror { get; set; } = false;
+            public static bool PauseCheating { get; set; } = true;
+            public static float DrawFPS { get; set; } = 60f;
         }
     }
 }

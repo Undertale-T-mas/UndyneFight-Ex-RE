@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
+using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
+using UndyneFight_Ex.Remake.Entities;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 
 namespace Rhythm_Recall.Waves
 {
@@ -119,7 +122,14 @@ namespace Rhythm_Recall.Waves
                 production3 = Blur = new Blur(0.505f);
                 grayProduction = new Filter(Shaders.Gray, 0.998f);
 
-                Blur.Sigma = 0.0f;
+                Blur.Sigma = 3.5f;
+                Blur.Glittering = true;
+                Blur.GlitterScale = 0.8f;
+
+                ScreenDrawing.ActivateShader(Shaders.Mosaic, 0.6f);
+                
+
+             //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
                 // ScreenDrawing.SceneRendering.InsertProduction(production1);
                 //  ScreenDrawing.SceneRendering.InsertProduction(production2);
@@ -157,14 +167,14 @@ namespace Rhythm_Recall.Waves
                      Shaders.Swirl.Intensity = 1.0f;
                      Shaders.Swirl.Rotation = 15f;*/
 
-                DelayBeat(2, () => {
+               /* DelayBeat(2, () => {
                     ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
                     Shaders.Blur.Factor = new(3, 0);
                     Shaders.Blur.Sigma = 3.0f;
                     SimplifiedEasing.RunEase((s) => Shaders.Blur.Sigma = s, 
                         SimplifiedEasing.EaseOut(BeatTime(4), 3, 0,
                         SimplifiedEasing.EaseState.Cubic));
-                });
+                });*/
                 //  ScreenDrawing.UISettings.CreateUISurface();
 
                 //      CreateLine(150, 100);
@@ -211,15 +221,48 @@ namespace Rhythm_Recall.Waves
             {
                 if (InBeat(0.5f))
                 {
-                    InstantSetBox(240, 100, 100);
-                    SetSoul(0);
+                    SetSoul(Souls.YellowSoul);
+                    InstantSetBox(260, 150, 100);
+                    BoxUtils.Vertexify();
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(1, 0.35f), 
+                        new Vector2(340, 350)
+                        );
+                    ;
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(2, 0.65f), 
+                        new Vector2(300, 350)
+                        ); 
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(5, 0.35f), 
+                        new Vector2(300, 250)
+                        );
+                    ;
+                    BoxUtils.VertexBoxInstance.SetPosition(
+                        BoxUtils.VertexBoxInstance.Split(6, 0.65f), 
+                        new Vector2(340, 250)
+                        ); 
+                    InstantTP(320, 260);
                 }
-                if (InBeat(1)) CreateEntity(new Knife(100, new(320, 240), 32));
-
+                if (InBeat(1f))
+                {
+                    Heart.RotateTo(180);
+                    ParasolMett mett1;
+                    GameStates.InstanceCreate(mett1 = new ParasolMett() {
+                        PositionRoute = 
+                            LinkEase(
+                                Linear(BeatTime(4), new Vector2(-10, 100), new Vector2(320, 100)),
+                                Stable(BeatTime(1), Vector2.Zero),
+                                Linear(BeatTime(4), new Vector2(320, 100), new Vector2(750, 100))).Easing
+                    });
+                    mett1.InsertShot(BeatTime(4));
+                    mett1.WaveTime = BeatTime(2);
+                }
             }
 
             public void Hard()
             {
+                
             }
 
             public void Extreme()

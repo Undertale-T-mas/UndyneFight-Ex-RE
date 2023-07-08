@@ -72,6 +72,7 @@ namespace UndyneFight_Ex
                 defaultInput.Add(InputIdentity.Backspace, new() { Keys.Back });
                 defaultInput.Add(InputIdentity.Reset, new() { Keys.R });
                 defaultInput.Add(InputIdentity.Heal, new() { Keys.H });
+                defaultInput.Add(InputIdentity.Tab, new() { Keys.Tab });
             }
             private static List<KeyChecker> allCheckers = new();
             private static Dictionary<InputIdentity, List<Keys>> defaultInput = new();
@@ -88,8 +89,8 @@ namespace UndyneFight_Ex
                 });
             }
         }
-        internal static bool WordsChanged { get; private set; } = false;
-        internal static char CharInput { get; private set; }
+        public static bool WordsChanged { get; private set; } = false;
+        public static char CharInput { get; private set; }
         internal static KeyboardState currentKeyState2;
         internal static KeyboardState lastKeyState2;
 
@@ -163,6 +164,8 @@ namespace UndyneFight_Ex
                 if (IsKeyPressed120f(Keys.D5)) GameMain.GameSpeed = 0.5f;
                 if (IsKeyPressed120f(Keys.D6)) GameMain.GameSpeed = 0.7f;
                 if (IsKeyPressed120f(Keys.D7)) GameMain.GameSpeed = 1f;
+                if (IsKeyPressed120f(Keys.D8)) GameMain.GameSpeed = 1.5f;
+                if (IsKeyPressed120f(Keys.D9)) GameMain.GameSpeed = 2f;
             }
             if (IsKeyPressed120f(Keys.H) && CurrentScene is FightScene) (CurrentScene as FightScene).PlayerInstance.hpControl.Regenerate();
 #endif  

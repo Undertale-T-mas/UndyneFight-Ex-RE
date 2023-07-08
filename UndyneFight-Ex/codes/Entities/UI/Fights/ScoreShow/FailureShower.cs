@@ -29,15 +29,19 @@ namespace UndyneFight_Ex.Entities
 
                 FailureShower.halfedScore = halfedScore;
                 //判定是否比赛超时
-                bool res1 = FightSystem.CurrentSongs != FightSystem.MainGameSongs, res2 = false;
-                if (res1)
+                if (FightSystem.CurrentChampionShip != null)
                 {
-                    res2 = FightSystem.CurrentChampionShip.CheckTime() == ChampionShips.ChampionShip.ChampionShipStates.NotAvailable;
+                    bool res1 = FightSystem.CurrentSongs != FightSystem.MainGameSongs, res2 = false;
+                    if (res1)
+                    {
+                        res2 = FightSystem.CurrentChampionShip.CheckTime() == ChampionShips.ChampionShip.ChampionShipStates.NotAvailable;
+                    }
+                    retryAvailable = !res2;
                 }
-                retryAvailable = !res2;
+                else retryAvailable = true;
                 if ((result.mode & GameMode.RestartDeny) == GameMode.RestartDeny) retryAvailable = false;
 
-                PlayerManager.RecordMark(result.wave.FightName, difficulty, SkillMark.Failed, instance.score / 2, false, false, 0);
+                PlayerManager.RecordMark(result.wave.FightName, difficulty, SkillMark.Failed, instance.score / 2, false, false, 0, 0);
                 if (changedSong)
                 {
                     tryCount = 0;
@@ -192,7 +196,7 @@ namespace UndyneFight_Ex.Entities
                     DisposeInstance();
                     changedSong = true;
 
-                    InstanceCreate(new IntroUI());
+                    GameInterface.GameStartUp.MainSceneIntro?.Invoke();
 
                     base.SelectionEvent();
                 }

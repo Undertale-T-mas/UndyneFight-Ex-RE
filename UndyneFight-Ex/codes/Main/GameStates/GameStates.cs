@@ -44,7 +44,8 @@ namespace UndyneFight_Ex
 
         internal static void StateUpdate()
         {
-            GameMain.gameTime += 0.5f;
+            if (!Paused)
+                GameMain.gameTime += 0.5f;
             if (currentScene != missionScene)
             {
                 currentScene = missionScene;
@@ -60,7 +61,9 @@ namespace UndyneFight_Ex
                 GameMain.ExitGame();
                 throw new Exception("You Dirty Hacker!");
             }
-            currentScene.SceneUpdate();
+            if (!Paused)
+                currentScene.SceneUpdate();
+            else currentScene.WhenPaused();
         }
 
         internal static Entity[] GetEntities()
@@ -108,7 +111,7 @@ namespace UndyneFight_Ex
         }
 
         private static SongFightingScene.SceneParams lastParam;
-        internal static void StartSong(IWaveSet wave, Texture2D songIllustration, string path, int dif, JudgementState judgeState, GameMode mode)
+        public static void StartSong(IWaveSet wave, Texture2D songIllustration, string path, int dif, JudgementState judgeState, GameMode mode)
         {
             waveSet = wave;
             curMode = mode;
@@ -143,7 +146,7 @@ namespace UndyneFight_Ex
             crossObjects?.ForEach(s => missionScene.InstanceCreate(s));
             ResetTime();
         }
-        internal static void ResetFightState(bool isDead)
+        public static void ResetFightState(bool isDead)
         {
             if (isRecord && GameInterface.UFEXSettings.RecordEnabled)
             {
@@ -165,7 +168,7 @@ namespace UndyneFight_Ex
             Fight.FightStates.roundType = false;
             Fight.FightStates.finishSelecting = true;
 
-            Microsoft.Xna.Framework.Media.MediaPlayer.Volume = 1.0f;
+            Microsoft.Xna.Framework.Media.MediaPlayer.Volume = Settings.SettingsManager.DataLibrary.masterVolume / 100f;
             GameMain.gameSpeed = 1.0f;
         }
 
@@ -208,5 +211,11 @@ namespace UndyneFight_Ex
             textWriter.Flush();
             stream.Close();
         }
+
+        public static void Broadcast(GameEventArgs gameEventArgs)
+        {
+            currentScene.Broadcast(gameEventArgs);
+        }
+        public static List<GameEventArgs> DetectEvent(string ActionName) => currentScene.DetectEvent(ActionName);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Entities.Advanced;
 using static UndyneFight_Ex.Fight.Functions;
 
 namespace UndyneFight_Ex.SongSystem
@@ -63,10 +64,10 @@ namespace UndyneFight_Ex.SongSystem
     /// <summary>  
     ///Impeccable    -> All Perfect <br></br>
     ///Eminent       -> No Hit + 99% score<br></br>
-    ///Excellent     -> No Hit + 90% socre<br></br>
-    ///Respectable   -> 80% score<br></br>
-    ///Acceptable    -> 70% score<br></br>
-    ///Ordinary      -> 60% score<br></br>
+    ///Excellent     -> No Hit + 98% socre<br></br>
+    ///Respectable   -> 96% score<br></br>
+    ///Acceptable    -> 92% score<br></br>
+    ///Ordinary      -> 75% score<br></br>
     /// </summary>
     public enum SkillMark
     {
@@ -88,6 +89,7 @@ namespace UndyneFight_Ex.SongSystem
     {
         public SongResult Result { get; set; }
         public GameMode GameMode { get; set; }
+        public float PauseTime { get; set; }
         public string Name { get; set; }
         public float CompleteThreshold { get; set; }
         public float ComplexThreshold { get; set; }
@@ -100,13 +102,14 @@ namespace UndyneFight_Ex.SongSystem
     }
     public struct SongResult
     {
-        public SongResult(SkillMark currentMark, int score, float acc, bool ac, bool ap)
+        public SongResult(SkillMark currentMark, int score, float acc, bool ac, bool ap, float pauseTime)
         {
             CurrentMark = currentMark;
             Score = score;
             Accuracy = acc;
             AC = ac;
             AP = ap;
+            this.PauseTime = pauseTime;
         }
 
         public SkillMark CurrentMark { get; set; }
@@ -114,6 +117,7 @@ namespace UndyneFight_Ex.SongSystem
         public bool AC { get; set; }
         public bool AP { get; set; }
         public float Accuracy { get; set; }
+        public float PauseTime { get; set; }
     }
     public enum Difficulty
     {
@@ -122,7 +126,8 @@ namespace UndyneFight_Ex.SongSystem
         Normal = 2,
         Hard = 3,
         Extreme = 4,
-        ExtremePlus = 5
+        ExtremePlus = 5,
+        NotSelected = 6
     }
 
     /// <summary>
@@ -592,7 +597,9 @@ namespace UndyneFight_Ex.SongSystem
         private Dictionary<string, Action> chartingActions = new();
         public void RegisterFunction(string name, Action action)
         {
-            chartingActions.Add(name, action);
+            if (chartingActions.ContainsKey(name)) chartingActions[name] = action;
+            else
+                chartingActions.Add(name, action);
         }
         private List<string> removingActions = new();
         public void RegisterFunctionOnce(string name, Action action)
@@ -604,19 +611,20 @@ namespace UndyneFight_Ex.SongSystem
         public static float CurrentTime { get; private set; } = 0;
         public static bool DelayEnabled { private get; set; } = true;
         /// <summary>
-        /// <para>便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）</para>
-        /// 箭头：
-        /// <para>*0.特性    "!"无分，   "^"加速，     ">"右旋转，     "*"Tap，   "~"Void，      "_"Hold</para>
-        /// <para>1.方向    "R"随机，     "D"跟上次不一样，     "+/-x"上一个方向的 +/-x方向，   "$x"固定在x方向</para>
-        /// <para>*2.颜色    "0"蓝，       "1"红</para>
-        /// <para>*3.旋转    "0"无，       "1"黄矛，      "2"斜矛</para>
-        /// <para>组合：(R)(+0)才是两个叠在一起，R(+0)会无效</para>
-        /// <para>GB：#xx#yz</para>
-        /// <para>#xx#表示停留节拍，y表示方向（用法和箭头相同），z表示颜色</para>
-        /// <para>事件用RegisterFunction()或RegisterFunctionOnce()然后放进字符里面</para>
-        /// <para>比如RegisterFunctionOnce("func", ()=> {});</para>
-        /// <para>"(func)(R)"，即会发动事件和做一根随机蓝矛</para>
-        /// <para>"!!X*/Y"，即会在接下来的Y拍切成8 * X 分音符</para>
+        /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>
+        /// 箭头：<br/>
+        /// *0.特性    "!"无分，   "^"加速，     ">"右旋转，     "*"Tap，   "~"Void，      "_"Hold<br/>
+        /// 特性顺序：~*_<>^!
+        /// 1.方向    "R"随机，     "D"跟上次不一样，     "+/-x"上一个方向的 +/-x方向，   "$x"固定在x方向<br/>
+        /// *2.颜色    "0"蓝，       "1"红<br/>
+        /// *3.旋转    "0"无，       "1"黄矛，      "2"斜矛<br/>
+        /// 组合：(R)(+0)才是两个叠在一起，R(+0)会无效<br/>
+        /// GB：#xx#yz<br/>
+        /// #xx#表示停留节拍，y表示方向（用法和箭头相同），z表示颜色<br/>
+        /// 事件用RegisterFunction()或RegisterFunctionOnce()然后放进字符里面<br/>
+        /// 比如RegisterFunctionOnce("func", ()=> {});<br/>
+        /// "(func)(R)"，即会发动事件和做一根随机蓝矛<br/>
+        /// "!!X*/Y"，即会在接下来的Y拍切成8 * X 分音符<br/>
         /// </summary>
         /// <param name="Delay">延迟时间，一般用来让箭头不闪现入场</param>
         /// <param name="Beat">拍号，如果写BeatTime(1)即为每个字符串占一个32分的长度</param>
@@ -629,28 +637,36 @@ namespace UndyneFight_Ex.SongSystem
             int currentCount = 4;
             for (int i = 0; i < Barrage.Length; i++)
             {
-                if (Barrage[i].Length > 2 && Barrage[i][0..2] == "!!")
+                if (Barrage[i].Length > 2)
                 {
                     //改变间隔
-                    string str = Barrage[i][2..];
-                    int pos = -1;
-                    for (int j = 0; j < str.Length; j++)
+                    if (Barrage[i][0..2] == "!!")
                     {
-                        if (str[j] == '/') pos = j;
+                        string str = Barrage[i][2..];
+                        int pos = -1;
+                        for (int j = 0; j < str.Length; j++)
+                        {
+                            if (str[j] == '/') pos = j;
+                        }
+                        if (pos == -1)
+                        {
+                            int count = Convert.ToInt32(str);
+                            currentCount = count;
+                            effectLast = count;
+                        }
+                        else
+                        {
+                            int count = Convert.ToInt32(str[0..pos]);
+                            currentCount = count;
+                            effectLast = Convert.ToInt32(str[(pos + 1)..]);
+                        }
+                        continue;
                     }
-                    if (pos == -1)
+                    else if (Barrage[i][0..2] == "''")
                     {
-                        int count = Convert.ToInt32(str);
-                        currentCount = count;
-                        effectLast = count;
+                        arrowspeed = MathUtil.FloatFromString(Barrage[i][2..]);
+                        continue;
                     }
-                    else
-                    {
-                        int count = Convert.ToInt32(str[0..pos]);
-                        currentCount = count;
-                        effectLast = Convert.ToInt32(str[(pos + 1)..]);
-                    }
-                    continue;
                 }
                 CurrentTime = t;
                 NormalizedChart(t, arrowspeed, Barrage[i]);
@@ -670,6 +686,7 @@ namespace UndyneFight_Ex.SongSystem
 
     public abstract class SongImformation
     {
+        public bool MusicOptimized { get; protected set; } = false;
         public virtual string SongAuthor => "Unknown";
         public virtual string BarrageAuthor => "Unknown";
         public virtual string AttributeAuthor => "Unknown";
@@ -699,6 +716,7 @@ namespace UndyneFight_Ex.SongSystem
         Practice = 8,
         Buffed = 16,
         Autoplay = 32,
-        RestartDeny = 64,
+        RestartDeny = 64, 
+        PauseDeny = 256
     }
 }

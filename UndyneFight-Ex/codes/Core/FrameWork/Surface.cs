@@ -9,8 +9,8 @@ namespace UndyneFight_Ex
     public abstract class RenderProduction : IComparable<RenderProduction>
     {
         private static bool HighQuality => Settings.SettingsManager.DataLibrary.drawingQuality == Settings.SettingsManager.DataLibrary.DrawingQuality.High;
-        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / 640f, ScreenSize.Y / 480f) : 1;
-        protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new(640, 480);
+        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / (640f * GameStates.SurfaceScale), ScreenSize.Y / (480f * GameStates.SurfaceScale)) : 1;
+        protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new Vector2(640, 480) * GameStates.SurfaceScale;
 
         protected static GraphicsDevice WindowDevice => GameMain.Graphics.GraphicsDevice;
         protected static SpriteBatch spriteBatch => GameMain.MissionSpriteBatch;
@@ -24,7 +24,7 @@ namespace UndyneFight_Ex
         }
         private static Vector2 Adapt(Vector2 origin)
         {
-            if (!HighQuality) return new Vector2(640, 480);
+            if (!HighQuality) return new Vector2(640, 480) * GameStates.SurfaceScale;
 
             float trueX, trueY;
             if (origin.X >= origin.Y * 4 / 3f) { trueX = origin.Y * 4 / 3; trueY = origin.Y; }
@@ -114,7 +114,7 @@ namespace UndyneFight_Ex
             GameMain.MissionSpriteBatch.Draw(s, pos, from, color);
             GameMain.MissionSpriteBatch.End();
         }
-        protected void DrawTextures(Texture2D[] tex, Rectangle pos, Rectangle? from, Color color)
+        protected void DrawTextures(Texture2D[] tex, Rectangle pos, Rectangle? from, Color[] colors)
         {
             for (int i = 0; i < tex.Length; i++)
                 if (tex[i] == MissionTarget)
@@ -132,9 +132,15 @@ namespace UndyneFight_Ex
             {
                 GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, null, null, null, null, enabledMatrix ? matrix : null);
             }
-            foreach (Texture2D s in tex)
-                GameMain.MissionSpriteBatch.Draw(s, pos, from, color);
+            for(int i = 0; i < tex.Length; ++i)
+                GameMain.MissionSpriteBatch.Draw(tex[i], pos, from, colors[i]);
             GameMain.MissionSpriteBatch.End();
+        }
+        protected void DrawTextures(Texture2D[] tex, Rectangle pos, Rectangle? from, Color color)
+        {
+            Color[] colors = new Color[tex.Length];
+            for (int i = 0; i < tex.Length; i++) colors[i] = color;
+            this.DrawTextures(tex, pos, from, colors);
         }
         protected void DrawTextures(Texture2D[] s, Rectangle bound)
         {
@@ -179,6 +185,7 @@ namespace UndyneFight_Ex
             {
                 HelperTarget = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
                 HelperTarget2 = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
+                HelperTarget3 = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
             }
         }
         public abstract RenderTarget2D Draw(RenderTarget2D obj);
@@ -210,6 +217,7 @@ namespace UndyneFight_Ex
         private static RenderTarget2D screenSizedTarget;
         protected static RenderTarget2D HelperTarget { private set; get; }
         protected static RenderTarget2D HelperTarget2 { private set; get; }
+        protected static RenderTarget2D HelperTarget3 { private set; get; }
 
         public bool Enabled { get; set; } = true;
     }
@@ -232,7 +240,7 @@ namespace UndyneFight_Ex
         {
             Name = name;
             SizeLock = lockSize;
-            RenderPaint = SizeLock ? new RenderTarget2D(WindowDevice, (int)ScreenSize.X, (int)ScreenSize.Y) : new RenderTarget2D(WindowDevice, 640, 480);
+            RenderPaint = SizeLock ? new RenderTarget2D(WindowDevice, (int)ScreenSize.X, (int)ScreenSize.Y) : new RenderTarget2D(WindowDevice, (int)(640 * GameStates.SurfaceScale), (int)(480 * GameStates.SurfaceScale));
         }
         public override void Dispose()
         {
@@ -271,7 +279,7 @@ namespace UndyneFight_Ex
         {
             DoUpdate?.Invoke();
             Vector4 extending = DisableExpand ? Vector4.Zero : GameStates.CurrentScene.CurrentDrawingSettings.Extending;
-            Vector2 size = !SizeLock ? AdaptedSize : new(640, 480);
+            Vector2 size = !SizeLock ? AdaptedSize : new Vector2(640, 480) * GameStates.SurfaceScale;
             int missionX = (int)size.X, missionY = (int)(size.Y * (1 + extending.W));
             if (RenderPaint.Bounds.Size != new Point(missionX, missionY))
             {
@@ -291,6 +299,7 @@ namespace UndyneFight_Ex
         public Matrix CustomMatrix { get; private set; } = Matrix.Identity;
         public void Draw(Entity[] entities, Matrix transfer)
         {
+            Entity.depthDetla = 0;
             if (Transfer == TransferUse.ForceDefault)
             {
                 transfer = Matrix.CreateScale(AdaptingScale / GameStates.SurfaceScale); transfer.M33 = 1;

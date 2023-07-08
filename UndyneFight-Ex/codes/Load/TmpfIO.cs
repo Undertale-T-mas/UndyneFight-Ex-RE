@@ -377,7 +377,7 @@ namespace UndyneFight_Ex.IO
             SaveInfo res2 = IOEvent.ToInfos(res);
 
             stream.Flush();
-            stream.Close();
+            stream.Dispose(); 
 
             return res2;
         }

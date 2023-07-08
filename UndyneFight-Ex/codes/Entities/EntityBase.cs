@@ -235,7 +235,7 @@ namespace UndyneFight_Ex
     }
     public abstract class Entity : GameObject
     {
-        public bool AngelMode { set; private get; } = false;
+        public bool AngelMode { set; get; } = false;
         public static float depthDetla = 0.00f;
         private float DrawingRotation(float rotation) => AngelMode ? MathUtil.GetRadian(rotation) : rotation;
 
@@ -253,18 +253,25 @@ namespace UndyneFight_Ex
             GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth + depthDetla);
             depthDetla += 0.00001f;
         }
-        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle texArea, Color color, float rotation, Vector2 rotateCentre)
+        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(1, 1), rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth + depthDetla);
             depthDetla += 0.00001f;
         }
-        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle texArea, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
+        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(drawingScale, drawingScale), rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth + depthDetla);
+            depthDetla += 0.00001f;
+        }
+        public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, Vector2 drawingScale, float rotation, Vector2 rotateCentre, SpriteEffects spriteEffects)
+        {
+            rotation = DrawingRotation(rotation);
+            if (NotInScene(tex, centre, drawingScale, rotation, rotateCentre)) return;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, spriteEffects, Depth + depthDetla);
             depthDetla += 0.00001f;
         }
         public void FormalDraw(Texture2D tex, Rectangle area, Color color)
@@ -295,7 +302,8 @@ namespace UndyneFight_Ex
 
         private bool NotInScene(Texture2D tex, Vector2 centre, Vector2 drawingScale, float rotation, Vector2 rotateCentre)
         {
-            float scale = (1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale)) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.05f;
+            if (!DrawOptimize) return false;
+            float scale = (1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale)) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.212f;
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             CollideRect cur = new CollideRect(0, -480 * extend.W, 640 * scale * GameStates.SurfaceScale, 480 * (scale + extend.W) * GameStates.SurfaceScale);
             cur.SetCentre(new Vector2(320, 240 - 240 * extend.W) * GameStates.SurfaceScale);
@@ -329,13 +337,13 @@ namespace UndyneFight_Ex
 
         private Texture2D image;
         protected Vector2 ImageCentre { get; set; }
-        protected Texture2D Image
+        public Texture2D Image
         {
             get
             {
                 return image;
             }
-            set
+            protected set
             {
                 image = value;
                 ImageCentre = new Vector2(value.Width, value.Height) / 2.0f;
@@ -366,6 +374,8 @@ namespace UndyneFight_Ex
                 collidingBox.SetCentre(value);
             }
         }
+
+        public static bool DrawOptimize { get; set; } = true;
 
         public abstract void Draw();
         protected ShinyEffect CreateShinyEffect()
@@ -513,6 +523,17 @@ namespace UndyneFight_Ex
                 if (v.tagName == tagName) return true;
             }
             return false;
+        }
+        public void Broadcast(string info)
+        {
+            GameStates.Broadcast(new GameEventArgs(this, info));
+        }
+        public Tuple<bool, GameEventArgs> TryDetect(string tagName)
+        {
+            var result = GameStates.DetectEvent(tagName);
+            if (result == null) return new(false, null);
+            if (result.Count == 0) return new(false, null);
+            return new(true, result[0]);
         }
         public string[] Tags
         {

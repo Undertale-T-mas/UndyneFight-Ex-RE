@@ -8,6 +8,15 @@ namespace UndyneFight_Ex.Entities
 {
     internal partial class StateShower
     {
+        private bool isPaused = false;
+
+        public float PauseTime { get; internal set; } = 0f;
+
+        internal void PauseUsed()
+        {
+            isPaused = true;
+        }
+
         internal partial class ResultShower : Entity
         {
             RatingResult ratingResult;
@@ -58,7 +67,7 @@ namespace UndyneFight_Ex.Entities
                 UpdateIn120 = true;
 
                 #region 分数保存 
-                SongResult result = new(mark, score, scoreResult.judgeState != JudgementState.Lenient ? GetScorePercent() : 0, AC, AP);
+                SongResult result = new(mark, score, scoreResult.judgeState != JudgementState.Lenient ? GetScorePercent() : 0, AC, AP, scoreResult.PauseTime);
                 var att = gamePlayed.Attributes;
                 playData = gamePlayed.Attributes != null
                     ? new SongPlayData()
@@ -102,6 +111,10 @@ namespace UndyneFight_Ex.Entities
                 if (((int)scoreResult.mode & (int)GameMode.Autoplay) != 0)
                 {
                     PushModifiers("AutoPlay");
+                }
+                if(Settings.SettingsManager.DataLibrary.PauseCheating && scoreResult.isPaused)
+                {
+                    PushModifiers("Paused");
                 }
                 if (ModifiersUsed) return;
 
@@ -432,7 +445,7 @@ namespace UndyneFight_Ex.Entities
                 Dispose();
                 GameStates.ResetScene(GameStates.isRecord && GameInterface.UFEXSettings.RecordEnabled ?
                     new GameMenuScene(new RecordSelector())
-                    : new GameMenuScene(new IntroUI()));
+                    : new GameMenuScene());
             }
         }
     }

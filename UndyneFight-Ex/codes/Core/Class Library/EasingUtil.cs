@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Net.WebSockets;
+using System.Reflection.Metadata.Ecma335;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.MathUtil;
@@ -27,8 +27,9 @@ namespace UndyneFight_Ex.Entities
                 AddInstance(new TimeRangedEvent(ease.Time, () =>
                 {
                     easingObject.AppearTime += 0.5f;
-                    func.Invoke(Easer.Invoke(easingObject));
-                }));
+                    func.Invoke(ease.Easing.Invoke(easingObject));
+                })
+                { UpdateIn120 = true });
                 easingObject.AppearTime += 0.5f;
                 func.Invoke(Easer.Invoke(easingObject));
             }
@@ -50,8 +51,9 @@ namespace UndyneFight_Ex.Entities
                 AddInstance(new TimeRangedEvent(ease.Time, () =>
                 {
                     easingObject.AppearTime += 0.5f;
-                    func.Invoke(Easer.Invoke(easingObject));
-                }));
+                    func.Invoke(ease.Easing.Invoke(easingObject));
+                })
+                { UpdateIn120 = true });
                 easingObject.AppearTime += 0.5f;
                 func.Invoke(Easer.Invoke(easingObject));
             }
@@ -101,6 +103,7 @@ namespace UndyneFight_Ex.Entities
                     Rotation = RotationRoute.Invoke(this);
             }
         }
+        
         public static void RunEase(Action<Vector2> action, bool isAdjust, params EaseUnit<Vector2>[] funcs)
         {
             CEaseBuilder builder = new();
@@ -109,8 +112,14 @@ namespace UndyneFight_Ex.Entities
                 builder.Insert(funcs[i]);
             builder.Run(action);
         }
+        /// <summary>
+        /// 执行<see langword="action"/>中的事件并使用其中的<see cref="Vector2"/>变量。变量等于<see langword="funcs"/>中的缓动变量
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="funcs"></param>
         public static void RunEase(Action<Vector2> action, params EaseUnit<Vector2>[] funcs)
         {
+            
             RunEase(action, true, funcs);
         }
         public static void RunEase(Action<float> action, bool isAdjust, params EaseUnit<float>[] funcs)
@@ -121,6 +130,11 @@ namespace UndyneFight_Ex.Entities
                 builder.Insert(funcs[i].Time, funcs[i].Easing);
             builder.Run(action);
         }
+        /// <summary>
+        /// 执行<see langword="action"/>中的事件并使用其中的<see cref="float"/>变量。变量等于<see langword="funcs"/>中的缓动变量
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="funcs"></param>
         public static void RunEase(Action<float> action, params EaseUnit<float>[] funcs)
         {
             RunEase(action, true, funcs);
@@ -172,6 +186,11 @@ namespace UndyneFight_Ex.Entities
             };
             return new EaseUnit<float>(funcs[0].Start, basis[^1], time, easeResult);
         }
+        /// <summary>
+        /// 返回一个连接2个及以上的<see langword="缓动"/>
+        /// </summary>
+        /// <param name="funcs">每2个缓动间只需要逗号隔开</param>
+        /// <returns></returns>
         public static EaseUnit<float> LinkEase(params EaseUnit<float>[] funcs)
         {
             return LinkEase(true, funcs);
@@ -223,6 +242,11 @@ namespace UndyneFight_Ex.Entities
             };
             return new EaseUnit<Vector2>(funcs[0].Start, basis[^1], time, easeResult);
         }
+        /// <summary>
+        /// 返回一个连接2个及以上的<see langword="缓动"/>
+        /// </summary>
+        /// <param name="funcs">每2个缓动间只需要逗号隔开</param>
+        /// <returns></returns>
         public static EaseUnit<Vector2> LinkEase(params EaseUnit<Vector2>[] funcs)
         {
             return LinkEase(true, funcs);
@@ -242,6 +266,31 @@ namespace UndyneFight_Ex.Entities
             Back = 9,
             Bounce = 10
         }
+        public static EaseUnit<Vector2> Linear(float time, Vector2 start, Vector2 end)
+        {
+            return new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.Linear(start, end, time));
+        }
+        public static EaseUnit<Vector2> Linear(float time, Vector2 end)
+        {
+            return Linear(time, Vector2.Zero, end);
+        }
+        public static EaseUnit<float> Linear(float time, float start, float end)
+        {
+            return new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.Linear(start, end, time));
+        }
+        public static EaseUnit<float> Linear(float time, float end)
+        {
+            return Linear(time, 0, end);
+        }
+
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由慢到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> EaseIn(float time, Vector2 start, Vector2 end, EaseState state)
         {
             return state switch
@@ -260,6 +309,14 @@ namespace UndyneFight_Ex.Entities
                 _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由快到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> EaseOut(float time, Vector2 start, Vector2 end, EaseState state)
         {
             return state switch
@@ -278,15 +335,186 @@ namespace UndyneFight_Ex.Entities
                 _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由慢到快的缓动"/><br/>
+        /// Tips:该函数被拼接时，起点为0，可以理解为“在上一个函数的基础上增加<see langword="end"></see>”
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> EaseIn(float time, Vector2 end, EaseState state)
         {
             return EaseIn(time, Vector2.Zero, end, state);
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由快到慢的缓动"/><br/>
+        /// Tips:该函数被拼接时，起点为0，可以理解为“在上一个函数的基础上增加<see langword="end"></see>”
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> EaseOut(float time, Vector2 end, EaseState state)
         {
             return EaseOut(time, Vector2.Zero, end, state);
         }
-
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由慢到快再到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="Astate">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <param name="Bstate">中点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<Vector2> EaseInOut(float time, Vector2 start, Vector2 end, float amount, EaseState Astate, EaseState Bstate)
+        {
+            float midx = MathHelper.Lerp(start.X, end.X, amount);
+            float midy = MathHelper.Lerp(start.Y, end.Y, amount);
+            Vector2 mid = new(midx, midy);
+            EaseUnit<Vector2> A;
+            A = Astate switch
+            {
+                EaseState.Linear => EaseIn(time / 2, start, mid, EaseState.Linear),
+                EaseState.Quad => EaseIn(time / 2, start, mid, EaseState.Quad),
+                EaseState.Cubic => EaseIn(time / 2, start, mid, EaseState.Cubic),
+                EaseState.Quart => EaseIn(time / 2, start, mid, EaseState.Quart),
+                EaseState.Quint => EaseIn(time / 2, start, mid, EaseState.Quint),
+                EaseState.Circ => EaseIn(time / 2, start, mid, EaseState.Circ),
+                EaseState.Sine => EaseIn(time / 2, start, mid, EaseState.Sine),
+                EaseState.Elastic => EaseIn(time / 2, start, mid, EaseState.Elastic),
+                EaseState.Expo => EaseIn(time / 2, start, mid, EaseState.Expo),
+                EaseState.Back => EaseIn(time / 2, start, mid, EaseState.Back),
+                EaseState.Bounce => EaseIn(time / 2, start, mid, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Astate.ToString()} is not a proper easing state", nameof(Astate))
+            };
+            EaseUnit<Vector2> B;
+            B = Bstate switch
+            {
+                EaseState.Linear => EaseOut(time / 2, mid, end, EaseState.Linear),
+                EaseState.Quad => EaseOut(time / 2, mid, end, EaseState.Quad),
+                EaseState.Cubic => EaseOut(time / 2, mid, end, EaseState.Cubic),
+                EaseState.Quart => EaseOut(time / 2, mid, end, EaseState.Quart),
+                EaseState.Quint => EaseOut(time / 2, mid, end, EaseState.Quint),
+                EaseState.Circ => EaseOut(time / 2, mid, end, EaseState.Circ),
+                EaseState.Sine => EaseOut(time / 2, mid, end, EaseState.Sine),
+                EaseState.Elastic => EaseOut(time / 2, mid, end, EaseState.Elastic),
+                EaseState.Expo => EaseOut(time / 2, mid, end, EaseState.Expo),
+                EaseState.Back => EaseOut(time / 2, mid, end, EaseState.Back),
+                EaseState.Bounce => EaseOut(time / 2, mid, end, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Bstate.ToString()} is not a proper easing state", nameof(Bstate))
+            };
+            return LinkEase(A, B);
+        }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由快到慢再到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="Astate">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <param name="Bstate">中点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<Vector2> EaseOutIn(float time, Vector2 start, Vector2 end, float amount, EaseState Astate, EaseState Bstate)
+        {
+            float midx = MathHelper.Lerp(start.X, end.X, amount);
+            float midy = MathHelper.Lerp(start.Y, end.Y, amount);
+            Vector2 mid = new(midx, midy);
+            EaseUnit<Vector2> B;
+            B = Astate switch
+            {
+                EaseState.Linear => EaseIn(time / 2, mid, end, EaseState.Linear),
+                EaseState.Quad => EaseIn(time / 2, mid, end, EaseState.Quad),
+                EaseState.Cubic => EaseIn(time / 2, mid, end, EaseState.Cubic),
+                EaseState.Quart => EaseIn(time / 2, mid, end, EaseState.Quart),
+                EaseState.Quint => EaseIn(time / 2, mid, end, EaseState.Quint),
+                EaseState.Circ => EaseIn(time / 2, mid, end, EaseState.Circ),
+                EaseState.Sine => EaseIn(time / 2, mid, end, EaseState.Sine),
+                EaseState.Elastic => EaseIn(time / 2, mid, end, EaseState.Elastic),
+                EaseState.Expo => EaseIn(time / 2, mid, end, EaseState.Expo),
+                EaseState.Back => EaseIn(time / 2, mid, end, EaseState.Back),
+                EaseState.Bounce => EaseIn(time / 2, mid, end, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Bstate.ToString()} is not a proper easing state", nameof(Bstate))
+            };
+            EaseUnit<Vector2> A;
+            A = Bstate switch
+            {
+                EaseState.Linear => EaseOut(time / 2, start, mid, EaseState.Linear),
+                EaseState.Quad => EaseOut(time / 2, start, mid, EaseState.Quad),
+                EaseState.Cubic => EaseOut(time / 2, start, mid, EaseState.Cubic),
+                EaseState.Quart => EaseOut(time / 2, start, mid, EaseState.Quart),
+                EaseState.Quint => EaseOut(time / 2, start, mid, EaseState.Quint),
+                EaseState.Circ => EaseOut(time / 2, start, mid, EaseState.Circ),
+                EaseState.Sine => EaseOut(time / 2, start, mid, EaseState.Sine),
+                EaseState.Elastic => EaseOut(time / 2, start, mid, EaseState.Elastic),
+                EaseState.Expo => EaseOut(time / 2, start, mid, EaseState.Expo),
+                EaseState.Back => EaseOut(time / 2, start, mid, EaseState.Back),
+                EaseState.Bounce => EaseOut(time / 2, start, mid, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Astate.ToString()} is not a proper easing state", nameof(Astate))
+            };
+            return LinkEase(A, B);
+        }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由慢到快再到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<Vector2> EaseInOut(float time, Vector2 start, Vector2 end, float amount, EaseState state)
+        {
+            return EaseInOut(time, start, end, amount, state, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由快到慢再到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="state">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<Vector2> EaseOutIn(float time, Vector2 start, Vector2 end, float amount, EaseState state)
+        {
+            return EaseOutIn(time, start, end, amount, state, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由慢到快再到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<Vector2> EaseInOut(float time, Vector2 start, Vector2 end, EaseState state)
+        {
+            return EaseInOut(time, start, end, 0.5f, state, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="由快到慢再到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<Vector2> EaseOutIn(float time, Vector2 start, Vector2 end, EaseState state)
+        {
+            return EaseOutIn(time, start, end, 0.5f, state, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由慢到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> EaseIn(float time, float start, float end, EaseState state)
         {
             return state switch
@@ -305,6 +533,14 @@ namespace UndyneFight_Ex.Entities
                 _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由快到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> EaseOut(float time, float start, float end, EaseState state)
         {
             return state switch
@@ -323,13 +559,173 @@ namespace UndyneFight_Ex.Entities
                 _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由慢到快的缓动"/><br/>
+        /// Tips:该函数被拼接时，起点为0，可以理解为“在上一个函数的基础上增加<see langword="end"></see>”
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> EaseIn(float time, float end, EaseState state)
         {
             return EaseIn(time, 0, end, state);
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由快到慢的缓动"/><br/>
+        /// Tips:该函数被拼接时，起点为0，可以理解为“在上一个函数的基础上增加<see langword="end"></see>”
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> EaseOut(float time, float end, EaseState state)
         {
             return EaseOut(time, 0, end, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由慢到快再到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="Astate">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <param name="Bstate">中点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<float> EaseInOut(float time, float start, float end, float amount, EaseState Astate, EaseState Bstate)
+        {
+            float mid = MathHelper.Lerp(start, end, amount);
+            EaseUnit<float> A;
+            A = Astate switch
+            {
+                EaseState.Linear => EaseIn(time / 2, start, mid, EaseState.Linear),
+                EaseState.Quad => EaseIn(time / 2, start, mid, EaseState.Quad),
+                EaseState.Cubic => EaseIn(time / 2, start, mid, EaseState.Cubic),
+                EaseState.Quart => EaseIn(time / 2, start, mid, EaseState.Quart),
+                EaseState.Quint => EaseIn(time / 2, start, mid, EaseState.Quint),
+                EaseState.Circ => EaseIn(time / 2, start, mid, EaseState.Circ),
+                EaseState.Sine => EaseIn(time / 2, start, mid, EaseState.Sine),
+                EaseState.Elastic => EaseIn(time / 2, start, mid, EaseState.Elastic),
+                EaseState.Expo => EaseIn(time / 2, start, mid, EaseState.Expo),
+                EaseState.Back => EaseIn(time / 2, start, mid, EaseState.Back),
+                EaseState.Bounce => EaseIn(time / 2, start, mid, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Astate.ToString()} is not a proper easing state", nameof(Astate))
+            };
+            EaseUnit<float> B;
+            B = Bstate switch
+            {
+                EaseState.Linear => EaseOut(time / 2, mid, end, EaseState.Linear),
+                EaseState.Quad => EaseOut(time / 2, mid, end, EaseState.Quad),
+                EaseState.Cubic => EaseOut(time / 2, mid, end, EaseState.Cubic),
+                EaseState.Quart => EaseOut(time / 2, mid, end, EaseState.Quart),
+                EaseState.Quint => EaseOut(time / 2, mid, end, EaseState.Quint),
+                EaseState.Circ => EaseOut(time / 2, mid, end, EaseState.Circ),
+                EaseState.Sine => EaseOut(time / 2, mid, end, EaseState.Sine),
+                EaseState.Elastic => EaseOut(time / 2, mid, end, EaseState.Elastic),
+                EaseState.Expo => EaseOut(time / 2, mid, end, EaseState.Expo),
+                EaseState.Back => EaseOut(time / 2, mid, end, EaseState.Back),
+                EaseState.Bounce => EaseOut(time / 2, mid, end, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Bstate.ToString()} is not a proper easing state", nameof(Bstate))
+            };
+            return LinkEase(A, B);
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由快到慢再到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="Astate">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <param name="Bstate">中点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<float> EaseOutIn(float time, float start, float end, float amount, EaseState Astate, EaseState Bstate)
+        {
+            float mid = MathHelper.Lerp(start, end, amount);
+            EaseUnit<float> B;
+            B = Astate switch
+            {
+                EaseState.Linear => EaseIn(time / 2, mid, end, EaseState.Linear),
+                EaseState.Quad => EaseIn(time / 2, mid, end, EaseState.Quad),
+                EaseState.Cubic => EaseIn(time / 2, mid, end, EaseState.Cubic),
+                EaseState.Quart => EaseIn(time / 2, mid, end, EaseState.Quart),
+                EaseState.Quint => EaseIn(time / 2, mid, end, EaseState.Quint),
+                EaseState.Circ => EaseIn(time / 2, mid, end, EaseState.Circ),
+                EaseState.Sine => EaseIn(time / 2, mid, end, EaseState.Sine),
+                EaseState.Elastic => EaseIn(time / 2, mid, end, EaseState.Elastic),
+                EaseState.Expo => EaseIn(time / 2, mid, end, EaseState.Expo),
+                EaseState.Back => EaseIn(time / 2, mid, end, EaseState.Back),
+                EaseState.Bounce => EaseIn(time / 2, mid, end, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Bstate.ToString()} is not a proper easing state", nameof(Bstate))
+            };
+            EaseUnit<float> A;
+            A = Bstate switch
+            {
+                EaseState.Linear => EaseOut(time / 2, start, mid, EaseState.Linear),
+                EaseState.Quad => EaseOut(time / 2, start, mid, EaseState.Quad),
+                EaseState.Cubic => EaseOut(time / 2, start, mid, EaseState.Cubic),
+                EaseState.Quart => EaseOut(time / 2, start, mid, EaseState.Quart),
+                EaseState.Quint => EaseOut(time / 2, start, mid, EaseState.Quint),
+                EaseState.Circ => EaseOut(time / 2, start, mid, EaseState.Circ),
+                EaseState.Sine => EaseOut(time / 2, start, mid, EaseState.Sine),
+                EaseState.Elastic => EaseOut(time / 2, start, mid, EaseState.Elastic),
+                EaseState.Expo => EaseOut(time / 2, start, mid, EaseState.Expo),
+                EaseState.Back => EaseOut(time / 2, start, mid, EaseState.Back),
+                EaseState.Bounce => EaseOut(time / 2, start, mid, EaseState.Bounce),
+                _ => throw new ArgumentOutOfRangeException($"{Astate.ToString()} is not a proper easing state", nameof(Astate))
+            };
+            return LinkEase(A, B);
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由慢到快再到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<float> EaseInOut(float time, float start, float end, float amount, EaseState state)
+        {
+            return EaseInOut(time, start, end, amount, state, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由快到慢再到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="amount">起点缓动与中点缓动时间的距离占比<br/>如：0.4f 表示起点缓动移动的距离占40% 中点缓动移动的距离占60%<br/>但缓动时间之比仍然是1：1</param>
+        /// <param name="state">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<float> EaseOutIn(float time, float start, float end, float amount, EaseState state)
+        {
+            return EaseOutIn(time, start, end, amount, state, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由慢到快再到慢的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<float> EaseInOut(float time, float start, float end,EaseState state)
+        {
+            return EaseInOut(time, start, end, 0.5f, state, state);
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="由快到慢再到快的缓动"/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="state">起点缓动类型，类型均在<see cref="EaseState"/>中</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<float> EaseOutIn(float time, float start, float end,EaseState state)
+        {
+            return EaseOutIn(time, start, end, 0.5f, state, state);
         }
         public static EaseUnit<Vector2> Stable(float time, Vector2 value)
         {
@@ -441,6 +837,27 @@ namespace UndyneFight_Ex.Entities
         {
             return new EaseUnit<float>(main.Start + addon, main.End + addon,
                 main.Time, (s) => { return main.Easing.Invoke(s) + addon; });
+        }
+
+        public static EaseUnit<Vector2> SineWave(Vector2 start, Vector2 end, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, Vector2> sine = (t) => Vector2.Lerp(start, end, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<Vector2>((start + end) / 2f, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<Vector2> SineWave(Vector2 impact, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, Vector2> sine = (t) => Vector2.Lerp(-impact, impact, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<Vector2>(Vector2.Zero, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<float> SineWave(float start, float end, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, float> sine = (t) => MathHelper.Lerp(start, end, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<float>((start + end) / 2f, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
+        }
+        public static EaseUnit<float> SineWave(float impact, float T, float waveCount = 99999, float phase = 0)
+        {
+            Func<float, float> sine = (t) => MathHelper.Lerp(-impact, impact, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
+            return new EaseUnit<float>(0, sine(waveCount), waveCount * T, (s) => sine(s.AppearTime));
         }
     }
     public struct EaseUnit<T>

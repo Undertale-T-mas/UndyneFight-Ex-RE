@@ -12,7 +12,7 @@ namespace UndyneFight_Ex.Entities
             {
                 playerPos = heartInstance.Centre;
                 FightResources.Sounds.die1.CreateInstance().Play();
-                showingColor = heartInstance.DrawingColor;
+                showingColor = heartInstance.CurrentMoveState.StateColor;
                 Image = FightResources.Sprites.brokenHeart;
                 Centre = heartInstance.Centre;
             }

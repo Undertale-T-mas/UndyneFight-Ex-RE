@@ -94,6 +94,7 @@ namespace UndyneFight_Ex
             CustomShaders.Gray =        new GrayShader(loader.Load<Effect>("Gray"));
             CustomShaders.Seismic =     new SeismicShader(loader.Load<Effect>("Seismic"));
             CustomShaders.Scatter =     new ScatterShader(loader.Load<Effect>("Scatter"));
+            CustomShaders.Mosaic =      new MosaicShader(loader.Load<Effect>("Mosaic"));
             LoadInternals(loader);
             //Effects.CustomShaders.ShaderTiler = new Effects.ShaderTiler(loader.Load<Effect>("ShaderTiler"));
             //Effects.CustomShaders.Smear = new Effects.Smear(loader.Load<Effect>("Smear"));
@@ -122,6 +123,7 @@ namespace UndyneFight_Ex
                 public static ScatterShader Scatter { get; set; }
                 public static ShaderTiler ShaderTiler { get; set; }
                 public static Smear Smear { get; set; }
+                public static MosaicShader Mosaic { get; set; }
             }
         }
 
@@ -135,7 +137,7 @@ namespace UndyneFight_Ex
             //public static GLFont Chinese { get; internal set; }
         }
 
-        internal static class Sprites
+        public static class Sprites
         {
             public static Texture2D cursor;
             public static Texture2D login;
@@ -613,6 +615,7 @@ namespace UndyneFight_Ex
             public static SeismicShader Seismic => CustomShaders.Seismic;
             public static ShaderTiler ShaderTiler => CustomShaders.ShaderTiler;
             public static Smear Smear => CustomShaders.Smear;
+            public static MosaicShader Mosaic => CustomShaders.Mosaic;
         }
     }
 }

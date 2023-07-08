@@ -24,6 +24,7 @@ namespace UndyneFight_Ex.Remake.UI
                 bool onFocus, noFocus;
                 float target = -1.0f;
                 float alpha = 0.6f;
+                float lastMission = -1;
                 public override void Update()
                 {
                     float mission = this._father.SelectedID;
@@ -40,8 +41,12 @@ namespace UndyneFight_Ex.Remake.UI
 
                     if (mission != -1)
                     {
-                        if (target == -1.0f) target = mission;
-                        else target = MathHelper.Lerp(target, mission, 0.12f);
+                        lastMission = mission;
+                    }
+                    if (lastMission != -1)
+                    {
+                        if (target == -1.0f) target = lastMission;
+                        else target = MathHelper.Lerp(target, lastMission, 0.12f);
                         mainPos = (int)MathF.Round(target);
                         posDelta = target - mainPos;
                     }

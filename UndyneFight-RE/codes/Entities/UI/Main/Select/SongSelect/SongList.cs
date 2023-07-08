@@ -29,12 +29,18 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             LeafSelection leaf = (LeafSelection)all[i];
                             _images[i] = leaf.Illustration;
+                            leaf.LeftClick += () =>
+                            {
+                                if (!leaf.ModuleSelected) this.DeSelect();
+                            };
                         }
                         i++;
                     }
                     this.all[0].OnFocus();
                     base.Start();
                 }
+
+                public SelectingModule Focus => this._currentFocus;
 
                 protected RootSelection Head { set; private get; }
                 private SongSelector _father;
@@ -43,8 +49,10 @@ namespace UndyneFight_Ex.Remake.UI
                 private Texture2D[] _images;
                 public Texture2D[] Images => _images;
 
+                public Texture2D Illustration => _images[SelectedID];
+
                 public bool Activated => _activated && _father.Activated; 
-                public bool DrawEnabled => Activated;
+                public bool DrawEnabled => _father.DrawEnabled && this._activated;
 
                 private bool _activated = false;
 
@@ -65,22 +73,30 @@ namespace UndyneFight_Ex.Remake.UI
                 }
 
                 SelectingModule _lastSelected;
+                private void DeSelect()
+                {
+                    this._father.DeSelectSong();
+                }
                 public void Selected(SelectingModule module)
                 {
                     if (module is LeafSelection)
                     {
-                        if (module == _lastSelected) return;
-                        LeafSelection leafLast = _lastSelected as LeafSelection;
                         LeafSelection leafCur = module as LeafSelection;
+                        if (module == _lastSelected) { goto A; }
+                        LeafSelection leafLast = _lastSelected as LeafSelection;
                         if (_lastSelected != null)
                         {
                             _lastSelected.State = (leafLast.Root.ModuleSelected || (!leafLast.Root.ModuleEnabled)) ? SelectState.False : SelectState.Disabled;
-                            if (!leafLast.Root.ModuleEnabled && leafLast.Root != leafCur.Root) leafLast.Root.State = SelectState.Selected;
+                            if (!leafLast.Root.ModuleEnabled && leafLast.Root != leafCur.Root)
+                            {
+                                leafLast.Root.State = SelectState.Selected;
+                            }
                         }
                         
                         _lastSelected = module;
+                        A: module.Extras = leafCur.FightObject;
                         this._father.Selected(module);
-                        this._father.SelectedID = FocusID;
+                        this._father.SelectedID = this.SelectedID = FocusID;
                     } 
                 } 
 
@@ -107,11 +123,18 @@ namespace UndyneFight_Ex.Remake.UI
 
                 protected int SelectedID { get; private set; } = -1;
 
+                private int _timer = 0;
                 public sealed override void Update()
                 {
-                    if (!this.Activated) return;
+                    if (!this.Activated)
+                    {
+                        _timer = 0;
+                        return;
+                    }
+                    _timer++;
+                    if (_timer < 3) return;
 
-                    if (_lastSelected != null && !_lastSelected.ModuleSelected) this._father.SelectedID = -1;
+                    if (_lastSelected != null && !_lastSelected.ModuleSelected) this.SelectedID = this._father.SelectedID = -1;
 
                     if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
                     {

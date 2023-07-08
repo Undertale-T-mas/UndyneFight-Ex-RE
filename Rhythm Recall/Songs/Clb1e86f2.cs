@@ -17,10 +17,12 @@ namespace Rhythm_Recall.Waves
         public Clb1e86f2()
         {
             Game.game = new Game();
-            difficulties = new();
-            difficulties.Add("div2", Difficulty.Normal);
-            difficulties.Add("div1", Difficulty.Extreme);
-            difficulties.Add("div0", Difficulty.ExtremePlus);
+            difficulties = new()
+            {
+                { "div2", Difficulty.Normal },
+                { "div1", Difficulty.Extreme },
+                { "div0", Difficulty.ExtremePlus }
+            };
             //    this.difficulties.Add("Anomaly Test", Difficulty.ExtremePlus);
         }
 
@@ -51,7 +53,13 @@ namespace Rhythm_Recall.Waves
             }
 
             public void Hard()
-            { 
+            {
+                Line line = new(LinkEase(
+                        EaseOut(BeatTime(2), new Vector2(320, 240), new Vector2(640, 240), EaseState.Linear),
+                        EaseOut(BeatTime(2), new Vector2(640, 240), new Vector2(320, 240), EaseState.Back),
+                        EaseOut(BeatTime(2), new Vector2(320, 240), new Vector2(0, 240), EaseState.Circ)
+                    ).Easing,
+                    Stable(9999, 45).Easing);
             }
 
             private static class EXBarrage
@@ -291,7 +299,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(easeX = new Arrow.EnsembleEasing() { });
                     easeX.TagApply("X");
 
-                    easeA.Dispose();
+                    easeA?.Dispose();
 
                     AddInstance(easeA = new Arrow.UnitEasing()
                     {
@@ -398,6 +406,12 @@ namespace Rhythm_Recall.Waves
                     game.RegisterFunctionOnce("RR", () => {
                         RunEase(s => { ScreenDrawing.ScreenAngle = s; }, EaseOut(BeatTime(0.5f), -3f, 0f, EaseState.Cubic));
                     });
+                    game.RegisterFunction("WAVE", () => {
+                        Shaders.Seismic.Radius = 400;
+                        var filter = ScreenDrawing.ActivateShader(Shaders.Seismic, 0.6f);
+                        RunEase(s => { Shaders.Seismic.Progress = s; }, EaseOut(BeatTime(1.5f), 1.0f, EaseState.Linear));
+                        DelayBeat(1.5f, filter.Dispose);
+                    });
                     BarrageCreate(BeatTime(2), BeatTime(2), 6.5f, new string[] {
                         "", "", "", "",       "", "", "", "Pre",
 
@@ -419,7 +433,18 @@ namespace Rhythm_Recall.Waves
                         "(d0@X)", "", "", "",       "(d0)(+01'0.8@X,B)(XShakeA)(Beat)", "", "(d0@X)", "",
                         "", "", "(d0@X)", "",       "(d0)(+01'0.8@Y,B)(YShakeA)(Beat)", "", "(d0@X)", "",
                         "(d0@X)", "", "", "(d0@X)",       "(+01'0.8@X,B)(XShakeB)(Beat)", "", "(n00@X)", "(YShakeD)",
-                        "$0@X,A(Rotate)", "(YShakeC)$2@X,A", "$0@X,A", "(YShakeD)$2@X,A",       "$0@X,A", "(YShakeC)$2@X,A", "$0@X,A", "$2@X,A",
+                        "$0@X,A(Rotate)", "(YShakeC)$2@X,A", "$0@X,A", "(YShakeD)$2@X,A",       "$0@X,A(WAVE)", "(YShakeC)$2@X,A", "$0@X,A", "$2@X,A",
+                    });
+                }
+                public static void Area02()
+                {
+                    game.RegisterFunctionOnce("ColorChange", () => {
+                        ScreenDrawing.BoundColor = Color.Aqua;
+                    });
+                    BarrageCreate(BeatTime(2), BeatTime(2), 6.5f, new string[] {
+                        "", "", "", "",       "", "", "", "(ColorChange)",
+
+                        "R1", "", "", "",       "", "", "", "",
                     });
                 }
             }
@@ -428,6 +453,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(4f)) EXBarrage.Intro0();
                 if (InBeat(4f + 32f)) EXBarrage.Intro1();
                 if (InBeat(4f + 64f)) EXBarrage.Area01();
+                if (InBeat(4f + 96f)) EXBarrage.Area02();
             }
 
             public override void Start()
@@ -438,9 +464,11 @@ namespace Rhythm_Recall.Waves
 
                 base.Start();
 
-                ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
+                Filter filter;
+                ScreenDrawing.SceneRendering.InsertProduction(filter = new Filter(Shaders.Blur, 0.99f));
                 Shaders.Blur.Factor = new(3, 0);
-                Shaders.Blur.Sigma = 3.0f;
+                Shaders.Blur.Sigma = 3.0f;  
+
                 RunEase((s) => {
                     ScreenDrawing.BackGroundColor = Color.BlueViolet * s;
                 }, EaseOut(BeatTime(6), 0.16f, EaseState.Linear));
@@ -452,7 +480,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.LeftBoundDistance = ScreenDrawing.RightBoundDistance = 54f;
                 ScreenDrawing.BoundColor = Color.Lerp(Color.White, Color.Magenta, 0.3f + 0.7f) * 0.4f;
 
-                bool delayEnable = false;
+                bool delayEnable = false ;
                 if (delayEnable)
                 {
                     float delay = BeatTime(32 - 1);

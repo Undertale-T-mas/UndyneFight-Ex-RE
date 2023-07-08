@@ -420,6 +420,13 @@ namespace UndyneFight_Ex.Fight
         {
             Player.heartInstance.ChangeColor(type);
         }
+        /// <summary>
+        /// 改变玩家灵魂状态。
+        /// </summary> 
+        public static void SetSoul(Player.MoveState state)
+        {
+            Player.heartInstance.ChangeState(state);
+        }
 
         private static Arrow last;
 
@@ -499,7 +506,7 @@ namespace UndyneFight_Ex.Fight
         /// <param name="attribute">箭头的属性标签</param>
         public static void CreateArrow(float shootShieldTime, int way, float speed, int color, int rotatingType, ArrowAttribute attribute)
         {
-            Arrow arr = new Arrow(Heart, shootShieldTime + GametimeF, way % 4, speed, color, rotatingType);
+            Arrow arr = new Arrow(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
             last = arr;
 
             GiveAttribute(arr, attribute);
@@ -516,13 +523,13 @@ namespace UndyneFight_Ex.Fight
         /// <param name="rotatingType">旋转模式，0正常，1黄，2绿</param>
         public static Arrow MakeArrow(float shootShieldTime, int way, float speed, int color, int rotatingType)
         {
-            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 4) % 4, speed, color, rotatingType);
+            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
             last = arr;
             return arr;
         }
         public static Arrow MakeArrow(float shootShieldTime, int way, float speed, int color, int rotatingType, ArrowAttribute attribute)
         {
-            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 4) % 4, speed, color, rotatingType);
+            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
             if ((attribute & ArrowAttribute.SpeedUp) == ArrowAttribute.SpeedUp)
                 arr.IsSpeedup = true;
 
@@ -710,6 +717,14 @@ namespace UndyneFight_Ex.Fight
         public static void CreateEntity(Entity et)
         {
             InstanceCreate(et);
+        }
+        public static void CreateEntity(params Entity[] et)
+        {
+            for (int a = 0; a < et.Length; a++)
+            {
+                int x = a;
+                InstanceCreate(et[x]);
+            }
         }
         /// <summary>
         /// 创建任意实例
@@ -953,7 +968,7 @@ namespace UndyneFight_Ex.Fight
         public static Player.Heart CreateHeart(float yCentre, float width, float height)
         {
             CollideRect rect = new(new Vector2(320 - width / 2, yCentre - height / 2), new(width, height));
-            return Heart.InstantSplit(rect);
+            return Heart.InstantSplit(rect); 
         }
     }
 }

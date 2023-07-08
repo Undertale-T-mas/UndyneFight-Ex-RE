@@ -147,42 +147,42 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(new TextPrinter(BeatTime(8), "$ I DONT EXPECT YOU TO UNDERSTAND,SANS." +
                         "\n          NOR DO I WANT YOU TO.", new Vector2(40, 280), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 RegisterFunctionOnce("txt2", () =>
                 {
                     CreateEntity(new TextPrinter(BeatTime(8), "$   ITS NOT THAT I WANT TO DO THIS..." +
                         "\n        ITS THAT I HAVE TO DO.", new Vector2(40, 280), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 RegisterFunctionOnce("txt3", () =>
                 {
                     CreateEntity(new TextPrinter(BeatTime(8), "$I HAVE TO DO THIS TO SAVE US IN THE END."
                         , new Vector2(40, 280), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 RegisterFunctionOnce("txt4", () =>
                 {
                     CreateEntity(new TextPrinter(BeatTime(8), "$    THEY'LL DESTROY US ALL IF I DONT."
                         , new Vector2(40, 280), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 RegisterFunctionOnce("txt5", () =>
                 {
                     CreateEntity(new TextPrinter(BeatTime(8), "$      I WILL BE DEEMED THE SAVIOR OF" +
                         "\n        MONSTERKING FOR MY EFFORTS.", new Vector2(40, 280), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 RegisterFunctionOnce("txt6", () =>
                 {
                     CreateEntity(new TextPrinter(BeatTime(8), "$  ISN'T THAT WHAT YOU WOULD HAVE WANTED," +
                         "\n                 SANS?", new Vector2(40, 280), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 #endregion
                 BarrageCreate(BeatTime(0), BeatTime(2), 5.5f, new string[]
@@ -330,14 +330,14 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(new TextPrinter(BeatTime(4), "$  LET'S JUST MAKE THIS QUICK."
                         , new Vector2(120, 340), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 RegisterFunctionOnce("txt2", () =>
                 {
                     CreateEntity(new TextPrinter(BeatTime(4), "$      ...I'M SORRY,SANS."
                         , new Vector2(120, 340), new TextAttribute[]{ new TextSizeAttribute(0.85f),
                             new TextColorAttribute(Color.WhiteSmoke)})
-                    { sound = false });
+                    { PlaySound = false });
                 });
                 RegisterFunctionOnce("Change", () =>
                 {
@@ -591,7 +591,7 @@ namespace Rhythm_Recall.Waves
             #endregion
             public void ExtremePlus()
             {
-                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(1145), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
+                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(1145), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
                 #region turn a round
                 Arrow[] ars3 = GetAll<Arrow>("Lm");
                 for (int a = 0; a < ars3.Length; a++)

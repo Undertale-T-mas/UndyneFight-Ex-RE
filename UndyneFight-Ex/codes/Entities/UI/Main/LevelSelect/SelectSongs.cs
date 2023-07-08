@@ -697,7 +697,7 @@ namespace UndyneFight_Ex.Entities
                 string _type;
                 if (PlayerManager.CurrentUser != null)
                 {
-                    _type = PlayerManager.CurrentUser.ChampionShipDiv(FightSystem.currentChampionShip.Title);
+                    _type = PlayerManager.CurrentUser.ChampionShipDiv(FightSystem.CurrentChampionShip.Title);
                 }
                 else throw new NotImplementedException();
                 try

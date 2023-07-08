@@ -57,6 +57,16 @@ namespace UndyneFight_Ex
             else GameStates.CheatAffirmed();
             Save();
         }
+        public static string TryLogin(string name, string password)
+        {
+            if (playerInfos.ContainsKey(name))
+            {
+                if (playerInfos[name].CheckPassword(password))
+                    return "Success!";
+                else return "Wrong password!";
+            }
+            else return "No such user!";
+        }
 
         public static void Save()
         {
@@ -78,11 +88,11 @@ namespace UndyneFight_Ex
 
             Save();
         }
-        public static void RecordMark(string songName, int difficulty, SongSystem.SkillMark mark, int score, bool fc, bool ap, float acc)
+        public static void RecordMark(string songName, int difficulty, SongSystem.SkillMark mark, int score, bool fc, bool ap, float acc, float pauseTime)
         {
             if (string.IsNullOrEmpty(currentPlayer)) return;
 
-            RecordMark(songName, difficulty, new SongSystem.SongResult(mark, score, acc, fc, ap));
+            RecordMark(songName, difficulty, new SongSystem.SongResult(mark, score, acc, fc, ap, pauseTime));
         }
 
         public static void Remove(string s)

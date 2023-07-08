@@ -170,7 +170,7 @@ namespace UndyneFight_Ex.Fight
     }
     public class TextPrinter : Entity
     {
-        internal void InstantEnd()
+        public void InstantEnd()
         {
             if (appearTime < ForceTime) return;
             appearTime = 0x3f3f3f3f;
@@ -182,7 +182,7 @@ namespace UndyneFight_Ex.Fight
 
         private readonly string text;
         private float appearTime;
-        public bool sound = true;
+        public bool PlaySound { get; set; } = true;
         private int maxPosition = 0;
 
         public float LinesDistance { private get; set; } = 40;
@@ -292,7 +292,7 @@ namespace UndyneFight_Ex.Fight
                     if (text[i] != ' ' && (!soundPlayed))
                     {
                         soundPlayed = true;
-                        if (sound)
+                        if (PlaySound)
                             Functions.PlaySound(printingSettings.printSound);
                     }
                     maxPosition = i;

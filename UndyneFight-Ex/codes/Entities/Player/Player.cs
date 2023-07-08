@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using static UndyneFight_Ex.Fight.Functions;
 
 namespace UndyneFight_Ex.Entities
@@ -127,7 +127,7 @@ namespace UndyneFight_Ex.Entities
 
             #region 基本性质
 
-            public RectangleBox controlingBox;
+            public FightBox controlingBox;
 
             /// <summary>
             /// 灵魂状态。0表示红，1表示绿，2表示蓝，3表示橙，4表示紫，5表示灰
@@ -158,7 +158,7 @@ namespace UndyneFight_Ex.Entities
                 {
                     speed = value;
                 }
-                private get
+                get
                 {
                     return speed;
                 }
@@ -334,29 +334,11 @@ namespace UndyneFight_Ex.Entities
             private float forcedSpeed = 2f, purpleLineLength = 0;
             private int jumpTimeLeft = 2;
 
-            #endregion
-
-            public Color DrawingColor
-            {
-                get
-                {
-                    return isOranged
-                        ? Color.Orange
-                        : SoulType switch
-                        {
-                            0 => Color.Red,
-                            1 => new Color(0, 255, 0),
-                            2 => Color.Blue,
-                            3 => Color.Orange,
-                            4 => Color.MediumPurple,
-                            5 => Color.Gray,
-                            _ => Color.Transparent,
-                        };
-                }
-            }
+            #endregion 
 
             public Heart()
             {
+                this._currentMoveState = _red;
                 controlLayer = Surface.Hidden;
                 heartInstance = this;
                 hearts.Add(this);
@@ -416,16 +398,17 @@ namespace UndyneFight_Ex.Entities
             {
                 Heart v = new()
                 {
-                    speed = speed,
-                    jumpTimeLimit = jumpTimeLimit,
-                    SoulType = SoulType,
-                    purpleLineCount = purpleLineCount,
-                    gravity = gravity,
-                    jumpSpeed = jumpSpeed,
-                    umbrellaAvailable = umbrellaAvailable,
-                    umbrellaSpeed = umbrellaSpeed,
-                    Centre = Centre,
-                    Alpha = Alpha
+                    speed = this.speed,
+                    jumpTimeLimit = this.jumpTimeLimit,
+                    SoulType = this.SoulType,
+                    purpleLineCount = this.purpleLineCount,
+                    gravity = this.gravity,
+                    jumpSpeed = this.jumpSpeed,
+                    umbrellaAvailable = this.umbrellaAvailable,
+                    umbrellaSpeed = this.umbrellaSpeed,
+                    Centre = this.Centre,
+                    Alpha = this.Alpha,
+                    _currentMoveState = this._currentMoveState,
                 };
                 v.controlingBox.InstanceMove(controlingBox.CollidingBox);
 
@@ -449,7 +432,8 @@ namespace UndyneFight_Ex.Entities
                     umbrellaAvailable = umbrellaAvailable,
                     umbrellaSpeed = umbrellaSpeed,
                     Centre = area.GetCentre(),
-                    Alpha = Alpha
+                    Alpha = Alpha,
+                    _currentMoveState = this._currentMoveState
                 };
                 v.controlingBox.InstanceMove(area);
 
@@ -467,13 +451,14 @@ namespace UndyneFight_Ex.Entities
 
                 Depth = 0.3f;
                 int protectTime = (FatherObject as Player).hpControl.protectTime;
+                Color drawingColor = isOranged ? Color.Orange : _currentMoveState.StateColor;
                 if (protectTime > 0)
                 {
-                    FormalDraw(Image, Centre, DrawingColor * ((protectTime % 30) > 8 ? 0.6f : 1.0f) * Alpha, MathUtil.GetRadian(Rotation), ImageCentre);
+                    FormalDraw(Image, Centre, drawingColor * ((protectTime % 30) > 8 ? 0.6f : 1.0f) * Alpha, MathUtil.GetRadian(Rotation), ImageCentre);
                 }
                 else
                 {
-                    FormalDraw(Image, Centre, DrawingColor * Alpha, MathUtil.GetRadian(Rotation), ImageCentre);
+                    FormalDraw(Image, Centre, drawingColor * Alpha, MathUtil.GetRadian(Rotation), ImageCentre);
                 }
 
                 if (SoulType == 4)
@@ -482,7 +467,8 @@ namespace UndyneFight_Ex.Entities
                     float detla = controlingBox.CollidingBox.Height / count;
                     for (int i = 1; i < count; i++)
                     {
-                        DrawingLab.DrawLine(new Vector2(controlingBox.Centre.X, i * detla + controlingBox.Up),
+                        RectangleBox box = controlingBox as RectangleBox;
+                        DrawingLab.DrawLine(new Vector2(box.Centre.X, i * detla + box.Up),
                             0, purpleLineLength, 3, Color.MediumPurple, 0.1f);
                     }
                 }
@@ -522,42 +508,8 @@ namespace UndyneFight_Ex.Entities
                 Rotation += rotateDetla * 0.3f * (rotateWay ? 1 : -1);
 
                 if (!Fight.FightStates.roundType)
-                {
-                    Move.mission = this;
-                    switch (SoulType)
-                    {
-                        case 0:
-                            if (isOranged)
-                            {
-                                Move.MoveAsOrange();
-                            }
-                            else
-                            {
-                                Move.MoveAsRed();
-                            }
-
-                            break;
-                        case 2:
-                            if (isOranged)
-                            {
-                                Move.MoveAsBlueOrange();
-                            }
-                            else
-                            {
-                                Move.MoveAsBlue();
-                            }
-
-                            break;
-                        case 3:
-
-                            break;
-                        case 4:
-                            Move.MoveAsPurple();
-                            break;
-                        case 5:
-                            Move.MoveAsGray();
-                            break;
-                    }
+                { 
+                    this._currentMoveState.MoveFunction.Invoke(this);
                 }
 
                 if (isOranged)
@@ -605,8 +557,18 @@ namespace UndyneFight_Ex.Entities
                         GameStates.InstanceCreate(new PurpleFiller(-1, this));
                         break;
                 }
+                this._currentMoveState = type switch
+                {
+                    0 => _red,
+                    1 => _green,
+                    2 => _blue,
+                    3 => _red,
+                    4 => _purple,
+                    5 => _gray,
+                    _ => throw new ArgumentOutOfRangeException(nameof(type)),
+                };
                 SoulType = type;
-                CreateShinyEffect(DrawingColor);
+                CreateShinyEffect(_currentMoveState.StateColor);
                 Player manager = (FatherObject as Player);
                 manager.GameAnalyzer.PushData(new SoulChangeData(SoulType, ID, GametimeF));
             }

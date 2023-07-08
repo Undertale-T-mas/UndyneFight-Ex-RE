@@ -284,13 +284,16 @@ namespace UndyneFight_Ex.Entities
                     if (way == direction)
                         effect = new ShieldShinyEffect(this, cl);
                     else
-                    {
-                        IEnumerable<ShieldShadow> shadows = from shadow in ChildObjects where (shadow as ShieldShadow) != null select shadow as ShieldShadow;
-                        foreach (ShieldShadow shadow in shadows)
-                        {
-                            if (shadow.Direction == direction) { effect = new ShieldShinyEffect(shadow, cl); break; }
+                    { 
+                        foreach (GameObject obj in this.ChildObjects)
+                        { 
+                            if (obj is ShieldShadow)
+                            {
+                                ShieldShadow shadow = obj as ShieldShadow; ;
+                                if (shadow.Direction == direction) { effect = new ShieldShinyEffect(shadow, cl); break; }
+                            }
                         }
-                        effect ??= new ShieldShinyEffect(this, cl);
+                        effect = new ShieldShinyEffect(this, cl);
                     }
                     GameStates.InstanceCreate(effect);
 

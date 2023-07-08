@@ -13,6 +13,7 @@ using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.IO.IOEvent;
 using static Rhythm_Recall.Resources;
+using UndyneFight_Ex;
 
 namespace Rhythm_Recall
 {
@@ -88,8 +89,10 @@ namespace Rhythm_Recall
             GameStartUp.PushChampionShip(MidAutumn2021.GetChampionShip);
             GameStartUp.PushChampionShip(NewYear2022.GetChampionShip);
             GameStartUp.PushChampionShip(SpringCelebration2022.GetChampionShip);
-            GameStartUp.PushChampionShip(Memory2022.GetChampionShip);
-            //GameStartUp.PushChampionShip(SpringCelebration2022.GetChampionShip);
+            GameStartUp.PushChampionShip(Memory2023.GetChampionShip);
+#if DEBUG
+            GameStartUp.PushChampionShip(Summer_Camp_Ⅲ.GetChampionShip);
+#endif
             SetAchievement();
             SetChallenge();
 #if !OSTPublish
@@ -101,7 +104,26 @@ namespace Rhythm_Recall
             //GameStartUp.PushExtra(new MikuFight());    
 
 
+            SongSet test = new SongSet("Test");
+            test.Push(typeof(Clb1e86f2));
+            test.Push(typeof(TheFuneral));
+            test.Push(typeof(Flan));
+            test.Push(typeof(Galileo));
+            test.Push(typeof(LoveAndHate));
+            test.Push(typeof(Marisa));
+            test.Push(typeof(Igallta));
+            test.Push(typeof(AprilExtends.GrievousLady));
+            test.Push(typeof(AprilExtends.LostMemory));
+            test.Push(typeof(AprilExtends.EtherStrike));
+            test.Push(typeof(AprilExtends.GrievousLady));
+            test.Push(typeof(AprilExtends.Rrharil));
+            test.Push(typeof(MEGALOVANIA));
+            test.Push(typeof(RIP));
+            test.Push(typeof(BrokenAltair));
 
+#if DEBUG
+            GameStartUp.PushSongset(test);
+#endif
             GameStartUp.SetMainSongs(new List<Type>() {
                 //typeof(AprilExtends.Stasis),
                 //typeof(Determination),
@@ -110,14 +132,10 @@ namespace Rhythm_Recall
                 //typeof(AprilExtends.Seraphim),
                 //typeof(Clb1e86f2),
                 //typeof(BrainPower),
-                //typeof(BrokenAltair),
-                typeof(Flan),
-                //typeof(Weekender),
-                typeof(Galileo),
+                //typeof(Weekender), 
                 typeof(DreadNaught),
                 //typeof(TheFuneral),
-                //typeof(PapyEn),
-                typeof(LoveAndHate),
+                //typeof(PapyEn), 
                 typeof(Conflict),
                 //typeof(mu),
                 typeof(Resistance),
@@ -125,8 +143,7 @@ namespace Rhythm_Recall
                 typeof(BadApple),
                 //typeof(ClassicalPractice),
                 typeof(ClassicFight),
-                typeof(EternalSpringDream),
-                typeof(Marisa),
+                typeof(EternalSpringDream), 
                 typeof(ULBFight),
                 typeof(UniversalCollapse),
                 typeof(Dusttrust),
@@ -134,15 +151,6 @@ namespace Rhythm_Recall
 
                 typeof(Letsgonow),
                 typeof(GOODWORLD),
-
-                typeof(Igallta),
-                typeof(AprilExtends.GrievousLady),
-                typeof(AprilExtends.LostMemory),
-                typeof(AprilExtends.EtherStrike),
-                typeof(AprilExtends.GrievousLady),
-                typeof(AprilExtends.Rrharil),
-                typeof(MEGALOVANIA),
-                typeof(RIP),
                 //typeof(MistemperedMalignance),
                 //typeof(Rainshower),
                 //typeof(EtherStrike.Game)
@@ -166,7 +174,7 @@ namespace Rhythm_Recall
                 textWriter.Flush();
                 stream.Close(); 
             }
-#endif 
+#endif
 
             //UndyneFight_Ex.ChampionShips.LicenseMaker.GetScore(MidAutumn2021.GetChampionShip);
         }

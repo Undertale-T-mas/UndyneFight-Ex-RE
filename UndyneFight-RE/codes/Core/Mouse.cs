@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,13 +12,18 @@ namespace UndyneFight_Ex.Remake
 {
     public static class MouseSystem
     {
+        internal static void Initialize()
+        {
+            ScreenSize = GameStates.CurrentWindow.ClientBounds.Size.ToVector2();
+        }
+
         internal static void Update()
         {
             lastState = currentState;
             currentState = Mouse.GetState();
 
             MouseWheelChanged = currentState.ScrollWheelValue - lastState.ScrollWheelValue;
-            Moved = (lastState.Position != currentState.Position) || MathF.Abs(MouseWheelChanged) > 0.1f;
+            Moved = (PositionMoved = lastState.Position != currentState.Position) || MathF.Abs(MouseWheelChanged) > 0.1f || IsLeftClick();
 
             Vector2 real = CurrentState.Position.ToVector2();
 
@@ -33,6 +39,7 @@ namespace UndyneFight_Ex.Remake
         private static MouseState currentState, lastState;
 
         public static bool Moved { get; private set; }
+        public static bool PositionMoved { get; private set; }
 
         public static MouseState CurrentState => currentState;
 
@@ -44,6 +51,14 @@ namespace UndyneFight_Ex.Remake
         public static bool IsLeftClick()
         {
             return (lastState.LeftButton == ButtonState.Released) && (currentState.LeftButton == ButtonState.Pressed);
+        }
+        public static bool IsLeftDown()
+        {
+            return currentState.LeftButton == ButtonState.Pressed;
+        }
+        public static bool IsLeftReleaseing()
+        {
+            return (currentState.LeftButton == ButtonState.Released) && (lastState.LeftButton == ButtonState.Pressed);
         }
     }
 }

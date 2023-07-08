@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static System.MathF;
 
@@ -111,7 +112,8 @@ namespace UndyneFight_Ex
 
         public static void ResetRendering()
         {
-            instance.CilentBoundChanged();
+            instance.CilentBoundChanged(); 
+            Graphics.SynchronizeWithVerticalRetrace = false;
         }
 
         /// <summary>
@@ -173,6 +175,7 @@ namespace UndyneFight_Ex
         private static Vector2 screenSize = new(640, 480);
         private static float screenDistance = Sqrt(360 * 360 + 270 * 270);
         private static Matrix matrix;
+        public static Matrix ResizeMatrix => matrix;
 
         internal static Vector2 ScreenSize => screenSize;
 
@@ -186,6 +189,19 @@ namespace UndyneFight_Ex
         private static float speedRematcher = 1.0f;
         #endregion
 
+        private void TryExit()
+        {
+            if (GameStates.CurrentScene.Pausable)
+            {
+                if (GameStates.Paused)
+                    GameStates.RunGameResume();
+                else GameStates.RunGamePause();
+            }
+            else this.Exit();
+        }
+
+        bool escPressed = false;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -198,8 +214,12 @@ namespace UndyneFight_Ex
             TargetElapsedTime = new TimeSpan(0, 0, 0, 0, Math.Max(1, (int)(8f / gameSpeed * speedRematcher)));
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
+            {
+                if (!escPressed)
+                    TryExit();
+                escPressed = true;
+            }
+            else escPressed = false;
             if (GameStates.IsKeyPressed120f(InputIdentity.FullScreen)) ToggleFullScreen();
             #endregion
 
