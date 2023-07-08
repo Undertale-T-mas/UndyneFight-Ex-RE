@@ -9,7 +9,7 @@ namespace Rhythm_Recall.Waves
         {
             get
             {
-                SongSet fightSet = new("spring celebration");
+                SongSet fightSet = new("2021 Spring");
                 fightSet.Push(typeof(Astronomia));
                 fightSet.Push(typeof(HellTaker));
                 fightSet.Push(typeof(IndihomePaketPhoenix));

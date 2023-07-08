@@ -191,6 +191,10 @@ namespace Rhythm_Recall.Waves
                     line.DrawingColor = Color.Aqua;
                     builder2.Run(s => line.Alpha = s);
                     CreateEntity(line);
+                    DelayBeat(12, () =>
+                    {
+                        line.Dispose();
+                    });
                 });
                 RegisterFunctionOnce("Trans", () =>
                 {
@@ -224,11 +228,15 @@ namespace Rhythm_Recall.Waves
                 {
                     Line line = new(Rand(100, 540), 90);
                     ValueEasing.EaseBuilder builder = new();
-                    builder.Insert(BeatTime(4), ValueEasing.EaseInSine(1, 0, BeatTime(4)));
+                    builder.Insert(BeatTime(4), ValueEasing.EaseInSine(1.0f, 0.0f, BeatTime(4)));
                     builder.Adjust = false;
                     line.DrawingColor = Color.Aqua;
                     builder.Run(s => line.Alpha = s);
                     CreateEntity(line);
+                    DelayBeat(4, () =>
+                    {
+                        line.Dispose();
+                    });
                 });
                 RegisterFunctionOnce("Line2", () =>
                 {
@@ -238,12 +246,16 @@ namespace Rhythm_Recall.Waves
                     builder3.Insert(BeatTime(2), ValueEasing.EaseOutSine(90, 270, BeatTime(2)));
                     Line line = new(builder2.GetResult(), builder3.GetResult());
                     ValueEasing.EaseBuilder builder = new();
-                    builder.Insert(BeatTime(4), ValueEasing.EaseInSine(1, 0, BeatTime(4)));
+                    builder.Insert(BeatTime(4), ValueEasing.EaseInSine(1.0f, 0.0f, BeatTime(4)));
                     builder.Adjust = false;
                     line.DrawingColor = Color.Aqua;
                     builder.Run(s => line.Alpha = s);
                     line.ObliqueMirror = true;
                     CreateEntity(line);
+                    DelayBeat(4, () =>
+                    {
+                        line.Dispose();
+                    });
                 });
                 BarrageCreate(0, BeatTime(4), 1, new string[]{
                     "Summon(Line)", "", "Line", "Line",  "", "", "Line", "",

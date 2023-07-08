@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -21,13 +23,14 @@ namespace UndyneFight_Ex.Entities
             {
                 VirtualEasingObject easingObject = new();
                 var ease = GetResult();
+                var Easer = ease.Easing;
                 AddInstance(new TimeRangedEvent(ease.Time, () =>
                 {
                     easingObject.AppearTime += 0.5f;
-                    func.Invoke(ease.Easing.Invoke(easingObject));
+                    func.Invoke(Easer.Invoke(easingObject));
                 }));
                 easingObject.AppearTime += 0.5f;
-                func.Invoke(ease.Easing.Invoke(easingObject));
+                func.Invoke(Easer.Invoke(easingObject));
             }
         }
         public class CEaseBuilder
@@ -43,13 +46,14 @@ namespace UndyneFight_Ex.Entities
             {
                 VirtualEasingObject easingObject = new();
                 var ease = GetResult();
+                var Easer = ease.Easing;
                 AddInstance(new TimeRangedEvent(ease.Time, () =>
                 {
                     easingObject.AppearTime += 0.5f;
-                    func.Invoke(ease.Easing.Invoke(easingObject));
+                    func.Invoke(Easer.Invoke(easingObject));
                 }));
                 easingObject.AppearTime += 0.5f;
-                func.Invoke(ease.Easing.Invoke(easingObject));
+                func.Invoke(Easer.Invoke(easingObject));
             }
         }
 
@@ -126,18 +130,19 @@ namespace UndyneFight_Ex.Entities
             float time = funcs[0].Time;
             VirtualEasingObject easingObject = new();
 
-            float[] startTimes = new float[funcs.Length];
+            var len = funcs.Length;
+            float[] startTimes = new float[len];
             startTimes[0] = 0;
-            for (int i = 1; i < funcs.Length; i++)
+            for (int i = 1; i < len; i++)
             {
                 startTimes[i] = startTimes[i - 1] + funcs[i - 1].Time;
                 time += funcs[i].Time;
             }
-            float[] basis = new float[funcs.Length + 1];
+            float[] basis = new float[len + 1];
             basis[0] = funcs[0].Start;
             if (isAdjust)
             {
-                for (int i = 1; i <= funcs.Length; i++)
+                for (int i = 1; i <= len; i++)
                 {
                     basis[i] = basis[i - 1] + funcs[i - 1].End - funcs[i - 1].Start;
                 }
@@ -149,7 +154,7 @@ namespace UndyneFight_Ex.Entities
             {
                 easingObject.AppearTime += s.AppearTime - baseTime;
                 baseTime = s.AppearTime;
-                while (curProgress < funcs.Length && easingObject.AppearTime >= funcs[curProgress].Time)
+                while (curProgress < len && easingObject.AppearTime >= funcs[curProgress].Time)
                 {
                     easingObject.AppearTime -= funcs[curProgress].Time;
                     curProgress++;
@@ -159,7 +164,7 @@ namespace UndyneFight_Ex.Entities
                     curProgress--;
                     easingObject.AppearTime += funcs[curProgress].Time;
                 }
-                return curProgress >= funcs.Length
+                return curProgress >= len
                     ? basis[^1]
                     : !isAdjust
                     ? funcs[curProgress].Easing.Invoke(easingObject)
@@ -176,18 +181,19 @@ namespace UndyneFight_Ex.Entities
             float time = funcs[0].Time;
             VirtualEasingObject easingObject = new();
 
-            float[] startTimes = new float[funcs.Length];
+            var len = funcs.Length;
+            float[] startTimes = new float[len];
             startTimes[0] = 0;
-            for (int i = 1; i < funcs.Length; i++)
+            for (int i = 1; i < len; i++)
             {
                 startTimes[i] = startTimes[i - 1] + funcs[i - 1].Time;
                 time += funcs[i].Time;
             }
-            Vector2[] basis = new Vector2[funcs.Length + 1];
+            Vector2[] basis = new Vector2[len + 1];
             basis[0] = funcs[0].Start;
             if (isAdjust)
             {
-                for (int i = 1; i <= funcs.Length; i++)
+                for (int i = 1; i <= len; i++)
                 {
                     basis[i] = basis[i - 1] + funcs[i - 1].End - funcs[i - 1].Start;
                 }
@@ -199,7 +205,7 @@ namespace UndyneFight_Ex.Entities
             {
                 easingObject.AppearTime += s.AppearTime - baseTime;
                 baseTime = s.AppearTime;
-                while (curProgress < funcs.Length && easingObject.AppearTime >= funcs[curProgress].Time)
+                while (curProgress < len && easingObject.AppearTime >= funcs[curProgress].Time)
                 {
                     easingObject.AppearTime -= funcs[curProgress].Time;
                     curProgress++;
@@ -209,7 +215,7 @@ namespace UndyneFight_Ex.Entities
                     curProgress--;
                     easingObject.AppearTime += funcs[curProgress].Time;
                 }
-                return curProgress >= funcs.Length
+                return curProgress >= len
                     ? basis[^1]
                     : !isAdjust
                     ? funcs[curProgress].Easing.Invoke(easingObject)
@@ -251,7 +257,7 @@ namespace UndyneFight_Ex.Entities
                 EaseState.Expo => new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.EaseInExpo(start, end, time)),
                 EaseState.Back => new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.EaseInBack(start, end, time)),
                 EaseState.Bounce => new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.EaseInBounce(start, end, time)),
-                _ => throw new ArgumentOutOfRangeException($"{state.ToString()} is not a proper easing state", nameof(state))
+                _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
         public static EaseUnit<Vector2> EaseOut(float time, Vector2 start, Vector2 end, EaseState state)
@@ -269,7 +275,7 @@ namespace UndyneFight_Ex.Entities
                 EaseState.Expo => new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.EaseOutExpo(start, end, time)),
                 EaseState.Back => new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.EaseOutBack(start, end, time)),
                 EaseState.Bounce => new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.EaseOutBounce(start, end, time)),
-                _ => throw new ArgumentOutOfRangeException($"{state.ToString()} is not a proper easing state", nameof(state))
+                _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
         public static EaseUnit<Vector2> EaseIn(float time, Vector2 end, EaseState state)
@@ -296,7 +302,7 @@ namespace UndyneFight_Ex.Entities
                 EaseState.Expo => new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.EaseInExpo(start, end, time)),
                 EaseState.Back => new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.EaseInBack(start, end, time)),
                 EaseState.Bounce => new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.EaseInBounce(start, end, time)),
-                _ => throw new ArgumentOutOfRangeException($"{state.ToString()} is not a proper easing state", nameof(state))
+                _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
         public static EaseUnit<float> EaseOut(float time, float start, float end, EaseState state)
@@ -314,7 +320,7 @@ namespace UndyneFight_Ex.Entities
                 EaseState.Expo => new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.EaseOutExpo(start, end, time)),
                 EaseState.Back => new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.EaseOutBack(start, end, time)),
                 EaseState.Bounce => new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.EaseOutBounce(start, end, time)),
-                _ => throw new ArgumentOutOfRangeException($"{state.ToString()} is not a proper easing state", nameof(state))
+                _ => throw new ArgumentOutOfRangeException($"{state} is not a proper easing state", nameof(state))
             };
         }
         public static EaseUnit<float> EaseIn(float time, float end, EaseState state)
@@ -413,18 +419,18 @@ namespace UndyneFight_Ex.Entities
         }
         public static EaseUnit<Vector2> Polar(EaseUnit<Vector2> main, EaseUnit<float> rotate)
         {
-            return new EaseUnit<Vector2>(MathUtil.Rotate(main.Start, rotate.Start), MathUtil.Rotate(main.End, rotate.End),
-                main.Time, (s) => { return MathUtil.Rotate(main.Start, rotate.Easing.Invoke(s)); });
+            return new EaseUnit<Vector2>(Rotate(main.Start, rotate.Start), Rotate(main.End, rotate.End),
+                main.Time, (s) => { return Rotate(main.Start, rotate.Easing.Invoke(s)); });
         }
         public static EaseUnit<Vector2> Polar(EaseUnit<float> main, EaseUnit<float> rotate)
         {
-            return new EaseUnit<Vector2>(MathUtil.GetVector2(main.Start, rotate.Start), MathUtil.GetVector2(main.End, rotate.End),
-                main.Time, (s) => { return MathUtil.GetVector2(main.Start, rotate.Easing.Invoke(s)); });
+            return new EaseUnit<Vector2>(GetVector2(main.Start, rotate.Start), GetVector2(main.End, rotate.End),
+                main.Time, (s) => { return GetVector2(main.Start, rotate.Easing.Invoke(s)); });
         }
         public static EaseUnit<Vector2> Polar(EaseUnit<Vector2> main, float rotate)
         {
-            return new EaseUnit<Vector2>(MathUtil.Rotate(main.Start, rotate), MathUtil.Rotate(main.End, rotate),
-                main.Time, (s) => { return MathUtil.Rotate(main.Start, rotate); });
+            return new EaseUnit<Vector2>(Rotate(main.Start, rotate), Rotate(main.End, rotate),
+                main.Time, (s) => { return Rotate(main.Start, rotate); });
         }
         public static EaseUnit<float> Add(EaseUnit<float> main, EaseUnit<float> addon)
         {
@@ -492,7 +498,7 @@ namespace UndyneFight_Ex.Entities
             public static Func<ICustomMotion, Vector2> Circle(Vector2 centre, float radius, float roundTime, float startingRotation) =>
                 (s) =>
                 {
-                    return centre + MathUtil.GetVector2(radius, s.AppearTime / roundTime * 360f + startingRotation);
+                    return centre + GetVector2(radius, s.AppearTime / roundTime * 360f + startingRotation);
                 };
             public static Func<ICustomMotion, Vector2> Convert(Func<float, Vector2> timeParamEase) =>
                 (s) =>
@@ -502,12 +508,12 @@ namespace UndyneFight_Ex.Entities
             public static Func<ICustomMotion, Vector2> Circle(Func<ICustomMotion, Vector2> easing, float radius, float roundTime, float startingRotation) =>
                 (s) =>
                 {
-                    return easing.Invoke(s) + MathUtil.GetVector2(radius, s.AppearTime / roundTime * 360f + startingRotation);
+                    return easing.Invoke(s) + GetVector2(radius, s.AppearTime / roundTime * 360f + startingRotation);
                 };
             public static Func<ICustomMotion, Vector2> Circle(Func<ICustomMotion, Vector2> easing, Func<ICustomMotion, float> radius, float roundTime, float startingRotation) =>
                 (s) =>
                 {
-                    return easing.Invoke(s) + MathUtil.GetVector2(radius.Invoke(s), s.AppearTime / roundTime * 360f + startingRotation);
+                    return easing.Invoke(s) + GetVector2(radius.Invoke(s), s.AppearTime / roundTime * 360f + startingRotation);
                 };
 
             /// <summary>
@@ -521,7 +527,7 @@ namespace UndyneFight_Ex.Entities
             public static Func<ICustomMotion, Vector2> SinWave(float intensity, float cycleTime, float startPhase, float rotation) =>
                 (s) =>
                 {
-                    return MathUtil.GetVector2(Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity, rotation);
+                    return GetVector2(Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity, rotation);
                 };
             /// <summary>
             /// 构建一个上下摆动的正弦波的缓动
@@ -533,7 +539,7 @@ namespace UndyneFight_Ex.Entities
             public static Func<ICustomMotion, Vector2> XSinWave(float intensity, float cycleTime, float startPhase) =>
                 (s) =>
                 {
-                    Vector2 vec = new Vector2(Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity, 0);
+                    Vector2 vec = new(Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity, 0);
                     return vec;
                 };
             /// <summary>
@@ -546,7 +552,7 @@ namespace UndyneFight_Ex.Entities
             public static Func<ICustomMotion, Vector2> YSinWave(float intensity, float cycleTime, float startPhase) =>
                 (s) =>
                 {
-                    Vector2 vec = new Vector2(0, Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity);
+                    Vector2 vec = new(0, Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity);
                     return vec;
                 };
             public static Func<ICustomMotion, Vector2> Accerlating(Vector2 speed, Vector2 accerlation) =>
@@ -802,12 +808,12 @@ namespace UndyneFight_Ex.Entities
             public static Func<ICustomMotion, Vector2> PolarCombine(Func<ICustomMotion, Vector2> centreEase, Func<ICustomMotion, float> rotationEase) =>
                 (s) =>
                 {
-                    return MathUtil.Rotate(centreEase.Invoke(s), rotationEase.Invoke(s));
+                    return Rotate(centreEase.Invoke(s), rotationEase.Invoke(s));
                 };
             public static Func<ICustomMotion, Vector2> PolarCombine(Func<ICustomMotion, float> lengthEase, Func<ICustomMotion, float> rotationEase) =>
                 (s) =>
                 {
-                    return MathUtil.GetVector2(lengthEase.Invoke(s), rotationEase.Invoke(s));
+                    return GetVector2(lengthEase.Invoke(s), rotationEase.Invoke(s));
                 };
 
             /// <summary>
@@ -905,7 +911,7 @@ namespace UndyneFight_Ex.Entities
                 }
                 public void Run(Action<Vector2> action)
                 {
-                    VirtualEasingObject easer = new VirtualEasingObject();
+                    VirtualEasingObject easer = new();
                     AddInstance(easer);
                     easer.PositionRoute = GetResult();
                     AddInstance(new TimeRangedEvent(_totalTime, () =>
@@ -922,11 +928,12 @@ namespace UndyneFight_Ex.Entities
                     VirtualEasingObject objEnd = new();
 
                     Tuple<float, Func<ICustomMotion, Vector2>>[] pairs = motionPairs.ToArray();
-                    float[] timeZone = new float[pairs.Length];
+                    var len = pairs.Length;
+                    float[] timeZone = new float[len];
                     float totalTime = 0;
-                    Vector2[] startings = new Vector2[pairs.Length];
-                    Vector2[] endings = new Vector2[pairs.Length];
-                    for (int i = 0; i < pairs.Length; i++)
+                    Vector2[] startings = new Vector2[len];
+                    Vector2[] endings = new Vector2[len];
+                    for (int i = 0; i < len; i++)
                     {
                         totalTime += pairs[i].Item1;
                         timeZone[i] = totalTime;
@@ -943,29 +950,29 @@ namespace UndyneFight_Ex.Entities
                         ? ((s) =>
                         {
                             obj.AppearTime += 0.5f;
-                            if (curPhase >= pairs.Length) return s.CentrePosition;
+                            if (curPhase >= len) return s.CentrePosition;
                             while (s.AppearTime >= timeZone[curPhase])
                             {
                                 curPhase++;
                                 obj.AppearTime = 0.5f;
-                                if (curPhase >= pairs.Length) return s.CentrePosition;
+                                if (curPhase >= len) return s.CentrePosition;
                             }
                             return pairs[curPhase].Item2.Invoke(obj) + OffsetPosition;
                         })
                         : ((s) =>
-                    {
-                        obj.AppearTime += 0.5f;
-                        if (curPhase >= pairs.Length) return s.CentrePosition;
-                        while (s.AppearTime >= timeZone[curPhase])
                         {
-                            basis = endings[curPhase] + basis - startings[curPhase];
-                            curPhase++;
-                            obj.AppearTime = 0.5f;
-                            if (curPhase >= pairs.Length) return s.CentrePosition;
-                        }
-                        Vector2 result = pairs[curPhase].Item2.Invoke(obj) + basis - startings[curPhase] + OffsetPosition;
-                        return result;
-                    });
+                            obj.AppearTime += 0.5f;
+                            if (curPhase >= len) return s.CentrePosition;
+                            while (s.AppearTime >= timeZone[curPhase])
+                            {
+                                basis = endings[curPhase] + basis - startings[curPhase];
+                                curPhase++;
+                                obj.AppearTime = 0.5f;
+                                if (curPhase >= len) return s.CentrePosition;
+                            }
+                            Vector2 result = pairs[curPhase].Item2.Invoke(obj) + basis - startings[curPhase] + OffsetPosition;
+                            return result;
+                        });
                 }
                 public void Stable(float time, Vector2 val)
                 {
@@ -1294,11 +1301,12 @@ namespace UndyneFight_Ex.Entities
                     VirtualEasingObject objEnd = new();
 
                     Tuple<float, Func<ICustomMotion, float>>[] pairs = motionPairs.ToArray();
-                    float[] timeZone = new float[pairs.Length];
+                    var len = pairs.Length;
+                    float[] timeZone = new float[len];
                     float totalTime = 0;
-                    float[] startings = new float[pairs.Length];
-                    float[] endings = new float[pairs.Length];
-                    for (int i = 0; i < pairs.Length; i++)
+                    float[] startings = new float[len];
+                    float[] endings = new float[len];
+                    for (int i = 0; i < len; i++)
                     {
                         totalTime += pairs[i].Item1;
                         timeZone[i] = totalTime;
@@ -1316,12 +1324,12 @@ namespace UndyneFight_Ex.Entities
                         ? ((s) =>
                         {
                             obj.AppearTime += 0.5f;
-                            if (curPhase >= pairs.Length) return s.Rotation;
+                            if (curPhase >= len) return s.Rotation;
                             while (s.AppearTime >= timeZone[curPhase])
                             {
                                 curPhase++;
                                 obj.AppearTime = 0.5f;
-                                if (curPhase >= pairs.Length) return s.Rotation;
+                                if (curPhase >= len) return s.Rotation;
                             }
                             return pairs[curPhase].Item2.Invoke(obj) + OffsetPosition;
                         })
@@ -1333,13 +1341,13 @@ namespace UndyneFight_Ex.Entities
                             basis = 0;
                             curPhase = 0;
                         }
-                        if (curPhase >= pairs.Length) return basis;
+                        if (curPhase >= len) return basis;
                         while (s.AppearTime >= timeZone[curPhase])
                         {
                             basis = endings[curPhase] + basis - startings[curPhase];
                             curPhase++;
                             obj.AppearTime = 0.5f;
-                            if (curPhase >= pairs.Length) return basis;
+                            if (curPhase >= len) return basis;
                         }
                         return pairs[curPhase].Item2.Invoke(obj) + basis - startings[curPhase] + OffsetPosition;
                     });
