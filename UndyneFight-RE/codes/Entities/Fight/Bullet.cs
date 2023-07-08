@@ -14,7 +14,7 @@ namespace UndyneFight_Ex.Remake.Entities
         public SoulBullet(Player.Heart heart) {
             UpdateIn120 = true;
             this._origin = heart.Centre + MathUtil.GetVector2(14, heart.Rotation + 90);
-            this.PositionRoute = EasingUtil.CentreEasing.Linear(MathUtil.GetVector2(16, heart.Rotation + 90));
+            this.PositionRoute = EasingUtil.CentreEasing.Linear(MathUtil.GetVector2(22, heart.Rotation + 90));
             this.Image = Resources.FightSprites.SoulShoot;
             Fight.Functions.PlaySound(Resources.Sounds.YellowShoot);
             this.Rotation = heart.Rotation + 180;

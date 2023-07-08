@@ -244,13 +244,16 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(1f))
                 {
                     Heart.RotateTo(180);
-                    GameStates.InstanceCreate(new Bomb(BeatTime(1)) {
+                    ParasolMett mett1;
+                    GameStates.InstanceCreate(mett1 = new ParasolMett() {
                         PositionRoute = 
                             LinkEase(
                                 Linear(BeatTime(4), new Vector2(-10, 100), new Vector2(320, 100)),
                                 Stable(BeatTime(1), Vector2.Zero),
                                 Linear(BeatTime(4), new Vector2(320, 100), new Vector2(750, 100))).Easing
                     });
+                    mett1.InsertShot(BeatTime(4));
+                    mett1.WaveTime = BeatTime(2);
                 }
             }
 

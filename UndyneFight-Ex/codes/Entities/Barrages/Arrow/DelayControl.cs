@@ -6,7 +6,7 @@ namespace UndyneFight_Ex.Entities
     {
         private class DelayControl : GameObject
         {
-            internal enum DelayType
+            public enum DelayType
             {
                 Pull = 0,
                 Stop = 1
@@ -23,14 +23,14 @@ namespace UndyneFight_Ex.Entities
             {
                 Arrow control = FatherObject as Arrow;
                 float del = type == DelayType.Pull
-                    ? Math.Max(0.5f, MathF.Min(2.5f, delay * 0.1f))
-                    : Math.Max(0.4f, MathF.Min(1, (delay > 10 ? 10 : MathF.Sqrt(delay * 2)) * 0.3f));
+                    ? Math.Max(0.8f, MathF.Min(2.5f, delay * 0.1f))
+                    : Math.Max(0.7f, MathF.Min(1, (delay > 10 ? 10 : MathF.Sqrt(delay * 2)) * 0.3f));
+                del /= 2;
                 if (delay < del)
                     del = delay;
-                del /= 2;
                 control.shootShieldTime += del;
                 delay -= del;
-                if (delay <= 0f) Dispose();
+                if (delay <= 0.01f) Dispose();
             }
             public override void Dispose()
             {

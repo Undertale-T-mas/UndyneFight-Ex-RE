@@ -14,7 +14,7 @@ namespace UndyneFight_Ex.Remake.Entities
 {
     public abstract class Barrage : AutoEntity, ICustomMotion, ICollideAble
     {  
-        public Barrage() { UpdateIn120 = true; }
+        public Barrage() { UpdateIn120 = true; this.PlayerMission = Heart; }
 
         public Func<ICustomMotion, Vector2> PositionRoute { get; set; }
         public Func<ICustomMotion, float> RotationRoute { get; set; }
@@ -25,6 +25,8 @@ namespace UndyneFight_Ex.Remake.Entities
 
         private bool _hasBeenInside = false;
         protected bool _autoDispose = true;
+
+        protected Player.Heart PlayerMission { get; private init; }
 
         public Vector2 CentrePosition => Centre;
 
@@ -84,7 +86,7 @@ namespace UndyneFight_Ex.Remake.Entities
             if (colorType == 2 && player.IsMoved) return;
             if (PlayerInstance.hpControl.protectTime > 0) return;
 
-            float res = GetDistance(player) - this.HitRadius;
+            float res = GetDistance(player) - this.HitRadius - 6;
             int offset = 3 - (int)JudgeState;
             if (res < 0)
             {

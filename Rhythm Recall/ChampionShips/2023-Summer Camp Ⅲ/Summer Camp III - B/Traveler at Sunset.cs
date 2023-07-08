@@ -746,9 +746,7 @@ namespace Rhythm_Recall.Waves
                             arr.LateWaitingScale = 0.3f;
                         }
                     });
-                    RegisterFunctionOnce("changeEase", () => {
-                        easeA.ApplyTime = BeatTime(3);
-                        easeB.ApplyTime = BeatTime(3);
+                    RegisterFunctionOnce("changeEase", () => { 
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7.2f, new string[]
                     {
@@ -800,53 +798,57 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(328))
                 {
-                    easeX.RevolutionEase(Stable(1, 13));
-                    easeY.RevolutionEase(Stable(1, 26));
-                    easeZ.RevolutionEase(Stable(1, 39));
-                    easeX.TagApply("X");
-                    easeY.TagApply("Y");
-                    easeZ.TagApply("Z");
-                    easeU.RevolutionEase(Stable(1, 52));
-                    easeV.RevolutionEase(Stable(1, 65));
-                    easeW.RevolutionEase(Stable(1, 78));
-                    easeU.TagApply("U");
-                    easeV.TagApply("V");
-                    easeW.TagApply("W");
+                    DelayBeat(6.5f, () => {
+                        easeA.Dispose(); easeA = new(); AddInstance(easeA);
+                        easeB.Dispose(); easeB = new(); AddInstance(easeB);
+                        easeX.RevolutionEase(Stable(1, 13));
+                        easeY.RevolutionEase(Stable(1, 26));
+                        easeZ.RevolutionEase(Stable(1, 39));
+                        easeX.TagApply("X");
+                        easeY.TagApply("Y");
+                        easeZ.TagApply("Z");
+                        easeU.RevolutionEase(Stable(1, 52));
+                        easeV.RevolutionEase(Stable(1, 65));
+                        easeW.RevolutionEase(Stable(1, 78));
+                        easeU.TagApply("U");
+                        easeV.TagApply("V");
+                        easeW.TagApply("W");
 
-                    float selfRota = 30f;
-                    easeX.SelfRotationEase(Stable(1, selfRota));
-                    easeY.SelfRotationEase(Stable(1, selfRota));
-                    easeZ.SelfRotationEase(Stable(1, selfRota));
-                    easeU.SelfRotationEase(Stable(1, selfRota));
-                    easeV.SelfRotationEase(Stable(1, selfRota));
-                    easeW.SelfRotationEase(Stable(1, selfRota));
+                        float selfRota = 30f;
+                        easeX.SelfRotationEase(Stable(1, selfRota));
+                        easeY.SelfRotationEase(Stable(1, selfRota));
+                        easeZ.SelfRotationEase(Stable(1, selfRota));
+                        easeU.SelfRotationEase(Stable(1, selfRota));
+                        easeV.SelfRotationEase(Stable(1, selfRota));
+                        easeW.SelfRotationEase(Stable(1, selfRota));
 
-                    float time = BeatTime(1.5f);
-                    easeA.ApplyTime = time;
-                    easeB.ApplyTime = time;
-                    easeC.ApplyTime = time;
-                    easeD.ApplyTime = time;
-                    easeE.ApplyTime = time;
-                    easeF.ApplyTime = time;
-                    easeA.RotationEase = Linear(3f, -13);
-                    easeB.RotationEase = Linear(4f, -26);
-                    easeC.RotationEase = Linear(5f, -39);
-                    easeD.RotationEase = Linear(6f, -52);
-                    easeE.RotationEase = Linear(7f, -65);
-                    easeF.RotationEase = Linear(8f, -78);
-                    easeA.SelfRotation = -selfRota;
-                    easeB.SelfRotation = -selfRota;
-                    easeC.SelfRotation = -selfRota;
-                    easeD.SelfRotation = -selfRota;
-                    easeE.SelfRotation = -selfRota;
-                    easeF.SelfRotation = -selfRota;
+                        float time = BeatTime(1.5f);
+                        easeA.ApplyTime = time;
+                        easeB.ApplyTime = time;
+                        easeC.ApplyTime = time;
+                        easeD.ApplyTime = time;
+                        easeE.ApplyTime = time;
+                        easeF.ApplyTime = time;
+                        easeA.RotationEase = Linear(3f, -13);
+                        easeB.RotationEase = Linear(4f, -26);
+                        easeC.RotationEase = Linear(5f, -39);
+                        easeD.RotationEase = Linear(6f, -52);
+                        easeE.RotationEase = Linear(7f, -65);
+                        easeF.RotationEase = Linear(8f, -78);
+                        easeA.SelfRotation = -selfRota;
+                        easeB.SelfRotation = -selfRota;
+                        easeC.SelfRotation = -selfRota;
+                        easeD.SelfRotation = -selfRota;
+                        easeE.SelfRotation = -selfRota;
+                        easeF.SelfRotation = -selfRota;
 
-                    easeA.TagApply("A");
-                    easeB.TagApply("B");
-                    easeC.TagApply("C");
-                    easeD.TagApply("D");
-                    easeE.TagApply("E");
-                    easeF.TagApply("F");
+                        easeA.TagApply("A");
+                        easeB.TagApply("B");
+                        easeC.TagApply("C");
+                        easeD.TagApply("D");
+                        easeE.TagApply("E");
+                        easeF.TagApply("F");
+                    });
 
                     (CurrentScene as SongFightingScene).Accuracy.SpecifyTime = 0.71f;
 
@@ -937,16 +939,17 @@ namespace Rhythm_Recall.Waves
                         "(*$00@G)(*$20@G)", "", "", "",    "(*$00@G)(*$20@G)", "", "", "",
                         "(*$00@G)(*$20@G)", "", "", "(*$00)(*$20)",    "", "", "", "",     
                         //3
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",     
+                        "''7",
+                        "n01", "~_!+01", "~_!+01", "~_!+01",    "~_+01", "~_!+01", "~_+01", "",
+                        "d", "~_!+0", "~_+0", "",    "d1", "~_!+01", "~_+01", "",
+                        "d", "~_!+0", "~_+0", "",    "d1", "~_!+01", "~_+01", "",
+                        "n2", "~_!+0", "~_+0", "",    "+0", "~_!+0", "~_+0", "", 
  
                         //4
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",      
+                        "!!3", "$2", "$1", "$3",    "!!3", "$0", "$1", "$3",  
+                        "!!3", "$2", "$1", "$3",    "!!3", "$0", "$1", "$3",  
+                        "!!3", "$2", "$1", "$0",    "!!3", "$2", "$3", "$0", 
+                        "!!3", "$2", "$1", "$0",     
                     });
                 }
                 if (InBeat(360))
@@ -1014,17 +1017,17 @@ namespace Rhythm_Recall.Waves
             {
                 AddInstance(easeA = new Arrow.UnitEasing()
                 {
-                    ApplyTime = BeatTime(2.55f),
+                    ApplyTime = BeatTime(2.75f),
                     RotationEase = LinkEase(
                         Stable(BeatTime(0.5f), 0),
-                        EaseOut(BeatTime(2), 0, -45, EaseState.Sine))
+                        EaseOut(BeatTime(2.2f), 0, -45, EaseState.Sine))
                 });
                 AddInstance(easeB = new Arrow.UnitEasing()
                 {
-                    ApplyTime = BeatTime(2.55f),
+                    ApplyTime = BeatTime(2.75f),
                     RotationEase = LinkEase(
                         Stable(BeatTime(0.5f), -90),
-                        EaseOut(BeatTime(2), -90, -45, EaseState.Sine))
+                        EaseOut(BeatTime(2.2f), -90, -45, EaseState.Sine))
 
                 });
                 AddInstance(easeC = new Arrow.UnitEasing());

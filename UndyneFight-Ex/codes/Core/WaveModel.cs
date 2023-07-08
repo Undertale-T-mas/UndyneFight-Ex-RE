@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Entities.Advanced;
 using static UndyneFight_Ex.Fight.Functions;
 
 namespace UndyneFight_Ex.SongSystem
@@ -636,28 +637,36 @@ namespace UndyneFight_Ex.SongSystem
             int currentCount = 4;
             for (int i = 0; i < Barrage.Length; i++)
             {
-                if (Barrage[i].Length > 2 && Barrage[i][0..2] == "!!")
+                if (Barrage[i].Length > 2)
                 {
                     //改变间隔
-                    string str = Barrage[i][2..];
-                    int pos = -1;
-                    for (int j = 0; j < str.Length; j++)
+                    if (Barrage[i][0..2] == "!!")
                     {
-                        if (str[j] == '/') pos = j;
+                        string str = Barrage[i][2..];
+                        int pos = -1;
+                        for (int j = 0; j < str.Length; j++)
+                        {
+                            if (str[j] == '/') pos = j;
+                        }
+                        if (pos == -1)
+                        {
+                            int count = Convert.ToInt32(str);
+                            currentCount = count;
+                            effectLast = count;
+                        }
+                        else
+                        {
+                            int count = Convert.ToInt32(str[0..pos]);
+                            currentCount = count;
+                            effectLast = Convert.ToInt32(str[(pos + 1)..]);
+                        }
+                        continue;
                     }
-                    if (pos == -1)
+                    else if (Barrage[i][0..2] == "''")
                     {
-                        int count = Convert.ToInt32(str);
-                        currentCount = count;
-                        effectLast = count;
+                        arrowspeed = MathUtil.FloatFromString(Barrage[i][2..]);
+                        continue;
                     }
-                    else
-                    {
-                        int count = Convert.ToInt32(str[0..pos]);
-                        currentCount = count;
-                        effectLast = Convert.ToInt32(str[(pos + 1)..]);
-                    }
-                    continue;
                 }
                 CurrentTime = t;
                 NormalizedChart(t, arrowspeed, Barrage[i]);

@@ -51,12 +51,17 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Alpha = 1.0f;
             this.HitRadius = 6.6f;
         }
+        List<Entity> canDestroy = new();
+        public void ConnectEntity(Entity entity)
+        {
+            canDestroy.Add(entity);
+        }
         protected override float GetDistance(Player.Heart heart)
         {
             if(count / 2f >= _explodeDelay - 1.1f)
             {
                 Vector2 c1 = heart.Centre, c2 = this.Centre;
-                return MathF.Min(MathF.Abs(c1.X - c2.X), MathF.Abs(c1.Y - c2.Y));
+                return MathF.Min(MathF.Abs(c1.X - c2.X), MathF.Abs(c1.Y - c2.Y)) + 3;
             }
             return Vector2.Distance(heart.Centre, this.Centre);
         }
@@ -91,6 +96,7 @@ namespace UndyneFight_Ex.Remake.Entities
 
         private void GenerateBlast()
         {
+            canDestroy.ForEach(c => c.Dispose());
             Vector2 centre = this.Centre;
             GameStates.InstanceCreate(new BombBlast(centre, Resources.FightSprites.MettBombCoreBlast));
             for(int i = 0; i < 4; i++)

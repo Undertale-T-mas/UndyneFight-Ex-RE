@@ -44,7 +44,7 @@ namespace UndyneFight_Ex.Entities
             private float _rotationEasing = 0;
             private float _distanceEasing = 0;
 
-            public EnsembleEasing() { }
+            public EnsembleEasing() { } 
 
             public void DeltaEase(params EaseUnit<Vector2>[] deltaEases)
             {
@@ -187,6 +187,33 @@ namespace UndyneFight_Ex.Entities
                     rotationBuffer[arrayIndex] = Rotation = rotationEase.Easing.Invoke(this);
                 if (distanceEaseEnabled)
                     distanceBuffer[arrayIndex] = Distance = distanceEase.Easing.Invoke(this);
+            }
+        }
+
+        public class ClassicApplier : ArrowEasing
+        {
+            public void ApplyDelay(float delay)
+            {
+                tuples.Add(new(delay, DelayControl.DelayType.Pull));
+            }
+            public void ApplyStop(float stopTime)
+            {
+                tuples.Add(new(stopTime, DelayControl.DelayType.Stop));
+            }
+            List<Tuple<float, DelayControl.DelayType>> tuples = new();
+            
+            public override void SetArrowPos(Arrow arr)
+            {
+                foreach(var pair in tuples)
+                {
+                    if (pair.Item2 == DelayControl.DelayType.Pull) arr.Delay(pair.Item1);
+                    else arr.Stop(pair.Item1);
+                }
+            }
+            public override void Update()
+            {
+                base.Update();
+                tuples.Clear();
             }
         }
     }
