@@ -175,6 +175,7 @@ namespace UndyneFight_Ex
         private static Vector2 screenSize = new(640, 480);
         private static float screenDistance = Sqrt(360 * 360 + 270 * 270);
         private static Matrix matrix;
+        public static Matrix ResizeMatrix => matrix;
 
         internal static Vector2 ScreenSize => screenSize;
 

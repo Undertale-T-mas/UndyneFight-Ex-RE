@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using System.Runtime.CompilerServices;
 using UndyneFight_Ex.Remake.UI;
+using UndyneFight_Ex.Remake.Effects;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -46,7 +47,7 @@ namespace UndyneFight_Ex.Remake
                 FightSprites.MettBombVerBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_verblast_" + i);
             }
 
-            MainLoader = loader;
+            MainLoader = loader; UIShaders.Load(loader);
 
             SelectUI.Initialize();
 
@@ -86,6 +87,22 @@ namespace UndyneFight_Ex.Remake
         public static class Font
         {
             public static GLFont Normal { get; set; }
+        }
+        public static class UIShaders
+        {
+            public static void Load(ContentManager loader)
+            {
+                string _path = loader.RootDirectory;
+
+                loader.RootDirectory = "Content\\ReEngine\\Effects\\NonFight";
+
+                Background = new(loader.Load<Effect>("BackGround"));
+
+                loader.RootDirectory = _path;
+            }
+
+            public static BackgroundShader Background { get; set; }
+
         }
     }
 }

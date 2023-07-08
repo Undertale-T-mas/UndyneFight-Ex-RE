@@ -20,6 +20,8 @@ namespace UndyneFight_Ex.Remake
             }
             isLateInitialized = true;
 
+            GameStates.ResetFightState(true);
+
             GameStates.CurrentWindow.ClientSizeChanged += WindowSizeChanged;
         }
         public static void MainInitialize()

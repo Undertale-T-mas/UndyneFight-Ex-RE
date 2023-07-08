@@ -146,7 +146,7 @@ namespace UndyneFight_Ex
             crossObjects?.ForEach(s => missionScene.InstanceCreate(s));
             ResetTime();
         }
-        internal static void ResetFightState(bool isDead)
+        public static void ResetFightState(bool isDead)
         {
             if (isRecord && GameInterface.UFEXSettings.RecordEnabled)
             {

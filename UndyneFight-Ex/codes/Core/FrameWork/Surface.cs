@@ -185,6 +185,7 @@ namespace UndyneFight_Ex
             {
                 HelperTarget = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
                 HelperTarget2 = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
+                HelperTarget3 = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
             }
         }
         public abstract RenderTarget2D Draw(RenderTarget2D obj);
@@ -216,6 +217,7 @@ namespace UndyneFight_Ex
         private static RenderTarget2D screenSizedTarget;
         protected static RenderTarget2D HelperTarget { private set; get; }
         protected static RenderTarget2D HelperTarget2 { private set; get; }
+        protected static RenderTarget2D HelperTarget3 { private set; get; }
 
         public bool Enabled { get; set; } = true;
     }

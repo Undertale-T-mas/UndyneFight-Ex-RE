@@ -101,7 +101,7 @@ namespace UndyneFight_Ex
 
             internal float GetPosition()
             {
-                return this.allInstances[0].GetPosition();
+                return this.allInstances[^1].GetPosition();
             }
 
             internal void SetPosition(float position)

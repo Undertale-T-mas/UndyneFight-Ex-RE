@@ -11,6 +11,7 @@ using System.ComponentModel.Design.Serialization;
 using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex.Remake.Components;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Remake.Effects;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -172,9 +173,15 @@ namespace UndyneFight_Ex.Remake.UI
             this.AddChild(new VirtualFather());
 
             SmartMusicPlayer smartPlayer = new();
-            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_INTRO), 2398, false);
-            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_LOOP), 4801, true);
+            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_INTRO), 2407.5f, false);
+            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_LOOP), 4808.5f, true);
             GameStates.InstanceCreate(smartPlayer); smartPlayer.Play();
+
+            GameStates.InstanceCreate(new InstantEvent(2, () => {
+                var render = GameStates.CurrentScene.BackgroundRendering;
+                GameStates.CurrentScene.CurrentDrawingSettings.backGroundColor = Color.White;
+                render.InsertProduction(_backGenerater = new BackGenerater(0.6f));
+            }));
          /*   GameStates.InstanceCreate(new InstantEvent(2397, () => { 
                 GameStates.InstanceCreate(
                     new MusicPlayer(Resources.Musics.DreamDiver_LOOP) { IsLoop = false }
@@ -182,6 +189,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             }));*/
         }
+        BackGenerater _backGenerater;
 
         public override void Draw()
         { 
@@ -189,7 +197,8 @@ namespace UndyneFight_Ex.Remake.UI
         }
 
         public override void Update()
-        { 
+        {
+            _backGenerater?.Update();
         }
     }
 }

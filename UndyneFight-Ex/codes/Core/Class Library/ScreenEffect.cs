@@ -450,6 +450,7 @@ namespace UndyneFight_Ex.Fight
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
                         if (!Initialized) Initialize();
+                        if (Lights == null || Lights.Count == 0) return obj;
                         MissionTarget = HelperTarget;
                         Shader = null;
                         BlendState = BlendState.Additive;

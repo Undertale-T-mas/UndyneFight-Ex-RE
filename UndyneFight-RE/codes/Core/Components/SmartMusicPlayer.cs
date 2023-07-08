@@ -52,7 +52,7 @@ namespace UndyneFight_Ex.Remake.Components
             currentPeriod.Player.Update();
             if (_inFadeOut && currentPeriod.Player.Disposed) this.Dispose();
             if (currentIndex == -1) return;
-            if(currentPeriod.Player.PlayTime >= currentPeriod.ChangeTime)
+            if(currentPeriod.Player.TruePlayTime >= currentPeriod.ChangeTime)
             {
                 if (!currentPeriod.IsLoop)
                     currentIndex++;
@@ -85,7 +85,7 @@ namespace UndyneFight_Ex.Remake.Components
         }
         public void Play()
         {
-            PlayTime = 0;
+            TruePlayTime = PlayTime = 0;
             _audio.Play();
         }
         public float TruePlayTime { get; set; } = -1;

@@ -10,7 +10,8 @@ namespace UndyneFight_Ex
     {
         public static float SurfaceScale => CurrentScene == null? 1 : CurrentScene.CurrentDrawingSettings.SurfaceScale;
         internal static Settings.SettingsManager.DataLibrary.DrawingQuality Quality => Settings.SettingsManager.DataLibrary.drawingQuality;
-         
+
+        public static Matrix ResizeMatrix => GameMain.ResizeMatrix;
         public static GameWindow CurrentWindow => GameMain.CurrentWindow;
 
         public static void ResetRendering() => GameMain.ResetRendering();

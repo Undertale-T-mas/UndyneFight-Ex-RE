@@ -302,7 +302,8 @@ namespace UndyneFight_Ex
 
         private bool NotInScene(Texture2D tex, Vector2 centre, Vector2 drawingScale, float rotation, Vector2 rotateCentre)
         {
-            float scale = (1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale)) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.05f;
+            if (!DrawOptimize) return false;
+            float scale = (1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale)) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.212f;
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             CollideRect cur = new CollideRect(0, -480 * extend.W, 640 * scale * GameStates.SurfaceScale, 480 * (scale + extend.W) * GameStates.SurfaceScale);
             cur.SetCentre(new Vector2(320, 240 - 240 * extend.W) * GameStates.SurfaceScale);
@@ -373,6 +374,8 @@ namespace UndyneFight_Ex
                 collidingBox.SetCentre(value);
             }
         }
+
+        public static bool DrawOptimize { get; set; } = true;
 
         public abstract void Draw();
         protected ShinyEffect CreateShinyEffect()

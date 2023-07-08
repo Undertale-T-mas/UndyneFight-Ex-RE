@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ReEngine/Effects/NonFight/BackGround.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ReEngine/Effects/NonFight/BackGround.fx
+
 #begin ReEngine/FightSprites/Mettaton/blockA.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
