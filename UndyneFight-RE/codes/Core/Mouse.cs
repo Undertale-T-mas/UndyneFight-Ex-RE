@@ -34,7 +34,8 @@ namespace UndyneFight_Ex.Remake
                 ScreenSize.X / (640f * GameStates.SurfaceScale), ScreenSize.Y / (480f * GameStates.SurfaceScale));
 
             Vector2 result = centre + delta;
-            TransferredPosition = result;
+            if (GameStates.GameOnFocus)
+                TransferredPosition = result;
         }
         private static MouseState currentState, lastState;
 
@@ -50,14 +51,17 @@ namespace UndyneFight_Ex.Remake
 
         public static bool IsLeftClick()
         {
+            if (!GameStates.GameOnFocus) return false;
             return (lastState.LeftButton == ButtonState.Released) && (currentState.LeftButton == ButtonState.Pressed);
         }
         public static bool IsLeftDown()
         {
+            if (!GameStates.GameOnFocus) return false;
             return currentState.LeftButton == ButtonState.Pressed;
         }
         public static bool IsLeftReleaseing()
         {
+            if (!GameStates.GameOnFocus) return false;
             return (currentState.LeftButton == ButtonState.Released) && (lastState.LeftButton == ButtonState.Pressed);
         }
     }

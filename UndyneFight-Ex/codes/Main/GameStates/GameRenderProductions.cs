@@ -14,6 +14,8 @@ namespace UndyneFight_Ex
         public static Matrix ResizeMatrix => GameMain.ResizeMatrix;
         public static GameWindow CurrentWindow => GameMain.CurrentWindow;
 
+        public static bool GameOnFocus => GameMain.OnFocus;
+
         public static void ResetRendering() => GameMain.ResetRendering();
 
         private static GameRenderProductions.RenderEntities EntitiesDrawingProduction;

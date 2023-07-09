@@ -261,13 +261,14 @@ namespace UndyneFight_Ex
         }
 
         private Vector2 lastSize;
-        private bool isFullScreen = false;
+        private bool _isFullScreen = false;
+
+        public static bool OnFocus => instance.IsActive;
 
         public void ToggleFullScreen()
         {
-            isFullScreen = !isFullScreen;
             Graphics.ToggleFullScreen();
-            if (isFullScreen)
+            if (_isFullScreen)
             {
                 Graphics.PreferredBackBufferWidth = 640;
                 Graphics.PreferredBackBufferHeight = 480;
@@ -280,8 +281,9 @@ namespace UndyneFight_Ex
                 lastSize = screenSize;
                 Graphics.PreferredBackBufferWidth = adapter.CurrentDisplayMode.Width;
                 Graphics.PreferredBackBufferHeight = adapter.CurrentDisplayMode.Height;
-                Window.AllowUserResizing = true;
+                Window.AllowUserResizing = false;
             }
+            _isFullScreen = !_isFullScreen;
             Graphics.ApplyChanges();
         }
 
