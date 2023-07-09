@@ -486,7 +486,7 @@ namespace UndyneFight_Ex.Fight
 
             if ((attribute & ArrowAttribute.Tap) == ArrowAttribute.Tap)
                 arr.JudgeType = Arrow.JudgementType.Tap;
-            if ((attribute & ArrowAttribute.Tap) == ArrowAttribute.Hold)
+            if ((attribute & ArrowAttribute.Hold) == ArrowAttribute.Hold)
                 arr.JudgeType = Arrow.JudgementType.Hold;
             if ((attribute & ArrowAttribute.Void) == ArrowAttribute.Void)
                 arr.VoidMode = true;

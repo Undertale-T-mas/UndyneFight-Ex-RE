@@ -46,7 +46,7 @@ namespace UndyneFight_Ex
         {
             if (!Paused)
                 GameMain.gameTime += 0.5f;
-            if(CurrentScene != null) {
+            if(CurrentScene != null && GameMain.Update120F) {
                 MainScene.UpdateAll();
                 CurrentScene.UpdateRendering();
              }

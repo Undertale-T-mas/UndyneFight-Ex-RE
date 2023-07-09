@@ -15,6 +15,9 @@ namespace UndyneFight_Ex.Entities
         float DrawingScale => GoldenMarkIntensity * 0.1f + 1;
         public int RotateType => rotatingType;
         public bool VoidMode { get; set; } = false;
+
+        public float VolumeFactor { get; internal set; } = 1.0f;
+
         public bool NoScore { get; set; } = false;
         private float settingDelay;
         /// <summary>
