@@ -14,7 +14,7 @@ namespace UndyneFight_Ex.Remake.Effects
         }
         float time0 = 0.0f;
         BackgroundShader _shader { get; set; }
-        public void Update()
+        public override void Update()
         {
             if (_shader == null) return;
             _shader.Time += 0.35f;
