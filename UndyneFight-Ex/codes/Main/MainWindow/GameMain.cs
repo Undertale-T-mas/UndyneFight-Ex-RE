@@ -202,6 +202,18 @@ namespace UndyneFight_Ex
 
         bool escPressed = false;
 
+        protected override bool BeginDraw()
+        {
+            float frameTime = 1000f / DrawFPS;
+            if(_totalElapsedMS > frameTime)
+            {
+                _totalElapsedMS -= frameTime;
+                return true;
+            }
+            return false;   
+        }
+        public static float DrawFPS { get; set; } = 60f;
+        float _totalElapsedMS = 0;
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -209,6 +221,9 @@ namespace UndyneFight_Ex
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            DrawFPS = Settings.SettingsManager.DataLibrary.DrawFPS;
+            _totalElapsedMS += gameTime.ElapsedGameTime.Milliseconds;
+            if (_totalElapsedMS > 100f) _totalElapsedMS /= 2f;
             #region Event for times
             appearTime++;
             TargetElapsedTime = new TimeSpan(0, 0, 0, 0, Math.Max(1, (int)(8f / gameSpeed * speedRematcher)));
@@ -261,13 +276,14 @@ namespace UndyneFight_Ex
         }
 
         private Vector2 lastSize;
-        private bool isFullScreen = false;
+        private bool _isFullScreen = false;
+
+        public static bool OnFocus => instance.IsActive;
 
         public void ToggleFullScreen()
         {
-            isFullScreen = !isFullScreen;
             Graphics.ToggleFullScreen();
-            if (isFullScreen)
+            if (_isFullScreen)
             {
                 Graphics.PreferredBackBufferWidth = 640;
                 Graphics.PreferredBackBufferHeight = 480;
@@ -280,8 +296,9 @@ namespace UndyneFight_Ex
                 lastSize = screenSize;
                 Graphics.PreferredBackBufferWidth = adapter.CurrentDisplayMode.Width;
                 Graphics.PreferredBackBufferHeight = adapter.CurrentDisplayMode.Height;
-                Window.AllowUserResizing = true;
+                Window.AllowUserResizing = false;
             }
+            _isFullScreen = !_isFullScreen;
             Graphics.ApplyChanges();
         }
 

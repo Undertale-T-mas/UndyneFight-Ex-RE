@@ -156,5 +156,11 @@ namespace UndyneFight_Ex
         {
 
         }
+
+        internal void UpdateRendering()
+        {
+            this.SceneRendering.UpdateAll();
+            this.BackgroundRendering.UpdateAll();
+        }
     }
 }
