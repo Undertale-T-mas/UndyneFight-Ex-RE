@@ -800,6 +800,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(328))
                 {
+                    base.Settings.VoidArrowVolume = 0.0f;
                     DelayBeat(6.5f, () => {
                         easeA.Dispose(); easeA = new(); AddInstance(easeA);
                         easeB.Dispose(); easeB = new(); AddInstance(easeB);
@@ -1108,7 +1109,6 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.SceneRendering.InsertProduction(production);
                 ScreenDrawing.SceneRendering.InsertProduction(production1);
                 ScreenDrawing.SceneRendering.InsertProduction(splitter);
-
                 CreateEntity(r);
                 GametimeDelta = -1.5f;
                 SetSoul(1);

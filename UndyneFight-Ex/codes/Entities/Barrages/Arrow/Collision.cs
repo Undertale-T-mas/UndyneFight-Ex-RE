@@ -35,11 +35,12 @@ namespace UndyneFight_Ex.Entities
 
         private void PlayHitSound(float scale, bool isSettingBased = true)
         {
+            if (VolumeFactor <= 0.01f) return;
             if (isSoundPlayed) return;
             isSoundPlayed = true;
             float volume = isSettingBased ? SettingsManager.DataLibrary.SpearBlockingVolume / 100f : 1f;
 
-            PlaySound(FightResources.Sounds.ArrowStuck, volume * scale);
+            PlaySound(FightResources.Sounds.ArrowStuck, volume * scale * VolumeFactor);
         }
         private void Init()
         {
