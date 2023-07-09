@@ -19,16 +19,16 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         DefaultValue = DataLibrary.reduceBlueAmount
                     });
-                    this.AddChild(_drawFPS = new ScrollBar(new CollideRect(510 - 80, 180, 80 * 2, 60), "FPS Limit", 0, 100, this)
+                    this.AddChild(_drawFPS = new ScrollBar(new CollideRect(510 - 80, 280, 80 * 2, 60), "FPS Limit", 25, 125, this)
                     {
-                        DefaultValue = DataLibrary.DrawFPS
+                        DefaultValue = DataLibrary.DrawFPS, Digit = 0
                     });
                     //this.AddChild();
                     this.OnActivated += () =>
                     {
                         _drawingQuality.DefaultValue = DataLibrary.drawingQuality.ToString();
                         _reduceBlue.SetValue(DataLibrary.reduceBlueAmount);
-                        _drawFPS.SetValue(DataLibrary.DrawFPS);
+                        _drawFPS.SetValue(MathF.Round(DataLibrary.DrawFPS));
                     };
 
                 }

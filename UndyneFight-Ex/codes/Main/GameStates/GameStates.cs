@@ -46,6 +46,10 @@ namespace UndyneFight_Ex
         {
             if (!Paused)
                 GameMain.gameTime += 0.5f;
+            if(CurrentScene != null) {
+                MainScene.UpdateAll();
+                CurrentScene.UpdateRendering();
+             }
             if (currentScene != missionScene)
             {
                 currentScene = missionScene;

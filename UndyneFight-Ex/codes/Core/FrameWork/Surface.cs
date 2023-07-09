@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex
@@ -22,6 +23,7 @@ namespace UndyneFight_Ex
         {
             disposed = true;
         }
+        public virtual void Update() { }
         private static Vector2 Adapt(Vector2 origin)
         {
             if (!HighQuality) return new Vector2(640, 480) * GameStates.SurfaceScale;
@@ -275,7 +277,7 @@ namespace UndyneFight_Ex
         public bool DisableExpand { get; set; } = false;
         public event Action DoUpdate;
 
-        public void Update()
+        public override void Update()
         {
             DoUpdate?.Invoke();
             Vector4 extending = DisableExpand ? Vector4.Zero : GameStates.CurrentScene.CurrentDrawingSettings.Extending;
@@ -388,6 +390,11 @@ namespace UndyneFight_Ex
         {
             production.disposed = false;
             surfaces.Add(production);
+        }
+
+        internal void UpdateAll()
+        {
+            foreach (var v in this.surfaces) v.Update();
         }
     }
 }
