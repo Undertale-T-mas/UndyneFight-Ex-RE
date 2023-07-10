@@ -17,6 +17,7 @@ namespace UndyneFight_Ex.Remake
             UI.Start = loader.Load<Texture2D>("UI\\start");
             UI.Tick = loader.Load<Texture2D>("UI\\tick");
             UI.ScrollArrow = loader.Load<Texture2D>("UI\\scrollArrow");
+            UI.Gear = loader.Load<Texture2D>("UI\\gear");
 
             Musics.DreamDiver_INTRO = new("ReEngine\\Musics\\Dream diver_INTRO.ogg");
             Musics.DreamDiver_LOOP = new("ReEngine\\Musics\\Dream diver_LOOP.ogg");
@@ -60,6 +61,7 @@ namespace UndyneFight_Ex.Remake
             public static Texture2D Start { get; set; }
             public static Texture2D Tick { get; set; }
             public static Texture2D ScrollArrow { get; set; }
+            public static Texture2D Gear { get; set; }
         }
         public static class Musics
         {

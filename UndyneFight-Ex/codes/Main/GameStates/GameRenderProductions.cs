@@ -8,6 +8,7 @@ namespace UndyneFight_Ex
 {
     public static partial class GameStates
     {
+        public static float Aspect { set => GameMain.Aspect = value; get => GameMain.Aspect; }
         public static float SurfaceScale => CurrentScene == null? 1 : CurrentScene.CurrentDrawingSettings.SurfaceScale;
         internal static Settings.SettingsManager.DataLibrary.DrawingQuality Quality => Settings.SettingsManager.DataLibrary.drawingQuality;
 
@@ -39,8 +40,8 @@ namespace UndyneFight_Ex
             {
                 public RenderBackGround() : base(GlobalResources.Effects.backGroundShader, SpriteSortMode.Immediate, BlendState.AlphaBlend, 0.05f)
                 {
-                    normalTarget1 = new RenderTarget2D(WindowDevice, (int)(640 * SurfaceScale), (int)(480 * SurfaceScale), false, SurfaceFormat.Color, DepthFormat.None);
-                    normalTarget2 = new RenderTarget2D(WindowDevice, (int)(640 * SurfaceScale), (int)(480 * SurfaceScale), false, SurfaceFormat.Color, DepthFormat.None);
+                    normalTarget1 = new RenderTarget2D(WindowDevice, (int)(480 * GameMain.Aspect * SurfaceScale), (int)(480 * SurfaceScale), false, SurfaceFormat.Color, DepthFormat.None);
+                    normalTarget2 = new RenderTarget2D(WindowDevice, (int)(480 * GameMain.Aspect * SurfaceScale), (int)(480 * SurfaceScale), false, SurfaceFormat.Color, DepthFormat.None);
                 }
 
                 public override void WindowSizeChanged(Vector2 vec)
@@ -229,7 +230,7 @@ namespace UndyneFight_Ex
         {
             if (Settings.SettingsManager.DataLibrary.drawingQuality != Settings.SettingsManager.DataLibrary.DrawingQuality.High)
             {
-                vec = new Vector2(640, 480) * SurfaceScale;
+                vec = new Vector2(480 * GameMain.Aspect, 480) * SurfaceScale;
             }
             MainScene.WindowSizeChanged(vec);
             missionScene.BackgroundRendering.WindowSizeChanged(vec);
