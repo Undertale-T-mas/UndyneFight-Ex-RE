@@ -16,7 +16,7 @@ namespace AprilExtends
 
         public string FightName => "Stasis";
 
-        public SongImformation Attributes => null;
+        public SongInformation Attributes => null;
 
         public void Easy()
         {

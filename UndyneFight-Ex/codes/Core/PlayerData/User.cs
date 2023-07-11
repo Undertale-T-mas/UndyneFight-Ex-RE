@@ -64,7 +64,7 @@ namespace UndyneFight_Ex.UserService
 
         public Settings Settings { get; private set; }
         public ShopData ShopData { get; private set; }
-        public GJImformation GameJoltImformation { get; private set; }
+        public GJInformation GameJoltInformation { get; private set; }
         public ChampionshipManager ChampionshipData { get; private set; }
         public ChallengeData ChallengeData { get; private set; }
         public SaveInfo Custom => _custom;
@@ -105,8 +105,8 @@ namespace UndyneFight_Ex.UserService
             if (!info.Nexts.ContainsKey("ChallengeData"))
                 info.Nexts.Add("ChallengeData", new SaveInfo("ChallengeData{"));
 
-            GameJoltImformation = new();
-            GameJoltImformation.Load(info.Nexts["GameJolt"]);
+            GameJoltInformation = new();
+            GameJoltInformation.Load(info.Nexts["GameJolt"]);
             ChampionshipData = new();
             ChampionshipData.Load(info.Nexts["ChampionShips"]);
             Settings = new();
@@ -165,7 +165,7 @@ namespace UndyneFight_Ex.UserService
             info.PushNext(new SaveInfo("Password:" + _password));
             info.PushNext(new SaveInfo("Skill:" + MathUtil.FloatToString(Skill, 3)));
             info.PushNext(_custom);
-            info.PushNext(GameJoltImformation.Save());
+            info.PushNext(GameJoltInformation.Save());
             info.PushNext(ChampionshipData.Save());
             info.PushNext(Settings.Save());
             info.PushNext(_statistic.Save());

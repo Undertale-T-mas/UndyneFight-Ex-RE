@@ -20,8 +20,8 @@ namespace Rhythm_Recall.Waves
         public HopesAndDreams()
         {
             Game.game = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("dif:4"));
             difficulties = new();
             difficulties.Add("div.2", Difficulty.Noob);
             difficulties.Add("div.1", Difficulty.Normal);
@@ -31,8 +31,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
         public class Game : WaveConstructor, IWaveSet
@@ -42,7 +42,7 @@ namespace Rhythm_Recall.Waves
                 throw new System.NotImplementedException();
             }
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -70,7 +70,7 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "Undertale - Toby Fox";
                 public override string SongAuthor => "Toby Fox";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(62.5f / (180f / 60f)) { }
 

@@ -30,7 +30,7 @@ namespace Rhythm_Recall.Waves
             public string Music => "Weekender";
 
             public string FightName => "Weekender";
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -51,7 +51,7 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "";
                 public override string SongAuthor => "Hey! Say! Jump";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
             private bool notRegistered = true;
             public static Game game;
             GlobalResources.Effects.StepSampleShader StepSample;

@@ -15,7 +15,7 @@ namespace Rhythm_Recall.Waves
     public class Resistance : WaveConstructor, IWaveSet
     {
         public static bool linebool = true;
-        private class ThisImformation : SongImformation
+        private class ThisInformation : SongInformation
         {
             public override string BarrageAuthor => "Tlottgodinf";
             public override string SongAuthor => "bl2";
@@ -49,7 +49,7 @@ namespace Rhythm_Recall.Waves
                     }
                 );
         }
-        public SongImformation Attributes => new ThisImformation();
+        public SongInformation Attributes => new ThisInformation();
         public Resistance() : base(62.5f / (130 / 60f)) { }
         public static Resistance instance;
 

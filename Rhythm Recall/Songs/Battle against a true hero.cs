@@ -11,7 +11,7 @@ namespace Rhythm_Recall.Waves
     {
         public string FightName => "Undertale Undyne";
 
-        class ThisImformation : SongImformation
+        class ThisInformation : SongInformation
         {
             public override string BarrageAuthor => "T-mas";
             public override string SongAuthor => "Toby Fox";
@@ -45,7 +45,7 @@ namespace Rhythm_Recall.Waves
                     }
                 );
         }
-        public SongImformation Attributes => new ThisImformation();
+        public SongInformation Attributes => new ThisInformation();
 
         public string Music => "undyne theme";
 

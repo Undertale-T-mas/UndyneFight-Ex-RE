@@ -16,7 +16,7 @@ namespace Rhythm_Recall.Waves
     public class Resurrection : WaveConstructor, IWaveSet
     {
         public static bool linebool = true;
-        private class ThisImformation : SongImformation
+        private class ThisInformation : SongInformation
         {
             public override string BarrageAuthor => "Tlottgodinf";
             public override string SongAuthor => "Cztv-28";
@@ -50,7 +50,7 @@ namespace Rhythm_Recall.Waves
                     }
                 );
         }
-        public SongImformation Attributes => new ThisImformation();
+        public SongInformation Attributes => new ThisInformation();
         public Resurrection() : base(62.5f / (560 / 60f)) { }
         public static Resurrection instance;
 

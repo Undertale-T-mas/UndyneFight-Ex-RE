@@ -12,7 +12,7 @@ namespace Rhythm_Recall.Waves
     {
 
         public UniversalCollapse() : base(62.5f / (560/*bpm*/ / 60f)) { }
-        private class ThisImformation : SongImformation
+        private class ThisInformation : SongInformation
         {
             public override string BarrageAuthor => "Tlottgodinf";
             public override string SongAuthor => "DM DOKURO";
@@ -46,7 +46,7 @@ namespace Rhythm_Recall.Waves
                     }
                 );
         }
-        public SongImformation Attributes => new ThisImformation();
+        public SongInformation Attributes => new ThisInformation();
         public string Music => "Universal Collapse";
 
         public string FightName => "Universal Collapse";

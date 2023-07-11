@@ -25,8 +25,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
 
@@ -74,7 +74,7 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "SpaceDrift";
 
-            class ThisImformation : SongImformation
+            class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string SongAuthor => "Appler";
@@ -98,7 +98,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             #region Non-ChampionShip
             public void Easy()

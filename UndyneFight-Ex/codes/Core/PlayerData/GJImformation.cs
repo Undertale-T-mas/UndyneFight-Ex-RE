@@ -4,7 +4,7 @@ using UndyneFight_Ex.IO;
 
 namespace UndyneFight_Ex.UserService
 {
-    public class GJImformation : ISaveLoad
+    public class GJInformation : ISaveLoad
     {
         public List<ISaveLoad> Children => null;
 

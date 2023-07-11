@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -146,14 +147,14 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                         string dir = "";
                         Resources.MainLoader.RootDirectory = "";
-                        if (System.IO.Directory.Exists(dir = "Content\\Musics\\" + this.AllSongs[i].Music))
+                        if (Directory.Exists(dir = "Content\\Musics\\" + this.AllSongs[i].Music))
                         {
-                            if (System.IO.File.Exists(dir + "\\song.xnb"))
+                            if (File.Exists(dir + "\\song.xnb"))
                                 Availables.Add(this.AllSongs[i].Music);
-                            if (System.IO.File.Exists(dir + "\\paint.xnb"))
+                            if (File.Exists(dir + "\\paint.xnb"))
                                 Images.Add(this.AllSongs[i].Music, Resources.MainLoader.Load<Texture2D>(dir + "\\paint"));
                         }
-                        else if (System.IO.File.Exists(dir)) Availables.Add(this.AllSongs[i].Music);
+                        else if (File.Exists(dir)) Availables.Add(this.AllSongs[i].Music);
                     }
                 }
             }

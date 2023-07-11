@@ -763,7 +763,7 @@ namespace UndyneFight_Ex.Entities
                 foreach (var v in current.DifficultyPanel)
                 {
                     if (unlocked != null && !unlocked.Contains(v.Value)) continue;
-                    PushSelection(new DivisionImformation(v.Key, height, (int)v.Value));
+                    PushSelection(new DivisionInformation(v.Key, height, (int)v.Value));
                     height += 40;
                 }
                 divNames = current.DifficultyPanel.Keys.ToArray();
@@ -802,13 +802,13 @@ namespace UndyneFight_Ex.Entities
         {
             int ThisDifficulty { get; }
         }
-        private class DivisionImformation : TextSelection, IGetDifficulty
+        private class DivisionInformation : TextSelection, IGetDifficulty
         {
             private readonly bool colorfulDraw = false;
             private readonly int dif;
 
             public int ThisDifficulty => dif;
-            public DivisionImformation(string name, float delta, int difficulty) : base(name, new Vector2(320, 220 + delta))
+            public DivisionInformation(string name, float delta, int difficulty) : base(name, new Vector2(320, 220 + delta))
             {
                 dif = difficulty;
                 Size = 1.0f; TextColor = GetColor(difficulty);
@@ -914,7 +914,7 @@ namespace UndyneFight_Ex.Entities
                 f.CentreDraw($"Max score: {score + extraacctxt}", new Vector2(320, 381), Color.White * alpha);
                 f.CentreDraw("Select difficulty", new Vector2(320, 45), Color.White * alpha);
 
-                DrawImformation();
+                DrawInformation();
             }
 
             if (_songIllustration != null)
@@ -924,7 +924,7 @@ namespace UndyneFight_Ex.Entities
             base.Draw();
         }
 
-        private void DrawImformation()
+        private void DrawInformation()
         {
             if (!SongSelector.IsRaceSong)
             {

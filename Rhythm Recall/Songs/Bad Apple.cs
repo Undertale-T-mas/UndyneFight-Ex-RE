@@ -322,7 +322,7 @@ namespace Rhythm_Recall.Waves
 
         public string Music => "BadApple";
 
-        class ThisImformation : SongImformation
+        class ThisInformation : SongInformation
         {
             public override string BarrageAuthor => "T-mas";
             public override string SongAuthor => "Alstroemeria Records";
@@ -358,7 +358,7 @@ namespace Rhythm_Recall.Waves
                     }
                 );
         }
-        public SongImformation Attributes => new ThisImformation();
+        public SongInformation Attributes => new ThisInformation();
 
         public void Normal()
         {

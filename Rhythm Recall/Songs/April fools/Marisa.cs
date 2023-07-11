@@ -28,7 +28,7 @@ namespace Rhythm_Recall.Waves
         public IWaveSet GameContent => new Game();
         public class Game : WaveConstructor, IWaveSet
         {
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => (GameStates.difficulty == 4) ? "TK" : "T-mas (Extended by TK)";
                 public override string SongAuthor => "Touhou: IN";
@@ -55,7 +55,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
             private class KickCounter : Entity
             {
                 public override void Draw()

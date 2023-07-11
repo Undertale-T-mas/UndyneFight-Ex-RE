@@ -17,8 +17,8 @@ namespace Rhythm_Recall.Waves
         public FreedomDive()
         {
             Game.instance = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("dif:4"));
 
             difficulties = new();
             difficulties.Add("div.3", Difficulty.Noob);
@@ -29,8 +29,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
 
@@ -71,7 +71,7 @@ namespace Rhythm_Recall.Waves
 
             public Game() : base(16.8725f / 4f) { }
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string AttributeAuthor => "T-mas";
@@ -98,7 +98,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public static Game instance;
 
