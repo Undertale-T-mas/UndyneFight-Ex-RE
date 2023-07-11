@@ -193,6 +193,16 @@ namespace UndyneFight_Ex.Entities
                         return;
                     }
 
+#if DEBUG
+                    for(int i = 0; i < 4; i++) 
+                        if (GameStates.IsKeyDown(UpdateKeys[i]))
+                        {
+                            Vector2 position = user.Centre + MathUtil.GetVector2(50, i * 90f);
+                            Vector2 delta = MathUtil.GetVector2(30, i * 90 + 90);
+                            DrawingLab.DrawLine(position + delta, position - delta, 3f, this.drawingColor * 0.4f, 0.4f);
+                        }
+#endif
+
                     FormalDraw(Image, Centre + MathUtil.GetVector2(pushDetla, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(drawingColor, 0.6f) * user.Alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
                 }
 

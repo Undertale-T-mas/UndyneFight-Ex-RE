@@ -12,7 +12,7 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
-using GameJolt.Services;
+using System.Net.Mail;
 
 namespace Rhythm_Recall.Waves
 {
@@ -161,8 +161,9 @@ namespace Rhythm_Recall.Waves
                 }
             }
             Winder r = new(), s = null;
-            static Arrow.UnitEasing easeA = null, easeB = null, easeC = null, easeD, easeE, easeF, easeG;
+            static Arrow.UnitEasing easeA = null, easeB = null, easeC = null, easeD, easeE, easeF, easeG, easeH, easeI, easeJ, easeK;
             static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW;
+            static Arrow.ClassicApplier easeK1, easeK2, easeK3;
             public void ExtremePlus()
             {
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
@@ -929,6 +930,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(328))
                 {
+                    base.Settings.VoidArrowVolume = 0.0f;
                     DelayBeat(6.5f, () => {
                         easeA.Dispose(); easeA = new(); AddInstance(easeA);
                         easeB.Dispose(); easeB = new(); AddInstance(easeB);
@@ -1045,11 +1047,6 @@ namespace Rhythm_Recall.Waves
                         "~_!$31@X", "~_!$31@Y", "~_!$31@Z", "~_!$31@U", "~_!$31@V", "~_$31@W",
                         "$01", "~_!$01", "~_!$01", "",
                     });
-                    easeG.PositionEase = LinkEase(
-                        Stable(BeatTime(1.4f), new Vector2(0, -245)) ,
-                        EaseOut(BeatTime(1.1f), new Vector2(0, -245), new Vector2(0, 0), EaseState.Elastic)
-                        );
-                    easeG.ApplyTime = BeatTime(2.5f);
                     easeG.TagApply("G");
                     
                     BarrageCreate(BeatTime(4), BeatTime(2), 12, new string[]
@@ -1083,35 +1080,66 @@ namespace Rhythm_Recall.Waves
                         "!!3", "$2", "$1", "$0",     
                     });
                 }
-                if (InBeat(360))
+                if (InBeat(358))
                 {
+                    easeJ.PositionEase = LinkEase(
+                        Stable(BeatTime(0), new Vector2(-42, 0)),
+                        EaseOut(BeatTime(1.75f), new Vector2(-42, 0), new Vector2(18, 0), EaseState.Quad));
+                    easeJ.ApplyTime = BeatTime(1.75f);
+                    easeJ.TagApply("K1C");
+                    easeK.PositionEase = LinkEase(
+                        Stable(BeatTime(0), new Vector2(42, 0)),
+                        EaseOut(BeatTime(1.75f), new Vector2(42, 0), new Vector2(-18, 0), EaseState.Quad));
+                    easeK.ApplyTime = BeatTime(1.75f);
+                    easeK.TagApply("K1D");
+                    RegisterFunctionOnce("pre", () =>
+                    {
+                        easeH.PositionEase = LinkEase(
+                            Stable(BeatTime(4), new Vector2(0, 0)),
+                            EaseOut(BeatTime(0.75f), new Vector2(0, 0), new Vector2(-18, 0), EaseState.Quad));
+                        easeH.ApplyTime = BeatTime(4.75f);
+                        easeH.TagApply("K1A");
+                        easeI.PositionEase = LinkEase(
+                            Stable(BeatTime(4), new Vector2(0, 0)),
+                            EaseOut(BeatTime(0.75f), new Vector2(0, 0), new Vector2(18, 0), EaseState.Quad));
+                        easeI.ApplyTime = BeatTime(4.75f);
+                        easeI.TagApply("K1B");
+                        AddInstance(easeK1 = new Arrow.ClassicApplier());
+                        DelayBeat(3.75f, () =>
+                        {
+                            easeK1.ApplyDelay(BeatTime(2));
+                        });
+                        easeK1.TagApply("K1");
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
+                        "pre", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "", 
+                        "(*$3@K1,K1A)(_$3@K1,K1B)", "", "", "",    "(*$3@K1,K1A)(_$3@K1,K1B)", "", "", "", 
 
                         //1
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",     
+                        "(#7.6#$1)(*>$01)(*<$21)(~_$01'1.4)(~_$21'2.2)", "", "", "",    "(*<$01)(*>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
+                        "(*$3@K1C)(_$3@K1D)(*>$01)(*<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(*<$3@K1C)(_>$3@K1D)(*<$01)(*>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
+                        "(*$3@K1C)(_$3@K1D)(*>$01)(*<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(*<$3@K1C)(_>$3@K1D)(*<$01)(*>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
+                        "(*$3@K1C)(_$3@K1D)(*>$01)(*<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(*<$3@K1C)(_>$3@K1D)", "", "(*>$3@K1C)(_<$3@K1D)", "",
 
                         //2
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",     
+                        "(*<$31@K1C)(_>$31@K1D)(#7.6#$11)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",
+                        "(*<$31@K1C)(_>$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",
+                        "(*<$31@K1C)(_>$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "(*<$31@K1C)(_>$31@K1D)", "",
+                        "(*$31@K1C)(_$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "(*<$31@K1C)(_>$31@K1D)",    "(*$31@K1C)(_$31@K1D)", "", "(*<$31@K1C)(_>$31@K1D)", "",
                         //3
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",     
+                        "''7",
+                        "n0", "~_!+0", "~_!+0", "~_!+0",    "~_+0", "~_!+0", "~_+0", "",
+                        "d1", "~_!+01", "~_+01", "",    "d", "~_!+0", "~_+0", "",
+                        "d1", "~_!+01", "~_+01", "",    "d", "~_!+0", "~_+0", "",
+                        "n21", "~_!+01", "~_+01", "",    "+01", "~_!+01", "~_+01", "", 
  
                         //4
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "!!3", "($31)(+01)", "$11", "$21",    "!!3", "$31", "$11", "$01",
+                        "!!3", "($01)(+01)", "$11", "$21",    "!!3", "$01", "$31", "$21",
+                        "($01)($2)($01)($2)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",     
  
                         //5
@@ -1146,6 +1174,15 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
+                Arrow[] ars1 = GetAll<Arrow>("AKA");
+                for (int a = 0; a < ars1.Length; a++)
+                {
+                    int x = a;
+                    DelayBeat(3, () =>
+                    {
+                        ars1[x].Stop(BeatTime(2));
+                    });
+                }
                 AddInstance(easeA = new Arrow.UnitEasing()
                 {
                     ApplyTime = BeatTime(2.75f),
@@ -1159,13 +1196,22 @@ namespace Rhythm_Recall.Waves
                     RotationEase = LinkEase(
                         Stable(BeatTime(0.5f), -90),
                         EaseOut(BeatTime(2.2f), -90, -45, EaseState.Sine))
-
                 });
                 AddInstance(easeC = new Arrow.UnitEasing());
                 AddInstance(easeD = new Arrow.UnitEasing());
                 AddInstance(easeE = new Arrow.UnitEasing());
                 AddInstance(easeF = new Arrow.UnitEasing()); 
-                AddInstance(easeG = new Arrow.UnitEasing()); 
+                AddInstance(easeG = new Arrow.UnitEasing()
+                {
+                    ApplyTime = BeatTime(2.5f),
+                    PositionEase = LinkEase(
+                        Stable(BeatTime(1.4f), new Vector2(0, -245)),
+                        EaseOut(BeatTime(1.1f), new Vector2(0, -245), new Vector2(0, 0), EaseState.Elastic))
+                });
+                AddInstance(easeH = new Arrow.UnitEasing());
+                AddInstance(easeI = new Arrow.UnitEasing());
+                AddInstance(easeJ = new Arrow.UnitEasing());
+                AddInstance(easeK = new Arrow.UnitEasing());
 
                 easeX = new();
                 AddInstance(easeX);
@@ -1192,7 +1238,6 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.SceneRendering.InsertProduction(production);
                 ScreenDrawing.SceneRendering.InsertProduction(production1);
                 ScreenDrawing.SceneRendering.InsertProduction(splitter);
-
                 CreateEntity(r);
                 GametimeDelta = -1.5f;
                 SetSoul(1);

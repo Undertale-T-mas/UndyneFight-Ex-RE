@@ -35,11 +35,12 @@ namespace UndyneFight_Ex.Entities
 
         private void PlayHitSound(float scale, bool isSettingBased = true)
         {
+            if (VolumeFactor <= 0.01f) return;
             if (isSoundPlayed) return;
             isSoundPlayed = true;
             float volume = isSettingBased ? SettingsManager.DataLibrary.SpearBlockingVolume / 100f : 1f;
 
-            PlaySound(FightResources.Sounds.ArrowStuck, volume * scale);
+            PlaySound(FightResources.Sounds.ArrowStuck, volume * scale * VolumeFactor);
         }
         private void Init()
         {
@@ -307,6 +308,7 @@ namespace UndyneFight_Ex.Entities
 
                 bool percise = SettingsManager.DataLibrary.perciseWarning;
                 bool generateTip = percise ? (score != 3) : (score <= 2);
+                if(this.JudgeType == JudgementType.Hold) { generateTip = false; }
                 if (generateTip)
                 {
                     Color tipscolor = Color.CornflowerBlue;
@@ -316,7 +318,7 @@ namespace UndyneFight_Ex.Entities
                     if (ArrowColor == 2) { tipscolor = Color.Lime; xVec = 270; }
                     if (ArrowColor == 3) { tipscolor = Color.MediumPurple; xVec = 370; }
                     if (score >= 4) tipscolor = Color.Lerp(tipscolor, Color.Lime * 0.7f, 0.45f);
-                    if (TimeDelta > -1) CreateEntity(new TimeTips(new(xVec, 200), tipscolor, "early", new(0, 1)));
+                    if (time > -1) CreateEntity(new TimeTips(new(xVec, 200), tipscolor, "early", new(0, 1)));
                     else CreateEntity(new TimeTips(new(xVec, 280), tipscolor, "late", new(0, -1)));
                 }
             }

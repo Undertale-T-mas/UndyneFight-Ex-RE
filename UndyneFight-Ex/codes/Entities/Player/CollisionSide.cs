@@ -31,7 +31,7 @@
                             if (!blockedArrow[i])
                                 timeDelayed[i] += 0.5f;
                             tapTime[i] += 0.5f;
-                            holdTime[i] += 0.5f;
+                            holdTime[i] += 1f;
                             if (GameStates.IsKeyPressed120f(father.UpdateKeys[i]))
                             {
                                 blockedArrow[i] = false;

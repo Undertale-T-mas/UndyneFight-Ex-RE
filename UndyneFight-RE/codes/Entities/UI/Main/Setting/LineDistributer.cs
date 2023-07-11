@@ -38,6 +38,9 @@ namespace UndyneFight_Ex.Remake.UI
                 DrawLine(new(l2 + 30, 520), new(l2 + 10, 500), Color.White );
 
                 DrawLine(new(r2 - 25, 50), new(r2, 75), Color.White );
+
+                this.Image = Resources.UI.Gear;
+                FormalDraw(this.Image, new Vector2(l1 + 45, 84), Color.White, 2, 0, ImageCentre);
             }
 
             public override void Update()

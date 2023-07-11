@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex
@@ -9,8 +10,8 @@ namespace UndyneFight_Ex
     public abstract class RenderProduction : IComparable<RenderProduction>
     {
         private static bool HighQuality => Settings.SettingsManager.DataLibrary.drawingQuality == Settings.SettingsManager.DataLibrary.DrawingQuality.High;
-        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / (640f * GameStates.SurfaceScale), ScreenSize.Y / (480f * GameStates.SurfaceScale)) : 1;
-        protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new Vector2(640, 480) * GameStates.SurfaceScale;
+        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / (480f * GameMain.Aspect * GameStates.SurfaceScale), ScreenSize.Y / (480f)) : 1;
+        protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new Vector2(480f * GameMain.Aspect, 480) * GameStates.SurfaceScale;
 
         protected static GraphicsDevice WindowDevice => GameMain.Graphics.GraphicsDevice;
         protected static SpriteBatch spriteBatch => GameMain.MissionSpriteBatch;
@@ -22,13 +23,14 @@ namespace UndyneFight_Ex
         {
             disposed = true;
         }
+        public virtual void Update() { }
         private static Vector2 Adapt(Vector2 origin)
         {
-            if (!HighQuality) return new Vector2(640, 480) * GameStates.SurfaceScale;
+            if (!HighQuality) return new Vector2(480f * GameMain.Aspect, 480) * GameStates.SurfaceScale;
 
             float trueX, trueY;
-            if (origin.X >= origin.Y * 4 / 3f) { trueX = origin.Y * 4 / 3; trueY = origin.Y; }
-            else { trueY = origin.X * 0.75f; trueX = origin.X; }
+            if (origin.X >= origin.Y * GameMain.Aspect) { trueX = origin.Y * GameMain.Aspect; trueY = origin.Y; }
+            else { trueY = origin.X / GameMain.Aspect; trueX = origin.X; }
 
             return new(trueX, trueY);
 
@@ -240,7 +242,7 @@ namespace UndyneFight_Ex
         {
             Name = name;
             SizeLock = lockSize;
-            RenderPaint = SizeLock ? new RenderTarget2D(WindowDevice, (int)ScreenSize.X, (int)ScreenSize.Y) : new RenderTarget2D(WindowDevice, (int)(640 * GameStates.SurfaceScale), (int)(480 * GameStates.SurfaceScale));
+            RenderPaint = SizeLock ? new RenderTarget2D(WindowDevice, (int)ScreenSize.X, (int)ScreenSize.Y) : new RenderTarget2D(WindowDevice, (int)(480 * GameMain.Aspect * GameStates.SurfaceScale), (int)(480 * GameStates.SurfaceScale));
         }
         public override void Dispose()
         {
@@ -275,11 +277,11 @@ namespace UndyneFight_Ex
         public bool DisableExpand { get; set; } = false;
         public event Action DoUpdate;
 
-        public void Update()
+        public override void Update()
         {
             DoUpdate?.Invoke();
             Vector4 extending = DisableExpand ? Vector4.Zero : GameStates.CurrentScene.CurrentDrawingSettings.Extending;
-            Vector2 size = !SizeLock ? AdaptedSize : new Vector2(640, 480) * GameStates.SurfaceScale;
+            Vector2 size = !SizeLock ? AdaptedSize : new Vector2(480 * GameMain.Aspect, 480) * GameStates.SurfaceScale;
             int missionX = (int)size.X, missionY = (int)(size.Y * (1 + extending.W));
             if (RenderPaint.Bounds.Size != new Point(missionX, missionY))
             {
@@ -388,6 +390,11 @@ namespace UndyneFight_Ex
         {
             production.disposed = false;
             surfaces.Add(production);
+        }
+
+        internal void UpdateAll()
+        {
+            foreach (var v in this.surfaces) v.Update();
         }
     }
 }

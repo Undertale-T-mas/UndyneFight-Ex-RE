@@ -423,6 +423,7 @@ namespace UndyneFight_Ex.SongSystem
             }
             string tag = null;
             float speedMul = 1f;
+            bool isvoid = false;
             if (speedPos != -1)
             {
                 speedMul = tagPos > speedPos
@@ -445,6 +446,7 @@ namespace UndyneFight_Ex.SongSystem
             {
                 arrowAttribute |= ArrowAttribute.Void;
                 curSpecialI++;
+                isvoid = true;
             }
             if (origin[curSpecialI] == '*')
             {
@@ -523,6 +525,7 @@ namespace UndyneFight_Ex.SongSystem
                     arr.Tags = entityTags;
                 if (arr.RotateType == -1)
                     ;
+                if (isvoid) arr.VolumeFactor *= this.Settings.VoidArrowVolume;
             }
             return result;
         }
@@ -531,6 +534,7 @@ namespace UndyneFight_Ex.SongSystem
         {
             public float GBAppearVolume = 0.5f;
             public float GBShootVolume = 0.75f;
+            public float VoidArrowVolume = 0.5f;
         }
 
         protected ChartSettings Settings { get; private set; } = new();

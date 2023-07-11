@@ -3,6 +3,13 @@
     "WSL": {
       "commandName": "WSL2",
       "distributionName": ""
+    },
+    "配置文件 1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\48064\\Desktop\\Rhythm Recall RPG\\Code part\\New version\\UndyneFight-Ex\\RecallCharter\\bin\\Debug\\net6.0\\RecallCharter.exe"
+    },
+    "配置文件 2": {
+      "commandName": "Project"
     }
   }
 }

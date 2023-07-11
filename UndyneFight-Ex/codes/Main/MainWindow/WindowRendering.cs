@@ -13,7 +13,7 @@ namespace UndyneFight_Ex
         }
         private void ResetDrawingSettings()
         {
-            Vector2 defaultSize = new Vector2(640, 480) * GameStates.SurfaceScale;
+            Vector2 defaultSize = new Vector2(480 * Aspect, 480) * GameStates.SurfaceScale;
 
             #region screen matrix
             screenSize = new Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height);
@@ -22,8 +22,8 @@ namespace UndyneFight_Ex
             CurrentDrawingSettings.shakings = Entities.Advanced.ScreenShaker.ScreenShakeDetla;
 
             float trueX, trueY;
-            if (size.X >= size.Y * 4f / 3f) { trueX = size.Y * 4f / 3f; trueY = size.Y; }
-            else { trueY = size.X * 0.75f; trueX = size.X; }
+            if (size.X >= size.Y * Aspect) { trueX = size.Y * Aspect; trueY = size.Y; }
+            else { trueY = size.X /Aspect; trueX = size.X; }
             screenDistance = (Sqrt(trueX * trueX + trueY * trueY) / 2);
             basicAngle = Atan2(-trueX, -trueY);
 

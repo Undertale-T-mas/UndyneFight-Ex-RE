@@ -197,8 +197,7 @@ namespace UndyneFight_Ex.Remake.UI
         }
 
         public override void Update()
-        {
-            _backGenerater?.Update();
+        { 
         }
     }
 }
