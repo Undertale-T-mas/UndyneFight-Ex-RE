@@ -57,6 +57,11 @@ with.
         <Start>&#19968;</Start>
         <End>&#40895;</End>
       </CharacterRegion>
+
+      <CharacterRegion>
+        <Start>&#32;</Start>
+        <End>&#126;</End>
+      </CharacterRegion>
     </CharacterRegions>
     <!--
     ResourceFiles control the characters which will be in the font. It does this

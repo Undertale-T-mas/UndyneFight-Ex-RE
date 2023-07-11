@@ -17,7 +17,7 @@ namespace UndyneFight_Ex.Fight
         public static bool RoundType => FightStates.roundType;
         public static string PlayerName { set => NameShower.name = value; }
         public static int PlayerLevel { set => NameShower.level = value; }
-        public static class PlayerImformation
+        public static class PlayerInformation
         {
             public static string PlayerName { set => NameShower.name = value; }
             public static float AttackDamage { internal get; set; } = 50;

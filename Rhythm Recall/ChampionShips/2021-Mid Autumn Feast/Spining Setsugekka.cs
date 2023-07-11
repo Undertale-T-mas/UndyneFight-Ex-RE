@@ -18,8 +18,8 @@ namespace Rhythm_Recall.Waves
         public SpiningSetsugekka()
         {
             Game.instance = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:1,4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("dif:1,4"));
 
             difficulties = new();
             difficulties.Add("div.2", Difficulty.Normal);
@@ -29,8 +29,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
 
@@ -78,7 +78,7 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Spin! setsugekka";
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string PaintAuthor => "OtokP";
@@ -102,7 +102,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             private static Bone obj1, obj2, obj3;
             private static GameObject hull1, hull2;

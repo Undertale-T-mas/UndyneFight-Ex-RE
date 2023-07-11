@@ -12,7 +12,7 @@ namespace Rhythm_Recall.Waves
     {
         private class MainFight : IWaveSet
         {
-            public SongImformation Attributes => null;
+            public SongInformation Attributes => null;
             public MainFight()
             {
             }

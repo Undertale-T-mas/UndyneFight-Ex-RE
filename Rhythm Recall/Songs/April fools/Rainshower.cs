@@ -14,8 +14,8 @@ namespace Rhythm_Recall.Waves
         public Rainshower()
         {
             Game.instance = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("dif:4"));
 
             difficulties = new();
             difficulties.Add("It's going to rain", Difficulty.ExtremePlus);
@@ -25,8 +25,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
         public class Game : WaveConstructor, IWaveSet
@@ -40,8 +40,8 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Rainshower";
 
-            public SongImformation Attributes => new ThisImformation();
-            private class ThisImformation : SongImformation
+            public SongInformation Attributes => new ThisInformation();
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {

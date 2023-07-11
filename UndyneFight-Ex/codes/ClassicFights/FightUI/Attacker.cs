@@ -33,7 +33,7 @@ namespace UndyneFight_Ex.Fight
                 float c = (300 - Math.Abs(Centre.X - 320)) / 300f;
                 if (c >= 0)
                 {
-                    float val = MathF.Pow(c, 2) * ClassicFight.PlayerImformation.AttackDamage;
+                    float val = MathF.Pow(c, 2) * ClassicFight.PlayerInformation.AttackDamage;
                     AttackTarget.Attacking(val);
                 }
                 else AttackTarget.Attacking(-1);

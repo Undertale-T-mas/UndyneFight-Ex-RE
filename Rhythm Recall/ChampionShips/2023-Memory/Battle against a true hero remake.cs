@@ -28,8 +28,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
         public class Game : WaveConstructor, IWaveSet
@@ -39,7 +39,7 @@ namespace Rhythm_Recall.Waves
                 throw new System.NotImplementedException();
             }
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -67,7 +67,7 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "OtokP";
                 public override string SongAuthor => "TobyFox";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(6.2485f) { }
 

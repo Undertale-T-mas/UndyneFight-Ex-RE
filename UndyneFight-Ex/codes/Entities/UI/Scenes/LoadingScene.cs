@@ -157,7 +157,7 @@ namespace UndyneFight_Ex
                 Centre = Centre * 0.85f + mission * 0.15f;
             }
         }
-        SongImformation imformation;
+        SongInformation Information;
         private static SongFightingScene.SceneParams songParams;
         private readonly List<BackGround> backs = new();
         private readonly Camera camera;
@@ -178,7 +178,7 @@ namespace UndyneFight_Ex
         {
             //SongLoadingScene(){...}
             SongLoadingScene.songParams = songParams;
-            imformation = songParams.Waveset.Attributes;
+            Information = songParams.Waveset.Attributes;
             tipID = MathUtil.GetRandom(0, additions.Length - 1);
         }
 
@@ -203,7 +203,7 @@ namespace UndyneFight_Ex
                 path += "\\song";
             songParams = new(cur, null, (int)challenge.Routes[progress].Item2, path, JudgementState.Strict, GameMode.RestartDeny);
             tipID = MathUtil.GetRandom(0, additions.Length - 1);
-            imformation = songParams.Waveset.Attributes;
+            Information = songParams.Waveset.Attributes;
         }
         float alpha = 0;
 
@@ -226,33 +226,33 @@ namespace UndyneFight_Ex
             {
                 FormalDraw(songParams.SongIllustration, new(320, 240), Color.White * 0.3f, 0, new(320, 240));
             }
-            if (imformation != null)
+            if (Information != null)
             {
                 var CurPos = 300;
-                if (imformation.BarrageAuthor != "Unknown")
+                if (Information.BarrageAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Barrage: " + imformation.BarrageAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    GlobalResources.Font.NormalFont.CentreDraw("Barrage: " + Information.BarrageAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                     CurPos += 30;
                 }
 
-                if (imformation.SongAuthor != "Unknown")
+                if (Information.SongAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Song from: " + imformation.SongAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    GlobalResources.Font.NormalFont.CentreDraw("Song from: " + Information.SongAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                     CurPos += 30;
                 }
 
-                if (imformation.PaintAuthor != "Unknown")
+                if (Information.PaintAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Paint: " + imformation.PaintAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    GlobalResources.Font.NormalFont.CentreDraw("Paint: " + Information.PaintAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                     CurPos += 30;
                 }
 
-                if (imformation.AttributeAuthor != "Unknown")
+                if (Information.AttributeAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Effect: " + imformation.AttributeAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    GlobalResources.Font.NormalFont.CentreDraw("Effect: " + Information.AttributeAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                 }
 
-                GlobalResources.Font.NormalFont.Draw(imformation.Extra, imformation.ExtraPosition, imformation.ExtraColor * alpha, 0.75f, 0.5f);
+                GlobalResources.Font.NormalFont.Draw(Information.Extra, Information.ExtraPosition, Information.ExtraColor * alpha, 0.75f, 0.5f);
             }
             GlobalResources.Font.NormalFont.Draw("Tips: ", new(12, 437), Color.White * alpha, 0.6f, 0.5f);
             GlobalResources.Font.NormalFont.Draw(additions[tipID], new(28, 456), Color.White * alpha, 0.48f, 0.5f);

@@ -14,10 +14,10 @@ namespace Rhythm_Recall.Waves
         public Astronomia()
         {
             Game.instance = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("time:9.5,12"));
-            divisionImformation.PushNext(new SaveInfo("date:2,9"));
-            divisionImformation.PushNext(new SaveInfo("dif:1,2"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("time:9.5,12"));
+            divisionInformation.PushNext(new SaveInfo("date:2,9"));
+            divisionInformation.PushNext(new SaveInfo("dif:1,2"));
 
             difficulties = new();
             difficulties.Add("div.2", Difficulty.Easy);
@@ -27,8 +27,8 @@ namespace Rhythm_Recall.Waves
         private Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        private SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        private SaveInfo divisionInformation;
 
         IWaveSet IChampionShip.GameContent => Game.instance;
 
@@ -51,7 +51,7 @@ namespace Rhythm_Recall.Waves
 
             public string Music => "Astronomia";
 
-            class ThisImformation : SongImformation
+            class ThisInformation : SongInformation
             {
                 public override string SongAuthor => "Vicetone + Tony Igy";
                 public override string BarrageAuthor => "T-mas";
@@ -76,7 +76,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public void Noob()
             {

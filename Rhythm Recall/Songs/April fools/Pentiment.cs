@@ -30,7 +30,7 @@ namespace AprilExtends
             public string Music => "Pentiment";
 
             public string FightName => "Pentiment";
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -51,7 +51,7 @@ namespace AprilExtends
                 public override string AttributeAuthor => "Woem";
                 public override string SongAuthor => "Nothing But Requiem with Museo";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
             private bool notRegistered = true;
             public static Game game;
             public void SetOffset(Arrow arrow, float offset)

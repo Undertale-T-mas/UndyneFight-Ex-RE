@@ -29,8 +29,8 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Death By Glamour";
 
-            public SongImformation Attributes => new Information();
-            class Information : SongImformation
+            public SongInformation Attributes => new Information();
+            class Information : SongInformation
             {
                 public override string SongAuthor => "Unknown";
                 public override string BarrageAuthor => "Unknown";

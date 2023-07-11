@@ -24,11 +24,11 @@ namespace Rhythm_Recall.Waves
                 int day = 20;
 
                 int startHourA = 9, startMinuteA = 30, endHourA = 12, endMinuteA = 0;
-                int startHourB = 9, startMinuteB = 30, endHourB = 12, endMinuteB = 0;
+                int startHourB = 14, startMinuteB = 0, endHourB = 17, endMinuteB = 30;
                 return new ChampionShip(fightSet)
                 {
                     Title = "Summer Camp Ⅲ",
-                    SubTitle = "2023 August.20th, \\Part A:9:30~12:00\\Part B:14:00~17:30",
+                    SubTitle = "2023 Aug.20, A:9:30~12:00 B:14:00~17:30",
                     EditorName = "T-mas",
                     Introduce = "The happiest summer we have",
                     IconPath = "ChampionShips\\TCS",

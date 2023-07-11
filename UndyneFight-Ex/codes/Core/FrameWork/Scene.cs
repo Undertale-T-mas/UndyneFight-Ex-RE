@@ -70,7 +70,13 @@ namespace UndyneFight_Ex
         public static ContentManager Loader { get; private set; }
         internal Selector BaseSelector { get; set; }
 
-        public bool Pausable { get; protected set; } = false;
+        public bool Pausable { get;
+#if DEBUG
+            set;
+#else
+            protected set;
+#endif
+        } = false;
 
         internal float stopTime = 0;
 

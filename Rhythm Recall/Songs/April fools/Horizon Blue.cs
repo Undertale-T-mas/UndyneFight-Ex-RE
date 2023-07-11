@@ -12,7 +12,7 @@ namespace AprilExtends
 
         public string FightName => "Horizon Blue";
 
-        public SongImformation Attributes => null;
+        public SongInformation Attributes => null;
         public HorizonBlue() : base(62.5f / (200f / 60f)) { }
         public static HorizonBlue instance;
         public static float bpm = 62.5f / (800f / 60f);

@@ -25,7 +25,7 @@ namespace Rhythm_Recall.Waves
 
         public class GOODTEK : IWaveSet
         {
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -116,7 +116,7 @@ namespace Rhythm_Recall.Waves
             }
             public string Music => "GOODTEK";
             public string FightName => "GOODTEK";
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
             public void Start()
             {
                 //static Shader shader = new Shader(Loader.Load<Effect>("Musics\\Grievous Lady\\Effects"));

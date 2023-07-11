@@ -29,11 +29,11 @@ namespace UndyneFight_Ex.Remake.UI
                         DefaultScale = 1.3f,
                         DefaultValue = Settings.SettingsManager.DataLibrary.Mirror
                     });
-                    this.AddChild(_perciseWarn = new(this, new(516, 350), "Percise\n Warns") { 
+                    this.AddChild(_perciseWarn = new(this, new(516, 350), "Precise\n Warns") { 
                         DefaultScale = 1.2f,
                         DefaultValue = Settings.SettingsManager.DataLibrary.perciseWarning
                     });
-                    this.AddChild(_pauseCheat = new(this, new(764, 100), "Pause is\n cheat") { 
+                    this.AddChild(_pauseCheat = new(this, new(764, 100), "Pausing is\n cheating") { 
                         DefaultScale = 1.2f,
                         DefaultValue = Settings.SettingsManager.DataLibrary.PauseCheating
                     });
