@@ -52,7 +52,7 @@ namespace UndyneFight_Ex.SongSystem
         /// 对歌曲在选择战斗页面中的名称的设置
         /// </summary>
         string FightName { get; }
-        SongImformation Attributes { get; }
+        SongInformation Attributes { get; }
     }
 
     public interface IChampionShip
@@ -688,7 +688,7 @@ namespace UndyneFight_Ex.SongSystem
         }
     }
 
-    public abstract class SongImformation
+    public abstract class SongInformation
     {
         public bool MusicOptimized { get; protected set; } = false;
         public virtual string SongAuthor => "Unknown";
