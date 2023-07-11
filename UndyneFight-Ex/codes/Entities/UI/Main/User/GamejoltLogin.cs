@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.Entities
             }
             public override void SelectionEvent()
             {
-                instance.Dispose(); InstanceCreate(PlayerManager.CurrentUser.GameJoltImformation.Authed ?
+                instance.Dispose(); InstanceCreate(PlayerManager.CurrentUser.GameJoltInformation.Authed ?
                     new GamejoltModifyUI() : new GamejoltLoginUI());
                 base.SelectionEvent();
             }
@@ -56,8 +56,8 @@ namespace UndyneFight_Ex.Entities
 
                 public GamejoltLoginUI()
                 {
-                    name = PlayerManager.CurrentUser.GameJoltImformation.GameJoltID;
-                    token = PlayerManager.CurrentUser.GameJoltImformation.Token;
+                    name = PlayerManager.CurrentUser.GameJoltInformation.GameJoltID;
+                    token = PlayerManager.CurrentUser.GameJoltInformation.Token;
 
                     OKAction += GamejoltLogin;
 
@@ -110,7 +110,7 @@ namespace UndyneFight_Ex.Entities
                     name = credentials.Name;
                     token = credentials.Token;
 
-                    var info = PlayerManager.CurrentUser.GameJoltImformation;
+                    var info = PlayerManager.CurrentUser.GameJoltInformation;
                     info.GameJoltID = name;
                     info.Token = token;
                     info.Authed = true;
@@ -135,7 +135,7 @@ namespace UndyneFight_Ex.Entities
                         AddChild(new InfoText("Please wait", Color.Red));
                         return false;
                     }
-                    var info = PlayerManager.CurrentUser.GameJoltImformation;
+                    var info = PlayerManager.CurrentUser.GameJoltInformation;
                     if (info.Authed && nameInputer.Result == info.GameJoltID)
                     {
                         AddChild(new InfoText("Already authed!", Color.Red));

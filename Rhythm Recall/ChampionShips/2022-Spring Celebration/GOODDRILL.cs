@@ -30,7 +30,7 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "GOODDRILL";
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -55,7 +55,7 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "OtokP";
                 public override string SongAuthor => "EBIMAYO";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
             public static float bpm = 5.4505f;
 
             public int zero = 0;

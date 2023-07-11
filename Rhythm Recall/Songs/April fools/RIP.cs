@@ -16,8 +16,8 @@ namespace Rhythm_Recall.Waves
         public RIP()
         {
             Game.instance = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("dif:4"));
 
             difficulties = new();
             difficulties.Add("Rest In Peace  Lv.19.7", Difficulty.ExtremePlus);
@@ -30,8 +30,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
         public static class mainEffects
@@ -602,7 +602,7 @@ namespace Rhythm_Recall.Waves
         public class Game : WaveConstructor, IWaveSet
         {
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor
                 {
@@ -684,7 +684,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(62.5f / (192 / 60f)) { }
             public static float bpm = 4.8828125f;

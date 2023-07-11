@@ -106,11 +106,11 @@ namespace UndyneFight_Ex.Achievements
             if (!Achieved) return;
             if (OnlineAchieved) return;
             User user = PlayerManager.CurrentUser;
-            var info = user.GameJoltImformation;
+            var info = user.GameJoltInformation;
             if (!string.IsNullOrEmpty(info.GameJoltID) && GameJoltID != 0 && info.Authed)
             {
                 GameJolt.GameJoltApi api = GameStates.GameJolt;
-                api.Trophies.SetAchieved(user.GameJoltImformation.Credential, GameJoltID, (s) =>
+                api.Trophies.SetAchieved(user.GameJoltInformation.Credential, GameJoltID, (s) =>
                 {
                     if (s.Success)
                     {

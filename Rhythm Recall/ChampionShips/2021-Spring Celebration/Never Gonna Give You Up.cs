@@ -14,10 +14,10 @@ namespace Rhythm_Recall.Waves
         public NeverGonnaGiveYouUp()
         {
             Game.instance = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("time:14,17"));
-            divisionImformation.PushNext(new SaveInfo("date:2,9"));
-            divisionImformation.PushNext(new SaveInfo("dif:2,4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("time:14,17"));
+            divisionInformation.PushNext(new SaveInfo("date:2,9"));
+            divisionInformation.PushNext(new SaveInfo("dif:2,4"));
 
             difficulties = new()
             {
@@ -29,8 +29,8 @@ namespace Rhythm_Recall.Waves
         private Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         IWaveSet IChampionShip.GameContent => Game.instance;
 
@@ -43,7 +43,7 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Never gonna give you up";
 
-            class ThisImformation : SongImformation
+            class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string SongAuthor => "Rick Astley";
@@ -68,7 +68,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public string Music => "Never Gonna Give You Up";
 

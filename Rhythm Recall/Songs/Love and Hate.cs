@@ -19,7 +19,7 @@ namespace Rhythm_Recall.Waves
         public string Music => "Love and Hate";
 
         public string FightName => "Love and Hate";
-        private class ThisImformation : SongImformation
+        private class ThisInformation : SongInformation
         {
             public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[] {
@@ -41,7 +41,7 @@ namespace Rhythm_Recall.Waves
             public override string SongAuthor => "?";
             public override string PaintAuthor => "?";
         }
-        public SongImformation Attributes => new ThisImformation();
+        public SongInformation Attributes => new ThisInformation();
         public static LoveAndHate game;
 
         public void ExtremePlus()

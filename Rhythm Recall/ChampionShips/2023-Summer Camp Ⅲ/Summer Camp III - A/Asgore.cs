@@ -30,8 +30,8 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Asgore";
 
-            public SongImformation Attributes => new Information();
-            class Information : SongImformation
+            public SongInformation Attributes => new Information();
+            class Information : SongInformation
             {
                 public override string SongAuthor => "Toby Fox";
                 public override string BarrageAuthor => "Tlottgodinf";

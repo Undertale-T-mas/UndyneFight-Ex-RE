@@ -15,10 +15,10 @@ namespace Rhythm_Recall.Waves
         public UnderFell()
         {
             Game.instance = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("time:13.75,15.50"));
-            divisionImformation.PushNext(new SaveInfo("date:5,2"));
-            divisionImformation.PushNext(new SaveInfo("dif:2,5"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("time:13.75,15.50"));
+            divisionInformation.PushNext(new SaveInfo("date:5,2"));
+            divisionInformation.PushNext(new SaveInfo("dif:2,5"));
 
             difficulties = new();
             difficulties.Add("div.2", Difficulty.Normal);
@@ -28,8 +28,8 @@ namespace Rhythm_Recall.Waves
         private Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
 
@@ -77,7 +77,7 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Underfell";
 
-            class ThisImformation : SongImformation
+            class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string SongAuthor => "Joandr861";
@@ -101,7 +101,7 @@ namespace Rhythm_Recall.Waves
                         }
                     );
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             #region Non-ChampionShip
             public void Easy()

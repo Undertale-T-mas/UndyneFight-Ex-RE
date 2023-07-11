@@ -33,7 +33,7 @@ namespace Rhythm_Recall.Waves
                 throw new System.NotImplementedException();
             }
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -60,7 +60,7 @@ namespace Rhythm_Recall.Waves
                 public override string AttributeAuthor => "IceAgeDOT & Walar";
                 public override string SongAuthor => "siromaru + cranky";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(5.859f) { }
 

@@ -15,7 +15,7 @@ namespace Rhythm_Recall.Waves
 
         public string Music => "ulb theme";
 
-        class ThisImformation : SongImformation
+        class ThisInformation : SongInformation
         {
             public override string BarrageAuthor => "T-mas";
             public override string SongAuthor => "Saster";
@@ -49,7 +49,7 @@ namespace Rhythm_Recall.Waves
                     }
                 );
         }
-        public SongImformation Attributes => new ThisImformation();
+        public SongInformation Attributes => new ThisInformation();
 
         public void Easy()
         {

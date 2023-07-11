@@ -38,7 +38,7 @@ namespace Rhythm_Recall.Waves
                 GameStates.ResetScene(new TranscendenceAnomaly((int)Difficulty.Extreme));
             }
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -63,7 +63,7 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "?";
                 public override string SongAuthor => "?";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(62.5f / (220f / 60) / 1) { }
 

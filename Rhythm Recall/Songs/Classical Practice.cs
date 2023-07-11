@@ -9,7 +9,7 @@ namespace Rhythm_Recall.Waves
 {
     public class ClassicalPractice : IWaveSet
     {
-        public SongImformation Attributes => null;
+        public SongInformation Attributes => null;
         public string FightName => "GreenSoul Practice";
 
         public string Music => "undyne theme";
