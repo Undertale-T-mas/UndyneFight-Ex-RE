@@ -10,7 +10,7 @@ using UndyneFight_Ex.Entities;
 namespace UndyneFight_Ex.Remake
 {
     public static partial class Initialize
-    {
+    { 
         private static bool isLateInitialized = false;
         private static void LateInitialize()
         {
@@ -28,9 +28,11 @@ namespace UndyneFight_Ex.Remake
         { 
             FileData.Initialize(); 
          // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SelectUI()); LateInitialize(); };
-            GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.UserUI()); LateInitialize(); };
-           // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SettingUI()); LateInitialize(); };
-            
+            GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.UserUI());};
+            // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SettingUI()); LateInitialize(); };
+            GameStartUp.Initialize += (loader) => { LateInitialize(); };
+
+
 
             UFEXSettings.Update += MouseSystem.Update;
             GameStartUp.Initialize += Resources.Initialize; 
