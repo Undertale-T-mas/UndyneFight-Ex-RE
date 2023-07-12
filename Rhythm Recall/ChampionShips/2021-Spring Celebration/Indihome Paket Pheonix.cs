@@ -43,6 +43,7 @@ namespace Rhythm_Recall.Waves
             private class ThisImformation : SongImformation
             {
                 public override string BarrageAuthor => "T-mas";
+                public override string SongAuthor => "Diego Takupaz";
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
