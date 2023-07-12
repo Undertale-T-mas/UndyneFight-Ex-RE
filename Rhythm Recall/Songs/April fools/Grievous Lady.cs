@@ -15,8 +15,8 @@ namespace AprilExtends
         public GrievousLady()
         {
             GrievousLady.Game.instance = new GrievousLady.Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("dif:4"));
             difficulties = new Dictionary<string, Difficulty>();
             difficulties.Add("Past None", Difficulty.Noob);
             difficulties.Add("None", Difficulty.Normal);
@@ -31,11 +31,11 @@ namespace AprilExtends
                 return difficulties;
             }
         }
-        public SaveInfo DivisionImformation
+        public SaveInfo DivisionInformation
         {
             get
             {
-                return divisionImformation;
+                return divisionInformation;
             }
         }
         public IWaveSet GameContent
@@ -46,7 +46,7 @@ namespace AprilExtends
             }
         }
         private readonly Dictionary<string, Difficulty> difficulties = new Dictionary<string, Difficulty>();
-        public SaveInfo divisionImformation;
+        public SaveInfo divisionInformation;
 
         private class Game : WaveConstructor, IWaveSet
         {
@@ -390,8 +390,8 @@ namespace AprilExtends
                     }
                 }
             }
-            public SongImformation Attributes => new ThisImformation();
-            private class ThisImformation : SongImformation
+            public SongInformation Attributes => new ThisInformation();
+            private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor
                 {

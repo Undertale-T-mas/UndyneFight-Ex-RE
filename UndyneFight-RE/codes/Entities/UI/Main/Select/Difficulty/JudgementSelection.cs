@@ -55,7 +55,7 @@ namespace UndyneFight_Ex.Remake.UI
                 public override void Draw()
                 {
                     base.Draw();
-                    FightResources.Font.NormalFont.CentreDraw("current judge:", this.Centre - new Vector2(0, 45), Color.White, 1.15f, 0.1f);
+                    FightResources.Font.NormalFont.CentreDraw("Current Judge:", this.Centre - new Vector2(0, 45), Color.White, 1.15f, 0.1f);
                 }
 
                 public override void Update()

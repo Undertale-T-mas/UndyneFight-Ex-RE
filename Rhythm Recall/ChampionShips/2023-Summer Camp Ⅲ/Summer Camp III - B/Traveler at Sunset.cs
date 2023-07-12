@@ -35,13 +35,13 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Traveler at Sunset";
 
-            public SongImformation Attributes => new Information();
-            class Information : SongImformation
+            public SongInformation Attributes => new Information();
+            class Information : SongInformation
             {
                 public Information() { this.MusicOptimized = true; }
                 public override string SongAuthor => "SK_kent";
-                public override string BarrageAuthor => "zKronO vs Tlottgodinf vs T-mas";
-                public override string AttributeAuthor => "Woem feat. ParaDOXXX";
+                public override string BarrageAuthor => "zKronO vs Tlottgodinf vs T-mas ft. TK";
+                public override string AttributeAuthor => "Woem feat. ParaDOXXX and TK";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                 new KeyValuePair<Difficulty, float>[]
@@ -53,22 +53,22 @@ namespace Rhythm_Recall.Waves
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                    new(Difficulty.Normal,12.0f),
-                    new(Difficulty.ExtremePlus,19.4f)
+                        new(Difficulty.Normal,12.0f),
+                        new(Difficulty.ExtremePlus,19.4f)
                     }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                    new(Difficulty.Normal,16.0f),
-                    new(Difficulty.ExtremePlus,20.9f)
+                        new(Difficulty.Normal,16.0f),
+                        new(Difficulty.ExtremePlus,20.9f)
                     }
                     );
             }
-            ScreenDrawing.Shaders.Blur Blur;
+            Blur Blur;
             RenderProduction production, production1;
             GlobalResources.Effects.StepSampleShader StepSample;
-            ScreenDrawing.Shaders.RGBSplitting splitter = new();
+            RGBSplitting splitter = new();
             #region disused
             public void Noob()
             {
@@ -148,7 +148,7 @@ namespace Rhythm_Recall.Waves
                     public float Colordepth = Rand(0.300f, 0.500f);
                     public override void Draw()
                     {
-                        DrawingLab.DrawLine(point1,point2,Width, color * Colordepth,0.1f);
+                        DrawingLab.DrawLine(point1, point2, Width, color * Colordepth, 0.1f);
                     }
 
                     public override void Update()
@@ -175,7 +175,7 @@ namespace Rhythm_Recall.Waves
                         {
                             ScreenDrawing.MasterAlpha = s;
                         },
-                        Stable(BeatTime(8),0),
+                        Stable(BeatTime(8), 0),
                         EaseIn(BeatTime(64), 1, EaseState.Sine)
                         );
                         RunEase((q) =>
@@ -204,6 +204,64 @@ namespace Rhythm_Recall.Waves
                     {
                         SetSoul(1);
                     });
+                    RegisterFunctionOnce("Line", () =>
+                    {
+                        float LineX = Rand(200, 440);
+                        float Rot = -100;
+                        Line line = new(EaseIn(BeatTime(6), new Vector2(LineX, 240), new Vector2(0, 240), EaseState.Cubic).Easing, Stable(BeatTime(2), Rot).Easing);
+                        CreateEntity(line);
+                    });
+                    RegisterFunctionOnce("LineCenter", () =>
+                    {
+                        Line line1 = new(EaseIn(BeatTime(6), new Vector2(320, 240), new Vector2(0, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 90).Easing);
+                        CreateEntity(line1);
+                        Line line2 = new(EaseIn(BeatTime(6), new Vector2(320, 240), new Vector2(320, -80), EaseState.Sine).Easing, Stable(BeatTime(2), 0).Easing);
+                        CreateEntity(line2);
+                        Line line3 = new(EaseIn(BeatTime(6), new Vector2(320, 240), new Vector2(640, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 90).Easing);
+                        CreateEntity(line3);
+                        Line line4 = new(EaseIn(BeatTime(6), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 0).Easing);
+                        CreateEntity(line4);
+                    });
+                    RegisterFunctionOnce("LineCenter45", () =>
+                    {
+                        Line line1 = new(EaseIn(BeatTime(4), new Vector2(320, 240), new Vector2(0, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 135).Easing);
+                        CreateEntity(line1);
+                        Line line2 = new(EaseIn(BeatTime(4), new Vector2(320, 240), new Vector2(320, -80), EaseState.Sine).Easing, Stable(BeatTime(2), 45).Easing);
+                        CreateEntity(line2);
+                        Line line3 = new(EaseIn(BeatTime(4), new Vector2(320, 240), new Vector2(640, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 135).Easing);
+                        CreateEntity(line3);
+                        Line line4 = new(EaseIn(BeatTime(4), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 45).Easing);
+                        CreateEntity(line4);
+                    });
+                    RegisterFunctionOnce("LineCenter8", () =>
+                    {
+                        Line line1 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(0, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 90).Easing);
+                        Line line2 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(320, -80), EaseState.Sine).Easing, Stable(BeatTime(2), 0).Easing);
+                        Line line3 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(640, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 90).Easing);
+                        Line line4 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 0).Easing);
+                        Line line5 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(0, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 135).Easing);
+                        Line line6 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(320, -80), EaseState.Sine).Easing, Stable(BeatTime(2), 45).Easing);
+                        Line line7 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(640, 240), EaseState.Sine).Easing, Stable(BeatTime(2), 135).Easing);
+                        Line line8 = new(EaseIn(BeatTime(3), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 45).Easing);
+                        Line[] lines = { line1, line2, line3, line4, line5, line6, line7, line8 };
+                        foreach (Line l in lines)
+                        {
+                            CreateEntity(l);
+                            for (int i = 1; i < 2; i++)
+                            {
+                                l.InsertRetention(new(i * 3, 0.7f - i * 0.07f));
+                            }
+                            DelayBeat(12f, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("ClearLine", () =>
+                    {
+                        var l = GetAll<Line>();
+                        foreach(Line line in l)
+                        {
+                            line.Dispose();
+                        }
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
@@ -214,37 +272,37 @@ namespace Rhythm_Recall.Waves
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //2
-                        "GaussBlur(Soul1)","","","",    "","","","",
+                        "GaussBlur(Soul1)(Line)","","Line","",    "Line","","Line","",
                         "","","","",    "","","","",
                         "","","","(Soul1)",    "","","","",
                         "","","","",    "","","","",
                         //3
-                        "GaussBlur","","","",    "","","(Soul1)","",
+                        "GaussBlur(Line)","","Line","",    "Line","","(Soul1)(Line)","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","(Soul1)","","",    "","","","",
                         //4
-                        "GaussBlur","","","",    "","","","",
+                        "GaussBlur(Line)","","Line","",    "Line","","Line","",
                         "","","","",    "(Soul1)","","","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         //5
-                        "GaussBlur(Soul1)","","","",    "","","","",
+                        "GaussBlur(Soul1)(Line)","","Line","",    "Line","","Line","",
                         "","","","",    "","","","",
                         "","","","(Soul1)",    "","","","",
                         "","","","",    "","","","",
                         //6
-                        "GaussBlur","","","",    "","","(Soul1)","",
+                        "GaussBlur(LineCenter)","","LineCenter","",    "LineCenter","","(Soul1)(LineCenter)","",
                         "","","","",    "","","","",
                         "","","","",    "","","","",
                         "","(Soul1)","","",    "","","","",
                         //7
-                        "GaussBlur","","","",    "","","","",
+                        "GaussBlur(LineCenter45)","","LineCenter45","",    "LineCenter45","","LineCenter45","",
                         "","","","",    "(Soul1)","","","",
                         "","","","",    "","","","",
-                        "","","","",    "","","","",
+                        "","","","",    "","","","ClearLine",
                         //8
-                        "GaussBlur(Soul1)","","","",    "","","","",
+                        "GaussBlur(Soul1)(LineCenter8)","","LineCenter8","",    "LineCenter8","","LineCenter8","",
                         "","","","",    "","","","",
                         "","","","(Soul1)",    "","","","",
                         "","","","",    "","","","",
@@ -308,7 +366,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("KickA", () =>
                     {
-                        Line a=new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 0), new Vector2(120, 90), EaseState.Quart),
+                        Line a = new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 0), new Vector2(120, 90), EaseState.Quart),
                             Stable(BeatTime(0.2f),new Vector2(320,240))).Easing, 
                             Stable(BeatTime(1), -37.5f).Easing)
                         { Alpha = 0.75f };
@@ -561,7 +619,6 @@ namespace Rhythm_Recall.Waves
                     });
                 }
                 if (InBeat(72 + 64))
-
                 {
                     RegisterFunctionOnce("UaD", () =>
                     {
@@ -597,11 +654,13 @@ namespace Rhythm_Recall.Waves
                     }); 
                     RegisterFunctionOnce("pre", () =>
                     {
-                        s = new();
-                        s.BasicSpeed = 2.4f;
-                        s.Width = 3.5f;
-                        s.DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.7f);
-                        s.Direction = true;
+                        s = new()
+                        {
+                            BasicSpeed = 2.4f,
+                            Width = 3.5f,
+                            DrawingColor = Color.Lerp(Color.Aqua, Color.White, 0.7f),
+                            Direction = true
+                        };
                         GameStates.InstanceCreate(s);
                         easeA.TagApply("A");
                     });
@@ -687,31 +746,102 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                         TP();
                     });
-                    
+                    RegisterFunctionOnce("SpearSwarm", () =>
+                    {
+                        float rot = Rand(0, 359);
+                        float time = 40;
+                        Fortimes(2, () =>
+                        {
+                            Fortimes(32, () =>
+                            {
+                                CreateSpear(new SwarmSpear(new(320, 240), 9, 170 + (time - 40) * 1.2f, rot, time += 2));
+                                rot += 11.25f;
+                            });
+                            rot += 90;
+                            time -= 64;
+                        });
+                    });
+                    RegisterFunctionOnce("SpearCircle", () =>
+                    {
+                        float rot = 0;
+                        Fortimes(16, () =>
+                        {
+                            CreateSpear(new CircleSpear(new(320, 240), 10, 0.3f, 150, rot += 45, 0.005f));
+                        });
+                    });
+                    RegisterFunctionOnce("SpearSurroundSmall", ()=>
+                    {
+                        float rot = Rand(0, 44);
+                        rot -= 13f;
+                        for (int i = 0; i < 8; i++)
+                        {
+                            rot += 22.5f;
+                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(40, rot + 90), 2f, 200, rot, BeatTime(3)));
+                            rot += 22.5f;
+                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(50, rot - 90), 2f, 200, rot, BeatTime(3)));
+                        }
+                    });
+                    RegisterFunctionOnce("SpearCross0", () =>
+                    {
+                        int i = 0;
+                        Fortimes(4, () =>
+                        {
+                            CreateSpear(new NormalSpear(new Vector2(320, 240) + GetVector2(160, i += 90), i + 180));
+                        });
+                    });
+                    RegisterFunctionOnce("SpearCross45", () =>
+                    {
+                        int i = 45;
+                        Fortimes(4, () =>
+                        {
+                            CreateSpear(new NormalSpear(new Vector2(320, 240) + GetVector2(160, i += 90), i + 180));
+                        });
+                    });
+                    RegisterFunctionOnce("SpearFake", () =>
+                    {
+                        float rot = 0;
+                        Fortimes(15, () =>
+                        {
+                            CreateSpear(new CircleSpear(new(320, 240), 8, 5f, 150, rot += 24, 0.005f) {  MarkScore = false});
+                            CreateSpear(new CircleSpear(new(320, 240), -8, 5f, 150, rot, 0.005f) { MarkScore = false });
+                        });
+                    });
+                    RegisterFunctionOnce("SpearSurroundSquare", () =>
+                    {
+                        float rot = 0;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            rot += 45f;
+                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(55, rot + 90), 2f, 200, rot, BeatTime(3)));
+                            rot += 45f;
+                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(55, rot - 90), 2f, 200, rot, BeatTime(3)));
+                        }
+                    });
+
                     BarrageCreate(BeatTime(4), BeatTime(2), 7.2f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "(pre)", "", "", "",    
+                        "", "", "", "",    "(pre)", "SpearCircle", "SpearSwarm", "",
                         //1
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "(SpearCross0)(SpearSurroundSmall)",    "", "", "", "",    
+                        "", "", "", "(SpearCross45)(SpearSurroundSmall)",    "", "", "", "",    
                         //2
-                        "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",      
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
                         //3
                         "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "SpearSurroundSquare",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         //4
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "SpearFake",    "", "", "", "",
                         "Green", "", "", "",    "", "", "", "",      
                         //5
                         "(d1)(+00)", "", "", "",    "(d1)(+00)", "", "d1", "",
@@ -990,19 +1120,19 @@ namespace Rhythm_Recall.Waves
                         //pre
                         "pre", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "($3@K1,K1A)($3@K1,K1B)", "", "", "",    "($3@K1,K1A)($3@K1,K1B)", "", "", "", 
+                        "(*$3@K1,K1A)(_$3@K1,K1B)", "", "", "",    "(*$3@K1,K1A)(_$3@K1,K1B)", "", "", "", 
 
                         //1
-                        "(#7.7#$1)(>$01)(<$21)(~_$01'1.4)(~_$21'2.2)", "", "", "",    "(<$01)(>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
-                        "($3@K1C)($3@K1D)(>$01)(<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(<$3@K1C)(>$3@K1D)(<$01)(>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
-                        "($3@K1C)($3@K1D)(>$01)(<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(<$3@K1C)(>$3@K1D)(<$01)(>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
-                        "($3@K1C)($3@K1D)(>$01)(<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(<$3@K1C)(>$3@K1D)", "", "(>$3@K1C)(<$3@K1D)", "",
+                        "(#7.6#$1)(*>$01)(*<$21)(~_$01'1.4)(~_$21'2.2)", "", "", "",    "(*<$01)(*>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
+                        "(*$3@K1C)(_$3@K1D)(*>$01)(*<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(*<$3@K1C)(_>$3@K1D)(*<$01)(*>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
+                        "(*$3@K1C)(_$3@K1D)(*>$01)(*<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(*<$3@K1C)(_>$3@K1D)(*<$01)(*>$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",
+                        "(*$3@K1C)(_$3@K1D)(*>$01)(*<$21)(~_$01'2.2)(~_$21'2.2)", "", "", "",    "(*<$3@K1C)(_>$3@K1D)", "", "(*>$3@K1C)(_<$3@K1D)", "",
 
                         //2
-                        "(<$31@K1C)(>$31@K1D)(#7.7#$11)(<$0)(>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "($31@K1C)($31@K1D)(>$0)(<$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",
-                        "(<$31@K1C)(>$31@K1D)(<$0)(>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "($31@K1C)($31@K1D)(>$0)(<$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",
-                        "(<$31@K1C)(>$31@K1D)(<$0)(>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "($31@K1C)($31@K1D)(>$0)(<$2)(~_$0'2.2)(~_$2'2.2)", "", "(<$31@K1C)(>$31@K1D)", "",
-                        "($31@K1C)($31@K1D)(<$0)(>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "(<$31@K1C)(>$31@K1D)",    "($31@K1C)($31@K1D)", "", "(<$31@K1C)(>$31@K1D)", "",
+                        "(*<$31@K1C)(_>$31@K1D)(#7.6#$11)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",
+                        "(*<$31@K1C)(_>$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",
+                        "(*<$31@K1C)(_>$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "(*<$31@K1C)(_>$31@K1D)", "",
+                        "(*$31@K1C)(_$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "(*<$31@K1C)(_>$31@K1D)",    "(*$31@K1C)(_$31@K1D)", "", "(*<$31@K1C)(_>$31@K1D)", "",
                         //3
                         "''7",
                         "n0", "~_!+0", "~_!+0", "~_!+0",    "~_+0", "~_!+0", "~_+0", "",
@@ -1095,9 +1225,9 @@ namespace Rhythm_Recall.Waves
                 easeT = new();
                 AddInstance(easeT);
 
-                production = Blur = new ScreenDrawing.Shaders.Blur(0.505f);
-                production1 = new ScreenDrawing.Shaders.Filter(Shaders.StepSample, 0.51f);
-                splitter = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
+                production = Blur = new Blur(0.505f);
+                production1 = new Filter(Shaders.StepSample, 0.51f);
+                splitter = new RGBSplitting(0.9f) { Disturbance = false };
                 StepSample = Shaders.StepSample;
                 Blur.Sigma = 0f;
                 StepSample.Intensity = 0.0f;
@@ -1114,10 +1244,11 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
-                    int beat = 328;
+                    //int beat = 328;
+                    int beat = 200;
                     GametimeDelta = -1.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;

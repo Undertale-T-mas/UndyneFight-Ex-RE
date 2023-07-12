@@ -19,8 +19,8 @@ namespace Rhythm_Recall.Waves
         public Transcendence()
         {
             Game.game = new Game();
-            divisionImformation = new SaveInfo("imf{");
-            divisionImformation.PushNext(new SaveInfo("dif:4"));
+            divisionInformation = new SaveInfo("imf{");
+            divisionInformation.PushNext(new SaveInfo("dif:4"));
             difficulties = new();
             difficulties.Add("div2", Difficulty.Normal);
             difficulties.Add("div1", Difficulty.Extreme);
@@ -30,8 +30,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
         public partial class Game : WaveConstructor, IWaveSet
@@ -41,7 +41,7 @@ namespace Rhythm_Recall.Waves
                 GameStates.ResetScene(new TranscendenceAnomaly((int)Difficulty.Extreme));
             }
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -89,7 +89,7 @@ namespace Rhythm_Recall.Waves
                     }
                 }
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(62.5f / (190f / 60) / 4) { }
 

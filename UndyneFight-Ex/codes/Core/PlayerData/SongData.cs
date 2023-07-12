@@ -110,7 +110,7 @@ namespace UndyneFight_Ex.UserService
                 CurrentSongStates.Add(ToDif(v.Key), new SongState(v.Value));
         }
 
-        private SaveInfo GetImformation(Difficulty difficulty)
+        private SaveInfo GetInformation(Difficulty difficulty)
         {
             return CurrentSongStates[difficulty].ToInfo();
         }
@@ -119,7 +119,7 @@ namespace UndyneFight_Ex.UserService
         {
             SaveInfo info = new(songName + "{");
             foreach (Difficulty dif in CurrentSongStates.Keys)
-                info.PushNext(GetImformation(dif));
+                info.PushNext(GetInformation(dif));
             return info;
         }
         public void UpdateNew(Difficulty dif, SongResult result)
@@ -232,15 +232,15 @@ namespace UndyneFight_Ex.UserService
 
         private Tuple<float, float, float> GetDifficulty(IWaveSet waveSet, Difficulty difficulty)
         {
-            SongImformation imformation = waveSet.Attributes;
+            SongInformation Information = waveSet.Attributes;
 
             float dif1 = 0, dif2 = 0, dif3 = 0;
 
-            if (imformation != null)
+            if (Information != null)
             {
-                if (imformation.CompleteDifficulty.ContainsKey(difficulty)) dif1 = imformation.CompleteDifficulty[difficulty];
-                if (imformation.ComplexDifficulty.ContainsKey(difficulty)) dif2 = imformation.ComplexDifficulty[difficulty];
-                if (imformation.APDifficulty.ContainsKey(difficulty)) dif3 = imformation.APDifficulty[difficulty];
+                if (Information.CompleteDifficulty.ContainsKey(difficulty)) dif1 = Information.CompleteDifficulty[difficulty];
+                if (Information.ComplexDifficulty.ContainsKey(difficulty)) dif2 = Information.ComplexDifficulty[difficulty];
+                if (Information.APDifficulty.ContainsKey(difficulty)) dif3 = Information.APDifficulty[difficulty];
             }
 
             return new Tuple<float, float, float>(dif1, dif2, dif3);

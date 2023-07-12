@@ -8,7 +8,9 @@ namespace UndyneFight_Ex.GameInterface
 {
     public static class GameStartUp
     {
-        public static Action MainSceneIntro { internal get; set; } = () => { GameStates.InstanceCreate(new Entities.IntroUI()); };
+        public static bool CheckLevelExist { set => FightSystem.CheckLevelExist = value; }
+
+        public static Action MainSceneIntro { get; set; } = () => { GameStates.InstanceCreate(new Entities.IntroUI()); };
 
         private static List<Type> MainGameFights;
 

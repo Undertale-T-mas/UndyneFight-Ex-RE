@@ -17,6 +17,7 @@ namespace UndyneFight_Ex.Remake
             UI.Start = loader.Load<Texture2D>("UI\\start");
             UI.Tick = loader.Load<Texture2D>("UI\\tick");
             UI.ScrollArrow = loader.Load<Texture2D>("UI\\scrollArrow");
+            UI.Gear = loader.Load<Texture2D>("UI\\gear");
 
             Musics.DreamDiver_INTRO = new("ReEngine\\Musics\\Dream diver_INTRO.ogg");
             Musics.DreamDiver_LOOP = new("ReEngine\\Musics\\Dream diver_LOOP.ogg");
@@ -35,16 +36,14 @@ namespace UndyneFight_Ex.Remake
             for(int i = 0; i < 18; i++)
             {
                 FightSprites.ParasolMett[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_parasolmett_" + i);
-            }
-            for(int i = 0; i < 2; i++)
-            {
-                FightSprites.MettBomb[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_" + i);
-            }
-            for(int i = 0; i < 7; i++)
-            {
-                FightSprites.MettBombCoreBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_coreblast_" + i);
-                FightSprites.MettBombHorBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_horblast_" + i);
-                FightSprites.MettBombVerBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_verblast_" + i);
+                if (i < 7)
+                {
+                    FightSprites.MettBombCoreBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_coreblast_" + i);
+                    FightSprites.MettBombHorBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_horblast_" + i);
+                    FightSprites.MettBombVerBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_verblast_" + i);
+                    if (i < 2)
+                        FightSprites.MettBomb[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_" + i);
+                }
             }
 
             MainLoader = loader; UIShaders.Load(loader);
@@ -60,6 +59,7 @@ namespace UndyneFight_Ex.Remake
             public static Texture2D Start { get; set; }
             public static Texture2D Tick { get; set; }
             public static Texture2D ScrollArrow { get; set; }
+            public static Texture2D Gear { get; set; }
         }
         public static class Musics
         {

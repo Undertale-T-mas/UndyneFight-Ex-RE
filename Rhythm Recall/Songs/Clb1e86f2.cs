@@ -29,8 +29,8 @@ namespace Rhythm_Recall.Waves
         private readonly Dictionary<string, Difficulty> difficulties = new();
         public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
-        public SaveInfo DivisionImformation => divisionImformation;
-        public SaveInfo divisionImformation;
+        public SaveInfo DivisionInformation => divisionInformation;
+        public SaveInfo divisionInformation;
 
         public IWaveSet GameContent => new Game();
 
@@ -496,7 +496,7 @@ namespace Rhythm_Recall.Waves
                 }
             }
 
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -524,7 +524,7 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "?";
                 public override string SongAuthor => "?";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(62.5f / (200f / 60) / 1) { }
 

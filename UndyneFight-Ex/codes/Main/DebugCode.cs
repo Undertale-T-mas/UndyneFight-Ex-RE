@@ -23,7 +23,7 @@ namespace UndyneFight_Ex
              } byte[] res = bytes.ToArray();
 
              IO.IOEvent.WriteTmpFile("Taster.Tmpf", bytes);*/
-            //var s = TEngine.Network.ImformationLibrary.GetIP();
+            //var s = TEngine.Network.InformationLibrary.GetIP();
             //byte[] bytes = { 1, 2, 3, 4, 5, 6, 7 };
             //byte[] res = IO.IOEvent.Decoder(IO.IOEvent.Encoder(new List<byte>(bytes))).ToArray();
             //    var v= MathUtil.StringHash("Evelyne");

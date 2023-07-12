@@ -29,7 +29,7 @@ namespace AprilExtends
 
         public class Game : WaveConstructor, IWaveSet
         {
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -48,7 +48,7 @@ namespace AprilExtends
                     );
 
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
 
             public Game() : base(62.5f / (156 / 60f)) { }
 

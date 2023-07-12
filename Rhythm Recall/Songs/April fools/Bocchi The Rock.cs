@@ -29,7 +29,7 @@ namespace AprilExtends
             public string Music => "Bocchi The Rock";
 
             public string FightName => "Bocchi The Rock";
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -50,7 +50,7 @@ namespace AprilExtends
                 public override string AttributeAuthor => "Woem";
                 public override string SongAuthor => "Kessoku Band";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
             private bool notRegistered = true;
             public static Game game;
             public void SetOffset(Arrow arrow, float offset)

@@ -7,9 +7,15 @@ namespace UndyneFight_Ex
 {
     public static class FightSystem
     {
+        internal static bool CheckLevelExist { get; set; } = true;
         public static void Initialize(List<Type> loadItems)
         {
-            if (loadItems == null) throw new Exception("There is no levels in your game!");
+            if (loadItems == null)
+            {
+                if (CheckLevelExist)
+                    throw new Exception("There is no levels in your game!");
+                else return;
+            }
             foreach (var v in loadItems)
             {
                 mainSongs.Add(v);

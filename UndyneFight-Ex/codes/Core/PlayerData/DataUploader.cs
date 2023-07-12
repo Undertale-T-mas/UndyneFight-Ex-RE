@@ -34,7 +34,7 @@ namespace UndyneFight_Ex.UserService
         }
         public void Upload()
         {
-            if (!GameJoltImformation.Authed) { return; }
+            if (!GameJoltInformation.Authed) { return; }
             GameStates.InstanceCreate(new InfoText("Please wait", Color.White));
             Task<GameJolt.Response> task1 = UploadRating();
             Task<GameJolt.Response>[] all = { task1 };
@@ -64,7 +64,7 @@ namespace UndyneFight_Ex.UserService
         private async Task<GameJolt.Response> UploadRating()
         {
             var GJ = GameStates.GameJolt;
-            return await GJ.Scores.AddAsync(GameJoltImformation.Credential, (int)(Skill * 1.0 * 1000000), MathUtil.FloatToString(Skill, 4), "", 716130);
+            return await GJ.Scores.AddAsync(GameJoltInformation.Credential, (int)(Skill * 1.0 * 1000000), MathUtil.FloatToString(Skill, 4), "", 716130);
         }
     }
 }

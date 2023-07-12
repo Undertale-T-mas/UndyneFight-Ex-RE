@@ -62,7 +62,7 @@ namespace UndyneFight_Ex.Entities
             };
         }
 
-        #region Player's imformation
+        #region Player's Information
         private string name;
         private User info;
         private bool isVIP;

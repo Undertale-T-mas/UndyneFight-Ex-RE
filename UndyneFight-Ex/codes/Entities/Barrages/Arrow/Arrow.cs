@@ -30,6 +30,7 @@ namespace UndyneFight_Ex.Entities
         /// <param name="rotatingType">旋转模式，0正常，1黄，2绿</param>
         public Arrow(Player.Heart mission, float shootShieldTime, int way, float speed, int color, int rotatingType)
         {
+            if(color < 0 || color >= 4) throw new ArgumentOutOfRangeException(nameof(color));
             if (Mirror) color ^= 1;
             basicScale = ArrowScale;
 

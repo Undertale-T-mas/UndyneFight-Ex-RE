@@ -85,7 +85,7 @@ namespace Rhythm_Recall.Waves
             //GameStates.;
             CreateMenu();
 
-            PlayerImformation.AttackDamage = 1600;
+            PlayerInformation.AttackDamage = 1600;
 
             HeartAttribute.DamageTaken = 12;
             HeartAttribute.JumpTimeLimit = 1;
@@ -122,7 +122,7 @@ namespace Rhythm_Recall.Waves
                     AfterDispose = () => { ChangeRound(); }
                 });
                 HeartAttribute.DamageTaken += 2;
-                PlayerImformation.AttackDamage = 1800;
+                PlayerInformation.AttackDamage = 1800;
             }
             ));
             for (int i = 0; i < 4; i++)

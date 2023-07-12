@@ -31,7 +31,7 @@ namespace Rhythm_Recall.Waves
             public string Music => "Determination";
 
             public string FightName => "Determination";
-            private class ThisImformation : SongImformation
+            private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
@@ -55,7 +55,7 @@ namespace Rhythm_Recall.Waves
                 public override string AttributeAuthor => "Woem";
                 public override string SongAuthor => "Laur";
             }
-            public SongImformation Attributes => new ThisImformation();
+            public SongInformation Attributes => new ThisInformation();
             private bool notRegistered = true;
             public static Determination game;
             public class Lyric : Entity

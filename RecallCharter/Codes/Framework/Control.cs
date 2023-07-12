@@ -1,57 +1,84 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using UndyneFight_Ex;
+using UndyneFight_Ex.Remake;
 
 namespace RecallCharter
 {
-    internal abstract class CharterObject
+    public class Control : AutoEntity
     {
-        private static GameMain Instance => GameMain.instance;
-        protected Vector2 ToUVPosition(Vector2 origin)
-        {
-            return (origin - Instance.RenderPosition) / Instance.TrueSize;
-        }
-    }
-    internal class MouseData : CharterObject, IUpdate
-    {
-        public void Update()
-        {
-            MouseState state = Mouse.GetState();
-            GlobalPosition = ToUVPosition(state.Position.ToVector2());
-        }
-        /// <summary>
-        /// A vector2 indicates the position of the mouse. From (0, 0) for TopLeft to (1, 1) for BottomRight
-        /// </summary>
-        public Vector2 GlobalPosition { get; private set; }
-    }
-    internal abstract class Control : CharterObject, IUpdate
-    {
-        public List<Control> ChildrenControl = new();
-        protected Control Father { get; private set; }
-        public Vector2 RelativePosition { get; private set; }
+        public Control() { ChildrenUpdateFirst = true; UpdateIn120 = true; }
 
-        public void Update()
+        protected bool EnableWhenFocused { private get; set; } = true;
+
+        public bool IsEnabled { get; protected set; }
+        protected bool IsFocused { get; private set; }
+        protected Control FocusedKid { get; private set; }
+
+        public bool MouseOn { get; private set; }
+
+        protected Control Father { get; private set; }
+
+        public override void Start()
         {
+            this.Father = FatherObject as Control;
+            base.Start();
         }
-        private bool isStarted = false;
-        protected abstract void Start();
-        protected void TreeUpdate()
+
+        Vector2 _relatedPosition = Vector2.Zero;
+        public bool _posUpdated = false;    
+
+        private bool _deattaching = false;
+        public void Deattach()
         {
-            Update();
-            ChildrenControl.ForEach(s =>
+            _deattaching = true;
+        }
+
+        public override void Update()
+        {
+            if (_deattaching)
             {
-                if (!s.isStarted) { s.isStarted = true; s.Start(); }
-                s.TreeUpdate();
-            });
+                Father.Deattach();
+                this.IsEnabled = false;
+                this.IsFocused = false;
+                _deattaching = false;
+                return;
+            }
+            if (!Father.IsEnabled) {
+                return; 
+            }
+            if(!_posUpdated)
+            {
+                _posUpdated = true;
+                this._relatedPosition = this.collidingBox.TopLeft;
+            }
+            this.collidingBox.TopLeft = this.Father.collidingBox.TopLeft + _relatedPosition;
+            this.MouseOn = this.CollidingBox.Contain(MouseSystem.TransferredPosition);
+            if (this.FocusedKid != null && (!FocusedKid.IsFocused)) {
+                this.FocusedKid = null;
+                foreach(Control ctr in this.ChildObjects) { 
+                    if(ctr.IsFocused)
+                    {
+                        FocusedKid = ctr;
+                        break;
+                    }
+                };
+            }
+            if (this.FocusedKid != null)
+            {
+                this.IsFocused = true;
+            }
+            else if (this.MouseOn)
+            {
+                this.IsFocused = true;
+                if (this.FocusedKid == null)
+                    MasterControl.FocusControl = this;
+            }
+            else this.IsFocused = false;
+            if (this.IsFocused) this.Father.FocusedKid = this;
+            if(this.EnableWhenFocused) { this.IsEnabled = this.IsFocused; }
         }
-    }
-    interface IUpdate
-    {
-        void Update();
-    }
-    interface IMouseClick
-    {
-        void Click(MouseData data);
-        void MouseOn();
     }
 }
