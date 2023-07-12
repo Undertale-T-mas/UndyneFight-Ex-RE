@@ -367,13 +367,13 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("KickA", () =>
                     {
                         Line a = new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 0), new Vector2(120, 90), EaseState.Quart),
-                            Stable(BeatTime(0.2f),new Vector2(320,240))).Easing, 
+                            Stable(BeatTime(0),new Vector2(320,240))).Easing, 
                             Stable(BeatTime(1), -37.5f).Easing)
-                        { Alpha = 0.75f };
+                        { Alpha = 0.6f };
                         Line b = new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 480), new Vector2(120, 480 - 90), EaseState.Quart),
-                            Stable(BeatTime(0.2f), new Vector2(160, 120))).Easing,
+                            Stable(BeatTime(0), new Vector2(160, 120))).Easing,
                             Stable(BeatTime(1), 37.5f).Easing)
-                        { Alpha = 0.75f };
+                        { Alpha = 0.6f };
                         Line[] lines = { a, b };
                         foreach (Line l in lines)
                         {
@@ -383,8 +383,8 @@ namespace Rhythm_Recall.Waves
                             {
                                 l.InsertRetention(new(i * 3, 0.75f - i * 0.05f));
                             }
-                            DelayBeat(0, () => { l.AlphaDecrease(BeatTime(1), 0.75f); });
-                            DelayBeat(1, () => { l.Dispose(); });
+                            DelayBeat(0, () => { l.AlphaDecrease(BeatTime(1.2f), 0.75f); });
+                            DelayBeat(1.2f, () => { l.Dispose(); });
                         }
                     });
                     RegisterFunctionOnce("KickB1", () => 
