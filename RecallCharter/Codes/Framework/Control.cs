@@ -18,6 +18,7 @@ namespace RecallCharter
         protected Control FocusedKid { get; private set; }
 
         public bool MouseOn { get; private set; }
+        public bool ClickToFocus { get; private set; } = false;
 
         protected Control Father { get; private set; }
 
@@ -43,6 +44,7 @@ namespace RecallCharter
                 Father.Deattach();
                 this.IsEnabled = false;
                 this.IsFocused = false;
+                this.MouseOn = false;
                 _deattaching = false;
                 return;
             }
@@ -70,7 +72,7 @@ namespace RecallCharter
             {
                 this.IsFocused = true;
             }
-            else if (this.MouseOn)
+            else if (this.MouseOn && (!ClickToFocus || MouseSystem.IsLeftClick()))
             {
                 this.IsFocused = true;
                 if (this.FocusedKid == null)

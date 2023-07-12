@@ -530,6 +530,7 @@ namespace UndyneFight_Ex.Fight
 
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
+                        if (Shader == null && MathF.Abs(RandomDisturb) + Intensity < 0.5f) return obj;
                         MissionTarget = screen;
 
                         if (Disturbance)

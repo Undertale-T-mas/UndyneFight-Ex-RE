@@ -343,7 +343,7 @@ namespace UndyneFight_Ex
             {
                 return image;
             }
-            protected set
+            set
             {
                 if (value == null) return;
                 image = value;
