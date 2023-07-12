@@ -162,7 +162,7 @@ namespace Rhythm_Recall.Waves
             }
             Winder r = new(), s = null;
             static Arrow.UnitEasing easeA = null, easeB = null, easeC = null, easeD, easeE, easeF, easeG, easeH, easeI, easeJ, easeK;
-            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW;
+            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW, easeS, easeT;
             static Arrow.ClassicApplier easeK1, easeK2, easeK3;
             public void ExtremePlus()
             {
@@ -1125,6 +1125,10 @@ namespace Rhythm_Recall.Waves
                             easeK1.ApplyDelay(BeatTime(2));
                         });
                         easeK1.TagApply("K1");
+                        easeS.TagApply("S");
+                        easeT.TagApply("T");
+                        easeS.SelfRotationEase(Stable(1, 21));
+                        easeT.SelfRotationEase(Stable(1, -21));
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {
@@ -1154,7 +1158,7 @@ namespace Rhythm_Recall.Waves
                         //4
                         "!!3", "($31)(+01)", "$11", "$21",    "!!3", "$31", "$11", "$01",
                         "!!3", "($01)(+01)", "$11", "$21",    "!!3", "$01", "$31", "$21",
-                        "($01)($2)($01)($2)", "", "", "",    "", "", "", "",
+                        "($01'1.4@S)($2'1.4@S)($01'2.1@T)($2'2.1@T)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",     
  
                         //5
@@ -1189,15 +1193,6 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-                Arrow[] ars1 = GetAll<Arrow>("AKA");
-                for (int a = 0; a < ars1.Length; a++)
-                {
-                    int x = a;
-                    DelayBeat(3, () =>
-                    {
-                        ars1[x].Stop(BeatTime(2));
-                    });
-                }
                 AddInstance(easeA = new Arrow.UnitEasing()
                 {
                     ApplyTime = BeatTime(2.75f),
@@ -1240,6 +1235,10 @@ namespace Rhythm_Recall.Waves
                 AddInstance(easeV);
                 easeW = new();
                 AddInstance(easeW);
+                easeS = new();
+                AddInstance(easeS);
+                easeT = new();
+                AddInstance(easeT);
 
                 production = Blur = new Blur(0.505f);
                 production1 = new Filter(Shaders.StepSample, 0.51f);
