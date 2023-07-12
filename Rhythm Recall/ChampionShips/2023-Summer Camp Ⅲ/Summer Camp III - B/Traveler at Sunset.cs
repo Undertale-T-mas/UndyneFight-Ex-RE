@@ -277,10 +277,15 @@ namespace Rhythm_Recall.Waves
                             line.Dispose();
                         }
                     });
+                    RegisterFunctionOnce("Test", () =>
+                    {
+                        float[] args = Arguments;
+                        ;
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
-                        "","","","",    "","","","",
+                        "<4,5>Test(<2,3>Test)","","","",    "","","","",
                         //1
                         "","","","",    "","","","",
                         "","","","",    "","","","",
