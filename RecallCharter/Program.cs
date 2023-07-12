@@ -9,5 +9,6 @@ Entity.DrawOptimize = false;
 UndyneFight_Ex.Settings.SettingsManager.DataLibrary.DrawFPS = 999f;
 
 GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new MasterControl()); };
+GameStartUp.Initialize += Resources.Initialize;
 
 GameStartUp.StartGame();

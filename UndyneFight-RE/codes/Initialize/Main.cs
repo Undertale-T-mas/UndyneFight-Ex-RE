@@ -30,7 +30,7 @@ namespace UndyneFight_Ex.Remake
             
          // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SelectUI()); LateInitialize(); };
             GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.UserUI()); LateInitialize(); };
-            // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SettingUI()); LateInitialize(); };
+           //   GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SettingUI()); LateInitialize(); };
             GameStartUp.Initialize += (loader) => { LateInitialize(); };
 
  

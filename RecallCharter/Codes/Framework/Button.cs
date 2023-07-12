@@ -38,6 +38,8 @@ namespace RecallCharter
                 this.Image = temp;
                 this.Depth = depthTemp;
             }
+            if (this.Image != null)
+                this.FormalDraw(this.Image, this.Centre, Color.White, 0, ImageCentre);
             base.Draw();
         }
     }

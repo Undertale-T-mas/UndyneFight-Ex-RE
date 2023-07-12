@@ -208,7 +208,7 @@ namespace UndyneFight_Ex
         {
             float frameTime = 1000f / DrawFPS;
             if(_totalElapsedMS > frameTime)
-            {
+            { 
                 _totalElapsedMS -= frameTime;
                 return true;
             }

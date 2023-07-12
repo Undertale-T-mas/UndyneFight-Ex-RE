@@ -221,6 +221,12 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(line3);
                         Line line4 = new(EaseIn(BeatTime(6), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 0).Easing);
                         CreateEntity(line4);
+                        Line[] lines = { line1, line2, line3, line4 };
+                        foreach (Line line in lines)
+                        {
+                            line.Alpha = 0.0f;
+                            line.AlphaIncrease(BeatTime(2), 0.8f);
+                        }
                     });
                     RegisterFunctionOnce("LineCenter45", () =>
                     {
@@ -232,6 +238,12 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(line3);
                         Line line4 = new(EaseIn(BeatTime(4), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 45).Easing);
                         CreateEntity(line4);
+                        Line[] lines = { line1,  line2, line3, line4 };
+                        foreach(Line line in lines)
+                        {
+                            line.Alpha = 0.0f;
+                            line.AlphaIncrease(BeatTime(2), 0.8f);
+                        }
                     });
                     RegisterFunctionOnce("LineCenter8", () =>
                     {
@@ -246,11 +258,14 @@ namespace Rhythm_Recall.Waves
                         Line[] lines = { line1, line2, line3, line4, line5, line6, line7, line8 };
                         foreach (Line l in lines)
                         {
+                            l.Alpha = 0f;
                             CreateEntity(l);
+                            l.AlphaIncrease(BeatTime(2), 0.8f);
                             for (int i = 1; i < 2; i++)
                             {
                                 l.InsertRetention(new(i * 3, 0.7f - i * 0.07f));
                             }
+                            DelayBeat(10.0f, () => { l.AlphaDecrease(BeatTime(1.3f)); });
                             DelayBeat(12f, () => { l.Dispose(); });
                         }
                     });
@@ -302,7 +317,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",    "","","","",
                         "","","","",    "","","","ClearLine",
                         //8
-                        "GaussBlur(Soul1)(LineCenter8)","","LineCenter8","",    "LineCenter8","","LineCenter8","",
+                        "GaussBlur(Soul1)(LineCenter8)","","","",    "LineCenter8","","","",
                         "","","","",    "","","","",
                         "","","","(Soul1)",    "","","","",
                         "","","","",    "","","","",
