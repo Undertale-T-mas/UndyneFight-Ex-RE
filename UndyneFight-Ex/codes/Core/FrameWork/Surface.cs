@@ -273,7 +273,7 @@ namespace UndyneFight_Ex
         public static Surface Normal { get; private set; }
         public static Surface Hidden { get; private set; } 
          
-        public Color BackGroundColor { get; set; } = Color.Black;
+        public Color BackGroundColor { get; set; } = Color.Transparent;
         public bool DisableExpand { get; set; } = false;
         public event Action DoUpdate;
 
