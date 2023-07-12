@@ -390,6 +390,7 @@ namespace UndyneFight_Ex.SongSystem
             {
                 return null;
             }
+            if(string.IsNullOrWhiteSpace(origin)) { return null; }
             string originCopy = origin;
             string[] entityTags = ProduceTag(ref origin);
             bool isFunction = false;
@@ -545,12 +546,14 @@ namespace UndyneFight_Ex.SongSystem
                 { 
                     string[] argStrings = args.Split(',');
                     float[] argsFloat = new float[argStrings.Length];
+                    for(int i = 0; i < argsFloat.Length; i++) argsFloat[i] = MathUtil.FloatFromString(argStrings[i]);
 
                     if (DelayEnabled)
                     {
+                        Action action = chartingActions[origin];
                         GameObject[] list = { new InstantEvent(delay, () => {
                             Arguments = argsFloat;
-                            chartingActions[origin].Invoke(); 
+                            action.Invoke(); 
                         }) };
                         return list;
                     }
@@ -661,7 +664,7 @@ namespace UndyneFight_Ex.SongSystem
         public static float CurrentTime { get; private set; } = 0;
         public static bool DelayEnabled { private get; set; } = true;
 
-        public static float[] Arguments { get; private set; } ;
+        public static float[] Arguments { get; private set; } 
         /// <summary>
         /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>
         /// 箭头：<br/>
