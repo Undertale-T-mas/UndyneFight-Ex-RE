@@ -372,40 +372,31 @@ namespace UndyneFight_Ex.SongSystem
             return s;
         }
 
+        private string[] ProduceTag(ref string origin)
+        {
+            if (origin[^1] != '}') return null;
+            int tag = -1;
+            for (int i = 0; i < origin.Length; i++) if (origin[i] == '{') tag = i;
+            if (tag == -1) throw new ArgumentException($"{nameof(origin)} has no character '{{'", origin);
 
+            string result = origin[(tag + 1)..^1];
+            origin = origin[0..tag];
+
+            return result.Split(',');
+        }
         private IEnumerable<GameObject> MakeChartObject(float shootShieldTime, string origin, float speed, ArrowAttribute arrowAttribute, bool normalized)
         {
-            if (origin == "/" || string.IsNullOrWhiteSpace(origin))
+            if (origin == "/")
             {
                 return null;
             }
+            if(string.IsNullOrWhiteSpace(origin)) { return null; }
             string originCopy = origin;
-            string[] ProduceTag(ref string origin)
-            {
-                if (origin[^1] != '}') return null;
-                int tag = -1;
-                for (int i = 0; i < origin.Length; i++) if (origin[i] == '{') tag = i;
-                if (tag == -1) throw new ArgumentException($"{nameof(origin)} has no character '{{'", origin);
-
-                string result = origin[(tag + 1)..^1];
-                origin = origin[0..tag];
-
-                return result.Split(',');
-            }
             string[] entityTags = ProduceTag(ref origin);
-            if (chartingActions.ContainsKey(origin))
-            {
-                if (DelayEnabled)
-                {
-                    GameObject[] list = { new InstantEvent(shootShieldTime, chartingActions[origin]) };
-                    return list;
-                }
-                else
-                {
-                    chartingActions[origin].Invoke();
-                    return null;
-                }
-            }
+            bool isFunction = false;
+            GameObject[] results = TryGetObjects(origin, shootShieldTime, ref isFunction);
+            if (isFunction) return results;
+
             int speedPos = -1;
             int tagPos = -1;
             bool multiTag = false;
@@ -504,7 +495,7 @@ namespace UndyneFight_Ex.SongSystem
             if (GB)
             {
                 string way = origin[0..2];
-                if (normalized) result.Add(MakeArrow(shootShieldTime, way, speed * speedMul, origin[2] - '0', 0, arrowAttribute));
+                if (normalized) result.Add(arr = MakeArrow(shootShieldTime, way, speed * speedMul, origin[2] - '0', 0, arrowAttribute));
                 result.Add(new GreenSoulGB(shootShieldTime, "+0", origin[2] - '0', BeatTime(MathUtil.FloatFromString(cut))) { AppearVolume = Settings.GBAppearVolume, ShootVolume = Settings.GBShootVolume });
             }
             else result.Add(arr = MakeArrow(shootShieldTime, origin, speed * speedMul, origin[2] - '0', origin[3] - '0', arrowAttribute));
@@ -526,8 +517,74 @@ namespace UndyneFight_Ex.SongSystem
                 if (arr.RotateType == -1)
                     ;
                 if (isvoid) arr.VolumeFactor *= this.Settings.VoidArrowVolume;
+                LastArrow = arr;
             }
             return result;
+        }
+
+        private GameObject[] TryGetObjects(string origin, float delay, ref bool isFunction)
+        {
+            string args = "";
+            bool delayMode = DelayEnabled;
+            if (origin[0] == '<')
+            {
+                if (origin.Contains('>'))
+                {
+                    int i = 1;
+                    if (origin[1] == '!' && origin[2] == ',')
+                    {
+                        i = 3;
+                        delayMode = false;
+                    }
+                    for (; origin[i] != '>'; i++)
+                    {
+                        args += origin[i];
+                    }
+                    origin = origin[(i + 1)..];
+                }
+                else
+                {
+                    isFunction = false;
+                    return null;
+                }
+            }
+            if (chartingActions.ContainsKey(origin))
+            {
+                isFunction = true;
+                if (args != "")
+                { 
+                    string[] argStrings = args.Split(',');
+                    float[] argsFloat = new float[argStrings.Length];
+                    for(int i = 0; i < argsFloat.Length; i++) argsFloat[i] = MathUtil.FloatFromString(argStrings[i]);
+
+                    if (delayMode)
+                    {
+                        Action action = chartingActions[origin];
+                        GameObject[] list = { new InstantEvent(delay, () => {
+                            Arguments = argsFloat;
+                            action.Invoke(); 
+                        }) };
+                        return list;
+                    }
+                    else
+                    {
+                        Arguments = argsFloat;
+                        chartingActions[origin].Invoke();
+                        return null;
+                    }
+                }
+                if (delayMode)
+                {
+                    GameObject[] list = { new InstantEvent(delay, chartingActions[origin]) };
+                    return list;
+                }
+                else
+                {
+                    chartingActions[origin].Invoke();
+                    return null;
+                }
+            }
+            return null;
         }
 
         public class ChartSettings
@@ -599,6 +656,7 @@ namespace UndyneFight_Ex.SongSystem
         }
 
         private Dictionary<string, Action> chartingActions = new();
+
         public void RegisterFunction(string name, Action action)
         {
             if (chartingActions.ContainsKey(name)) chartingActions[name] = action;
@@ -612,8 +670,12 @@ namespace UndyneFight_Ex.SongSystem
             chartingActions.Add(name, action);
             removingActions.Add(name);
         }
+
+        protected static Arrow LastArrow { get; private set; }
         public static float CurrentTime { get; private set; } = 0;
         public static bool DelayEnabled { private get; set; } = true;
+
+        public static float[] Arguments { get; private set; } 
         /// <summary>
         /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>
         /// 箭头：<br/>
@@ -641,10 +703,11 @@ namespace UndyneFight_Ex.SongSystem
             int currentCount = 4;
             for (int i = 0; i < Barrage.Length; i++)
             {
-                if (Barrage[i].Length > 2)
+                string cur = Barrage[i];
+                if (cur.Length > 2)
                 {
                     //改变间隔
-                    if (Barrage[i][0..2] == "!!")
+                    if (cur[0..2] == "!!")
                     {
                         string str = Barrage[i][2..];
                         int pos = -1;
@@ -666,14 +729,15 @@ namespace UndyneFight_Ex.SongSystem
                         }
                         continue;
                     }
-                    else if (Barrage[i][0..2] == "''")
+                    else if (cur[0..2] == "''")
                     {
-                        arrowspeed = MathUtil.FloatFromString(Barrage[i][2..]);
+                        arrowspeed = MathUtil.FloatFromString(cur[2..]);
                         continue;
                     }
                 }
                 CurrentTime = t;
-                NormalizedChart(t, arrowspeed, Barrage[i]);
+                if (!string.IsNullOrWhiteSpace(cur))
+                    NormalizedChart(t, arrowspeed, cur);
                 t += Beat / (currentCount * 2f);
                 if (effectLast > 0)
                     effectLast--;

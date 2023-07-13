@@ -16,7 +16,7 @@ namespace RecallCharter
         public override void Draw()
         {
             if (!Father.IsEnabled) return;
-            Resources.Font.Normal.CentreDraw(Text, this.Centre, FontColor, Scale, Depth);
+            UndyneFight_Ex.Remake.Resources.Font.Normal.CentreDraw(Text, this.Centre, FontColor, Scale, Depth);
             base.Draw();
         }
     }

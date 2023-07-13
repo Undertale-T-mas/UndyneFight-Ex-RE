@@ -119,16 +119,20 @@ namespace UndyneFight_Ex.Entities
                         if (counts[i] <= 1) continue;
                         timeSame.ForEach(s => { if (s.Way == i) s.GoldenMarkIntensity = 2; });
                     }
-                    /*    Arrow[] cur = timeSame.ToArray();
-                        for(int i = 1; i < cur.Length; i++)
+                    if (EnabledLine)
+                    {
+                        Arrow[] cur = timeSame.ToArray();
+                        for (int i = 1; i < cur.Length; i++)
                         {
                             if ((cur[i].Way - cur[i - 1].Way + 40) % 4 == 2) continue;
                             this.AddChild(new MultiTag(cur[i], cur[i - 1]));
-                        }*/
+                        }
+                    }
                     timeSame.Clear();
                 };
                 for (int i = 0; i < arrows.Length; i++)
                 {
+                    if (arrows[i].BlockTime - Fight.Functions.GametimeF > MaxTime) break;
                     if (i != 0 && arrows[i].BlockTime - arrows[i - 1].BlockTime > SpecifyTime)
                     {
                         add();
@@ -140,6 +144,8 @@ namespace UndyneFight_Ex.Entities
         }
         public float SpecifyTime { get; set; } = 0.6f;
         public bool EnabledGolden { get; set; } = true;
+        public bool EnabledLine { get; set; } = true;
+        public float MaxTime { get; set; } = 150f;
 
         public List<Arrow> AllArrows { get; init; } = new();
         public Dictionary<string, List<Arrow>> TaggedArrows { get; init; } = new();

@@ -243,6 +243,18 @@ namespace UndyneFight_Ex
             }
             return ret;
         }
+        public static ulong QuickPow(ulong a, ulong b, ulong mod)
+        {
+            ulong ret = 1, pow = a;
+
+            while (b != 0)
+            {
+                if ((b & 1) == 1) ret = pow * ret % mod;
+                pow = pow * pow % mod;
+                b /= 2;
+            }
+            return ret;
+        }
         public static float Posmod(float a, float b)
         {
             var value = a % b;

@@ -60,7 +60,7 @@ namespace Rhythm_Recall
                     throw new Exception();
                 }
             }
-            ResetDPI();
+            ResetDPI(); 
 
             try
             {
