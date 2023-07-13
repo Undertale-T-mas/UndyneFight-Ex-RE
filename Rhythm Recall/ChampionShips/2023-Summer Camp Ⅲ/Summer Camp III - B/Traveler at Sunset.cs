@@ -162,7 +162,7 @@ namespace Rhythm_Recall.Waves
             }
             Winder r = new(), s = null;
             static Arrow.UnitEasing easeA = null, easeB = null, easeC = null, easeD, easeE, easeF, easeG, easeH, easeI, easeJ, easeK;
-            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW;
+            static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW, easeS, easeT;
             static Arrow.ClassicApplier easeK1, easeK2, easeK3;
             public void ExtremePlus()
             {
@@ -221,6 +221,12 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(line3);
                         Line line4 = new(EaseIn(BeatTime(6), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 0).Easing);
                         CreateEntity(line4);
+                        Line[] lines = { line1, line2, line3, line4 };
+                        foreach (Line line in lines)
+                        {
+                            line.Alpha = 0.0f;
+                            line.AlphaIncrease(BeatTime(2), 0.8f);
+                        }
                     });
                     RegisterFunctionOnce("LineCenter45", () =>
                     {
@@ -232,6 +238,12 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(line3);
                         Line line4 = new(EaseIn(BeatTime(4), new Vector2(320, 240), new Vector2(320, 560), EaseState.Sine).Easing, Stable(BeatTime(2), 45).Easing);
                         CreateEntity(line4);
+                        Line[] lines = { line1,  line2, line3, line4 };
+                        foreach(Line line in lines)
+                        {
+                            line.Alpha = 0.0f;
+                            line.AlphaIncrease(BeatTime(2), 0.8f);
+                        }
                     });
                     RegisterFunctionOnce("LineCenter8", () =>
                     {
@@ -246,11 +258,14 @@ namespace Rhythm_Recall.Waves
                         Line[] lines = { line1, line2, line3, line4, line5, line6, line7, line8 };
                         foreach (Line l in lines)
                         {
+                            l.Alpha = 0f;
                             CreateEntity(l);
+                            l.AlphaIncrease(BeatTime(2), 0.8f);
                             for (int i = 1; i < 2; i++)
                             {
                                 l.InsertRetention(new(i * 3, 0.7f - i * 0.07f));
                             }
+                            DelayBeat(10.0f, () => { l.AlphaDecrease(BeatTime(1.3f)); });
                             DelayBeat(12f, () => { l.Dispose(); });
                         }
                     });
@@ -262,10 +277,15 @@ namespace Rhythm_Recall.Waves
                             line.Dispose();
                         }
                     });
+                    RegisterFunctionOnce("Test", () =>
+                    {
+                        float[] args = Arguments;
+                        ;
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
-                        "","","","",    "","","","",
+                        "<4,5>Test(<2,3>Test)","","","",    "","","","",
                         //1
                         "","","","",    "","","","",
                         "","","","",    "","","","",
@@ -302,7 +322,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",    "","","","",
                         "","","","",    "","","","ClearLine",
                         //8
-                        "GaussBlur(Soul1)(LineCenter8)","","LineCenter8","",    "LineCenter8","","LineCenter8","",
+                        "GaussBlur(Soul1)(LineCenter8)","","","",    "LineCenter8","","","",
                         "","","","",    "","","","",
                         "","","","(Soul1)",    "","","","",
                         "","","","",    "","","","",
@@ -367,13 +387,13 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("KickA", () =>
                     {
                         Line a = new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 0), new Vector2(120, 90), EaseState.Quart),
-                            Stable(BeatTime(0.2f),new Vector2(320,240))).Easing, 
+                            Stable(BeatTime(0),new Vector2(320,240))).Easing, 
                             Stable(BeatTime(1), -37.5f).Easing)
-                        { Alpha = 0.75f };
+                        { Alpha = 0.6f };
                         Line b = new(LinkEase(EaseOut(BeatTime(0.8f), new Vector2(0, 480), new Vector2(120, 480 - 90), EaseState.Quart),
-                            Stable(BeatTime(0.2f), new Vector2(160, 120))).Easing,
+                            Stable(BeatTime(0), new Vector2(160, 120))).Easing,
                             Stable(BeatTime(1), 37.5f).Easing)
-                        { Alpha = 0.75f };
+                        { Alpha = 0.6f };
                         Line[] lines = { a, b };
                         foreach (Line l in lines)
                         {
@@ -383,8 +403,8 @@ namespace Rhythm_Recall.Waves
                             {
                                 l.InsertRetention(new(i * 3, 0.75f - i * 0.05f));
                             }
-                            DelayBeat(0, () => { l.AlphaDecrease(BeatTime(1), 0.75f); });
-                            DelayBeat(1, () => { l.Dispose(); });
+                            DelayBeat(0, () => { l.AlphaDecrease(BeatTime(1.2f), 0.75f); });
+                            DelayBeat(1.2f, () => { l.Dispose(); });
                         }
                     });
                     RegisterFunctionOnce("KickB1", () => 
@@ -1110,6 +1130,10 @@ namespace Rhythm_Recall.Waves
                             easeK1.ApplyDelay(BeatTime(2));
                         });
                         easeK1.TagApply("K1");
+                        easeS.TagApply("S");
+                        easeT.TagApply("T");
+                        easeS.SelfRotationEase(Stable(1, 21));
+                        easeT.SelfRotationEase(Stable(1, -21));
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {
@@ -1139,7 +1163,7 @@ namespace Rhythm_Recall.Waves
                         //4
                         "!!3", "($31)(+01)", "$11", "$21",    "!!3", "$31", "$11", "$01",
                         "!!3", "($01)(+01)", "$11", "$21",    "!!3", "$01", "$31", "$21",
-                        "($01)($2)($01)($2)", "", "", "",    "", "", "", "",
+                        "($01'1.4@S)($2'1.4@S)($01'2.1@T)($2'2.1@T)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",     
  
                         //5
@@ -1174,15 +1198,6 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-                Arrow[] ars1 = GetAll<Arrow>("AKA");
-                for (int a = 0; a < ars1.Length; a++)
-                {
-                    int x = a;
-                    DelayBeat(3, () =>
-                    {
-                        ars1[x].Stop(BeatTime(2));
-                    });
-                }
                 AddInstance(easeA = new Arrow.UnitEasing()
                 {
                     ApplyTime = BeatTime(2.75f),
@@ -1225,6 +1240,10 @@ namespace Rhythm_Recall.Waves
                 AddInstance(easeV);
                 easeW = new();
                 AddInstance(easeW);
+                easeS = new();
+                AddInstance(easeS);
+                easeT = new();
+                AddInstance(easeT);
 
                 production = Blur = new Blur(0.505f);
                 production1 = new Filter(Shaders.StepSample, 0.51f);

@@ -145,6 +145,12 @@
 /processorParam:TextureFormat=Color
 /build:Global/Shaders/Effect Library/BallShaping/noise.png
 
+#begin Global/Shaders/Effect Library/BlockTile.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/BlockTile.fx
+
 #begin Global/Shaders/Effect Library/Blur.fx
 /importer:EffectImporter
 /processor:EffectProcessor

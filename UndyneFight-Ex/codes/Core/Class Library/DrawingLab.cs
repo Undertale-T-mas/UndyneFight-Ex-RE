@@ -255,6 +255,8 @@ namespace UndyneFight_Ex
         {
             try
             {
+                if (string.IsNullOrEmpty(texts)) 
+                    return;
                 MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, 0, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
             }
             catch

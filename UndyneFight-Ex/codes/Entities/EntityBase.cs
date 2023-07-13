@@ -227,9 +227,9 @@ namespace UndyneFight_Ex
         public Color BlendColor { set; private get; } = Color.White;
         public float Alpha { get; set; }
 
-        public sealed override void Draw()
+        public override void Draw()
         {
-            if (Alpha <= 0) return;
+            if (Alpha <= 0 || Image == null) return;
             FormalDraw(Image, Centre, BlendColor * Alpha, Scale, Rotation, ImageCentre);
         }
     }
@@ -343,8 +343,9 @@ namespace UndyneFight_Ex
             {
                 return image;
             }
-            protected set
+            set
             {
+                if (value == null) return;
                 image = value;
                 ImageCentre = new Vector2(value.Width, value.Height) / 2.0f;
             }
@@ -360,6 +361,10 @@ namespace UndyneFight_Ex
             get
             {
                 return collidingBox;
+            }
+            init
+            {
+                this.collidingBox = value;
             }
         }
 
@@ -508,6 +513,7 @@ namespace UndyneFight_Ex
 
     public abstract class GameObject
     {
+        protected bool ChildrenUpdateFirst { private get; set; } = false;
         protected Scene CurrentScene => GameStates.CurrentScene;
         public bool UpdateIn120 { get; init; } = false;
         public bool BeingUpdated { get; protected set; } = false;
@@ -556,7 +562,7 @@ namespace UndyneFight_Ex
         private Tag[] tags;
 
         public object Extras { get; set; }
-        protected internal List<GameObject> ChildObjects { get; private set; } = new List<GameObject>();
+        public List<GameObject> ChildObjects { get; private set; } = new List<GameObject>();
 
         public abstract void Update();
         public virtual void Start() { }
@@ -564,6 +570,8 @@ namespace UndyneFight_Ex
         internal void TreeUpdate()
         {
             if (disposed) return;
+            if (ChildrenUpdateFirst)
+                ChildObjects.ForEach(s => s.TreeUpdate());
             if (Update120F || UpdateIn120)
             {
                 if (!BeingUpdated) Start();
@@ -584,7 +592,8 @@ namespace UndyneFight_Ex
                     return result;
                 }
             );
-            ChildObjects.ForEach(s => s.TreeUpdate());
+            if (!ChildrenUpdateFirst)
+                ChildObjects.ForEach(s => s.TreeUpdate());
         }
 
         private bool disposed = false;

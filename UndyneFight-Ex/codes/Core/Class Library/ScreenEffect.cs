@@ -405,6 +405,12 @@ namespace UndyneFight_Ex.Fight
                 SceneRendering.InsertProduction(textureFilter);
                 return textureFilter;
             }
+            public static Shaders.Filter ActivateShaderBack(Shader shader, float depth = 0.5f)
+            {
+                Shaders.Filter textureFilter = new Shaders.Filter(shader, depth);
+                BackGroundRendering.InsertProduction(textureFilter);
+                return textureFilter;
+            }
 
             public static class Shaders
             {
@@ -530,6 +536,7 @@ namespace UndyneFight_Ex.Fight
 
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
+                        if (Shader == null && (MathF.Abs(RandomDisturb) + Intensity) * AdaptingScale < 0.8f) return obj;
                         MissionTarget = screen;
 
                         if (Disturbance)

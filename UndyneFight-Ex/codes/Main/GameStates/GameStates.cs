@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -167,6 +168,7 @@ namespace UndyneFight_Ex
             NameShower.level = -1;
             NameShower.name = null;
 
+            Surface.Hidden.BackGroundColor = Color.Black;
             FightBox.boxs = new List<FightBox>();
 
             Fight.FightStates.roundType = false;
