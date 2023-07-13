@@ -495,7 +495,7 @@ namespace UndyneFight_Ex.SongSystem
             if (GB)
             {
                 string way = origin[0..2];
-                if (normalized) result.Add(MakeArrow(shootShieldTime, way, speed * speedMul, origin[2] - '0', 0, arrowAttribute));
+                if (normalized) result.Add(arr = MakeArrow(shootShieldTime, way, speed * speedMul, origin[2] - '0', 0, arrowAttribute));
                 result.Add(new GreenSoulGB(shootShieldTime, "+0", origin[2] - '0', BeatTime(MathUtil.FloatFromString(cut))) { AppearVolume = Settings.GBAppearVolume, ShootVolume = Settings.GBShootVolume });
             }
             else result.Add(arr = MakeArrow(shootShieldTime, origin, speed * speedMul, origin[2] - '0', origin[3] - '0', arrowAttribute));
@@ -517,6 +517,7 @@ namespace UndyneFight_Ex.SongSystem
                 if (arr.RotateType == -1)
                     ;
                 if (isvoid) arr.VolumeFactor *= this.Settings.VoidArrowVolume;
+                LastArrow = arr;
             }
             return result;
         }
@@ -524,13 +525,21 @@ namespace UndyneFight_Ex.SongSystem
         private GameObject[] TryGetObjects(string origin, float delay, ref bool isFunction)
         {
             string args = "";
+            bool delayMode = DelayEnabled;
             if (origin[0] == '<')
             {
                 if (origin.Contains('>'))
                 {
-                    int i;
-                    for(i = 1; origin[i] != '>'; i++)
+                    int i = 1;
+                    if (origin[1] == '!' && origin[2] == ',')
+                    {
+                        i = 3;
+                        delayMode = false;
+                    }
+                    for (; origin[i] != '>'; i++)
+                    {
                         args += origin[i];
+                    }
                     origin = origin[(i + 1)..];
                 }
                 else
@@ -548,7 +557,7 @@ namespace UndyneFight_Ex.SongSystem
                     float[] argsFloat = new float[argStrings.Length];
                     for(int i = 0; i < argsFloat.Length; i++) argsFloat[i] = MathUtil.FloatFromString(argStrings[i]);
 
-                    if (DelayEnabled)
+                    if (delayMode)
                     {
                         Action action = chartingActions[origin];
                         GameObject[] list = { new InstantEvent(delay, () => {
@@ -564,7 +573,7 @@ namespace UndyneFight_Ex.SongSystem
                         return null;
                     }
                 }
-                if (DelayEnabled)
+                if (delayMode)
                 {
                     GameObject[] list = { new InstantEvent(delay, chartingActions[origin]) };
                     return list;
@@ -661,6 +670,8 @@ namespace UndyneFight_Ex.SongSystem
             chartingActions.Add(name, action);
             removingActions.Add(name);
         }
+
+        protected static Arrow LastArrow { get; private set; }
         public static float CurrentTime { get; private set; } = 0;
         public static bool DelayEnabled { private get; set; } = true;
 
