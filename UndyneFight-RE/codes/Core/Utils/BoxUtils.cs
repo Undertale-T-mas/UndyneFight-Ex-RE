@@ -36,7 +36,7 @@ namespace UndyneFight_Ex.Remake
             VertexBox cur = VertexBoxInstance;
             for(int i = 0; i < cur.MissionVertexs.Length; i++)
             {
-                cur.MissionVertexs[i] = cur.MissionVertexs[i] + value;
+                cur.MissionVertexs[i] += value;
             }
         }
         public static void Rotate(Vector2 centre, float rotation)
