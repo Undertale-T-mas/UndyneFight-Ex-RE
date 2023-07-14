@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UndyneFight_Ex.Entities;
+using static UndyneFight_Ex.GlobalResources.Effects;
 
 namespace UndyneFight_Ex.Fight
 {
@@ -670,55 +671,96 @@ namespace UndyneFight_Ex.Fight
                 }
                 public class Blur : RenderProduction
                 {
+                    private bool pendingClear = false;
                     public override void WindowSizeChanged(Vector2 vec)
                     {
                         screen = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
                     }
                     public Blur(float dep) : base(null, SpriteSortMode.Immediate, BlendState.Additive, dep)
                     {
+                        pendingClear = true;
                     }
                     public Blur() : base(null, SpriteSortMode.Immediate, BlendState.Additive, 0.50f)
                     {
-                    }
+                        pendingClear = true;
+                    } 
 
-                    GlobalResources.Effects.BlurShader blurShader = GlobalResources.Effects.CustomShaders.Blur;
+                    public BlurShader BlurShader { get; set; }  = CustomShaders.Blur;
                     private static RenderTarget2D screen;
-                    public float Sigma { get => blurShader.Sigma; set => blurShader.Sigma = value; }
+                    public float Sigma { get => BlurShader.Sigma; set => BlurShader.Sigma = value; }
 
                     public bool Glittering { get; set; } = false;
                     public float GlitterScale { get; set; } = 0.0f;
 
+                    public bool KawaseMode { get; set; } = true;
+
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
                         if (Sigma <= 0.05f) return obj;
-                        if(Glittering)
+                        this.SamplerState = null;
+                        if(Glittering && GlitterScale > 0.05f)
                         {
+                            if (pendingClear) { 
+                                this.pendingClear = false;
+                                this.MissionTarget = screen;
+                                this.ResetTargetColor(Color.Transparent);
+                            }
                             this.BlendState = BlendState.Opaque;
                             CopyRenderTarget(HelperTarget, obj); 
                         }
-                        Shader = blurShader = GlobalResources.Effects.CustomShaders.Blur;
+                        Shader = BlurShader = CustomShaders.Blur;
 
                         float scale = Glittering ? 1.1f : 1;
 
-                        this.BlendState = BlendState.Additive;
-                        MissionTarget = HelperTarget2;
-                        blurShader.Factor = new Vector2(1, 0) * scale;
-                        DrawTexture(obj, Vector2.Zero);
-
-                        MissionTarget = obj;
-                        blurShader.Factor = new Vector2(0, 1) * scale;
-                        DrawTexture(HelperTarget2, Vector2.Zero);
-
-                        MissionTarget = HelperTarget2;
-                        blurShader.Factor = new Vector2(1, 1) * scale;
-                        DrawTexture(obj, Vector2.Zero);
-
-                        MissionTarget = obj;
-                        blurShader.Factor = new Vector2(1, -1) * scale;
-                        DrawTexture(HelperTarget2, Vector2.Zero);
-
-                        if (Glittering)
+                        if (!KawaseMode && Settings.SettingsManager.DataLibrary.drawingQuality == Settings.SettingsManager.DataLibrary.DrawingQuality.High)
                         {
+                            this.SamplerState = null;
+                            this.BlendState = BlendState.Additive;
+                            MissionTarget = HelperTarget2;
+                            BlurShader.Factor = new Vector2(1, 0) * scale;
+                            DrawTexture(obj, Vector2.Zero);
+
+                            MissionTarget = obj;
+                            BlurShader.Factor = new Vector2(0, 1) * scale;
+                            DrawTexture(HelperTarget2, Vector2.Zero);
+
+                            MissionTarget = HelperTarget2;
+                            BlurShader.Factor = new Vector2(1, 1) * scale;
+                            DrawTexture(obj, Vector2.Zero);
+
+                            MissionTarget = obj;
+                            BlurShader.Factor = new Vector2(1, -1) * scale;
+                            DrawTexture(HelperTarget2, Vector2.Zero);
+                        }
+                        else
+                        {
+                            //use kawase algorithm
+                            this.SamplerState = null;
+                            BlurKawaseShader kawase = CustomShaders.BlurKawase;
+                            this.Shader = kawase;
+                            this.BlendState = BlendState.Additive;
+
+                            Vector2 OriginToFactor(Vector2 delta) => delta / new Vector2(640f, 480f);
+
+                            float sigma2 = Sigma * 0.75f;
+
+                            MissionTarget = HelperTarget2;
+                            kawase.Factor = OriginToFactor(new Vector2(0.5f, 0.5f) * sigma2) * scale;
+                            DrawTexture(obj, Vector2.Zero);
+
+                            MissionTarget = obj;
+                            kawase.Factor = OriginToFactor(new Vector2(1.5f, 1.5f) * sigma2) * scale;
+                            DrawTexture(HelperTarget2, Vector2.Zero);
+
+                            MissionTarget = HelperTarget;
+                            kawase.Factor = OriginToFactor(new Vector2(2.5f, 2.5f) * sigma2) * scale;
+                            DrawTexture(obj, Vector2.Zero);
+                        }
+
+                        if (Glittering && GlitterScale > 0.05f)
+                        {
+                            this.SamplerState = null;
+                            this.Shader = null;
                             this.MissionTarget = screen;
                             this.BlendState = BlendState.Additive;
                             //  this.DrawTextures(new Texture2D[] { HelperTarget, obj }, HelperTarget.Bounds, null, new Color[] { Color.White * (1 - GlitterScale * 0.35f), Color.White * GlitterScale});

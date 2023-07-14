@@ -157,6 +157,18 @@
 /processorParam:DebugMode=Optimize
 /build:Global/Shaders/Effect Library/Blur.fx
 
+#begin Global/Shaders/Effect Library/Blur.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Blur.fx
+
+#begin Global/Shaders/Effect Library/BlurKawase.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/BlurKawase.fx
+
 #begin Global/Shaders/Effect Library/BlurLow.fx
 /importer:EffectImporter
 /processor:EffectProcessor

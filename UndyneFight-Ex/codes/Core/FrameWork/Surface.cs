@@ -71,6 +71,8 @@ namespace UndyneFight_Ex
         private readonly float depth;
         protected Shader Shader { set => shader = value; get => shader; }
 
+        protected SamplerState SamplerState { get; set; } = null;
+
         public int CompareTo(RenderProduction r)
         {
             RenderProduction obj = r;
@@ -107,11 +109,11 @@ namespace UndyneFight_Ex
             if (shader != null)
             {
                 shader.Update();
-                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, null, null, null, shader, enabledMatrix ? matrix : null);
+                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, shader, enabledMatrix ? matrix : null);
             }
             else
             {
-                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, null, null, null, null, enabledMatrix ? matrix : null);
+                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, null, enabledMatrix ? matrix : null);
             }
             GameMain.MissionSpriteBatch.Draw(s, pos, from, color);
             GameMain.MissionSpriteBatch.End();

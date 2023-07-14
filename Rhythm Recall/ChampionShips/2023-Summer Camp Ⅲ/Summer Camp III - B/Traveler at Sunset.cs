@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UndyneFight_Ex;
+using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
@@ -1009,6 +1010,12 @@ namespace Rhythm_Recall.Waves
                         Heart.RotateTo(-45); 
                     });
 
+                    // Generate the effects
+                    DelayBeat(4, () =>
+                    {
+                        Effect01();
+                    });
+
                     // Generate the Snakes
                     BarrageCreate(BeatTime(4 + 2), BeatTime(1), 8, new string[] {  
                         //pre
@@ -1192,6 +1199,163 @@ namespace Rhythm_Recall.Waves
                     });
                 }
             }
+
+            private void Effect01()
+            {
+                Blur p1 = Blur;
+                RegisterFunctionOnce("pre", () => {
+                    ScreenDrawing.SceneRendering.InsertProduction(p1);
+                    ScreenDrawing.MakeFlicker(Color.Red * 0.75f);
+
+                    float bdis = ScreenDrawing.UpBoundDistance;
+                    RunEase(s => {
+                        ScreenDrawing.UpBoundDistance = ScreenDrawing.DownBoundDistance =
+                            MathHelper.Lerp(bdis, 210, s);
+                        ScreenDrawing.BackGroundColor = Color.Lerp(Color.Red * 0.4f, Color.DarkRed * 0.12f, s);
+                        ScreenDrawing.BoundColor = Color.Lerp(Color.White, Color.Red * 0.4f, s);
+                    }, EaseOut(BeatTime(2), 1, EaseState.Cubic));
+                    p1.Sigma = 0.0f;
+                    p1.GlitterScale = 0.0f;
+                    p1.KawaseMode = true;
+                    p1.Glittering = true;
+                    ForBeat(72, () => { p1.Sigma *= 0.94f; p1.GlitterScale *= 0.97f; });
+                });
+                RegisterFunctionOnce("glow", () => {
+                    p1.Sigma = 1.0f;
+                    p1.GlitterScale = 0.72f;
+                    RunEase(s => splitter.Intensity = s, EaseOut(BeatTime(0.25f), 12f, 0.5f, EaseState.Quad));
+                });
+                Lighting.Light light = null;
+                Lighting lighter = null;
+                RegisterFunctionOnce("close", () => {
+                    ForBeat(1, () => { p1.Sigma *= 0.9f; p1.GlitterScale *= 0.92f; });
+                     
+                    RunEase(s => {
+                        ScreenDrawing.UpBoundDistance = ScreenDrawing.DownBoundDistance =
+                            MathHelper.Lerp(210, 0, s);
+                        ScreenDrawing.BackGroundColor = Color.Lerp(Color.DarkRed * 0.12f, Color.Aqua * 0.04f, s);
+                        ScreenDrawing.BoundColor = Color.Lerp(Color.Red * 0.4f, Color.LightPink * 0.8f, s);
+                    }, EaseOut(BeatTime(1.5f), 1, EaseState.Cubic));
+                    DelayBeat(1, () =>
+                        Blur.Sigma = 0.0f);
+                    DelayBeat(0.4f, () => {
+                        ScreenDrawing.SceneRendering.InsertProduction(lighter = new Lighting(0.4111f));
+                        lighter.AmbientColor = Color.White;
+                        RunEase(s =>
+                        {
+                            lighter.AmbientColor = Color.White * s;
+                        }, Linear(BeatTime(1.7f), 1.0f, 0.35f));
+                        lighter.Lights.Add(light = new()
+                        {
+                            position = new(320, 240),
+                            color = Color.White * 1f,
+                            size = 350
+                        });
+                    });
+                });
+                RegisterFunctionOnce("returnP", () => {
+                    RunEase(s =>
+                    {
+                        lighter.AmbientColor = Color.White * s;
+                    }, Linear(BeatTime(2f), 0.35f, 1.0f));
+                    DelayBeat(2, () => {
+                        lighter.Dispose();
+                    });
+                });
+                RegisterFunctionOnce("return", () => {
+                    RunEase(s => {
+                        ScreenDrawing.MasterAlpha = s;
+                    }, false, 
+                        Linear(BeatTime(0.125f), 0.2f, 1.0f),
+                        Linear(BeatTime(0.125f), 0.2f, 1.0f),
+                        Linear(BeatTime(0.125f), 0.4f, 1.0f),
+                        Linear(BeatTime(0.125f), 0.4f, 1.0f),
+                        Linear(BeatTime(0.125f), 0.6f, 1.0f),
+                        Linear(BeatTime(0.125f), 0.6f, 1.0f),
+                        Linear(BeatTime(0.125f), 0.8f, 1.0f),
+                        Linear(BeatTime(0.125f), 0.8f, 1.0f)
+                    );
+                    RunEase(s => {
+                        ScreenDrawing.UpBoundDistance = ScreenDrawing.DownBoundDistance =
+                            MathHelper.Lerp(210, 0, s);
+                        ScreenDrawing.BackGroundColor = Color.Lerp(Color.DarkRed * 0.12f, Color.Aqua * 0.04f, s);
+                        ScreenDrawing.BoundColor = Color.Lerp(Color.Red * 0.4f, Color.LightPink * 0.8f, s);
+                    }, EaseOut(BeatTime(1.5f), 1, 0, EaseState.Cubic));
+                });
+                RegisterFunctionOnce("shakeL", () => {
+                    AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(3, 18, 2f, 180, 180, 0.6f));
+                    RunEase(s => ScreenDrawing.ScreenAngle = s, 
+                        EaseOut(BeatTime(0.25f), 6.0f, 0.0f, EaseState.Cubic));
+                });
+                RegisterFunctionOnce("shakeR", () => {
+                    AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(3, 18, 2f, 0, 180, 0.6f));
+                    RunEase(s => ScreenDrawing.ScreenAngle = s,
+                        EaseOut(BeatTime(0.25f), -6.0f, 0.0f, EaseState.Cubic));
+                });
+                RegisterFunctionOnce("pre2", () => {
+                    Shaders.Seismic.Progress = 0;
+                    ScreenDrawing.ActivateShader(Shaders.Seismic, 0.8f);
+                    Blur.Dispose();
+                });
+                RegisterFunctionOnce("shake", () => {
+                    AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(3, 18, 2f, 0, 180, 0.6f));
+                    RunEase(s => ScreenDrawing.ScreenAngle = s,
+                        EaseOut(BeatTime(0.25f), -6.0f, 0.0f, EaseState.Cubic));
+                    RunEase(s => Shaders.Seismic.Progress = s,
+                        Linear(BeatTime(1.4f), 1));
+                    RunEase(s => Shaders.Seismic.Radius = s,
+                        EaseOut(BeatTime(1.4f), 100, 480, EaseState.Circ));
+                });
+                RegisterFunctionOnce("shine", () => {
+                    RunEase(s => light.size = s,
+                        EaseOut(BeatTime(0.6f), 490f, 350f, EaseState.Quad));
+                    RunEase(s => lighter.AmbientColor = Color.White * s,
+                        EaseOut(BeatTime(0.6f), 1.0f, 0.65f, EaseState.Quad));
+                    ScreenDrawing.MakeFlicker(Color.White * 0.41f);
+                    RunEase(s => splitter.Intensity = s, EaseOut(BeatTime(0.25f), 7f, 0.5f, EaseState.Quad));
+                });
+                BarrageCreate(BeatTime(2), BeatTime(2), 1, new string[] {
+                    //pre
+                    "pre", "", "", "",    "", "", "", "",   
+                    //1
+                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeL)", "", "", "",    "glow(shakeR)", "", "glow(shakeL)", "",
+                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeR)", "", "", "glow(shakeL)",    "glow(shakeR)", "", "glow(shakeL)", "",
+                    //2
+                    "close", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "returnP", "", "", "",
+                    "", "", "", "",    "return", "", "", "",
+                    //3
+                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeL)", "", "", "",    "glow(shakeR)", "", "glow(shakeL)", "",
+                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
+                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "glow(shakeL)", "",
+                    "glow(shakeR)", "", "", "glow(shakeL)",    "glow(shakeR)", "", "glow(shakeL)", "",
+                    //4
+                    "close", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "pre2", "", "", "",    "", "", "", "",
+                    "shine(shake)", "", "", "",    "", "", "", "",
+                    "shine(shake)", "", "", "",    "", "", "", "",
+                    "shine(shake)", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                });
+            }
+
             public void Normal()
             {
 
@@ -1264,11 +1428,11 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
                     //int beat = 328;
-                    int beat = 200;
+                    int beat = 326;
                     GametimeDelta = -1.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
