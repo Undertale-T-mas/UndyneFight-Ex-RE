@@ -10,8 +10,15 @@ using Microsoft.Xna.Framework.Input;
 
 namespace UndyneFight_Ex.Remake
 {
+    public enum CursorState
+    {
+        Normal = 0,
+        Drag = 1,
+        Sizing = 2
+    }
     public static class MouseSystem
     {
+        public static CursorState CursorState { internal get; set; }
         internal static void Initialize()
         {
             ScreenSize = GameStates.CurrentWindow.ClientBounds.Size.ToVector2();
