@@ -6,6 +6,7 @@ using System.Drawing;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
+using UndyneFight_Ex.Remake.Entities;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
@@ -1314,9 +1315,35 @@ namespace Rhythm_Recall.Waves
                     {
                         SetSoul(0);
                     });
+                    RegisterFunctionOnce("Fireball", () =>
+                    {
+                        ScreenDrawing.ScreenScale = 0.5f;
+                        float r = 0;// Rand(0, 359);
+                        PlaySound(Sounds.pierce);
+                        for (int a = 0; a < 36; a++)
+                        {
+                            int x = a;
+                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            var e = LinkEase(
+                                Stable(0, mt),
+                                Linear(BeatTime(4), -mt)
+                                );
+                            var i = LinkEase(
+                                Stable(0, 0),
+                                Linear(BeatTime(16), 360)
+                                );
+                            var end = Add(Polar(e, i),new Vector2(320,240));
+                            Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
+                            CreateEntity(l);
+                            //l.AlphaDecrease(BeatTime(4));
+                            FireBall f = new(e) { Depth=0.99f};
+                            //CreateEntity(f);
+                            DelayBeat(4, () => { f.Dispose(); });
+                        }
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
                     {
-                        "SetBox(SineBackGround)","","","",   "","","","",
+                        "SetBox(SineBackGround)","","","",   "(Fireball)","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -1554,11 +1581,11 @@ namespace Rhythm_Recall.Waves
                 SetSoul(0);
                 InstantTP(320,240);
                 bool jump = true ;
-                if (jump==false)
+                if (jump==true)
                 {
                     SetSoul(0);
-                    GametimeDelta = -5.4f+ BeatTime(206);
-                    PlayOffset = BeatTime(206);
+                    GametimeDelta = -5.4f+ BeatTime(238);
+                    PlayOffset = BeatTime(238);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
                 }

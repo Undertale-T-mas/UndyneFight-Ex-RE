@@ -21,6 +21,7 @@ namespace UndyneFight_Ex.Remake.Entities
         }
         FireBall()
         {
+            this.Alpha = 1.0f;
             this.UpdateIn120 = true;
             this.Image = Resources.FightSprites.Fireball;
             this.HitRadius = 5.6f;
