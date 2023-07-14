@@ -19,5 +19,10 @@ namespace RecallCharter
             UndyneFight_Ex.Remake.Resources.Font.Normal.CentreDraw(Text, this.Centre, FontColor, Scale, Depth);
             base.Draw();
         }
+        public override void Update()
+        {
+            this.collidingBox.Size = UndyneFight_Ex.Remake.Resources.Font.Normal.SFX.MeasureString(Text);
+            base.Update();
+        }
     }
 }

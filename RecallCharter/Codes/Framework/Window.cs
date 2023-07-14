@@ -11,7 +11,8 @@ namespace RecallCharter
     {
         public static List<Window> Windows = new List<Window>();
         public Window() { 
-            Windows.Add(this); 
+            Windows.Add(this);
+            this.ClickToFocus = true;
         }
         public Color BackgroundColor { get; set; } = Color.DimGray * 0.5f;
         public Color BorderColor { get; set; } = Color.Gray * 0.9f;
@@ -29,6 +30,7 @@ namespace RecallCharter
                  Image = Resources.XImage, Depth = this.Depth + 0.01f
             };
             this.AddChild(closeButton);
+            this.Attach();
 
             base.Start();
         }

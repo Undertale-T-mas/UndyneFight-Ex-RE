@@ -66,8 +66,55 @@ namespace RecallCharter
                 };
             });
             fileNew.OnClick += (u, v) => {
-                MasterControl.AddControl(new Window() { Depth = 0.5f, CollidingBox = new(360, 250, 360, 250), 
-                    Title =  "命名新谱面" });
+                Window window;
+                MasterControl.AddControl(window = new Window() { Depth = 0.5f, CollidingBox = new(360, 250, 360, 250), 
+                    Title =  "命名新谱面", ForceFocus = true });
+                window.Attach();
+                window.AddChild(new Label()
+                {
+                    CollidingBox = new(new Vector2(14, 41), new Vector2(0, 0)),
+                    Text = "文件夹名",
+                    Depth = 0.51f,
+                    FontColor = Color.White
+                }); 
+                window.AddChild(new Label()
+                {
+                    CollidingBox = new(new Vector2(9, 94), new Vector2(0, 0)),
+                    Text = "创建新谱面后，将音乐自行\n放入该文件夹中",
+                    Depth = 0.51f,
+                    Scale = 0.9f,
+                    FontColor = Color.White
+                });
+                Button a, b;
+                window.AddChild(a = new TextButton()
+                {
+                    CollidingBox = new(new Vector2(37, 171), new Vector2(100, 50)),
+                    Text = "确定",
+                    Scale = 1.2f,
+                    Depth = 0.51f,
+                    FontColor = Color.White,
+                    MouseOnColor = Color.Gray,
+                    BackgroundColor = Color.Gray * 0.6f,
+                });
+                window.AddChild(b = new TextButton()
+                {
+                    CollidingBox = new(new Vector2(211, 171), new Vector2(100, 50)),
+                    Text = "取消",
+                    Scale = 1.2f,
+                    Depth = 0.51f,
+                    FontColor = Color.White,
+                    MouseOnColor = Color.Gray,
+                    BackgroundColor = Color.Gray * 0.6f,
+                });
+                a.OnClick += (u, v) =>
+                {
+                    window.Dispose();
+                    System.Diagnostics.Process.Start("Explorer.exe", System.Environment.CurrentDirectory);
+                };
+                b.OnClick += (u, v) =>
+                {
+                    window.Dispose();
+                };
             };
 
             this.FontColor = Color.White;

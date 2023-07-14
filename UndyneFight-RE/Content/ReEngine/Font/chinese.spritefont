@@ -56,7 +56,12 @@ with.
       <CharacterRegion>
         <Start>&#19968;</Start>
         <End>&#40895;</End>
-      </CharacterRegion>
+      </CharacterRegion> <!-- chinese characters   -->
+       
+      <CharacterRegion>
+        <Start>&#65292;</Start>
+        <End>&#65311;</End>
+      </CharacterRegion> <!-- chinese punctuations -->
 
       <CharacterRegion>
         <Start>&#32;</Start>

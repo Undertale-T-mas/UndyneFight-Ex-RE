@@ -23,21 +23,25 @@ namespace RecallCharter
             }
         }
         public Color MouseOnColor { get; set; }
+        public Color BackgroundColor { get; set; } = Color.Transparent;
         public override void Draw()
         {
             if (!Father.IsEnabled) return;
-            if (this.MouseOn)
+
+            Color _backColor = this.MouseOn ? MouseOnColor : BackgroundColor;
+            float depthTemp = this.Depth;
+            float depth2 = MathF.Max(0, this.Depth - 0.01f);
+            Texture2D temp = Image;
+            this.Image = FightResources.Sprites.pixiv;
+            this.Depth = depth2;
+            this.FormalDraw(this.Image, this.CollidingBox.ToRectangle(), _backColor * 0.5f);
+            if(this.MouseOn)
             {
-                float depthTemp = this.Depth;
-                float depth2 = MathF.Max(0, this.Depth - 0.01f);
-                Texture2D temp = Image;
-                this.Image = FightResources.Sprites.pixiv;
-                this.Depth = depth2;
-                this.FormalDraw(this.Image, this.CollidingBox.ToRectangle(), MouseOnColor * 0.5f);
                 DrawingLab.DrawRectangle(this.collidingBox, MouseOnColor, 3.0f, depth2);
-                this.Image = temp;
-                this.Depth = depthTemp;
             }
+            this.Image = temp;
+            this.Depth = depthTemp;
+
             if (this.Image != null)
                 this.FormalDraw(this.Image, this.Centre, Color.White, 0, ImageCentre);
             base.Draw();
