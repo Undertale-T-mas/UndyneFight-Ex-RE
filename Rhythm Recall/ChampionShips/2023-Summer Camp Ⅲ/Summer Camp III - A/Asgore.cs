@@ -1317,12 +1317,14 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Fireball", () =>
                     {
-                        ScreenDrawing.ScreenScale = 0.5f;
-                        float r = 0;// Rand(0, 359);
-                        PlaySound(Sounds.pierce);
+                        float r = Rand(0, 359);
+                        PlaySound(Sounds.pierce,0.7f);
                         for (int a = 0; a < 36; a++)
                         {
+                            int colortype=0;
+                            
                             int x = a;
+                            if ((0 < x&&x < 9)||(18<x && x<27)) colortype = 2;
                             Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, mt),
@@ -1330,36 +1332,65 @@ namespace Rhythm_Recall.Waves
                                 );
                             var i = LinkEase(
                                 Stable(0, 0),
-                                Linear(BeatTime(16), 360)
+                                Linear(BeatTime(20), 360)
                                 );
                             var end = Add(Polar(e, i),new Vector2(320,240));
-                            Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
-                            CreateEntity(l);
+                            //Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
+                            //CreateEntity(l);
                             //l.AlphaDecrease(BeatTime(4));
-                            FireBall f = new(e) { Depth=0.99f};
-                            //CreateEntity(f);
+                            FireBall f = new(end) { AutoDispose=false,ColorType=colortype};
+                            CreateEntity(f);
+                            DelayBeat(4, () => { f.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("Fireball2", () =>
+                    {
+                        float r = Rand(0, 359);
+                        PlaySound(Sounds.pierce, 0.7f);
+                        for (int a = 0; a < 36; a++)
+                        {
+                            int colortype = 0;
+
+                            int x = a;
+                            if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
+                            else colortype = 1;
+                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            var e = LinkEase(
+                                Stable(0, mt),
+                                Linear(BeatTime(4), -mt)
+                                );
+                            var i = LinkEase(
+                                Stable(0, 0),
+                                Linear(BeatTime(20), 360)
+                                );
+                            var end = Add(Polar(e, i), new Vector2(320, 240));
+                            //Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
+                            //CreateEntity(l);
+                            //l.AlphaDecrease(BeatTime(4));
+                            FireBall f = new(end) { AutoDispose = false, ColorType = colortype };
+                            CreateEntity(f);
                             DelayBeat(4, () => { f.Dispose(); });
                         }
                     });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "SetBox(SineBackGround)","","","",   "(Fireball)","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        "","","","",   "(Fireball)","","","",
+                        "","","","",   "(Fireball2)","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","","",   "(Fireball)","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        "","","","",   "(Fireball)","","","",
+                        "","","","",   "(Fireball2)","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","","",   "(Fireball)","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        "","","","",   "(Fireball)","","","",
+                        "","","","",   "(Fireball2)","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","","",   "(Fireball)","","","",
+                        "","","","",   "(Fireball2)","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         //
