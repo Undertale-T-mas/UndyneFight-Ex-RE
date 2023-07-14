@@ -913,7 +913,8 @@ namespace UndyneFight_Ex.Entities
         public static EaseUnit<Vector2> Polar(EaseUnit<Vector2> main, EaseUnit<float> rotate)
         {
             return new EaseUnit<Vector2>(Rotate(main.Start, rotate.Start), Rotate(main.End, rotate.End),
-                main.Time, (s) => { return Rotate(main.Start, rotate.Easing.Invoke(s)); });
+                main.Time, (s) => {
+                    return Rotate(main.Easing.Invoke(s), rotate.Easing.Invoke(s)); });
         }
         /// <summary>
         /// 返回一个<see cref="float"/>的 缓动，此缓动的结果将根据输入缓动进行极坐标变换
@@ -924,7 +925,8 @@ namespace UndyneFight_Ex.Entities
         public static EaseUnit<Vector2> Polar(EaseUnit<float> main, EaseUnit<float> rotate)
         {
             return new EaseUnit<Vector2>(GetVector2(main.Start, rotate.Start), GetVector2(main.End, rotate.End),
-                main.Time, (s) => { return GetVector2(main.Start, rotate.Easing.Invoke(s)); });
+                main.Time, (s) => { 
+                    return GetVector2(main.Easing.Invoke(s), rotate.Easing.Invoke(s)); });
         }
         /// <summary>
         /// 返回一个<see cref="Vector2"/>的 缓动，此缓动的结果将根据输入缓动进行极坐标变换
