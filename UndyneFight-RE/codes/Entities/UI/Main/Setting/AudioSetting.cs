@@ -16,9 +16,9 @@ namespace UndyneFight_Ex.Remake.UI
                 public AudioSetting() : base("Audio", 135)
                 {
                     this.AddChild(_masterVolume = new ScrollBar(new CollideRect(510 - 80, 80, 80 * 2, 60), "Master Volume", 0, 100, this)
-                    { DefaultValue = Settings.SettingsManager.DataLibrary.masterVolume });
+                    { DefaultValue = DataLibrary.masterVolume });
                     this.AddChild(_spearVolume = new ScrollBar(new CollideRect(510 - 80, 180, 80 * 2, 60), "Spear Volume", 0, 100, this)
-                    { DefaultValue = Settings.SettingsManager.DataLibrary.SpearBlockingVolume });
+                    { DefaultValue = DataLibrary.SpearBlockingVolume });
                     _masterVolume.OnChange += () => { 
                         _masterVolume.Volume = _masterVolume.GetValue() / 100f;
                         _spearVolume.Volume = _masterVolume.GetValue() / 100f * _spearVolume.GetValue() / 100f;
@@ -37,10 +37,10 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public override void Apply()
                 {
-                    SettingsManager.DataLibrary.masterVolume = (int)MathF.Round(_masterVolume.GetValue(), 0);
-                    SettingsManager.DataLibrary.SpearBlockingVolume = (int)MathF.Round(_spearVolume.GetValue(), 0);
+                    DataLibrary.masterVolume = (int)MathF.Round(_masterVolume.GetValue(), 0);
+                    DataLibrary.SpearBlockingVolume = (int)MathF.Round(_spearVolume.GetValue(), 0);
 
-                    MediaPlayer.Volume = SoundEffect.MasterVolume = MathF.Pow(SettingsManager.DataLibrary.masterVolume / 100f, 2);
+                    MediaPlayer.Volume = SoundEffect.MasterVolume = MathF.Pow(DataLibrary.masterVolume / 100f, 2);
                 }
                 public override void Update()
                 { 

@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using UndyneFight_Ex.Remake.Data;
 using UndyneFight_Ex.Entities;
+using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.Remake.FileData;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -12,6 +14,7 @@ namespace UndyneFight_Ex.Remake.UI
     {
         internal class LoginUI : SmartSelector
         {
+            GlobalDataRoot.UserMemory GlobalMemory = GlobalData.Memory;
             private void DrawLine(Vector2 start, Vector2 end, Color color, float size = 3f)
             {
                 DrawingLab.DrawLine(start, end, size, color, 0.5f);
@@ -53,20 +56,20 @@ namespace UndyneFight_Ex.Remake.UI
                 string result = PlayerManager.TryLogin(_account.Result, _password.Result);
                 if (result == "Success!")
                 {
-                    FileData.GlobalData.Memory.AutoAuthentic.Value = _autoAuthentic.Ticked;
+                    GlobalMemory.AutoAuthentic.Value = _autoAuthentic.Ticked;
                     if(_autoAuthentic.Ticked || _remember.Ticked)
                     {
-                        FileData.GlobalData.Memory.RememberUser.Value = _account.Result;
+                        GlobalMemory.RememberUser.Value = _account.Result;
                     }
-                    FileData.SaveGlobal();
+                    SaveGlobal();
                     this.Dispose();
                     this.FatherObject?.FatherObject?.Dispose();
                     PlayerManager.Login(_account.Result);
-                    GameStates.InstanceCreate(new SelectUI());
+                    InstanceCreate(new SelectUI());
                 }
                 else
                 {
-                    GameStates.InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red});
+                    InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red});
                 }
             }
 
@@ -83,7 +86,7 @@ namespace UndyneFight_Ex.Remake.UI
             int[] _upNext = { 0, 0, 1, 1, 2, 3};
             private void LoginKeyChange()
             {
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainRight) && currentFocus is not TextInputer)
+                if (IsKeyPressed120f(InputIdentity.MainRight) && currentFocus is not TextInputer)
                 {
                     int id = FocusID;
                     for (int i = id + 1; i < all.Length; i++)
@@ -96,7 +99,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainLeft) && currentFocus is not TextInputer)
+                else if (IsKeyPressed120f(InputIdentity.MainLeft) && currentFocus is not TextInputer)
                 {
                     int id = FocusID;
                     for (int i = id - 1; i >= 0; i--)
@@ -110,19 +113,19 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                 }
 
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                if (IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = _downNext[FocusID];
                     currentFocus.OffFocus();
                     all[id].OnFocus();
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                if (IsKeyPressed120f(InputIdentity.MainUp))
                 {
                     int id = _upNext[FocusID];
                     currentFocus.OffFocus();
                     all[id].OnFocus();
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus?.ConfirmKeyDown();
                 }
@@ -143,25 +146,25 @@ namespace UndyneFight_Ex.Remake.UI
                 ChildObjects.Add(_confirm =  new Button(this, new Vector2(543, 315), "Confirm") { NeverEnable = true });
                 ChildObjects.Add(_cancel =  new Button(this, new Vector2(800, 315), "Cancel") { NeverEnable = true });
 
-                if (FileData.GlobalData.Memory.AutoAuthentic)
+                if (GlobalMemory.AutoAuthentic)
                 {
                     //Auto authentic
-                    AutoAuthentic(FileData.GlobalData.Memory.RememberUser);
-                    GameStates.InstanceCreate(new InstantEvent(2, () => {
+                    AutoAuthentic(GlobalMemory.RememberUser);
+                    InstanceCreate(new InstantEvent(2, () => {
                         this.FatherObject?.FatherObject?.Dispose();
                     }));
-                    GameStates.InstanceCreate(new SelectUI());
+                    InstanceCreate(new SelectUI());
                 }
                 else if(PlayerManager.CurrentUser != null)
                 {
-                    GameStates.InstanceCreate(new InstantEvent(2, () => {
+                    InstanceCreate(new InstantEvent(2, () => {
                         this.FatherObject?.FatherObject?.Dispose();
                     }));
-                    GameStates.InstanceCreate(new SelectUI());
+                    InstanceCreate(new SelectUI());
                 }
-                else if(FileData.GlobalData.Memory.RememberUser != "null")
+                else if(GlobalMemory.RememberUser != "null")
                 {
-                    _account.SetString(FileData.GlobalData.Memory.RememberUser);
+                    _account.SetString(GlobalMemory.RememberUser);
                     _remember.Tick();
                 }
             }

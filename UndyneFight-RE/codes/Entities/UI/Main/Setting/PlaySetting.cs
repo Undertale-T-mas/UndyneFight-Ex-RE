@@ -16,26 +16,26 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     SecondaryScale = 1.07f;
                     this.AddChild(_arrowScale = new(new CollideRect(510 - 80, 80, 80 * 2, 60), "Arrow Size", 1.0f, 2.0f, this) { 
-                        DefaultValue = Settings.SettingsManager.DataLibrary.ArrowScale,
+                        DefaultValue = DataLibrary.ArrowScale,
                         Digit = 2
                     });
                     this.AddChild(_arrowSpeed = new(new CollideRect(510 - 80, 180, 80 * 2, 60), "Arrow Speed", 1.0f, 2.0f, this)
                     {
-                        DefaultValue = Settings.SettingsManager.DataLibrary.ArrowSpeed,
+                        DefaultValue = DataLibrary.ArrowSpeed,
                         Digit = 2
                     });
                     this.AddChild(_mirror = new(this, new(520, 280), "Mirror")
                     {
                         DefaultScale = 1.3f,
-                        DefaultValue = Settings.SettingsManager.DataLibrary.Mirror
+                        DefaultValue = DataLibrary.Mirror
                     });
                     this.AddChild(_perciseWarn = new(this, new(516, 350), "Precise\n Warns") { 
                         DefaultScale = 1.2f,
-                        DefaultValue = Settings.SettingsManager.DataLibrary.perciseWarning
+                        DefaultValue = DataLibrary.perciseWarning
                     });
                     this.AddChild(_pauseCheat = new(this, new(764, 100), "Pausing is\n cheating") { 
                         DefaultScale = 1.2f,
-                        DefaultValue = Settings.SettingsManager.DataLibrary.PauseCheating
+                        DefaultValue = DataLibrary.PauseCheating
                     });
                     this.OnActivated += () => {
                         _arrowScale.SetValue(DataLibrary.ArrowScale);

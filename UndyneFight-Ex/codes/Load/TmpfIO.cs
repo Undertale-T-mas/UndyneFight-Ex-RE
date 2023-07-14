@@ -346,6 +346,10 @@ namespace UndyneFight_Ex.IO
             }
             return res;
         }
+        public static List<byte> InfoToByte(SaveInfo info)
+        {
+            return StringToByte(InfoToString(info));
+        }
     }
 
     public static class FileIO

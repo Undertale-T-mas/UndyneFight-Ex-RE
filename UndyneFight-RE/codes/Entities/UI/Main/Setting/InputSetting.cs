@@ -15,7 +15,7 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         KeyScale = 0.04f,
                         Digit = 0,
-                        DefaultValue = Settings.SettingsManager.DataLibrary.ArrowDelay
+                        DefaultValue = DataLibrary.ArrowDelay
                     });
                     OnActivated += () => { _delay.SetValue(DataLibrary.ArrowDelay); };
                 }

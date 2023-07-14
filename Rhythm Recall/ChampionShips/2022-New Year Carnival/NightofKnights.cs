@@ -90,7 +90,6 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 1.5f),
                             new(Difficulty.Easy, 7.5f),
                             new(Difficulty.Hard, 15.6f),
-                            new(Difficulty.Extreme, 0),
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
@@ -98,7 +97,6 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 2.0f),
                             new(Difficulty.Easy, 8.5f),
                             new(Difficulty.Hard, 16.4f),
-                            new(Difficulty.Extreme, 0),
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
@@ -106,7 +104,6 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 8.5f),
                             new(Difficulty.Easy, 12.5f),
                             new(Difficulty.Hard, 20.5f),
-                            new(Difficulty.Extreme, 0),
                         }
                     );
                 public override HashSet<Difficulty> UnlockedDifficulties
