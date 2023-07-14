@@ -38,7 +38,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                 private void ReGenerate()
                 {
-                    this.ChangeText(this._judgeState.ToString());
+                    //this.ChangeText(this._judgeState.ToString());
                     this.ColorNormal = _judgeState switch
                     {
                         JudgementState.Balanced => Color.YellowGreen,
