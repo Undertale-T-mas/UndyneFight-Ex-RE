@@ -1292,10 +1292,19 @@ namespace Rhythm_Recall.Waves
                     RunEase(s => ScreenDrawing.ScreenAngle = s,
                         EaseOut(BeatTime(0.25f), -6.0f, 0.0f, EaseState.Cubic));
                 });
+                RegisterFunctionOnce("pre2", () => {
+                    Shaders.Seismic.Progress = 0;
+                    ScreenDrawing.ActivateShader(Shaders.Seismic, 0.8f);
+                    Blur.Dispose();
+                });
                 RegisterFunctionOnce("shake", () => {
                     AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(3, 18, 2f, 0, 180, 0.6f));
                     RunEase(s => ScreenDrawing.ScreenAngle = s,
                         EaseOut(BeatTime(0.25f), -6.0f, 0.0f, EaseState.Cubic));
+                    RunEase(s => Shaders.Seismic.Progress = s,
+                        Linear(BeatTime(1.4f), 1));
+                    RunEase(s => Shaders.Seismic.Radius = s,
+                        EaseOut(BeatTime(1.4f), 100, 480, EaseState.Circ));
                 });
                 RegisterFunctionOnce("shine", () => {
                     RunEase(s => light.size = s,
@@ -1339,7 +1348,7 @@ namespace Rhythm_Recall.Waves
                     "close", "", "", "",    "", "", "", "",
                     "", "", "", "",    "", "", "", "",
                     "", "", "", "",    "", "", "", "",
-                    "", "", "", "",    "", "", "", "",
+                    "pre2", "", "", "",    "", "", "", "",
                     "shine(shake)", "", "", "",    "", "", "", "",
                     "shine(shake)", "", "", "",    "", "", "", "",
                     "shine(shake)", "", "", "",    "", "", "", "",
