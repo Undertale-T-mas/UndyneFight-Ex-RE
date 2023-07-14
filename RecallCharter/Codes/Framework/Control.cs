@@ -15,10 +15,12 @@ namespace RecallCharter
 
         public bool IsEnabled { get; protected set; }
         protected bool IsFocused { get; private set; }
+        public bool ForceFocus { private get; init; } = false;
+
         protected Control FocusedKid { get; private set; }
 
         public bool MouseOn { get; private set; }
-        public bool ClickToFocus { get; private set; } = false;
+        public bool ClickToFocus { get; protected set; } = false;
 
         protected Control Father { get; private set; }
 
@@ -35,6 +37,10 @@ namespace RecallCharter
         public void Deattach()
         {
             _deattaching = true;
+        }
+        public void Attach()
+        {
+            this.IsFocused = this.IsEnabled = true;
         }
 
         public override void Update()
@@ -68,7 +74,7 @@ namespace RecallCharter
                     }
                 };
             }
-            if (this.FocusedKid != null)
+            if (this.FocusedKid != null || this.ForceFocus)
             {
                 this.IsFocused = true;
             }
@@ -78,7 +84,7 @@ namespace RecallCharter
                 if (this.FocusedKid == null)
                     MasterControl.FocusControl = this;
             }
-            else this.IsFocused = false;
+            else if (!ClickToFocus || MouseSystem.IsLeftClick()) this.IsFocused = false;
             if (this.IsFocused) this.Father.FocusedKid = this;
             if(this.EnableWhenFocused) { this.IsEnabled = this.IsFocused; }
         }

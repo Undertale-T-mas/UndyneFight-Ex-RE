@@ -88,7 +88,8 @@ namespace UndyneFight_Ex
             CustomShaders.Scale =       new ScaleShader(loader.Load<Effect>("Scale"));
             CustomShaders.Swirl =       new SwirlShader(loader.Load<Effect>("Swirl"));
             CustomShaders.Blur =        new BlurShader(loader.Load<Effect>("Blur"));
-            CustomShaders.FastBlur =    new FastBlurShader(loader.Load<Effect>("BlurLow"));
+            CustomShaders.FastBlur =    new BlurShader(loader.Load<Effect>("BlurLow"));
+            CustomShaders.BlurKawase =    new BlurKawaseShader(loader.Load<Effect>("BlurKawase"));
             CustomShaders.Lens =        new LensShader(loader.Load<Effect>("Lens"));
             CustomShaders.Polar =       new PolarShader(loader.Load<Effect>("Polar"));
             CustomShaders.Gray =        new GrayShader(loader.Load<Effect>("Gray"));
@@ -116,7 +117,8 @@ namespace UndyneFight_Ex
                 public static StepSampleShader StepSample { get; set; }
                 public static SwirlShader Swirl { get; set; }
                 public static BlurShader Blur { get; set; }
-                public static FastBlurShader FastBlur { get; set; }
+                public static BlurShader FastBlur { get; set; }
+                public static BlurKawaseShader BlurKawase { get; set; }
                 public static LensShader Lens { get; set; }
                 public static PolarShader Polar { get; set; }
                 public static GrayShader Gray { get; set; }
@@ -610,7 +612,8 @@ namespace UndyneFight_Ex
             public static CameraShader Camera => CustomShaders.Camera;
             public static SwirlShader Swirl => CustomShaders.Swirl;
             public static BlurShader Blur => CustomShaders.Blur;
-            public static FastBlurShader FastBlur => CustomShaders.FastBlur;
+            public static BlurShader FastBlur => CustomShaders.FastBlur;
+            public static BlurKawaseShader BlurKawase => CustomShaders.BlurKawase;
             public static LensShader Lens => CustomShaders.Lens;
             public static PolarShader Polar => CustomShaders.Polar;
             public static GrayShader Gray => CustomShaders.Gray;

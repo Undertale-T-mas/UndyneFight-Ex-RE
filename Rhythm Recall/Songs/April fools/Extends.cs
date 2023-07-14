@@ -2803,5 +2803,12 @@ namespace Extends
             if (arrow.Way == 2) arrow.Offset = new(0, -offset);
             if (arrow.Way == 3) arrow.Offset = new(-offset, 0);
         }
+        public static void SetOffset2(Arrow arrow, float offset)
+        {
+            if (arrow.Way == 0) arrow.Offset = new(0, offset);
+            if (arrow.Way == 1) arrow.Offset = new(offset, 0);
+            if (arrow.Way == 2) arrow.Offset = new(0, offset);
+            if (arrow.Way == 3) arrow.Offset = new(offset, 0);
+        }
     }
 }

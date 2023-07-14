@@ -19,8 +19,12 @@ namespace UndyneFight_Ex.Remake.Entities
         public FireBall(Func<ICustomMotion, Vector2> _positionRoute) : this() {
             this.PositionRoute = _positionRoute;
         }
+        public bool AutoDispose { set;  get; } = true;
         FireBall()
         {
+            this.Depth = 0.5f;
+            this._autoDispose = false;
+            this.Alpha = 1.0f;
             this.UpdateIn120 = true;
             this.Image = Resources.FightSprites.Fireball;
             this.HitRadius = 5.6f;

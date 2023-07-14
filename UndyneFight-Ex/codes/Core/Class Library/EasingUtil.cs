@@ -187,7 +187,7 @@ namespace UndyneFight_Ex.Entities
             return new EaseUnit<float>(funcs[0].Start, basis[^1], time, easeResult);
         }
         /// <summary>
-        /// 返回一个连接2个及以上的<see langword="缓动"/>
+        /// 返回一个连接2个及以上的<see cref="float"></see>类型<see langword="缓动"/>
         /// </summary>
         /// <param name="funcs">每2个缓动间只需要逗号隔开</param>
         /// <returns></returns>
@@ -243,7 +243,7 @@ namespace UndyneFight_Ex.Entities
             return new EaseUnit<Vector2>(funcs[0].Start, basis[^1], time, easeResult);
         }
         /// <summary>
-        /// 返回一个连接2个及以上的<see langword="缓动"/>
+        /// 返回一个连接2个及以上的<see cref="Vector2"></see>类型<see langword="缓动"/>
         /// </summary>
         /// <param name="funcs">每2个缓动间只需要逗号隔开</param>
         /// <returns></returns>
@@ -266,18 +266,44 @@ namespace UndyneFight_Ex.Entities
             Back = 9,
             Bounce = 10
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="均速直线运动的缓动"/><br/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Linear(float time, Vector2 start, Vector2 end)
         {
             return new EaseUnit<Vector2>(start, end, time, EasingUtil.CentreEasing.Linear(start, end, time));
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的<see langword="均速直线运动的缓动"/><br/>
+        /// Tips:该函数被拼接时，起点为0，可以理解为“在上一个函数的基础上增加<see langword="end"></see>”
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Linear(float time, Vector2 end)
         {
             return Linear(time, Vector2.Zero, end);
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="均速直线运动的缓动"/><br/>
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Linear(float time, float start, float end)
         {
             return new EaseUnit<float>(start, end, time, EasingUtil.ValueEasing.Linear(start, end, time));
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的<see langword="均速直线运动的缓动"/><br/>
+        /// Tips:该函数被拼接时，起点为0，可以理解为“在上一个函数的基础上增加<see langword="end"></see>”
+        /// </summary>
+        /// <param name="time">缓动持续时间</param>
+        /// <param name="end"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Linear(float time, float end)
         {
             return Linear(time, 0, end);
@@ -727,24 +753,53 @@ namespace UndyneFight_Ex.Entities
         {
             return EaseOutIn(time, start, end, 0.5f, state, state);
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 保持<see langword="值不变"></see>的缓动(也可用来实现瞬移效果)
+        /// </summary>
+        /// <param name="time">停止持续时间</param>
+        /// <param name="value"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Stable(float time, Vector2 value)
         {
             return new(value, value, time, (s) => value);
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的 保持<see langword="值不变"></see>的缓动(也可用来实现瞬移效果)
+        /// </summary>
+        /// <param name="time">停止持续时间</param>
+        /// <param name="value"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Stable(float time, float value)
         {
             return new(value, value, time, (s) => value);
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的 保持<see langword="值不变"></see>的缓动，缓动保持的值继承上一个缓动的末值或者为0
+        /// </summary>
+        /// <param name="time">停止持续时间</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Stable(float time)
         {
             return new(0, 0, time, (s) => 0);
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 缓动，此缓动是输入缓动<see langword="复制"></see>了多次后的结果
+        /// </summary>
+        /// <param name="ease">需要复制的缓动</param>
+        /// <param name="times">次数</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Copy(EaseUnit<Vector2> ease, int times)
         {
             EaseUnit<Vector2>[] easeUnits = new EaseUnit<Vector2>[times];
             for (int i = 0; i < times; i++) easeUnits[i] = new(ease.Start, ease.End, ease.Time, ease.Easing);
             return LinkEase(false, easeUnits);
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的 缓动，此缓动是输入缓动<see langword="复制"></see>了多次后的结果
+        /// </summary>
+        /// <param name="ease">需要复制的缓动</param>
+        /// <param name="times">次数</param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Copy(EaseUnit<float> ease, int times)
         {
             EaseUnit<float>[] easeUnits = new EaseUnit<float>[times];
@@ -783,46 +838,102 @@ namespace UndyneFight_Ex.Entities
                 return curProgress == -1 ? main.Easing.Invoke(s) : addons[curProgress].Easing.Invoke(s);
             });
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 缓动，此缓动的结果由<see langword="两个缓动的结果相加"></see>而成，若需相加多个函数，只要嵌套即可
+        /// </summary>
+        /// <param name="main"></param>
+        /// <param name="addon"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Add(EaseUnit<Vector2> main, EaseUnit<Vector2> addon)
         {
             return new EaseUnit<Vector2>(main.Start + addon.Start, main.End + addon.End,
                 main.Time, (s) => { return main.Easing.Invoke(s) + addon.Easing.Invoke(s); });
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 缓动，此缓动的结果由<see langword="一个缓动和的结果和一个常量相加而成"></see>而成
+        /// </summary>
+        /// <param name="main"></param>
+        /// <param name="addon"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Add(EaseUnit<Vector2> main, Vector2 addon)
         {
             return new EaseUnit<Vector2>(main.Start + addon, main.End + addon,
                 main.Time, (s) => { return main.Easing.Invoke(s) + addon; });
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 缓动，此缓动的结果由输入的缓动扩大<see langword="scaler缓动"/>倍而成
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="scaler"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Scale(EaseUnit<Vector2> origin, EaseUnit<float> scaler)
         {
             return new EaseUnit<Vector2>(origin.Start * scaler.Start, origin.End * scaler.End, origin.Time,
                 (s) => { return origin.Easing.Invoke(s) * scaler.Easing.Invoke(s); });
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 缓动，此缓动的结果由输入的缓动扩大<see langword="scaler"/>倍而成
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="scaler"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Scale(EaseUnit<Vector2> origin, float scaler)
         {
             return new EaseUnit<Vector2>(origin.Start * scaler, origin.End * scaler, origin.Time,
                 (s) => { return origin.Easing.Invoke(s) * scaler; });
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的 缓动，此缓动的结果由输入的缓动扩大<see langword="scaler缓动"/>倍而成
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="scaler"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Scale(EaseUnit<float> origin, EaseUnit<float> scaler)
         {
             return new EaseUnit<float>(origin.Start * scaler.Start, origin.End * scaler.End, origin.Time,
                 (s) => { return origin.Easing.Invoke(s) * scaler.Easing.Invoke(s); });
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的 缓动，此缓动的结果由输入的缓动扩大<see langword="scaler"/>倍而成
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="scaler"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Scale(EaseUnit<float> origin, float scaler)
         {
             return new EaseUnit<float>(origin.Start * scaler, origin.End * scaler, origin.Time,
                 (s) => { return origin.Easing.Invoke(s) * scaler; });
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 缓动，此缓动的结果将根据输入缓动进行极坐标变换
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="scaler"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Polar(EaseUnit<Vector2> main, EaseUnit<float> rotate)
         {
             return new EaseUnit<Vector2>(Rotate(main.Start, rotate.Start), Rotate(main.End, rotate.End),
-                main.Time, (s) => { return Rotate(main.Start, rotate.Easing.Invoke(s)); });
+                main.Time, (s) => {
+                    return Rotate(main.Easing.Invoke(s), rotate.Easing.Invoke(s)); });
         }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的 缓动，此缓动的结果将根据输入缓动进行极坐标变换
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="scaler"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Polar(EaseUnit<float> main, EaseUnit<float> rotate)
         {
             return new EaseUnit<Vector2>(GetVector2(main.Start, rotate.Start), GetVector2(main.End, rotate.End),
-                main.Time, (s) => { return GetVector2(main.Start, rotate.Easing.Invoke(s)); });
+                main.Time, (s) => { 
+                    return GetVector2(main.Easing.Invoke(s), rotate.Easing.Invoke(s)); });
         }
+        /// <summary>
+        /// 返回一个<see cref="Vector2"/>的 缓动，此缓动的结果将根据输入缓动进行极坐标变换
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="scaler"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.CentreEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<Vector2> Polar(EaseUnit<Vector2> main, float rotate)
         {
             return new EaseUnit<Vector2>(Rotate(main.Start, rotate), Rotate(main.End, rotate),
