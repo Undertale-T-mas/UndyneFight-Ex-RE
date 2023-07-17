@@ -168,7 +168,7 @@ namespace Rhythm_Recall.Waves
             static Arrow.ClassicApplier easeK1, easeK2, easeK3;
             public void ExtremePlus()
             {
-                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
+                CreateEntity(new TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
                 if (InBeat(0))
                 {
                     RegisterFunction("FadeOut", () =>
@@ -228,6 +228,7 @@ namespace Rhythm_Recall.Waves
                         {
                             line.Alpha = 0.0f;
                             line.AlphaIncrease(BeatTime(2), 0.8f);
+                            DelayBeat(6, () => { line.Dispose(); });
                         }
                     });
                     RegisterFunctionOnce("LineCenter45", () =>
@@ -245,6 +246,7 @@ namespace Rhythm_Recall.Waves
                         {
                             line.Alpha = 0.0f;
                             line.AlphaIncrease(BeatTime(2), 0.8f);
+                            DelayBeat(6, () => { line.Dispose(); });
                         }
                     });
                     RegisterFunctionOnce("LineCenter8", () =>
@@ -269,14 +271,6 @@ namespace Rhythm_Recall.Waves
                             }
                             DelayBeat(10.0f, () => { l.AlphaDecrease(BeatTime(1.3f)); });
                             DelayBeat(12f, () => { l.Dispose(); });
-                        }
-                    });
-                    RegisterFunctionOnce("ClearLine", () =>
-                    {
-                        var l = GetAll<Line>();
-                        foreach(Line line in l)
-                        {
-                            line.Dispose();
                         }
                     });
                     RegisterFunctionOnce("Test", () =>
@@ -322,7 +316,7 @@ namespace Rhythm_Recall.Waves
                         "GaussBlur(LineCenter45)","","LineCenter45","",    "LineCenter45","","LineCenter45","",
                         "","","","",    "(Soul1)","","","",
                         "","","","",    "","","","",
-                        "","","","",    "","","","ClearLine",
+                        "","","","",    "","","","",
                         //8
                         "GaussBlur(Soul1)(LineCenter8)","","","",    "LineCenter8","","","",
                         "","","","",    "","","","",
@@ -1386,7 +1380,7 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 328;

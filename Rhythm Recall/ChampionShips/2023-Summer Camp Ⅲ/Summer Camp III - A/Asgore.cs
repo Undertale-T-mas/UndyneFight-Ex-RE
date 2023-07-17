@@ -1611,8 +1611,8 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
-                bool jump = true ;
-                if (jump==true)
+                bool jump = false;
+                if (jump)
                 {
                     SetSoul(0);
                     GametimeDelta = -5.4f+ BeatTime(238);
