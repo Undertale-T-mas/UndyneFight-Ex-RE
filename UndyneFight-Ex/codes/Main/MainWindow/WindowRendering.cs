@@ -32,8 +32,8 @@ namespace UndyneFight_Ex
             float f = CurrentDrawingSettings.screenAngle + quarterAngle;
             float true_angle = basicAngle + f;
             float true_scale = Min(size.X / defaultSize.X, size.Y / defaultSize.Y) * CurrentDrawingSettings.screenScale;
-            float x = (float)(screenDistance * -Cos(true_angle) * CurrentDrawingSettings.screenScale) + CurrentDrawingSettings.screenDetla.X * true_scale + trueX / 2 + GameStates.CurrentScene.CurrentDrawingSettings.shakings.X;
-            float y = (float)(screenDistance * Sin(true_angle) * CurrentDrawingSettings.screenScale) + CurrentDrawingSettings.screenDetla.Y * true_scale + trueY / 2 + GameStates.CurrentScene.CurrentDrawingSettings.shakings.Y + extending.W * trueY;
+            float x = (float)(screenDistance * -Cos(true_angle) * CurrentDrawingSettings.screenScale) + (CurrentDrawingSettings.screenDetla.X + GameStates.CurrentScene.CurrentDrawingSettings.shakings.X) * true_scale + trueX / 2;
+            float y = (float)(screenDistance * Sin(true_angle) * CurrentDrawingSettings.screenScale) + (CurrentDrawingSettings.screenDetla.Y + GameStates.CurrentScene.CurrentDrawingSettings.shakings.Y) * true_scale + trueY / 2 + extending.W * trueY;
             matrix = new Matrix
                 (Sin(f) * true_scale, Cos(f) * true_scale, 0f, 0f,
                 0 - Cos(f) * true_scale, Sin(f) * true_scale, 0f, 0f,

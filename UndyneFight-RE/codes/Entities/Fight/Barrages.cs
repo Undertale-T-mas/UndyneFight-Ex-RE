@@ -20,6 +20,7 @@ namespace UndyneFight_Ex.Remake.Entities
         public Func<ICustomMotion, float> RotationRoute { get; set; }
         public float[] RotationRouteParam { get; set; }
         public float[] PositionRouteParam { get; set; }
+        public bool Hidden { private get; set; } = false;
 
         public float AppearTime { get; set; }
 
@@ -36,7 +37,7 @@ namespace UndyneFight_Ex.Remake.Entities
             this.AppearTime += 0.5f;
             if(PositionRoute != null) { this.Centre = this.PositionRoute.Invoke(this); }
             if(RotationRoute != null) { this.Rotation = this.RotationRoute.Invoke(this); }
-
+            this.controlLayer = Hidden ? Surface.Hidden : Surface.Normal;
             if (_autoDispose)
             {
                 bool ins = screen.Contain(this.Centre);

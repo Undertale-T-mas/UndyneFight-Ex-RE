@@ -22,6 +22,7 @@ namespace UndyneFight_Ex.Remake.Entities
         public bool AutoDispose { set;  get; } = true;
         FireBall()
         {
+            
             this.Depth = 0.5f;
             this._autoDispose = false;
             this.Alpha = 1.0f;
