@@ -86,6 +86,7 @@ namespace Rhythm_Recall.Waves
             static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null;
             public void Hard()
             {
+                IsKey();
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
                 if (InBeat(0))
                 {
@@ -1332,7 +1333,7 @@ namespace Rhythm_Recall.Waves
                                 );
                             var i = LinkEase(
                                 Stable(0, 0),
-                                Linear(BeatTime(20), 360)
+                                Linear(BeatTime(24), 360)
                                 );
                             var end = Add(Polar(e, i),new Vector2(320,240));
                             //Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
@@ -1349,11 +1350,10 @@ namespace Rhythm_Recall.Waves
                         PlaySound(Sounds.pierce, 0.7f);
                         for (int a = 0; a < 36; a++)
                         {
-                            int colortype = 0;
+                            int colortype = 2;
 
                             int x = a;
                             if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
-                            else colortype = 1;
                             Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, mt),
@@ -1361,7 +1361,7 @@ namespace Rhythm_Recall.Waves
                                 );
                             var i = LinkEase(
                                 Stable(0, 0),
-                                Linear(BeatTime(20), 360)
+                                Linear(BeatTime(24), -360)
                                 );
                             var end = Add(Polar(e, i), new Vector2(320, 240));
                             //Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
@@ -1604,14 +1604,34 @@ namespace Rhythm_Recall.Waves
             {
 
             }
+            public void IsKey()
+            {
+                if (GameStates.IsKeyDown(InputIdentity.MainUp)&& GameStates.IsKeyDown(InputIdentity.MainRight))
+                {
+                    Heart.Speed = 2f * 1.414f;
+                }
+                if (GameStates.IsKeyDown(InputIdentity.MainUp) && GameStates.IsKeyDown(InputIdentity.MainLeft))
+                {
+                    Heart.Speed = 2f * 1.414f;
+                }
+                if (GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainRight))
+                {
+                    Heart.Speed = 2f * 1.414f;
+                }
+                if (GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainLeft))
+                {
+                    Heart.Speed = 2f * 1.414f;
+                }
+            }
             public void Start()
             {
+                Heart.Speed = 2f;
                 GametimeDelta = -2.125f;
                 PlayOffset = 0;
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
-                bool jump = true ;
+                bool jump = false ;
                 if (jump==true)
                 {
                     SetSoul(0);
