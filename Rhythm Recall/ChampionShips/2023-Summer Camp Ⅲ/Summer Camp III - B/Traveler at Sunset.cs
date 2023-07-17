@@ -1274,7 +1274,7 @@ namespace Rhythm_Recall.Waves
                         //4
                         "n21", "~_!+01", "~_+01", "",    "+01", "~_!+01", "~_+01", "", 
                         "!!3", "($01)(+01)", "$11", "$21",    "!!3", "$01", "$31", "$21",
-                        "($01'1.4@S)($2'1.4@S)($01'2.1@T)($2'2.1@T)", "", "", "",    "", "", "", "",
+                        "(*$01'1.4@S1)(*$2'1.4@S2)(_$01'2.1@T1)(_$2'2.1@T2)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",     
  
                         //5
@@ -1698,7 +1698,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 326;
-                    int beat = 326 + 128;
+                    int beat = 326;
                     GametimeDelta = -1.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
