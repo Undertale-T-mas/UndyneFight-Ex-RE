@@ -86,7 +86,7 @@ namespace Rhythm_Recall.Waves
             static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null;
             public void Hard()
             {
-                IsKey();
+                //IsKey();
                 CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
                 if (InBeat(0))
                 {
@@ -1608,30 +1608,30 @@ namespace Rhythm_Recall.Waves
             {
                 if (GameStates.IsKeyDown(InputIdentity.MainUp)&& GameStates.IsKeyDown(InputIdentity.MainRight))
                 {
-                    Heart.Speed = 2f * 1.414f;
+                    Heart.Speed = 3f * 1.414f;
                 }
                 if (GameStates.IsKeyDown(InputIdentity.MainUp) && GameStates.IsKeyDown(InputIdentity.MainLeft))
                 {
-                    Heart.Speed = 2f * 1.414f;
+                    Heart.Speed = 3f * 1.414f;
                 }
                 if (GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainRight))
                 {
-                    Heart.Speed = 2f * 1.414f;
+                    Heart.Speed = 3f * 1.414f;
                 }
                 if (GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainLeft))
                 {
-                    Heart.Speed = 2f * 1.414f;
+                    Heart.Speed = 3f * 1.414f;
                 }
             }
             public void Start()
             {
-                Heart.Speed = 2f;
-                GametimeDelta = -2.125f;
+                Heart.Speed = 3f;
+                GametimeDelta = -2.5f;
                 PlayOffset = 0;
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
-                bool jump = false ;
+                bool jump = true ;
                 if (jump==true)
                 {
                     SetSoul(0);
