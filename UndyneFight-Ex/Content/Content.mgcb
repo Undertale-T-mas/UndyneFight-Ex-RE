@@ -133,6 +133,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Colorful.fx
 
+#begin Global/Shaders/Effect Library/Aurora.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Aurora.fx
+
 #begin Global/Shaders/Effect Library/BallShaping/noise.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -150,12 +156,6 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/BlockTile.fx
-
-#begin Global/Shaders/Effect Library/Blur.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Optimize
-/build:Global/Shaders/Effect Library/Blur.fx
 
 #begin Global/Shaders/Effect Library/Blur.fx
 /importer:EffectImporter
@@ -199,6 +199,18 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Gray.fx
+
+#begin Global/Shaders/Effect Library/hashtex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Global/Shaders/Effect Library/hashtex.png
 
 #begin Global/Shaders/Effect Library/Lens.fx
 /importer:EffectImporter
