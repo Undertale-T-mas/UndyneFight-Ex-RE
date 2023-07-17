@@ -38,7 +38,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                 private void ReGenerate()
                 {
-                    //this.ChangeText(this._judgeState.ToString());
+                    this.ChangeText(this._judgeState.ToString());
                     this.ColorNormal = _judgeState switch
                     {
                         JudgementState.Balanced => Color.YellowGreen,
@@ -54,6 +54,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public override void Draw()
                 {
+                    this.Depth = 0.1f;
                     base.Draw();
                     FightResources.Font.NormalFont.CentreDraw("Current Judge:", this.Centre - new Vector2(0, 45), Color.White, 1.15f, 0.1f);
                 }

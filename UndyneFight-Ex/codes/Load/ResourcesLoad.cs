@@ -47,6 +47,7 @@ namespace UndyneFight_Ex
 
             //championShip =      loader.Load<Texture2D>("UI\\cup");
             championShip =      loader.Load<Texture2D>("UI\\cup_highres");
+            hashtex =           loader.Load<Texture2D>("Shaders\\Effect Library\\hashtex");
             mainGame =          loader.Load<Texture2D>("UI\\maingame");
             achieveMents =      loader.Load<Texture2D>("UI\\stars");
             options =           loader.Load<Texture2D>("UI\\options");
@@ -80,6 +81,7 @@ namespace UndyneFight_Ex
         internal static void ReadCustomShaders(ContentManager loader)
         {
             loader.RootDirectory = "Content\\Global\\Shaders\\Effect Library\\";
+            CustomShaders.Aurora =      new AuroraShader(loader.Load<Effect>("Aurora")) { };
             CustomShaders.Sinwave =     new Shader(loader.Load<Effect>("Sinwave")) { };
             CustomShaders.NeonLine =    new NeonLineShader(loader.Load<Effect>("NeonLine")) { };
             CustomShaders.Camera =      new CameraShader(loader.Load<Effect>("CameraSurface")) { };
@@ -110,6 +112,7 @@ namespace UndyneFight_Ex
             public static class CustomShaders
             {
                 public static Shader Sinwave { get; set; }
+                public static AuroraShader Aurora { get; set; }
                 public static NeonLineShader NeonLine { get; set; }
                 public static BallShapingShader Cos1Ball { get; set; }
                 public static ScaleShader Scale { get; set; }
@@ -146,6 +149,7 @@ namespace UndyneFight_Ex
             public static Texture2D cursor;
             public static Texture2D login;
             public static Texture2D championShip;
+            public static Texture2D hashtex;
             public static Texture2D mainGame;
             public static Texture2D options;
             public static Texture2D achieveMents;
@@ -604,6 +608,7 @@ namespace UndyneFight_Ex
         public static class Shaders
         {
             public static Shader Sinwave => CustomShaders.Sinwave;
+            public static AuroraShader Aurora => CustomShaders.Aurora;
             public static NeonLineShader NeonLine => CustomShaders.NeonLine;
             public static BallShapingShader Cos1Ball => CustomShaders.Cos1Ball;
             public static StepSampleShader StepSample => CustomShaders.StepSample;

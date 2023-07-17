@@ -126,11 +126,8 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                ScreenDrawing.ActivateShaderBack(Shaders.BlockTile, 0.6f);
-                Shaders.BlockTile.Offset = new(20, 20);
-                Shaders.BlockTile.Scatter = new(30, 30);
-                Shaders.BlockTile.Width = new(20, 20);
-                Shaders.BlockTile.Size = new(40, 40);
+                ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.6f);
+                Shaders.Aurora.ThemeColor = Color.Yellow;
 
              //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
