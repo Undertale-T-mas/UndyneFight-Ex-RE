@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UndyneFight_Ex
 {
@@ -8,15 +9,18 @@ namespace UndyneFight_Ex
         {
             public class TyndallShader : Shader
             {
+                public Vector2 LightPos { get; set; } = Vector2.Zero;
                 public float Time { get; set; } = 0;
-                public float Intensity { get; set; } = 0;
+                public float Distance { get; set; } = 5;
+                public float Sampling { get; set; } = 1;
                 public TyndallShader(Effect eff) : base(eff)
                 {
                     StableEvents = (x) =>
                     {
-                        Time += 0.01f;
-                        x.Parameters["iTime"].SetValue(Time);
-                        x.Parameters["iValue"].SetValue(Intensity);
+                        x.Parameters["iLightPosY"].SetValue(LightPos.Y);
+                        x.Parameters["iLightPosX"].SetValue(LightPos.X);
+                        x.Parameters["iDistance"].SetValue(Distance);
+                        x.Parameters["iSampling"].SetValue(Sampling);
                     };
                 }
             }

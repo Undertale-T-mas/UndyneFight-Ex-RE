@@ -126,11 +126,19 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                ScreenDrawing.ActivateShader(Shaders.Spiral, 0.6f);
-                Shaders.Spiral.Intensity = 55;
-                Shaders.Spiral.Speed = 0.4f;
+                ScreenDrawing.ActivateShader(Shaders.Tyndall, 0.612f);
+                Shaders.Tyndall.LightPos = new(320, 240);
+                Shaders.Tyndall.Distance = 5;
+                Shaders.Tyndall.Sampling = 1.0f;
 
-             //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
+            /*    ScreenDrawing.ActivateShader(Shaders.Wrong, 0.611f);
+                Shaders.Wrong.Intensity = 0.21f;
+
+                ScreenDrawing.ActivateShader(Shaders.Spiral, 0.610f);
+                Shaders.Spiral.Intensity = 110.1f;
+                Shaders.Spiral.Speed = 0.05f;*/
+
+                //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
                 // ScreenDrawing.SceneRendering.InsertProduction(production1);
                 //  ScreenDrawing.SceneRendering.InsertProduction(production2);

@@ -308,6 +308,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Tyndall.fx
 
+#begin Global/Shaders/Effect Library/Wrong.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Wrong.fx
+
 #begin Global/Shaders/Internal Effect/Light0.fx
 /importer:EffectImporter
 /processor:EffectProcessor
