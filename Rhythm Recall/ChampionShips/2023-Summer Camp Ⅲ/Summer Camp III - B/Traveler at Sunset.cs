@@ -1265,15 +1265,14 @@ namespace Rhythm_Recall.Waves
                         "(*<$31@K1C)(_>$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",
                         "(*<$31@K1C)(_>$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)", "", "", "",    "(*$31@K1C)(_$31@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "(*<$31@K1C)(_>$31@K1D)", "",
                         "(*$31@K1C)(_$31@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)(WindSlow)", "", "", "(*<$31@K1C)(_>$31@K1D)",    "(*$31@K1C)(_$31@K1D)", "", "(*<$31@K1C)(_>$31@K1D)", "",
-                        //3
-                        "''7",
+                        //3 
                         "n0", "~_!+0", "~_!+0", "~_!+0",    "~_+0", "~_!+0", "~_+0", "",
                         "d1", "~_!+01", "~_+01", "",    "d", "~_!+0", "~_+0", "",
                         "d1", "~_!+01", "~_+01", "",    "d", "~_!+0", "~_+0", "",
                         "n21", "~_!+01(WindFast)", "~_+01", "",    "+01", "~_!+01", "~_+01", "", 
  
                         //4
-                        "n21", "~_!+01", "~_+01", "",    "+01", "~_!+01", "~_+01", "", 
+                        "!!3", "n11", "+11", "+11",    "!!3", "-11", "-11", "-11", 
                         "!!3", "($01)(+01)", "$11", "$21",    "!!3", "$01", "$31", "$21",
                         "(*$01'1.4@S1)(*$2'1.4@S2)(_$01'2.1@T1)(_$2'2.1@T2)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",     
@@ -1576,6 +1575,22 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("pre2Dispose", () => {
                     production2.Dispose();
                     production2 = null;
+                    DelayBeat(2, () => {
+                        lighter.Dispose();
+                    });
+                });
+                RegisterFunctionOnce("dim", () => {
+                    RunEase(s => ScreenDrawing.MasterAlpha = s, false,
+                        Linear(BeatTime(0.25f), 0.4f, 1.0f),
+                        Linear(BeatTime(0.25f), 0.4f, 1.0f),
+                        Linear(BeatTime(0.25f), 0.3f, 1.0f),
+                        Linear(BeatTime(0.25f), 0.3f, 1.0f),
+                        Linear(BeatTime(0.25f), 0.2f, 1.0f),
+                        Linear(BeatTime(0.25f), 0.2f, 1.0f),
+                        Linear(BeatTime(0.25f), 0.1f, 1.0f), 
+                        EaseOut(BeatTime(2.275f), 1.0f, 0.05f, EaseState.Quad),
+                        Linear(BeatTime(1.2f), 0.05f, 1.0f)
+                        );
                 });
                 BarrageCreate(BeatTime(2), BeatTime(2), 1, new string[] {
                     //pre
@@ -1614,7 +1629,7 @@ namespace Rhythm_Recall.Waves
                     "pre2", "", "", "",    "", "", "", "",
                     "shine(shake)", "", "", "",    "", "", "", "",
                     "shine(shake)", "", "", "",    "", "", "", "",
-                    "shine(shake)", "", "", "",    "", "", "", "",
+                    "shine(shake)(dim)", "", "", "",    "", "", "", "",
                     "pre2Dispose", "", "", "",    "", "", "", "",
                 });
             }
@@ -1695,11 +1710,11 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
                     //int beat = 326;
-                    int beat = 326;
+                    int beat = 326 - 64;
                     GametimeDelta = -1.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
