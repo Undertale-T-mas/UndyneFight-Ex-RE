@@ -8,11 +8,11 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.Remake.Entities;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Entities.Player;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
+using Barrage = UndyneFight_Ex.Remake.Entities.Barrage;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace Rhythm_Recall.Waves
@@ -232,10 +232,10 @@ namespace Rhythm_Recall.Waves
                         {
 
                                 var ce = LinkEase(
-                                    Stable(BeatTime(0.5f),Heart.Centre+new Vector2()),
-                                    Linear(BeatTime(4),400
+                                    Stable(BeatTime(0.5f)),
+                                    Linear(BeatTime(4),400)
                                     );
-                                FireBall f = new(); 
+                                //FireBall f = new(); 
                             
                         }
                     });
