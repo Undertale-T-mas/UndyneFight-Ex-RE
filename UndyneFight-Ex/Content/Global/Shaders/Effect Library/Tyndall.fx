@@ -1,5 +1,5 @@
 ﻿#define VS_SHADERMODEL vs_4_0_level_9_3
-#define PS_SHADERMODEL ps_4_0_level_9_3
+#define PS_SHADERMODEL ps_3_0
 
 //#define CAMERAHIGH 400.0
 #define PI 3.1415926

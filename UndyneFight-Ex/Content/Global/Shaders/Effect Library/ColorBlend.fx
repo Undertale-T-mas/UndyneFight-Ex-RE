@@ -17,9 +17,9 @@ uniform float iSpeedX, iSpeedY;
 uniform float2 iCoreSpeed;
 uniform float iTime;
 float4 iColorA, iColorB;
-
+ 
 sampler2D SpriteTexture : register(s0);
-sampler2D hashSample : register(s1);
+sampler2D hashSample : register(s0);
 
 struct VertexShaderOutput
 {

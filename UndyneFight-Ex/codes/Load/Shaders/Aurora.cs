@@ -10,7 +10,8 @@ namespace UndyneFight_Ex
             public class AuroraShader : Shader
             {
                 public AuroraShader(Effect eff) : base(eff)
-                {
+                { 
+                    
                     StableEvents = (x) =>
                     {
                         Time += 0.05f;

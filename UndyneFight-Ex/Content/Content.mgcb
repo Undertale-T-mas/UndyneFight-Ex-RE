@@ -236,6 +236,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Lens.fx
 
+#begin Global/Shaders/Effect Library/Lens.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Lens.fx
+
 #begin Global/Shaders/Effect Library/Mosaic.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -278,6 +284,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Sinwave.fx
 
+#begin Global/Shaders/Effect Library/Sprial3D.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Sprial3D.fx
+
 #begin Global/Shaders/Effect Library/StepSample.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -289,6 +301,12 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Swirl.fx
+
+#begin Global/Shaders/Effect Library/Tyndall.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Tyndall.fx
 
 #begin Global/Shaders/Internal Effect/Light0.fx
 /importer:EffectImporter

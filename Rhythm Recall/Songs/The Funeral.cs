@@ -126,7 +126,9 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                ScreenDrawing.ActivateShader(Shaders.ColorBlend, 0.6f); 
+                ScreenDrawing.ActivateShader(Shaders.Spiral, 0.6f);
+                Shaders.Spiral.Intensity = 55;
+                Shaders.Spiral.Speed = 0.4f;
 
              //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 

@@ -101,6 +101,9 @@ namespace UndyneFight_Ex
             CustomShaders.Scatter =     new ScatterShader(loader.Load<Effect>("Scatter"));
             CustomShaders.Mosaic =      new MosaicShader(loader.Load<Effect>("Mosaic"));
             CustomShaders.BlockTile =   new BlockTileShader(loader.Load<Effect>("BlockTile"));
+
+            CustomShaders.Tyndall =     new TyndallShader(loader.Load<Effect>("Tyndall"));
+            CustomShaders.Spiral =      new SpiralShader(loader.Load<Effect>("Sprial3D"));
             LoadInternals(loader);
             //Effects.CustomShaders.ShaderTiler = new Effects.ShaderTiler(loader.Load<Effect>("ShaderTiler"));
             //Effects.CustomShaders.Smear = new Effects.Smear(loader.Load<Effect>("Smear"));
@@ -115,8 +118,10 @@ namespace UndyneFight_Ex
             {
                 public static Shader Sinwave { get; set; }
                 public static AuroraShader Aurora { get; set; }
+                public static TyndallShader Tyndall { get; set; }
                 public static NeonLineShader NeonLine { get; set; }
                 public static ColorBlendShader ColorBlend { get; set; }
+                public static SpiralShader Spiral { get; set; }
                 
                 public static BallShapingShader Cos1Ball { get; set; }
                 public static ScaleShader Scale { get; set; }
@@ -633,6 +638,8 @@ namespace UndyneFight_Ex
             public static Smear Smear => CustomShaders.Smear;
             public static MosaicShader Mosaic => CustomShaders.Mosaic;
             public static BlockTileShader BlockTile => CustomShaders.BlockTile;
+            public static TyndallShader Tyndall => CustomShaders.Tyndall;
+            public static SpiralShader Spiral => CustomShaders.Spiral;
         }
     }
 }
