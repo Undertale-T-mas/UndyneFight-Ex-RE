@@ -2228,6 +2228,18 @@
 /processorParam:Quality=Best
 /build:Musics/ad,!U)~ZRr]/song.wav
 
+#begin Musics/Asgore/Hand.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Musics/Asgore/Hand.png
+
 #begin Musics/Asgore/song.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

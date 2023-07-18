@@ -8,6 +8,7 @@ using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex.Fight;
+using System.Runtime.ExceptionServices;
 
 namespace UndyneFight_Ex.Remake.Entities
 {
@@ -22,17 +23,21 @@ namespace UndyneFight_Ex.Remake.Entities
         public bool AutoDispose { set;  get; } = true;
         FireBall()
         {
-            
+            this.AddChild(new ImageMotion(Resources.FightSprites.Fireball, 5));
             this.Depth = 0.5f;
-            this._autoDispose = false;
+            this._autoDispose = true;
             this.Alpha = 1.0f;
             this.UpdateIn120 = true;
-            this.Image = Resources.FightSprites.Fireball;
             this.HitRadius = 5.6f;
         }
         protected override float GetDistance(Player.Heart heart)
         {
             return Vector2.Distance(heart.Centre, this.Centre);
+        }
+        public override void Start()
+        {
+            _autoDispose = AutoDispose;
+            this.HitRadius = 5.6f*Scale;
         }
     }
 }

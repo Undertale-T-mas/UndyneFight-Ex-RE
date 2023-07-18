@@ -1,13 +1,14 @@
 ﻿using Extends;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.Remake.Entities;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Entities.Player;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
@@ -84,6 +85,24 @@ namespace Rhythm_Recall.Waves
             #endregion
             static Arrow.UnitEasing easeA = null, easeB = null, easeC = null;
             static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null;
+            public static Texture2D HandImage;
+            public class Hand : Barrage
+            {
+                public Hand(Func<ICustomMotion, Vector2> ce, Func<ICustomMotion, float> re)
+                {
+                    this.Image = HandImage;
+                    this.PositionRoute = ce;
+                    this.RotationRoute = re;
+                    this.Depth = 0.5f;
+                    this.UpdateIn120 = true;
+                    this.Alpha = 1.0f;
+                }
+                public Hand(EaseUnit<Vector2> ce, EaseUnit<float> re) : this(ce.Easing, re.Easing) { }
+                protected override float GetDistance(Player.Heart heart)
+                {
+                    return 10000;
+                }
+            }
             public void Hard()
             {
                 //IsKey();
@@ -150,26 +169,96 @@ namespace Rhythm_Recall.Waves
                         l.TransverseMirror = true;
                         l.VerticalMirror = true;
                     });
+                    RegisterFunctionOnce("FireBall1", () =>
+                    {
+                        PlaySound(Sounds.pierce,0.7f);
+                        Vector2 rand = new(Rand(BoxStates.Left, BoxStates.Right), BoxStates.Up - 20);
+                        for (int a = 0; a < 16; a++)
+                        {
+                            int i = a;
+                            Delay(i * 4, () =>
+                            {
+
+                                rand.Y = BoxStates.Up - 20 - 8 * i;
+                                var sinw = Copy(
+                                    LinkEase(
+                                        EaseOut(BeatTime(1), new Vector2(40, 0), EaseState.Sine),
+                                        EaseIn(BeatTime(1), new Vector2(-40, 0), EaseState.Sine),
+                                        EaseOut(BeatTime(1), new Vector2(-40, 0), EaseState.Sine),
+                                        EaseIn(BeatTime(1), new Vector2(40, 0), EaseState.Sine)
+                                        ), 3);
+                                var ce = LinkEase(
+                                    Stable(0, rand),
+                                    Add(Add(Linear(BeatTime(8), rand, new Vector2(rand.X, 600 - 8 * i)), sinw), Linear(BeatTime(8), new Vector2(0, BeatTime(8) * 0)))
+
+                                    );
+                                FireBall f = new(ce) { Hidden = true };
+                                CreateEntity(f);
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("FireBall2", () =>
+                    {
+                        PlaySound(Sounds.pierce,0.7f);
+                        Vector2 rand = new(Rand(BoxStates.Left, BoxStates.Right), BoxStates.Down + 20);
+                        for (int a = 0; a < 16; a++)
+                        {
+                            int i = a;
+                            Delay(i * 4, () =>
+                            {
+
+                                rand.Y = BoxStates.Up - 20 + 8 * i;
+                                var sinw = Copy(
+                                    LinkEase(
+                                        EaseOut(BeatTime(1), new Vector2(40, 0), EaseState.Sine),
+                                        EaseIn(BeatTime(1), new Vector2(-40, 0), EaseState.Sine),
+                                        EaseOut(BeatTime(1), new Vector2(-40, 0), EaseState.Sine),
+                                        EaseIn(BeatTime(1), new Vector2(40, 0), EaseState.Sine)
+                                        ), 3);
+                                var ce = LinkEase(
+                                    Stable(0, rand),
+                                    Add(Add(Linear(BeatTime(8), rand, new Vector2(rand.X, -120 + 8 * i)), sinw), Linear(BeatTime(8), new Vector2(0, BeatTime(8) * 0)))
+
+                                    );
+                                FireBall f = new(ce) { Hidden = true };
+                                CreateEntity(f);
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("CrossAtk", () =>
+                    {
+                        
+                        for (int a = 0; a < 4; a++)
+                        {
+
+                                var ce = LinkEase(
+                                    Stable(BeatTime(0.5f),Heart.Centre+new Vector2()),
+                                    Linear(BeatTime(4),400
+                                    );
+                                FireBall f = new(); 
+                            
+                        }
+                    });
                     BarrageCreate(0, BeatTime(1), 6, new string[]
                     {
                         "MoveBox","","","",   "","","","",
                         "","","","",   "","","","",
-                        "Line","","","",   "Kick","","","",
+                        "Line","","","",   "Kick(FireBall1)","","","",
                         "","","","",   "Kick","","","",
 
-                        "Line","","","",   "Kick","","","",
+                        "Line","","","",   "Kick(FireBall1)","","","",
                         "","","","",   "Kick","","","",
-                        "Line","","","",   "Kick","","","",
-                        "","","","",   "Kick","","","",
-
-                        "Line","","","",   "Kick","","","",
-                        "","","","",   "Kick","","","",
-                        "Line","","","",   "Kick","","","",
+                        "Line","","","",   "Kick(FireBall1)","","","",
                         "","","","",   "Kick","","","",
 
-                        "Line","","","",   "Kick","","","",
+                        "Line","","","",   "Kick(FireBall1)","","","",
                         "","","","",   "Kick","","","",
-                        "Line","","","",   "Kick","","","",
+                        "Line","","","",   "Kick(FireBall1)","","","",
+                        "","","","",   "Kick","","","",
+
+                        "Line","","","",   "Kick(FireBall1)","","","",
+                        "","","","",   "Kick","","","",
+                        "Line","","","",   "Kick(FireBall1)","","","",
                         "","","","",   "Kick","","","",
                         //
                         "Stop","","","",   "","","","",
@@ -1308,12 +1397,13 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SetBox", () =>
                     {
-                        SetBox(240, 180, 180);
+                        SetBox(240, 160,160);
                         TP();
                         SetSoul(0);
                     });
                     RegisterFunctionOnce("Shine", () =>
                     {
+                        SetBox(240, BoxStates.Width + 60, BoxStates.Height + 60);
                         SetSoul(0);
                     });
                     RegisterFunctionOnce("Fireball", () =>
@@ -1340,6 +1430,7 @@ namespace Rhythm_Recall.Waves
                             //CreateEntity(l);
                             //l.AlphaDecrease(BeatTime(4));
                             FireBall f = new(end) { AutoDispose=false,ColorType=colortype};
+                            //Hand h = new(end, Stable(0));
                             CreateEntity(f);
                             DelayBeat(4, () => { f.Dispose(); });
                         }
@@ -1372,6 +1463,209 @@ namespace Rhythm_Recall.Waves
                             DelayBeat(4, () => { f.Dispose(); });
                         }
                     });
+                    RegisterFunctionOnce("Fireball3", () =>
+                    {
+                        float r = Rand(0, 359);
+                        PlaySound(Sounds.pierce, 0.7f);
+                        for (int a = 0; a < 9; a++)
+                        {
+                            int colortype = 0;
+
+                            int x = a;
+                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
+                            var e = LinkEase(
+                                Stable(0, mt),
+                                Linear(BeatTime(4), -mt)
+                                );
+                            var i = LinkEase(
+                                Stable(0, 0),
+                                Linear(BeatTime(24), -360)
+                                );
+                            var end = Add(Polar(e, i), new Vector2(320, 240));
+                            //Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
+                            //CreateEntity(l);
+                            //l.AlphaDecrease(BeatTime(4));
+                            FireBall f = new(end) { AutoDispose = false, ColorType = colortype };
+                            CreateEntity(f);
+                            DelayBeat(4, () => { f.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("Fireball4", () =>
+                    {
+                        float r = Rand(0, 359);
+                        PlaySound(Sounds.pierce, 0.7f);
+                        for (int a = 0; a < 9; a++)
+                        {
+                            int colortype = 0;
+
+                            int x = a;
+                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
+                            var e = LinkEase(
+                                Stable(0, new Vector2(0,0)),
+                                Linear(BeatTime(4), mt)
+                                );
+                            var i = LinkEase(
+                                Stable(0, 0),
+                                Linear(BeatTime(24), -360)
+                                );
+                            var end = Add(Polar(e, i), new Vector2(320, 240));
+                            //Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
+                            //CreateEntity(l);
+                            //l.AlphaDecrease(BeatTime(4));
+                            FireBall f = new(end) { AutoDispose = false, ColorType = colortype };
+                            CreateEntity(f);
+                            DelayBeat(4, () => { f.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("Fireball5", () =>
+                    {
+                        float r = Rand(0, 359);
+                        PlaySound(Sounds.pierce, 0.7f);
+                        for (int a = 0; a < 36; a++)
+                        {
+                            int colortype = 2;
+
+                            int x = a;
+                            if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
+                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            var e = LinkEase(
+                                Stable(0, new Vector2(0,0)),
+                                Linear(BeatTime(4), mt)
+                                );
+                            var i = LinkEase(
+                                Stable(0, 0),
+                                Linear(BeatTime(24), -360)
+                                );
+                            var end = Add(Polar(e, i), new Vector2(320, 240));
+                            //Line l = new(end.Easing, Stable(0, new Vector2(320, 240)).Easing);
+                            //CreateEntity(l);
+                            //l.AlphaDecrease(BeatTime(4));
+                            FireBall f = new(end) { AutoDispose = false, ColorType = colortype };
+                            CreateEntity(f);
+                            DelayBeat(4, () => { f.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("HandAttackL",() =>
+                    {
+                        Vector2 v = new(BoxStates.Left, BoxStates.Down);
+                        var ce = LinkEase(
+                            Stable(BeatTime(0.5f),v),
+                            Linear(BeatTime(0.5f),new Vector2(0,-BoxStates.Height)),
+                            Linear(BeatTime(0.25f), new Vector2(0, -40))
+                            );
+                        Hand h=new(ce, Stable(0,90));
+                        CreateEntity(h);
+                        h.CreateShinyEffect();
+                        PlaySound(Sounds.Ding);
+                        for(int a=0;a<8;a++)
+                        {
+                            int i = a;
+                            DelayBeat(0.5f+i * 0.125f/2f, () =>
+                            {
+                                float rot = MathUtil.Direction(h.Centre, Heart.Centre);
+                                Vector2 vec = MathUtil.GetVector2(550, rot);
+                                var final = LinkEase(
+                                    Stable(0, h.Centre),
+                                    Linear(BeatTime(2.5f), vec)
+                                    );
+                                FireBall f = new(final) { Alpha = 1, Depth = 0.4f, Scale = 2 };
+                                CreateEntity(f);
+                            });
+                        }
+                        DelayBeat(1f, () => { RunEase((s) => { h.Alpha = s; }, Stable(0, 1), Linear(BeatTime(0.25f), 1, 0)); });
+                        DelayBeat(1.25f, () => { h.Dispose(); });
+                    });
+                    RegisterFunctionOnce("HandAttackU", () =>
+                    {
+                        Vector2 v = new(BoxStates.Left, BoxStates.Up);
+                        var ce = LinkEase(
+                            Stable(BeatTime(0.5f), v),
+                            Linear(BeatTime(0.5f), new Vector2(BoxStates.Width,0)),
+                            Linear(BeatTime(0.25f), new Vector2(40,0))
+                            );
+                        Hand h = new(ce, Stable(0, 180));
+                        CreateEntity(h);
+                        h.CreateShinyEffect();
+                        PlaySound(Sounds.Ding);
+                        for (int a = 0; a < 8; a++)
+                        {
+                            int i = a;
+                            DelayBeat(0.5f + i * 0.125f / 2f, () =>
+                            {
+                                float rot = MathUtil.Direction(h.Centre, Heart.Centre);
+                                Vector2 vec = MathUtil.GetVector2(550, rot);
+                                var final = LinkEase(
+                                    Stable(0, h.Centre),
+                                    Linear(BeatTime(2.5f), vec)
+                                    );
+                                FireBall f = new(final) { Alpha = 1, Depth = 0.4f, Scale = 2 };
+                                CreateEntity(f);
+                            });
+                        }
+                        DelayBeat(1f, () => { RunEase((s) => { h.Alpha = s; }, Stable(0, 1), Linear(BeatTime(0.25f), 1, 0)); });
+                        DelayBeat(1.25f, () => { h.Dispose(); });
+                    });
+                    RegisterFunctionOnce("HandAttackR", () =>
+                    {
+                        Vector2 v = new(BoxStates.Right, BoxStates.Up);
+                        var ce = LinkEase(
+                            Stable(BeatTime(0.5f), v),
+                            Linear(BeatTime(0.5f), new Vector2(0, BoxStates.Height)),
+                            Linear(BeatTime(0.25f), new Vector2(0, 40))
+                            );
+                        Hand h = new(ce, Stable(0, 270));
+                        CreateEntity(h);
+                        h.CreateShinyEffect();
+                        PlaySound(Sounds.Ding);
+                        for (int a = 0; a < 8; a++)
+                        {
+                            int i = a;
+                            DelayBeat(0.5f + i * 0.125f / 2f, () =>
+                            {
+                                float rot = MathUtil.Direction(h.Centre, Heart.Centre);
+                                Vector2 vec = MathUtil.GetVector2(550, rot);
+                                var final = LinkEase(
+                                    Stable(0, h.Centre),
+                                    Linear(BeatTime(2.5f), vec)
+                                    );
+                                FireBall f = new(final) { Alpha = 1, Depth = 0.4f, Scale = 2 };
+                                CreateEntity(f);
+                            });
+                        }
+                        DelayBeat(1f, () => { RunEase((s) => { h.Alpha = s; }, Stable(0, 1), Linear(BeatTime(0.25f), 1, 0)); });
+                        DelayBeat(1.25f, () => { h.Dispose(); });
+                    });
+                    RegisterFunctionOnce("HandAttackD", () =>
+                    {
+                        Vector2 v = new(BoxStates.Right, BoxStates.Down);
+                        var ce = LinkEase(
+                            Stable(BeatTime(0.5f), v),
+                            Linear(BeatTime(0.5f), new Vector2(-BoxStates.Width,0)),
+                            Linear(BeatTime(0.25f), new Vector2(-40,0))
+                            );
+                        Hand h = new(ce, Stable(0, 90));
+                        CreateEntity(h);
+                        h.CreateShinyEffect();
+                        PlaySound(Sounds.Ding);
+                        for (int a = 0; a < 8; a++)
+                        {
+                            int i = a;
+                            DelayBeat(0.5f + i * 0.125f / 2f, () =>
+                            {
+                                float rot = MathUtil.Direction(h.Centre, Heart.Centre);
+                                Vector2 vec = MathUtil.GetVector2(550, rot);
+                                var final = LinkEase(
+                                    Stable(0, h.Centre),
+                                    Linear(BeatTime(2.5f), vec)
+                                    );
+                                FireBall f = new(final) { Alpha = 1, Depth = 0.4f, Scale = 2 };
+                                CreateEntity(f);
+                            });
+                        }
+                        DelayBeat(1f, () => { RunEase((s) => { h.Alpha = s; }, Stable(0, 1), Linear(BeatTime(0.25f), 1, 0)); });
+                        DelayBeat(1.25f, () => { h.Dispose(); });
+                    });
+                    RegisterFunctionOnce("SoundPlay",() => { PlaySound(Sounds.pierce,0.7f); });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "SetBox(SineBackGround)","","","",   "(Fireball)","","","",
@@ -1391,48 +1685,43 @@ namespace Rhythm_Recall.Waves
 
                         "","","","",   "(Fireball)","","","",
                         "","","","",   "(Fireball2)","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","","",   "(Fireball)","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        
+                        "Shine","","","",   "(Fireball3)","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        "","","","",   "(Fireball3)","","","",
+                        "","","","",   "(Fireball2)","","","",
+
+                        "","","","",   "(Fireball3)","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        "","","","",   "(Fireball3)","","","",
+                        "","","","",   "(Fireball2)","","","",
+
+                        "","","","",   "(Fireball3)","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        "","","","",   "(Fireball3)","","","",
+                        "","","","",   "(Fireball2)","","","",
+
+                        "","","","",   "(Fireball3)","","","",
+                        "","","","",   "(Fireball2)","","","",
+                        "","","","",   "SoundPlay","","","",
+                        "","","","",   "SoundPlay","","","",
                         //
-                        "Shine","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "Shine","","","",   "(Fireball5)","","","",
+                        "","","","",   "(Fireball4)","","","",
+                        "","","","",   "(Fireball5)","","","",
+                        "","","","",   "(Fireball4)","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","","",   "(Fireball5)","","","",
+                        "","","","",   "(Fireball4)","","","",
+                        "","","","",   "(Fireball5)","","","",
+                        "","","","",   "(Fireball4)","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        //
-                        "Shine","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","","",   "(Fireball5)","","","",
+                        "","","","",   "(Fireball4)","","","",
+                        "","","","",   "SoundPlay","","","",
+                        "","","","",   "SoundPlay","","","",
                     });
                 }
                 if (InBeat(282))
@@ -1625,13 +1914,14 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
+                HandImage=Loader.Load<Texture2D>("Musics\\Asgore\\Hand");
                 Heart.Speed = 3f;
                 GametimeDelta = -2.5f;
                 PlayOffset = 0;
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
-                bool jump = true ;
+                bool jump = false ;
                 if (jump==true)
                 {
                     SetSoul(0);
