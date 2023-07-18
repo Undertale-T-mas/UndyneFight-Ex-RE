@@ -1,5 +1,11 @@
-﻿#define VS_SHADERMODEL vs_4_0_level_9_1
-#define PS_SHADERMODEL ps_3_0 
+﻿#if OPENGL
+	#define SV_POSITION POSITION
+	#define VS_SHADERMODEL vs_3_0
+	#define PS_SHADERMODEL ps_3_0
+#else
+	#define VS_SHADERMODEL vs_4_0_level_9_3
+	#define PS_SHADERMODEL ps_4_0_level_9_3
+#endif
 
 //#define CAMERAHIGH 400.0
 #define PI 3.1415926
@@ -13,7 +19,7 @@ uniform float iUnit;
 #define SIZESURFACE float2(640.0, 480.0)//
 #define SIZEPIXEL 1.0 / SIZESURFACE
 #define CAMERAHIGH 400.0
-#define amount 20.0
+#define amount 16.0
 
 sampler2D SpriteTextureSampler = sampler_state
 {
@@ -59,6 +65,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
         clr += smoothstep(float3(0.0, 0.0, 0.0), float3(1.0, 1.0, 1.0), color);
     }
 
+    clr *= 1.2;
     clr /= amount;
 
     float4 original = localToColor(SpriteTextureSampler, v_vPosition); //blur
