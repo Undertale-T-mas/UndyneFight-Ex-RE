@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
+using Microsoft.Xna.Framework.Content; 
 using static System.MathF;
 
 namespace UndyneFight_Ex
@@ -72,7 +73,8 @@ namespace UndyneFight_Ex
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {
+        {  
+            Graphics.PreferMultiSampling = true;
             Graphics.PreferredBackBufferHeight = 480;
             Graphics.PreferredBackBufferWidth = 640;
             Window.AllowUserResizing = true;
@@ -223,7 +225,7 @@ namespace UndyneFight_Ex
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            DrawFPS = Settings.SettingsManager.DataLibrary.DrawFPS;
+            DrawFPS = Settings.SettingsManager.DataLibrary.DrawFPS * 100;
             _totalElapsedMS += gameTime.ElapsedGameTime.Milliseconds;
             if (_totalElapsedMS > 100f) _totalElapsedMS /= 2f;
             #region Event for times

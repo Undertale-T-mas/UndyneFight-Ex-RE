@@ -1001,6 +1001,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(328))
                 {
+                    Regenerate();
                     base.Settings.VoidArrowVolume = 0.0f;
                     DelayBeat(6.5f, () => {
                         easeA.Dispose(); easeA = new(); AddInstance(easeA);
@@ -1694,7 +1695,7 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 326;
