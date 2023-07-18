@@ -9,11 +9,38 @@ using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.Fight.Functions;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UndyneFight_Ex.Remake.Entities
 {
     public abstract class Barrage : AutoEntity, ICustomMotion, ICollideAble
-    {  
+    {
+       
+        public class ImageMotion : GameObject
+        {
+            Texture2D[] images;
+            float interval;
+            public ImageMotion(Texture2D[] images,float interval)
+            {
+                UpdateIn120 = true;
+                this.images = images;
+                this.interval = interval;
+            }
+            int index=0;
+            float timer = 0;
+            public override void Update()
+            {
+                timer+=0.5f;
+                if (timer >= interval) { index += 1; index %= images.Length;timer -=interval; }
+                father.Image = images[index];
+            }
+            Barrage father;
+            public override void Start()
+            {
+                father = (Barrage)(this.FatherObject);
+                
+            }
+        }
         public Barrage() { UpdateIn120 = true; this.PlayerMission = Heart; }
 
         public Func<ICustomMotion, Vector2> PositionRoute { get; set; }
@@ -45,7 +72,12 @@ namespace UndyneFight_Ex.Remake.Entities
                 if (_hasBeenInside && (!ins)) Dispose();
             }
         }
-
+         public void CreateShinyEffect()
+         {
+            var m=base.CreateShinyEffect();
+            m.Depth = 0.99f;
+         
+         }
         private static readonly CollideRect screen = new(-80, -80, 800, 640);
 
         int score = 3;
@@ -122,4 +154,5 @@ namespace UndyneFight_Ex.Remake.Entities
             base.Dispose();
         }
     }
+
 }

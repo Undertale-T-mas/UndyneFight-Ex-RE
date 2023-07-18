@@ -29,7 +29,8 @@ namespace UndyneFight_Ex.Remake
             Sounds.Bomb = loader.Load<SoundEffect>("Sounds\\bomb");
 
             FightSprites.SoulShoot = loader.Load<Texture2D>("FightSprites\\soulBullet");
-            FightSprites.Fireball = loader.Load<Texture2D>("FightSprites\\fireball");
+            for(int a=0;a<2;a++)
+                FightSprites.Fireball[a] = loader.Load<Texture2D>($"FightSprites\\FireBall\\spr_{a}");
             FightSprites.MettBlockA = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockA");
             FightSprites.MettBlockB = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockB");
             FightSprites.MettBullet = loader.Load<Texture2D>("FightSprites\\Mettaton\\bullet");
@@ -75,7 +76,8 @@ namespace UndyneFight_Ex.Remake
         }
         public static class FightSprites
         {
-            public static Texture2D Fireball { get; set; }
+            public static Texture2D[] Fireball { get; private set; } = new Texture2D[2];
+           
             public static Texture2D SoulShoot { get; set; }
             public static Texture2D MettBlockA { get; set; }
             public static Texture2D MettBlockB { get; set; }
