@@ -48,6 +48,7 @@ namespace UndyneFight_Ex
             //championShip =      loader.Load<Texture2D>("UI\\cup");
             championShip =      loader.Load<Texture2D>("UI\\cup_highres");
             hashtex =           loader.Load<Texture2D>("Shaders\\Effect Library\\hashtex");
+            hashtex2 =          loader.Load<Texture2D>("Shaders\\Effect Library\\hashtex2");
             mainGame =          loader.Load<Texture2D>("UI\\maingame");
             achieveMents =      loader.Load<Texture2D>("UI\\stars");
             options =           loader.Load<Texture2D>("UI\\options");
@@ -83,6 +84,7 @@ namespace UndyneFight_Ex
             loader.RootDirectory = "Content\\Global\\Shaders\\Effect Library\\";
             CustomShaders.Aurora =      new AuroraShader(loader.Load<Effect>("Aurora")) { };
             CustomShaders.Sinwave =     new Shader(loader.Load<Effect>("Sinwave")) { };
+            CustomShaders.ColorBlend =  new ColorBlendShader(loader.Load<Effect>("ColorBlend")) { };
             CustomShaders.NeonLine =    new NeonLineShader(loader.Load<Effect>("NeonLine")) { };
             CustomShaders.Camera =      new CameraShader(loader.Load<Effect>("CameraSurface")) { };
             CustomShaders.Cos1Ball =    new BallShapingShader(loader.Load<Effect>("Cos1Ball")) { };
@@ -114,6 +116,8 @@ namespace UndyneFight_Ex
                 public static Shader Sinwave { get; set; }
                 public static AuroraShader Aurora { get; set; }
                 public static NeonLineShader NeonLine { get; set; }
+                public static ColorBlendShader ColorBlend { get; set; }
+                
                 public static BallShapingShader Cos1Ball { get; set; }
                 public static ScaleShader Scale { get; set; }
                 public static CameraShader Camera { get; set; }
@@ -150,6 +154,7 @@ namespace UndyneFight_Ex
             public static Texture2D login;
             public static Texture2D championShip;
             public static Texture2D hashtex;
+            public static Texture2D hashtex2;
             public static Texture2D mainGame;
             public static Texture2D options;
             public static Texture2D achieveMents;
@@ -608,8 +613,9 @@ namespace UndyneFight_Ex
         public static class Shaders
         {
             public static Shader Sinwave => CustomShaders.Sinwave;
-            public static AuroraShader Aurora => CustomShaders.Aurora;
+            public static AuroraShader Aurora => CustomShaders.Aurora; 
             public static NeonLineShader NeonLine => CustomShaders.NeonLine;
+            public static ColorBlendShader ColorBlend => CustomShaders.ColorBlend;
             public static BallShapingShader Cos1Ball => CustomShaders.Cos1Ball;
             public static StepSampleShader StepSample => CustomShaders.StepSample;
             public static ScaleShader Scale => CustomShaders.Scale;

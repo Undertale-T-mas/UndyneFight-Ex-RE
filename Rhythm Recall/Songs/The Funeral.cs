@@ -126,8 +126,7 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.6f);
-                Shaders.Aurora.ThemeColor = Color.Yellow;
+                ScreenDrawing.ActivateShader(Shaders.ColorBlend, 0.6f); 
 
              //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
