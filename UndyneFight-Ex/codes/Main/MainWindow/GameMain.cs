@@ -73,7 +73,8 @@ namespace UndyneFight_Ex
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {  
+        {
+            Graphics.SynchronizeWithVerticalRetrace = false;
             Graphics.PreferMultiSampling = true;
             Graphics.PreferredBackBufferHeight = 480;
             Graphics.PreferredBackBufferWidth = 640;
