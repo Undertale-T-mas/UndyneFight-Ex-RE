@@ -2050,6 +2050,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
+                this.Settings.GreenTap = true;
                 HandImage=Loader.Load<Texture2D>("Musics\\Asgore\\Hand");
                 Heart.Speed = 3f;
                 GametimeDelta = -2.5f;

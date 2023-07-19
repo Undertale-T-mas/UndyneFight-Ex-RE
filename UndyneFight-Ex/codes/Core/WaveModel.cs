@@ -443,6 +443,10 @@ namespace UndyneFight_Ex.SongSystem
             {
                 arrowAttribute |= ArrowAttribute.Tap;
                 curSpecialI++;
+                if (this.Settings.GreenTap)
+                {
+                    arrowAttribute |= ArrowAttribute.ForceGreen;
+                }
             }
             else if (origin[curSpecialI] == '_')
             {
@@ -592,6 +596,7 @@ namespace UndyneFight_Ex.SongSystem
             public float GBAppearVolume = 0.5f;
             public float GBShootVolume = 0.75f;
             public float VoidArrowVolume = 0.5f;
+            public bool GreenTap = false;
         }
 
         protected ChartSettings Settings { get; private set; } = new();

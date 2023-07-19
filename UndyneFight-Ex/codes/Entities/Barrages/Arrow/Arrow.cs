@@ -93,11 +93,14 @@ namespace UndyneFight_Ex.Entities
         internal float RotateScale { get; set; } = 1.0f;
         internal int GoldenMarkIntensity { private get; set; }
 
+        internal bool ForceGreenBack { private get; set; } = false;
+
         public override void Draw()
         {
             //Tap -> Green outline, else no outline
             if ((JudgeType != JudgementType.Tap && !taggedArrows.ContainsKey("Tap")) && backColor == 2)
                 backColor = 0;
+            if (ForceGreenBack) { backColor = 2; }
             //if (!VoidMode) Image = Sprites.arrow[ArrowColor, backColor, 0];
             //if (VoidMode) Image = Sprites.voidarrow[ArrowColor];
             Image = VoidMode ? Sprites.voidarrow[ArrowColor] : Sprites.arrow[ArrowColor, backColor, 0];
