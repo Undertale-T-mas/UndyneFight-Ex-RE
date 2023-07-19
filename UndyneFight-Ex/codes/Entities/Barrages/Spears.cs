@@ -17,6 +17,9 @@ namespace UndyneFight_Ex.Entities
         public bool DelayTargeting { set; private get; }
 
         public float WaitingTime { get; set; } = 59;
+        public bool Rebound { get; set; } = false;
+        public int ReboundCount { get; set; } = 3;
+        public float Duration { private get; set; } = 200;
 
         public NormalSpear(Vector2 centre) : this(centre, (float)(Atan2(Heart.Centre.Y - centre.Y, Heart.Centre.X - centre.X) * 180 / Math.PI)) { }
         public NormalSpear(Vector2 centre, float rotation)
@@ -60,7 +63,7 @@ namespace UndyneFight_Ex.Entities
                 Speed += Acceleration;
                 Centre += GetVector2(Speed, Rotation);
             }
-            if (appearTime >= 200)
+            if (appearTime >= Duration)
             {
                 Dispose();
             }

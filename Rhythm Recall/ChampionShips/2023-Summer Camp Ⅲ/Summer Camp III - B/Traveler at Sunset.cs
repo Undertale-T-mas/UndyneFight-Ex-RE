@@ -773,19 +773,20 @@ namespace Rhythm_Recall.Waves
                         {
                             box.SetPosition(i, GetVector2((i % 2) == 0 ? 40 : 80, i * 90) + new Vector2(320, 240));
                         }
-
-
-
                         //BoxUtils.Move(new(0, -40));
                         ScreenDrawing.BoxBackColor = Color.Transparent;
 
                         SetSoul(Souls.RedSoul);
-                        ForBeat(32, () =>
+                        ForBeat(28, () =>
                         {
                             var D = (GametimeF - BeatTime(200)) / 4;
                             for (int i = 0; i < 4; ++i)
                             {
                                 box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
+                            }
+                            if (At0thBeat(1))
+                            {
+                                
                             }
                         });
                         
@@ -805,12 +806,28 @@ namespace Rhythm_Recall.Waves
                         BoxUtils.DeVertexify(new(320 - 42, 240 - 42, 84, 84));
                         ScreenDrawing.BoxBackColor = Color.Black;
                     });
+                    RegisterFunctionOnce("BounceSpear", () =>
+                    {
+                        var dir = Rand(0, 360);
+                        Vector2 pos = GetVector2(Rand(100, 400), Rand(0, 360)) + new Vector2(320, 240);
+                        for (int i = 0; i < 6; i++)
+                        {
+                            CreateEntity(new NormalSpear(pos, dir + i * 60, 4)
+                            {
+                                DelayTargeting = false,
+                                Rebound = true,
+                                Duration = 600,
+                                Acceleration = 0.05f,
+                                WaitingTime = BeatTime(1)
+                            });
+                        }
+                    });
                     RegisterFunctionOnce("SpearFake", () =>
                     {
                         float rot = 0;
                         Fortimes(15, () =>
                         {
-                            CreateSpear(new CircleSpear(Heart.Centre, 8, 5f, 150, rot += 24, 0.005f) {  MarkScore = false});
+                            CreateSpear(new CircleSpear(Heart.Centre, 8, 5f, 150, rot += 24, 0.005f) { MarkScore = false });
                             CreateSpear(new CircleSpear(Heart.Centre, -8, 5f, 150, rot, 0.005f) { MarkScore = false });
                         });
                     });
@@ -847,13 +864,9 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "(pre)", "", "", "",
                         //1
-                        "(BoundA)(GaussBlur)", "", "", "",    "", "", "", "",
+                        "(BoundA)(GaussBlur)", "BounceSpear", "BounceSpear", "BounceSpear",    "BounceSpear", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "(SpearCross0)(SpearSurroundSmall)",    "", "", "", "",
-                        "", "", "", "(SpearCross45)(SpearSurroundSmall)",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
-                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",    
                         //2
                         "", "", "", "",    "", "", "", "",
@@ -862,14 +875,14 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",
                         //3
                         "", "", "", "",    "", "", "", "",    
-                        "", "", "", "SpearSurroundSquare",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         //4
                         "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",
                         "(BoundB)", "", "", "SpearFake",    "", "", "", "",
-                        "Green", "", "", "",    "", "", "", "Box",      
+                        "(Green)(Box)", "", "", "",    "", "", "", "",      
                         //5
                         "(d1)(+00)", "", "", "",    "(d1)(+00)", "", "d1", "",
                         "d1", "", "d1", "",    "(d1)(+00)", "", "d1", "",
@@ -1460,7 +1473,7 @@ namespace Rhythm_Recall.Waves
                         {
                             position = new(320, 240),
                             color = Color.White * 1f,
-                            size = 350
+                            size = 300
                         });
                     });
                 });
@@ -1650,10 +1663,9 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
-                    //int beat = 326;
                     int beat = 326;
                     GametimeDelta = -1.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
