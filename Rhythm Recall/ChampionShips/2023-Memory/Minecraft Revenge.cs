@@ -59,7 +59,7 @@ namespace Rhythm_Recall.Waves
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 21.0f),
                             new(Difficulty.Hard, 19f),
-                            new(Difficulty.Noob, 2.4f),
+                            new(Difficulty.Noob, 7f),
                         }
                     );
             }
