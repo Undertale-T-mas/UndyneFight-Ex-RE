@@ -170,9 +170,12 @@ namespace UndyneFight_Ex.Entities
                     realDis = MathHelper.Lerp(distanceBuffer[l], distanceBuffer[r], add) * Intensity;
                 }
 
-                arr.Offset = realPos;
-                arr.CentreRotationOffset = realRot;
-                arr.additiveDistance = realDis;
+                if (positionEaseEnabled)
+                    arr.Offset = realPos;
+                if (rotationEaseEnabled)
+                    arr.CentreRotationOffset = realRot;
+                if (distanceEaseEnabled)
+                    arr.additiveDistance = realDis;
             }
 
             private void UpdateEase()

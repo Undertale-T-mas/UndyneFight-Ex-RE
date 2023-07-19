@@ -236,12 +236,6 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Lens.fx
 
-#begin Global/Shaders/Effect Library/Lens.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Global/Shaders/Effect Library/Lens.fx
-
 #begin Global/Shaders/Effect Library/Mosaic.fx
 /importer:EffectImporter
 /processor:EffectProcessor

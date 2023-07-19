@@ -1876,41 +1876,44 @@ namespace Rhythm_Recall.Waves
                     {
                         Vector2 scale = new(0,15);
                         Arrow[] ars = GetAll<Arrow>("s");
+                        float y1 = 225, y2 = 255;
                         var ease = LinkEase(
-                        Stable(0,new Vector2(0,240)),
-                        EaseOut(BeatTime(1), scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), -scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), -scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), scale, EaseState.Sine),
-                        #region repeat
-                        EaseOut(BeatTime(1), scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), -scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), -scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), -scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), -scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), -scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), -scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), -scale, EaseState.Sine),
-                        EaseOut(BeatTime(1), -scale, EaseState.Sine),
-                        EaseIn(BeatTime(1), scale, EaseState.Sine)
-                        #endregion
+                            EaseOut(BeatTime(0.75f), 240, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.75f), y1, y2, EaseState.Quart),
+                            EaseOut(BeatTime(0.4f), y2, y1, EaseState.Quart),
+                            EaseOut(BeatTime(0.5f), y1, 240, EaseState.Quart)
                         );
                         RunEase((s) =>
                         {
                             for (int i = 0; i < ars.Length; i++)
                             {
                                 int x = i;
-                                Extends.ShadowLibrary.SetOffset2(ars[x], s.Y-240);
+                                Extends.ShadowLibrary.SetOffset2(ars[x], s - 240);
                             }
                         },ease                    
                         );
-                        Line l = new(ease.Easing, Stable(0,0).Easing) { Alpha = 0,Depth=0.01f };
+                        Line l = new((s) => new Vector2(320, ease.Easing(s)), Stable(0,0).Easing) { Alpha = 0,Depth=0.01f };
                         CreateEntity(l);
                         DelayBeat(3, () => { l.AlphaIncrease(BeatTime(1), 0.5f); });
                         DelayBeat(12, () => { l.AlphaDecrease(BeatTime(1)); });
@@ -2001,7 +2004,14 @@ namespace Rhythm_Recall.Waves
                         l2.AlphaDecrease(BeatTime(0.3f));
                         l3.AlphaDecrease(BeatTime(0.3f));
                     });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+
+                    Arrow.UnitEasing ease;
+                    AddInstance(ease = new Arrow.UnitEasing() { ApplyTime = BeatTime(4) });
+
+                    ease.DistanceEase = EaseOut(BeatTime(4), 3060, 0, EaseState.Cubic);
+                    ease.TagApply("s");
+
+                    BarrageCreate(0, BeatTime(1), 6.8f, new string[]
                     {
                         "SineWave","","","",   "","","","",
                         "","","","",   "","","","",
@@ -2062,8 +2072,9 @@ namespace Rhythm_Recall.Waves
                 if (jump==true)
                 {
                     SetSoul(0);
-                    GametimeDelta = -5.4f+ BeatTime(158);
-                    PlayOffset = BeatTime(158);
+                    int beat = 281;
+                    GametimeDelta = -5.4f+ BeatTime(beat);
+                    PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
                 }
