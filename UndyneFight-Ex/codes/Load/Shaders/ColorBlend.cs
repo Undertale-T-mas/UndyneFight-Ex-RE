@@ -14,9 +14,9 @@ namespace UndyneFight_Ex
                 {
                     StableEvents = (x) =>
                     {
-                      //  GameMain.Graphics.GraphicsDevice.Textures[1] = Sprites.hashtex2;
-                        GameMain.Graphics.GraphicsDevice.Textures[1] = Sprites.loadingTexture;
-                        GameMain.Graphics.GraphicsDevice.SamplerStates[1] = SamplerState.PointClamp; 
+                        GameMain.Graphics.GraphicsDevice.Textures[1] = Sprites.hashtex2;  
+                        GameMain.Graphics.GraphicsDevice.Textures[2] = Sprites.hashtex2;  
+                        GameMain.Graphics.GraphicsDevice.Textures[3] = Sprites.hashtex2;  
                         /*       x.Parameters["iSpeedX"].SetValue(Speed.X);
                                x.Parameters["iSpeedY"].SetValue(Speed.Y);
                                x.Parameters["iCoreSpeed"].SetValue(CoreSpeed);
