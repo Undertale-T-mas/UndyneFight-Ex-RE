@@ -100,26 +100,32 @@ namespace Rhythm_Recall.Waves
             {
                 public TestProduction() : base(null, SpriteSortMode.Immediate, null, 0.992f)
                 {
-
+                    sprite = new(WindowDevice);
                 }
-
+                SpriteBatchEX sprite;
+                public override void Update()
+                { 
+                }
                 public override RenderTarget2D Draw(RenderTarget2D obj)
                 {
                     MissionTarget = HelperTarget3;
                     ResetTargetColor(Color.Black);
+                    sprite.Begin(transform: Surface.NormalTransfer);
+                    VertexPositionColor[] vertexPositionColors = new VertexPositionColor[]
+                    {
+                        new VertexPositionColor(new Vector3(80, 0, 0), Color.White),
+                        new VertexPositionColor(new Vector3(320, 120, 0), Color.Red),
+                        new VertexPositionColor(new Vector3(560, 0, 0), Color.Lime),
+                        new VertexPositionColor(new Vector3(560, 480, 0), Color.Aqua),
+                        new VertexPositionColor(new Vector3(320, 320, 0), Color.Gold),
+                        new VertexPositionColor(new Vector3(80, 480, 0), Color.White),
+                        new VertexPositionColor(new Vector3(180, 240, 0), Color.MediumPurple)
+                    };
+                    sprite.DrawVertex(Sprites.brokenHeart, 0.5f,
+                            DrawingLab.GetIndices(vertexPositionColors), vertexPositionColors
+                        );
+                    sprite.End();
 
-                    DrawPrimitives(new VertexPositionColorTexture[] { 
-                        new(new(0, 0, 0.0f), Color.White, new(0, 0)),
-                        new(new(640, 0, 0.0f), Color.Red, new(1, 0)),
-                        new(new(0, 480, 1.0f), Color.Red, new(0, 1)),
-                        new(new(640, 480, 1.0f), Color.White, new(1, 1)),
-                    }, obj);
-                    DrawPrimitives(new VertexPositionColorTexture[] { 
-                        new(new(0, 0, 0.0f), Color.White, new(0, 0)),
-                        new(new(640, 0, 2.0f), Color.Aqua, new(1, 0)),
-                        new(new(0, 480, 0.0f), Color.Aqua, new(0, 1)),
-                        new(new(640, 480, 2.0f), Color.White, new(1, 1)),
-                    }, obj);
                     return HelperTarget3;
                 }
             }

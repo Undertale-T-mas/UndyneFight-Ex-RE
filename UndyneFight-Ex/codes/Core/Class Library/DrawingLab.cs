@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.GameMain;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -11,6 +12,100 @@ namespace UndyneFight_Ex
 {
     public static class DrawingLab
     {
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        /// <param name="pointList"></param>
+        /// <returns></returns>
+        public static int[] GetIndices(VertexPositionColor[] pointList)
+        {
+            int i;
+            Vector2[] vector2s = new Vector2[pointList.Length];
+            for(i = 0;  i < pointList.Length; i++)
+            {
+                vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
+            }
+            List<Tuple<int, int, int>> results = GetIndices(vector2s);
+            int[] indices = new int[results.Count * 3];
+            i = 0;
+            foreach(Tuple<int, int, int> tuple in results)
+            {
+                indices[i] = tuple.Item1; i++;
+                indices[i] = tuple.Item2; i++;
+                indices[i] = tuple.Item3; i++;
+            }
+            return indices;
+        }
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(VertexPositionColorTexture[] pointList)
+        {
+            Vector2[] vector2s = new Vector2[pointList.Length];
+            for(int i = 0;  i < pointList.Length; i++)
+            {
+                vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
+            }
+            return GetIndices(vector2s);
+        }
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(Vector2[] pointList) { 
+            Tuple<int, Vector2>[] arr = new Tuple<int, Vector2>[pointList.Length];
+            for (int i = 0; i < arr.Length; i++) arr[i] = new(i, pointList[i]);
+            return GetIndices(arr);
+        }
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(Tuple<int, Vector2>[] pointList)
+        {
+            if(pointList.Length == 3) {
+                return new List<Tuple<int, int, int>>() { new Tuple<int, int, int>(pointList[0].Item1, pointList[1].Item1, pointList[2].Item1) };
+            }
+            Vector2 last = Vector2.Zero;
+            int lastPoint = 0;
+            List<Tuple<int, int, int>> result = new();
+            List<Tuple<int, Vector2>> buffer = new();
+            int figureStart = -1;
+            for (int i = 1; i <= pointList.Length; i++)
+            { 
+                int curPoint = i;
+                if (curPoint >= pointList.Length) curPoint -= pointList.Length;
+                Vector2 cur = pointList[curPoint].Item2 - pointList[lastPoint].Item2;
+                bool flag1 = true;
+                if (last != Vector2.Zero)
+                {
+                    float cross = last.Cross(cur);
+                    if (cross < 0) //凹点
+                    {
+                        figureStart = lastPoint;
+                        buffer.Add(pointList[curPoint]);
+                        flag1 = false;
+                    }
+                    else
+                    {
+                        if(buffer.Count > 0)  //把凹点构成的图形算出来
+                        {
+                            buffer.Add(pointList[curPoint]); 
+                            buffer.Add(pointList[figureStart]);
+                            result.AddRange(GetIndices(buffer.ToArray()));
+                            buffer.Clear();
+                        }
+                    }
+                    ;
+                    //cur = 
+                }
+                if (flag1)
+                {
+                    lastPoint = i;
+                    last = cur;
+                }
+            }
+            return null;
+        }
+
         private struct HSV
         {
             public int H, S, V;

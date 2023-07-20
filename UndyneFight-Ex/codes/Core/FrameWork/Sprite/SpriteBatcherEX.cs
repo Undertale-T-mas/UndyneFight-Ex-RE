@@ -2,10 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace UndyneFight_Ex
 {
-    partial class SpriteBatchEX
+    public partial class SpriteBatchEX
     {
         private class SpriteBatcherEX
         {
@@ -46,13 +47,22 @@ namespace UndyneFight_Ex
                         this.DrawItem(_current[i]);
                     else this.DrawItem(effect, _current[i]);
                 }
+                _items.Clear();
             }
 
             private void DrawItem(SpriteBatchItem item)
-            { 
+            {
+                _graphicsDevice.Textures[0] = item.Texture;
+                _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
             }
             private void DrawItem(Effect effect, SpriteBatchItem item)
-            { 
+            {
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Apply();
+                    _graphicsDevice.Textures[0] = item.Texture;
+                    _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
+                }
             }
         }
     }
