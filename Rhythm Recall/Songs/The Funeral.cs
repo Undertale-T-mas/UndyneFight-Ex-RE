@@ -113,16 +113,15 @@ namespace Rhythm_Recall.Waves
                     sprite.Begin(transform: Surface.NormalTransfer);
                     VertexPositionColor[] vertexPositionColors = new VertexPositionColor[]
                     {
-                        new VertexPositionColor(new Vector3(80, 0, 0), Color.White),
-                        new VertexPositionColor(new Vector3(320, 120, 0), Color.Red),
-                        new VertexPositionColor(new Vector3(560, 0, 0), Color.Lime),
-                        new VertexPositionColor(new Vector3(560, 480, 0), Color.Aqua),
-                        new VertexPositionColor(new Vector3(320, 320, 0), Color.Gold),
-                        new VertexPositionColor(new Vector3(80, 480, 0), Color.White),
-                        new VertexPositionColor(new Vector3(180, 240, 0), Color.MediumPurple)
+                        new VertexPositionColor(new Vector3(80, 0, 0.1f), Color.White),
+                        new VertexPositionColor(new Vector3(320, 120, 0.1f), Color.Red),
+                        new VertexPositionColor(new Vector3(560, 0, 0.1f), Color.Lime),
+                        new VertexPositionColor(new Vector3(560, 480, 0.1f), Color.Aqua),
+                        new VertexPositionColor(new Vector3(320, 320, 0.1f), Color.Gold),
+                        new VertexPositionColor(new Vector3(80, 480, 0.1f), Color.White),
                     };
                     sprite.DrawVertex(Sprites.brokenHeart, 0.5f,
-                            DrawingLab.GetIndices(vertexPositionColors), vertexPositionColors
+                               DrawingLab.GetIndices(vertexPositionColors), vertexPositionColors
                         );
                     sprite.End();
 

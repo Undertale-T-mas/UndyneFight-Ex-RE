@@ -10,6 +10,19 @@ namespace UndyneFight_Ex
         internal static Random rander = new Random();
         public static float PI = 3.141592f;
 
+        public static bool InTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 target)
+        {
+            Vector2 l1 = v2 - v1, l2 = v3 - v2, l3 = v1 - v3;
+            Vector2 d1 = target - v1, d2 = target - v2, d3 = target - v3;
+            float re1 = l1.Cross(d1), re2 = l2.Cross(d2);
+            bool sg1 = re1 > 0, sg2 = re2 > 0;
+            if (sg1 ^ sg2) return false;
+            float re3 = l3.Cross(d3);
+            bool sg3 = re3 > 0;
+            if (sg1 ^ sg3) return false;
+            return true;
+        }
+
         public static string FloatToString(float val, int digits) => FloatToString(val, digits, false);
         public static string FloatToString(float val, int digits, bool isCheck)
         {

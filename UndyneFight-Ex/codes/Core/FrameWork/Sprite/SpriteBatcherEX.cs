@@ -50,10 +50,12 @@ namespace UndyneFight_Ex
                 _items.Clear();
             }
 
+            VertexPositionColorTexture[] buffer = new VertexPositionColorTexture[3];
             private void DrawItem(SpriteBatchItem item)
             {
-                _graphicsDevice.Textures[0] = item.Texture;
-                _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
+                    _graphicsDevice.Textures[0] = item.Texture;
+                    _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
+
             }
             private void DrawItem(Effect effect, SpriteBatchItem item)
             {

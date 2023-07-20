@@ -95,7 +95,7 @@ namespace UndyneFight_Ex
             _blendState = blendState ?? BlendState.AlphaBlend;
             _samplerState = samplerState ?? _defaultState;
             _depthStencilState = depthStencilState ?? DepthStencilState.None;
-            _rasterizerState = rasterizerState ?? RasterizerState.CullCounterClockwise;
+            _rasterizerState = rasterizerState ?? RasterizerState.CullNone;
             _effect = effect;
             _spriteEffect.TransformMatrix = transform;
             
