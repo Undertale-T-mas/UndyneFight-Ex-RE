@@ -28,7 +28,7 @@ namespace UndyneFight_Ex.Remake.Entities
             this._autoDispose = true;
             this.Alpha = 1.0f;
             this.UpdateIn120 = true;
-            this.HitRadius = 5.6f;
+            this.HitRadius = 4f;
         }
         protected override float GetDistance(Player.Heart heart)
         {
@@ -37,7 +37,7 @@ namespace UndyneFight_Ex.Remake.Entities
         public override void Start()
         {
             _autoDispose = AutoDispose;
-            this.HitRadius = 5.6f*Scale;
+            this.HitRadius = 4f*Scale;
         }
     }
 }
