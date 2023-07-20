@@ -130,7 +130,7 @@ namespace UndyneFight_Ex
         /// <returns>所得角度</returns>
         public static float Direction(this Vector2 vec)
         {
-            return Atan2(vec.Y, vec.X);
+            return Atan2(vec.Y, vec.X) / MathF.PI * 180;
         }
         /// <summary>
         /// 即调整后的Tanh函数。用于丝滑过渡。val定义域为[0, 1]时，函数值域为[0, 1]

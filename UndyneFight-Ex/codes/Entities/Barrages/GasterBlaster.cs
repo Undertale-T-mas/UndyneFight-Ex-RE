@@ -190,7 +190,7 @@ namespace UndyneFight_Ex.Entities
             shootShieldTime += Gametime;
             laserSize.X = 1.0f;
             size = new Vector2(1.0f, 0.7f);
-            missionPlayer = Player.heartInstance;
+            missionPlayer = Player.heartInstance; 
             waitingTime = shootShieldTime - Gametime;
             this.duration = duration;
             this.way = way;
