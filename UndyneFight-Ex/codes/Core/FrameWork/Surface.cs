@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex
@@ -83,6 +84,18 @@ namespace UndyneFight_Ex
             TrySetTarget();
             GameDevice.Clear(color);
         }
+        private static readonly int[] _indices = { 0, 1, 2, 1, 3, 2 };
+        protected void DrawPrimitives(VertexPositionColorTexture[] vertexArray, Texture2D texture = null)
+        {
+            WindowDevice.Textures[0] = texture;
+            VertexPositionColorTexture[] ver = new VertexPositionColorTexture[6];
+            for(int i = 0; i < 6; i++)
+            {
+                ver[i] = vertexArray[_indices[i]];
+            } 
+            WindowDevice.DrawUserPrimitives(PrimitiveType.TriangleList, ver, 0, 2);
+
+        }
         protected void DrawEntities(Entity[] entities)
         {
             TrySetTarget();
@@ -108,8 +121,17 @@ namespace UndyneFight_Ex
             TrySetTarget();
             if (shader != null)
             {
-                shader.Update(); 
-                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, shader, enabledMatrix ? matrix : null);
+                if (shader.LateApply) {
+                    GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, null, enabledMatrix ? matrix : null);
+                    Effect eff = shader;
+                    eff.CurrentTechnique.Passes[0].Apply();
+                    shader.Update();
+                }
+                else
+                {
+                    shader.Update();
+                    GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, shader, enabledMatrix ? matrix : null);
+                }
             }
             else
             {
@@ -302,8 +324,7 @@ namespace UndyneFight_Ex
         public static Matrix NormalTransfer { get; private set; }
         public Matrix CustomMatrix { get; private set; } = Matrix.Identity;
         public void Draw(Entity[] entities, Matrix transfer)
-        {
-            Entity.depthDetla = 0;
+        { 
             if (Transfer == TransferUse.ForceDefault)
             {
                 transfer = Matrix.CreateScale(AdaptingScale / GameStates.SurfaceScale); transfer.M33 = 1;
@@ -311,8 +332,7 @@ namespace UndyneFight_Ex
             else if (Transfer == TransferUse.Custom) transfer = CustomMatrix;
             MissionTarget = RenderPaint;
             ResetTargetColor(BackGroundColor);
-            TransForm = transfer;
-            Entity.depthDetla = 0;
+            TransForm = transfer; 
             DrawEntities(entities);/*
             GameMain.Graphics.GraphicsDevice.SetRenderTarget(RenderPaint);
            // GameMain.Graphics.GraphicsDevice.SetRenderTarget(null);
@@ -374,8 +394,7 @@ namespace UndyneFight_Ex
             RenderTarget2D cur = startTarget;
 
             foreach (var itor in surfaces)
-            {
-                Entity.depthDetla = 0;
+            { 
                 if (itor.Enabled)
                     cur = itor.Draw(cur);
             }
@@ -397,6 +416,12 @@ namespace UndyneFight_Ex
         internal void UpdateAll()
         {
             foreach (var v in this.surfaces) v.Update();
+        }
+
+        public void ResetProduction()
+        {
+            foreach (var v in this.surfaces) v.Dispose();
+            surfaces.Clear();
         }
     }
 }

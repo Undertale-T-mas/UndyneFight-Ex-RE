@@ -176,6 +176,8 @@ namespace UndyneFight_Ex
         public Dictionary<string, Action<Effect>> PartEvents { private get; set; }
         public Action<Effect> StableEvents { private get; set; }
 
+        public bool LateApply { get; set; } = false;
+
         public void Update()
         {
             Shader shader = this;

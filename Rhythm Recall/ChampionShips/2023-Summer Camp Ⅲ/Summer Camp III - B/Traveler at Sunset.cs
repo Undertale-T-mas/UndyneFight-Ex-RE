@@ -598,7 +598,7 @@ namespace Rhythm_Recall.Waves
                         "$0(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
                         "+11(LoadB)","+11","+11","+11",   "+11","+11","+11","+11",
                         //11
-                        "(*$0'2)(*$2'2)(KickA)","","","",    "","","","",
+                        "(*$0'2)(*$2'2)(KickA)(SplitterL)","","","",    "","","","",
                         "(d)(+01)","","","",    "","","","",
                         "(d)(+01)","","","",    "","","","",
                         "d","","","",    "d","","","",
@@ -674,7 +674,6 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("pre", () =>
                     {
-                        production1.Dispose();
                         s = new()
                         {
                             BasicSpeed = 2.4f,
@@ -796,6 +795,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("pre", () =>
                     {
+                        production1.Dispose();
                         BoxUtils.Vertexify();
                         var box = BoxUtils.VertexBoxInstance;
 
@@ -1480,6 +1480,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(392))
                 {
                     RegisterFunctionOnce("pre", () => {
+                        ScreenDrawing.SceneRendering.ResetProduction();
                         easeA?.Dispose(); easeB?.Dispose();
                         AddInstance(easeA = new Arrow.UnitEasing()
                         {
@@ -1653,6 +1654,10 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("glow", () => {
                     p1.Sigma = 1.0f;
                     p1.GlitterScale = 0.72f;
+                    RunEase(s => 
+                        ScreenDrawing.MasterAlpha = s, 
+                        EaseOut(BeatTime(0.3f), 0.88f, 1.0f, EaseState.Quad)
+                    );
                     RunEase(s => splitter.Intensity = s, EaseOut(BeatTime(0.25f), 12f, 0.5f, EaseState.Quad));
                 });
                 Lighting.Light light = null;
@@ -1669,7 +1674,7 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(1, () =>
                         Blur.Sigma = 0.0f);
                     DelayBeat(0.4f, () => {
-                        ScreenDrawing.SceneRendering.InsertProduction(lighter = new Lighting(0.4111f));
+                        ScreenDrawing.SceneRendering.InsertProduction(lighter = new Lighting(0.943111f));
                         lighter.AmbientColor = Color.White;
                         RunEase(s =>
                         {
@@ -1724,7 +1729,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("pre2", () => {
                     Shaders.Seismic.Progress = 0;
-                    production2 = ScreenDrawing.ActivateShader(Shaders.Seismic, 0.8f);
+                    production3 = ScreenDrawing.ActivateShader(Shaders.Seismic, 0.80101f);
                     Blur.Dispose();
                 });
                 RegisterFunctionOnce("shake", () => {
@@ -1748,8 +1753,8 @@ namespace Rhythm_Recall.Waves
                     RunEase(s => splitter.Intensity = s, EaseOut(BeatTime(0.25f), 7f, 0.5f, EaseState.Quad));
                 });
                 RegisterFunctionOnce("pre2Dispose", () => {
-                    production2.Dispose();
-                    production2 = null;
+                    production3.Dispose();
+                    production3 = null;
                     lighter.Dispose();
                 });
                 RegisterFunctionOnce("dim", () => {
@@ -1885,8 +1890,8 @@ namespace Rhythm_Recall.Waves
                 bool jump = false;
                 if (jump)
                 {
-                    //int beat = 326;
-                    int beat = 198 + 64;
+                    int beat = 326;
+                //    int beat = 198 + 64;
                     GametimeDelta = -1.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;

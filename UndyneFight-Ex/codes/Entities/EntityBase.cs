@@ -235,8 +235,7 @@ namespace UndyneFight_Ex
     }
     public abstract class Entity : GameObject
     {
-        public bool AngelMode { set; get; } = false;
-        public static float depthDetla = 0.00f;
+        public bool AngelMode { set; get; } = false; 
         private float DrawingRotation(float rotation) => AngelMode ? MathUtil.GetRadian(rotation) : rotation;
 
         public Entity()
@@ -250,54 +249,54 @@ namespace UndyneFight_Ex
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(1, 1), rotation, rotateCentre)) return;
-            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth );
+        
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(1, 1), rotation, rotateCentre)) return;
-            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth);
+          
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(drawingScale, drawingScale), rotation, rotateCentre)) return;
-            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth);
+         
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, Vector2 drawingScale, float rotation, Vector2 rotateCentre, SpriteEffects spriteEffects)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, drawingScale, rotation, rotateCentre)) return;
-            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, spriteEffects, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, spriteEffects, Depth);
+          
         }
         public void FormalDraw(Texture2D tex, Rectangle area, Color color)
         {
-            GameMain.MissionSpriteBatch.Draw(tex, area, null, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, area, null, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth);
+        
         }
         public void FormalDraw(Texture2D tex, Rectangle area, Rectangle restrict, Color color)
         {
-            GameMain.MissionSpriteBatch.Draw(tex, area, restrict, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, area, restrict, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth);
+         
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new Vector2(drawingScale, drawingScale), rotation, rotateCentre)) return;
-            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth);
+         
         }
 
         public void FormalDraw(Texture2D tex, Vector2 centre, Color color, Vector2 drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, drawingScale, rotation, rotateCentre)) return;
-            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth + depthDetla);
-            depthDetla += 0.00001f;
+            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth);
+       
         }
 
         private bool NotInScene(Texture2D tex, Vector2 centre, Vector2 drawingScale, float rotation, Vector2 rotateCentre)

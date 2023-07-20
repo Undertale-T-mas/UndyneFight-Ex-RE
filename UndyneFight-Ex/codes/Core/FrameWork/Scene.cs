@@ -86,8 +86,7 @@ namespace UndyneFight_Ex
         }
         public override void Draw()
         {
-            if (stopTime > 0.01f) return;
-            depthDetla = 0;
+            if (stopTime > 0.01f) return; 
         }
         private Dictionary<string, List<GameEventArgs>> GameEvents { get; set; } = new Dictionary<string, List<GameEventArgs>>();
         public void Broadcast(GameEventArgs gameEventArgs)

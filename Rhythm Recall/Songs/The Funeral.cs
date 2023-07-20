@@ -96,6 +96,34 @@ namespace Rhythm_Recall.Waves
 
             RenderProduction cameraProduction, production1, production2, production3, grayProduction;
 
+            class TestProduction : RenderProduction
+            {
+                public TestProduction() : base(null, SpriteSortMode.Immediate, null, 0.992f)
+                {
+
+                }
+
+                public override RenderTarget2D Draw(RenderTarget2D obj)
+                {
+                    MissionTarget = HelperTarget3;
+                    ResetTargetColor(Color.Black);
+
+                    DrawPrimitives(new VertexPositionColorTexture[] { 
+                        new(new(0, 0, 0.0f), Color.White, new(0, 0)),
+                        new(new(640, 0, 0.0f), Color.Red, new(1, 0)),
+                        new(new(0, 480, 1.0f), Color.Red, new(0, 1)),
+                        new(new(640, 480, 1.0f), Color.White, new(1, 1)),
+                    }, obj);
+                    DrawPrimitives(new VertexPositionColorTexture[] { 
+                        new(new(0, 0, 0.0f), Color.White, new(0, 0)),
+                        new(new(640, 0, 2.0f), Color.Aqua, new(1, 0)),
+                        new(new(0, 480, 0.0f), Color.Aqua, new(0, 1)),
+                        new(new(640, 480, 2.0f), Color.White, new(1, 1)),
+                    }, obj);
+                    return HelperTarget3;
+                }
+            }
+
             public new void Start()
             {
                 // ScreenDrawing.UISettings.CreateUISurface();
@@ -141,8 +169,8 @@ namespace Rhythm_Recall.Waves
                 Shaders.Spiral.Intensity = 310.1f;
                 Shaders.Spiral.Speed = 0.05f;*/
 
-                ScreenDrawing.ActivateShader(Shaders.ColorBlend, 0.6212f);
-
+                // ScreenDrawing.ActivateShader(Shaders.ColorBlend, 0.6212f);
+                ScreenDrawing.SceneRendering.InsertProduction(new TestProduction());
                 //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
                 // ScreenDrawing.SceneRendering.InsertProduction(production1);
