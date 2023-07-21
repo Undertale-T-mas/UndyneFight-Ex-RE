@@ -77,6 +77,8 @@ namespace UndyneFight_Ex
             }
         }
 
+        private float _depthBuffer = 0.0000f;
+
         public void Begin(
             SpriteSortMode sortMode = SpriteSortMode.Deferred, 
             BlendState blendState = null,
@@ -105,7 +107,7 @@ namespace UndyneFight_Ex
                 Setup();
             }
 
-            _beginCalled = true;
+            _beginCalled = true; _depthBuffer = 0.0000f;
         }
         public void End()
         {
@@ -140,7 +142,8 @@ namespace UndyneFight_Ex
         };
 
         public void Draw(Texture2D texture, CollideRect origin, CollideRect? source, Color color, float rotation, Vector2 anchor, Vector2 scale, SpriteEffects effects, float depth) { 
-            float sortKey = TextureSortKey(depth);
+            float sortKey = TextureSortKey(depth) + _depthBuffer;
+            _depthBuffer += 0.00001f;
             Vector2 realAnchor = anchor + origin.TopLeft;
             Vector2[] pos = { 
                 -anchor,                                // TL
