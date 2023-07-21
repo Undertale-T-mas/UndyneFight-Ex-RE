@@ -1,14 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using UndyneFight_Ex;
-using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
 
 namespace Rhythm_Recall.Waves
 {
@@ -22,7 +16,7 @@ namespace Rhythm_Recall.Waves
         }
         public IWaveSet GameContent => new Project();
         public Dictionary<string, Difficulty> DifficultyPanel => dif;
-        class Project : WaveConstructor,IWaveSet
+        class Project : WaveConstructor, IWaveSet
         {
             public Project() : base(62.5f / (148f / 60f)) { }
             public string Music => "Death By Glamour";
@@ -80,7 +74,31 @@ namespace Rhythm_Recall.Waves
             #endregion
             public void Normal()
             {
+                if (InBeat(0))
+                {
+                    BarrageCreate(BeatTime(0), BeatTime(2), 6.6f, new string[]
+                    {                        
+                        "($0)($2)","","","", "($0)($2)","","","",
+                        "($0)($2)","","","$2", "$2","","$1","", 
+                        "($0)($2)","","$2","", "($0)($2)","","","",
+                        "($0)($2)","","","$2", "($01)","","","",
 
+                        "($0)($2)","","","", "($0)($2)","","","",
+                        "($0)($2)","","","$2", "$2","","$1","",
+                        "($0)($2)","","$2","", "($0)($2)","","","",
+                        "($0)($2)","","","$2", "($01)","","","",
+
+                        "($0)($2)","","","$2", "($0)($2)","","$2","",
+                        "($0)($2)","","$2","$2", "$2","","$1","",
+                        "$0","","($0)($2)","", "($0)($2)","","$1","",
+                        "($0)($2)","","$2","$2", "$2","","$2","",
+
+                        "($0)($2)","","","$2", "($0)($2)","","$2","",
+                        "($0)($2)","","$2","$2", "$2","","$1","",
+                        "$0","","($0)($2)","", "($0)($2)","","$1","",
+                        "($0)($2)","","$2","$2", "$2","","$2","",
+                    });
+                }
             }
             public void Noob()
             {
@@ -88,7 +106,11 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-
+                HeartAttribute.MaxHP = 12;
+                SetBox(new Vector2(320, 240), 84f, 84f);
+                SetSoul(1);
+                TP();
+                GametimeDelta = -2.5f;
             }
         }
     }

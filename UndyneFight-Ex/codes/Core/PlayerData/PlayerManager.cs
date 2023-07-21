@@ -22,11 +22,7 @@ namespace UndyneFight_Ex
                 t[0] = cur.Year; t[1] = cur.Month; t[2] = cur.Day; t[3] = cur.Hour; t[4] = cur.Minute; t[5] = cur.Second;
                 int timeDetla = (t[0] - s[0]) * 31622400 + (t[1] - s[1]) * 2592000 + (t[2] - s[2]) * 86400 + (t[3] - s[3]) * 3600 + (t[4] - s[4]) * 60 + t[5] - s[5];
 
-                if (timeDetla < 86400)
-                {
-                    GameMain.ExitGame();
-                    throw new Exception("You Dirty Hacker!");
-                }
+                
             }
 
             Directory.CreateDirectory("Mods\\Scripts");
