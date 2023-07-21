@@ -138,7 +138,7 @@ namespace UndyneFight_Ex
                     isFlickerMade = true;
                 }
                 static bool isFlickerMade = false;
-                private void Update()
+                public override void Update()
                 {
                     if (isFlickerMade)
                     {
@@ -158,8 +158,7 @@ namespace UndyneFight_Ex
                     flinkerColor = Fight.Functions.ScreenDrawing.flinkerColor;
                 }
                 public override RenderTarget2D Draw(RenderTarget2D obj)
-                {
-                    Update();
+                { 
                     float alp = alpha;
                     Color col = flinkerColor;
                     if (CurrentScene is FightScene && ((CurrentScene as FightScene).Mode & SongSystem.GameMode.Buffed) != 0 && (CurrentScene as FightScene).PlayerInstance != null)

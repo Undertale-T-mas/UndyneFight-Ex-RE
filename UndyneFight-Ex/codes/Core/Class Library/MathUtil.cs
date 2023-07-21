@@ -108,6 +108,11 @@ namespace UndyneFight_Ex
             float len = origin.Length(); float angle = origin.Direction();
             return GetVector2(len, angle + rot);
         }
+        public static Vector2 RotateRadian(Vector2 origin, float rad)
+        {
+            float len = origin.Length(); float angle = Atan2(origin.Y, origin.X);
+            return new Vector2(MathF.Cos(angle + rad) * len, Sin(angle + rad) * len);
+        }
         /// <summary>
         /// 输入两个夹角小于360°的角，返回一个绝对值小于180°角，使得第一个方向角加它为第二个方向角等效的方向。
         /// </summary>

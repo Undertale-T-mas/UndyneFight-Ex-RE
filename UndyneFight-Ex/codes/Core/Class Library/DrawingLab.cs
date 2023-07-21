@@ -247,7 +247,7 @@ namespace UndyneFight_Ex
                 drawArea.Height -= detla4;
             }
             if (!(size.X < 0f || size.Y < 0f))
-                MissionSpriteBatch.Draw(tex, drawArea.ToRectangle(), new Rectangle?(new Rectangle(samplerPlace.ToPoint(), size.ToPoint())), color, rotation, rotateCentre, SpriteEffects.None, depth);
+                MissionSpriteBatch.Draw(tex, drawArea, new CollideRect(samplerPlace, size), color, rotation, rotateCentre, SpriteEffects.None, depth);
         }
 
 
@@ -278,9 +278,21 @@ namespace UndyneFight_Ex
         /// <param name="Length">线条长度</param>
         /// <param name="width">线宽度</param>
         /// <param name="cl">线条颜色</param>
-        public static void DrawLine(Vector2 Centre, float Angle, float Length, float width, Color cl, float depth)
+        public static void DrawLine(Vector2 Centre, float angle, float length, float width, Color cl, float depth)
         {
-            MissionSpriteBatch.Draw(FightResources.Sprites.pixiv, Centre, null, cl * Surface.Normal.drawingAlpha, Angle, new Vector2(0.5f, 0.5f), new Vector2(Length, width), SpriteEffects.None, depth);
+            angle = GetAngle(angle);
+            Vector2 v1 = GetVector2(length / 2f, angle);
+            Vector2 v2 = -v1;
+            v1 += Centre; v2 += Centre;
+            Vector2 del = GetVector2(width / 2f, angle + 90);
+            Vector2 p1 = v1 + del, p2 = v2 + del;
+            Vector2 p3 = v1 - del, p4 = v2 - del;
+            MissionSpriteBatch.DrawVertex(depth, 
+                new VertexPositionColor(new(p1, depth), cl),
+                new VertexPositionColor(new(p2, depth), cl),
+                new VertexPositionColor(new(p4, depth), cl),
+                new VertexPositionColor(new(p3, depth), cl)
+                );
         }
 
         /// <summary>
@@ -347,23 +359,23 @@ namespace UndyneFight_Ex
         }
         public void Draw(string texts, Vector2 location, Color color)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha);
         }
-        public void Draw(string texts, Vector2 location, Color color, SpriteBatch sb)
+        public void Draw(string texts, Vector2 location, Color color, SpriteBatchEX sb)
         {
-            sb.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha);
+            sb.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha);
         }
         public void CentreDraw(string texts, Vector2 location, Color color)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
+            MissionSpriteBatch.DrawString(this, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
         }
-        public void CentreDraw(string texts, Vector2 location, Color color, SpriteBatch sb)
+        public void CentreDraw(string texts, Vector2 location, Color color, SpriteBatchEX sb)
         {
-            sb.DrawString(SFX, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
+            sb.DrawString(this, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
         }
         public void Draw(string texts, Vector2 location, Color color, float scale, float depth)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
         }
         public void LimitDraw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float lineLength, float lineDistance, float scale, float depth)
         {
@@ -391,13 +403,13 @@ namespace UndyneFight_Ex
             strings.Add(curLine);
             foreach (string s in strings)
             {
-                GameMain.MissionSpriteBatch.DrawString(SFX, s, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
+                GameMain.MissionSpriteBatch.DrawString(this, s, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
                 location.Y += lineDistance;
             }
         }
         public void Draw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float rotation, float scale, float depth)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, rotation, Vector2.Zero, scale, SpriteEffects.None, depth);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, Vector2.Zero, scale, SpriteEffects.None, depth);
         }
         public void CentreDraw(string texts, Vector2 location, Color color, float scale, float depth)
         {
@@ -405,7 +417,7 @@ namespace UndyneFight_Ex
             {
                 if (string.IsNullOrEmpty(texts)) 
                     return;
-                MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, 0, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+                MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, 0, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
             }
             catch
             {
@@ -414,7 +426,7 @@ namespace UndyneFight_Ex
         }
         public void CentreDraw(string texts, Vector2 location, Color color, float scale, float rotation, float depth)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
         }
 
         internal unsafe int GetGlyphIndexOrDefault(char c)
