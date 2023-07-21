@@ -15,7 +15,7 @@ namespace UndyneFight_Ex
         protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new Vector2(480f * GameMain.Aspect, 480) * GameStates.SurfaceScale;
 
         protected static GraphicsDevice WindowDevice => GameMain.Graphics.GraphicsDevice;
-        protected static SpriteBatch spriteBatch => GameMain.MissionSpriteBatch;
+        protected static SpriteBatchEX spriteBatch => GameMain.MissionSpriteBatch;
 
         private static readonly HashSet<Type> updatedTypes = new();
 
@@ -275,16 +275,34 @@ namespace UndyneFight_Ex
         }
         private class BoxPartDrawer : Entity
         {
-            private CollideRect rect;
-            public BoxPartDrawer(RenderTarget2D target, CollideRect pos)
+            Vector2[] _vertexs;
+            public BoxPartDrawer(RenderTarget2D target, Vector2[] vertexs)
             {
+                _vertexs = vertexs;
                 Image = target;
-                rect = pos;
                 Depth = 0.39f;
             }
             public override void Draw()
             {
-                spriteBatch.Draw(Image, rect.ToRectangle(), rect.ToRectangle(), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.39f);
+                VertexPositionColorTexture[] vertexs = new VertexPositionColorTexture[_vertexs.Length];
+                for (int i = 0; i < _vertexs.Length; i++)
+                {
+                    vertexs[i] = new(new(_vertexs[i], 0.395f), Color.White, _vertexs[i] / new Vector2(640, 480));
+                }
+                if (vertexs.Length == 4)
+                    spriteBatch.DrawVertex(this.Image, 0.39f, vertexs);
+                else {
+                    var indices = DrawingLab.GetIndices(vertexs);
+                    int[] input = new int[indices.Count * 3];
+                    int x = 0;
+                    for(int i = 0; i < indices.Count; i++)
+                    {
+                        input[x] = indices[i].Item1; x++;
+                        input[x] = indices[i].Item2; x++;
+                        input[x] = indices[i].Item3; x++;
+                    }
+                    spriteBatch.DrawVertex(this.Image, 0.39f, input, vertexs);
+                } 
             }
 
             public override void Update()
@@ -366,9 +384,8 @@ namespace UndyneFight_Ex
             Hidden.Draw(distributer[Hidden].ToArray(), transfer);
             distributer.Remove(Hidden);
             foreach (FightBox box in FightBox.boxs)
-            {
-                CollideRect collideRect = box.CollidingBox;
-                distributer[Normal].Add(new BoxPartDrawer(Hidden.RenderPaint, collideRect));
+            { 
+                distributer[Normal].Add(new BoxPartDrawer(Hidden.RenderPaint, box.Vertexs));
             }
             foreach (KeyValuePair<Surface, List<Entity>> kvp in distributer)
             {

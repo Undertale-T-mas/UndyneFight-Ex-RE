@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
+using System; 
 using System.Text;
 
 namespace UndyneFight_Ex
@@ -157,18 +157,18 @@ namespace UndyneFight_Ex
             {
                 scale.X *= -1;
             }
-            if (MathF.Abs((rotation + 0.005f) % 360) > 0.01f) // need for rotating
-            {
-                for(int i = 0; i < 4; i++)
-                {
-                    pos[i] = MathUtil.Rotate(pos[i], rotation) * scale;
-                }
-            }
-            else if(scale != Vector2.One)
+            if (scale != Vector2.One)
             {
                 for (int i = 0; i < 4; i++)
                 {
                     pos[i] = pos[i] * scale;
+                }
+            }
+            if (MathF.Abs((MathUtil.GetAngle(rotation) + 0.005f) % 360) > 0.01f) // need for rotating
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    pos[i] = MathUtil.RotateRadian(pos[i], rotation);
                 }
             }
             VertexPositionColorTexture vTL, vTR, vBL, vBR;
@@ -221,11 +221,30 @@ namespace UndyneFight_Ex
         public void Draw(Texture2D texture, Vector2 centre, Color color, float rotation, Vector2 anchor, float scale, float depth)
         {
             Draw(texture, centre, null, color, rotation, anchor, new Vector2(scale, scale), SpriteEffects.None, depth);
+        }        
+        public void Draw(Texture2D texture, Vector2 centre, Color color)
+        {
+            Draw(texture, centre, null, color, 0, Vector2.Zero, new Vector2(1, 1), SpriteEffects.None, 0);
         }
         public void Draw(Texture2D texture, Vector2 centre, CollideRect? sourceRectangle, Color color, float rotation, Vector2 anchor, float scale, float depth)
         {
             Draw(texture, centre, sourceRectangle, color, rotation, anchor, new Vector2(scale, scale), SpriteEffects.None, depth);
         }
+        public void Draw(Texture2D texture, CollideRect rect1, CollideRect? rect2, Color color, float rotation, Vector2 anchor, SpriteEffects se, float depth)
+        {
+            Draw(texture, rect1, rect2, color, rotation, anchor, Vector2.One, se, depth);
+        }
+        public void Draw(Texture2D texture, CollideRect rect1, CollideRect? rect2, Color color)
+        {
+            Draw(texture, rect1, rect2, color, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+        }
+
+        public void Draw(Texture2D texture, CollideRect bounds, Color color)
+        {
+            Draw(texture, bounds, null, color, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+        }
+
+
         /// <summary>
         /// Give the vertexs information of sprite to draw on the current RenderTarget
         /// </summary>
@@ -235,6 +254,16 @@ namespace UndyneFight_Ex
         public void DrawVertex(Texture2D texture, float depth, params VertexPositionColorTexture[] vertexs)
         {
             _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), vertexs));
+        }        
+        /// <summary>
+        /// Give the vertexs information of sprite to draw on the current RenderTarget
+        /// </summary>
+        /// <param name="texture">the texture sprite</param>
+        /// <param name="vertexs">The vertexs given. Make them in the order of clockwise! </param>
+        /// <param name="depth">The depth to sort</param>
+        public void DrawVertex(float depth, params VertexPositionColor[] vertexs)
+        {
+            _batcher.Insert(new PrimitiveItem(TextureSortKey(depth), vertexs));
         }        
         /// <summary>
         /// Give the vertexs information of sprite to draw on the current RenderTarget
@@ -300,6 +329,64 @@ namespace UndyneFight_Ex
 
             _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), indices, vpctVertexs));
         }
+        public unsafe void DrawString(GLFont font, string text, Vector2 position, Color color)
+        {
+            SpriteFont spriteFont = font.SFX;
+            CheckValid(spriteFont, text);
+            float sortKey = 0;
+            Vector2 zero = Vector2.Zero;
+            bool flag = true;
+            fixed (SpriteFont.Glyph* ptr = spriteFont.Glyphs)
+            {
+                foreach (char c in text)
+                {
+                    switch (c)
+                    {
+                        case '\n':
+                            zero.X = 0f;
+                            zero.Y += spriteFont.LineSpacing;
+                            flag = true;
+                            continue;
+                        case '\r':
+                            continue;
+                    }
+
+                    SpriteFont.Glyph* ptr2 = ptr + font.GetGlyphIndexOrDefault(c); 
+                    if (flag)
+                    {
+                        zero.X = Math.Max(ptr2->LeftSideBearing, 0f);
+                        flag = false;
+                    }
+                    else
+                    {
+                        zero.X += spriteFont.Spacing + ptr2->LeftSideBearing;
+                    }
+
+                    Vector2 vector = zero;
+                    vector.X += ptr2->Cropping.X;
+                    vector.Y += ptr2->Cropping.Y;
+                    vector += position;
+
+                    Vector2 _texCoordTL, _texCoordBR;
+                    _texCoordTL.X = (float)ptr2->BoundsInTexture.X;
+                    _texCoordTL.Y = (float)ptr2->BoundsInTexture.Y;
+                    _texCoordBR.X = (float)(ptr2->BoundsInTexture.X + ptr2->BoundsInTexture.Width);
+                    _texCoordBR.Y = (float)(ptr2->BoundsInTexture.Y + ptr2->BoundsInTexture.Height);
+                    Vector2 _uvTL, _uvBR;
+                    _uvTL.X = _texCoordTL.X / spriteFont.Texture.Width;
+                    _uvTL.Y = _texCoordTL.Y / spriteFont.Texture.Height;
+                    _uvBR.X = _texCoordBR.X / spriteFont.Texture.Width;
+                    _uvBR.Y = _texCoordBR.Y / spriteFont.Texture.Height;
+                    SpriteBatchItem spriteBatchItem; 
+                    spriteBatchItem = new RectangleItem(vector.X, vector.Y, (float)ptr2->BoundsInTexture.Width  , (float)ptr2->BoundsInTexture.Height , color, _uvTL, _uvBR, 0.0f, spriteFont.Texture, sortKey);
+    
+                    _batcher.Insert(spriteBatchItem);
+                    zero.X += ptr2->Width + ptr2->RightSideBearing;
+                }
+            }
+
+            FlushIfNeeded();
+        }
         public void DrawString(GLFont spriteFont, string text, Vector2 position, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)
         {
             Vector2 scale2 = new Vector2(scale, scale);
@@ -310,8 +397,7 @@ namespace UndyneFight_Ex
         {
             SpriteFont spriteFont = font.SFX;
             CheckValid(spriteFont, text);
-            float sortKey = TextureSortKey(layerDepth);
-
+            float sortKey = TextureSortKey(layerDepth); 
             Vector2 zero = Vector2.Zero;
             bool flag = (effects & SpriteEffects.FlipVertically) == SpriteEffects.FlipVertically;
             bool flag2 = (effects & SpriteEffects.FlipHorizontally) == SpriteEffects.FlipHorizontally;

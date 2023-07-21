@@ -19,7 +19,7 @@ namespace UndyneFight_Ex
             public static string nameColor = "White";
 
         }
-        public static SpriteBatch SpriteBatch => GameMain.MissionSpriteBatch;
+        public static SpriteBatchEX SpriteBatch => GameMain.MissionSpriteBatch;
 
         public static void InstanceCreate(GameObject e)
         {

@@ -6,7 +6,7 @@ namespace UndyneFight_Ex.Debugging
 {
     internal partial class DebugWindow : Game
     {
-        private SpriteBatch _spriteBatch;
+        private SpriteBatchEX _spriteBatch;
         private static DebugWindow instance;
         private readonly GraphicsDeviceManager graphics;
         private int appearTime = 0, lastEnterTime = 0;
@@ -28,7 +28,7 @@ namespace UndyneFight_Ex.Debugging
 
         protected override void Initialize()
         {
-            _spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+            _spriteBatch = new SpriteBatchEX(graphics.GraphicsDevice);
             TypeMatchingLibrary.Initialize();
             CommandManager.Initialize();
             base.Initialize();

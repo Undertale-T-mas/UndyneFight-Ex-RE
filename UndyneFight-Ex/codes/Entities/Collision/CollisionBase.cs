@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.DrawingLab;
 using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders.Lighting;
 using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex
@@ -360,6 +361,8 @@ namespace UndyneFight_Ex
                 Height = value.Y;
             }
         }
+        public static implicit operator Rectangle(CollideRect rect) => rect.ToRectangle();
+        public static implicit operator CollideRect(Rectangle rect) => new CollideRect(rect);
 
         public float Up => Y;
         public float Down => Y + Height;

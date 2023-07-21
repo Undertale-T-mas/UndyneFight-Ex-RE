@@ -29,6 +29,26 @@ namespace UndyneFight_Ex
             }
         }
 
+        private class PrimitiveItem : SpriteBatchItem
+        {
+            public PrimitiveItem(float key, VertexPositionColor[] vertexs) : base(FightResources.Sprites.pixiv, key)
+            {
+                this.Vertexs = new VertexPositionColorTexture[vertexs.Length];
+                for (int i = 0; i < vertexs.Length; i++)
+                    this.Vertexs[i] = new(vertexs[i].Position, vertexs[i].Color, new(0, 0));
+                int count = vertexs.Length - 2;
+                Indices = new int[count * 3];
+
+                for (int i = 0; i < count; i++)
+                {
+                    int i1 = i * 3, i2 = i * 3 + 1, i3 = i * 3 + 2;
+                    Indices[i1] = 0;
+                    Indices[i2] = i + 1;
+                    Indices[i3] = i + 2;
+                }
+                PrimitiveCount = count;
+            }
+        }
         private class VertexItem : SpriteBatchItem
         {
             public VertexItem(Texture2D tex, float key, VertexPositionColorTexture[] vertexs) : base(tex, key)

@@ -180,7 +180,8 @@ namespace Rhythm_Recall.Waves
                 Shaders.Spiral.Speed = 0.05f;*/
 
                 // ScreenDrawing.ActivateShader(Shaders.ColorBlend, 0.6212f);
-                ScreenDrawing.SceneRendering.InsertProduction(new TestProduction());
+                ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
+                Shaders.Aurora.ThemeColor = Color.Yellow;
                 //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
                 // ScreenDrawing.SceneRendering.InsertProduction(production1);

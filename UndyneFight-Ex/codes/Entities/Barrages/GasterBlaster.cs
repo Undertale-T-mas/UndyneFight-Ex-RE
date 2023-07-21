@@ -45,7 +45,7 @@ namespace UndyneFight_Ex.Entities
             Depth = depth_;
             FormalDraw(Image, Centre, drawingColor * alpha, size, GetRadian(Rotation), ImageCentre);
             Depth = depth_ - 0.001f;
-            if (appearTime >= waitingTime)
+            if (appearTime >= waitingTime && laserSize.Y > 0)
                 FormalDraw(Sprites.GBLaser, laserPlace, drawingColor * beamAlpha, laserSize * size, GetRadian(missionRotation), new Vector2(0, 35));
         }
 
