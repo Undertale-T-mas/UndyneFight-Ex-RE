@@ -2404,7 +2404,7 @@ namespace Rhythm_Recall.Waves
                 {
                     int beat = 456;
                  //   int beat = 326;
-                    int beat = 198 ;
+                 //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);
