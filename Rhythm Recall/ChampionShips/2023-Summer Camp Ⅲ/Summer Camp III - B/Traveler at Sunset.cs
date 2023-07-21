@@ -928,7 +928,7 @@ namespace Rhythm_Recall.Waves
                         //7
                         "(d1)(d)(LineGB1)(LineGA2)(Eff1)", "", "+1", "",    "+1", "", "+1", "",
                         "-1", "", "-1", "",    "-1", "", "-1", "",
-                        "(d)(n01)(LineGB2)", "", "+11", "",    "+11", "", "+11", "",
+                        "(d)(LineGB2)", "", "+11", "",    "+11", "", "+11", "",
                         "-11", "", "-11", "",    "-11", "", "-11", "",
                         //8 
                         "-101(LineGC)(Rotate)", "+0", "-11", "+0",    "-11", "+0", "-11", "+0",
@@ -1327,10 +1327,10 @@ namespace Rhythm_Recall.Waves
                         "$31(SCL)", "", "$0", "$1",    "$2(SCS)(LineL)", "", "$21", "$11",
                         "$01(SCR)", "", "$0", "$1",    "$2(SCS)", "", "", "",    
                         //8
-                        "*$212@A'1.2(*$012@A'1.2)(SCL2)", "", "*$202@B'1.2(*$002@B'1.2)(SCR2)", "*$212@A'1.2(*$012@A'1.2)(SCR2)",    "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$212@A'1.2(*$012@A'1.2)(SCL2)", "",
-                        "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$212@A'1.2(*$012@A'1.2)(SCL2)", "*$202@B'1.2(*$002@B'1.2)(SCL2)",    "*$212@A'1.2(*$012@A'1.2)(SCL2)", "", "(*$202@B'1.2)(*$002@B'1.2)(SCR2)", "",
-                        "(*$212@A'1.2)(*$012@A'1.2) ", "", "*$302@A", "*$312@B",    "*$302@A", "*$312@B", "*$302@A", "",
-                        "", "", "", "",    "", "", "", "",   
+                        "*$212@A'1.2(*$012@A'1.2)(SCL2)", "", "*$202@B'1.2(*$002@B'1.2)(SCR2)", "*$212@A'1.2(*$012@A'1.2)(SCR2)",    "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$202@A'1.2(*$002@A'1.2)(SCL2)", "",
+                        "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$202@A'1.2(*$002@A'1.2)(SCL2)", "",    "", "", "(*$202@B'1.2)(*$002@B'1.2)(SCR2)", "",
+                        "(*$212@A'1.2)(*$012@A'1.2) ", "", "*$102@A", "*$112@B",    "*$102@A", "*$112@B", "*$102@A", "",
+                        "*$112@A", "*$102@B","*$112@A", "*$102@B",   "*$112@A","", "", "",   
                     });
                 }
                 if (InBeat(328))
@@ -1587,11 +1587,11 @@ namespace Rhythm_Recall.Waves
                         //3 
                         "n0", "~_!+0", "~_!+0", "~_!+0",    "~_+0", "~_!+0", "~_+0", "",
                         "d1", "~_!+01", "~_+01", "",    "d", "~_!+0", "~_+0", "",
-                        "d1", "~_!+01", "~_+01", "",    "d", "~_!+0", "~_+0", "",
-                        "n21", "~_!+01(WindFast)", "~_+01", "",    "+01", "~_!+01", "~_+01", "", 
+                        "!!3","$21", "$31", "$01",    "!!3","$11", "$21", "$11",
+                        "!!3","$01(WindFast)", "$11", "$21","!!3","$11", "$21", "$01",
  
                         //4
-                        "!!3", "n11", "+11", "+11",    "!!3", "-11", "-11", "-11", 
+                        "!!3", "($31)(+01)", "+11", "+11",    "!!3", "-11", "-11", "-11", 
                         "!!3", "($01)(+01)", "$11", "$21",    "!!3", "$01", "$31", "$21",
                         "(*$01'1.4@S1)(*$21'1.4@S2)(*$00'2.1@T1)(*$20'2.1@T2)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",     
@@ -1623,6 +1623,77 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(392))
                 {
+                    RegisterFunctionOnce("BugLine", () =>
+                    {
+                        var cen = LinkEase(false,Stable(0, new Vector2(180, 240)),
+                            Linear(BeatTime(2f), new Vector2(180, 240), new Vector2(180, 240)+GetVector2(180,-24)),
+                            Stable(0f, new Vector2(520,300)),
+                            Linear(BeatTime(2.5f), new Vector2(520, 300), new Vector2(520, 300)+GetVector2(240,-130)),
+                            Stable(0f, new Vector2(320, 440)),
+                            Linear(BeatTime(2.5f), new Vector2(320, 440), new Vector2(320, 440) + new Vector2(0, -240)),
+                            Stable(0f, new Vector2(0, 0)),
+                            Linear(BeatTime(5f), new Vector2(0, 0), new Vector2(0, 0) + new Vector2(240,0)),
+                            Stable(BeatTime(8f), new Vector2(320, 240))
+                            );
+                        var rot = LinkEase(false,Stable(0, -24+90),
+                            Stable(BeatTime(2), -24 + 90),
+                            Stable(BeatTime(2.5f), -130 + 90),
+                            Stable(BeatTime(2.5f), 0),
+                            Stable(BeatTime(5f), 90),
+                            Linear(BeatTime(8),-60,-60+720)
+                            );
+                        Line l = new(cen.Easing, rot.Easing) { DrawingColor=Color.DarkRed,Width=8};
+                        CreateEntity(l);
+                        RunEase((sr)=> { l.Alpha = sr; },false,Alternate(2, Stable(BeatTime(16),0f), Stable(BeatTime(16), 0.8f)));
+                        for(int a=0;a<4;a++)
+                        {
+                            int x = a;
+                            Line.RetentionEffect r = new(4*x);
+                            l.InsertRetention(r);
+                        }
+                    });
+                    RegisterFunctionOnce("BugLine2", () =>
+                    {
+                        var cen = LinkEase(false, Stable(0, new Vector2(0, 80)),
+                            EaseOut(BeatTime(2f), new Vector2(0, 80), new Vector2(0, 160),EaseState.Sine)
+                            );
+                        var rot = LinkEase(false, Stable(0,0)
+                            );
+                        Line l = new(cen.Easing, rot.Easing) { DrawingColor = Color.DarkRed, Width = 8,VerticalMirror=true };
+                        CreateEntity(l);
+                        RunEase((sr) => { l.Alpha = sr; }, false, Alternate(2, Stable(BeatTime(4)+0.5f, 0f), Stable(BeatTime(4), 0.8f)));
+                        for (int a = 0; a < 4; a++)
+                        {
+                            int x = a;
+                            Line.RetentionEffect r = new(BeatTime(1) * x);
+                            l.InsertRetention(r);
+                        }
+                    });
+                    RegisterFunctionOnce("CrossLine", () =>
+                    {
+                        Line[] ls = GetAll<Line>();
+                        for(int a=0; a<ls.Length; a++)
+                        {
+                            int x = a;
+                            ls[x].Dispose();
+                        }
+
+                        var ce = EaseInOut(BeatTime(16), 0, 360 * 3, EaseState.Quad).Easing;
+                        Line l = new(Stable(0, new Vector2(320, 240)).Easing, ce) {DrawingColor=Color.Gray };
+                        CreateEntity(l);
+                        RunEase((s) => { l.Alpha = s; },
+                            Stable(0, 0),
+                            EaseOut(BeatTime(1), 1, EaseState.Sine),
+                            Stable(BeatTime(12),1),
+                            EaseIn(BeatTime(1),-1.5f, EaseState.Sine)
+                            );
+                        for (int a = 0; a < 8; a++)
+                        {
+                            int x = a;
+                            Line.RetentionEffect r = new(8 * x,(8-x)*0.1f);
+                            l.InsertRetention(r);
+                        }
+                    });
                     RegisterFunctionOnce("pre", () => {
                         ScreenDrawing.SceneRendering.ResetProduction();
                         easeA?.Dispose(); easeB?.Dispose();
@@ -1649,7 +1720,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",  
                           
                         //1
-                        "!!3", "$1", "$11", "$3",    "!!3", "d1", "d", "d1", 
+                        "!!3", "$1(BugLine)", "$11", "$3",    "!!3", "d1", "d", "d1", 
                         "!!3", "d", "d1", "d",    "!!3", "d1", "d", "d1", 
                         "!!3", "d", "d1", "d",    "!!3", "d1", "d", "d1", 
                         "!!3", "d", "d1", "d",    "!!3", "d1", "+0", "+0", 
@@ -1657,11 +1728,11 @@ namespace Rhythm_Recall.Waves
                         //2
                         "!!3", "D1", "*+002@A", "*+002@B",    "!!3", "d1", "*+002@A", "*+002@B",
                         "!!3", "d1", "*+002@A", "*+002@B",    "!!3", "d1", "*+002@A", "*+002@B",
-                        "!!3", "d1", "*+002@A", "*+002@B",    "!!3", "d1", "*+002@A", "*+002@B",
+                        "!!3", "d1(BugLine2)", "*+002@A", "*+002@B",    "!!3", "d1", "*+002@A", "*+002@B",
                         "!!3", "d1", "*+002@A", "*+002@B",    "!!3", "d1", "", "",
 
                         //3
-                        "!!3", "d1", "d0", "d1",    "!!3", "d0", "d1", "d0",
+                        "!!3", "d1(CrossLine)", "d0", "d1",    "!!3", "d0", "d1", "d0",
                         "!!3", "d1", "d0", "d1",    "!!3", "d0", "d1", "d0",
                         "!!3", "d1", "d0", "d1",    "!!3", "d0", "d1", "d0",
                         "!!3", "d1", "d0", "d1",    "!!3", "d0", "d1", "+01",  
@@ -1675,6 +1746,76 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(424))
                 {
+                    RegisterFunctionOnce("Line", () =>
+                    {
+                        Line l1 = new(320, 90) { Alpha=0};
+                        var ce1 = LinkEase(
+                            Stable(0,new Vector2(320, 0)),
+                            Linear(BeatTime(16), new Vector2(240,0))
+                            );
+                        var ce2 = LinkEase(
+                            Stable(0,new Vector2(320, 0)),
+                            Linear(BeatTime(16), new Vector2(-240,0))
+                            );
+                        Line l2 = new(ce1.Easing, Stable(0, 90).Easing) { Alpha = 0 };
+                        Line l3 = new(ce2.Easing, Stable(0, 90).Easing) { Alpha = 0 };
+                        CreateEntity(l1, l2, l3);
+                        RunEase((s) => { l1.Alpha = s; },
+                            Copy(LinkEase(false,
+                                Stable(0,1),
+                                EaseOut(BeatTime(0.33f),1,0,EaseState.Sine),
+                                Stable(1.33f,0)
+                                ),12)
+                            );
+                        RunEase((s) => { l2.Alpha = s; },
+                            Stable(BeatTime(0.66f),0),
+                            Copy(LinkEase(false,
+                                Stable(0, 1),
+                                EaseOut(BeatTime(0.33f), 1, 0, EaseState.Sine),
+                                Stable(BeatTime(2), 0)
+                                ), 6)
+                            );
+                        RunEase((s) => { l3.Alpha = s; },
+                            Stable(BeatTime(2f), 0),
+                            Copy(LinkEase(false,
+                                Stable(0, 1),
+                                EaseOut(BeatTime(0.33f), 1, 0, EaseState.Sine),
+                                Stable(BeatTime(2), 0)
+                                ), 6)
+                            );
+                    });
+                    RegisterFunctionOnce("KickLine", () =>
+                    {
+                        Line l = new(LinkEase(Stable(0, new Vector2(320, 240)), EaseOut(BeatTime(2f), new Vector2(20, 0), EaseState.Quart)).Easing, Stable(0, 45).Easing) { Alpha = 0.67f, ObliqueMirror = true, TransverseMirror = true, VerticalMirror = true };
+                        Line l2 = new(LinkEase(Stable(0, new Vector2(320, 240)), EaseOut(BeatTime(2f), new Vector2(100, 0), EaseState.Quart)).Easing, Stable(0,45).Easing) { Alpha=0.67f,ObliqueMirror=true,TransverseMirror=true,VerticalMirror=true};
+                        CreateEntity(l, l2);
+                        l.AlphaDecrease(BeatTime(2));
+                        l2.AlphaDecrease(BeatTime(2));
+                    });
+                    RegisterFunctionOnce("QuickKick", () =>
+                    {
+                        var ce = LinkEase
+                        (Stable(0, new Vector2(320, 240)),
+                        EaseOut(BeatTime(1f), new Vector2(20, 0), EaseState.Quart),
+                        EaseOut(BeatTime(1f), new Vector2(80, 0), EaseState.Quart),
+                        EaseOut(BeatTime(1f), new Vector2(-20, 0), EaseState.Quart),
+                        EaseOut(BeatTime(1f), new Vector2(-80, 0), EaseState.Quart),
+                        EaseOut(BeatTime(2f), new Vector2(100, 0), EaseState.Quart)
+                        ).Easing;
+                        var ce2 = LinkEase
+                        (Stable(0, new Vector2(320, 240)),
+                        EaseOut(BeatTime(1f), new Vector2(80, 0), EaseState.Quart),
+                        EaseOut(BeatTime(1f), new Vector2(120, 0), EaseState.Quart),
+                        EaseOut(BeatTime(1f), new Vector2(-80, 0), EaseState.Quart),
+                        EaseOut(BeatTime(1f), new Vector2(-120, 0), EaseState.Quart),
+                        EaseOut(BeatTime(2f), new Vector2(200, 0), EaseState.Quart)
+                        ).Easing;
+                        Line l = new(ce, Stable(0, 45).Easing) { Alpha = 0.5f, ObliqueMirror = true, TransverseMirror = true, VerticalMirror = true };
+                        Line l2 = new(ce2, Stable(0, 45).Easing) { Alpha = 0.67f, ObliqueMirror = true, TransverseMirror = true, VerticalMirror = true };
+                        CreateEntity(l, l2);
+                        l.DelayAlphaDecrease(BeatTime(4), BeatTime(2));
+                        l2.DelayAlphaDecrease(BeatTime(4), BeatTime(2));
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
@@ -1682,25 +1823,25 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",  
                           
                         //1
-                        "^d'1.6(^d1'1.6)", "", "", "",    "d", "", "", "",
+                        "^d'1.6(^d1'1.6)(Line)(KickLine)", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",   
 
                         //2
-                        "^d'1.6(^d1'1.6)", "", "", "",    "d1", "", "", "",
+                        "^d'1.6(^d1'1.6)(KickLine)", "", "", "",    "d1", "", "", "",
                         "d1", "", "", "",    "d1", "", "", "",
                         "d1", "", "", "",    "d1", "", "", "",
                         "d1", "", "", "",    "d1", "", "", "",   
 
                         //3
-                        "^d'1.6(^d1'1.6)", "", "", "",    "d", "", "", "",
+                        "^d'1.6(^d1'1.6)(KickLine)", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",
-                        "^d'1.6(^d1'1.6)", "", "", "",    "d1", "", "", "",
+                        "^d'1.6(^d1'1.6)(KickLine)", "", "", "",    "d1", "", "", "",
                         "d1", "", "", "",    "d1", "", "", "",
 
                         //4
-                        "^d'1.6(^d1'1.6)", "", "", "",    "^d'1.6(^d1'1.6)", "", "", "",
+                        "^d'1.6(^d1'1.6)(QuickKick)", "", "", "",    "^d'1.6(^d1'1.6)", "", "", "",
                         "^d'1.6(^d1'1.6)", "", "", "",    "^d'1.6(^d1'1.6)", "", "", "",
                         "^d'1.6(^d1'1.6)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
@@ -2025,18 +2166,19 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.SceneRendering.InsertProduction(production1);
                 ScreenDrawing.SceneRendering.InsertProduction(splitter);
                 CreateEntity(r);
-                GametimeDelta = -2.125f;
+                GametimeDelta = -3.5f;
                 SetSoul(1);
                 InstantSetBox(new Vector2(320,240), 84, 84);
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
-                { 
-                    int beat = 326;
+                {
+                    int beat = 392;
+                 //   int beat = 326;
                 //    int beat = 198 + 64;
-                    GametimeDelta = -1.5f + BeatTime(beat);
+                    GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
