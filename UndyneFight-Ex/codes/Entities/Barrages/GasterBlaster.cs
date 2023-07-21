@@ -45,7 +45,7 @@ namespace UndyneFight_Ex.Entities
             Depth = depth_;
             FormalDraw(Image, Centre, drawingColor * alpha, size, GetRadian(Rotation), ImageCentre);
             Depth = depth_ - 0.001f;
-            if (appearTime >= waitingTime)
+            if (appearTime >= waitingTime && laserSize.Y > 0)
                 FormalDraw(Sprites.GBLaser, laserPlace, drawingColor * beamAlpha, laserSize * size, GetRadian(missionRotation), new Vector2(0, 35));
         }
 
@@ -190,7 +190,7 @@ namespace UndyneFight_Ex.Entities
             shootShieldTime += Gametime;
             laserSize.X = 1.0f;
             size = new Vector2(1.0f, 0.7f);
-            missionPlayer = Player.heartInstance;
+            missionPlayer = Player.heartInstance; 
             waitingTime = shootShieldTime - Gametime;
             this.duration = duration;
             this.way = way;

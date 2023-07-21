@@ -10,6 +10,19 @@ namespace UndyneFight_Ex
         internal static Random rander = new Random();
         public static float PI = 3.141592f;
 
+        public static bool InTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 target)
+        {
+            Vector2 l1 = v2 - v1, l2 = v3 - v2, l3 = v1 - v3;
+            Vector2 d1 = target - v1, d2 = target - v2, d3 = target - v3;
+            float re1 = l1.Cross(d1), re2 = l2.Cross(d2);
+            bool sg1 = re1 > 0, sg2 = re2 > 0;
+            if (sg1 ^ sg2) return false;
+            float re3 = l3.Cross(d3);
+            bool sg3 = re3 > 0;
+            if (sg1 ^ sg3) return false;
+            return true;
+        }
+
         public static string FloatToString(float val, int digits) => FloatToString(val, digits, false);
         public static string FloatToString(float val, int digits, bool isCheck)
         {
@@ -95,6 +108,11 @@ namespace UndyneFight_Ex
             float len = origin.Length(); float angle = origin.Direction();
             return GetVector2(len, angle + rot);
         }
+        public static Vector2 RotateRadian(Vector2 origin, float rad)
+        {
+            float len = origin.Length(); float angle = Atan2(origin.Y, origin.X);
+            return new Vector2(MathF.Cos(angle + rad) * len, Sin(angle + rad) * len);
+        }
         /// <summary>
         /// 输入两个夹角小于360°的角，返回一个绝对值小于180°角，使得第一个方向角加它为第二个方向角等效的方向。
         /// </summary>
@@ -130,7 +148,7 @@ namespace UndyneFight_Ex
         /// <returns>所得角度</returns>
         public static float Direction(this Vector2 vec)
         {
-            return Direction(Vector2.Zero, vec);
+            return Atan2(vec.Y, vec.X) / MathF.PI * 180;
         }
         /// <summary>
         /// 即调整后的Tanh函数。用于丝滑过渡。val定义域为[0, 1]时，函数值域为[0, 1]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using UndyneFight_Ex.Fight;
+using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex
 {
@@ -12,6 +13,7 @@ namespace UndyneFight_Ex
             { 
                 public ColorBlendShader(Effect eff) : base(eff)
                 {
+                    this.LateApply = true;
                     StableEvents = (x) =>
                     {
                         GameMain.Graphics.GraphicsDevice.Textures[1] = Sprites.hashtex2;  

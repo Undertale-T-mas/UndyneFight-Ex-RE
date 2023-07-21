@@ -30,7 +30,7 @@ namespace UndyneFight_Ex
         public static GameWindow CurrentWindow => instance.Window;
 
         public static GraphicsDeviceManager Graphics { get; private set; }
-        public static SpriteBatch MissionSpriteBatch { get; private set; }
+        public static SpriteBatchEX MissionSpriteBatch { get; private set; }
 
         private static bool isDebugWindowExists = false;
 
@@ -128,7 +128,7 @@ namespace UndyneFight_Ex
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            MissionSpriteBatch = new SpriteBatch(GraphicsDevice);
+            MissionSpriteBatch = new SpriteBatchEX(GraphicsDevice);
             LoadObject();
 
 #if !DEBUG && REPELL

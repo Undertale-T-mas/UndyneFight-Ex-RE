@@ -427,7 +427,11 @@ namespace UndyneFight_Ex.Fight
                         Additive = 2,
                     }
                     public LightMode LightingMode { private get; set; } = LightMode.Limit;
-                    public Color AmbientColor { private get; set; } = Color.Transparent;
+                    public Color AmbientColor { 
+                        private get; 
+                        set; 
+                    }
+                        = Color.Transparent;
 
                     public class Light
                     {
@@ -524,8 +528,9 @@ namespace UndyneFight_Ex.Fight
 
                     private static RenderTarget2D screen;
 
-                    public float Intensity { get; set; } = 1f;
-                    public float RandomDisturb { get; set; } = 0.3f;
+                    public float Intensity { get; 
+                        set; } = 1f;
+                    public float RandomDisturb { get; set; } = 0.2f;
                     public bool Disturbance { get; set; } = true;
                     public Shader DisturbShader { get; set; } = GlobalResources.Effects.CustomShaders.Sinwave;
 
@@ -537,7 +542,8 @@ namespace UndyneFight_Ex.Fight
 
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
-                        if (Shader == null && (MathF.Abs(RandomDisturb) + Intensity) * AdaptingScale < 0.8f) return obj;
+                        RandomDisturb = Rand(-0.2f, 0.2f);
+                        if (Shader == null && (MathF.Abs(RandomDisturb + Intensity)) * AdaptingScale < 0.8f) return obj;
                         MissionTarget = screen;
 
                         if (Disturbance)

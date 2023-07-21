@@ -180,6 +180,16 @@ namespace UndyneFight_Ex.Entities
             InstanceCreate(new TimeRangedEvent(time + 5, () => { Alpha -= once; }));
             InstanceCreate(new InstantEvent(time + 5, () => { Dispose(); }));
         }
+        public void DelayAlphaDecrease(float delay,float time)
+        {
+            InstanceCreate(new InstantEvent(delay, () =>
+            {
+                float total = Alpha;
+                float once = total / time;
+                InstanceCreate(new TimeRangedEvent(time + 5, () => { Alpha -= once; }));
+                InstanceCreate(new InstantEvent(time + 5, () => { Dispose(); }));
+            }));
+        }
         public void AlphaIncrease(float time, float val)
         {
             float total = val;

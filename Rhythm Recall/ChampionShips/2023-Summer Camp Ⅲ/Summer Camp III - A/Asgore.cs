@@ -684,7 +684,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(8, () => { l.Dispose();l1.Dispose(); });
                         ScreenDrawing.CameraEffect.SizeExpand(9f, BeatTime(2.5f));
                         ScreenDrawing.CameraEffect.Convulse(5, BeatTime(2f), false);
-                        DelayBeat(2, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), true); });
+                        DelayBeat(2.1f, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), true); });
                     });
                     RegisterFunctionOnce("Shake", () =>
                     {
@@ -934,7 +934,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(8, () => { l.Dispose(); l1.Dispose(); });
                         ScreenDrawing.CameraEffect.SizeExpand(9f, BeatTime(2.5f));
                         ScreenDrawing.CameraEffect.Convulse(5, BeatTime(2f), true);
-                        DelayBeat(2, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), false); });
+                        DelayBeat(2.1f, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), false); });
                     });
                     RegisterFunctionOnce("SetBox", () =>
                     {
@@ -1216,7 +1216,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(8, () => { l.Dispose(); l1.Dispose(); });
                         ScreenDrawing.CameraEffect.SizeExpand(9f, BeatTime(2.5f));
                         ScreenDrawing.CameraEffect.Convulse(5, BeatTime(2f), true);
-                        DelayBeat(2, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), false); });
+                        DelayBeat(2.1f, () => { ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1.5f), false); });
                     });
                     RegisterFunctionOnce("HandAttackL", () =>
                     {
@@ -1404,10 +1404,29 @@ namespace Rhythm_Recall.Waves
                         Stable(0, 240),
                         EaseIn(BeatTime(1f), 320, EaseState.Sine)
                         );
+                        RunEase((s) =>
+                        {
+                            ScreenDrawing.ScreenScale = s;
+                        },
+                        Stable(0, 1.1f),
+                        EaseOut(BeatTime(1f), -0.1f, EaseState.Sine));
                     });
                     RegisterFunctionOnce("Conv", () =>
                     {
                         ScreenDrawing.CameraEffect.Convulse(5, BeatTime(Arguments[0]), Judge0or1((int)(Arguments[1])));
+                    });
+                    RegisterFunctionOnce("Expand", () =>
+                    {
+                        ScreenDrawing.CameraEffect.SizeExpand(1.5f, BeatTime(Arguments[0]));
+                    });
+                    RegisterFunctionOnce("Scale+", () =>
+                    {
+                        RunEase((s) =>
+                        {
+                            ScreenDrawing.ScreenScale = s;
+                        },
+                        Stable(0,1),
+                        EaseOut(BeatTime(2.5f),0.1f,EaseState.Sine));
                     });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
                     {
@@ -1428,45 +1447,45 @@ namespace Rhythm_Recall.Waves
 
                         "*R","","","",   "","","","",
                         "","","","",   "","","","",
-                        "(^*R)(^*D1)","","","",   "","","(*R)(*D1)","",
-                        "","","","",   "(*R)(*D1)","","","",
+                        "(^*R)(^*D1)(<0.75>Expand)","","","",   "","","(<0.75>Expand)(*R)(*D1)","",
+                        "","","","",   "(*R)(*D1)(<0.75>Expand)","","","",
                         //
-                        "(#2.75#R)","","","",   "","","","",
+                        "(#2.75#R)(<3,1>Conv)","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "*+0","","","",   "*R","","","",
 
-                        "(#1.25#R1)","","","",   "","","","",
+                        "(#1.25#R1)(<1.5,0>Conv)","","","",   "","","","",
                         "","","","",   "*+01","","","",
                         "*R1","","","",   "*R","","*+0","",
                         "","","","",   "*R","","","",
 
-                        "(#2.75#R)","","","",   "","","","",
+                        "(#2.75#R)(<3,1>Conv)","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "*+0","","","",   "*R","","","",
 
-                        "(#1.25#R1)","","","",   "","","","",
+                        "(#1.25#R1)(<1.5,0>Conv)","","","",   "","","","",
                         "","","","",   "*+01","","","",
                         "*R1","","","",   "*R","","*+0","",
                         "","","","",   "*R","","","",
                         //
-                        "(#2.75#R)","","","",   "","","","",
+                        "(#2.75#R)(<3,1>Conv)","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "*+0","","","",   "*R","","","",
 
-                        "(#1.25#R1)","","","",   "","","","",
+                        "(#1.25#R1)(<1.5,0>Conv)","","","",   "","","","",
                         "","","","",   "*+01","","","",
                         "*R1","","","",   "*R","","*+0","",
                         "","","","",   "*R","","","",
 
-                        "(#3.75#$3)","","","",   "","","","",
+                        "(#3.75#$3)(<4,1>Conv)","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
 
-                        "(*$3)(#3#R1)","","*$0","",   "*$1","","*$2","",
+                        "(*$3)(#3#R1)(<3,0>Conv)(Scale+)","","*$0","",   "*$1","","*$2","",
                         "","","*$0","",   "*$0","","","",
                         "*$1","","*$1","",   "","","*$2","",
                         "(Return)","","*$0'0.7","*$1'0.7",   "*$2'0.7","","","",
@@ -2061,13 +2080,16 @@ namespace Rhythm_Recall.Waves
             public void Start()
             {
                 this.Settings.GreenTap = true;
-                HandImage=Loader.Load<Texture2D>("Musics\\Asgore\\Hand");
+                HandImage = Loader.Load<Texture2D>("Musics\\Asgore\\Hand");
                 Heart.Speed = 3f;
                 GametimeDelta = -2.5f;
                 PlayOffset = 0;
+                HeartAttribute.MaxHP = 6;
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
                 InstantTP(320,240);
+                bool jump = false ;
+                if (jump==true)
                 bool jump = false;
                 if (jump)
                 {

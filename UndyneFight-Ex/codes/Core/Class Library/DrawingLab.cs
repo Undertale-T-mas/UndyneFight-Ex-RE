@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.GameMain;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -11,6 +12,147 @@ namespace UndyneFight_Ex
 {
     public static class DrawingLab
     {
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        /// <param name="pointList"></param>
+        /// <returns></returns>
+        public static int[] GetIndices(VertexPositionColor[] pointList)
+        {
+            int i;
+            Vector2[] vector2s = new Vector2[pointList.Length];
+            for(i = 0;  i < pointList.Length; i++)
+            {
+                vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
+            }
+            List<Tuple<int, int, int>> results = GetIndices(vector2s);
+            int[] indices = new int[results.Count * 3];
+            i = 0;
+            foreach(Tuple<int, int, int> tuple in results)
+            {
+                indices[i] = tuple.Item1; i++;
+                indices[i] = tuple.Item2; i++;
+                indices[i] = tuple.Item3; i++;
+            }
+            return indices;
+        }
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(VertexPositionColorTexture[] pointList)
+        {
+            Vector2[] vector2s = new Vector2[pointList.Length];
+            for(int i = 0;  i < pointList.Length; i++)
+            {
+                vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
+            }
+            return GetIndices(vector2s);
+        }
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(Vector2[] pointList) { 
+            Tuple<int, Vector2>[] arr = new Tuple<int, Vector2>[pointList.Length];
+            for (int i = 0; i < arr.Length; i++) arr[i] = new(i, pointList[i]);
+            return GetIndices(arr);
+        }
+        
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(Tuple<int, Vector2>[] pointList)
+        {
+            if (pointList.Length <= 2) return new();
+            if(pointList.Length == 3) {
+                return new List<Tuple<int, int, int>>() { new Tuple<int, int, int>(pointList[0].Item1, pointList[1].Item1, pointList[2].Item1) };
+            }  
+            List<Tuple<int, int, int>> result = new(); 
+
+            List<int> reflexs = null;
+
+            bool[] reflex = new bool[pointList.Length];
+            bool existReflex = false;
+            Vector2 last = pointList[0].Item2 - pointList[^1].Item2;
+            for (int i = 0; i < pointList.Length; i++)
+            {
+                int i2 = i + 1;
+                if (i2 == pointList.Length) i2 = 0;
+                Vector2 cur = pointList[i2].Item2 - pointList[i].Item2;
+                if(last.Cross(cur) < 0)
+                {
+                    if (!existReflex)
+                    {
+                        reflexs = new();
+                        existReflex = true;
+                    }
+                    reflex[i] = true;
+                    reflexs.Add(i);
+                }
+                else
+                {
+                    reflex[i] = false;
+                }
+                last = cur;
+            }
+
+            if(!existReflex) //凸多边形
+            {
+                for(int i = 2; i < pointList.Length; i++)
+                {
+                    result.Add(new(pointList[0].Item1, pointList[i - 1].Item1, pointList[i].Item1));
+                }
+                return result;
+            }
+            // 凹多边形
+            int length = pointList.Length;
+            bool[] used = new bool[pointList.Length];
+            for(int i = 0; i < pointList.Length; i++)
+            {
+                if (i == pointList.Length - 1 && used[0]) break;
+                if (!reflex[i]) // 可能是可以分割的顶点
+                {
+                    int v1 = i, v0 = i - 1, v2 = i + 1;
+                    if (v0 < 0) v0 = pointList.Length - 1;
+                    if (v2 >= pointList.Length) v2 = 0;
+
+                    Vector2 pv1 = pointList[v1].Item2, pv0 = pointList[v0].Item2, pv2 = pointList[v2].Item2;
+
+                    bool flag = true;
+                    foreach (int j in reflexs) // 检验是否可以分割
+                    {
+                        if (j == v2 || j == v0) continue;
+                        if (InTriangle(pv1, pv0, pv2, pointList[j].Item2))
+                        { // 在三角形内，不可分割
+                            flag = false;
+                            break;
+                        }
+                    }
+                    used[i] = flag;
+                    if (flag) // 添加一组三角
+                    {
+                        length -= 1;
+                        i++;
+                        result.Add(new(pointList[v1].Item1, pointList[v0].Item1, pointList[v2].Item1));
+                    }
+                }
+                else used[i] = false;
+            }
+            int k = 0;
+            Tuple<int, Vector2>[] tuples = new Tuple<int, Vector2>[length];
+            for(int i = 0; i < pointList.Length; i++)
+            {
+                if (!used[i])
+                {
+                    tuples[k] = pointList[i];
+                    k++;
+                }
+            }
+            result.AddRange(GetIndices(tuples));
+
+            return result;
+
+        }
+
         private struct HSV
         {
             public int H, S, V;
@@ -105,7 +247,7 @@ namespace UndyneFight_Ex
                 drawArea.Height -= detla4;
             }
             if (!(size.X < 0f || size.Y < 0f))
-                MissionSpriteBatch.Draw(tex, drawArea.ToRectangle(), new Rectangle?(new Rectangle(samplerPlace.ToPoint(), size.ToPoint())), color, rotation, rotateCentre, SpriteEffects.None, depth);
+                MissionSpriteBatch.Draw(tex, drawArea, new CollideRect(samplerPlace, size), color, rotation, rotateCentre, SpriteEffects.None, depth);
         }
 
 
@@ -136,9 +278,21 @@ namespace UndyneFight_Ex
         /// <param name="Length">线条长度</param>
         /// <param name="width">线宽度</param>
         /// <param name="cl">线条颜色</param>
-        public static void DrawLine(Vector2 Centre, float Angle, float Length, float width, Color cl, float depth)
+        public static void DrawLine(Vector2 Centre, float angle, float length, float width, Color cl, float depth)
         {
-            MissionSpriteBatch.Draw(FightResources.Sprites.pixiv, Centre, null, cl * Surface.Normal.drawingAlpha, Angle, new Vector2(0.5f, 0.5f), new Vector2(Length, width), SpriteEffects.None, depth);
+            angle = GetAngle(angle);
+            Vector2 v1 = GetVector2(length / 2f, angle);
+            Vector2 v2 = -v1;
+            v1 += Centre; v2 += Centre;
+            Vector2 del = GetVector2(width / 2f, angle + 90);
+            Vector2 p1 = v1 + del, p2 = v2 + del;
+            Vector2 p3 = v1 - del, p4 = v2 - del;
+            MissionSpriteBatch.DrawVertex(depth, 
+                new VertexPositionColor(new(p1, depth), cl),
+                new VertexPositionColor(new(p2, depth), cl),
+                new VertexPositionColor(new(p4, depth), cl),
+                new VertexPositionColor(new(p3, depth), cl)
+                );
         }
 
         /// <summary>
@@ -176,6 +330,8 @@ namespace UndyneFight_Ex
         public Dictionary<string, Action<Effect>> PartEvents { private get; set; }
         public Action<Effect> StableEvents { private get; set; }
 
+        public bool LateApply { get; set; } = false;
+
         public void Update()
         {
             Shader shader = this;
@@ -193,29 +349,33 @@ namespace UndyneFight_Ex
     public class GLFont
     {
         public SpriteFont SFX;
+        Dictionary<char, int> charIndex = new Dictionary<char, int>();
         public GLFont(string path, ContentManager cm)
         {
             SFX = cm.Load<SpriteFont>(path);
+            for (int i = 0; i < SFX.Glyphs.Length; i++) {
+                charIndex[SFX.Glyphs[i].Character] = i; 
+            }
         }
         public void Draw(string texts, Vector2 location, Color color)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha);
         }
-        public void Draw(string texts, Vector2 location, Color color, SpriteBatch sb)
+        public void Draw(string texts, Vector2 location, Color color, SpriteBatchEX sb)
         {
-            sb.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha);
+            sb.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha);
         }
         public void CentreDraw(string texts, Vector2 location, Color color)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
+            MissionSpriteBatch.DrawString(this, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
         }
-        public void CentreDraw(string texts, Vector2 location, Color color, SpriteBatch sb)
+        public void CentreDraw(string texts, Vector2 location, Color color, SpriteBatchEX sb)
         {
-            sb.DrawString(SFX, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
+            sb.DrawString(this, texts, location - SFX.MeasureString(texts) / 2, color * Surface.Normal.drawingAlpha);
         }
         public void Draw(string texts, Vector2 location, Color color, float scale, float depth)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
         }
         public void LimitDraw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float lineLength, float lineDistance, float scale, float depth)
         {
@@ -243,13 +403,13 @@ namespace UndyneFight_Ex
             strings.Add(curLine);
             foreach (string s in strings)
             {
-                GameMain.MissionSpriteBatch.DrawString(SFX, s, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
+                GameMain.MissionSpriteBatch.DrawString(this, s, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
                 location.Y += lineDistance;
             }
         }
         public void Draw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float rotation, float scale, float depth)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, rotation, Vector2.Zero, scale, SpriteEffects.None, depth);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, Vector2.Zero, scale, SpriteEffects.None, depth);
         }
         public void CentreDraw(string texts, Vector2 location, Color color, float scale, float depth)
         {
@@ -257,7 +417,7 @@ namespace UndyneFight_Ex
             {
                 if (string.IsNullOrEmpty(texts)) 
                     return;
-                MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, 0, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+                MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, 0, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
             }
             catch
             {
@@ -266,7 +426,12 @@ namespace UndyneFight_Ex
         }
         public void CentreDraw(string texts, Vector2 location, Color color, float scale, float rotation, float depth)
         {
-            MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+        }
+
+        internal unsafe int GetGlyphIndexOrDefault(char c)
+        {
+            return charIndex[c];
         }
     }
 }

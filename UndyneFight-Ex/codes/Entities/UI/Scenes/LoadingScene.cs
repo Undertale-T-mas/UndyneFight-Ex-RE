@@ -8,17 +8,7 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.SongSystem;
-
-namespace Microsoft.Xna.Framework
-{
-    public static class Intension
-    {
-        public static void Draw(this SpriteBatch batch)
-        {
-
-        }
-    }
-}
+ 
 namespace UndyneFight_Ex
 {
     public class LoadingScene : Scene
