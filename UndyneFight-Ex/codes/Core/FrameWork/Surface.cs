@@ -108,7 +108,7 @@ namespace UndyneFight_Ex
             TrySetTarget();
             if (shader != null)
             {
-                shader.Update();
+                shader.Update(); 
                 GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, shader, enabledMatrix ? matrix : null);
             }
             else

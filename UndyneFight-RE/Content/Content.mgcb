@@ -19,7 +19,7 @@
 /processorParam:DebugMode=Auto
 /build:ReEngine/Effects/NonFight/BackGround.fx
 
-#begin ReEngine/FightSprites/fireball.png
+#begin ReEngine/FightSprites/FireBall/spr_0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -29,7 +29,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ReEngine/FightSprites/fireball.png
+/build:ReEngine/FightSprites/FireBall/spr_0.png
+
+#begin ReEngine/FightSprites/FireBall/spr_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/FightSprites/FireBall/spr_1.png
 
 #begin ReEngine/FightSprites/Mettaton/blockA.jpg
 /importer:TextureImporter
@@ -558,18 +570,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ReEngine/FightSprites/Mettaton/spr_plusbomb_verblast_6.png
-
-#begin ReEngine/FightSprites/soulBullet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:ReEngine/FightSprites/soulBullet.png
 
 #begin ReEngine/FightSprites/soulBullet.png
 /importer:TextureImporter

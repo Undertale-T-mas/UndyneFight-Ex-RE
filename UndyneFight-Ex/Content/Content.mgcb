@@ -187,6 +187,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/CameraSurface.fx
 
+#begin Global/Shaders/Effect Library/ColorBlend.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/ColorBlend.fx
+
 #begin Global/Shaders/Effect Library/Cos1Ball.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -211,6 +217,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Global/Shaders/Effect Library/hashtex.png
+
+#begin Global/Shaders/Effect Library/hashtex2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Global/Shaders/Effect Library/hashtex2.png
 
 #begin Global/Shaders/Effect Library/Lens.fx
 /importer:EffectImporter
@@ -260,6 +278,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Sinwave.fx
 
+#begin Global/Shaders/Effect Library/Sprial3D.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Sprial3D.fx
+
 #begin Global/Shaders/Effect Library/StepSample.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -271,6 +295,18 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Swirl.fx
+
+#begin Global/Shaders/Effect Library/Tyndall.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Tyndall.fx
+
+#begin Global/Shaders/Effect Library/Wrong.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Wrong.fx
 
 #begin Global/Shaders/Internal Effect/Light0.fx
 /importer:EffectImporter

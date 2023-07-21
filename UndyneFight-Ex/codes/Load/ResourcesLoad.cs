@@ -48,6 +48,7 @@ namespace UndyneFight_Ex
             //championShip =      loader.Load<Texture2D>("UI\\cup");
             championShip =      loader.Load<Texture2D>("UI\\cup_highres");
             hashtex =           loader.Load<Texture2D>("Shaders\\Effect Library\\hashtex");
+            hashtex2 =          loader.Load<Texture2D>("Shaders\\Effect Library\\hashtex2");
             mainGame =          loader.Load<Texture2D>("UI\\maingame");
             achieveMents =      loader.Load<Texture2D>("UI\\stars");
             options =           loader.Load<Texture2D>("UI\\options");
@@ -83,6 +84,7 @@ namespace UndyneFight_Ex
             loader.RootDirectory = "Content\\Global\\Shaders\\Effect Library\\";
             CustomShaders.Aurora =      new AuroraShader(loader.Load<Effect>("Aurora")) { };
             CustomShaders.Sinwave =     new Shader(loader.Load<Effect>("Sinwave")) { };
+            CustomShaders.ColorBlend =  new ColorBlendShader(loader.Load<Effect>("ColorBlend")) { };
             CustomShaders.NeonLine =    new NeonLineShader(loader.Load<Effect>("NeonLine")) { };
             CustomShaders.Camera =      new CameraShader(loader.Load<Effect>("CameraSurface")) { };
             CustomShaders.Cos1Ball =    new BallShapingShader(loader.Load<Effect>("Cos1Ball")) { };
@@ -99,6 +101,10 @@ namespace UndyneFight_Ex
             CustomShaders.Scatter =     new ScatterShader(loader.Load<Effect>("Scatter"));
             CustomShaders.Mosaic =      new MosaicShader(loader.Load<Effect>("Mosaic"));
             CustomShaders.BlockTile =   new BlockTileShader(loader.Load<Effect>("BlockTile"));
+
+            CustomShaders.Tyndall =     new TyndallShader(loader.Load<Effect>("Tyndall"));
+            CustomShaders.Spiral =      new SpiralShader(loader.Load<Effect>("Sprial3D"));
+            CustomShaders.Wrong =       new WrongShader(loader.Load<Effect>("Wrong"));
             LoadInternals(loader);
             //Effects.CustomShaders.ShaderTiler = new Effects.ShaderTiler(loader.Load<Effect>("ShaderTiler"));
             //Effects.CustomShaders.Smear = new Effects.Smear(loader.Load<Effect>("Smear"));
@@ -113,7 +119,11 @@ namespace UndyneFight_Ex
             {
                 public static Shader Sinwave { get; set; }
                 public static AuroraShader Aurora { get; set; }
+                public static TyndallShader Tyndall { get; set; }
                 public static NeonLineShader NeonLine { get; set; }
+                public static ColorBlendShader ColorBlend { get; set; }
+                public static SpiralShader Spiral { get; set; }
+                
                 public static BallShapingShader Cos1Ball { get; set; }
                 public static ScaleShader Scale { get; set; }
                 public static CameraShader Camera { get; set; }
@@ -131,6 +141,7 @@ namespace UndyneFight_Ex
                 public static Smear Smear { get; set; }
                 public static MosaicShader Mosaic { get; set; }
                 public static BlockTileShader BlockTile { get; set; }
+                public static WrongShader Wrong { get; set; }
             }
         }
 
@@ -150,6 +161,7 @@ namespace UndyneFight_Ex
             public static Texture2D login;
             public static Texture2D championShip;
             public static Texture2D hashtex;
+            public static Texture2D hashtex2;
             public static Texture2D mainGame;
             public static Texture2D options;
             public static Texture2D achieveMents;
@@ -608,8 +620,9 @@ namespace UndyneFight_Ex
         public static class Shaders
         {
             public static Shader Sinwave => CustomShaders.Sinwave;
-            public static AuroraShader Aurora => CustomShaders.Aurora;
+            public static AuroraShader Aurora => CustomShaders.Aurora; 
             public static NeonLineShader NeonLine => CustomShaders.NeonLine;
+            public static ColorBlendShader ColorBlend => CustomShaders.ColorBlend;
             public static BallShapingShader Cos1Ball => CustomShaders.Cos1Ball;
             public static StepSampleShader StepSample => CustomShaders.StepSample;
             public static ScaleShader Scale => CustomShaders.Scale;
@@ -627,6 +640,9 @@ namespace UndyneFight_Ex
             public static Smear Smear => CustomShaders.Smear;
             public static MosaicShader Mosaic => CustomShaders.Mosaic;
             public static BlockTileShader BlockTile => CustomShaders.BlockTile;
+            public static TyndallShader Tyndall => CustomShaders.Tyndall;
+            public static SpiralShader Spiral => CustomShaders.Spiral;
+            public static WrongShader Wrong => CustomShaders.Wrong;
         }
     }
 }

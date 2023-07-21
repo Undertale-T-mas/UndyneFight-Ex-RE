@@ -468,6 +468,10 @@ namespace UndyneFight_Ex.Fight
             /// 无得分
             /// </summary>
             NoScore = 64,
+            /// <summary>
+            /// 无得分
+            /// </summary>
+            ForceGreen = 128,
         }
 
         private static void GiveAttribute(Arrow arr, ArrowAttribute attribute)
@@ -493,6 +497,8 @@ namespace UndyneFight_Ex.Fight
 
             if ((attribute & ArrowAttribute.NoScore) == ArrowAttribute.NoScore)
                 arr.NoScore = true;
+            if ((attribute & ArrowAttribute.ForceGreen) == ArrowAttribute.ForceGreen)
+                arr.ForceGreenBack = true;
         }
 
         /// <summary>
