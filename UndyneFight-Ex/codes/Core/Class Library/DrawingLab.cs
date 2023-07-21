@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.GameMain;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -11,6 +12,147 @@ namespace UndyneFight_Ex
 {
     public static class DrawingLab
     {
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        /// <param name="pointList"></param>
+        /// <returns></returns>
+        public static int[] GetIndices(VertexPositionColor[] pointList)
+        {
+            int i;
+            Vector2[] vector2s = new Vector2[pointList.Length];
+            for(i = 0;  i < pointList.Length; i++)
+            {
+                vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
+            }
+            List<Tuple<int, int, int>> results = GetIndices(vector2s);
+            int[] indices = new int[results.Count * 3];
+            i = 0;
+            foreach(Tuple<int, int, int> tuple in results)
+            {
+                indices[i] = tuple.Item1; i++;
+                indices[i] = tuple.Item2; i++;
+                indices[i] = tuple.Item3; i++;
+            }
+            return indices;
+        }
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(VertexPositionColorTexture[] pointList)
+        {
+            Vector2[] vector2s = new Vector2[pointList.Length];
+            for(int i = 0;  i < pointList.Length; i++)
+            {
+                vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
+            }
+            return GetIndices(vector2s);
+        }
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(Vector2[] pointList) { 
+            Tuple<int, Vector2>[] arr = new Tuple<int, Vector2>[pointList.Length];
+            for (int i = 0; i < arr.Length; i++) arr[i] = new(i, pointList[i]);
+            return GetIndices(arr);
+        }
+        
+        /// <summary>
+        /// 按顺时针输入点列，获得该点列的一组三角剖分
+        /// </summary>
+        public static List<Tuple<int, int, int>> GetIndices(Tuple<int, Vector2>[] pointList)
+        {
+            if (pointList.Length <= 2) return new();
+            if(pointList.Length == 3) {
+                return new List<Tuple<int, int, int>>() { new Tuple<int, int, int>(pointList[0].Item1, pointList[1].Item1, pointList[2].Item1) };
+            }  
+            List<Tuple<int, int, int>> result = new(); 
+
+            List<int> reflexs = null;
+
+            bool[] reflex = new bool[pointList.Length];
+            bool existReflex = false;
+            Vector2 last = pointList[0].Item2 - pointList[^1].Item2;
+            for (int i = 0; i < pointList.Length; i++)
+            {
+                int i2 = i + 1;
+                if (i2 == pointList.Length) i2 = 0;
+                Vector2 cur = pointList[i2].Item2 - pointList[i].Item2;
+                if(last.Cross(cur) < 0)
+                {
+                    if (!existReflex)
+                    {
+                        reflexs = new();
+                        existReflex = true;
+                    }
+                    reflex[i] = true;
+                    reflexs.Add(i);
+                }
+                else
+                {
+                    reflex[i] = false;
+                }
+                last = cur;
+            }
+
+            if(!existReflex) //凸多边形
+            {
+                for(int i = 2; i < pointList.Length; i++)
+                {
+                    result.Add(new(pointList[0].Item1, pointList[i - 1].Item1, pointList[i].Item1));
+                }
+                return result;
+            }
+            // 凹多边形
+            int length = pointList.Length;
+            bool[] used = new bool[pointList.Length];
+            for(int i = 0; i < pointList.Length; i++)
+            {
+                if (i == pointList.Length - 1 && used[0]) break;
+                if (!reflex[i]) // 可能是可以分割的顶点
+                {
+                    int v1 = i, v0 = i - 1, v2 = i + 1;
+                    if (v0 < 0) v0 = pointList.Length - 1;
+                    if (v2 >= pointList.Length) v2 = 0;
+
+                    Vector2 pv1 = pointList[v1].Item2, pv0 = pointList[v0].Item2, pv2 = pointList[v2].Item2;
+
+                    bool flag = true;
+                    foreach (int j in reflexs) // 检验是否可以分割
+                    {
+                        if (j == v2 || j == v0) continue;
+                        if (InTriangle(pv1, pv0, pv2, pointList[j].Item2))
+                        { // 在三角形内，不可分割
+                            flag = false;
+                            break;
+                        }
+                    }
+                    used[i] = flag;
+                    if (flag) // 添加一组三角
+                    {
+                        length -= 1;
+                        i++;
+                        result.Add(new(pointList[v1].Item1, pointList[v0].Item1, pointList[v2].Item1));
+                    }
+                }
+                else used[i] = false;
+            }
+            int k = 0;
+            Tuple<int, Vector2>[] tuples = new Tuple<int, Vector2>[length];
+            for(int i = 0; i < pointList.Length; i++)
+            {
+                if (!used[i])
+                {
+                    tuples[k] = pointList[i];
+                    k++;
+                }
+            }
+            result.AddRange(GetIndices(tuples));
+
+            return result;
+
+        }
+
         private struct HSV
         {
             public int H, S, V;

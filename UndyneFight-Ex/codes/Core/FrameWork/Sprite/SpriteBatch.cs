@@ -4,7 +4,7 @@ using System;
 
 namespace UndyneFight_Ex
 {
-    partial class SpriteBatchEX
+    public partial class SpriteBatchEX
     {
         private readonly SpriteBatcherEX _batcher;
 
@@ -21,6 +21,8 @@ namespace UndyneFight_Ex
         private SpriteEffect _spriteEffect;
         private readonly EffectPass _spritePass;
 
+        private readonly SamplerState _defaultState;
+
         public SpriteBatchEX(GraphicsDevice graphicsDevice) 
         {
             _graphicDevice = graphicsDevice;
@@ -28,6 +30,18 @@ namespace UndyneFight_Ex
             _spritePass = _spriteEffect.CurrentTechnique.Passes[0];
             _beginCalled = false;
             _batcher = new(graphicsDevice);
+
+            if (_defaultState == null)
+            {
+                SamplerState state = new();
+                state.AddressU = TextureAddressMode.Clamp;
+                state.AddressV = TextureAddressMode.Clamp;
+                state.AddressW = TextureAddressMode.Clamp;
+                state.MaxMipLevel = 1;
+                state.ComparisonFunction = CompareFunction.Never;
+                state.Filter = TextureFilter.Point;
+                _defaultState = state;
+            }
         }
         private bool _beginCalled = false;
 
@@ -79,9 +93,9 @@ namespace UndyneFight_Ex
 
             _sortMode = sortMode;
             _blendState = blendState ?? BlendState.AlphaBlend;
-            _samplerState = samplerState ?? SamplerState.LinearClamp;
+            _samplerState = samplerState ?? _defaultState;
             _depthStencilState = depthStencilState ?? DepthStencilState.None;
-            _rasterizerState = rasterizerState ?? RasterizerState.CullCounterClockwise;
+            _rasterizerState = rasterizerState ?? RasterizerState.CullNone;
             _effect = effect;
             _spriteEffect.TransformMatrix = transform;
             
@@ -149,6 +163,13 @@ namespace UndyneFight_Ex
                     pos[i] = MathUtil.Rotate(pos[i], rotation) * scale;
                 }
             }
+            else if(scale != Vector2.One)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    pos[i] = pos[i] * scale;
+                }
+            }
             VertexPositionColorTexture vTL, vTR, vBL, vBR;
             vTL.Position = new(pos[0] + realAnchor, 0);
             vTR.Position = new(pos[1] + realAnchor, 0);
@@ -180,6 +201,7 @@ namespace UndyneFight_Ex
                 vBL.TextureCoordinate = Vector2.UnitY;
                 vBR.TextureCoordinate = Vector2.One;
             }
+            _batcher.Insert(new RectangleItem(vTL, vTR, vBL, vBR, texture, sortKey));
             FlushIfNeeded();
         }
         public void Draw(Texture2D texture, Vector2 position, CollideRect? sourceRectangle, Color color, float rotation, Vector2 anchor, Vector2 scale, SpriteEffects effects, float depth) {
@@ -190,6 +212,92 @@ namespace UndyneFight_Ex
                 texture.Bounds.Size.ToVector2());
 
             this.Draw(texture, rect, sourceRectangle, color, rotation, anchor, scale, effects, depth);
+        }
+        public void Draw(Texture2D texture, Vector2 centre, CollideRect? sourceRectangle, Color color, float rotation, Vector2 anchor, float scale, SpriteEffects effects, float depth)
+        {
+            Draw(texture, centre, sourceRectangle, color, rotation, anchor, new Vector2(scale, scale), effects, depth);
+        }
+        public void Draw(Texture2D texture, Vector2 centre, Color color, float rotation, Vector2 anchor, float scale, float depth)
+        {
+            Draw(texture, centre, null, color, rotation, anchor, new Vector2(scale, scale), SpriteEffects.None, depth);
+        }
+        public void Draw(Texture2D texture, Vector2 centre, CollideRect? sourceRectangle, Color color, float rotation, Vector2 anchor, float scale, float depth)
+        {
+            Draw(texture, centre, sourceRectangle, color, rotation, anchor, new Vector2(scale, scale), SpriteEffects.None, depth);
+        }
+        /// <summary>
+        /// Give the vertexs information of sprite to draw on the current RenderTarget
+        /// </summary>
+        /// <param name="texture">the texture sprite</param>
+        /// <param name="vertexs">The vertexs given. Make them in the order of clockwise! </param>
+        /// <param name="depth">The depth to sort</param>
+        public void DrawVertex(Texture2D texture, float depth, params VertexPositionColorTexture[] vertexs)
+        {
+            _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), vertexs));
+        }        
+        /// <summary>
+        /// Give the vertexs information of sprite to draw on the current RenderTarget
+        /// </summary>
+        /// <param name="texture">the texture sprite</param>
+        /// <param name="vertexs">The vertexs given. Make them in the order of clockwise! </param>
+        /// <param name="depth">The depth to sort</param>
+        public void DrawVertex(Texture2D texture, float depth, int[] indices, params VertexPositionColorTexture[] vertexs)
+        {
+            _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), indices, vertexs));
+        }
+        /// <summary>
+        /// Give the vertexs information of sprite to draw on the current RenderTarget
+        /// </summary>
+        /// <param name="texture">the texture sprite</param>
+        /// <param name="vertexs">The vertexs given. Make them in the order of clockwise! </param>
+        /// <param name="depth">The depth to sort</param>
+        public void DrawVertex(Texture2D texture, float depth, params VertexPositionColor[] vertexs)
+        {
+            VertexPositionColorTexture[] vpctVertexs = new VertexPositionColorTexture[vertexs.Length];
+            float t = 99999f, b = -99999f, l = 99999f, r = -99999f;
+            for(int i = 0; i < vertexs.Length; i++)
+            {
+                t = MathF.Min(t, vertexs[i].Position.Y);
+                b = MathF.Max(b, vertexs[i].Position.Y);
+                l = MathF.Min(l, vertexs[i].Position.X);
+                r = MathF.Max(r, vertexs[i].Position.X);
+            }
+
+            for(int i = 0; i < vertexs.Length; i++)
+            {
+                float u = (vertexs[i].Position.X - l) / (r - l);
+                float v = (vertexs[i].Position.Y - t) / (b - t);
+                vpctVertexs[i] = new(vertexs[i].Position, vertexs[i].Color, new(u, v));
+            }
+
+            _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), vpctVertexs));
+        }        
+        /// <summary>
+        /// Give the vertexs information of sprite to draw on the current RenderTarget
+        /// </summary>
+        /// <param name="texture">the texture sprite</param>
+        /// <param name="vertexs">The vertexs given. Make them in the order of clockwise! </param>
+        /// <param name="depth">The depth to sort</param>
+        public void DrawVertex(Texture2D texture, float depth, int[] indices, params VertexPositionColor[] vertexs)
+        {
+            VertexPositionColorTexture[] vpctVertexs = new VertexPositionColorTexture[vertexs.Length];
+            float t = 99999f, b = -99999f, l = 99999f, r = -99999f;
+            for(int i = 0; i < vertexs.Length; i++)
+            {
+                t = MathF.Min(t, vertexs[i].Position.Y);
+                b = MathF.Max(b, vertexs[i].Position.Y);
+                l = MathF.Min(l, vertexs[i].Position.X);
+                r = MathF.Max(r, vertexs[i].Position.X);
+            }
+
+            for(int i = 0; i < vertexs.Length; i++)
+            {
+                float u = (vertexs[i].Position.X - l) / (r - l);
+                float v = (vertexs[i].Position.Y - t) / (b - t);
+                vpctVertexs[i] = new(vertexs[i].Position, vertexs[i].Color, new(u, v));
+            }
+
+            _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), indices, vpctVertexs));
         }
         internal void FlushIfNeeded()
         {
