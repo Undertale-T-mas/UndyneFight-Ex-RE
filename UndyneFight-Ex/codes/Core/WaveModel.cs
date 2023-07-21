@@ -739,6 +739,12 @@ namespace UndyneFight_Ex.SongSystem
                         arrowspeed = MathUtil.FloatFromString(cur[2..]);
                         continue;
                     }
+                    else if (cur[0..2] == "<<")
+                    {
+                        float p = MathUtil.FloatFromString(cur[2..]);
+                        t -= BeatTime(p);
+                        continue;
+                    }
                 }
                 CurrentTime = t;
                 if (!string.IsNullOrWhiteSpace(cur))
