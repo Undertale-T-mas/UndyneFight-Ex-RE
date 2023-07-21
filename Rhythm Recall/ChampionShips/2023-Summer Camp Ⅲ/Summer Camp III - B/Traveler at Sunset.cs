@@ -1072,17 +1072,17 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SCL", () => {
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(1), 3.0f, 0.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), 4.0f, 0.0f, EaseState.Quint)
                         );
                     });
                     RegisterFunctionOnce("SCR", () => {
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(1), -3.0f, 0.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), -4.0f, 0.0f, EaseState.Quint)
                         );
                     });
                     RegisterFunctionOnce("SCS", () => {
                         RunEase(s => ScreenDrawing.ScreenScale = s,
-                            EaseOut(BeatTime(1), 1.07f, 1.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), 1.037f, 1.0f, EaseState.Quint)
                         );
                     });
                     RegisterFunctionOnce("Eff1", () => {
@@ -1115,7 +1115,7 @@ namespace Rhythm_Recall.Waves
                         { Alpha = 0.7f };
                         CreateEntity(a);
                         DelayBeat(0.7f, () => { a.Dispose(); });
-                        ScreenDrawing.CameraEffect.Convulse(false);
+                        ScreenDrawing.CameraEffect.Convulse(2.0f, 9.0f, false);
                     });
                     RegisterFunctionOnce("LineL", () =>
                     {
@@ -1124,7 +1124,7 @@ namespace Rhythm_Recall.Waves
                         { Alpha = 0.7f };
                         CreateEntity(a);
                         DelayBeat(0.7f, () => { a.Dispose(); });
-                        ScreenDrawing.CameraEffect.Convulse(true);
+                        ScreenDrawing.CameraEffect.Convulse(2.0f, 9.0f, true);
                     });
                     RegisterFunctionOnce("TurnR", () =>
                     {
@@ -2401,10 +2401,10 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
-                    int beat = 456;
+                    int beat = 192;
                  //   int beat = 326;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
