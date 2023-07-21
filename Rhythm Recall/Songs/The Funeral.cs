@@ -110,7 +110,7 @@ namespace Rhythm_Recall.Waves
                 {
                     MissionTarget = HelperTarget3;
                     ResetTargetColor(Color.Black);
-                    sprite.Begin(transform: Surface.NormalTransfer);
+                    sprite.Begin(sortMode:SpriteSortMode.FrontToBack, transform: Surface.NormalTransfer);
                     VertexPositionColor[] vertexPositionColors = new VertexPositionColor[]
                     {
                         new VertexPositionColor(new Vector3(80, 0, 0.1f), Color.White),
@@ -121,8 +121,13 @@ namespace Rhythm_Recall.Waves
                         new VertexPositionColor(new Vector3(80, 480, 0.1f), Color.White),
                     };
                     sprite.DrawVertex(Sprites.brokenHeart, 0.5f,
-                               DrawingLab.GetIndices(vertexPositionColors), vertexPositionColors
-                        );
+                                DrawingLab.GetIndices(vertexPositionColors), vertexPositionColors
+                         );
+
+                    Vector2 size = Font.NormalFont.SFX.MeasureString("YES") / 2;
+
+                    sprite.DrawString(Font.NormalFont, "YES", new(320, 100), Color.White, MathUtil.GetRadian(GametimeF), size, 4.0f, SpriteEffects.None, 0.94f);
+                    sprite.DrawString(Font.NormalFont, "NO!", new(320, 100), Color.Red, MathUtil.GetRadian(-GametimeF), size, 4.0f, SpriteEffects.None, 0.74f);
                     sprite.End();
 
                     return HelperTarget3;

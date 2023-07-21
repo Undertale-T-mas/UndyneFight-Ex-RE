@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Text;
 
 namespace UndyneFight_Ex
 {
@@ -299,6 +300,132 @@ namespace UndyneFight_Ex
 
             _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), indices, vpctVertexs));
         }
+        public void DrawString(GLFont spriteFont, string text, Vector2 position, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)
+        {
+            Vector2 scale2 = new Vector2(scale, scale);
+            DrawString(spriteFont, text, position, color, rotation, origin, scale2, effects, layerDepth);
+        }
+
+        public unsafe void DrawString(GLFont font, string text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth)
+        {
+            SpriteFont spriteFont = font.SFX;
+            CheckValid(spriteFont, text);
+            float sortKey = TextureSortKey(layerDepth);
+
+            Vector2 zero = Vector2.Zero;
+            bool flag = (effects & SpriteEffects.FlipVertically) == SpriteEffects.FlipVertically;
+            bool flag2 = (effects & SpriteEffects.FlipHorizontally) == SpriteEffects.FlipHorizontally;
+            if (flag || flag2)
+            { 
+                Vector2 size = spriteFont.MeasureString(text);
+                if (flag2)
+                {
+                    origin.X *= -1f;
+                    zero.X = 0f - size.X;
+                    scale.X *= -1f;
+                }
+
+                if (flag)
+                {
+                    origin.Y *= -1f;
+                    zero.Y = (float)spriteFont.LineSpacing - size.Y;
+                    scale.Y *= -1f;
+                }
+            }
+
+            Matrix matrix = Matrix.Identity;
+            float num = 0f;
+            float num2 = 0f;
+            if (rotation == 0f)
+            {
+                matrix.M11 = (flag2 ? (0f - scale.X) : scale.X);
+                matrix.M22 = (flag ? (0f - scale.Y) : scale.Y);
+                matrix.M41 = (zero.X - origin.X) * matrix.M11 + position.X;
+                matrix.M42 = (zero.Y - origin.Y) * matrix.M22 + position.Y;
+            }
+            else
+            {
+                num = MathF.Cos(rotation);
+                num2 = MathF.Sin(rotation);
+                matrix.M11 = (flag2 ? (0f - scale.X) : scale.X) * num;
+                matrix.M12 = (flag2 ? (0f - scale.X) : scale.X) * num2;
+                matrix.M21 = (flag ? (0f - scale.Y) : scale.Y) * (0f - num2);
+                matrix.M22 = (flag ? (0f - scale.Y) : scale.Y) * num;
+                matrix.M41 = (zero.X - origin.X) * matrix.M11 + (zero.Y - origin.Y) * matrix.M21 + position.X;
+                matrix.M42 = (zero.X - origin.X) * matrix.M12 + (zero.Y - origin.Y) * matrix.M22 + position.Y;
+            }
+
+            Vector2 zero2 = Vector2.Zero;
+            bool flag3 = true;
+            fixed (SpriteFont.Glyph* ptr = spriteFont.Glyphs)
+            {
+                foreach (char c in text)
+                {
+                    switch (c)
+                    {
+                        case '\n':
+                            zero2.X = 0f;
+                            zero2.Y += spriteFont.LineSpacing;
+                            flag3 = true;
+                            continue;
+                        case '\r':
+                            continue;
+                    }
+
+                    SpriteFont.Glyph* ptr2 = ptr + font.GetGlyphIndexOrDefault(c);
+                    if (flag3)
+                    {
+                        zero2.X = Math.Max(ptr2->LeftSideBearing, 0f);
+                        flag3 = false;
+                    }
+                    else
+                    {
+                        zero2.X += spriteFont.Spacing + ptr2->LeftSideBearing;
+                    }
+
+                    Vector2 position2 = zero2;
+                    if (flag2)
+                    {
+                        position2.X += ptr2->BoundsInTexture.Width;
+                    }
+
+                    position2.X += ptr2->Cropping.X;
+                    if (flag)
+                    {
+                        position2.Y += ptr2->BoundsInTexture.Height - spriteFont.LineSpacing;
+                    }
+
+                    position2.Y += ptr2->Cropping.Y;
+                    Vector2.Transform(ref position2, ref matrix, out position2);
+
+                    Vector2 _texCoordTL, _texCoordBR;
+                    _texCoordTL.X = (float)ptr2->BoundsInTexture.X;
+                    _texCoordTL.Y = (float)ptr2->BoundsInTexture.Y;
+                    _texCoordBR.X = (float)(ptr2->BoundsInTexture.X + ptr2->BoundsInTexture.Width) ;
+                    _texCoordBR.Y = (float)(ptr2->BoundsInTexture.Y + ptr2->BoundsInTexture.Height) ;
+                    Vector2 _uvTL, _uvBR;
+                    _uvTL.X = _texCoordTL.X / spriteFont.Texture.Width;
+                    _uvTL.Y = _texCoordTL.Y / spriteFont.Texture.Height;
+                    _uvBR.X = _texCoordBR.X / spriteFont.Texture.Width;
+                    _uvBR.Y = _texCoordBR.Y / spriteFont.Texture.Height;
+                    SpriteBatchItem spriteBatchItem;
+                    if (rotation == 0f)
+                    {
+                        spriteBatchItem = new RectangleItem(position2.X, position2.Y, (float)ptr2->BoundsInTexture.Width * scale.X, (float)ptr2->BoundsInTexture.Height * scale.Y, color, _uvTL, _uvBR, layerDepth, spriteFont.Texture, sortKey);
+                    }
+                    else
+                    {
+                        spriteBatchItem = new RectangleItem(position2.X, position2.Y, 0f, 0f, (float)ptr2->BoundsInTexture.Width * scale.X, (float)ptr2->BoundsInTexture.Height * scale.Y, num2, num, color, _uvTL, _uvBR, layerDepth, spriteFont.Texture, sortKey);
+                    }
+                    _batcher.Insert(spriteBatchItem);
+                    zero2.X += ptr2->Width + ptr2->RightSideBearing;
+                }
+            }
+
+            FlushIfNeeded();
+        }
+
+
         internal void FlushIfNeeded()
         {
             if (_sortMode == SpriteSortMode.Immediate)

@@ -337,9 +337,13 @@ namespace UndyneFight_Ex
     public class GLFont
     {
         public SpriteFont SFX;
+        Dictionary<char, int> charIndex = new Dictionary<char, int>();
         public GLFont(string path, ContentManager cm)
         {
             SFX = cm.Load<SpriteFont>(path);
+            for (int i = 0; i < SFX.Glyphs.Length; i++) {
+                charIndex[SFX.Glyphs[i].Character] = i; 
+            }
         }
         public void Draw(string texts, Vector2 location, Color color)
         {
@@ -411,6 +415,11 @@ namespace UndyneFight_Ex
         public void CentreDraw(string texts, Vector2 location, Color color, float scale, float rotation, float depth)
         {
             MissionSpriteBatch.DrawString(SFX, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+        }
+
+        internal unsafe int GetGlyphIndexOrDefault(char c)
+        {
+            return charIndex[c];
         }
     }
 }
