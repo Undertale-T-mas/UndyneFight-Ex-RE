@@ -287,5 +287,22 @@ namespace UndyneFight_Ex
                 value += b;
             return value;
         }
+        public static Vector2 ClosestPointOnEdge(Vector2 Point, Vector2 LinePoint1, Vector2 LinePoint2)
+        {
+            Vector2 result;
+            var dx = LinePoint2.X - LinePoint1.X;
+            var dy = LinePoint2.Y - LinePoint1.Y;
+            var lengthSqr = dx * dx + dy * dy;
+
+            //检查线是否长度为零
+            if (lengthSqr <= 0)
+                result = new(LinePoint1.X, LinePoint1.Y);
+            else
+            {
+                var t = Clamp(0, dx * (Point.X - LinePoint1.X) + dy * (Point.Y - LinePoint1.Y), 1);
+                result = new(LinePoint1.X + t * dx, LinePoint1.Y + t * dy);
+            }
+            return result;
+        }
     }
 }

@@ -74,7 +74,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void A2()
                 {
-                    PlayerInstance.hpControl.GiveProtectTime(5);
+                    PlayerInstance.hpControl.GiveProtectTime(5, true);
                     TP(30, 390);
                     SetSoul(2);
                     SetBox(20, 100, 320, 400);

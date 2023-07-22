@@ -2060,22 +2060,11 @@ namespace Rhythm_Recall.Waves
             }
             public void IsKey()
             {
-                if (GameStates.IsKeyDown(InputIdentity.MainUp)&& GameStates.IsKeyDown(InputIdentity.MainRight))
-                {
+                if (GameStates.IsKeyDown(InputIdentity.MainUp)&& GameStates.IsKeyDown(InputIdentity.MainRight) ||
+                    GameStates.IsKeyDown(InputIdentity.MainUp) && GameStates.IsKeyDown(InputIdentity.MainLeft) ||
+                    GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainRight) ||
+                    GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainLeft))
                     Heart.Speed = 3f * 1.414f;
-                }
-                if (GameStates.IsKeyDown(InputIdentity.MainUp) && GameStates.IsKeyDown(InputIdentity.MainLeft))
-                {
-                    Heart.Speed = 3f * 1.414f;
-                }
-                if (GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainRight))
-                {
-                    Heart.Speed = 3f * 1.414f;
-                }
-                if (GameStates.IsKeyDown(InputIdentity.MainDown) && GameStates.IsKeyDown(InputIdentity.MainLeft))
-                {
-                    Heart.Speed = 3f * 1.414f;
-                }
             }
             public void Start()
             {
@@ -2087,9 +2076,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.MaxHP = 6;
                 InstantSetBox(240, 80, 80);
                 SetSoul(0);
-                InstantTP(320,240);
-                bool jump = false ;
-                if (jump==true)
+                InstantTP(320, 240);
                 bool jump = false;
                 if (jump)
                 {

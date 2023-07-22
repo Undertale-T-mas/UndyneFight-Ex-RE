@@ -2373,9 +2373,9 @@ namespace Rhythm_Recall.Waves
                 bool jump = true;
                 if (jump)
                 {
-                    int beat = 192;
-                 //   int beat = 326;
-                 //   int beat = 198 ;
+                    //int beat = 192;
+                    //int beat = 326;
+                    int beat = 198;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);

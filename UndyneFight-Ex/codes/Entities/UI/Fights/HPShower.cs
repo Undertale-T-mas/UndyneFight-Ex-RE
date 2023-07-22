@@ -60,6 +60,7 @@ namespace UndyneFight_Ex.Entities
             FormalDraw(hpBar, FullRect.ToRectangle(), hpLoseCurrent);
 
             string hpString;
+            HeartAttribute.HP = Max(0, HeartAttribute.HP);
             var RoundHP = Round(HeartAttribute.HP, 2);
             var CeilHP = Ceiling(HeartAttribute.HP);
             if (((CurrentScene as FightScene).Mode & GameMode.Practice) != 0)

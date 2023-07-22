@@ -61,6 +61,21 @@ namespace UndyneFight_Ex.Entities
                         var _ = this as NormalSpear;
                         if (_.Rebound && _.ReboundCount > -1)
                         {
+                            /*改天看一下为啥这跑不了
+                            var ReboundNum = _.ReboundVertexs.Length;
+                            for (int i = 0; i < ReboundNum; i++)
+                            {
+                                var ThisVertex = _.ReboundVertexs[i];
+                                var NextVertex = _.ReboundVertexs[Posmod(i + 1, ReboundNum)];
+                                var Normal = Direction(ThisVertex, NextVertex);
+                                if (GetDistance(Centre, ClosestPointOnEdge(_.Centre, ThisVertex, NextVertex)) < 6)
+                                {
+                                    Rotation = 2 * Normal - Rotation;
+                                    _.ReboundCount--;
+                                    return;
+                                }
+                            }*/
+                            
                             var Normal = 0;
                             //Left
                             if (Centre.X <= 30)
