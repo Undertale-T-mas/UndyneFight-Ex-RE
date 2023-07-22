@@ -2090,8 +2090,6 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320,240);
                 bool jump = false ;
                 if (jump==true)
-                bool jump = false;
-                if (jump)
                 {
                     SetSoul(0);
                     int beat = 281;
