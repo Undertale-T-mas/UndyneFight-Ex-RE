@@ -163,7 +163,7 @@ namespace Rhythm_Recall
             {
 #endif
             UndyneFight_Ex.Remake.Initialize.MainInitialize();
-            //GameStartUp.StartGame();
+            GameStartUp.StartGame();
 #if ThrowError
             }
             catch (Exception e)
