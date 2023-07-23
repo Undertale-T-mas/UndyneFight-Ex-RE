@@ -12,13 +12,10 @@ namespace UndyneFight_Ex
             public class ColorBlendShader : Shader
             { 
                 public ColorBlendShader(Effect eff) : base(eff)
-                {
-                    this.LateApply = true;
+                { 
                     StableEvents = (x) =>
                     {
-                        GameMain.Graphics.GraphicsDevice.Textures[1] = Sprites.hashtex2;  
-                        GameMain.Graphics.GraphicsDevice.Textures[2] = Sprites.hashtex2;  
-                        GameMain.Graphics.GraphicsDevice.Textures[3] = Sprites.hashtex2;  
+                        RegisterTexture(Sprites.hashtex2, 1);
                         /*       x.Parameters["iSpeedX"].SetValue(Speed.X);
                                x.Parameters["iSpeedY"].SetValue(Speed.Y);
                                x.Parameters["iCoreSpeed"].SetValue(CoreSpeed);

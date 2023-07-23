@@ -27,8 +27,8 @@ namespace UndyneFight_Ex
         public SpriteBatchEX(GraphicsDevice graphicsDevice) 
         {
             _graphicDevice = graphicsDevice;
-            _spriteEffect = new SpriteEffect(graphicsDevice);
-            _spritePass = _spriteEffect.CurrentTechnique.Passes[0];
+            _spriteEffect = GameMain.SpriteEffect;
+            _spritePass = GameMain.SpritePass;
             _beginCalled = false;
             _batcher = new(graphicsDevice);
 
@@ -123,6 +123,12 @@ namespace UndyneFight_Ex
             }
 
             _batcher.DrawBatch(_sortMode, _effect);
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (GameMain.RegisterTextures[i] == null) break;
+                GameMain.RegisterTextures[i] = null;
+            }
         }
         private void Setup()
         {

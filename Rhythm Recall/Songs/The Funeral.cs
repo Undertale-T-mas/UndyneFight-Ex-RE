@@ -8,11 +8,13 @@ using UndyneFight_Ex.IO;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
 using UndyneFight_Ex.Remake.Entities;
+using UndyneFight_Ex.Remake.Texts;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using static UndyneFight_Ex.Remake.TextUtils;
 
 namespace Rhythm_Recall.Waves
 {
@@ -163,6 +165,16 @@ namespace Rhythm_Recall.Waves
                 Blur.Sigma = 3.5f;
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
+
+                Text text = DrawText(BeatTime(0.25f), "$YES! $no! $&#*(&",new Vector2(200, 150), false,
+                    new TextColorEffect(Color.Aqua, 3),
+                    new TextColorEffect(Color.Red, 2),
+                    new TextMotionEffect(SineWave(new Vector2(0, 20), BeatTime(2)))
+                    );
+                AddInstance(text);
+
+                ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
+                Shaders.Aurora.ThemeColor = new(128, 255, 255, 255);
                 /*
                 ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
                 Shaders.Aurora.ThemeColor = Color.Yellow;
@@ -179,9 +191,7 @@ namespace Rhythm_Recall.Waves
                 Shaders.Spiral.Intensity = 310.1f;
                 Shaders.Spiral.Speed = 0.05f;*/
 
-                // ScreenDrawing.ActivateShader(Shaders.ColorBlend, 0.6212f);
-                ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
-                Shaders.Aurora.ThemeColor = Color.Yellow;
+                // ScreenDrawing.ActivateShader(Shaders.ColorBlend, 0.76212f); 
                 //   ScreenDrawing.SceneRendering.InsertProduction(Blur);
 
                 // ScreenDrawing.SceneRendering.InsertProduction(production1);

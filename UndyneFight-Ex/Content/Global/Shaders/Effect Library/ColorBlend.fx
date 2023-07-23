@@ -18,14 +18,8 @@ uniform float2 iCoreSpeed;
 uniform float iTime;
 float4 iColorA, iColorB;
  
-sampler2D SpriteTexture : register(s0)
-{
-    Texture = (Texture);
-};
-sampler2D hashSample : register(s1)
-{
-    Texture = (Texture);
-};
+sampler2D SpriteTexture : register(s0);
+sampler2D hashSample : register(s1);
 
 struct VertexShaderOutput
 {
@@ -35,8 +29,7 @@ struct VertexShaderOutput
 };  
 
 float4 Test(VertexShaderOutput input) : COLOR
-{
-    return float4(0, 0, 0, 0);
+{ 
     return tex2D(hashSample, input.TextureCoordinates);
 }
  

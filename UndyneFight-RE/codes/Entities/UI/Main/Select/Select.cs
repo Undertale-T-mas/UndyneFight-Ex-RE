@@ -27,6 +27,8 @@ namespace UndyneFight_Ex.Remake.UI
                     this.collidingBox.Size = Image.Bounds.Size.ToVector2() * 2;
                     this.Centre = new Vector2(126, 659);
 
+                    UpdateIn120 = true;
+
                     this.LeftClick += StartGame;
                     this.AlwaysActivate = true;
                 }

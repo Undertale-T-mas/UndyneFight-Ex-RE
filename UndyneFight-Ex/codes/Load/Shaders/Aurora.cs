@@ -14,8 +14,8 @@ namespace UndyneFight_Ex
                     
                     StableEvents = (x) =>
                     {
-                        Time += 0.05f;
-                        GameMain.Graphics.GraphicsDevice.Textures[1] = Sprites.hashtex; 
+                        Time += 0.01f;
+                        RegisterTexture(Sprites.hashtex, 1);
 
                         x.Parameters["iTime"].SetValue(Time);
                         x.Parameters["iRGB"].SetValue(ThemeColor.ToVector3()); 

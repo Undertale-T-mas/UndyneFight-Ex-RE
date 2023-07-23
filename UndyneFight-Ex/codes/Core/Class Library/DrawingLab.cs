@@ -332,6 +332,11 @@ namespace UndyneFight_Ex
 
         public bool LateApply { get; set; } = false;
 
+        public void RegisterTexture(Texture2D tex, int index)
+        {
+            GameMain.RegisterTextures[index - 1] = tex;
+        }
+
         public void Update()
         {
             Shader shader = this;
@@ -432,6 +437,11 @@ namespace UndyneFight_Ex
         internal unsafe int GetGlyphIndexOrDefault(char c)
         {
             return charIndex[c];
+        }
+
+        public Vector2 MeasureChar(char ch)
+        {
+            return SFX.Glyphs[GetGlyphIndexOrDefault(ch)].Cropping.Size.ToVector2();
         }
     }
 }

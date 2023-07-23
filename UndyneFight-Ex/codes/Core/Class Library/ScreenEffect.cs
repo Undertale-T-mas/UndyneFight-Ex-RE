@@ -656,10 +656,10 @@ namespace UndyneFight_Ex.Fight
                         if (screen == null || screen.Bounds.Size != vec.ToPoint())
                             screen = new RenderTarget2D(WindowDevice, (int)vec.X, (int)vec.Y, false, SurfaceFormat.Color, DepthFormat.None);
                     }
-                    public Filter(Shader shader, float dep) : base(shader, SpriteSortMode.FrontToBack, BlendState.Additive, dep)
+                    public Filter(Shader shader, float dep) : base(shader, SpriteSortMode.Immediate, BlendState.Opaque, dep)
                     {
                     }
-                    public Filter(Shader shader) : base(shader, SpriteSortMode.FrontToBack, BlendState.Additive, 0.50f)
+                    public Filter(Shader shader) : base(shader, SpriteSortMode.Immediate, BlendState.Opaque, 0.50f)
                     {
                     }
 
@@ -669,8 +669,20 @@ namespace UndyneFight_Ex.Fight
 
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
-                        MissionTarget = screen;
-                        DrawTexture(obj, Vector2.Zero);
+                        if (MissionTarget == screen) MissionTarget = HelperTarget3;
+                        else MissionTarget = screen;
+
+                        DrawTexture(obj, MissionTarget.Bounds);
+
+                    /*    VertexPositionColorTexture[] vertexs = new VertexPositionColorTexture[4];
+                        vertexs[0] = new(new Vector3(0, 0, 0.5f), Color.White, new(0, 0));
+                        vertexs[1] = new(new Vector3(MissionTarget.Width, 0, 0.5f), Color.White, new(1, 0));
+                        vertexs[2] = new(new Vector3(0, MissionTarget.Height, 0.5f), Color.White, new(0, 1));
+                        vertexs[3] = new(new Vector3(MissionTarget.Width, MissionTarget.Height, 0.5f), Color.White, new(1, 1));
+
+                        SpriteBatch.Begin();
+                        SpriteBatch.DrawVertex(obj, 0.0f, vertexs);
+                        SpriteBatch.End();*/
 
                         return MissionTarget;
                     }

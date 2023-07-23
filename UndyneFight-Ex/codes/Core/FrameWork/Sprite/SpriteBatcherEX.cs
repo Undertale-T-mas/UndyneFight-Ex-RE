@@ -41,11 +41,17 @@ namespace UndyneFight_Ex
                 {
                     Array.Sort(_current);
                 }
-                for(int i = 0; i < _current.Length; i++)
+                if (GameMain.RegisterTextures[0] == null)
+                    for (int i = 0; i < _current.Length; i++)
+                    {
+                        if (effect == null)
+                            this.DrawItem(_current[i]);
+                        else this.DrawItem(effect, _current[i]);
+                    }
+                else
                 {
-                    if (effect == null)
-                        this.DrawItem(_current[i]);
-                    else this.DrawItem(effect, _current[i]);
+                    for (int i = 0; i < _current.Length; i++)
+                        this.DrawItemSampler(effect, _current[i]);
                 }
                 _items.Clear();
             }
@@ -63,6 +69,21 @@ namespace UndyneFight_Ex
                 {
                     pass.Apply();
                     _graphicsDevice.Textures[0] = item.Texture;
+                    _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
+                }
+            }
+            private void DrawItemSampler(Effect effect, SpriteBatchItem item)
+            {
+                foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                {
+                    pass.Apply();
+                    _graphicsDevice.Textures[0] = item.Texture;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (GameMain.RegisterTextures[i] == null) break;
+                        _graphicsDevice.Textures[i + 1] = GameMain.RegisterTextures[i];
+                    }
+
                     _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
                 }
             }
