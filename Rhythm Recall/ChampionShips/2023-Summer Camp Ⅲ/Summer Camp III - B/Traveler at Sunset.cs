@@ -14,6 +14,7 @@ using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
 using System.Net.Mail;
+using System.Dynamic;
 
 namespace Rhythm_Recall.Waves
 {
@@ -167,7 +168,7 @@ namespace Rhythm_Recall.Waves
             static Arrow.ClassicApplier easeK1, easeK2, easeK3;
             public void ExtremePlus()
             {
-                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
+                CreateEntity(new TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
                 if (InBeat(0))
                 {
                     RegisterFunction("FadeOut", () =>
@@ -227,6 +228,7 @@ namespace Rhythm_Recall.Waves
                         {
                             line.Alpha = 0.0f;
                             line.AlphaIncrease(BeatTime(2), 0.8f);
+                            DelayBeat(6, () => { line.Dispose(); });
                         }
                     });
                     RegisterFunctionOnce("LineCenter45", () =>
@@ -244,6 +246,7 @@ namespace Rhythm_Recall.Waves
                         {
                             line.Alpha = 0.0f;
                             line.AlphaIncrease(BeatTime(2), 0.8f);
+                            DelayBeat(6, () => { line.Dispose(); });
                         }
                     });
                     RegisterFunctionOnce("LineCenter8", () =>
@@ -268,14 +271,6 @@ namespace Rhythm_Recall.Waves
                             }
                             DelayBeat(10.0f, () => { l.AlphaDecrease(BeatTime(1.3f)); });
                             DelayBeat(12f, () => { l.Dispose(); });
-                        }
-                    });
-                    RegisterFunctionOnce("ClearLine", () =>
-                    {
-                        var l = GetAll<Line>();
-                        foreach(Line line in l)
-                        {
-                            line.Dispose();
                         }
                     });
                     RegisterFunctionOnce("Test", () =>
@@ -321,7 +316,7 @@ namespace Rhythm_Recall.Waves
                         "GaussBlur(LineCenter45)","","LineCenter45","",    "LineCenter45","","LineCenter45","",
                         "","","","",    "(Soul1)","","","",
                         "","","","",    "","","","",
-                        "","","","",    "","","","ClearLine",
+                        "","","","",    "","","","",
                         //8
                         "GaussBlur(Soul1)(LineCenter8)","","","",    "LineCenter8","","","",
                         "","","","",    "","","","",
@@ -948,100 +943,74 @@ namespace Rhythm_Recall.Waves
                         //     320,200
                         //240,280    400,280
                         //     320,360
-                        box.SetPosition(box.Split(3, 0.5f), new(400, 280));
-                        box.SetPosition(box.Split(2, 0.5f), new(320, 200));
-                        box.SetPosition(box.Split(1, 0.5f), new(240, 280));
-                        box.SetPosition(box.Split(0, 0.5f), new(320, 360));
-
-                        box.SetPosition(0, new Vector2(360, 320));
-                        box.SetPosition(2, new Vector2(280, 320));
-                        box.SetPosition(4, new Vector2(280, 240));
-                        box.SetPosition(6, new Vector2(360, 240));
-
-                        BoxUtils.Move(new(0, -40));
+                        //box.SetPosition(box.Split(3, 0.5f), new(400, 280));
+                        //box.SetPosition(box.Split(2, 0.5f), new(320, 200));
+                        //box.SetPosition(box.Split(1, 0.5f), new(240, 280));
+                        //box.SetPosition(box.Split(0, 0.5f), new(320, 360));
+                        for (int i = 0; i < 4; ++i)
+                        {
+                            box.SetPosition(i, GetVector2((i % 2) == 0 ? 40 : 80, i * 90) + new Vector2(320, 240));
+                        }
+                        //BoxUtils.Move(new(0, -40));
                         ScreenDrawing.BoxBackColor = Color.Transparent;
 
                         SetSoul(Souls.RedSoul);
+                        ForBeat(28, () =>
+                        {
+                            var D = (GametimeF - BeatTime(200)) / 4;
+                            for (int i = 0; i < 4; ++i)
+                            {
+                                box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
+                            }
+                            if (At0thBeat(1))
+                            {
+                                
+                            }
+                        });
+                        
                     });
                     RegisterFunctionOnce("Green", () =>
                     {
-                        BoxUtils.DeVertexify(new(320 - 42, 240 - 42, 84, 84));
+                        var box = BoxUtils.VertexBoxInstance;
+                        for (int i = 0; i < 4; ++i)
+                        {
+                            box.SetPosition(i, GetVector2(80, i * 90) + new Vector2(320, 240));
+                        }
                         SetSoul(1);
                         TP();
                         DelayBeat(1, () => {
                             ScreenDrawing.BoxBackColor = Color.Black * 0.875f;
                         });
                     });
-                    RegisterFunctionOnce("SpearSwarm", () =>
+                    RegisterFunctionOnce("Box", () =>
                     {
-                        float rot = Rand(0, 359);
-                        float time = 40;
-                        Fortimes(2, () =>
+                        BoxUtils.DeVertexify(new(320 - 42, 240 - 42, 84, 84));
+                        ScreenDrawing.BoxBackColor = Color.Black;
+                    });
+                    RegisterFunctionOnce("BounceSpear", () =>
+                    {
+                        var dir = Rand(0, 360);
+                        Vector2 pos = GetVector2(Rand(100, 400), Rand(0, 360)) + new Vector2(320, 240);
+                        for (int i = 0; i < 6; i++)
                         {
-                            Fortimes(32, () =>
+                            CreateEntity(new NormalSpear(pos, dir + i * 60, 4)
                             {
-                                CreateSpear(new SwarmSpear(new(320, 240), 9, 170 + (time - 40) * 1.2f, rot, time += 2));
-                                rot += 11.25f;
+                                DelayTargeting = false,
+                                Rebound = true,
+                                Duration = 600,
+                                Acceleration = 0.05f,
+                                WaitingTime = BeatTime(1)
                             });
-                            rot += 90;
-                            time -= 64;
-                        });
-                    });
-                    RegisterFunctionOnce("SpearCircle", () =>
-                    {
-                        float rot = 0;
-                        Fortimes(16, () =>
-                        {
-                            CreateSpear(new CircleSpear(new(320, 240), 10, 0.3f, 150, rot += 45, 0.005f));
-                        });
-                    });
-                    RegisterFunctionOnce("SpearSurroundSmall", () =>
-                    {
-                        float rot = Rand(0, 44);
-                        rot -= 13f;
-                        for (int i = 0; i < 8; i++)
-                        {
-                            rot += 22.5f;
-                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(40, rot + 90), 2f, 200, rot, BeatTime(3)));
-                            rot += 22.5f;
-                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(50, rot - 90), 2f, 200, rot, BeatTime(3)));
                         }
-                    });
-                    RegisterFunctionOnce("SpearCross0", () =>
-                    {
-                        int i = 0;
-                        Fortimes(4, () =>
-                        {
-                            CreateSpear(new NormalSpear(new Vector2(320, 240) + GetVector2(160, i += 90), i + 180));
-                        });
-                    });
-                    RegisterFunctionOnce("SpearCross45", () =>
-                    {
-                        int i = 45;
-                        Fortimes(4, () =>
-                        {
-                            CreateSpear(new NormalSpear(new Vector2(320, 240) + GetVector2(160, i += 90), i + 180));
-                        });
                     });
                     RegisterFunctionOnce("SpearFake", () =>
                     {
                         float rot = 0;
                         Fortimes(15, () =>
                         {
-                            CreateSpear(new CircleSpear(new(320, 240), 8, 5f, 150, rot += 24, 0.005f) { MarkScore = false });
-                            CreateSpear(new CircleSpear(new(320, 240), -8, 5f, 150, rot, 0.005f) { MarkScore = false });
+                            CreateSpear(new CircleSpear(Heart.Centre, 8, 5f, 150, rot += 24, 0.005f) { MarkScore = false });
+                            CreateSpear(new CircleSpear(Heart.Centre, -8, 5f, 150, rot, 0.005f) { MarkScore = false });
                         });
-                    });
-                    RegisterFunctionOnce("SpearSurroundSquare", () =>
-                    {
-                        float rot = 0;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            rot += 45f;
-                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(55, rot + 90), 2f, 200, rot, BeatTime(3)));
-                            rot += 45f;
-                            CreateSpear(new SwarmSpear(new Vector2(320, 240) + GetVector2(55, rot - 90), 2f, 200, rot, BeatTime(3)));
-                        }
                     });
                     RegisterFunctionOnce("BoundA", () =>
                     {
@@ -1290,28 +1259,28 @@ namespace Rhythm_Recall.Waves
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.5f, new string[]
                     {
                         //pre
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "(pre)", "SpearCircle", "SpearSwarm", "",
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "(pre)", "", "", "",
                         //1
-                        "(BoundA)(GaussBlur)", "", "", "",    "", "", "", "",
+                        "(BoundA)(GaussBlur)", "BounceSpear", "BounceSpear", "BounceSpear",    "BounceSpear", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "(SpearCross0)(SpearSurroundSmall)",    "", "", "", "",
-                        "", "", "", "(SpearCross45)(SpearSurroundSmall)",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",    
                         //2
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         //3
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "SpearSurroundSquare",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
+                        "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",    
                         //4
-                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",    
                         "", "", "", "",    "", "", "", "",
                         "(BoundB)", "", "", "SpearFake",    "", "", "", "",
-                        "Green", "", "", "",    "", "", "", "",
+                        "(Green)(Box)", "", "", "",    "", "", "", "",      
                         //5
                         "(d1)(+00)(LineL)", "", "", "",    "(d1)(+00)(SCS)(LineL)", "", "d1", "",
                         "d1(LineL)", "", "d1", "",    "(d1)(+00)(SCS)(LineL)", "", "d1", "",
@@ -2181,7 +2150,7 @@ namespace Rhythm_Recall.Waves
                         {
                             position = new(320, 240),
                             color = Color.White * 1f,
-                            size = 350
+                            size = 300
                         });
                     });
                 });
@@ -2404,9 +2373,9 @@ namespace Rhythm_Recall.Waves
                 bool jump = true;
                 if (jump)
                 {
-                    int beat = 192;
-                 //   int beat = 326;
-                 //   int beat = 198 ;
+                    //int beat = 192;
+                    //int beat = 326;
+                    int beat = 198;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);

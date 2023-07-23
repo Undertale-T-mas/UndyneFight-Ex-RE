@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex.Remake.Components;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Remake.Effects;
+using System.Collections;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -136,7 +137,7 @@ namespace UndyneFight_Ex.Remake.UI
                     DifficultyPanel = new();
                     IChampionShip championShip;
                     this.SongSelected = (championShip = result as IChampionShip).GameContent;
-                    foreach(Difficulty difficulty in championShip.DifficultyPanel.Values) { 
+                    foreach (Difficulty difficulty in championShip.DifficultyPanel.Values) {
                         DifficultyPanel.Add(difficulty); 
                     }
                 }

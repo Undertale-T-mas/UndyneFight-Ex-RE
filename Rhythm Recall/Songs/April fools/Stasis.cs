@@ -1,10 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Fight;
+using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.Entities.EasingUtil;
 
 namespace AprilExtends
 {
@@ -16,7 +23,16 @@ namespace AprilExtends
 
         public string FightName => "Stasis";
 
-        public SongInformation Attributes => null;
+        public SongInformation Attributes => new ThisInformation();
+
+        public class ThisInformation : SongInformation
+        {
+            public override string SongAuthor => "Maozon";
+            public override string PaintAuthor => "From Lanota";
+            public override string BarrageAuthor => "Uranusqwq";
+            public override string AttributeAuthor => "Uranusqwq";
+            public override string Extra => "The song is unauthorized, and \nif that infringe a copyright, \ncall T-mas by email:480642510@qq.com, \nwe will delete this song immediately";
+        }
 
         public void Easy()
         {
@@ -157,7 +173,7 @@ namespace AprilExtends
         public void Extreme()
         {
             Arrow[] voids = GetAll<Arrow>("Hold");
-            for (int a = 0; a < voids.Length; a++)
+            for(int a=0;a<voids.Length;a++)
             {
                 int x = a;
                 voids[x].JudgeType = Arrow.JudgementType.Hold;
@@ -195,12 +211,14 @@ namespace AprilExtends
                     Line l1 = new(ce.GetResult(), ve.GetResult()) { Alpha = 0 };
                     Line l2 = new(ce.GetResult(), ve.GetResult()) { Alpha = 0 };
                     vea.Insert(BeatTime(8), ValueEasing.EaseInQuart(0, 1, BeatTime(8)));
+                    vea.Insert(BeatTime(16), ValueEasing.Stable(1));
+                    vea.Insert(BeatTime(2), ValueEasing.Linear(1, 0, BeatTime(2)));
                     vea.Run((m) =>
                     {
                         l1.Alpha = m;
                         l2.Alpha = m;
                     });
-
+                    
                     CreateEntity(l1);
                     CreateEntity(l2);
                     l2.ObliqueMirror = true;
@@ -392,27 +410,82 @@ namespace AprilExtends
             }
             if (InBeat(32))
             {
+                RegisterFunctionOnce("LineEvent00", () =>
+                {
+                    
+                    CentreEasing.EaseBuilder c = new();
+                    c.Insert(BeatTime(2), CentreEasing.EaseInQuad(new(320, 240), new(-100, 240), BeatTime(2)));
+                    ValueEasing.EaseBuilder alpha = new();
+                    ValueEasing.EaseBuilder rot = new();
+                    rot.Insert(BeatTime(1), ValueEasing.Stable(90));
+                    alpha.Insert(BeatTime(2), ValueEasing.EaseOutQuart(0, 1, BeatTime(2)));
+                    alpha.Insert(BeatTime(1), ValueEasing.Linear(1, -0.01f, BeatTime(1)));
+                    Line l1 = new(c.GetResult(), rot.GetResult()) { Alpha = 0 };
+                    alpha.Run((m) =>
+                    {
+                        l1.Alpha = m;
+                    });
+                    CreateEntity(l1);
+                });
+                RegisterFunctionOnce("LineEvent01", () =>
+                {
+
+                    CentreEasing.EaseBuilder c = new();
+                    c.Insert(BeatTime(2), CentreEasing.EaseInQuad(new(320, 240), new(740, 240), BeatTime(2)));
+                    ValueEasing.EaseBuilder alpha = new();
+                    ValueEasing.EaseBuilder rot = new();
+                    rot.Insert(BeatTime(1), ValueEasing.Stable(90));
+                    alpha.Insert(BeatTime(2), ValueEasing.EaseOutQuart(0, 1, BeatTime(2)));
+                    alpha.Insert(BeatTime(1), ValueEasing.Linear(1, -0.01f, BeatTime(1)));
+                    Line l1 = new(c.GetResult(), rot.GetResult()) { Alpha = 0 };
+                    alpha.Run((m) =>
+                    {
+                        l1.Alpha = m;
+                    });
+                    CreateEntity(l1);
+                });
+                RegisterFunctionOnce("LineEvent02", () =>
+                {
+
+                    CentreEasing.EaseBuilder c1 = new();
+                    CentreEasing.EaseBuilder c2 = new();
+                    c1.Insert(BeatTime(2), CentreEasing.EaseOutQuad(new(0, 240), new(700, 240), BeatTime(2)));
+                    c2.Insert(BeatTime(2), CentreEasing.EaseOutQuad(new(640, 240), new(-100, 240), BeatTime(2)));
+                    ValueEasing.EaseBuilder alpha = new();
+                    ValueEasing.EaseBuilder rot = new();
+                    rot.Insert(BeatTime(1), ValueEasing.Stable(90));
+                    alpha.Insert(BeatTime(2), ValueEasing.EaseOutQuad(1, -0.01f, BeatTime(2)));
+                    Line l1 = new(c1.GetResult(), rot.GetResult()) { Alpha = 1 };
+                    Line l2 = new(c2.GetResult(), rot.GetResult()) { Alpha = 1 };
+                    alpha.Run((m) =>
+                    {
+                        l1.Alpha = m;
+                        l2.Alpha = m;
+                    });
+                    CreateEntity(l1);
+                    CreateEntity(l2);
+                });
                 BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
                 {
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "(#0.5#$01)(ScreenRL8F)","","","",    "$30","","","",
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "(#0.5#$01)(ScreenRL8F)","","","",    "$30","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",//4
 
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "(#0.5#$01)(ScreenRL8F)","","","",    "$30","","","",
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "(#0.5#$01)(ScreenRL8F)","","","",    "$30","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",//8
 
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "(#0.5#$01)(ScreenRL8F)","","","",    "$30","","","",
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "(#0.5#$01)(ScreenRL8F)","","","",    "$30","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",//12
 
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "(#0.5#$01)(ScreenRL8F)","","","",    "$30","","","",
-                    "(#0.5#$20)(ScreenRR8F)","","","",    "$31","","","",
-                    "($20)($01)(ScreenS5.5F)","","","",    "","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",
+                    "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
+                    "($20)($01)(ScreenS5.5F)(LineEvent02)","","","",    "","","","",//16
                 });
             }
             if (InBeat(48))
@@ -469,7 +542,7 @@ namespace AprilExtends
             }
             if (InBeat(64))
             {
-
+                
                 //RegisterFunctionOnce("Line1", () =>
                 //{
                 //    CentreEasing.EaseBuilder ce = new();
@@ -616,7 +689,7 @@ namespace AprilExtends
                 });
                 RegisterFunctionOnce("ScreenSAdd", () =>
                 {
-                    ScreenDrawing.ScreenScale += 0.05f;
+                    ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale + 0.05f;
                 });
                 RegisterFunctionOnce("ScreenRL", () =>
                 {
@@ -648,7 +721,7 @@ namespace AprilExtends
                     "$2(R1)(ScreenRR)","","","",    "$2(R1)","","","",
                     "$3(R1)","","","",    "$3","","","",
 
-                    "($2)(R1'2)(ScreenS)","+01'2.5{Hold}","+01'2.5{Hold}","+01'2.5{Hold}",    "$2","","","",
+                    "($2)(R1)(ScreenS)","+01'1.5{Hold}","+01'1.5{Hold}","+01'1.5{Hold}",    "$2","","","",
                     "$3(R1)","","","",    "$3","","","",
                     "$2(ScreenRL)","","","",    "$2","","","",
                     "$3(R1)","","","",    "$3","","","",
@@ -663,19 +736,16 @@ namespace AprilExtends
             {
                 RegisterFunctionOnce("Arrow", () =>
                 {
+                    Arrow arrow = MakeArrow(BeatTime(112 + 13), "R", 6, Rand(0, 1), 0);
                     float s = 0;
                     ValueEasing.EaseBuilder S = new();
                     S.Insert(BeatTime(4), ValueEasing.EaseInQuart(0, 10, BeatTime(8)));
                     S.Run((m) =>
                     {
                         s = m;
+                        arrow.Delay(m);
                     });
-                    Arrow arrow = MakeArrow(BeatTime(112 + 13), "R", 6, Rand(0, 1), 0);
-                    CreateEntity(arrow);
-                    AddInstance(new TimeRangedEvent(BeatTime(4), () =>
-                    {
-                        arrow.Delay(s);
-                    }));
+                    CreateEntity(arrow);        
                 });
             }
             if (InBeat(112))
@@ -716,7 +786,7 @@ namespace AprilExtends
                         ScreenDrawing.ScreenScale = m;
                     });
                 });
-
+                
                 BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
                 {
                     "$0(R1)(ScreenSBack)","","","",    "$0","","","",
@@ -729,7 +799,7 @@ namespace AprilExtends
                     "$0(R1)(ScreenRR)","","","",    "$0(R1)","","","",
                     "$1(R1)","","","",    "$1","","","",
 
-                    "($0)(R1'2)(ScreenS)","+01'2.5{Hold}","+01'2.5{Hold}","+01'2.5{Hold}",    "$0","","","",
+                    "($0)(R1)(ScreenS)","+01'1.5{Hold}","+01'1.5{Hold}","+01'1.5{Hold}",    "$0","","","",
                     "$1(R1)","","","",    "$1","","","",
                     "$0(ScreenRL)","","","",    "$0","","","",
                     "$1(R1)","","","",    "$1","","","",
@@ -742,27 +812,297 @@ namespace AprilExtends
             }
             if (InBeat(128))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
                 {
-                    "R","","","",    "R","","","",
-                    "R","","","",    "R","","","",
-                    "R","","","",   "R","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                });
+            }
+            if (InBeat(144))
+            {
+                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                {
+                    "(R02'1.1)(R1)","","","",    "R1","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+
+                    "(R02'1.1)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R1{A}","","","",    "R1{A}","","","",
+                    "(^R12'2.5)(^+012'2.5)(R1{A})","","","",    "R1{A}","","","",
+                    "R1{A}","","","",    "R1{A}","","","",
+
+                    "(R12'1.1)(R1{A})","","","",    "R1{A}","","","",
+                    "R1{A}","","","",    "R1{A}","","","",
+                    "(^R12'2.5)(^+012'2.5)(R1{A})","","","",    "R1{A}","","","",
+                    "R1{A}","","","",    "R1{A}","","","",
+                });
+                DelayBeat(4, () =>
+                {
+                    Arrow[] tagB = GetAll<Arrow>("B");
+                    foreach (Arrow b in tagB)
+                    {
+                        b.ResetColor(1);
+                    }
+                });
+                DelayBeat(12, () =>
+                {
+                    Arrow[] tagA = GetAll<Arrow>("A");
+                    foreach (Arrow a in tagA)
+                    {
+                        a.ResetColor(0);
+                    }
+                });
+            }
+            if (InBeat(160))
+            {
+                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                {
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                });
+            }
+            if (InBeat(176))
+            {
+                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                {
+                    "(R02'1.1)(R1)","","","",    "R1","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+
+                    "(R02'1.1)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
+
+                    "R0","","","",    "","","","",
+                    "R0","","","",    "R1{A}","","","",
+                    "R1{A}","","","",    "R1{A}","","","",
+                    "R1{A}","","","",    "R1{A}","","","",
+
+                    "","","","",    "R1{A}","","","",
+                    "R1{A}","","","",    "R1{A}","","","",
+                    "(R1{A})","","","",    "R1{A}","","","",
+                    "R1{A}","","","",    "","","","",
+
+                    "($00)($21)","","","",    "","","","",
+                });
+                DelayBeat(4, () =>
+                {
+                    Arrow[] tagB = GetAll<Arrow>("B");
+                    foreach (Arrow b in tagB)
+                    {
+                        b.ResetColor(1);
+                    }
+                });
+                DelayBeat(12, () =>
+                {
+                    Arrow[] tagA = GetAll<Arrow>("A");
+                    foreach (Arrow a in tagA)
+                    {
+                        a.ResetColor(0);
+                    }
+                });
+            }
+            if (InBeat(192))
+            {
+                RegisterFunctionOnce("ArrowShake", () =>
+                {
+                    float x = 0;
+                    //SimplifiedEasing.RunEase(s => x = s, ValueEasing.EaseOutElastic(100,0,BeatTime(16)));
+                    Arrow b = MakeArrow(BeatTime(5), 3, 5, 1, 0);
+                    CreateEntity(b);
+                    DelayBeat(4, () =>
+                    {
+                        b.Stop(BeatTime(14));
+                    });
+                    ForBeat120(16, () =>
+                    {
+                        b.Offset = new(x, 0);
+                    });
+                });
+                RegisterFunctionOnce("BoxShake", () =>
+                {
+                    SimplifiedEasing.RunEase((s) =>
+                    {
+                        BoxStates.Centre = new Vector2(320 + s, 240);
+                        Heart.Centre = BoxStates.Centre;
+                    },
+                        SimplifiedEasing.Scale(
+                        SimplifiedEasing.LinkEase(
+                        SimplifiedEasing.EaseIn(BeatTime(12f), 700, SimplifiedEasing.EaseState.Quart),
+                        SimplifiedEasing.EaseOut(BeatTime(4f), -700, SimplifiedEasing.EaseState.Expo))
+                        ,
+                        SimplifiedEasing.Alternate(2f, SimplifiedEasing.Stable(1f, 1f), SimplifiedEasing.Stable(1, -1)))
+
+                    );
+                });
+                RegisterFunctionOnce("ScreenEffect", () =>
+                {
+                    SimplifiedEasing.RunEase((s) =>
+                    {
+                        ScreenDrawing.ScreenAngle = s;
+                    },
+                        SimplifiedEasing.EaseOut(BeatTime(12), -720, SimplifiedEasing.EaseState.Expo)
+                    );
+                    SimplifiedEasing.RunEase((b) =>
+                    {
+                        ScreenDrawing.ScreenPositionDetla = new(0 + b, 0);
+                    },
+                        SimplifiedEasing.Scale(
+                        SimplifiedEasing.LinkEase(
+                        SimplifiedEasing.EaseIn(BeatTime(12f), 200, SimplifiedEasing.EaseState.Quart),
+                        SimplifiedEasing.EaseOut(BeatTime(4f), -200, SimplifiedEasing.EaseState.Expo))
+                        ,
+                        SimplifiedEasing.Alternate(2f, SimplifiedEasing.Stable(1f, 1f), SimplifiedEasing.Stable(1, -1)))
+
+                    );
+                });
+                RegisterFunctionOnce("ScreenScale", () =>
+                {
+                    SimplifiedEasing.RunEase((nb) =>
+                    {
+                        ScreenDrawing.ScreenScale = 1 + nb;
+                    },
+                        SimplifiedEasing.EaseIn(BeatTime(1), 1, SimplifiedEasing.EaseState.Circ),
+                        SimplifiedEasing.EaseOut(BeatTime(12), -1, SimplifiedEasing.EaseState.Expo)
+                    );
+                });
+                BarrageCreate(BeatTime(0), BeatTime(1), 0, new string[]
+                {
+                    "ArrowShake","","","",  "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "ScreenScale","","","",    "","","","",
+                    "(BoxShake)(ScreenEffect)","","","",    "","","",""
+                });
+            }
+            if (InBeat(206))
+            {
+                
+                RegisterFunctionOnce("ArrowEffect", () =>
+                {
+                    Arrow[] tagA = GetAll<Arrow>("A");
+                    foreach (Arrow b in tagA)
+                    {
+                        b.Offset = new(0, -400);
+                    }
+                    float o = 0;
+                    SimplifiedEasing.RunEase((e) =>
+                    {
+                        foreach (Arrow b in tagA)
+                        {
+                            b.Offset = new(0, 0 + o);
+                        }
+                        o = e;
+                    },
+                        SimplifiedEasing.Stable(BeatTime(2),-400),
+                        SimplifiedEasing.EaseOut(BeatTime(4), 400, SimplifiedEasing.EaseState.Elastic)
+                    );
+                    Arrow[] tagB = GetAll<Arrow>("B");
+                    foreach (Arrow a in tagB)
+                    {
+                        a.Offset = new(0, 400);
+                    }
+                    float c = 0;
+                    SimplifiedEasing.RunEase((w) =>
+                    {
+                        foreach (Arrow a in tagB)
+                        {
+                            a.Offset = new(0, 0 + c);
+                        }
+                        c = w;
+                    },
+                        SimplifiedEasing.Stable(BeatTime(2), 400),
+                        SimplifiedEasing.EaseOut(BeatTime(4), -400, SimplifiedEasing.EaseState.Elastic)
+                    );
+                });
+                BarrageCreate(BeatTime(2), BeatTime(1), 5, new string[]
+                {
+                    "ArrowEffect","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
                     "","","","",    "","","","",
 
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
+                    "$0{A}","","$2{A}","",    "$0{B}","","$2{B}","",
+                    "$0{A}","","$2{A}","",    "$0{B}","","$2{B}","",
+                    "$0{A}","","$2{A}","",    "$0{B}","","$2{B}","",
+                    "$0{A}","","$2{A}","",    "$0{B}","","$2{B}","",
 
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
+                    "$0'1.1","","$2'1.1","",    "$0'1.2","","$2'1.2","",
+                    "$0'1.3","","$2'1.3","",    "$0'1.4","","$2'1.4","",
+                    "$0'1.5","","$1'1.5","",    "$2'1.6","","$3'1.6","",
+                    "$0'1.7","","$1'1.7","",    "$2'1.8","","$3'1.8","",
 
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
+                    "$0'1.9","","$1'1.9","",    "$2'2","","$3'2","",
+                    "$0'2.1","","$1'2.1","",    "$2'2.2","","$3'2.2","",
+                    "$0'2.3","","$1'2.3","",    "$2'2.4","","$3'2.4","",
+                    "$0'2.5","","$1'2.5","",    "$2'2.5","","$3'2.5","",
+
+                    "$0'3","","$1'3.5","",    "$2'4","","$3'4.5","",
+                    "$0'5","","$1'5.5","",    "$2'6","","$3'6.5","",
+                    "$0'7","","$1'7.5","",    "$2'8","","$3'8.5","",
+                    "$0'9","","$1'9.5","",    "$2'10","","$3'10","",
+                    //
+                    "<$00'10","","<$10'9.5","",    "<$20'9","","<$30'8.5","",
+                    "<$0'8","","<$1'7.5","",    "<$2'7","","<$3'6.5","",
+                    "<$0'6","","<$1'5.6","",    "<$2'5.3","","<$3'5","",
+                    "<$0'4.6","","<$1'4.3","",    "<$2'4","","<$3'3.6","",
+
+                    "<$00'3.3","","<$10'3","",    "<$20'2.6","","<$30'2.5","",
+                    "<$0'2.3","","<$1'2.2","",    "<$2'2.1","","<$3'2","",
+                    "<$0'1.9","","<$1'1.8","",    "<$2'1.7","","<$3'1.6","",
+                    "<$0'1.5","","<$1'1.4","",    "<$2'1.3","","<$3'1.2","",
+
+                    "<$00'1.1","","<$10'1","",    "<$20","","<$30","",
+                    "<$0","","<$1","",    "<$2","","<$3","",
+                    "<$0","","<$1","",    "<$2","","<$3","",
+                    "<$0","","<$1","",    "<$2","","<$3","",
+
+                    "<$0","","<$1","",    "<$2","","<$3","",
+                    "<$0","","<$1","",    "<$2","","<$3","",
+                    "<$0","","<$1","",    "<$2","","<$3","",
+                    "<$0","","<$1","",    "<$2","","(<$3)(<$11)","",
                 });
             }
         }
@@ -775,7 +1115,7 @@ namespace AprilExtends
         void CreateRotArrowA(float rot)
         {
             Arrow r1 = MakeArrow(offset, 0, 10, 0, 0);
-            offset += 4.9f;
+            offset = offset+4.9f;
             CreateEntity(r1);
             r1.CentreRotationOffset = rot;
         }
@@ -785,7 +1125,7 @@ namespace AprilExtends
             CreateEntity(r1);
             r1.CentreRotationOffset = rot;
         }
-        void CreateRotArrow2(float offset, float rot)
+        void CreateRotArrow2(float offset,float rot)
         {
             Arrow r1 = MakeArrow(offset, 0, 5, 0, 0);
             CreateEntity(r1);
@@ -794,48 +1134,48 @@ namespace AprilExtends
 
         public void Hard()
         {
-            if (InBeat(1))
-            {
-                for (int a = 0; a < 60; a++)
-                    CreateRotArrow2(40, a * 6);
+            //if(InBeat(1))
+            //{
+            //    for(int a=0;a<60;a++)
+            //    CreateRotArrow2(40, a*6);
+                
+            //}
+            //if (GameStates.IsKeyPressed(Keys.Space))
+            //{
+            //    Arrow[] aa = GetAll<Arrow>();
+            //    DelayBeat(0.25f, () =>
+            //    {
+            //        for (int a = 0; a < aa.Length; a++)
+            //        {
+            //            int i = a;
+            //            aa[i].Delay(BeatTime(4));
+            //        }
+            //    });
+            //}
+            //if (GameStates.IsKeyPressed(Keys.B))
+            //{
+            //    Arrow[] aa = GetAll<Arrow>();
+            //    for (int a = 0; a < aa.Length; a++)
+            //    {
+            //        int i = a;
+            //        ValueEasing.EaseBuilder ve = new();
+            //        ve.Insert(BeatTime(8), ValueEasing.EaseOutElastic(aa[i].CentreRotationOffset, 0, BeatTime(8)));
+            //        ve.Run((s) => { aa[i].CentreRotationOffset = s; });
+            //    }
+                
+            //}
+            //if (GameStates.IsKeyPressed(Keys.B))
+            //{
+            //    Arrow[] aa = GetAll<Arrow>();
+            //    for (int a = 0; a < aa.Length; a++)
+            //    {
+            //        int i = a;
+            //        ValueEasing.EaseBuilder ve = new();
+            //        ve.Insert(BeatTime(8), ValueEasing.EaseOutElastic(0, i*6, BeatTime(8)));
+            //        ve.Run((s) => { aa[i].CentreRotationOffset = s; });
+            //    }
 
-            }
-            if (GameStates.IsKeyPressed(InputIdentity.Alternate))
-            {
-                Arrow[] aa = GetAll<Arrow>();
-                DelayBeat(0.25f, () =>
-                {
-                    for (int a = 0; a < aa.Length; a++)
-                    {
-                        int i = a;
-                        aa[i].Delay(BeatTime(4));
-                    }
-                });
-            }
-            /*   if (GameStates.IsKeyPressed(Keys.V))
-               {
-                   Arrow[] aa = GetAll<Arrow>();
-                   for (int a = 0; a < aa.Length; a++)
-                   {
-                       int i = a;
-                       ValueEasing.EaseBuilder ve = new();
-                       ve.Insert(BeatTime(8), ValueEasing.EaseOutElastic(aa[i].CentreRotationOffset, 0, BeatTime(8)));
-                       ve.Run((s) => { aa[i].CentreRotationOffset = s; });
-                   }
-
-               }
-               if (GameStates.IsKeyPressed(Keys.B))
-               {
-                   Arrow[] aa = GetAll<Arrow>();
-                   for (int a = 0; a < aa.Length; a++)
-                   {
-                       int i = a;
-                       ValueEasing.EaseBuilder ve = new();
-                       ve.Insert(BeatTime(8), ValueEasing.EaseOutElastic(0, i*6, BeatTime(8)));
-                       ve.Run((s) => { aa[i].CentreRotationOffset = s; });
-                   }
-
-               }*/
+            //}
         }
 
         public void Noob()
@@ -848,14 +1188,24 @@ namespace AprilExtends
             throw new NotImplementedException();
         }
 
-        public void Start()
+        public override void Start()
         {
-            GametimeDelta = -2.5f;
+            GametimeDelta = -0.4f;
             SetGreenBox();
             HeartAttribute.MaxHP = 50;
             HeartAttribute.DamageTaken = 1;
             TP();
             SetSoul(1);
+            bool jump = false;
+            if (jump)
+            {
+                int beat = 192;
+                //   int beat = 326;
+                //    int beat = 198 + 64;
+                GametimeDelta = -3.5f + BeatTime(beat);
+
+                PlayOffset = BeatTime(beat);
+            }
         }
     }
 }

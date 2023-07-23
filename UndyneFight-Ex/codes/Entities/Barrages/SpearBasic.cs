@@ -52,7 +52,58 @@ namespace UndyneFight_Ex.Entities
             {
                 bool ins = screen.Contain(Centre);
                 if (ins && (!hasBeenInside)) hasBeenInside = true;
-                if (hasBeenInside && (!ins)) Dispose();
+                if (hasBeenInside && (!ins))
+                {
+                    if (this is not NormalSpear)
+                        Dispose();
+                    else
+                    {
+                        var _ = this as NormalSpear;
+                        if (_.Rebound && _.ReboundCount > -1)
+                        {
+                            /*改天看一下为啥这跑不了
+                            var ReboundNum = _.ReboundVertexs.Length;
+                            for (int i = 0; i < ReboundNum; i++)
+                            {
+                                var ThisVertex = _.ReboundVertexs[i];
+                                var NextVertex = _.ReboundVertexs[Posmod(i + 1, ReboundNum)];
+                                var Normal = Direction(ThisVertex, NextVertex);
+                                if (GetDistance(Centre, ClosestPointOnEdge(_.Centre, ThisVertex, NextVertex)) < 6)
+                                {
+                                    Rotation = 2 * Normal - Rotation;
+                                    _.ReboundCount--;
+                                    return;
+                                }
+                            }*/
+                            
+                            var Normal = 0;
+                            //Left
+                            if (Centre.X <= 30)
+                            {
+                                Normal = 270;
+                            }
+                            //Left
+                            if (Centre.X >= 610)
+                            {
+                                Normal = 90;
+                            }
+                            //Top
+                            if (Centre.Y <= 30)
+                            {
+                                Normal = 0;
+                            }
+                            //Down
+                            if (Centre.Y >= 450)
+                            {
+                                Normal = 180;
+                            }
+
+                            Rotation = 2 * Normal - Rotation;
+                            _.ReboundCount--;
+                        }
+                        else Dispose();
+                    }
+                }
             }
         }
 

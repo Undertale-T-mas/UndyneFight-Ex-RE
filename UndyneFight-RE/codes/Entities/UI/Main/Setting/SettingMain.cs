@@ -71,7 +71,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             private void OnFocus(SettingChunk chunk)
             {
-                if(_focusChunk != null) { _focusChunk.KeyOff(); }
+                _focusChunk?.KeyOff();
                 _focusChunk = chunk;
                 _focusID = -1;
             }

@@ -172,7 +172,7 @@ namespace UndyneFight_Ex.Entities
                         moving *= mission.speed;
                     }
 
-                    Vector2 finalMoving = GetVector2(moving.Length(), (float)Math.Atan2(moving.Y, moving.X) / MathUtil.PI * 180 + mission.missionRotation);
+                    Vector2 finalMoving = GetVector2(moving.Length(), (float)Math.Atan2(moving.Y, moving.X) / PI * 180 + mission.missionRotation);
 
                     mission.collidingBox.Offset(finalMoving * 0.5f);
                     if (mission.collidingBox.X < _curBox.Left)

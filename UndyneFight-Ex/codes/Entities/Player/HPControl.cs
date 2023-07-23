@@ -58,6 +58,7 @@ namespace UndyneFight_Ex.Entities
             public float BuffedLevel { get; set; } = 0;
 
             public bool OverFlowAvailable { get; set; } = false;
+            public bool ScoreProtected { get; set; } = false;
 
             public void GetMark(int mark)
             {
@@ -83,9 +84,10 @@ namespace UndyneFight_Ex.Entities
                 krHP -= lose2;
                 hp.Value -= krLose;
             }
-            public void GiveProtectTime(int val)
+            public void GiveProtectTime(int val, bool ProtectScore = false)
             {
                 protectTime = val * 2;
+                ScoreProtected = ProtectScore;
             }
             public void LoseHP(Heart heart)
             {
@@ -143,7 +145,9 @@ namespace UndyneFight_Ex.Entities
 
             public override void Update()
             {
-                protectTime--;
+                if(protectTime   > 0)
+                    protectTime--;
+                if (protectTime == 0) ScoreProtected = false;
                 curLost = MathHelper.Lerp(curLost, missionLostSpeed, 0.05f);
                 missionLostSpeed *= 0.9995f;
                 if (Buffed || BuffedLevel != 0)

@@ -13,7 +13,7 @@ namespace UndyneFight_Ex.Remake
         }
         public static void SaveGlobal()
         {
-            IOEvent.WriteTmpFile("Datas\\Global\\RE_ENGINE_GLOBAL", IOEvent.StringToByte(IOEvent.InfoToString(GlobalData.Save())));
+            IOEvent.WriteTmpFile("Datas\\Global\\RE_ENGINE_GLOBAL", IOEvent.InfoToByte(GlobalData.Save()));
         }
         public static GlobalDataRoot GlobalData { get; private set; }
     }
