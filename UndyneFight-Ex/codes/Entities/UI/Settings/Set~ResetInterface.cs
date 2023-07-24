@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using static UndyneFight_Ex.Settings.SettingsManager;
 
 namespace UndyneFight_Ex.Settings
 {
@@ -18,7 +19,8 @@ namespace UndyneFight_Ex.Settings
         }
         internal static void ApplySettings()
         {
-            MediaPlayer.Volume = SoundEffect.MasterVolume = MathF.Pow(SettingsManager.DataLibrary.masterVolume / 100f, 2);
+            MediaPlayer.Volume = SoundEffect.MasterVolume = MathF.Pow(DataLibrary.masterVolume / 100f, 2);
+
             GameMain.ResetRendering();
         }
         internal static void EnterSettings()

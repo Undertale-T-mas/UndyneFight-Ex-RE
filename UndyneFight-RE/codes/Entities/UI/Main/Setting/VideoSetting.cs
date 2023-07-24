@@ -1,4 +1,5 @@
 ﻿using System;
+using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Settings.SettingsManager;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -23,16 +24,21 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         DefaultValue = DataLibrary.DrawFPS, Digit = 0
                     });
+                    this.AddChild(_samplerState = new AlternateButton(this, new(510, 410), "Sampler state", "Nearest", "3x Linear", "Anisotropic")
+                    {
+                        DefaultValue = DataLibrary.SamplerState 
+                    });
                     //this.AddChild();
                     this.OnActivated += () =>
                     {
                         _drawingQuality.DefaultValue = DataLibrary.drawingQuality.ToString();
                         _reduceBlue.SetValue(DataLibrary.reduceBlueAmount);
                         _drawFPS.SetValue(MathF.Round(DataLibrary.DrawFPS));
+                        _samplerState.DefaultValue = DataLibrary.SamplerState;
                     };
 
                 }
-                AlternateButton _drawingQuality;
+                AlternateButton _drawingQuality, _samplerState;
                 ScrollBar _reduceBlue, _drawFPS;
                 public override void Apply()
                 {
@@ -45,6 +51,7 @@ namespace UndyneFight_Ex.Remake.UI
                     };
                     DataLibrary.reduceBlueAmount = (int)MathF.Round(_reduceBlue.GetValue(), 0);
                     DataLibrary.DrawFPS = _drawFPS.GetValue();
+                    DataLibrary.SamplerState = _samplerState.Result; 
 
                     GameStates.ResetRendering();
                 }

@@ -89,6 +89,7 @@ namespace UndyneFight_Ex.Settings
             public static bool Mirror { get; set; } = false;
             public static bool PauseCheating { get; set; } = true;
             public static float DrawFPS { get; set; } = 60f;
+            public static string SamplerState { get; set; } = "Nearest";
         }
     }
 }

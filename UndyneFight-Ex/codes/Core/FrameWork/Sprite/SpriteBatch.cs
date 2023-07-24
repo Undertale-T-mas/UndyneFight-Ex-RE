@@ -22,7 +22,10 @@ namespace UndyneFight_Ex
         private SpriteEffect _spriteEffect;
         private readonly EffectPass _spritePass;
 
-        private readonly SamplerState _defaultState;
+        private SamplerState _defaultState;
+
+        public static SamplerState NearestSample { get; set; }
+        public SamplerState DefaultState { set => _defaultState = value; }
 
         public SpriteBatchEX(GraphicsDevice graphicsDevice) 
         {
@@ -32,16 +35,20 @@ namespace UndyneFight_Ex
             _beginCalled = false;
             _batcher = new(graphicsDevice);
 
-            if (_defaultState == null)
+            if (NearestSample == null)
             {
                 SamplerState state = new();
                 state.AddressU = TextureAddressMode.Clamp;
                 state.AddressV = TextureAddressMode.Clamp;
                 state.AddressW = TextureAddressMode.Clamp;
-                state.MaxMipLevel = 1;
+                state.MaxMipLevel = 0;
+                state.MipMapLevelOfDetailBias = 0;
+                state.MaxAnisotropy = 0;
+
                 state.ComparisonFunction = CompareFunction.Never;
                 state.Filter = TextureFilter.Point;
                 _defaultState = state;
+                NearestSample = _defaultState;
             }
         }
         private bool _beginCalled = false;
