@@ -167,10 +167,10 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                Text text = DrawText(BeatTime(0.25f), "$YES! $no! $&#*(&",new Vector2(200, 150), false,
+                Text text = DrawText(BeatTime(0.25f), "$YES! $no! $&#*(& 嶄猟 晩云のひらがなとカタカナのテスト", new Vector2(60, 150), false,
                     new TextColorEffect(Color.Aqua, 3),
                     new TextColorEffect(Color.Red, 2),
-                    new TextMotionEffect(SineWave(new Vector2(0, 20), BeatTime(2)))
+                    new TextMotionEffect(SineWave(new Vector2(0, 20), BeatTime(2)), 6)
                     );
                 AddInstance(text);
 
