@@ -12,6 +12,7 @@ namespace UndyneFight_Ex.Entities
         {
             private List<Arrow> arrows = new();
 
+            public bool RotateOffset { get; set; } = false;
             public ArrowEasing() { UpdateIn120 = true; }
 
             public void TagApply(string tagName)
@@ -29,10 +30,17 @@ namespace UndyneFight_Ex.Entities
             }
 
             public abstract void SetArrowPos(Arrow arr);
+
+            private bool _lastRotateOffsetState = false;
             public override void Update()
             {
                 arrows.RemoveAll(s => s.Disposed);
                 arrows.ForEach(s => SetArrowPos(s));
+                if (RotateOffset ^ _lastRotateOffsetState)
+                {
+                    arrows.ForEach(s => s.RotateOffset = this.RotateOffset);
+                    _lastRotateOffsetState = RotateOffset;
+                }
             }
 
             public float Intensity { get; set; } = 1.0f;

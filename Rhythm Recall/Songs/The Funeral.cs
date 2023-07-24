@@ -230,20 +230,38 @@ namespace Rhythm_Recall.Waves
                 SetSoul(1);
                 HeartAttribute.ArrowFixed = true;
 
+                Arrow.UnitEasing arse1 = new();
+                arse1.ApplyTime = BeatTime(4);
+                //arse1.RotationEase = EaseOut(BeatTime(2), 40, 0, EaseState.Sine);
+                //arse1.DistanceEase = LinkEase(Stable(BeatTime(8 * (6 / 0.5f)-4), BeatTime(8*(6/0.5f))*0.5f),EaseOut(BeatTime(4), BeatTime(8*(6/0.5f))*0.5f, 0, EaseState.Quint));
+                arse1.PositionEase = LinkEase(
+                    Stable(BeatTime(2), new Vector2(0, 100)),
+                    EaseOut(BeatTime(2), new Vector2(0, 100), new Vector2(0, 0), EaseState.Quint));
+                arse1.TagApply("R");
+                AddInstance(arse1);
+
+                BarrageCreate(BeatTime(2), BeatTime(2), 7.0f, new[] { 
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                });
+
                 /*     ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Swirl));
                      Shaders.Swirl.Radius = 100;
                      Shaders.Swirl.RadiusOut = 150;
                      Shaders.Swirl.Intensity = 1.0f;
                      Shaders.Swirl.Rotation = 15f;*/
 
-               /* DelayBeat(2, () => {
-                    ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
-                    Shaders.Blur.Factor = new(3, 0);
-                    Shaders.Blur.Sigma = 3.0f;
-                    SimplifiedEasing.RunEase((s) => Shaders.Blur.Sigma = s, 
-                        SimplifiedEasing.EaseOut(BeatTime(4), 3, 0,
-                        SimplifiedEasing.EaseState.Cubic));
-                });*/
+                /* DelayBeat(2, () => {
+                     ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
+                     Shaders.Blur.Factor = new(3, 0);
+                     Shaders.Blur.Sigma = 3.0f;
+                     SimplifiedEasing.RunEase((s) => Shaders.Blur.Sigma = s, 
+                         SimplifiedEasing.EaseOut(BeatTime(4), 3, 0,
+                         SimplifiedEasing.EaseState.Cubic));
+                 });*/
                 //  ScreenDrawing.UISettings.CreateUISurface();
 
                 //      CreateLine(150, 100);
