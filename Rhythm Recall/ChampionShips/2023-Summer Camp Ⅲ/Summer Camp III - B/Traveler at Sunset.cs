@@ -979,7 +979,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                         TP();
                         DelayBeat(1, () => {
-                            ScreenDrawing.BoxBackColor = Color.Black * 0.875f;
+                            ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
                         });
                     });
                     RegisterFunctionOnce("Box", () =>

@@ -15,6 +15,7 @@ using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Remake.TextUtils;
+using System.Runtime.CompilerServices;
 
 namespace Rhythm_Recall.Waves
 {
@@ -173,8 +174,13 @@ namespace Rhythm_Recall.Waves
                     );
                 AddInstance(text);
 
-                ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
-                Shaders.Aurora.ThemeColor = new(128, 255, 255, 255);
+                ScreenDrawing.ActivateShaderBack(Shaders.Fire, 0.5f);
+                Shaders.Fire.BlendEdge = Color.Red;
+                Shaders.Fire.Blend = Color.Orange;
+                Shaders.Fire.Distort = 24.0f;
+                Shaders.Fire.Height = 174.0f;
+                Shaders.Fire.PieceRate = 0.15f;
+                Shaders.Fire.Speed = 2f;
                 /*
                 ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
                 Shaders.Aurora.ThemeColor = Color.Yellow;
