@@ -9,6 +9,8 @@ using UndyneFight_Ex.Remake.UI;
 using System.Threading;
 using Microsoft.Xna.Framework.Audio;
 using static Microsoft.Xna.Framework.Graphics.SpriteFont;
+using UndyneFight_Ex.Remake.Texts;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UndyneFight_Ex.Remake
 { 
@@ -31,11 +33,12 @@ namespace UndyneFight_Ex.Remake
         public Glyph CurrentGlyph { get; set; } 
         public float TextTime { get; set; }
 
-        public GLFont Font { get; set; } = FightResources.Font.NormalFont;
+        public SmartFont Font { get; set; } = Resources.FontPatched.Default;
         public SoundEffect TextSound { get; set; } = FightResources.Sounds.printWord;
 
         public float TimeRemain { get; set; }
 
         public float Depth { get; set; }
+        public Texture2D FontTexture { get; set; }
     }
 }

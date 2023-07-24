@@ -8,7 +8,10 @@ namespace UndyneFight_Ex.Entities
     public partial class Arrow : ICustomMotion
     {
         private void PositionCalculate()
-        {
+        { 
+            additiveRotation = RotationRoute != null ? RotationRoute.Invoke(this) : 0;
+            additiveRotation += CentreRotationOffset;
+
             if (PositionRoute == null)
             {
                 if (rotatingType == 1)
@@ -54,7 +57,9 @@ namespace UndyneFight_Ex.Entities
                 }
 
                 float extraDist = (Scale - 1) * 10f + additiveDistance;
-                Centre = mission.Centre + MathUtil.GetVector2(distance + 44 + 5 + extraDist + (hasGreenFlag ? 5 : 0), Rotation + CentreRotationOffset) + Offset;
+                Vector2 offset = Offset;
+                if (RotateOffset) offset = MathUtil.Rotate(offset, this.Rotation + this.CentreRotationOffset);
+                Centre = mission.Centre + MathUtil.GetVector2(distance + 44 + 5 + extraDist + (hasGreenFlag ? 5 : 0), Rotation + CentreRotationOffset) + offset;
             }
             else
             {
@@ -65,9 +70,6 @@ namespace UndyneFight_Ex.Entities
                 float extraDist = (Scale - 1) * 10f + additiveDistance;
                 Centre = mission.Centre + MathUtil.GetVector2(dist + extraDist, rotation + CentreRotationOffset) * SettingsManager.DataLibrary.ArrowSpeed;
             }
-
-            additiveRotation = RotationRoute != null ? RotationRoute.Invoke(this) : 0;
-            additiveRotation += CentreRotationOffset;
 
             if (lastScale != Scale)
             {
@@ -100,5 +102,7 @@ namespace UndyneFight_Ex.Entities
 
         public float LateWaitingScale { get; set; } = 0.5f;
         public Vector2 Offset { get; set; }
+
+        public bool RotateOffset { get; set; } = false;
     }
 }

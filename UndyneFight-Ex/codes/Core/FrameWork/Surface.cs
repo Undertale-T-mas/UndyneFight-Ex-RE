@@ -109,14 +109,14 @@ namespace UndyneFight_Ex
         {
             TrySetTarget();
             if (shader == null)
-            {
-                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, null, null, null, null, enabledMatrix ? matrix : null);
+            { 
+                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, null, enabledMatrix ? matrix : null);
                 foreach (var v in entities) v.Draw();
                 GameMain.MissionSpriteBatch.End();
                 return;
             }
             shader.Update();
-            GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, null, null, null, shader, enabledMatrix ? matrix : null);
+            GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, shader, enabledMatrix ? matrix : null);
             foreach (var v in entities) v.Draw();
             GameMain.MissionSpriteBatch.End();
         }
@@ -254,8 +254,10 @@ namespace UndyneFight_Ex
 
         internal static void Initialize()
         {
+           // Normal = new("normal") { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, Transfer = TransferUse.ForceNormal, SamplerState = SpriteBatchEX.NearestSample };
+           // Hidden = new("hidden", true) { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, BackGroundColor = Color.Black, SamplerState = SpriteBatchEX.NearestSample };
             Normal = new("normal") { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, Transfer = TransferUse.ForceNormal };
-            Hidden = new("hidden", true) { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, BackGroundColor = Color.Black };
+            Hidden = new("hidden", true) { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, BackGroundColor = Color.Black  };
         }
         public Surface(string name) : base(null, SpriteSortMode.Deferred, null, 0.0f)
         {

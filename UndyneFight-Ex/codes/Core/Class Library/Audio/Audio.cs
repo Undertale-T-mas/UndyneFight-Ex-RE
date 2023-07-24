@@ -99,9 +99,12 @@ namespace UndyneFight_Ex
                 this.allInstances.Clear();
             }
 
+            float lastPosition = 0.0f;
             internal float GetPosition()
             {
-                return this.allInstances[^1].GetPosition();
+                if (this.allInstances.Count > 0)
+                    lastPosition = this.allInstances[^1].GetPosition();
+                return lastPosition;
             }
 
             internal void SetPosition(float position)

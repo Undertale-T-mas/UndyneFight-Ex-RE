@@ -21,7 +21,7 @@ namespace UndyneFight_Ex.Remake
                 Vector2 pos = position + Allocated.Delta;
 
                 var glyph = Allocated.CurrentGlyph;
-                Texture2D tex = Allocated.Font.SFX.Texture;
+                Texture2D tex = Allocated.FontTexture;
 
                 VertexPositionColorTexture[] vertexs = null;
 
@@ -113,7 +113,9 @@ namespace UndyneFight_Ex.Remake
 
                 runningEffects.RemoveAll(s => s.GlobalRun(this));
 
-                Settings.CurrentGlyph = Settings.Font.SFX.GetGlyphs()[_text[i]];
+                var font = Settings.Font.GetFont(_text[i]).SFX;
+                Settings.CurrentGlyph = font.GetGlyphs()[_text[i]];
+                Settings.FontTexture = font.Texture;
                 position.X += Settings.CurrentGlyph.LeftSideBearing * Settings.Scale.X;
 
                 runningEffects.ForEach(s => {

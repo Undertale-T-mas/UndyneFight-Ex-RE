@@ -981,7 +981,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                         TP();
                         DelayBeat(1, () => {
-                            ScreenDrawing.BoxBackColor = Color.Black * 0.875f;
+                            ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
                         });
                     });
                     RegisterFunctionOnce("Box", () =>
@@ -1474,7 +1474,7 @@ namespace Rhythm_Recall.Waves
                         "*$202@A'1.2(*$002@A'1.2)(SCL2)", "", "*$202@B'1.2(*$002@B'1.2)(SCR2)", "*$212@A'1.2(*$012@A'1.2)(SCR2)",    "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$212@A'1.2(*$012@A'1.2)(SCL2)", "",
                         "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$202@A'1.2(*$002@A'1.2)(SCL2)", "",    "", "", "(*$202@B'1.2)(*$002@B'1.2)(SCR2)", "",
                         "(*$202@A'1.2)(*$002@A'1.2) ", "", "*$102@A", "*$112@B",    "*$102@A", "*$112@B", "*$102@A", "",
-                        "*$112@A", "*$102@B",    "*$112@A", "*$102@B", "*$112@A",
+                        "$11", "$10",    "$11", "$10", "$11",
                     });
                 }
                 if (InBeat(328))
@@ -2490,7 +2490,7 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 192;

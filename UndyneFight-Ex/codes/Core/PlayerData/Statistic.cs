@@ -11,8 +11,10 @@ namespace UndyneFight_Ex.UserService
         public List<ISaveLoad> Children => throw new NotImplementedException();
 
         int masterVolume, spearBlockingVolume, reduceBlueAmount, drawingQuality;
-        float arrowDelay, arrowSpeed, arrowScale;
+        float arrowDelay, arrowSpeed, arrowScale, fps;
         bool dialogAvailable, perciseWarning, mirror;
+        string samplerState;
+
         public void Load(SaveInfo info)
         {
             masterVolume = info.Nexts.ContainsKey("masterVolume")
@@ -32,6 +34,8 @@ namespace UndyneFight_Ex.UserService
 
             arrowSpeed = info.Nexts.ContainsKey("arrowSpeed") ? info.Nexts["arrowSpeed"].FloatValue : ArrowSpeed;
 
+            fps = info.Nexts.ContainsKey("fps") ? info.Nexts["fps"].FloatValue : ArrowSpeed;
+
             mirror = info.Nexts.ContainsKey("mirror") ? info.Nexts["mirror"].BoolValue : Mirror;
 
             dialogAvailable = info.Nexts.ContainsKey("dialogAvailable")
@@ -43,6 +47,10 @@ namespace UndyneFight_Ex.UserService
             drawingQuality = info.Nexts.ContainsKey("drawingQuality")
                 ? info.Nexts["drawingQuality"].IntValue
                 : (int)SettingsManager.DataLibrary.drawingQuality;
+
+            samplerState = info.Nexts.ContainsKey("samplerState")
+                ? info.Nexts["samplerState"].StringValue
+                : SettingsManager.DataLibrary.SamplerState;
         }
         public void Apply()
         {
@@ -53,9 +61,11 @@ namespace UndyneFight_Ex.UserService
             ArrowSpeed = arrowSpeed;
             ArrowScale = arrowScale;
             Mirror = mirror;
+            DrawFPS = fps;
             SettingsManager.DataLibrary.perciseWarning = perciseWarning;
             SettingsManager.DataLibrary.dialogAvailable = dialogAvailable;
             SettingsManager.DataLibrary.drawingQuality = (DrawingQuality)drawingQuality;
+            SamplerState = samplerState;
             SettingsResetInterface.ApplySettings();
         }
 
@@ -67,21 +77,26 @@ namespace UndyneFight_Ex.UserService
             arrowDelay = ArrowDelay;
             arrowSpeed = ArrowSpeed;
             arrowScale = ArrowScale;
+            fps = DrawFPS;
             mirror = Mirror;
             perciseWarning = SettingsManager.DataLibrary.perciseWarning;
             dialogAvailable = SettingsManager.DataLibrary.dialogAvailable;
             drawingQuality = (int)SettingsManager.DataLibrary.drawingQuality;
+            samplerState = SamplerState;
+            
             SaveInfo info = new SaveInfo("Settings{");
             info.PushNext(new SaveInfo("masterVolume:" + masterVolume));
             info.PushNext(new SaveInfo("spearBlockingVolume:" + spearBlockingVolume));
             info.PushNext(new SaveInfo("reduceBlueAmount:" + reduceBlueAmount));
-            info.PushNext(new SaveInfo("arrowDelay:" + arrowDelay));
-            info.PushNext(new SaveInfo("arrowSpeed:" + arrowSpeed));
-            info.PushNext(new SaveInfo("arrowScale:" + arrowScale));
+            info.PushNext(new SaveInfo("arrowDelay:" + MathUtil.FloatToString(arrowDelay, 3)));
+            info.PushNext(new SaveInfo("arrowSpeed:" + MathUtil.FloatToString(arrowSpeed, 3)));
+            info.PushNext(new SaveInfo("arrowScale:" + MathUtil.FloatToString(arrowScale, 3)));
+            info.PushNext(new SaveInfo("fps:" + MathUtil.FloatToString(fps, 3)));
             info.PushNext(new SaveInfo("mirror:" + (mirror ? "true" : "false")));
             info.PushNext(new SaveInfo("perciseWarning:" + (perciseWarning ? "true" : "false")));
             info.PushNext(new SaveInfo("dialogAvailable:" + (dialogAvailable ? "true" : "false")));
             info.PushNext(new SaveInfo("drawingQuality:" + drawingQuality));
+            info.PushNext(new SaveInfo("samplerState:" + samplerState));
             return info;
         }
     }

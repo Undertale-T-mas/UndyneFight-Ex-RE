@@ -8,8 +8,9 @@
 #endif  
 
 //uniform float iRotation;
-uniform float3 iRGB;
+uniform float3 iRGB1, iRGB2;
 uniform float iTime; 
+uniform float iSlope, iAddition; 
 
 
 sampler2D SpriteTextureSampler : register(s0);
@@ -34,16 +35,17 @@ float4 MainPS(VertexShaderOutput input) : COLOR
     
     float3 col = float3(0, 0, 0); 
     float x1 = (1.0 - uv.x * 0.75);
-    float y1 = 1.0 - abs(uv.y * 2.0 - 1.0);
-    col += float3(x1, y1, x1) * iRGB * v; 
+    float y1 = 1.0 - abs(uv.y * iSlope - iAddition);
+    col += (x1 * iRGB1 + y1 * iRGB2) * v;
     
-    float2 seed = uv * float2(640, 480);
+    // stars:
+  /*  float2 seed = uv * float2(640, 480); 
     float2 r;
     r.x = frac(sin((seed.x * 12.9898) + (seed.y * 78.2330)) * 43758.5453);
     r.y = frac(sin((seed.x * 53.7842) + (seed.y * 47.5134)) * 43758.5453);
     
     float s = lerp(r.x, (sin((iTime * 2.5 + 60.0) * r.y) * 0.5 + 0.5) * ((r.y * r.y) * (r.y * r.y)), 0.04);
-    col += pow(s, 45.0) * (1.0 - v);
+    col += pow(s, 45.0) * (1.0 - v);*/
     
     return input.Color * float4(col.x, col.y, col.z, 1);
 }

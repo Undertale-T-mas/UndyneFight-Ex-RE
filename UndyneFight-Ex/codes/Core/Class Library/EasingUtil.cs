@@ -950,6 +950,15 @@ namespace UndyneFight_Ex.Entities
                 main.Time, (s) => { return main.Easing.Invoke(s) + addon; });
         }
 
+        public static EaseUnit<Vector2> Combine(EaseUnit<float> xEase, EaseUnit<float> yEase) =>
+            new(new(xEase.Start, yEase.Start), new(xEase.End, yEase.End), MathF.Max(xEase.Time, yEase.Time), (s) => new(xEase.Easing(s), yEase.Easing(s)));
+        
+        public static EaseUnit<Vector2> Combine(float xPosition, EaseUnit<float> yEase) =>
+            new(new(xPosition, yEase.Start), new(xPosition, yEase.End), yEase.Time, (s) => new(xPosition, yEase.Easing(s)));
+        
+        public static EaseUnit<Vector2> Combine(EaseUnit<float> xEase, float yPosition) =>
+            new(new(xEase.Start, yPosition), new(xEase.End, yPosition), xEase.Time, (s) => new(xEase.Easing(s), yPosition));
+
         public static EaseUnit<Vector2> SineWave(Vector2 start, Vector2 end, float T, float waveCount = 99999, float phase = 0)
         {
             Func<float, Vector2> sine = (t) => Vector2.Lerp(start, end, MathF.Sin((t / T + phase) * MathF.PI * 2) * 0.5f + 0.5f);
