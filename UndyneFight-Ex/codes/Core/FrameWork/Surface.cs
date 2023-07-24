@@ -15,7 +15,7 @@ namespace UndyneFight_Ex
         protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new Vector2(480f * GameMain.Aspect, 480) * GameStates.SurfaceScale;
 
         protected static GraphicsDevice WindowDevice => GameMain.Graphics.GraphicsDevice;
-        protected static SpriteBatchEX spriteBatch => GameMain.MissionSpriteBatch;
+        protected static SpriteBatchEX SpriteBatch => GameMain.MissionSpriteBatch;
 
         private static readonly HashSet<Type> updatedTypes = new();
 
@@ -87,12 +87,21 @@ namespace UndyneFight_Ex
         private static readonly int[] _indices = { 0, 1, 2, 1, 3, 2 };
         protected void DrawPrimitives(VertexPositionColorTexture[] vertexArray, Texture2D texture = null)
         {
-            WindowDevice.Textures[0] = texture;
+            GraphicsDevice obj = WindowDevice;
+            obj.BlendState = this.BlendState;
+            obj.DepthStencilState = DepthStencilState.None;
+            obj.RasterizerState = RasterizerState.CullNone;
+            obj.SamplerStates[0] = this.SamplerState ?? SamplerState.LinearClamp;
+
             VertexPositionColorTexture[] ver = new VertexPositionColorTexture[6];
             for(int i = 0; i < 6; i++)
             {
                 ver[i] = vertexArray[_indices[i]];
-            } 
+            }
+            GameMain.SpritePass.Apply();
+            Effect eff = this.shader;
+            eff?.CurrentTechnique.Passes[0].Apply();
+            WindowDevice.Textures[0] = texture;
             WindowDevice.DrawUserPrimitives(PrimitiveType.TriangleList, ver, 0, 2);
 
         }
@@ -121,17 +130,8 @@ namespace UndyneFight_Ex
             TrySetTarget();
             if (shader != null)
             {
-                if (shader.LateApply) {
-                    GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, null, enabledMatrix ? matrix : null);
-                    Effect eff = shader;
-                    eff.CurrentTechnique.Passes[0].Apply();
-                    shader.Update();
-                }
-                else
-                {
-                    shader.Update();
-                    GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, shader, enabledMatrix ? matrix : null);
-                }
+                shader.Update();
+                GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, shader, enabledMatrix ? matrix : null);
             }
             else
             {
@@ -232,9 +232,9 @@ namespace UndyneFight_Ex
         {
             TrySetTarget(distin);
             //ResetTargetColor(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Immediate);
-            spriteBatch.Draw(source, distin.Bounds, Color.White);
-            spriteBatch.End();
+            SpriteBatch.Begin(SpriteSortMode.Immediate);
+            SpriteBatch.Draw(source, distin.Bounds, Color.White);
+            SpriteBatch.End();
         }
 
         private static GraphicsDevice GameDevice => GameMain.Graphics.GraphicsDevice;
@@ -290,7 +290,7 @@ namespace UndyneFight_Ex
                     vertexs[i] = new(new(_vertexs[i], 0.395f), Color.White, _vertexs[i] / new Vector2(640, 480));
                 }
                 if (vertexs.Length == 4)
-                    spriteBatch.DrawVertex(this.Image, 0.39f, vertexs);
+                    SpriteBatch.DrawVertex(this.Image, 0.39f, vertexs);
                 else {
                     var indices = DrawingLab.GetIndices(vertexs);
                     int[] input = new int[indices.Count * 3];
@@ -301,7 +301,7 @@ namespace UndyneFight_Ex
                         input[x] = indices[i].Item2; x++;
                         input[x] = indices[i].Item3; x++;
                     }
-                    spriteBatch.DrawVertex(this.Image, 0.39f, input, vertexs);
+                    SpriteBatch.DrawVertex(this.Image, 0.39f, input, vertexs);
                 } 
             }
 

@@ -1,33 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using UndyneFight_Ex.Fight;
+using System.Text; 
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Globalization;
 using UndyneFight_Ex.Remake.UI;
 using System.Threading;
+using UndyneFight_Ex.Remake.Texts;
 
 namespace UndyneFight_Ex.Remake
 {
     public static class TextUtils
     {
-        public static TextPrinter DrawText(float speed, string text, Vector2 location, bool mute = false, params TextAttribute[] textAttributes)
+        public static Text DrawText(float speed, string text, Vector2 location, bool mute = false, params TextEffect[] effects)
         {
-            List<TextAttribute> textAttributes1 = new List<TextAttribute>
+            List<TextEffect> effects1 = new List<TextEffect>
             {
-                new TextSpeedAttribute(speed)
+                new TextSpeedEffect(speed)
             };
-            textAttributes1.AddRange(textAttributes);
-            TextPrinter printer;
-            GameStates.InstanceCreate(printer = new TextPrinter("$" + text, location, textAttributes1.ToArray()));
-            if (mute) printer.PlaySound = false;
-            return printer;
+            effects1.AddRange(effects);
+
+            Text tp = new("$" + text, location, effects1)
+            {
+                PlaySound = !mute
+            };
+            return tp;
         }
-        public static TextPrinter DrawText(string text, Vector2 location, params TextAttribute[] textAttributes)
+        public static Text DrawText(string text, Vector2 location, params TextEffect[] effects)
         {
-            return DrawText(10000f, text, location, true, textAttributes);
+            return DrawText(0.0f, text, location, true, effects);
         }
     }
 }

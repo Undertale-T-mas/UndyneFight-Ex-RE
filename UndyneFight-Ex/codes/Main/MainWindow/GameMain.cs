@@ -28,9 +28,13 @@ namespace UndyneFight_Ex
         private static GameMain instance;
 
         public static GameWindow CurrentWindow => instance.Window;
+        public static Texture2D[] RegisterTextures = new Texture2D[3];
 
         public static GraphicsDeviceManager Graphics { get; private set; }
         public static SpriteBatchEX MissionSpriteBatch { get; private set; }
+
+        public static SpriteEffect SpriteEffect { get; private set; }
+        public static EffectPass SpritePass { get; private set; }
 
         private static bool isDebugWindowExists = false;
 
@@ -83,6 +87,8 @@ namespace UndyneFight_Ex
             Graphics.ApplyChanges();
 
             // TODO: Add your initialization logic here
+            GameMain.SpriteEffect = new(Graphics.GraphicsDevice);
+            GameMain.SpritePass = SpriteEffect.CurrentTechnique.Passes[0];
 #if DEBUG
             debugTarget1 = new RenderTarget2D(GraphicsDevice, 96, 35, true, SurfaceFormat.Color, DepthFormat.None);
             debugTarget2 = new RenderTarget2D(GraphicsDevice, 96, 35, true, SurfaceFormat.Color, DepthFormat.None);

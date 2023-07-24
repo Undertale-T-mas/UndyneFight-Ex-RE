@@ -19,6 +19,7 @@ namespace UndyneFight_Ex.Entities
         public float WaitingTime { get; set; } = 59;
         public bool Rebound { get; set; } = false;
         public int ReboundCount { get; set; } = 3;
+        public Vector2[] ReboundVertexs { get; set; } = { new(0, 0), new(640, 0), new(640, 480), new(0, 480)};
         public float Duration { private get; set; } = 200;
 
         public NormalSpear(Vector2 centre) : this(centre, (float)(Atan2(Heart.Centre.Y - centre.Y, Heart.Centre.X - centre.X) * 180 / Math.PI)) { }
