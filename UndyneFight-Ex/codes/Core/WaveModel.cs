@@ -535,7 +535,7 @@ namespace UndyneFight_Ex.SongSystem
                 if (origin.Contains('>'))
                 {
                     int i = 1;
-                    if (origin[1] == '!' && origin[2] == ',')
+                    if (origin[1] == '!')
                     {
                         i = 3;
                         delayMode = false;
@@ -674,6 +674,11 @@ namespace UndyneFight_Ex.SongSystem
             if (chartingActions.ContainsKey(name)) return;
             chartingActions.Add(name, action);
             removingActions.Add(name);
+        }
+
+        public void ArrowAllocate(int slot, int direction)
+        {
+            DirectionAllocate[slot] = direction;
         }
 
         protected static Arrow LastArrow { get; private set; }

@@ -672,7 +672,7 @@ namespace UndyneFight_Ex.Fight
                         if (MissionTarget == screen) MissionTarget = HelperTarget3;
                         else MissionTarget = screen;
 
-                        DrawTexture(obj, MissionTarget.Bounds);
+                        DrawTexture(obj, obj.Bounds);
 
                     /*    VertexPositionColorTexture[] vertexs = new VertexPositionColorTexture[4];
                         vertexs[0] = new(new Vector3(0, 0, 0.5f), Color.White, new(0, 0));

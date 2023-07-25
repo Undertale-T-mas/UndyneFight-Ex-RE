@@ -561,6 +561,8 @@ namespace UndyneFight_Ex.Fight
         private static int lastArrow;
         private static int[] colorLastArrow = new int[10];
 
+        public static int[] DirectionAllocate = new int[10];
+
         public static HashSet<char> OneElementArrows = new HashSet<char>();
 
         public static int GetWayFromTag(string wayTag)
@@ -621,6 +623,9 @@ namespace UndyneFight_Ex.Fight
                     return colorLastArrow[color] = lastArrow;
                 case '$':
                     lastArrow = wayTag[1] - '0';
+                    return colorLastArrow[color] = lastArrow;
+                case 'A':
+                    lastArrow = DirectionAllocate[wayTag[1] - '0'];
                     return colorLastArrow[color] = lastArrow;
                 default:
                     lastArrow = wayTag[0] - '0';
@@ -975,6 +980,12 @@ namespace UndyneFight_Ex.Fight
         {
             CollideRect rect = new(new Vector2(320 - width / 2, yCentre - height / 2), new(width, height));
             return Heart.InstantSplit(rect); 
+        }
+
+        public static void Reset()
+        {
+            colorLastArrow = new int[10];
+            DirectionAllocate = new int[10];
         }
     }
 }

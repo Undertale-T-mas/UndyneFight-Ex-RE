@@ -9,6 +9,10 @@ namespace UndyneFight_Ex.Remake
 {
     public partial class Souls
     {
+        private static float Project(Vector2 origin, Vector2 vector)
+        {
+            return Vector2.Dot(origin, vector) / origin.Length();
+        }
         public static Player.MoveState RedSoul { get; private set; } = new(Color.Red, (s) =>
         {
             SoulMove(s);
@@ -20,22 +24,18 @@ namespace UndyneFight_Ex.Remake
 
             Vector2 curCentre = curPos.GetCentre();
 
+            float speed = s.Speed;
+            if(GameStates.IsKeyDown(InputIdentity.Cancel)) { speed *= 0.5f; }
             Vector2 delta = Vector2.Zero;
             for (int i = 0; i < 4; i++)
             {
-                if (GameStates.IsKeyDown(s.movingKey[i])) delta += MathUtil.GetVector2(s.Speed * 0.5f, i * 90);
+                if (GameStates.IsKeyDown(s.movingKey[i])) delta += MathUtil.GetVector2(speed * 0.5f, i * 90);
             }
 
             Vector2 nexCentre = curCentre + delta;
 
             FightBox box = s.controlingBox;
             Vector2[] vertexs = box.Vertexs;
-
-
-            float Project(Vector2 origin, Vector2 vector)
-            {
-                return Vector2.Dot(origin, vector) / origin.Length();
-            }
 
             // calculate all vertexs' normal vector
 

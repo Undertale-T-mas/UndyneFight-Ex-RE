@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks; 
 using Microsoft.Xna.Framework.Content; 
 using static System.MathF;
+using UndyneFight_Ex.Settings;
+using static UndyneFight_Ex.Settings.SettingsManager;
 
 namespace UndyneFight_Ex
 {
@@ -123,8 +125,16 @@ namespace UndyneFight_Ex
 
         public static void ResetRendering()
         {
+            DrawFPS = DataLibrary.DrawFPS;
             instance.CilentBoundChanged(); 
-            Graphics.SynchronizeWithVerticalRetrace = false;
+            Graphics.SynchronizeWithVerticalRetrace = false; 
+            MissionSpriteBatch.DefaultState = DataLibrary.SamplerState switch
+            {
+                "Nearest" => SpriteBatchEX.NearestSample,
+                "3x Linear" => Microsoft.Xna.Framework.Graphics.SamplerState.LinearClamp,
+                "Anisotropic" => Microsoft.Xna.Framework.Graphics.SamplerState.AnisotropicClamp,
+                _ => throw new Exception()
+            };
         }
 
         /// <summary>
@@ -231,8 +241,7 @@ namespace UndyneFight_Ex
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
-        {
-            DrawFPS = Settings.SettingsManager.DataLibrary.DrawFPS * 100;
+        { 
             _totalElapsedMS += gameTime.ElapsedGameTime.Milliseconds;
             if (_totalElapsedMS > 100f) _totalElapsedMS /= 2f;
             #region Event for times

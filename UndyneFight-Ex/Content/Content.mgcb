@@ -248,6 +248,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/NeonLine.fx
 
+#begin Global/Shaders/Effect Library/NoiseFire.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/NoiseFire.fx
+
 #begin Global/Shaders/Effect Library/Polar.fx
 /importer:EffectImporter
 /processor:EffectProcessor

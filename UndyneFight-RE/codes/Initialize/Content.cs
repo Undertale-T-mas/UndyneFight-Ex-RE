@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Runtime.CompilerServices;
 using UndyneFight_Ex.Remake.UI;
 using UndyneFight_Ex.Remake.Effects;
+using UndyneFight_Ex.Remake.Texts;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -51,10 +52,24 @@ namespace UndyneFight_Ex.Remake
             MainLoader = loader; UIShaders.Load(loader);
 
             SelectUI.Initialize();
+            FontPatched.Initialize();
 
             MouseSystem.Initialize();
         }
         public static ContentManager MainLoader { get; private set; }
+        
+        public static class FontPatched { 
+            public static SmartFont Default { get; private set; }
+
+            public static void Initialize()
+            {
+                Default = new SmartFont();
+                Default.Insert(Font.Normal, 0.0f);
+                Default.Insert(FightResources.Font.Japanese, 0.5f);
+                Default.Insert(FightResources.Font.NormalFont, 1.0f);
+            }
+        }
+
         public static class UI
         {
             public static Texture2D Cursor { get; set; }

@@ -15,6 +15,7 @@ using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Remake.TextUtils;
+using System.Runtime.CompilerServices;
 
 namespace Rhythm_Recall.Waves
 {
@@ -166,15 +167,20 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                Text text = DrawText(BeatTime(0.25f), "$YES! $no! $&#*(&",new Vector2(200, 150), false,
+                Text text = DrawText(BeatTime(0.25f), "$YES! $no! $&#*(& 嶄猟 晩云のひらがなとカタカナのテスト", new Vector2(60, 150), false,
                     new TextColorEffect(Color.Aqua, 3),
                     new TextColorEffect(Color.Red, 2),
-                    new TextMotionEffect(SineWave(new Vector2(0, 20), BeatTime(2)))
+                    new TextMotionEffect(SineWave(new Vector2(0, 20), BeatTime(2)), 6)
                     );
                 AddInstance(text);
 
-                ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
-                Shaders.Aurora.ThemeColor = new(128, 255, 255, 255);
+                ScreenDrawing.ActivateShaderBack(Shaders.Fire, 0.5f);
+                Shaders.Fire.BlendEdge = Color.Red;
+                Shaders.Fire.Blend = Color.Orange;
+                Shaders.Fire.Distort = 24.0f;
+                Shaders.Fire.Height = 174.0f;
+                Shaders.Fire.PieceRate = 0.15f;
+                Shaders.Fire.Speed = 2f;
                 /*
                 ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
                 Shaders.Aurora.ThemeColor = Color.Yellow;
@@ -224,20 +230,38 @@ namespace Rhythm_Recall.Waves
                 SetSoul(1);
                 HeartAttribute.ArrowFixed = true;
 
+                Arrow.UnitEasing arse1 = new();
+                arse1.ApplyTime = BeatTime(4);
+                //arse1.RotationEase = EaseOut(BeatTime(2), 40, 0, EaseState.Sine);
+                //arse1.DistanceEase = LinkEase(Stable(BeatTime(8 * (6 / 0.5f)-4), BeatTime(8*(6/0.5f))*0.5f),EaseOut(BeatTime(4), BeatTime(8*(6/0.5f))*0.5f, 0, EaseState.Quint));
+                arse1.PositionEase = LinkEase(
+                    Stable(BeatTime(2), new Vector2(0, 100)),
+                    EaseOut(BeatTime(2), new Vector2(0, 100), new Vector2(0, 0), EaseState.Quint));
+                arse1.TagApply("R");
+                AddInstance(arse1);
+
+                BarrageCreate(BeatTime(2), BeatTime(2), 7.0f, new[] { 
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                });
+
                 /*     ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Swirl));
                      Shaders.Swirl.Radius = 100;
                      Shaders.Swirl.RadiusOut = 150;
                      Shaders.Swirl.Intensity = 1.0f;
                      Shaders.Swirl.Rotation = 15f;*/
 
-               /* DelayBeat(2, () => {
-                    ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
-                    Shaders.Blur.Factor = new(3, 0);
-                    Shaders.Blur.Sigma = 3.0f;
-                    SimplifiedEasing.RunEase((s) => Shaders.Blur.Sigma = s, 
-                        SimplifiedEasing.EaseOut(BeatTime(4), 3, 0,
-                        SimplifiedEasing.EaseState.Cubic));
-                });*/
+                /* DelayBeat(2, () => {
+                     ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Blur, 0.99f));
+                     Shaders.Blur.Factor = new(3, 0);
+                     Shaders.Blur.Sigma = 3.0f;
+                     SimplifiedEasing.RunEase((s) => Shaders.Blur.Sigma = s, 
+                         SimplifiedEasing.EaseOut(BeatTime(4), 3, 0,
+                         SimplifiedEasing.EaseState.Cubic));
+                 });*/
                 //  ScreenDrawing.UISettings.CreateUISurface();
 
                 //      CreateLine(150, 100);

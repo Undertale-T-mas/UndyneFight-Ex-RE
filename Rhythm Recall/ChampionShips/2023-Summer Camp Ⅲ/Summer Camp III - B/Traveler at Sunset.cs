@@ -1,20 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using UndyneFight_Ex;
-using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
-using UndyneFight_Ex.SongSystem;
 using UndyneFight_Ex.Remake;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using UndyneFight_Ex.SongSystem;
+using UndyneFight_Ex.Remake.Entities;
+using UndyneFight_Ex.Remake.Texts;
+using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using static UndyneFight_Ex.Remake.TextUtils;
 using static UndyneFight_Ex.MathUtil;
-using System.Net.Mail;
-using System.Dynamic;
 
 namespace Rhythm_Recall.Waves
 {
@@ -168,7 +169,8 @@ namespace Rhythm_Recall.Waves
             static Arrow.ClassicApplier easeK1, easeK2, easeK3;
             public void ExtremePlus()
             {
-                CreateEntity(new TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { PlaySound = false });
+                
+
                 if (InBeat(0))
                 {
                     RegisterFunction("FadeOut", () =>
@@ -979,7 +981,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                         TP();
                         DelayBeat(1, () => {
-                            ScreenDrawing.BoxBackColor = Color.Black * 0.875f;
+                            ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
                         });
                     });
                     RegisterFunctionOnce("Box", () =>
@@ -1084,7 +1086,7 @@ namespace Rhythm_Recall.Waves
                         { Alpha = 0.7f };
                         CreateEntity(a);
                         DelayBeat(0.7f, () => { a.Dispose(); });
-                        ScreenDrawing.CameraEffect.Convulse(2.0f, 9.0f, false);
+                        ScreenDrawing.CameraEffect.Convulse(1.0f, 9.0f, false);
                     });
                     RegisterFunctionOnce("LineL", () =>
                     {
@@ -1093,7 +1095,7 @@ namespace Rhythm_Recall.Waves
                         { Alpha = 0.7f };
                         CreateEntity(a);
                         DelayBeat(0.7f, () => { a.Dispose(); });
-                        ScreenDrawing.CameraEffect.Convulse(2.0f, 9.0f, true);
+                        ScreenDrawing.CameraEffect.Convulse(1.0f, 9.0f, true);
                     });
                     RegisterFunctionOnce("TurnR", () =>
                     {
@@ -1404,12 +1406,12 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SCL", () => {
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(1), 1.6f, 0.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), 1.3f, 0.0f, EaseState.Quint)
                         );
                     });
                     RegisterFunctionOnce("SCR", () => {
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(1), -1.6f, 0.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), -1.3f, 0.0f, EaseState.Quint)
                         );
                     });
                     RegisterFunctionOnce("SCL2", () => {
@@ -1424,7 +1426,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SCS", () => {
                         RunEase(s => ScreenDrawing.ScreenScale = s,
-                            EaseOut(BeatTime(1), 1.035f, 1.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), 1.02f, 1.0f, EaseState.Quint)
                         );
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7.2f, new string[]
@@ -1469,9 +1471,10 @@ namespace Rhythm_Recall.Waves
                         "$31(SCL)", "", "$0", "$1",    "$2(SCS)(LineL)", "", "$21", "$11",
                         "$01(SCR)", "", "$0", "$1",    "$2(SCS)", "", "", "",    
                         //8
-                        "*$212@A'1.2(*$012@A'1.2)(SCL2)", "", "*$202@B'1.2(*$002@B'1.2)(SCR2)", "*$212@A'1.2(*$012@A'1.2)(SCR2)",    "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$212@A'1.2(*$012@A'1.2)(SCL2)", "",
-                        "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$212@A'1.2(*$012@A'1.2)(SCL2)", "*$202@B'1.2(*$002@B'1.2)(SCL2)",    "*$212@A'1.2(*$012@A'1.2)(SCL2)", "", "(*$202@B'1.2)(*$002@B'1.2)(SCR2)", "",
-                        "(*$212@A'1.2)(*$012@A'1.2) ", "", "*$102@A", "*$112@B",    "*$102@A", "*$112@B", "*$102@A", "", 
+                        "*$202@A'1.2(*$002@A'1.2)(SCL2)", "", "*$202@B'1.2(*$002@B'1.2)(SCR2)", "*$212@A'1.2(*$012@A'1.2)(SCR2)",    "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$212@A'1.2(*$012@A'1.2)(SCL2)", "",
+                        "*$202@B'1.2(*$002@B'1.2)(SCR2)", "", "*$202@A'1.2(*$002@A'1.2)(SCL2)", "",    "", "", "(*$202@B'1.2)(*$002@B'1.2)(SCR2)", "",
+                        "(*$202@A'1.2)(*$002@A'1.2) ", "", "*$102@A", "*$112@B",    "*$102@A", "*$112@B", "*$102@A", "",
+                        "$11", "$10",    "$11", "$10", "$11",
                     });
                 }
                 if (InBeat(328))
@@ -1887,43 +1890,53 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(424))
                 {
+                    float x1 = 0; 
+                    float x2 = 0;
+                    RegisterFunctionOnce("Value", () =>
+                    {                
+                        RunEase((s) =>
+                        {
+                            x1 = s;
+                        },
+                        EaseOut(BeatTime(32),320,100,EaseState.Back),
+                        EaseOut(BeatTime(8), 100, 180, EaseState.Back)
+                        );
+                        RunEase((s) =>
+                        {
+                            x2 = s;
+                        },
+                        EaseOut(BeatTime(32), 320, 540, EaseState.Back),
+                        EaseOut(BeatTime(8), 540, 460, EaseState.Back)
+                        );
+                    });
                     RegisterFunctionOnce("Line", () =>
                     {
-                        Line l1 = new(320, 90) { Alpha=0};
-                        var ce1 = LinkEase(
-                            Stable(0,new Vector2(320, 0)),
-                            Linear(BeatTime(16), new Vector2(240,0))
-                            );
-                        var ce2 = LinkEase(
-                            Stable(0,new Vector2(320, 0)),
-                            Linear(BeatTime(16), new Vector2(-240,0))
-                            );
-                        Line l2 = new(ce1.Easing, Stable(0, 90).Easing) { Alpha = 0 };
-                        Line l3 = new(ce2.Easing, Stable(0, 90).Easing) { Alpha = 0 };
-                        CreateEntity(l1, l2, l3);
-                        RunEase((s) => { l1.Alpha = s; },
-                            Copy(LinkEase(false,
-                                Stable(0,1),
-                                EaseOut(BeatTime(0.33f),1,0,EaseState.Sine),
-                                Stable(1.33f,0)
-                                ),12)
-                            );
-                        RunEase((s) => { l2.Alpha = s; },
-                            Stable(BeatTime(0.66f),0),
-                            Copy(LinkEase(false,
-                                Stable(0, 1),
-                                EaseOut(BeatTime(0.33f), 1, 0, EaseState.Sine),
-                                Stable(BeatTime(2), 0)
-                                ), 6)
-                            );
-                        RunEase((s) => { l3.Alpha = s; },
-                            Stable(BeatTime(2f), 0),
-                            Copy(LinkEase(false,
-                                Stable(0, 1),
-                                EaseOut(BeatTime(0.33f), 1, 0, EaseState.Sine),
-                                Stable(BeatTime(2), 0)
-                                ), 6)
-                            );
+                        for(int i=0;i<42;i++)
+                        {
+                            int x = i;
+                            DelayBeat(x * 0.66f, () =>
+                            {
+                                Line l = new(320, 90) { DrawingColor=Color.DarkRed,Width=8};
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(0.66f));
+                            });
+                        }
+                        for (int i = 0; i < 28; i++)
+                        {
+                            int x = i;
+                            DelayBeat(0.33f+x * 1f, () =>
+                            {
+                                Line l = new(x2, 90) { DrawingColor = Color.DarkRed, Width = 8 };
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(0.66f));
+                            });
+                            DelayBeat(1f + x * 1f, () =>
+                            {
+                                Line l = new(x1, 90) { DrawingColor = Color.DarkRed, Width = 8 };
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(0.66f));
+                            });
+                        }
                     });
                     RegisterFunctionOnce("KickLine", () =>
                     {
@@ -1965,7 +1978,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",  
                           
                         //1
-                        "^d'1.6(^d1'1.6)(Line)(KickLine)(<1.9,-4>Drum)", "", "", "",    "d", "", "", "",
+                        "^d'1.6(^d1'1.6)(Value)(Line)(KickLine)(<1.9,-4>Drum)", "", "", "",    "d", "", "", "",
                         "d(<0>SetScreenAngle)", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",   
@@ -2058,9 +2071,9 @@ namespace Rhythm_Recall.Waves
                     {
                         var ce = LinkEase(
                             Stable(0,new Vector2(320,240)+GetVector2(40,-30)),
-                            EaseOut(BeatTime(2),GetVector2(-30,200),EaseState.Quad)
+                            EaseOut(BeatTime(2),GetVector2(80,-30),EaseState.Quad)
                             );
-                        Line l = new(ce.Easing, Stable(0, -30 + 90).Easing);
+                        Line l = new(ce.Easing, Stable(0, -30 + 90).Easing) { ObliqueMirror=true,TransverseMirror=true,VerticalMirror=true};
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(2));
                     });
@@ -2071,7 +2084,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",  
                           
                         //1
-                        "d(d1)(<3.8,6>Drum)", "", "", "",    "d", "", "", "",
+                        "d(d1)(<3.8,6>Drum)(KickLine)", "", "", "",    "d", "", "", "",
                         "d(d1)", "", "d", "",    "", "", "d(d1)", "",
                         "<0>SetScreenAngle", "", "", "",    "d(d1)", "", "", "",
                         "d(d1)", "", "d", "",    "", "", "d", "",  
@@ -2092,7 +2105,198 @@ namespace Rhythm_Recall.Waves
                         "d1(<8,8>ConvR)", "", "", "",    "", "", "", "",
                         "d1", "", "", "",    "", "", "d1", "",
                         "", "", "d1", "",    "d1", "", "d1", "",
-                        "d(d1)", "", "d", "",    "d(d1)", "", "d", "",    "(*^$01'1.7)(*^$21'1.7)"
+                        "d(d1)", "", "d", "",    "d(d1)", "", "d", "",    "(*^$0'1.7)(*^$21'1.7)"
+                    });
+                }
+                if (InBeat(520))
+                {
+
+                    Arrow.UnitEasing arse = new();
+                    arse.ApplyTime = BeatTime(3);
+                    arse.RotationEase = EaseOut(BeatTime(3), -40, 0, EaseState.Sine);
+                    arse.TagApply("L");
+                    AddInstance(arse);
+                    Arrow.UnitEasing arse1 = new();
+                    arse1.ApplyTime = BeatTime(3);//BeatTime(8*(6/0.8f));
+                    arse1.RotationEase = EaseOut(BeatTime(3), 40, 0, EaseState.Sine);
+                    //arse1.DistanceEase = LinkEase(Stable(BeatTime(8 * (6 / 0.8f)-4), BeatTime(8*6)),EaseOut(BeatTime(4), BeatTime(8*6), 0, EaseState.Quint));
+                    /*arse1.PositionEase = LinkEase(
+                        Stable(BeatTime(8 * (6 / 0.5f) - 4), new Vector2(BeatTime(8 * (6 / 0.5f)) * 0.5f)),
+                        EaseOut(BeatTime(4),new Vector2(BeatTime(8 * (6 / 0.5f)) * 0.5f,0),new Vector2( 0,0), EaseState.Quint));*/
+                    //arse1.PositionEase = LinkEase(
+                    //Stable(BeatTime(2), new Vector2(0, 100)),
+                    //EaseOut(BeatTime(4), new Vector2(0, 100), new Vector2(0, 0), EaseState.Quint));
+
+                    arse1.TagApply("R");
+                    AddInstance(arse1);
+                    RegisterFunctionOnce("ScreenPoint", () =>
+                    {
+                        RunEase((s) =>
+                        {
+                            ScreenDrawing.ScreenPositionDetla = s;
+                        }, Stable(0, new Vector2(0, 0)),
+                        EaseOut(BeatTime(12), new Vector2(-120, 0), EaseState.Sine),
+                        EaseIn(BeatTime(4), new Vector2(120, 0), EaseState.Quad),
+                        EaseOut(BeatTime(12), new Vector2(120, 0), EaseState.Sine),
+                        EaseIn(BeatTime(4), new Vector2(-120, 0), EaseState.Quad));
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "", 
+                        
+                        "(<0.8,1.5>Drum)(ScreenPoint)", "", "", "",    "(~_$21@R)(<0.8,1.5>Drum)(N2)", "", "(N2)", "",
+                        "~_$21@L(<0.8,1.5>Drum)", "", "(N2)", "",    "~_$21@R(<0.8,1.5>Drum)", "", "(N2)", "",
+                        "~_$21@L(<0.8,1.5>Drum)", "", "(N2)", "",    "~_$21@R(<0.8,1.5>Drum)", "", "(N2)", "",
+                        "~_$21@L(<0.8,1.5>Drum)", "", "", "",    "~_$21@R(<0.8,1.5>Drum)", "", "", "",
+
+                        //2
+                        "~_$21@L(<0.8,1.5>Drum)(N2)", "", "", "",    "~_$21@R(<0.8,1.5>Drum)(N2)", "", "(N2)", "",
+                        "~_$21@L(<0.8,1.5>Drum)", "", "(N2)", "",    "~_$21@R(<0.8,1.5>Drum)", "", "(N2)", "",
+                        "~_$21@L(<0.8,1.5>Drum)", "", "(N2)", "",    "~_$21@R(<0.8,1.5>Drum)(N2)", "", "(N2)", "",
+                        "~_$21@L(<0.8,1.5>Drum)(N2)", "", "(N2)", "",    "~_$21@R(<0.8,1.5>Drum)", "", "", "",  
+
+                        //3
+                        "~_$01@L(<0.8,-1.5>Drum)(N0)", "", "", "",    "~_$01@R(<0.8,-1.5>Drum)(N0)", "", "(N0)", "",
+                        "~_$01@L(<0.8,-1.5>Drum)", "", "(N0)", "",    "~_$01@R(<0.8,-1.5>Drum)", "", "(N0)", "",
+                        "~_$01@L(<0.8,-1.5>Drum)", "", "(N0)", "",    "~_$01@R(<0.8,-1.5>Drum)", "", "(N0)", "",
+                        "~_$01@L(<0.8,-1.5>Drum)", "", "(N0)", "",    "~_$01@R(<0.8,-1.5>Drum)", "", "", "",
+
+                        //0
+                        "~_$01@L(<0.8,-1.5>Drum)(N0)", "", "", "",    "~_$01@R(<0.8,-1.5>Drum)(N0)", "", "", "",
+                        "~_$01@L(<0.8,-1.5>Drum)(N0)", "", "(N0)", "",    "~_$01@R(<0.8,-1.5>Drum)(N0)", "", "(N0)", "",
+                        "~_$01@L(<0.8,-1.5>Drum)", "", "", "",    "~_$01@R(<0.8,-1.5>Drum)", "", "(N0)", "",
+                        "~_$01@L(<0.8,-1.5>Drum)", "", "", "",    "~_$01@R(<0.8,-1.5>Drum)", "", "", "",
+                    });
+                }
+                if(InBeat(552))
+                {
+                    int rand1 = Rand(0, 3);
+                    int rand2 = Rand(0, 3);
+                    void Allocate()
+                    {
+                        ArrowAllocate(1, rand1);
+                        ArrowAllocate(2, rand2);
+                    }
+                    while (rand2 == rand1)
+                    {
+                        rand2 = Rand(0, 3);
+                    }
+                    RegisterFunctionOnce("Rerand", () =>
+                    {
+                        rand1 = Rand(0, 3);
+                        rand2 = Rand(0, 3);
+                        while (rand2 == rand1)
+                        {
+                            rand2 = Rand(0, 3);
+                        }
+                        Allocate();
+                    });
+                    Allocate();
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+
+                        "(d)(d1)", "", "", "",    $"(A1)(A21)", "", $"(A2)(A11)", "",
+                        "", "", "(d)(d1)", "",    "", "", $"(<!,4>Rerand)(A1)(A21)", "",
+                        "", "", $"(A2)(A11)", "",    "", "", $"(#2#A1)($21)", "",
+                        "", "", "", "",    "", "", "", "",
+
+                        "(d)(d1)", "", "", "",    $"(<!,4>Rerand)(A1)(A21)", "", $"(A2)(A11)", "",
+                        "", "", "(d)(d1)", "",    "", "", "(d)(d1)", "",
+                        "", "", "(d)(d1)", "",    "", "", "(d)(d1)", "",
+                        "", "", "(d)(d1)", "",    "(d)(d1)", "", "(d)(d1)", "",
+
+                        "(#2.75#d)(d1)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "(#2.75#d1)(d)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+
+                        "(d)(d1)", "", "", "",    $"(<!,4>Rerand)(A1)(A21)", "", $"(A2)(A11)", "",
+                        "", "", "(d)(d1)", "",    "", "", "(d)(d1)", "",
+                        "", "", "", "",    "(d)(d1)", "", "", "",
+                        "(d)(d1)", "", "", "",    "", "", "", "",
+                    });
+                }
+                if(InBeat(584))
+                {
+                    RegisterFunctionOnce("KickR", () =>
+                    {
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDetla = s; },
+                            EaseOut(BeatTime(2), new Vector2(-20, 20), EaseState.Quad),
+                            EaseOut(BeatTime(1.5f), new Vector2(-10, -40), EaseState.Quad),
+                            EaseOut(BeatTime(1.5f), new Vector2(-30, 30), EaseState.Quad),
+                            EaseOut(BeatTime(1), new Vector2(-40, 30), EaseState.Quad),
+                            EaseOut(BeatTime(1.3f), new Vector2(100, -40), EaseState.Back)
+                            );
+                    });
+                    RegisterFunctionOnce("KickL", () =>
+                    {
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDetla = s; },
+                            EaseOut(BeatTime(2), new Vector2(+20, 20), EaseState.Quad),
+                            EaseOut(BeatTime(1.5f), new Vector2(+10, -40), EaseState.Quad),
+                            EaseOut(BeatTime(1.5f), new Vector2(+30, 30), EaseState.Quad),
+                            EaseOut(BeatTime(1), new Vector2(+40, 30), EaseState.Quad),
+                            EaseOut(BeatTime(1.3f), new Vector2(-100, -40), EaseState.Back)
+                            );
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+
+                        "$0(KickR)", "", "+1", "",    "+1", "", "+1", "",
+                        "+11", "", "+11", "",    "+11", "", "+11", "",
+                        "+1", "", "+1", "",    "+1", "", "+1", "",
+                        "(+111)(+201)", "", "(-111)(+201)", "",    "(-111)(+201)", "", "(-111)(+201)", "",
+
+                        "(-111)(+201)(KickL)", "", "-1", "",    "-1", "", "-1", "",
+                        "-11", "", "-11", "",    "-11", "", "-11", "",
+                        "-1", "", "-1", "",    "-1", "", "-1", "",
+                        "(-111)(+201)", "", "(+111)(+201)", "",    "(+111)(+201)", "", "(+111)(+201)", "",
+
+                        "(+111)(+201)", "", "+1", "",    "+1", "", "+1", "",
+                        "+11", "", "+11", "",    "+11", "", "+11", "",
+                        "(+1)(+21)", "", "+11", "",    "+11", "", "+11", "",
+                        "+1", "", "+1", "",    "+1", "", "+1", "",
+
+                        "(R)(+21)", "", "+2", "",    "(R)(+21)", "", "(+0)(+21)", "",
+                        "+2", "","(R)(+21)", "",   "+2", "","(R)(+21)", "",
+                        "+2", "", "+21", "",    "(R)(+21)", "", "+2", "",
+                        "(^$0'1.4)($21'1.4)", "", "$2'1.5", "$01'1.5",    "$2'1.5", "", "$0'1.5", "",
+                    });
+                }
+                if (InBeat(616))
+                {
+                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+
+                        "(*$0)(*$1)", "", "(*$0)(*$1)", "",    "(*$21)(*$11)", "", "(*$21)(*$11)", "",
+                        "(*$0)(*$2)", "", "(*$0)(*$2)", "(*$21)(*$01)",    "(*$0)(*$2)", "", "(*$0)(*$2)", "",
+                        "(*$21)(*$11)", "", "(*$21)(*$11)", "",    "(*$0)(*$1)", "", "(*$0)(*$1)", "",
+                        "*$21", "", "*$21", "",    "*$0", "", "*$0", "",
+
+                        "(*$21)(*$11)", "", "(*$21)(*$11)", "",    "(*$0)(*$1)", "", "(*$0)(*$1)", "",
+                        "(*$01)(*$21)", "(*$0)(*$2)",    "(*$01)(*$21)", "",    "(*$01)(*$21)", "", "(*$01)(*$21)", "",
+                        "(*$0)(*$1)", "", "(*$0)(*$1)", "",    "(*$21)(*$11)", "", "(*$21)(*$11)", "",
+                        "(*$0)", "", "(*$0)", "",    "(*$21)", "", "(*$21)", "",
+
+                        "(*$1)(*$11)", "", "(*$1)(*$11)", "",    "(*$1)(*$11)", "(*$0)(*$21)", "(*$1)(*$11)", "",
+                        "(*$1)(*$11)", "", "(*$1)(*$11)", "(*$0)(*$21)",    "(*$1)(*$11)", "", "(*$1)(*$11)", "",
+                        "(*$1)(*$11)", "", "(*$1)(*$11)", "",    "(*$3)(*$31)", "", "(*$3)(*$31)", "",
+                        "(*$1)(*$11)", "", "(*$1)(*$11)", "",    "(*$3)(*$31)", "", "(*$3)(*$31)", "",
+
+                        "(*$3)(*$31)", "", "(*$3)(*$31)", "",    "(*$3)(*$31)", "(*$0)(*$21)", "(*$3)(*$31)", "",
+                        "(*$3)(*$31)", "", "(*$3)(*$31)", "(*$0)(*$21)",    "(*$3)(*$31)", "", "(*$3)(*$31)", "",
+                        "(*$3)(*$31)", "", "(*$3)(*$31)", "",    "(*$1)(*$11)", "", "(*$1)(*$11)", "",
+                        "(*$0)(*$2)", "", "(*$01)(*$21)", "",    "(*$0)(*$2)", "", "(*$01)(*$21)", "","(*$0)(*$2)"
                     });
                 }
             }
@@ -2283,6 +2487,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
+                Settings.GreenTap = true;
                 RegisterFunction("Drum", () =>
                 {
                     ScreenDrawing.ScreenAngle = 0;
@@ -2374,8 +2579,8 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    //int beat = 326;
-                    int beat = 198;
+                    int beat = 616;
+                 //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);

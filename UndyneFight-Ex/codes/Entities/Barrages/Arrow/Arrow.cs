@@ -119,10 +119,10 @@ namespace UndyneFight_Ex.Entities
         {
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             float max = MathF.Max(MathF.Max(extend.X, extend.Y), MathF.Max(extend.Z, extend.W));
-            if ((Speed) * (shootShieldTime - GametimeF) > 640 * (max + 1.1f)) return;
+            if ((Speed) * (shootShieldTime - GametimeF) + this.additiveDistance > 640 * (max + 1.1f)) return;
             PositionCalculate();
             AppearTime += 0.5f;
-            if (shootShieldTime - GametimeF < 20)
+            if (shootShieldTime - GametimeF < 15)
                 CheckCollide();
         }
 
