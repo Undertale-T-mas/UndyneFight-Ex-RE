@@ -35,17 +35,17 @@ namespace AprilExtends
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 20.0f),
+                            new(Difficulty.ExtremePlus, 20.0f),
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 20.0f),
+                            new(Difficulty.ExtremePlus, 20.0f),
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 21.5f),
+                            new(Difficulty.ExtremePlus, 21.5f),
                         }
                     );
                 public override string BarrageAuthor => "Woem";
@@ -2558,7 +2558,7 @@ namespace AprilExtends
                 for (int i = 0; i < ars1.Length; i++)
                 {
                     int x = i;
-                    if (ars1[x].VoidMode == false) ars1[x].JudgeType = Arrow.JudgementType.Tap;
+                    //if (ars1[x].VoidMode == false) ars1[x].JudgeType = Arrow.JudgementType.Tap;
                     if (ars1[x].VoidMode == true) ars1[x].JudgeType = Arrow.JudgementType.Hold;
                 }
                 Arrow[] v = GetAll<Arrow>("_");
@@ -2613,7 +2613,7 @@ namespace AprilExtends
                 SetSoul(1);
                 InstantSetBox(new Vector2(320, 240), 84, 84);
                 InstantTP(new Vector2(320, 240));
-                bool jump_1 = true;
+                bool jump_1 = false;
                 if (jump_1)
                 {
                     InstantSetBox(new Vector2(320, 240), 84, 84);

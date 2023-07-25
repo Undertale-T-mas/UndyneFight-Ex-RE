@@ -117,6 +117,10 @@ namespace Rhythm_Recall
             test.Push(typeof(AprilExtends.EtherStrike));
             test.Push(typeof(AprilExtends.GrievousLady));
             test.Push(typeof(AprilExtends.Rrharil));
+            test.Push(typeof(AprilExtends.HorizonBlue));
+            test.Push(typeof(AprilExtends.Pentiment));
+            test.Push(typeof(AprilExtends.Seraphim));
+            test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(MEGALOVANIA));
             test.Push(typeof(RIP));
             test.Push(typeof(BrokenAltair));
@@ -162,7 +166,7 @@ namespace Rhythm_Recall
             try
             {
 #endif
-            //UndyneFight_Ex.Remake.Initialize.MainInitialize();
+            UndyneFight_Ex.Remake.Initialize.MainInitialize();
             GameStartUp.StartGame();
 #if ThrowError
             }
