@@ -138,7 +138,7 @@ namespace Rhythm_Recall
                 //typeof(TheFuneral),
                 //typeof(PapyEn), 
                 typeof(Conflict),
-                typeof(AprilExtends.Stasis),
+                //typeof(AprilExtends.Stasis),
                 typeof(Resistance),
 
                 typeof(BadApple),

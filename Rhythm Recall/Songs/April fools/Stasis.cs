@@ -12,6 +12,7 @@ using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.EasingUtil;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 
 namespace AprilExtends
 {
@@ -169,7 +170,7 @@ namespace AprilExtends
                 CreateRotArrowA(0);
             }
         }
-
+        static Arrow.UnitEasing easeX, easeY;
         public void Extreme()
         {
             Arrow[] voids = GetAll<Arrow>("Hold");
@@ -963,23 +964,22 @@ namespace AprilExtends
                 });
                 RegisterFunctionOnce("BoxShake", () =>
                 {
-                    SimplifiedEasing.RunEase((s) =>
+                    RunEase((s) =>
                     {
                         BoxStates.Centre = new Vector2(320 + s, 240);
                         Heart.Centre = BoxStates.Centre;
                     },
-                        SimplifiedEasing.Scale(
-                        SimplifiedEasing.LinkEase(
-                        SimplifiedEasing.EaseIn(BeatTime(12f), 700, SimplifiedEasing.EaseState.Quart),
-                        SimplifiedEasing.EaseOut(BeatTime(4f), -700, SimplifiedEasing.EaseState.Expo))
-                        ,
-                        SimplifiedEasing.Alternate(2f, SimplifiedEasing.Stable(1f, 1f), SimplifiedEasing.Stable(1, -1)))
+                        Scale(
+                        LinkEase(
+                        EaseIn(BeatTime(12f), 700, EaseState.Quart),
+                        EaseOut(BeatTime(4f), -700, EaseState.Expo)),
+                        Alternate(2f, Stable(1f, 1f), Stable(1, -1)))
 
                     );
                 });
                 RegisterFunctionOnce("ScreenEffect", () =>
                 {
-                    SimplifiedEasing.RunEase((s) =>
+                    RunEase((s) =>
                     {
                         ScreenDrawing.ScreenAngle = s;
                     },
@@ -1028,7 +1028,7 @@ namespace AprilExtends
                         b.Offset = new(0, -400);
                     }
                     float o = 0;
-                    SimplifiedEasing.RunEase((e) =>
+                    RunEase((e) =>
                     {
                         foreach (Arrow b in tagA)
                         {
@@ -1036,8 +1036,8 @@ namespace AprilExtends
                         }
                         o = e;
                     },
-                        SimplifiedEasing.Stable(BeatTime(2),-400),
-                        SimplifiedEasing.EaseOut(BeatTime(4), 400, SimplifiedEasing.EaseState.Elastic)
+                        Stable(BeatTime(2),-400),
+                        EaseOut(BeatTime(4), 400, EaseState.Elastic)
                     );
                     Arrow[] tagB = GetAll<Arrow>("B");
                     foreach (Arrow a in tagB)
@@ -1045,7 +1045,7 @@ namespace AprilExtends
                         a.Offset = new(0, 400);
                     }
                     float c = 0;
-                    SimplifiedEasing.RunEase((w) =>
+                    RunEase((w) =>
                     {
                         foreach (Arrow a in tagB)
                         {
@@ -1053,11 +1053,30 @@ namespace AprilExtends
                         }
                         c = w;
                     },
-                        SimplifiedEasing.Stable(BeatTime(2), 400),
-                        SimplifiedEasing.EaseOut(BeatTime(4), -400, SimplifiedEasing.EaseState.Elastic)
+                        Stable(BeatTime(2), 400),
+                        EaseOut(BeatTime(4), -400, EaseState.Elastic)
                     );
                 });
-                BarrageCreate(BeatTime(2), BeatTime(1), 5, new string[]
+                RegisterFunctionOnce("ScreenEffect", () =>
+                {
+                    RunEase((s) =>
+                    {
+                        ScreenDrawing.ScreenScale = 1 + s;
+                    },
+                        EaseIn(BeatTime(8), 0.8f, EaseState.Expo),
+                        EaseOut(BeatTime(4), -0.9f, EaseState.Elastic),
+                        EaseInOut(BeatTime(4), 0 ,0.1f, EaseState.Cubic)
+                    );
+                    RunEase((r) =>
+                    {
+                        ScreenDrawing.ScreenAngle = 0 + r;
+                    },
+                        EaseInOut(BeatTime(24), 0, 720, EaseState.Expo)
+                    );
+                });
+                easeX.TagApply("X");
+                //easeX.RevolutionEase(Stable(1, 100));
+                BarrageCreate(BeatTime(2), BeatTime(1), 7, new string[]
                 {
                     "ArrowEffect","","","",    "","","","",
                     "","","","",    "","","","",
@@ -1069,40 +1088,65 @@ namespace AprilExtends
                     "$0{A}","","$2{A}","",    "$0{B}","","$2{B}","",
                     "$0{A}","","$2{A}","",    "$0{B}","","$2{B}","",
 
-                    "$0'1.1","","$2'1.1","",    "$0'1.2","","$2'1.2","",
-                    "$0'1.3","","$2'1.3","",    "$0'1.4","","$2'1.4","",
-                    "$0'1.5","","$1'1.5","",    "$2'1.6","","$3'1.6","",
-                    "$0'1.7","","$1'1.7","",    "$2'1.8","","$3'1.8","",
+                    "$0","","$2","",    "$0","","$2","",
+                    "$0","","$2","",    "$0","","$2","",
+                    "$0","","$2","",    "$0","","$2","",
+                    "$0","","$2","",    "$0","","$2","",
 
-                    "$0'1.9","","$1'1.9","",    "$2'2","","$3'2","",
-                    "$0'2.1","","$1'2.1","",    "$2'2.2","","$3'2.2","",
-                    "$0'2.3","","$1'2.3","",    "$2'2.4","","$3'2.4","",
-                    "$0'2.5","","$1'2.5","",    "$2'2.5","","$3'2.5","",
+                    "($0)(ScreenEffect)","","+1","",    "+1","","+1","",
+                    "+1","","+1","",    "+1","","+1","",
+                    "$0","","+1","",    "+1","","+1","",
+                    "+1","","+1","",    "+1","","+1","",
 
-                    "$0'3","","$1'3.5","",    "$2'4","","$3'4.5","",
-                    "$0'5","","$1'5.5","",    "$2'6","","$3'6.5","",
-                    "$0'7","","$1'7.5","",    "$2'8","","$3'8.5","",
-                    "$0'9","","$1'9.5","",    "$2'10","","$3'10","",
+                    "$0","","+1","",    "+1","","+1","",
+                    "+1","","+1","",    "+1","","+1","",
+                    "$0","","+1","",    "+1","","+1","",
+                    "+1","","+1","",    "+1","","+1","",
                     //
-                    "<$00'10","","<$10'9.5","",    "<$20'9","","<$30'8.5","",
-                    "<$0'8","","<$1'7.5","",    "<$2'7","","<$3'6.5","",
-                    "<$0'6","","<$1'5.6","",    "<$2'5.3","","<$3'5","",
-                    "<$0'4.6","","<$1'4.3","",    "<$2'4","","<$3'3.6","",
+                    "$0@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
 
-                    "<$00'3.3","","<$10'3","",    "<$20'2.6","","<$30'2.5","",
-                    "<$0'2.3","","<$1'2.2","",    "<$2'2.1","","<$3'2","",
-                    "<$0'1.9","","<$1'1.8","",    "<$2'1.7","","<$3'1.6","",
-                    "<$0'1.5","","<$1'1.4","",    "<$2'1.3","","<$3'1.2","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
 
-                    "<$00'1.1","","<$10'1","",    "<$20","","<$30","",
-                    "<$0","","<$1","",    "<$2","","<$3","",
-                    "<$0","","<$1","",    "<$2","","<$3","",
-                    "<$0","","<$1","",    "<$2","","<$3","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
 
-                    "<$0","","<$1","",    "<$2","","<$3","",
-                    "<$0","","<$1","",    "<$2","","<$3","",
-                    "<$0","","<$1","",    "<$2","","<$3","",
-                    "<$0","","<$1","",    "<$2","","(<$3)(<$11)","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "+1@X","","+1@X","",    "+1@X","","+1@X","",
+                    "(<$3)(<$11)","","","",    "","","","",
+                });
+            }
+            if (InBeat(243))
+            {
+                BarrageCreate(BeatTime(1), BeatTime(1), 7, new string[]
+                {
+                    "($0)($21)","","$0","",    "($0)($21)","","$0","",
+                    "($0)($21)","","$0","",    "($0)($21)","","$0","",
+                    "($1)($31)","","$1","",    "($1)($31)","","$1","",
+                    "($1)($31)","","$1","",    "($1)($31)","","$1","",
+
+                    "($2)($01)","","$2","",    "($2)($01)","","$2","",
+                    "($2)($01)","","$2","",    "($2)($01)","","$2","",
+                    "($3)($11)","","$3","",    "($3)($11)","","$3","",
+                    "($3)($11)","","$3","",    "($3)($11)","","$3","",
+
+                    "($0)($21)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
+                    "($0)($21)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
+                    "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
+                    "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
+
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
                 });
             }
         }
@@ -1190,13 +1234,24 @@ namespace AprilExtends
 
         public override void Start()
         {
+            
+            easeX = new();
+            AddInstance(easeX = new Arrow.UnitEasing()
+            {
+                
+                //AppearTime = BeatTime(12),
+                //Delay(BeatTime(4),()=>{ }),
+                ApplyTime = BeatTime(8),
+                RotationEase = LinkEase(EaseIn(BeatTime(4), 0, 90, EaseState.Quart), EaseOut(BeatTime(8), -180, 0, EaseState.Linear)/*, Alternate(2f, Stable(1f, 1f), Stable(1, -1)*/)
+                //RotationEase=EaseOut(BeatTime(16),720,0,EaseState.Linear)
+            });
             GametimeDelta = -0.4f;
             SetGreenBox();
             HeartAttribute.MaxHP = 50;
             HeartAttribute.DamageTaken = 1;
             TP();
             SetSoul(1);
-            bool jump = false;
+            bool jump = true;
             if (jump)
             {
                 int beat = 192;
