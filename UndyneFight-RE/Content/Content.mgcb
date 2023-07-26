@@ -19,6 +19,18 @@
 /processorParam:DebugMode=Auto
 /build:ReEngine/Effects/NonFight/BackGround.fx
 
+#begin ReEngine/FightSprites/ccffdd57-a632-43f0-aec6-5c345def4475.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/FightSprites/ccffdd57-a632-43f0-aec6-5c345def4475.png;ReEngine/FightSprites/spider.png
+
 #begin ReEngine/FightSprites/FireBall/spr_0.png
 /importer:TextureImporter
 /processor:TextureProcessor
