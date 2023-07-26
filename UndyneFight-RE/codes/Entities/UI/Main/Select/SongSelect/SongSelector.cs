@@ -205,10 +205,12 @@ namespace UndyneFight_Ex.Remake.UI
 
                 this.AddChild(new ImageDrawer());
                 this.AddChild(this._packMode = new PackMode(this));
-                this._packMode.Activate();
-                this._currentSongList = _packMode;
+                this.AddChild(this._diffClearMode = new DiffClearMode(this));
+                this._diffClearMode.Activate();
+                this._currentSongList = _diffClearMode;
             }
             PackMode _packMode;
+            DiffClearMode _diffClearMode;
             public SongSelector()
             {
                 this.UpdateIn120 = true;
