@@ -52,7 +52,7 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         PlayerManager.AddNewUser(_account.Result, this._password2.Result);
                         this._virtualFather.FatherObject.Dispose();
-                        GameStates.InstanceCreate(new SelectUI());
+                        GameStates.InstanceCreate(new IntroUI());
                     }
                 }
             }

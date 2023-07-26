@@ -19,13 +19,13 @@ namespace Rhythm_Recall
                 next = Rand(20, 25);
                 if (type)
                 {
-                    CreateEntity(new Block(90, Rand(120, 160)));
-                    CreateEntity(new Block(270, Rand(560, 600)));
+                    AddChild(new Block(90, Rand(120, 160)));
+                    AddChild(new Block(270, Rand(800, 840)));
                 }
                 else
                 {
-                    CreateEntity(new Block(90, Rand(40, 80)));
-                    CreateEntity(new Block(270, Rand(480, 520)));
+                    AddChild(new Block(90, Rand(40, 80)));
+                    AddChild(new Block(270, Rand(880, 920)));
                 }
             }
             next--;
@@ -42,8 +42,8 @@ namespace Rhythm_Recall
             {
                 0 => new Vector2(-50, y),
                 1 => new Vector2(y, -50),
-                2 => new Vector2(640 + 50, y),
-                3 => new Vector2(y, 480 + 50),
+                2 => new Vector2(960 + 50, y),
+                3 => new Vector2(y, 720 + 50),
                 _ => throw new Exception()
             };
             Image = Resources.BlockTexture;
@@ -94,11 +94,12 @@ namespace Rhythm_Recall
 
         public override void Update()
         {
+            this.
             appearTime++;
             Rotation += rotateSpeed;
             delta = positionRoute.Invoke(appearTime * movingSpeed);
             Centre = startingPos + Transform(delta);
-            if (!new CollideRect(-100, -100, 840, 840).Contain(Centre)) Dispose();
+            if (!new CollideRect(-160, -160, 1080, 1090).Contain(Centre)) Dispose();
             if (appearTime % 6 == 0) AddChild(new BlockKid(Centre, Rotation));
         }
 

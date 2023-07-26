@@ -632,6 +632,18 @@
 /processorParam:Quality=Best
 /build:ReEngine/Sounds/shoot.wav
 
+#begin ReEngine/UI/account.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/UI/account.png
+
 #begin ReEngine/UI/gear.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -643,6 +655,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ReEngine/UI/gear.png
+
+#begin ReEngine/UI/introSetting.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/UI/introSetting.png
+
+#begin ReEngine/UI/introStart.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/UI/introStart.png
+
+#begin ReEngine/UI/mail.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/UI/mail.png
 
 #begin ReEngine/UI/scrollArrow.png
 /importer:TextureImporter

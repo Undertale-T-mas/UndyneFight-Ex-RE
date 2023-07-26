@@ -90,7 +90,7 @@ namespace Rhythm_Recall
             GameStartUp.PushChampionShip(NewYear2022.GetChampionShip);
             GameStartUp.PushChampionShip(SpringCelebration2022.GetChampionShip);
             GameStartUp.PushChampionShip(Memory2023.GetChampionShip);
-#if TRACE
+#if DEBUG
             GameStartUp.PushChampionShip(Summer_Camp_Ⅲ.GetChampionShip);
 #endif
             SetAchievement();
@@ -117,6 +117,7 @@ namespace Rhythm_Recall
             test.Push(typeof(AprilExtends.EtherStrike));
             test.Push(typeof(AprilExtends.GrievousLady));
             test.Push(typeof(AprilExtends.Rrharil));
+            test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(MEGALOVANIA));
             test.Push(typeof(RIP));
             test.Push(typeof(BrokenAltair));

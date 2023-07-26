@@ -58,6 +58,7 @@ namespace UndyneFight_Ex
             record =            loader.Load<Texture2D>("UI\\record");
             medal =             loader.Load<Texture2D>("UI\\medal1");
             starMedal =         loader.Load<Texture2D>("UI\\medal2");
+            brimMedal =         loader.Load<Texture2D>("UI\\medal0");
             loadingText =       loader.Load<Texture2D>("Loading\\Loading");
             progressArrow =     loader.Load<Texture2D>("Loading\\ProgressArrow");
 
@@ -173,6 +174,7 @@ namespace UndyneFight_Ex
             public static Texture2D progressArrow;
             public static Texture2D medal;
             public static Texture2D starMedal;
+            public static Texture2D brimMedal;
             public static Texture2D loadingTexture;
         }
     }

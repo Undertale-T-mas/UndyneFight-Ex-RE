@@ -166,25 +166,14 @@ namespace UndyneFight_Ex.Remake.UI
                 CurrentJudgementState = judgeState;
             }
         }
-
+        VirtualFather _vFather;
         public SelectUI()
         {
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
 
             this.AddChild(new MouseCursor());
             this.AddChild(new LineDistributer());
-            this.AddChild(new VirtualFather());
-
-            SmartMusicPlayer smartPlayer = new();
-            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_INTRO), 2407.5f, false);
-            smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_LOOP), 4808.5f, true);
-            GameStates.InstanceCreate(smartPlayer); smartPlayer.Play();
-
-            GameStates.InstanceCreate(new InstantEvent(2, () => {
-                var render = GameStates.CurrentScene.BackgroundRendering;
-                GameStates.CurrentScene.CurrentDrawingSettings.backGroundColor = Color.White;
-                render.InsertProduction(_backGenerater = new BackGenerater(0.6f));
-            }));
+            this.AddChild(_vFather = new VirtualFather());
          /*   GameStates.InstanceCreate(new InstantEvent(2397, () => { 
                 GameStates.InstanceCreate(
                     new MusicPlayer(Resources.Musics.DreamDiver_LOOP) { IsLoop = false }
@@ -192,7 +181,6 @@ namespace UndyneFight_Ex.Remake.UI
 
             }));*/
         }
-        BackGenerater _backGenerater;
 
         public override void Draw()
         { 
@@ -200,7 +188,12 @@ namespace UndyneFight_Ex.Remake.UI
         }
 
         public override void Update()
-        { 
+        {
+            if (this._vFather.CurrentActivate == _vFather.ModeSelect && GameStates.IsKeyPressed(InputIdentity.Cancel))
+            {
+                this.Dispose();
+                GameStates.InstanceCreate(new IntroUI());
+            }
         }
     }
 }
