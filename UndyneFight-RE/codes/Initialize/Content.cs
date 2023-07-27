@@ -39,8 +39,9 @@ namespace UndyneFight_Ex.Remake
             FightSprites.MettBlockA = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockA");
             FightSprites.MettBlockB = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockB");
             FightSprites.MettBullet = loader.Load<Texture2D>("FightSprites\\Mettaton\\bullet");
+            FightSprites.Spider = loader.Load<Texture2D>("FightSprites\\spider");
 
-            for(int i = 0; i < 18; i++)
+            for (int i = 0; i < 18; i++)
             {
                 FightSprites.ParasolMett[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_parasolmett_" + i);
                 if (i < 7)
@@ -100,7 +101,8 @@ namespace UndyneFight_Ex.Remake
         public static class FightSprites
         {
             public static Texture2D[] Fireball { get; private set; } = new Texture2D[2];
-           
+
+            public static Texture2D Spider { get; set; }
             public static Texture2D SoulShoot { get; set; }
             public static Texture2D MettBlockA { get; set; }
             public static Texture2D MettBlockB { get; set; }

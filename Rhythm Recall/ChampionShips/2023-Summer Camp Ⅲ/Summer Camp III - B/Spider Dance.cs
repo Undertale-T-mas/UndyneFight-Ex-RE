@@ -219,6 +219,11 @@ namespace Rhythm_Recall.Waves
                         SetSoul(4);
                         BoxUtils.DeVertexify(new(240, 240 - 80, 160, 160));
                     });
+                    RegisterFunctionOnce("Sp1", () =>
+                    {
+                        Spider spider = new(EaseOut(BeatTime(4), new Vector2(0, 0), new Vector2(640, 480), EaseState.Linear));
+                        CreateEntity(spider);
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     { 
                         //pre
@@ -226,7 +231,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "SetBox", "",    "", "", "", "",
                         //1
                         "", "", "", "",    "Purple", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "Sp1", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         //2
@@ -426,9 +431,8 @@ namespace Rhythm_Recall.Waves
                 bool jump = true;
                 if (jump)
                 {
-                    int beat = 118;
-                    //   int beat = 326;
-                    //   int beat = 198 ;
+                    //int beat = 118;
+                    int beat = 54;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
