@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -235,6 +236,7 @@ namespace UndyneFight_Ex
     }
     public abstract class Entity : GameObject
     {
+        public bool Visible { internal get; set; } = true;
         public bool AngelMode { set; get; } = false; 
         private float DrawingRotation(float rotation) => AngelMode ? MathUtil.GetRadian(rotation) : rotation;
 
@@ -630,7 +632,8 @@ namespace UndyneFight_Ex
         public List<Entity> GetDrawableTree()
         {
             List<Entity> list = new List<Entity>();
-            if (BeingUpdated && this is Entity) list.Add(this as Entity);
+            if (BeingUpdated && this is Entity) 
+                if((this as Entity).Visible) list.Add(this as Entity);
             foreach (GameObject child in ChildObjects)
             {
                 list.AddRange(child.GetDrawableTree());

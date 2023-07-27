@@ -60,12 +60,15 @@ namespace UndyneFight_Ex.Remake.UI
                     }
 
                     float _lineScale = 0.0f;
+
+                    public float DrawingY { get ; private set; }
                     public override void Draw()
                     { 
                         base.Draw();
                         if(!this._father.DrawEnabled) { return; }
 
                         float y = (_centre + PositionDelta).Y + 42;
+                        DrawingY = y - 25;
                         DrawingLab.DrawLine(new Vector2(272, y), new Vector2(MathHelper.Lerp(525, 541, _lineScale), y), 3, _drawingColor * 0.8f, 0.1f);
                     }
                 }

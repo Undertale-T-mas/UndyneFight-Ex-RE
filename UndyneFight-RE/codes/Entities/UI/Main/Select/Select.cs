@@ -158,7 +158,13 @@ namespace UndyneFight_Ex.Remake.UI
 
             internal void SelectDiff(Difficulty difficulty)
             {
+                if (CurrentDifficulty == difficulty) return;
                 CurrentDifficulty = difficulty;
+                if (difficulty != Difficulty.NotSelected)
+                    GameStates.InstanceCreate(new InstantEvent(1, () =>
+                    {
+                        this.SongSelect.DifficultyChanged(difficulty);
+                    }));
             }
 
             internal void ChangeJudge(JudgementState judgeState)

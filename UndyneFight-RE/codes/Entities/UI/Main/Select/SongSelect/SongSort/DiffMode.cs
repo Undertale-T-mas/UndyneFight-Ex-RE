@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Security;
+using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -14,25 +15,42 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 public DiffClearMode(SongSelector father) : base(father)
                 {
-                    SortedDictionary<int, List<Type>> diffPacks = new();
+                    LinkedList<SongPack> packs = SortDifficulty(father._virtualFather.CurrentDifficulty);
 
+                    Generate(packs);
+                }
+                internal override void ReSort(Difficulty dif)
+                {
+                    base.ReSort(dif);
+
+                    IWaveSet waveSet = this._father._virtualFather.SongSelected;
+
+                    this.Generate(SortDifficulty(dif), waveSet.Music, waveSet.FightName);
+                    this.SetObjects();
+                }
+
+                private static LinkedList<SongPack> SortDifficulty(Difficulty difSelected)
+                {
+                    SortedDictionary<int, List<Type>> diffPacks = new();
                     void TryAdd(int dif, Type set)
                     {
                         if (!diffPacks.ContainsKey(dif)) diffPacks.Add(dif, new());
                         diffPacks[dif].Add(set);
 
-                        if(dif == 19) {
-                            ; }
+                        if (dif == 19)
+                        {
+                            ;
+                        }
                     }
 
                     // Re-generate the pack
-                    Difficulty cur = father._virtualFather.DiffSelect.FocusDifficulty;
+                    Difficulty cur = difSelected;
 
                     foreach (Type type in FightSystem.AllSongs.Values)
                     {
                         IWaveSet waveSet;
                         object obj = Activator.CreateInstance(type);
-                        if(obj is IWaveSet)
+                        if (obj is IWaveSet)
                         {
                             waveSet = obj as IWaveSet;
                         }
@@ -58,7 +76,7 @@ namespace UndyneFight_Ex.Remake.UI
                     foreach (var pair in diffPacks)
                     {
                         SongSet set = new(pair.Key.ToString());
-                        foreach(Type song in pair.Value)
+                        foreach (Type song in pair.Value)
                         {
                             set.Push(song);
                         }
@@ -66,8 +84,9 @@ namespace UndyneFight_Ex.Remake.UI
                         SongPack pack = new(set, pair.Key.ToString());
                         packs.AddFirst(pack);
                     }
-                    Generate(packs);
-                } 
+
+                    return packs;
+                }
             }
             private class DiffMode : SongList
             {
@@ -75,8 +94,16 @@ namespace UndyneFight_Ex.Remake.UI
                 { 
                 }
 
-                protected RootSelection Generate(IEnumerable<SongPack> diffPacks)
+                Difficulty last = Difficulty.NotSelected;
+                protected List<RootSelection> rootSelections;
+                protected void Generate(IEnumerable<SongPack> diffPacks, string playDefault = null, string fightDefault = null)
                 {
+                    if(cancelGenerate)
+                    {
+                        cancelGenerate = false;
+                        return;
+                    }
+                    rootSelections = new();
                     RootSelection last = null;
                     foreach (var pack in diffPacks)
                     {
@@ -97,17 +124,41 @@ namespace UndyneFight_Ex.Remake.UI
                                 Illustration = pack.Images.ContainsKey(waveSet.Music) ? pack.Images[waveSet.Music] : null,
                                 FightObject = pack.ChampionshipMap.ContainsKey(waveSet) ? pack.ChampionshipMap[waveSet] : waveSet
                             });
+                            if(waveSet.Music == playDefault && waveSet.FightName == fightDefault)
+                            {
+                                root.State = SelectState.Selected; 
+                                GameStates.InstanceCreate(
+                                    new InstantEvent(1, () => {
+                                        this.focusID = -1;
+                                        this._currentFocus = this._lastSelected = selection;
+                                        selection.State = SelectState.Selected;
+                                        this._father.SelectedID = this.SelectedID = FocusID;
+                                    })
+                                    ); ;
+                            }
                             curPosition.Y += 55;
                         }
                         last = root;
                         Head = root;
+                        rootSelections.Add(root);
                     }
-
-                    return last;
+                     
                 }
 
                 public override void Draw()
                 { 
+                }
+                private bool cancelGenerate = false;
+
+                internal virtual void ReSort(Difficulty dif)
+                {
+                    if(last == dif)
+                    {
+                        cancelGenerate = true;
+                        return;
+                    }
+                    last = dif;
+                    this.ChildObjects.Clear(); 
                 }
             }
         }

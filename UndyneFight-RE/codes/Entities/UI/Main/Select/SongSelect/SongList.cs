@@ -20,11 +20,19 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public override void Start()
                 {
-                    this.all = new SelectingModule[this.ChildObjects.Count];
+                    SetObjects();
+                    this.all[0].OnFocus();
+                    base.Start();
+                }
+
+                protected void SetObjects()
+                {
                     int i = 0;
+                    this.all = new SelectingModule[this.ChildObjects.Count];
                     _images = new Texture2D[this.ChildObjects.Count];
-                    foreach (var obj in this.ChildObjects) { 
-                        this.all[i] = (obj as SelectingModule); 
+                    foreach (var obj in this.ChildObjects)
+                    {
+                        this.all[i] = (obj as SelectingModule);
                         if (all[i] is LeafSelection)
                         {
                             LeafSelection leaf = (LeafSelection)all[i];
@@ -36,14 +44,12 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                         i++;
                     }
-                    this.all[0].OnFocus();
-                    base.Start();
                 }
 
                 public SelectingModule Focus => this._currentFocus;
 
                 protected RootSelection Head { set; private get; }
-                private SongSelector _father;
+                protected SongSelector _father;
                 private Vector2 _positionDelta = Vector2.Zero;
 
                 private Texture2D[] _images;
@@ -72,7 +78,7 @@ namespace UndyneFight_Ex.Remake.UI
                     focusID = -1;
                 }
 
-                SelectingModule _lastSelected;
+                protected  SelectingModule _lastSelected;
                 private void DeSelect()
                 {
                     this._father.DeSelectSong();
@@ -97,14 +103,17 @@ namespace UndyneFight_Ex.Remake.UI
                         A: module.Extras = leafCur.FightObject;
                         this._father.Selected(module);
                         this._father.SelectedID = this.SelectedID = FocusID;
-                    } 
-                } 
 
+                        this.SelectedName = leafCur.SongName;
+                    } 
+                }
+
+                public string SelectedName { get; private set; }
                 SelectingModule[] all;
 
-                SelectingModule _currentFocus;
+                protected SelectingModule _currentFocus;
                 public SelectingModule CurrentFocus => _currentFocus;
-                int focusID = -1;
+                protected int focusID = -1;
                 public int FocusID
                 {
                     get
@@ -115,25 +124,28 @@ namespace UndyneFight_Ex.Remake.UI
                             {
                                 if (all[i] == _currentFocus) return focusID = i;
                             }
-                            throw new Exception();
+                            return -1;
                         }
                         else return focusID;
                     }
                 }
 
-                protected int SelectedID { get; private set; } = -1;
+                protected int SelectedID { get; set; } = -1;
 
                 private int _timer = 0;
                 public sealed override void Update()
                 {
                     if (!this.Activated)
                     {
+                        this.DoAutoWheel();
                         _timer = 0;
                         return;
                     }
                     _timer++;
-                    if (_timer < 3) return;
-
+                    if (_timer < 3)
+                    {
+                        return;
+                    }
                     if (_lastSelected != null && !_lastSelected.ModuleSelected) this.SelectedID = this._father.SelectedID = -1;
 
                     if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
@@ -196,6 +208,14 @@ namespace UndyneFight_Ex.Remake.UI
                         this._positionDelta.Y = MathHelper.Lerp(this._positionDelta.Y, 0, 0.15f);
                 }
                 float wheelRemain = 0f, wheelLast = 0;
+                private void DoAutoWheel()
+                {
+                    LeafSelection curSelection = this._lastSelected as LeafSelection;
+                    if (curSelection == null) return;
+                    float y = curSelection.DrawingY;
+                    if (y < -10) this._positionDelta.Y -= y * 0.15f;// this._positionDelta.Y += 
+                    else if (y > 730) this._positionDelta.Y -= y * 0.15f;
+                }
             }
         }
     }
