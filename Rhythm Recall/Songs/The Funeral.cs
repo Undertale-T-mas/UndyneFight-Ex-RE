@@ -181,6 +181,12 @@ namespace Rhythm_Recall.Waves
                 Shaders.Fire.Height = 174.0f;
                 Shaders.Fire.PieceRate = 0.15f;
                 Shaders.Fire.Speed = 2f;
+
+                ScreenDrawing.ActivateShader(Shaders.DislocationX, 0.41234f);
+                Shaders.DislocationX.Intensity = 7;
+                Shaders.DislocationX.Speed = 5;
+                Shaders.DislocationX.RGBSplitEnabled = true;
+                Shaders.DislocationX.ChunkHeight = 2; 
                 /*
                 ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
                 Shaders.Aurora.ThemeColor = Color.Yellow;

@@ -107,6 +107,9 @@ namespace UndyneFight_Ex
             CustomShaders.Spiral =      new SpiralShader(loader.Load<Effect>("Sprial3D"));
             CustomShaders.Wrong =       new WrongShader(loader.Load<Effect>("Wrong"));
             CustomShaders.Fire =        new FireShader(loader.Load<Effect>("NoiseFire"));
+            
+            CustomShaders.DislocationX =  new DislocationShaderX(loader.Load<Effect>("DislocationX"));
+            //      CustomShaders.DislocationY =  new DislocationYShader(loader.Load<Effect>("DislocationY"));
             LoadInternals(loader);
             //Effects.CustomShaders.ShaderTiler = new Effects.ShaderTiler(loader.Load<Effect>("ShaderTiler"));
             //Effects.CustomShaders.Smear = new Effects.Smear(loader.Load<Effect>("Smear"));
@@ -145,6 +148,8 @@ namespace UndyneFight_Ex
                 public static BlockTileShader BlockTile { get; set; }
                 public static WrongShader Wrong { get; set; }
                 public static FireShader Fire { get; set; }
+                public static DislocationShaderX DislocationX { get; set; }
+                public static DislocationShaderY DislocationY { get; set; }
             }
         }
 
@@ -648,6 +653,8 @@ namespace UndyneFight_Ex
             public static SpiralShader Spiral => CustomShaders.Spiral;
             public static WrongShader Wrong => CustomShaders.Wrong;
             public static FireShader Fire => CustomShaders.Fire;
+            public static DislocationShaderX DislocationX => CustomShaders.DislocationX;
+            public static DislocationShaderY DislocationY => CustomShaders.DislocationY;
         }
     }
 }

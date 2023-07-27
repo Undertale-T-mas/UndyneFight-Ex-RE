@@ -206,6 +206,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/DislocationX.fx
 
+#begin Global/Shaders/Effect Library/DislocationX.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/DislocationX.fx
+
 #begin Global/Shaders/Effect Library/Gray.fx
 /importer:EffectImporter
 /processor:EffectProcessor

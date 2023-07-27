@@ -22,6 +22,10 @@ namespace UndyneFight_Ex.Remake.UI
         string _tip;
         public string Result { get; private set; }
 
+        public float TipScale { get; set; } = 1.0f;
+
+        public float TipDistance { get; set; } = 39f;
+
         public string DefaultValue { set { 
                 for(int i = 0; i < _texts.Length; i++)
                 {
@@ -44,7 +48,7 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Draw()
         {
             if(!_father.DrawEnabled) { return; }
-            FightResources.Font.NormalFont.CentreDraw(_tip, this.Centre - new Vector2(0, 39), Color.White);
+            FightResources.Font.NormalFont.CentreDraw(_tip, this.Centre - new Vector2(0, TipDistance), Color.White, TipScale, this.Depth);
             base.Draw();
         }
 

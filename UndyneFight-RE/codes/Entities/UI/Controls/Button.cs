@@ -83,8 +83,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             if (_mouseOn) this.sizeScale = MathHelper.Lerp(sizeScale, SelectedScale, 0.1f);
             else this.sizeScale = MathHelper.Lerp(sizeScale, 1.0f, 0.1f);
-
-            if (!this._father.Activated) return;
+             
             this.collidingBox.Size = fontSize;
             this._realLocation = _centre + PositionDelta;
             if (!CentreDraw) this._realLocation -= new Vector2(0, fontSize.Y * (sizeScale - 1) / 2f);

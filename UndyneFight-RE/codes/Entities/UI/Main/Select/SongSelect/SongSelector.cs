@@ -56,11 +56,20 @@ namespace UndyneFight_Ex.Remake.UI
             {
 
             }
+            public void DifficultyChanged(Difficulty dif)
+            {
+                if (this.Activated) return;
+                if(this._currentSongList is DiffMode)
+                {
+                    (this._currentSongList as DiffMode).ReSort(dif);
+                }
+            }
 
             public void Selected(SelectingModule module)
             {
+                if (module.Extras == null) return;
                 this._virtualFather.SelectSong(module.Extras);
-                this._virtualFather.DiffSelect.Activate();
+                this._virtualFather.DiffSelect.Activate(); 
                 this.Deactivate();
             }
             public void DeSelectSong()
@@ -204,10 +213,11 @@ namespace UndyneFight_Ex.Remake.UI
                 this._virtualFather = this.FatherObject as VirtualFather;
 
                 this.AddChild(new ImageDrawer());
+                this.AddChild(new SortInterface(this));
                 this.AddChild(this._packMode = new PackMode(this));
                 this.AddChild(this._diffClearMode = new DiffClearMode(this));
-                this._diffClearMode.Activate();
-                this._currentSongList = _diffClearMode;
+                this._packMode.Activate();
+                this._currentSongList = _packMode;
             }
             PackMode _packMode;
             DiffClearMode _diffClearMode;
