@@ -48,8 +48,8 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Alpha = 1.0f;
             this.UpdateIn120 = true;
             this.HitRadius = 4f;
+            this.Hidden = true;
             this.AngelMode = true;
-            this.controlLayer = Surface.Hidden;
         }
         protected override float GetDistance(Player.Heart heart)
         {
@@ -58,7 +58,7 @@ namespace UndyneFight_Ex.Remake.Entities
         public override void Start()
         {
             _autoDispose = AutoDispose;
-            this.HitRadius = 4f*Scale;
+            this.HitRadius = 5f * Scale;
         }
         public class LineSpider : Spider
         {
@@ -89,7 +89,7 @@ namespace UndyneFight_Ex.Remake.Entities
             public override void Update()
             {
                 collidingBox.X += speed * 0.5f * (movingWay ? 1 : -1);
-                base.Update();
+                base.Update(); 
             }
         }
     }
