@@ -2391,14 +2391,45 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(712))
                 {
+                    RegisterFunctionOnce("Scale", () => {
+                        production2?.Dispose();
+                        production2 = ScreenDrawing.ActivateShader(Shaders.Scale, 0.5593f);
+
+                        RunEase((s) => Shaders.Scale.Intensity = s, 
+                            EaseOut(BeatTime(0.25f), -0.19f, EaseState.Sine),
+                            EaseOut(BeatTime(16.25f), -0.19f, 0.0f, EaseState.Sine)
+                            );
+
+                        production3?.Dispose();
+                        production3 = ScreenDrawing.ActivateShader(Shaders.StepSample, 0.5593f);
+
+                        RunEase((s) => Shaders.StepSample.Intensity = s, 
+                            EaseOut(BeatTime(0.25f), 0.59f, EaseState.Sine),
+                            EaseOut(BeatTime(16.25f), 0.59f, 0.0f, EaseState.Sine)
+                            );
+                        DelayBeat(17, production2.Dispose);
+                        DelayBeat(17, production3.Dispose);
+                    });
+                    RegisterFunctionOnce("Throw", () => {
+                        RunEase((s) =>
+                            { BoxStates.Centre = s; Heart.InstantTP(s); },
+                            Combine(Linear(BeatTime(6), 320, 800), 
+                                LinkEase(
+                                    EaseOut(BeatTime(2), 240, 50, EaseState.Quad),
+                                    EaseIn(BeatTime(4), 50, 650, EaseState.Quad)
+                                
+                                ))
+                            );
+                    });
+
                     BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "(Scale)",
                          
                         //1 
-                        "", "", "", "",    "", "", "", "",
+                        "(^#3#$00'2)(^#3#$21'2)(Throw)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
@@ -2699,7 +2730,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    int beat = 616 + 32;
+                    int beat = 711;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
