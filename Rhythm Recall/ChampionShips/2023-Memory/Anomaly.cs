@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
@@ -33,29 +34,172 @@ namespace Rhythm_Recall.Waves
             {
                 appearTime++;
             }
+            public override void Dispose()
+            {
+                music.Stop();
+                base.Dispose();
+            }
+        }
+
+        private class Charactor : AutoEntity
+        {
+            public Charactor() : base()
+            {
+                this.Image = Loader.Load<Texture2D>("Musics\\EndTime\\sprite_charactor");
+            }
+            public override void Update()
+            {
+                this.Alpha = 1f;
+                this.Centre = new(320, 130);
+                this.Scale = 0.5f;
+            }
         }
 
         public class AnomalyGenerater : WaveConstructor
         {
+            private class ParticleGenerater : GameObject
+            {
+                public float Rotation { get; set; } = 90;
+                public override void Update()
+                {
+                    this.AddChild(new Particle(Color.White * Rand(0.4f, 0.6f), GetVector2(Rand(2f, 3f), Rand(-8f, 8f) + Rotation),
+                        Rand(8f, 16f), new(Rand(-100, 740), -12), FightResources.Sprites.square)
+                    { DarkingSpeed = 2f, AutoRotate = true });
+                }
+
+            }
             public AnomalyGenerater() : base(TranscendenceAnomaly.SingleBeat)
             {
-                AddInstance(new InstantEvent(0, StartEvent));
-                UpdateIn120 = true;
-                AddChild(new TimeRangedEvent(999999, UpdateEvent) { UpdateIn120 = true });
+                AddInstance(new InstantEvent(0, this.StartEvent));
+                this.UpdateIn120 = true;
+                this.AddChild(new TimeRangedEvent(999999, UpdateEvent) { UpdateIn120 = true });
                 GametimeDelta = -1.8f;
             }
             private void StartEvent()
             {
+                Shader SinWave;
+                SinWave = new Shader(Loader.Load<Effect>("Musics\\DustTrust\\shake"));
 
+                SinWave.Parameters["frequency"].SetValue(0f);
+                SinWave.Parameters["distance"].SetValue(new Vector2(0f, 0f));
+                SinWave.Parameters["range"].SetValue(0f);
+                SinWave.Parameters["frequency2"].SetValue(0f);
+                SinWave.Parameters["range2"].SetValue(0f);
+                SinWave.Parameters["time"].SetValue(0f);
+                SinWave.Parameters["time2"].SetValue(0f);
+
+                GameObject obj1;
+                AddInstance(obj1 = new ParticleGenerater() { Rotation = 77 });
+
+                AddInstance(new Charactor());
+
+                RegisterFunctionOnce("SceneOut", () =>
+                {
+                    // sinwave shake
+                    ScreenDrawing.Shaders.Filter filter;
+                    ScreenDrawing.SceneRendering.InsertProduction(filter = new ScreenDrawing.Shaders.Filter(SinWave, 0.6755f));
+                    DelayBeat(16, () =>
+                    {
+                        filter.Dispose();
+                    });
+                    float a = 0;
+                    ForBeat(16, () =>
+                    {
+                        SinWave.Parameters["time"].SetValue(a); a += 0.26f;
+                        SinWave.Parameters["time2"].SetValue(a * 1.5f);
+                    });
+
+                    ValueEasing.EaseBuilder rgbShake = new();
+                    rgbShake.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(0, 1.8f, BeatTime(1)));
+                    rgbShake.Insert(BeatTime(7), ValueEasing.EaseOutCubic(1.8f, 0.6f, BeatTime(7)));
+                    rgbShake.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(1, 8, BeatTime(1)));
+                    rgbShake.Insert(BeatTime(7), ValueEasing.EaseOutCubic(8, 0, BeatTime(7)));
+                    rgbShake.Run(s =>
+                    {
+                        SinWave.Parameters["frequency"].SetValue(s * 15f + 150f);
+                        SinWave.Parameters["frequency2"].SetValue(s * 35f + 220f);
+                        SinWave.Parameters["range2"].SetValue(s);
+                        SinWave.Parameters["range"].SetValue(s * 1.25f);
+                    });
+
+                    //background color
+                    DelayBeat(8, () =>
+                    {
+                        ScreenDrawing.SceneOut(Color.Black * 0.98f, BeatTime(8f - 1));
+                    });
+                    for (int i = 0; i < 7; i++)
+                    {
+                        int t = i;
+                        DelayBeat(t, () =>
+                        {
+                            ScreenDrawing.MakeFlicker(Color.Black * (t * 0.06f + 0.4f));
+                        });
+                        if (i >= 4)
+                        {
+                            DelayBeat(t + 0.5f, () =>
+                            {
+                                ScreenDrawing.MakeFlicker(Color.Black * (t * 0.06f + 0.4f));
+                            });
+                        }
+                    }
+
+                    ValueEasing.EaseBuilder builder = new();
+                    builder.Insert(BeatTime(8), ValueEasing.EaseInElastic(0.0f, 0.5f, BeatTime(8)));
+                    builder.Insert(BeatTime(24), ValueEasing.EaseOutCubic(0.5f, 1.0f, BeatTime(24)));
+                    builder.Run((s) =>
+                    {
+                        ScreenDrawing.BoundColor = Color.Lerp(Color.Silver, Color.Gray * 0.5f, s);
+                    });
+                });
+                RegisterFunctionOnce("AlphaChange", () => {
+                    ValueEasing.EaseBuilder alphaEase = new();
+                    alphaEase.Adjust = false;
+                    alphaEase.Insert(BeatTime(4), ValueEasing.EaseOutQuad(0.4f, 1f, BeatTime(4)));
+                    alphaEase.Insert(BeatTime(12), ValueEasing.Stable(1f));
+                    alphaEase.Insert(BeatTime(16), ValueEasing.EaseInQuart(1f, 0f, BeatTime(16)));
+                    alphaEase.Insert(BeatTime(4), ValueEasing.EaseOutQuad(0.4f, 1f, BeatTime(4)));
+                    alphaEase.Insert(BeatTime(12), ValueEasing.Stable(1f));
+                    alphaEase.Insert(BeatTime(16), ValueEasing.EaseInQuart(1f, 0f, BeatTime(16)));
+                    alphaEase.Insert(BeatTime(4), ValueEasing.EaseOutQuad(0.4f, 1f, BeatTime(4)));
+                    for (int i = 0; i < 7; i++)
+                        alphaEase.Insert(BeatTime(4), ValueEasing.EaseOutQuad(0.8f, 1f, BeatTime(4)));
+                    for (int i = 0; i < 16; i++)
+                        alphaEase.Insert(BeatTime(1), ValueEasing.EaseOutQuad(0.69f, 0.8f, BeatTime(1)));
+                    alphaEase.Run(s => ScreenDrawing.MasterAlpha = s);
+                });
+
+                RegisterFunctionOnce("End", () => {
+                    IntoChart(_difficulty);
+                });
+
+                string[] rhythm = {
+                        "AlphaChange", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "SceneOut", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "End",
+                    };
+                BarrageCreate(0, BeatTime(8), 0, rhythm);
             }
             private void UpdateEvent()
             {
-                if (At0thBeat(4)) PlaySound(Sounds.pierce);
-                if (GameStates.IsKeyPressed120f(Keys.R)) GameStates.EndFight();
+                //if (GameStates.IsKeyPressed120f(InputIdentity.Reset)) GameStates.EndFight(); 
             }
         }
 
-        int _difficulty;
+        static int _difficulty;
         public TranscendenceAnomaly(int difficulty)
         {
             _difficulty = difficulty;
@@ -63,22 +207,33 @@ namespace Rhythm_Recall.Waves
 
         public override void Start()
         {
-            InstanceCreate(new MusicPlayer());
-            InstanceCreate(new AnomalyGenerater());
+            this.InstanceCreate(new MusicPlayer());
+            this.InstanceCreate(new AnomalyGenerater());
 
             GametimeDelta = 0; //reset it if in need
         }
         private static void IntoChart(int difficulty)
         {
             SongFightingScene.SceneParams @params =
-                new(new SpecialOne.Game(), null, difficulty, "Content\\Musics\\Transcendence\\song", JudgementState.Strict, GameMode.Practice);
+                new(new Transcendence.Game(), null, difficulty, "Content\\Musics\\Transcendence\\song", JudgementState.Strict, GameMode.Practice);
             GameStates.ResetScene(new SongLoadingScene(@params));
+
+            if (PlayerManager.CurrentUser == null) return;
             SaveInfo custom = PlayerManager.CurrentUser.Custom;
-            if (!custom.Nexts.ContainsKey("Transcendence"))
+            if (!custom.Nexts.ContainsKey("reTranscendence"))
             {
-                custom.PushNext(new("Transcendence{"));
-                custom.PushNext(new("info:" + difficulty));
+                custom.PushNext(new("reTranscendence{"));
+                custom.Nexts["reTranscendence"].PushNext(new("info:" + difficulty));
             }
+            else
+            {
+                int value = custom.Nexts["reTranscendence"].Nexts["info"].IntValue;
+                if (difficulty > value)
+                {
+                    custom.Nexts["reTranscendence"].Nexts["info"][0] = difficulty.ToString();
+                }
+            }
+            PlayerManager.Save();
         }
     }
     public class EndTimeAnomaly : Scene
@@ -87,6 +242,7 @@ namespace Rhythm_Recall.Waves
         public static float BeatTime(float x) => x * SingleBeat;
         private class ParticleManager : GameObject
         {
+            public bool ForeEnable { get; set; } = false;
             public ParticleManager()
             {
                 UpdateIn120 = true;
@@ -96,7 +252,7 @@ namespace Rhythm_Recall.Waves
             {
                 appearTime++;
                 // fore particle
-                if (appearTime % 2 == 0)
+                if (appearTime % 2 == 0 && ForeEnable)
                 {
                     CreateEntity(new Particle(Color.White * Rand(0.6f, 0.9f) * 0.8f,
                         GetVector2(Rand(6f, 9f) * 0.9f, Rand(-12f, -18f)), Rand(12f, 18f) * 1.4f,
@@ -112,61 +268,27 @@ namespace Rhythm_Recall.Waves
         }
         private class ImageEntity : AutoEntity
         {
-            CentreEasing.EaseBuilder Circuit;
-            ValueEasing.EaseBuilder Rotate;
             public ImageEntity(Texture2D texture)
             {
-                Centre = new(320, 240);
+                this.Centre = new(320, 240);
                 UpdateIn120 = true;
-                AngelMode = true;
-                Image = texture;
-                Circuit = new();
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutBack(new(0, 0), new(16, 16), BeatTime(16)));
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutSine(new(16, 16), new(0, 0), BeatTime(16)));
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutBack(new(0, 0), new(-16, 16), BeatTime(16)));
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutSine(new(-16, 16), new(0, 0), BeatTime(16)));
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutBack(new(0, 0), new(-16, -16), BeatTime(16)));
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutSine(new(-16, -16), new(0, 0), BeatTime(16)));
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutBack(new(0, 0), new(16, -16), BeatTime(16)));
-                Circuit.Insert(BeatTime(16), CentreEasing.EaseOutSine(new(16, -16), new(0, 0), BeatTime(16)));
-
-                Rotate = new();
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseOutQuad(0, 1.8f, BeatTime(16)));
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseInQuad(1.8f, 0, BeatTime(16)));
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseOutQuad(0, -1.8f, BeatTime(16)));
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseInQuad(-1.8f, 0, BeatTime(16)));
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseOutQuad(0, 1.8f, BeatTime(16)));
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseInQuad(1.8f, 0, BeatTime(16)));
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseOutQuad(0, -1.8f, BeatTime(16)));
-                Rotate.Insert(BeatTime(16), ValueEasing.EaseInQuad(-1.8f, 0, BeatTime(16)));
-                Scale = 1.15f;
+                this.AngelMode = true;
+                this.Image = texture;
+                this.Scale = 2.15f;
             }
             float timer = 999990;
             public override void Update()
             {
-                timer += 0.5f;
-                if (timer > BeatTime(128))
-                {
-                    timer = 0;
-                    Circuit.Run((s) =>
-                    {
-                        Centre = Centre * 0.995f + (s + new Vector2(320, 240)) * 0.005f;
-                    });
-                    Rotate.Run((s) =>
-                    {
-                        Rotation = s * 0.6f;
-                    });
-                }
-
-                Alpha = 1;
+                this.Depth = 0.2f;
+                this.Alpha = 1;
             }
         }
         private class MusicPlayer : GameObject
         {
-            SoundEffectInstance music;
+            Audio music;
             public MusicPlayer()
             {
-                music = Loader.Load<SoundEffect>("Musics\\EndTime\\song").CreateInstance();
+                music = new("Musics\\EndTime\\song");
                 music.Play();
                 UpdateIn120 = true;
             }
@@ -175,6 +297,41 @@ namespace Rhythm_Recall.Waves
             public override void Update()
             {
                 appearTime++;
+            }
+            public override void Dispose()
+            {
+                music.Stop();
+                base.Dispose();
+            }
+        }
+
+        private class DifficultySelector : Entity
+        {
+            public DifficultySelector()
+            {
+                UpdateIn120 = true;
+                difficulty = 2;
+            }
+            public override void Draw()
+            {
+                FightResources.Font.NormalFont.Draw("Press Z to change difficulty", new(60, 340), Color.White, 1.0f, 0.99f);
+                FightResources.Font.NormalFont.Draw("Current:", new(60, 390), Color.Silver, 1.0f, 0.99f);
+                if (isDiv1)
+                    FightResources.Font.NormalFont.Draw("Hard", new(220, 390), Color.MediumPurple, 1.0f, 0.99f);
+                else
+                    FightResources.Font.NormalFont.Draw("Noob", new(220, 390), Color.Lime, 1.0f, 0.99f);
+
+            }
+            bool isDiv1 = true;
+            public override void Update()
+            {
+                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                {
+                    isDiv1 = !isDiv1;
+                    PlaySound(Sounds.Ding);
+                }
+                if (isDiv1) difficulty = 3;
+                else difficulty = 0;
             }
         }
 
@@ -186,9 +343,9 @@ namespace Rhythm_Recall.Waves
                 if (user == null) return Difficulty.ExtremePlus;
 
                 SaveInfo custom = user.Custom;
-                return !custom.Nexts.ContainsKey("Transcendence")
-                    ? Difficulty.ExtremePlus
-                    : (Difficulty)(custom.Nexts["Transcendence"].Nexts["info"]).IntValue;
+                if (!custom.Nexts.ContainsKey("reTranscendence")) return Difficulty.ExtremePlus;
+
+                return (Difficulty)(custom.Nexts["reTranscendence"].Nexts["info"]).IntValue;
             }
         }
 
@@ -196,841 +353,128 @@ namespace Rhythm_Recall.Waves
         {
             public AnomalyGenerater() : base(EndTimeAnomaly.SingleBeat)
             {
-                AddInstance(new InstantEvent(0, StartEvent));
-                UpdateIn120 = true;
-                AddChild(new TimeRangedEvent(999999, UpdateEvent) { UpdateIn120 = true });
+                AddInstance(new InstantEvent(0, this.StartEvent));
+                this.UpdateIn120 = true;
+                this.AddChild(new TimeRangedEvent(999999, () => {
+                    UpdateEvent();
+                })
+                { UpdateIn120 = true });
+                AddInstance(textureEntity = new ImageEntity(anomalyTexture));
+                AddInstance(particleManager = new ParticleManager());
             }
-            public static AnomalyGenerater game;
-            public static AnomalyGenerater instance;
-            private static class MainEffect
-            {
-                public static void PlusGreenSoulRotate(float rot, float duration)
-                {
-                    float start = Heart.Rotation;
-                    float end = rot;
-                    float del = start - end;
-                    float t = 0;
-                    AddInstance(new TimeRangedEvent(0, duration, () =>
-                    {
-                        float x = t / (duration - 1);
-                        float f = 2 * x - x * x;
-                        Heart.InstantSetRotation(start - del * f);
-                        t++;
-                    }));
-                }
-                public static void BGshining()
-                {
-                    float alp = 0;
-                    game.ForBeat(2, () =>
-                    {
-                        ScreenDrawing.BackGroundColor = Color.Gray * alp;
-                        alp += 0.0075f;
-                    });
-                    game.ForBeat(2, 2, () =>
-                    {
-                        ScreenDrawing.BackGroundColor = Color.Gray * alp;
-                        alp -= 0.0075f;
-                    });
-                }
-                public static void SoftSetBox(Vector2 center, float width, float height, float duration, int SetMission, int type)
-                {
-                    float t = 0;
-                    float startx = BoxStates.Centre.X;
-                    float starty = BoxStates.Centre.Y;
-                    float endx = center.X;
-                    float endy = center.Y;
-                    float delx = startx - endx;
-                    float dely = starty - endy;
-                    if (type == 1)
-                    {
-                        AddInstance(new TimeRangedEvent(0, duration, () =>
-                        {
-                            float x = t / (duration - 1);
-                            float f = 2 * x - x * x;
-                            SetBoxMission(SetMission);
-                            InstantSetBox(new Vector2(startx - delx * f, starty - dely * f), width, height);
-                            t++;
-                        }));
-                    }
-                    if (type == 2)
-                    {
-                        AddInstance(new TimeRangedEvent(0, duration, () =>
-                        {
-                            float x = t / (duration - 1);
-                            float f = x * x;
-                            SetBoxMission(SetMission);
-                            InstantSetBox(new Vector2(startx - delx * f, starty - dely * f), width, height);
-                            t++;
-                        }));
-                    }
-                }
-                public static void SoftTP(Vector2 center, float duration, int SetMission, int type)
-                {
-                    float t = 0;
-                    float startx = Heart.Centre.X;
-                    float starty = Heart.Centre.Y;
-                    float endx = center.X;
-                    float endy = center.Y;
-                    float delx = startx - endx;
-                    float dely = starty - endy;
-                    if (type == 1)
-                    {
-                        AddInstance(new TimeRangedEvent(0, duration, () =>
-                        {
-                            float x = t / (duration - 1);
-                            float f = 2 * x - x * x;
-                            SetPlayerMission(SetMission);
-                            InstantTP(new Vector2(startx - delx * f, starty - dely * f));
-                            t++;
-                        }));
-                    }
-                    if (type == 2)
-                    {
-                        AddInstance(new TimeRangedEvent(0, duration, () =>
-                        {
-                            float x = t / (duration - 1);
-                            float f = x * x;
-                            SetPlayerMission(SetMission);
-                            InstantTP(new Vector2(startx - delx * f, starty - dely * f));
-                            t++;
-                        }));
-                    }
-                }
-            }
-            private static class Barrage
-            {
-                public static void effect00()
-                {
-                    ScreenDrawing.ScreenScale = 1.6f;
-                    ScreenDrawing.BoundColor = new(95, 137, 154, 60);
-                    DrawingUtil.MaskSquare m = new(0, 0, 640, 480, game.BeatTime(38), Color.Black, 1);
-                    CreateEntity(m);
-                    float t = 0;
-                    game.ForBeat(4, () =>
-                    {
-                        m.alpha -= 0.0075f;
-                    });
-                    game.ForBeat(37, () =>
-                    {
-                        ScreenDrawing.LeftBoundDistance = 320 - 90 + Sin(t * 1.5f) * 10;
-                        ScreenDrawing.RightBoundDistance = 320 - 90 + Sin(t * 1.5f) * 10;
-                        t++;
-                    });
-                    game.DelayBeat(39.5f, () =>
-                    {
-                        m.Dispose();
-                        ScreenDrawing.LeftBoundDistance = 0;
-                        ScreenDrawing.RightBoundDistance = 0;
-                    });
-                }
-                public static void effect01()
-                {
-                    game.DelayBeat(32, () =>
-                    {
-                        DrawingUtil.MinusScreenScale(0.2f, game.BeatTime(2));
-                        game.ForBeat(2, 2, () =>
-                        {
-                            ScreenDrawing.ScreenScale += 0.075f;
-                        });
-                        game.DelayBeat(2, () =>
-                        {
-                            ScreenDrawing.WhiteOut(game.BeatTime(2));
-                        });
-                        game.DelayBeat(4, () =>
-                        {
-                            ScreenDrawing.ScreenScale = 1;
-                        });
-                    });
-                    game.DelayBeat(0, () =>
-                    {
-                        float alp = 0.8f;
-                        DrawingUtil.NormalLine a = new(0, Rand(150, 195), 640, LastRand, game.BeatTime(12), alp) { depth = 0.01f };
-                        DrawingUtil.NormalLine b = new(0, Rand(195, 240), 640, LastRand, game.BeatTime(12), alp) { depth = 0.01f };
-                        DrawingUtil.NormalLine c = new(0, Rand(240, 285), 640, LastRand, game.BeatTime(12), alp) { depth = 0.01f };
-                        DrawingUtil.NormalLine d = new(0, Rand(285, 330), 640, LastRand, game.BeatTime(12), alp) { depth = 0.01f };
-                        DrawingUtil.NormalLine e = new(0, Rand(105, 150), 640, LastRand, game.BeatTime(12), alp) { depth = 0.01f };
-                        DrawingUtil.NormalLine f = new(0, Rand(330, 375), 640, LastRand, game.BeatTime(12), alp) { depth = 0.01f };
-                        CreateEntity(a);
-                        CreateEntity(b);
-                        CreateEntity(c);
-                        CreateEntity(d);
-                        CreateEntity(e);
-                        CreateEntity(f);
-                        for (int i = 0; i < game.BeatTime(6); i++)
-                        {
-                            AddInstance(new InstantEvent(i * 2, () =>
-                            {
-                                a.alpha = alp;
-                                b.alpha = alp;
-                                c.alpha = alp;
-                                d.alpha = alp;
-                                e.alpha = alp;
-                                f.alpha = alp;
-                                alp -= 0.005f;
-                            }));
-                            AddInstance(new InstantEvent(i * 2 + 1, () =>
-                            {
-                                a.alpha = 0;
-                                b.alpha = 0;
-                                c.alpha = 0;
-                                d.alpha = 0;
-                                e.alpha = 0;
-                                f.alpha = 0;
-                            }));
-                        }
-                    });
-                }
-                public static void rhythm01()
-                {
-                    float t = game.BeatTime(2);
-                    string[] rhythm =
-                    {
-                        "(R)(D1)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "R","/","/","/",    "/","/","/","/",
-                        //
-                        "R","/","/","/",    "/","/","/","/",    "R","/","/","/",    "/","/","/","/",
-                        "R","/","/","/",    "/","/","/","/",    "R","/","/","/",    "/","/","/","/",
-                        //
-                        "(R1)(D)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "R1","/","/","/",    "/","/","/","/",
-                        //
-                        "R1","/","/","/",    "/","/","/","/",    "R1","/","/","/",    "/","/","/","/",
-                        "R1","/","/","/",    "/","/","/","/",    "R1","/","/","/",    "/","/","/","/",
-                        ////
-                        "(D)(+21)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "($0)(+21)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "(R1)(+21)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        /* - End Start - */
-                    };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        if (rhythm[i] == "/")
-                        {
-                            t += game.BeatTime(0.125f);
-                        }
-                        else if (rhythm[i] != "/")
-                        {
-                            instance.CreateArrows(t, 3.15f, rhythm[i]);
-                            t += game.BeatTime(0.125f);
-                        }
-                    }
-                }
-                public static void effect02()
-                {
+            ImageEntity textureEntity;
+            ParticleManager particleManager;
 
-                }
-                public static void rhythm02()
-                {
-                    float t = game.BeatTime(2);
-                    string[] rhythm =
-                    {
-                        "($0)($0)","/","/","/",    "+0","/","/","/",    "+0","/","/","/",    "+0","/","/","/",
-                        "D","/","/","/",    "R","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        //
-                        "(D)(+201)","/","/","/",    "R","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        "D","/","/","/",    "R","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        //
-                        "(R)(D1)","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        "D1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        //
-                        "(D)(+211)","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        "D1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        ////
-                        "(R)(D1)","/","/","/",    "R","/","/","/",    "(R)(D1)","/","/","/",    "R","/","/","/",
-                        "(D)(D1)","/","/","/",    "R","/","/","/",    "(R)(D1)","/","/","/",    "R","/","/","/",
-                        //
-                        "(R)(D1)","/","/","/",    "R","/","/","/",    "(R)(D1)","/","/","/",    "R","/","/","/",
-                        "(D)(D1)","/","/","/",    "R","/","/","/",    "(R)(D1)","/","/","/",    "R","/","/","/",
-                        //
-                        "(R1)(D)","/","/","/",    "R1","/","/","/",    "(R1)(D)","/","/","/",    "R1","/","/","/",
-                        "(D1)(D)","/","/","/",    "R1","/","/","/",    "(R1)(D)","/","/","/",    "R1","/","/","/",
-                        //
-                        "(R1)(D)","/","/","/",    "R1","/","/","/",    "(R1)(D)","/","/","/",    "R1","/","/","/",
-                        "D","/","+0","/",    "/","/","D1","/",    "+01","/","/","/",    "D","/","+0","/",
-                        ////
-                    };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        if (rhythm[i] == "/")
-                        {
-                            t += game.BeatTime(0.125f);
-                        }
-                        else if (rhythm[i] != "/")
-                        {
-                            instance.CreateArrows(t, 6.25f, rhythm[i]);
-                            t += game.BeatTime(0.125f);
-                        }
-                    }
-                }
-                public static void effect03()
-                {
-                    game.DelayBeat(16, () =>
-                    {
-                        MainEffect.PlusGreenSoulRotate(5, game.BeatTime(4));
-                    });
-                    game.DelayBeat(20, () =>
-                    {
-                        MainEffect.PlusGreenSoulRotate(-5, game.BeatTime(4));
-                    });
-                    game.DelayBeat(24, () =>
-                    {
-                        MainEffect.PlusGreenSoulRotate(0, game.BeatTime(4));
-                    });
-                    game.DelayBeat(28, () =>
-                    {
-                        float p = 0;
-                        game.ForBeat(4, () =>
-                        {
-                            Heart.InstantSetRotation(p * p * 0.075f);
-                            ScreenDrawing.ScreenScale = p * 0.02f + 1;
-                            p++;
-                        });
-                    });
-                }
-                public static void rhythm03()
-                {
-                    game.DelayBeat(0, () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(2), Rand(0, 3), 1, game.BeatTime(1)));
-                        CreateEntity(new GreenSoulGB(game.BeatTime(3.5f), LastRand, 1, game.BeatTime(2.5f)));
-                    });
-                    game.DelayBeat(4, () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(2), Rand(0, 3), 1, game.BeatTime(1)));
-                        CreateEntity(new GreenSoulGB(game.BeatTime(3.5f), LastRand, 1, game.BeatTime(2.5f)));
-                    });
-                    game.DelayBeat(8, () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(2), Rand(0, 3), 0, game.BeatTime(1)));
-                        CreateEntity(new GreenSoulGB(game.BeatTime(3.5f), LastRand, 0, game.BeatTime(2.5f)));
-                    });
-                    game.DelayBeat(12, () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(2), Rand(0, 3), 0, game.BeatTime(1)));
-                        CreateEntity(new GreenSoulGB(game.BeatTime(3.5f), LastRand, 0, game.BeatTime(2.5f)));
-                    });
-                    float t = game.BeatTime(2);
-                    string[] rhythm =
-                    {
-                        "R","/","/","/",    "R","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        "D","/","/","/",    "R","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        //
-                        "R","/","/","/",    "R","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        "D","/","/","/",    "R","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        //
-                        "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        "D1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        //
-                        "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        "D1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        ////
-                        "($0)($2)","/","/","/",    "($0)($2)","/","/","/",    "($0)($2)","/","/","/",    "($0)($2)","/","/","/",
-                        "($0)($2)","/","/","/",    "($0)($2)","/","/","/",    "($0)($2)","/","/","/",    "($0)($2)","/","/","/",
-                        //
-                        "($01)($21)","/","/","/",    "($01)($21)","/","/","/",    "($01)($21)","/","/","/",    "($01)($21)","/","/","/",
-                        "($01)($21)","/","/","/",    "($01)($21)","/","/","/",    "($01)($21)","/","/","/",    "($01)($21)","/","/","/",
-                        //
-                    };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        if (rhythm[i] == "/")
-                        {
-                            t += game.BeatTime(0.125f);
-                        }
-                        else if (rhythm[i] != "/")
-                        {
-                            instance.CreateArrows(t, 6.25f, rhythm[i]);
-                            t += game.BeatTime(0.125f);
-                        }
-                    }
-                    float t1 = game.BeatTime(26);
-                    string[] rhythm1 =
-                    {
-                        /*
-                        "$0","$1","$2","$1","$0","$1",    "$2","$1","$0","$1","$2","$1",
-                        "$0","$1","$2","$1","$0","$1",    "$2","$1","$0","$1","$2","$1",
-                        //
-                        "$0","$1","$2","$1","$0","$1",    "$2","$1","$0","$1","$2","$1",
-                        "$0","$1","$2","$1","$0","$1",    "$2","$1","$0","$1","$2","$1",
-                        ////
-                        */
-                        "$0","$2","$0","$2","$0","$2",    "$0","$2","$0","$2","$0","$2",
-                        "$0","$2","$0","$2","$0","$2",    "$0","$2","$0","$2","$0","$2",
-                        //
-                        "($0)($31)","($2)($11)","($0)($31)","($2)($11)","($0)($31)","($2)($11)",    "($0)($31)","($2)($11)","($0)($31)","($2)($11)","($0)($31)","($2)($11)",
-                        "($0)($31)","($2)($11)","($0)($31)","($2)($11)","($0)($31)","($2)($11)",    "($0)($31)","($2)($11)","($0)($31)","($2)($11)","($0)($31)","($2)($11)",
-                        ////
-                    };
-                    for (int i = 0; i < rhythm1.Length; i++)
-                    {
-                        if (rhythm1[i] == "/")
-                        {
-                            t1 += game.BeatTime(1 / 6f);
-                        }
-                        else if (rhythm1[i] != "/")
-                        {
-                            instance.CreateArrows(t1, 6.25f, rhythm1[i]);
-                            t1 += game.BeatTime(1 / 6f);
-                        }
-                    }
-                }
-                public static void rhythm04()
-                {
-                    game.RegisterFunctionOnce("SoulShining", () =>
-                    {
-                        SetSoul(1);
-                    });
-                    float t = game.BeatTime(6);
-                    string[] rhythm =
-                    {
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "$1","/","/","/",    "$2","/","/","/",
-                        //
-                        "($1)(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "$31","/","/","/",    "$01","/","/","/",
-                        //
-                        "($31)(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "$0","/","/","/",    "$1","/","/","/",
-                        //
-                        "$0","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "$311","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        ////
-                        "($101)(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "$202","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "$012","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "($3)(+01)(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "($2)(+2)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        ////
-                        "$1(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "$011","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "$201(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "$31","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "($2)(+01)(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "($3)(+01)(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "$101","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        ////
-                        "$21(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "$1","/","/","/",    "$2","/","/","/",
-                        //
-                        "$31","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "$0","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "($0)(+01)(SoulShining)","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                    };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        if (rhythm[i] == "/")
-                        {
-                            t += game.BeatTime(0.125f);
-                        }
-                        else if (rhythm[i] != "/")
-                        {
-                            game.NormalizedChart(t, 2.65f, rhythm[i]);
-                            t += game.BeatTime(0.125f);
-                        }
-                    }
-                }
-                public static void effect04()
-                {
-                    game.DelayBeat(0, () =>
-                    {
-                        DrawingUtil.SetScreenScale(1, game.BeatTime(16));
-                        float rot1 = Heart.Rotation;
-                        game.ForBeat(60, () =>
-                        {
-                            Heart.InstantSetRotation(rot1);
-                            rot1 += 0.75f;
-                        });
-                    });
-                    for (int i = 0; i < 7; i++)
-                    {
-                        game.DelayBeat(i * 8, () =>
-                        {
-                            MainEffect.BGshining();
-                        });
-                    }
-                    game.DelayBeat(60, () =>
-                    {
-                        Heart.Split();
-                        SetBoxMission(0);
-                        SetBox(new Vector2(320 - 126, 480), 84, 84);
-                        SetPlayerMission(0);
-                        Heart.InstantSetRotation(90);
-                        TP(new Vector2(320 - 126, 480));
-                        Heart.Split();
-                        SetBoxMission(1);
-                        SetBox(new Vector2(320 - 42, 480), 84, 84);
-                        SetPlayerMission(2);
-                        Heart.InstantSetRotation(-90);
-                        TP(new Vector2(320 - 42, 480));
-                        SetBoxMission(2);
-                        SetBox(new Vector2(320 + 42, 480), 84, 84);
-                        SetPlayerMission(1);
-                        Heart.InstantSetRotation(90);
-                        TP(new Vector2(320 + 42, 480));
-                        Heart.Split();
-                        SetBoxMission(3);
-                        SetBox(new Vector2(320 + 126, 480), 84, 84);
-                        SetPlayerMission(3);
-                        Heart.InstantSetRotation(-90);
-                        TP(new Vector2(320 + 126, 480));
-                        CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(game.BeatTime(2), "$A", new Vector2(316 - 126, 380), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Gray)));
-                        CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(game.BeatTime(2), "$D", new Vector2(316 - 42, 380), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Gray)));
-                        CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(game.BeatTime(2), "$Left", new Vector2(300 + 42, 380), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Gray)));
-                        CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(game.BeatTime(2), "$Right", new Vector2(308 + 126, 380), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Gray)));
-                    });
-                    game.DelayBeat(62, () =>
-                    {
-                        SetBoxMission(0);
-                        MainEffect.SoftSetBox(new(320, 240), 84, 84, game.BeatTime(2), 0, 2);
-                        SetPlayerMission(0);
-                        MainEffect.SoftTP(new(320, 240), game.BeatTime(2), 0, 2);
-                        MainEffect.PlusGreenSoulRotate(0, game.BeatTime(2));
-                        SetBoxMission(1);
-                        MainEffect.SoftSetBox(new(320, 240), 84, 84, game.BeatTime(2), 1, 2);
-                        SetPlayerMission(1);
-                        MainEffect.SoftTP(new(320, 240), game.BeatTime(2), 1, 2);
-                        MainEffect.PlusGreenSoulRotate(0, game.BeatTime(2));
-                        SetBoxMission(2);
-                        MainEffect.SoftSetBox(new(320, 240), 84, 84, game.BeatTime(2), 2, 2);
-                        SetPlayerMission(2);
-                        MainEffect.SoftTP(new(320, 240), game.BeatTime(2), 2, 2);
-                        MainEffect.PlusGreenSoulRotate(0, game.BeatTime(2));
-                        SetBoxMission(3);
-                        MainEffect.SoftSetBox(new(320, 240), 84, 84, game.BeatTime(2), 3, 2);
-                        SetPlayerMission(3);
-                        MainEffect.SoftTP(new(320, 240), game.BeatTime(2), 3, 2);
-                        MainEffect.PlusGreenSoulRotate(0, game.BeatTime(2));
-                    });
-                    game.DelayBeat(64, () =>
-                    {
-                        SetBoxMission(0);
-                        InstantSetBox(new Vector2(320, 240), 84, 84);
-                        SetBoxMission(1);
-                        InstantSetBox(new Vector2(320, 240), 84, 84);
-                        SetBoxMission(2);
-                        InstantSetBox(new Vector2(320, 240), 84, 84);
-                        SetBoxMission(3);
-                        InstantSetBox(new Vector2(320, 240), 84, 84);
-                        SetPlayerMission(0);
-                        Player.hearts[1].Teleport(new(320, 240));
-                        Player.hearts[1].Merge(Player.hearts[0]);
-                        SetPlayerMission(0);
-                        InstantTP(new(320, 240));
-                        SetPlayerMission(2);
-                        Player.hearts[3].Teleport(new(320, 240));
-                        Player.hearts[3].Merge(Player.hearts[2]);
-                        SetPlayerMission(2);
-                        InstantTP(new(320, 240));
-                        SetPlayerMission(0);
-                        Player.hearts[2].Teleport(new(320, 240));
-                        Player.hearts[2].Merge(Player.hearts[0]);
-                        SetPlayerMission(0);
-                        InstantTP(new(320, 240));
-                        SetSoul(1);
-                    });
-                }
-                public static void rhythm05()
-                {
-                    game.RegisterFunctionOnce("bGBl", () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(4), "R", 0, game.BeatTime(3)));
-                    });
-                    game.RegisterFunctionOnce("bGBs", () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(4), "D", 0, game.BeatTime(0.85f)));
-                    });
-                    game.RegisterFunctionOnce("rGBl", () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(4), "R", 1, game.BeatTime(3)));
-                    });
-                    game.RegisterFunctionOnce("rGBs", () =>
-                    {
-                        CreateEntity(new GreenSoulGB(game.BeatTime(4), "D", 1, game.BeatTime(0.85f)));
-                    });
-                    float t = game.BeatTime(4);
-                    string[] rhythm =
-                    {
-                        "$3","/","/","/",    "R","/","+0","/",    "/","/","/","/",    "(R)(+01)","/","/","/",
-                        "D","/","+0","/",    "/","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        //
-                        "D","/","/","/",    "R","/","+0","/",    "/","/","/","/",    "(R)(+01)","/","/","/",
-                        "D","/","+0","/",    "/","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        //
-                        "D","/","/","/",    "R","/","+0","/",    "/","/","/","/",    "(R)(+01)","/","/","/",
-                        "D","/","+011","/",    "+0","/","/","/",    "R","/","/","/",    "R","/","/","/",
-                        //
-                        "D","/","/","/",    "R","/","+0","/",    "/","/","R","/",    "+0","/","/","/",
-                        "D","/","+01","/",    "+0","/","/","/",    "(D)(+2)","/","/","/",    "/","/","/","/",
-                        ////
-                        "$31","/","/","/",    "R1","/","+01","/",    "/","/","/","/",    "(R1)(+011)","/","/","/",
-                        "D1","/","+01","/",    "/","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        //
-                        "D1","/","/","/",    "R1","/","+01","/",    "/","/","/","/",    "(R1)(+011)","/","/","/",
-                        "D1","/","+01","/",    "/","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        //
-                        "D1","/","/","/",    "R1","/","+01","/",    "/","/","R1","/",    "+01","/","/","/",
-                        "D1","/","+001","/",    "/","/","+01","/",    "R1","/","+01","/",    "R1","/","/","/",
-                        //
-                        "D1","/","/","/",    "R1","/","+01","/",    "/","/","R1","/",    "+0","/","+01","/",
-                        "D11","/","/","/",    "+111","/","/","/",    "+111","/","/","/",    "+111","/","/","/",
-                        ////
-                        "($31)(#3#R)","/","/","/",    "R1","/","+01","/",    "/","/","/","/",    "R1","/","/","/",
-                        "(D1)(R)","/","+01","/",    "/","/","/","/",    "R1","/","/","/",    "R1","/","/","/",
-                        //
-                        "(D1)(#3#R)","/","/","/",    "R1","/","+01","/",    "/","/","/","/",    "R1","/","/","/",
-                        "(D1)(R)","/","+01","/",    "+01","/","/","/",    "(R)(+01)","/","/","/",    "(R)(+01)","/","/","/",
-                        //
-                        "(D1)(#2#D)","/","/","/",    "R","/","+01","/",    "(R)(#2#D1)","/","/","/",    "R1","/","+0","/",
-                        "(D1)(#2#D)","/","+011","/",    "/","/","+0","/",    "(R)(#2#D1)","/","+0","/",    "+01","/","/","/",
-                        //
-                        "(D1)(R)","/","/","/",    "R1","/","+01","/",    "(+01)(R)","/","/","/",    "R1","/","/","/",
-                        "(D1)(R)","/","/","/",    "R1","/","+01","/",    "(+01)(R)","/","/","/",    "R1","/","/","/",
-                        ////
-                        "($3)(#3#R1)","/","/","/",    "R","/","+0","/",    "R1","/","/","/",    "R1","/","/","/",
-                        "(D)(R1)","/","+0","/",    "/","/","/","/",    "(R)(R1)","/","/","/",    "R1","/","/","/",
-                        //
-                        "(D)(#3#R1)","/","/","/",    "R","/","+0","/",    "(R)(R1)","/","/","/",    "R","/","/","/",
-                        "(D)(R1)","/","+0","/",    "+0","/","/","/",    "(R)(+01)","/","+011","/",    "+0","/","/","/",
-                        //
-                        "(#3#R)(R1)","/","/","/",    "R","/","+0","/",    "R1","/","R","/",    "+0","/","/","/",
-                        "(D)(R1)","/","+001","/",    "+01","/","/","/",    "(R)(R1)","/","+001","/",    "+01","/","/","/",
-                        //
-                        "(D)(#3#R1)","/","/","/",    "R1","/","+01","/",    "R","/","R1","/",    "+01","/","/","/",
-                        "D11","/","-111","/",    "-111","/","-111","/",    "(<^$3)(>^$31)","/","/","/",    "/","/","/","/",
-                        ////
-                    };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        if (rhythm[i] == "/")
-                        {
-                            t += game.BeatTime(0.125f);
-                        }
-                        else if (rhythm[i] != "/")
-                        {
-                            game.NormalizedChart(t, 6, rhythm[i]);
-                            t += game.BeatTime(0.125f);
-                        }
-                    }
-                }
-                public static void effect05()
-                {
-                    game.DelayBeat(63, () =>
-                    {
-                        Heart.Split();
-                        SetBoxMission(0);
-                        MainEffect.SoftSetBox(new(320 - 126, 480), 84, 84, game.BeatTime(3), 0, 1);
-                        SetPlayerMission(0);
-                        Heart.InstantSetRotation(90);
-                        MainEffect.SoftTP(new(320 - 126, 480), game.BeatTime(3), 0, 1);
-                        Heart.Split();
-                        SetBoxMission(1);
-                        MainEffect.SoftSetBox(new(320 - 42, 480), 84, 84, game.BeatTime(3), 1, 1);
-                        SetPlayerMission(2);
-                        Heart.InstantSetRotation(90);
-                        MainEffect.SoftTP(new(320 + 42, 480), game.BeatTime(3), 2, 1);
-                        SetBoxMission(2);
-                        MainEffect.SoftSetBox(new(320 + 42, 480), 84, 84, game.BeatTime(3), 2, 1);
-                        SetPlayerMission(1);
-                        Heart.InstantSetRotation(-90);
-                        MainEffect.SoftTP(new(320 - 42, 480), game.BeatTime(3), 1, 1);
-                        Heart.Split();
-                        SetBoxMission(3);
-                        MainEffect.SoftSetBox(new(320 + 126, 480), 84, 84, game.BeatTime(3), 3, 1);
-                        SetPlayerMission(3);
-                        Heart.InstantSetRotation(-90);
-                        MainEffect.SoftTP(new(320 + 126, 480), game.BeatTime(3), 3, 1);
-                    });
-                }
-                public static void rhythm06A()
-                {
-                    game.RegisterFunction("k0", () =>
-                    {
-                        SetBoxMission(0);
-                    });
-                    game.RegisterFunction("k1", () =>
-                    {
-                        SetBoxMission(1);
-                    });
-                    game.RegisterFunction("k2", () =>
-                    {
-                        SetBoxMission(2);
-                    });
-                    game.RegisterFunction("k3", () =>
-                    {
-                        SetBoxMission(3);
-                    });
-                    float t = game.BeatTime(3);
-                    string[] rhythm =
-                    {
-                        //effected arrow
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        //
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        ////
-                    };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        if (rhythm[i] == "/")
-                        {
-                            t += game.BeatTime(0.125f);
-                        }
-                        else if (rhythm[i] != "/")
-                        {
-                            game.NormalizedChart(t, 6.35f, rhythm[i]);
-                            t += game.BeatTime(0.125f);
-                        }
-                    }
-                }
-                public static void rhythm06B()
-                {
-                    game.RegisterFunctionOnce("k0n", () =>
-                    {
-                        SetPlayerMission(0);
-                        CreateArrow(game.BeatTime(3), 2, 6.25f, 1, 0);
-                    });
-                    game.RegisterFunctionOnce("k1n", () =>
-                    {
-                        SetPlayerMission(1);
-                        CreateArrow(game.BeatTime(3), 0, 6.25f, 1, 0);
-                    });
-                    game.RegisterFunctionOnce("k2n", () =>
-                    {
-                        SetPlayerMission(2);
-                        CreateArrow(game.BeatTime(3), 2, 6.25f, 0, 0);
-                    });
-                    game.RegisterFunctionOnce("k3n", () =>
-                    {
-                        SetPlayerMission(3);
-                        CreateArrow(game.BeatTime(3), 0, 6.25f, 0, 0);
-                    });
-                    game.RegisterFunctionOnce("Lk0n", () =>
-                    {
-                        SetPlayerMission(0);
-                        CreateArrow(game.BeatTime(3), 2, 6.25f, 1, 0, ArrowAttribute.RotateL);
-                    });
-                    game.RegisterFunctionOnce("Lk1n", () =>
-                    {
-                        SetPlayerMission(1);
-                        CreateArrow(game.BeatTime(3), 0, 6.25f, 1, 0, ArrowAttribute.RotateL);
-                    });
-                    game.RegisterFunctionOnce("Lk2n", () =>
-                    {
-                        SetPlayerMission(2);
-                        CreateArrow(game.BeatTime(3), 2, 6.25f, 0, 0, ArrowAttribute.RotateL);
-                    });
-                    game.RegisterFunctionOnce("Lk3n", () =>
-                    {
-                        SetPlayerMission(3);
-                        CreateArrow(game.BeatTime(3), 0, 6.25f, 0, 0, ArrowAttribute.RotateL);
-                    });
-                    game.RegisterFunctionOnce("Rk0n", () =>
-                    {
-                        SetPlayerMission(0);
-                        CreateArrow(game.BeatTime(3), 2, 6.25f, 1, 0, ArrowAttribute.RotateR);
-                    });
-                    game.RegisterFunctionOnce("Rk1n", () =>
-                    {
-                        SetPlayerMission(1);
-                        CreateArrow(game.BeatTime(3), 0, 6.25f, 1, 0, ArrowAttribute.RotateR);
-                    });
-                    game.RegisterFunctionOnce("Rk2n", () =>
-                    {
-                        SetPlayerMission(2);
-                        CreateArrow(game.BeatTime(3), 2, 6.25f, 0, 0, ArrowAttribute.RotateR);
-                    });
-                    game.RegisterFunctionOnce("Rk3n", () =>
-                    {
-                        SetPlayerMission(3);
-                        CreateArrow(game.BeatTime(3), 0, 6.25f, 0, 0, ArrowAttribute.RotateR);
-                    });
-                    float t = game.BeatTime(0);
-                    string[] rhythm =
-                    {
-                        //common arrow
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "k0n","/","Lk0n","/",    "k1n","/","Lk1n","/",    "k2n","/","Lk2n","/",    "k3n","/","Lk3n","/",
-                        //
-                        "k0n","/","Lk0n","/",    "k1n","/","Lk1n","/",    "k3n","/","Rk3n","/",    "k2n","/","Rk2n","/",
-                        "k1n","/","Rk1n","/",    "k0n","/","Rk0n","/",    "k3n","/","Rk3n","/",    "k2n","/","Rk2n","/",
-                        //
-
-                        //
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        "/","/","/","/",    "/","/","/","/",    "/","/","/","/",    "/","/","/","/",
-                        ////
-                    };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        if (rhythm[i] == "/")
-                        {
-                            t += game.BeatTime(0.125f);
-                        }
-                        else if (rhythm[i] != "/")
-                        {
-                            game.NormalizedChart(t, 6.25f, rhythm[i]);
-                            t += game.BeatTime(0.125f);
-                        }
-                    }
-                }
-                public static void effect06()
-                {
-
-                }
-            }
+            GlobalResources.Effects.GrayShader gray;
             public void StartEvent()
             {
                 // finish by yourself 
-
-                GametimeDelta = -6.5f - BeatTime(16);
+                GametimeDelta = -11.5f - BeatTime(16 - 1);
+                ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Glitching(0.4f) { Intensity = 2, AverageInterval = 2 });
+                ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(gray = FightResources.Shaders.Gray, 0.5f));
+                gray.Intensity = 1f;
             }
             public void UpdateEvent()
             {
-                // finish by yourself  
-                if (GametimeF < 0) return;
-                if (InBeat(0))
+                if (InBeat(1f))
                 {
-                    RegisterFunctionOnce("Make", () => { PlaySound(Sounds.pierce); });
-                    float time = BeatTime(0);
+                    RegisterFunctionOnce("Move", () => {
+                        ValueEasing.EaseBuilder builder = new();
+                        for (int i = 0; i < 3; i++)
+                            builder.Insert(BeatTime(32), ValueEasing.EaseOutCubic(2.15f, 2.0f, BeatTime(32)));
+
+                        builder.Insert(BeatTime(48), ValueEasing.EaseOutCubic(2.15f, 2.0f, BeatTime(48)));
+
+                        builder.Run(s => textureEntity.Scale = s);
+                    });
+                    RegisterFunctionOnce("Shine", () => {
+                        ScreenDrawing.MakeFlicker(Color.White * 0.3f);
+                    });
+                    RegisterFunctionOnce("Out", () => {
+                        ScreenDrawing.SceneOut(Color.White, BeatTime(22));
+                        ScreenDrawing.SceneOutScale = 1.2f;
+                        ScreenDrawing.OutFadeScale = 0.98f;
+                    });
                     string[] rhythm = {
-                        "Make", "", "", "", "", "", "", "",
-                        "Make", "", "", "", "", "", "", "",
-                        "Make", "", "", "", "", "", "", "",
-                        "Make", "", "", "", "", "", "", "",
-                        "Make", "", "", "", "", "", "", "",
-                        "Make", "", "", "", "", "", "", "",
-                        "Make", "", "", "", "", "", "", "",
-                        "Make", "", "", "", "", "", "", "",
+                        "Shine(Move)", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "Shine", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+
+                        "Shine", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "Shine", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "Shine", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "Out", "", "", "", "", "", "", "",
                     };
-                    for (int i = 0; i < rhythm.Length; i++)
-                    {
-                        NormalizedChart(time, 6.0f, rhythm[i]);
-                        time += BeatTime(1);
-                    }
+
+                    BarrageCreate(0, BeatTime(8), 0.0f, rhythm);
+                }
+                if (InBeat(13f + 128))
+                {
+                    RegisterFunctionOnce("Particle", () => {
+                        particleManager.ForeEnable = true;
+                        gray.Intensity = 0.0f;
+                    });
+                    RegisterFunctionOnce("Create", () => {
+                        AddInstance(new DifficultySelector());
+                    });
+                    string[] rhythm = {
+                        "Particle(Create)", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                    };
+
+                    BarrageCreate(0, BeatTime(8), 0.0f, rhythm);
+                }
+                if (InBeat(13f + 256))
+                {
+                    RegisterFunctionOnce("End", () => {
+                        IntoChart();
+                    });
+                    string[] rhythm = {
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "", "",
+                        "End",
+                    };
+
+                    BarrageCreate(0, BeatTime(8), 0.0f, rhythm);
                 }
             }
             /*   public void UpdateEvent()
@@ -1054,21 +498,30 @@ namespace Rhythm_Recall.Waves
                }*/
         }
 
+        private static int difficulty = 2;
+        private static Texture2D anomalyTexture;
         public override void Start()
         {
-            Texture2D texture = Loader.Load<Texture2D>("Musics\\EndTime\\paint");
+            anomalyTexture = Loader.Load<Texture2D>("Musics\\EndTime\\paint");
 
-            InstanceCreate(new ImageEntity(texture));
-            InstanceCreate(new ParticleManager());
-            InstanceCreate(new MusicPlayer());
-            InstanceCreate(new AnomalyGenerater());
+            this.InstanceCreate(new MusicPlayer());
+            this.InstanceCreate(new AnomalyGenerater());
 
             GametimeDelta = 0; //reset it if in need
         }
         private static void IntoChart()
         {
+            if (PlayerManager.CurrentUser != null)
+            {
+                SaveInfo custom = PlayerManager.CurrentUser.Custom;
+                if (!custom.Nexts.ContainsKey("reEndTime"))
+                {
+                    custom.PushNext(new("reEndTime{"));
+                    custom.Nexts["reEndTime"].PushNext(new("info:" + true));
+                }
+            }
             SongFightingScene.SceneParams @params =
-                new(new SpecialOne.Game(), null, 5, "Content\\Musics\\EndTime\\song", JudgementState.Strict, GameMode.None);
+                new(new SpecialOne.Game(), null, difficulty, "Content\\Musics\\EndTime\\song", JudgementState.Lenient, GameMode.RestartDeny);
             GameStates.ResetScene(new SongLoadingScene(@params));
         }
     }

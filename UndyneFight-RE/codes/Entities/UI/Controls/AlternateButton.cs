@@ -48,7 +48,8 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Draw()
         {
             if(!_father.DrawEnabled) { return; }
-            FightResources.Font.NormalFont.CentreDraw(_tip, this.Centre - new Vector2(0, TipDistance), Color.White, TipScale, this.Depth);
+            if(!string.IsNullOrEmpty(_tip))
+                FightResources.Font.NormalFont.CentreDraw(_tip, this.Centre - new Vector2(0, TipDistance), Color.White, TipScale, this.Depth);
             base.Draw();
         }
 
