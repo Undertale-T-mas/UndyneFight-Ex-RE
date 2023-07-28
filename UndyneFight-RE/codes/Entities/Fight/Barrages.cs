@@ -14,8 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace UndyneFight_Ex.Remake.Entities
 {
     public abstract class Barrage : AutoEntity, ICustomMotion, ICollideAble
-    {
-       
+    { 
         public class ImageMotion : GameObject
         {
             Texture2D[] images;
@@ -72,12 +71,11 @@ namespace UndyneFight_Ex.Remake.Entities
                 if (_hasBeenInside && (!ins)) Dispose();
             }
         }
-         public void CreateShinyEffect()
-         {
-            var m=base.CreateShinyEffect();
-            m.Depth = 0.99f;
-         
-         }
+        public void CreateShinyEffect()
+        {
+            var m = base.CreateShinyEffect();
+            m.Depth = this.Depth + 0.001f;
+        }
         private static readonly CollideRect screen = new(-80, -80, 800, 640);
 
         int score = 3;

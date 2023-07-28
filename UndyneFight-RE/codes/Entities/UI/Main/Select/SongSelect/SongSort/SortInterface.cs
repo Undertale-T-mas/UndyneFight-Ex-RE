@@ -13,7 +13,8 @@ namespace UndyneFight_Ex.Remake.UI
         { 
             private class SortInterface : AlternateButton
             {
-                public SortInterface(SongSelector father) : base(father, new Vector2(797, 551), "Chart sortkey:", "Default", "Clear diff")
+                public SortInterface(SongSelector father) : base(father, new Vector2(797, 551),
+                    "Chart sortkey:", "Default", "Clear diff", "Complex diff", "Initial")
                 {
                     this._father = father;
                     this.TipScale = 1.2f;
@@ -32,7 +33,9 @@ namespace UndyneFight_Ex.Remake.UI
                     this.TryActivate(this.Result switch
                     {
                         "Default" => _father._packMode,
-                        "Clear diff" => _father._diffClearMode
+                        "Clear diff" => _father._diffClearMode,
+                        "Complex diff" => _father._diffComplexMode,
+                        "Initial" => _father._letterMode,
                     });
                 }
 
@@ -48,8 +51,9 @@ namespace UndyneFight_Ex.Remake.UI
                 new SongSelector _father;
                 public override void Update()
                 {
-                    this.Visible = (_father._virtualFather.SongSelected == null) ;
-                    base.Update();
+                    bool temp = this.Visible = (_father._virtualFather.SongSelected == null) ;
+                    if (temp)
+                        base.Update();
                 }
             }
         }

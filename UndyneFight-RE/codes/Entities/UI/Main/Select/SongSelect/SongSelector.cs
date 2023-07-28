@@ -65,6 +65,18 @@ namespace UndyneFight_Ex.Remake.UI
                 }
             }
 
+            private void OrderChanged()
+            {
+                if (!this.Activated) return;
+
+                bool order = this._sortOrder.IsReverse;
+
+                if (this._currentSongList is DiffMode)
+                {
+                    (this._currentSongList as DiffMode).ReSort(order);
+                }
+            }
+
             public void Selected(SelectingModule module)
             {
                 if (module.Extras == null) return;
@@ -161,7 +173,7 @@ namespace UndyneFight_Ex.Remake.UI
                             if (File.Exists(dir + "\\song.xnb"))
                                 Availables.Add(this.AllSongs[i].Music);
                             if (File.Exists(dir + "\\paint.xnb"))
-                                Images.Add(this.AllSongs[i].Music, Resources.MainLoader.Load<Texture2D>(dir + "\\paint"));
+                                Images.Add(this.AllSongs[i].Music + this.AllSongs[i].FightName, Resources.MainLoader.Load<Texture2D>(dir + "\\paint"));
                         }
                         else if (File.Exists(dir)) Availables.Add(this.AllSongs[i].Music);
                     }
@@ -208,6 +220,7 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 songPacks = FetchSongPack();
             }
+            private SortOrder _sortOrder;
             public override void Start()
             {
                 this._virtualFather = this.FatherObject as VirtualFather;
@@ -216,11 +229,18 @@ namespace UndyneFight_Ex.Remake.UI
                 this.AddChild(new SortInterface(this));
                 this.AddChild(this._packMode = new PackMode(this));
                 this.AddChild(this._diffClearMode = new DiffClearMode(this));
+                this.AddChild(this._diffComplexMode = new DiffComplexMode(this));
+                this.AddChild(this._letterMode = new LetterMode(this));
+                
+                this.AddChild(this._sortOrder = new(this));
+                
                 this._packMode.Activate();
                 this._currentSongList = _packMode;
             }
             PackMode _packMode;
             DiffClearMode _diffClearMode;
+            DiffComplexMode _diffComplexMode;
+            LetterMode _letterMode;
             public SongSelector()
             {
                 this.UpdateIn120 = true;

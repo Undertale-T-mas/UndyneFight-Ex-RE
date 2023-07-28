@@ -177,6 +177,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
 
+            this.UpdateIn120 = true;
             this.AddChild(new MouseCursor());
             this.AddChild(new LineDistributer());
             this.AddChild(_vFather = new VirtualFather());
@@ -195,7 +196,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Update()
         {
-            if (this._vFather.CurrentActivate == _vFather.ModeSelect && GameStates.IsKeyPressed(InputIdentity.Cancel))
+            if (this._vFather.CurrentActivate == _vFather.ModeSelect && GameStates.IsKeyPressed120f(InputIdentity.Cancel))
             {
                 this.Dispose();
                 GameStates.InstanceCreate(new IntroUI());

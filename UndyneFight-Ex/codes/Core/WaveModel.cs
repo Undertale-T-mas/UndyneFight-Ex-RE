@@ -540,10 +540,12 @@ namespace UndyneFight_Ex.SongSystem
                         i = 3;
                         delayMode = false;
                     }
-                    for (; origin[i] != '>'; i++)
-                    {
-                        args += origin[i];
-                    }
+                    if (origin[2] == '>') i = 2;
+                    else
+                        for (; origin[i] != '>'; i++)
+                        {
+                            args += origin[i];
+                        }
                     origin = origin[(i + 1)..];
                 }
                 else
