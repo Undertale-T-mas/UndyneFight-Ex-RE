@@ -12,7 +12,22 @@ namespace UndyneFight_Ex.Remake.Entities
 { 
     public class ShotableBlock : BulletShotable
     {
+        public ShotableBlock(EaseUnit<Vector2> centreEasing) : this() {
+            this.PositionRoute = centreEasing.Easing;
+        }
+        public ShotableBlock(Func<ICustomMotion, Vector2> centreEasing) : this() {
+            this.PositionRoute = centreEasing;
+        }
+        public ShotableBlock(EaseUnit<Vector2> centreEasing, EaseUnit<float> rotationEasing) : this() {
+            this.PositionRoute = centreEasing.Easing;
+            this.RotationRoute = rotationEasing.Easing;
+        }
+        public ShotableBlock(Func<ICustomMotion, Vector2> centreEasing, Func<ICustomMotion, float> rotationEasing) : this() {
+            this.PositionRoute = centreEasing;
+            this.RotationRoute = rotationEasing;
+        }
         public ShotableBlock() {
+            this.AngelMode = true;
             this.Image = Resources.FightSprites.MettBlockA;
             this.Alpha = 1.0f;
             this.Depth = 0.45f;
@@ -32,12 +47,30 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Dispose();
         }
     }
-
-
+     
     public class ToughBlock : BulletShotable
     {
+        public ToughBlock(EaseUnit<Vector2> centreEasing) : this()
+        {
+            this.PositionRoute = centreEasing.Easing;
+        }
+        public ToughBlock(Func<ICustomMotion, Vector2> centreEasing) : this()
+        {
+            this.PositionRoute = centreEasing;
+        }
+        public ToughBlock(EaseUnit<Vector2> centreEasing, EaseUnit<float> rotationEasing) : this()
+        {
+            this.PositionRoute = centreEasing.Easing;
+            this.RotationRoute = rotationEasing.Easing;
+        }
+        public ToughBlock(Func<ICustomMotion, Vector2> centreEasing, Func<ICustomMotion, float> rotationEasing) : this()
+        {
+            this.PositionRoute = centreEasing;
+            this.RotationRoute = rotationEasing;
+        }
         public ToughBlock()
         {
+            this.AngelMode = true;
             this.Image = Resources.FightSprites.MettBlockB;
             this.Alpha = 1.0f;
             this.Depth = 0.45f;
