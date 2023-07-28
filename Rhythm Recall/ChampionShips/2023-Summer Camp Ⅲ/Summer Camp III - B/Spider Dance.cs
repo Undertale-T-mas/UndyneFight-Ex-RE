@@ -217,12 +217,17 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("Purple", () =>
                     {
                         SetSoul(4);
-                        BoxUtils.DeVertexify(new(240, 240 - 80, 160, 160));
+                        BoxUtils.DeVertexify(new(320 - 80, 240 - 80, 160, 160));
+                        Heart.PurpleLineCount = 6;
+                    });
+                    RegisterFunctionOnce("ChangeA", () =>
+                    {
+                        SetBox(240, 240, 160);
                     });
                     RegisterFunctionOnce("Sp1", () =>
                     {
-                        Spider spider = new(EaseOut(BeatTime(4), new Vector2(0, 0), new Vector2(640, 480), EaseState.Linear));
-                        CreateEntity(spider);
+                        CreateEntity(new Spider(EaseOut(BeatTime(4), new Vector2(0, 0), new Vector2(640, 480), EaseState.Linear)));
+                        CreateEntity(new Spider.LineSpider(4, true, 2f));
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     { 
@@ -231,8 +236,8 @@ namespace Rhythm_Recall.Waves
                         "", "", "SetBox", "",    "", "", "", "",
                         //1
                         "", "", "", "",    "Purple", "", "", "",
+                        "ChangeA", "", "", "",    "", "", "", "",
                         "Sp1", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         //2
                         "", "", "", "",    "", "", "", "",
