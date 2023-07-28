@@ -15,11 +15,11 @@ namespace UndyneFight_Ex.Remake.UI
                 public PlaySetting() : base("Gameplay", 275)
                 {
                     SecondaryScale = 1.07f;
-                    this.AddChild(_arrowScale = new(new CollideRect(510 - 80, 80, 80 * 2, 60), "Arrow Size", 1.0f, 2.0f, this) { 
+                    this.AddChild(_arrowScale = new(new CollideRect(510 - 80, 80, 80 * 2, 60), "Arrow Size", 1.0f, 1.25f, this) { 
                         DefaultValue = DataLibrary.ArrowScale,
                         Digit = 2
                     });
-                    this.AddChild(_arrowSpeed = new(new CollideRect(510 - 80, 180, 80 * 2, 60), "Arrow Speed", 1.0f, 2.0f, this)
+                    this.AddChild(_arrowSpeed = new(new CollideRect(510 - 80, 180, 80 * 2, 60), "Arrow Speed", 1.0f, 1.5f, this)
                     {
                         DefaultValue = DataLibrary.ArrowSpeed,
                         Digit = 2
