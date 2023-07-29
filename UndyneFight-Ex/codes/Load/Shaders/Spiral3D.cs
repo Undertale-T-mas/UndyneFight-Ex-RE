@@ -15,7 +15,7 @@ namespace UndyneFight_Ex
                 {
                     StableEvents = (x) =>
                     {
-                        Time += 0.5f * Speed;
+                        Time += 0.5f * Speed * TimeElapsed;
                         x.Parameters["iTime"].SetValue(Time);
                         x.Parameters["iUnit"].SetValue(Intensity);
                     };

@@ -99,6 +99,10 @@ namespace UndyneFight_Ex
         {
             return MathF.Min((rot1 + 360 - rot2) % 360, (rot2 + 360 - rot1) % 360);
         }
+        public static float Project(Vector2 origin, Vector2 vec)
+        {
+            return Vector2.Dot(origin, vec) / origin.Length();
+        }
         public static Vector2 Transfer(Matrix matrix, Vector2 origin)
         {
             return new(origin.X * matrix.M11 + origin.Y * matrix.M21 + matrix.M41, origin.X * matrix.M12 + origin.Y * matrix.M22 + matrix.M42);

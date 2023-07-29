@@ -105,6 +105,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                     ).Easing
                         });
+                        DelayBeat(2.25f, mett1.Dispose);
                         ShotableBlock mett2;
                         GameStates.InstanceCreate(mett2 = new ShotableBlock()
                         {
@@ -115,6 +116,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                     ).Easing
                         });
+                        DelayBeat(3, mett2.Dispose);
                     });
                     RegisterFunctionOnce("Block1", () =>
                     {
@@ -129,6 +131,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                     ).Easing
                         });
+                        DelayBeat(3.25f, mett1.Dispose);
                     });
                     RegisterFunctionOnce("Block2", () =>
                     {
@@ -143,6 +146,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                     ).Easing
                         });
+                        DelayBeat(3.25f, mett1.Dispose);
                     });
                     RegisterFunctionOnce("Block3", () =>
                     {
@@ -157,6 +161,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                     ).Easing
                         });
+                        DelayBeat(3.25f, mett1.Dispose);
                     });
                     RegisterFunctionOnce("Block4", () =>
                     {
@@ -171,6 +176,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                     ).Easing
                         });
+                        DelayBeat(3.25f, mett1.Dispose);
                     });
                     RegisterFunctionOnce("Mark", () => { });
                     BarrageCreate(0, BeatTime(1), 6, new string[]
@@ -222,7 +228,7 @@ namespace Rhythm_Recall.Waves
 
             }
             public void Start()
-            {
+            { 
                 RegisterFunction("Angle", () =>
                 {
                     Heart.RotateTo(Arguments[0]);

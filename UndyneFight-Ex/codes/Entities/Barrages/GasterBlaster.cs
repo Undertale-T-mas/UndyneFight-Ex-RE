@@ -190,7 +190,7 @@ namespace UndyneFight_Ex.Entities
             shootShieldTime += Gametime;
             laserSize.X = 1.0f;
             size = new Vector2(1.0f, 0.7f);
-            missionPlayer = Player.heartInstance; 
+            missionPlayer = Player.heartInstance;
             waitingTime = shootShieldTime - Gametime;
             this.duration = duration;
             this.way = way;
@@ -222,12 +222,14 @@ namespace UndyneFight_Ex.Entities
         }
         private float basicRotation;
 
+        public bool Follow { private get; set; } = false;
         public bool Ending { get; private set; } = false;
         public int DrawingColor => color;
         private int ShieldDirection => missionPlayer.Shields.DirectionOf(color);
 
         public bool Auto => (DebugState.blueShieldAuto && color == 0) || (DebugState.redShieldAuto && color == 1) || (DebugState.greenShieldAuto && color == 2) || (DebugState.purpleShieldAuto && color == 3) || (DebugState.otherAuto && color >= 2);
 
+        private Vector2 _lastPlayerPos;
         public override void Update()
         {
             if (!missionPlayer.FixArrow)
@@ -258,6 +260,10 @@ namespace UndyneFight_Ex.Entities
                         //check collision
                         CalcPush(dir);
                         PushDown();
+                        if(Follow && (missionPlayer.Centre - _lastPlayerPos).LengthSquared() > 0.10f)
+                        {
+                            this.ArrangePos();
+                        }
                         GetCollide();
                     }
                     Rotation = missionRotation * 0.12f + Rotation * 0.88f;
@@ -303,6 +309,16 @@ namespace UndyneFight_Ex.Entities
                 Ending = true;
                 BeamDisappear();
             }
+            _lastPlayerPos = missionPlayer.Centre;
+        }
+
+        private void ArrangePos()
+        {
+            float rotation = this.missionRotation;
+            float dirVertical = rotation + 90;
+            Vector2 unitU = GetVector2(1, rotation);
+            float distance = Vector2.Dot(unitU, this.Centre - Heart.Centre);
+            this.Centre = Heart.Centre + unitU * distance;
         }
 
         private void CalcPush(int dir)

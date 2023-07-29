@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
@@ -500,7 +501,7 @@ namespace UndyneFight_Ex.SongSystem
             {
                 string way = origin[0..2];
                 if (normalized) result.Add(arr = MakeArrow(shootShieldTime, way, speed * speedMul, origin[2] - '0', 0, arrowAttribute));
-                result.Add(new GreenSoulGB(shootShieldTime, "+0", origin[2] - '0', BeatTime(MathUtil.FloatFromString(cut))) { AppearVolume = Settings.GBAppearVolume, ShootVolume = Settings.GBShootVolume });
+                result.Add(new GreenSoulGB(shootShieldTime, "+0", origin[2] - '0', BeatTime(MathUtil.FloatFromString(cut))) { AppearVolume = Settings.GBAppearVolume, ShootVolume = Settings.GBShootVolume, Follow = Settings.GBFollowing });
             }
             else result.Add(arr = MakeArrow(shootShieldTime, origin, speed * speedMul, origin[2] - '0', origin[3] - '0', arrowAttribute));
 
@@ -540,7 +541,7 @@ namespace UndyneFight_Ex.SongSystem
                         i = 3;
                         delayMode = false;
                     }
-                    if (origin[2] == '>') i = 2;
+                    if (origin[2] == '>' && origin[1] == '!') i = 2;
                     else
                         for (; origin[i] != '>'; i++)
                         {
@@ -599,6 +600,8 @@ namespace UndyneFight_Ex.SongSystem
             public float GBShootVolume = 0.75f;
             public float VoidArrowVolume = 0.5f;
             public bool GreenTap = false;
+
+            public bool GBFollowing { get; set; } = false;
         }
 
         protected ChartSettings Settings { get; private set; } = new();

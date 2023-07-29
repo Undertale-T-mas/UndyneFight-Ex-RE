@@ -94,7 +94,7 @@ namespace UndyneFight_Ex
             CustomShaders.Swirl =       new SwirlShader(loader.Load<Effect>("Swirl"));
             CustomShaders.Blur =        new BlurShader(loader.Load<Effect>("Blur"));
             CustomShaders.FastBlur =    new BlurShader(loader.Load<Effect>("BlurLow"));
-            CustomShaders.BlurKawase =    new BlurKawaseShader(loader.Load<Effect>("BlurKawase"));
+            CustomShaders.BlurKawase =  new BlurKawaseShader(loader.Load<Effect>("BlurKawase"));
             CustomShaders.Lens =        new LensShader(loader.Load<Effect>("Lens"));
             CustomShaders.Polar =       new PolarShader(loader.Load<Effect>("Polar"));
             CustomShaders.Gray =        new GrayShader(loader.Load<Effect>("Gray"));
@@ -102,6 +102,7 @@ namespace UndyneFight_Ex
             CustomShaders.Scatter =     new ScatterShader(loader.Load<Effect>("Scatter"));
             CustomShaders.Mosaic =      new MosaicShader(loader.Load<Effect>("Mosaic"));
             CustomShaders.BlockTile =   new BlockTileShader(loader.Load<Effect>("BlockTile"));
+            CustomShaders.LightSweep =  new LightSweepShader(loader.Load<Effect>("LightSweep"));
 
             CustomShaders.Tyndall =     new TyndallShader(loader.Load<Effect>("Tyndall"));
             CustomShaders.Spiral =      new SpiralShader(loader.Load<Effect>("Sprial3D"));
@@ -124,6 +125,7 @@ namespace UndyneFight_Ex
             {
                 public static Shader Sinwave { get; set; }
                 public static AuroraShader Aurora { get; set; }
+                public static LightSweepShader LightSweep { get; set; }
                 public static TyndallShader Tyndall { get; set; }
                 public static NeonLineShader NeonLine { get; set; }
                 public static ColorBlendShader ColorBlend { get; set; }
@@ -653,6 +655,7 @@ namespace UndyneFight_Ex
             public static SpiralShader Spiral => CustomShaders.Spiral;
             public static WrongShader Wrong => CustomShaders.Wrong;
             public static FireShader Fire => CustomShaders.Fire;
+            public static LightSweepShader LightSweep => CustomShaders.LightSweep;
             public static DislocationShaderX DislocationX => CustomShaders.DislocationX;
             public static DislocationShaderY DislocationY => CustomShaders.DislocationY;
         }

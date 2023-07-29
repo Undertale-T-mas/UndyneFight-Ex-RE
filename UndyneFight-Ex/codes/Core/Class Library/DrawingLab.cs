@@ -331,6 +331,7 @@ namespace UndyneFight_Ex
         public Action<Effect> StableEvents { private get; set; }
 
         public bool LateApply { get; set; } = false;
+        public static float TimeElapsed { get; internal set; }
 
         public void RegisterTexture(Texture2D tex, int index)
         {

@@ -246,6 +246,7 @@ namespace UndyneFight_Ex
         protected static RenderTarget2D HelperTarget3 { private set; get; }
 
         public bool Enabled { get; set; } = true;
+        public static float TimeElapsed { get; internal set; }
     }
 
     public class Surface : RenderProduction

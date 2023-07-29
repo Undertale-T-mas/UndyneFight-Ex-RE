@@ -64,9 +64,8 @@ float4 MainPS(VertexShaderOutput input) : COLOR
         float3 color = localToColor(SpriteTextureSampler, vecInText).xyz;
         clr += smoothstep(float3(0.0, 0.0, 0.0), float3(1.0, 1.0, 1.0), color);
     }
-
-    clr *= 1.2;
-    clr /= amount;
+     
+    clr /= (amount * 0.75);
 
     float4 original = localToColor(SpriteTextureSampler, v_vPosition); //blur
     float3 over = float3(pow(original.x, 0.5), pow(original.y, 0.5), pow(original.z, 0.5)); //blur

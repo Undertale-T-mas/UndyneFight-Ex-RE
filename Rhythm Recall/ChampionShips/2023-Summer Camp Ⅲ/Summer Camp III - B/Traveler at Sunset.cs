@@ -2389,37 +2389,75 @@ namespace Rhythm_Recall.Waves
 
                     });
                 }
+                EXRest1();
+            }
+
+            private void EXRest1()
+            {
                 if (InBeat(712))
                 {
                     RegisterFunctionOnce("Scale", () => {
                         production2?.Dispose();
                         production2 = ScreenDrawing.ActivateShader(Shaders.Scale, 0.5593f);
 
-                        RunEase((s) => Shaders.Scale.Intensity = s, 
+                        RunEase((s) => Shaders.Scale.Intensity = s,
                             EaseOut(BeatTime(0.25f), -0.19f, EaseState.Sine),
-                            EaseOut(BeatTime(16.25f), -0.19f, 0.0f, EaseState.Sine)
+                            EaseOut(BeatTime(16.25f), -0.19f, 0.0f, EaseState.Sine),
+                            Stable(BeatTime(0.1f), 0.0f)
                             );
 
                         production3?.Dispose();
                         production3 = ScreenDrawing.ActivateShader(Shaders.StepSample, 0.5593f);
 
-                        RunEase((s) => Shaders.StepSample.Intensity = s, 
+                        RunEase((s) => Shaders.StepSample.Intensity = s,
                             EaseOut(BeatTime(0.25f), 0.59f, EaseState.Sine),
-                            EaseOut(BeatTime(16.25f), 0.59f, 0.0f, EaseState.Sine)
+                            EaseOut(BeatTime(16.25f), 0.59f, 0.0f, EaseState.Sine),
+                            Stable(BeatTime(0.1f), 0.0f)
                             );
                         DelayBeat(17, production2.Dispose);
                         DelayBeat(17, production3.Dispose);
                     });
                     RegisterFunctionOnce("Throw", () => {
                         RunEase((s) =>
-                            { BoxStates.Centre = s; Heart.InstantTP(s); },
-                            Combine(Linear(BeatTime(6), 320, 800), 
+                        { BoxStates.Centre = s; Heart.InstantTP(s); },
+                            Combine(Linear(BeatTime(6), 320, 800),
                                 LinkEase(
                                     EaseOut(BeatTime(2), 240, 50, EaseState.Quad),
                                     EaseIn(BeatTime(4), 50, 650, EaseState.Quad)
-                                
+
                                 ))
                             );
+                    });
+                    Settings.GBFollowing = true;
+
+                    RegisterFunctionOnce("Flicker", () => {
+                        ScreenDrawing.MakeFlicker(Color.White * 0.35f);
+                        RunEase(s => ScreenDrawing.MasterAlpha = s,
+                            Linear(BeatTime(6), 1, 0),
+                            Linear(BeatTime(6), 0, 1)
+                            );
+                        DelayBeat(6, () => {
+                            production1?.Dispose();
+                            production1 = ScreenDrawing.ActivateShader(Shaders.Spiral, 0.9898125f);
+                            Shaders.Spiral.Time = 0;
+                            Shaders.Spiral.Intensity = 200.0f;
+                            Shaders.Spiral.Speed = 0.15f;
+                            r.BasicSpeed = 0.4f;
+                            r.Intensity = 12;
+                        });
+                    });
+                    RegisterFunctionOnce("Change", () => {
+                        RunEase(s => ScreenDrawing.MasterAlpha = s,
+                            Linear(BeatTime(8), 1, 0),
+                            Linear(BeatTime(8), 0, 1)
+                            );
+                        DelayBeat(8, () => {
+                            production1?.Dispose();
+                            production1 = ScreenDrawing.ActivateShader(Shaders.Spiral, 0.9898125f);
+                            Shaders.Spiral.Time = 0;
+                            Shaders.Spiral.Intensity = 200.0f;
+                            Shaders.Spiral.Speed = 0.15f;
+                        });
                     });
 
                     BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
@@ -2429,7 +2467,66 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "(Scale)",
                          
                         //1 
-                        "(^#3#$00'2)(^#3#$21'2)(Throw)", "", "", "",    "", "", "", "",
+                        "(^#3#$00'2)(^#3#$21'2)(Throw)(Flicker)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //2 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //3 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //4 
+                        "(Change)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+
+                    });
+                }
+                if (InBeat(744))
+                {
+                    RegisterFunctionOnce("Eff", () => {
+                        production1?.Dispose();
+                        production1 = ScreenDrawing.ActivateShaderBack(Shaders.LightSweep, 0.91238951f);
+
+                        Shaders.LightSweep.Width = 1400f;
+                        Shaders.LightSweep.Intensity = 0f;
+                        Shaders.LightSweep.Direction = 100f;
+                    });
+
+                    RegisterFunctionOnce("Move", () => {
+                        RunEase(s => {BoxStates.Centre = s; Heart.InstantTP(s); Shaders.LightSweep.Centre = s; },
+                            EaseOut(BeatTime(16), new Vector2(320, -100), new(320, 240), EaseState.Cubic)
+                            ); 
+                        RunEase(s => {
+                                Shaders.LightSweep.Intensity = s;
+                            },
+                            EaseOut(BeatTime(16), 0.0f, 1.01f, EaseState.Cubic), 
+                            EaseOut(BeatTime(16), 1.01f, 0.0f, EaseState.Quad)
+                            );
+                        DelayBeat(16, () => {
+                            RunEase(s => {
+                                Shaders.LightSweep.Centre = new(s, 240);
+                            },
+                            EaseIn(BeatTime(16), 320, 640, EaseState.Quad)
+                            );
+                        });
+                    });
+
+                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                         
+                        //1 
+                        "Eff(Move)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
@@ -2451,8 +2548,48 @@ namespace Rhythm_Recall.Waves
 
                     });
                 }
-            }
+                if (InBeat(776))
+                { 
+                    easeA?.Dispose(); easeB?.Dispose();
+                    easeA = new(); easeB = new();
+                    easeA.RotationEase = EaseOut(BeatTime(4), 90, 0, EaseState.Sine);
+                    easeB.RotationEase = EaseOut(BeatTime(4), -90, 0, EaseState.Sine);
+                    easeA.ApplyTime = BeatTime(4); easeB.ApplyTime = BeatTime(3);
+                    easeA.TagApply("A"); easeB.TagApply("B");
+                    AddInstance(easeA); AddInstance(easeB);
+                    BarrageCreate(BeatTime(4), BeatTime(4), 5.6f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "", 
+                         
+                        //1 
+                        "#3#d0", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1", "", "", "",    "+21@B", "", "", "",
+                        //2
+                        "#3#d0", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1", "", "", "",    "+21@B", "", "", "",
+                        //3 
+                        "#7#d0", "", "", "",    "+20@A", "", "", "",
+                        "+00@B", "", "", "",    "+00@A", "", "", "",
+                        //4
+                        "#7#d1", "", "", "",    "+21@B", "", "", "",
+                        "+01@A", "", "", "+01@B",    "+01@A", "", "", "",
+                        //5
+                        "#3#d0", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1", "", "", "",    "+21@B", "", "", "",
+                        //6
+                        "#3#d0", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1", "", "", "",    "+21@B", "", "", "",
+                        //7
+                        "#7#d0", "", "", "",    "+20@A", "", "", "",
+                        "+00@B", "", "", "",    "+00@A", "", "", "",
+                        //8
+                        "#7#d1", "", "", "",    "+21@B", "", "", "",
+                        "+01@A", "", "", "",    "+01@A", "", "", "",
 
+                    });
+                }
+            }
             private void Effect01()
             {
                 Blur p1 = Blur;
@@ -2730,7 +2867,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    int beat = 711;
+                    int beat = 711 + 64;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
