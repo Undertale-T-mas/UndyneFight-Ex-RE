@@ -1328,13 +1328,13 @@ namespace Rhythm_Recall.Waves
                         );
                     });
                     RegisterFunctionOnce("ML", () => {
-                        RunEase((s) => ScreenDrawing.ScreenPositionDetla = new Vector2(s, 0),
+                        RunEase((s) => ScreenDrawing.ScreenPositionDetla = new Vector2(s * 1.45f, 0),
                             EaseOut(BeatTime(1), 4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), 4.0f, EaseState.Sine)
                         );
-                        RunEase((s) => ScreenDrawing.ScreenAngle = s * 0.8f,
+                        RunEase((s) => ScreenDrawing.ScreenAngle = s,
                             EaseOut(BeatTime(1), -1.0f, EaseState.Cubic),
                             EaseOut(BeatTime(1), 1.0f, EaseState.Cubic),
                             EaseOut(BeatTime(1), 1.0f, EaseState.Cubic),
@@ -1355,13 +1355,13 @@ namespace Rhythm_Recall.Waves
                         );
                     });
                     RegisterFunctionOnce("MR", () => {
-                        RunEase((s) => ScreenDrawing.ScreenPositionDetla = new Vector2(-s, 0),
+                        RunEase((s) => ScreenDrawing.ScreenPositionDetla = new Vector2(-s * 1.45f, 0),
                             EaseOut(BeatTime(1), 4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), 4.0f, EaseState.Sine)
                         );
-                        RunEase((s) => ScreenDrawing.ScreenAngle = -s * 0.8f,
+                        RunEase((s) => ScreenDrawing.ScreenAngle = -s,
                             EaseOut(BeatTime(1), -1.0f, EaseState.Cubic),
                             EaseOut(BeatTime(1), 1.0f, EaseState.Cubic),
                             EaseOut(BeatTime(1), 1.0f, EaseState.Cubic),
@@ -1406,12 +1406,12 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SCL", () => {
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(1), 1.3f, 0.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), 1.7f, 0.0f, EaseState.Quint)
                         );
                     });
                     RegisterFunctionOnce("SCR", () => {
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(1), -1.3f, 0.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), -1.7f, 0.0f, EaseState.Quint)
                         );
                     });
                     RegisterFunctionOnce("SCL2", () => {
@@ -1426,7 +1426,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SCS", () => {
                         RunEase(s => ScreenDrawing.ScreenScale = s,
-                            EaseOut(BeatTime(1), 1.02f, 1.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), 1.04f, 1.0f, EaseState.Quint)
                         );
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 7.2f, new string[]
@@ -2407,7 +2407,7 @@ namespace Rhythm_Recall.Waves
                             );
 
                         production3?.Dispose();
-                        production3 = ScreenDrawing.ActivateShader(Shaders.StepSample, 0.5593f);
+                        production3 = ScreenDrawing.ActivateShader(Shaders.StepSample, 0.55933f);
 
                         RunEase((s) => Shaders.StepSample.Intensity = s,
                             EaseOut(BeatTime(0.25f), 0.59f, EaseState.Sine),
@@ -2420,10 +2420,10 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("Throw", () => {
                         RunEase((s) =>
                         { BoxStates.Centre = s; Heart.InstantTP(s); },
-                            Combine(Linear(BeatTime(6), 320, 800),
+                            Combine(Linear(BeatTime(6 / 1.3f), 320, 800),
                                 LinkEase(
-                                    EaseOut(BeatTime(2), 240, 50, EaseState.Quad),
-                                    EaseIn(BeatTime(4), 50, 650, EaseState.Quad)
+                                    EaseOut(BeatTime(2 / 1.3f), 240, 50, EaseState.Quad),
+                                    EaseIn(BeatTime(4 / 1.3f), 50, 650, EaseState.Quad)
 
                                 ))
                             );
@@ -2431,12 +2431,12 @@ namespace Rhythm_Recall.Waves
                     Settings.GBFollowing = true;
 
                     RegisterFunctionOnce("Flicker", () => {
-                        ScreenDrawing.MakeFlicker(Color.White * 0.35f);
+                        ScreenDrawing.MakeFlicker(Color.White * 0.25f);
                         RunEase(s => ScreenDrawing.MasterAlpha = s,
                             Linear(BeatTime(6), 1, 0),
                             Linear(BeatTime(6), 0, 1)
                             );
-                        DelayBeat(6, () => {
+                        DelayBeat(5.75f, () => {
                             production1?.Dispose();
                             production1 = ScreenDrawing.ActivateShader(Shaders.Spiral, 0.9898125f);
                             Shaders.Spiral.Time = 0;
@@ -2464,10 +2464,10 @@ namespace Rhythm_Recall.Waves
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "(Scale)",
+                        "", "", "", "",    "", "", "", "",
                          
                         //1 
-                        "(^#3#$00'2)(^#3#$21'2)(Throw)(Flicker)", "", "", "",    "", "", "", "",
+                        "(^#3#$00'2)(^#3#$21'2)(Scale)(Throw)(Flicker)", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
@@ -2589,6 +2589,87 @@ namespace Rhythm_Recall.Waves
 
                     });
                 }
+                if (InBeat(840))
+                {
+                    DelayBeat(12, () => {
+                        easeA?.Dispose(); easeB?.Dispose();
+                        easeA = new(); easeB = new();
+                        easeA.RotationEase = EaseOut(BeatTime(4), 60, 0, EaseState.Sine);
+                        easeB.RotationEase = EaseOut(BeatTime(4), -60, 0, EaseState.Sine);
+                        easeA.ApplyTime = BeatTime(4); easeB.ApplyTime = BeatTime(3);
+                        easeA.TagApply("A"); easeB.TagApply("B");
+                        AddInstance(easeA); AddInstance(easeB);
+
+                        easeX?.Dispose();
+                        easeX = new();
+                        easeX.TagApply("X");
+                        AddInstance(easeX);
+                    });
+
+                    RegisterFunctionOnce("DoX", () => {
+                        easeX.DeltaEase(EaseOut(BeatTime(1.9f), new Vector2(0, -400), Vector2.Zero, EaseState.Elastic));
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                         
+                        //1 
+                        "(#8#$0)(#8#$21)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //2 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "DoX", "", "", "",    "", "", "", "",
+                        //3 
+                        "(^$01'1.8@X)(^$21'1.8@X)", "", "", "",    "", "", "$2@A", "$0@B",
+                        "$2@A", "", "", "",    "", "", "", "",
+                        "d", "", "", "",    "d", "", "", "",
+                        "d", "", "", "",    "d", "", "", "",
+                        //4 
+                        "d1", "", "", "",    "", "", "d1", "",
+                        "d1", "", "", "",    "", "", "$0@B", "$2@A",
+                        "$0@A", "", "", "",    "!!6", "$3@A", "$3@B", "$31@A", "$31@B", "$1@A", "$1@B",
+                        "!!6", "$11@A", "$11@B", "$3@A", "$3@B", "$31@A", "$31@B",    "$1", "", "$2@A", "$0@B", "$2@A"
+                    });
+                }
+
+                if (InBeat(872))
+                { 
+
+                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                         
+                        //1 
+                        "", "", "", "",    "", "", "d", "",
+                        "d", "", "", "",    "", "","$2@A", "$0@B",
+                        "$2@A", "", "", "",    "", "", "$01@B", "$21@A",
+                        "$01@B",  "", "", "",    "", "", "$2@A", "$0@B",
+                        //2 
+                        "$2@A($2@A)", "", "", "",    "d1", "", "d1", "",
+                        "", "", "d1", "",    "", "", "", "",
+                        "d", "", "", "",    "", "", "d", "",
+                        "", "", "", "",    "", "", "", "",
+                        //3 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //4 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+
+                    });
+                }
             }
             private void Effect01()
             {
@@ -2635,6 +2716,7 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(0.4f, () => {
                         ScreenDrawing.SceneRendering.InsertProduction(lighter = new Lighting(0.943111f));
                         lighter.AmbientColor = Color.White;
+                        lighter.LightingMode = Lighting.LightMode.ShaderMul;
                         RunEase(s =>
                         {
                             lighter.AmbientColor = Color.White * s;
@@ -2853,6 +2935,7 @@ namespace Rhythm_Recall.Waves
                 StepSample.CentreX = 320f;
                 StepSample.CentreY = 240f;
                 splitter.Intensity = 0.0f;
+                ScreenDrawing.BoundColor = Color.White;
                 ScreenDrawing.SceneRendering.InsertProduction(production);
                 ScreenDrawing.SceneRendering.InsertProduction(production1);
                 ScreenDrawing.SceneRendering.InsertProduction(splitter);
@@ -2863,11 +2946,11 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 192;
-                    int beat = 711 + 64;
+                    int beat = 711 + 128;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
 

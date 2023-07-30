@@ -25,6 +25,7 @@ namespace UndyneFight_Ex.Entities
         public DownBone(bool way, float speed, float length)
         {
             alpha = 1.0f;
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.X = way ? controlingBox.Right + 2 : controlingBox.Left - 2;
 
             Length = missionLength = length;
@@ -60,6 +61,7 @@ namespace UndyneFight_Ex.Entities
         {
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.X += speed * 0.5f * (movingWay ? -1 : 1);
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.Y = controlingBox.Down - Length / 2 - 3;
             base.Update();
         }
@@ -75,6 +77,7 @@ namespace UndyneFight_Ex.Entities
         public UpBone(bool way, float speed, float length)
         {
             alpha = 1.0f;
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.X = way ? controlingBox.Right + 2 : controlingBox.Left - 2;
 
             Length = missionLength = length;
@@ -110,6 +113,7 @@ namespace UndyneFight_Ex.Entities
         {
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.X += speed * 0.5f * (movingWay ? -1 : 1);
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.Y = controlingBox.Up + Length / 2 + 3;
             base.Update();
         }
@@ -126,6 +130,7 @@ namespace UndyneFight_Ex.Entities
         {
             Rotation = 90f;
             alpha = 1.0f;
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.Y = way ? controlingBox.Down + 2 : controlingBox.Up - 2;
 
             Length = missionLength = length;
@@ -162,6 +167,7 @@ namespace UndyneFight_Ex.Entities
         {
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.Y += speed * 0.5f * (movingWay ? -1 : 1);
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.X = controlingBox.Left + Length / 2 + 3;
             base.Update();
         }
@@ -178,6 +184,7 @@ namespace UndyneFight_Ex.Entities
         {
             Rotation = 90f;
             alpha = 1.0f;
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.Y = way ? controlingBox.Down + 2 : controlingBox.Up - 2;
 
             Length = missionLength = length;
@@ -214,6 +221,7 @@ namespace UndyneFight_Ex.Entities
         {
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.Y += speed * 0.5f * (movingWay ? -1 : 1);
+            RectangleBox controlingBox = this.controlingBox as RectangleBox;
             collidingBox.X = controlingBox.Right - Length / 2 - 3;
             base.Update();
         }
@@ -380,6 +388,8 @@ namespace UndyneFight_Ex.Entities
         private float rotationDetla;
         private float appearTime = 0;
         private Vector2 detla;
+
+        public CustomBone(EaseUnit<Vector2> positionRoute, EaseUnit<float> rotationRoute, float length) : this(Vector2.Zero, positionRoute.Easing, (s) => length, rotationRoute.Easing) { }
 
         public CustomBone(Vector2 startPos, Func<ICustomMotion, Vector2> positionRoute, float rot, float len, float duration) : this(startPos, positionRoute, Motions.LengthRoute.autoFold, Motions.RotationRoute.stableValue)
         {

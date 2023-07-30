@@ -425,6 +425,7 @@ namespace UndyneFight_Ex.Fight
                     {
                         Limit = 1,
                         Additive = 2,
+                        ShaderMul = 3,
                     }
                     public LightMode LightingMode { private get; set; } = LightMode.Limit;
                     public Color AmbientColor { 
@@ -473,11 +474,12 @@ namespace UndyneFight_Ex.Fight
                             DrawTexture(lightSources[0], (v.position - trueSize) * AdaptingScale, v.color, trueSize * AdaptingScale / lightSize);
                         }
 
-                        return LightingMode == LightMode.Limit
-                            ? LightLimitRender(obj)
-                            : LightingMode == LightMode.Additive
-                                ? LightAddRender(obj)
-                                : throw new ArgumentOutOfRangeException($"{LightingMode} is not a valid render mode");
+                        return LightingMode switch {
+                            LightMode.Limit => LightLimitRender(obj),
+                            LightMode.Additive => LightAddRender(obj),
+                            LightMode.ShaderMul => LightMulRender(obj),
+                            _ => throw new ArgumentOutOfRangeException($"{LightingMode} is not a valid render mode")
+                        };
                     }
 
                     private RenderTarget2D LightAddRender(RenderTarget2D obj)
@@ -488,6 +490,16 @@ namespace UndyneFight_Ex.Fight
                         ResetTargetColor(Color.Transparent);
                         DrawTextures(new[] { HelperTarget, obj }, MissionTarget.Bounds);
 
+                        return MissionTarget;
+                    }
+                    private RenderTarget2D LightMulRender(RenderTarget2D obj)
+                    { 
+                        MissionTarget = HelperTarget2;
+
+                        this.Shader = FightResources.Shaders.ColorBlend;
+                        FightResources.Shaders.ColorBlend.RegisterTexture(HelperTarget, 1);
+                        DrawTexture(obj, MissionTarget.Bounds);
+                        
                         return MissionTarget;
                     }
                     private RenderTarget2D LightLimitRender(RenderTarget2D obj)
@@ -753,7 +765,7 @@ namespace UndyneFight_Ex.Fight
                         else
                         {
                             //use kawase algorithm
-                            this.SamplerState = null;
+                            this.SamplerState = SamplerState.LinearClamp;
                             BlurKawaseShader kawase = CustomShaders.BlurKawase;
                             this.Shader = kawase;
                             this.BlendState = BlendState.Additive;

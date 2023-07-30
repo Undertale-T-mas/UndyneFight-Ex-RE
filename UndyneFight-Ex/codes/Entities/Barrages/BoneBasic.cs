@@ -12,8 +12,8 @@ namespace UndyneFight_Ex.Entities
 {
     public class Bone : Entity, ICollideAble
     {
-        protected RectangleBox controlingBox;
-        public RectangleBox ControlingBox => controlingBox;
+        protected FightBox controlingBox;
+        public FightBox ControlingBox => controlingBox;
 
         private int score = 3;
         protected float alpha = 0;

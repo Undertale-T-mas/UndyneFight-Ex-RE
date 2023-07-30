@@ -2,22 +2,65 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace UndyneFight_Ex.Entities
 {
+    public class BoxVertex
+    {
+        public Vector2 CurrentPosition { get; set; }
+        public Vector2 MissionPosition { get; set; }
+
+        public float ToMissionDistance => (CurrentPosition - MissionPosition).Length();
+
+        public int ID
+        {
+            get
+            {
+                if (_id == -1) this._id = Previous == null ? 0 : Previous.ID + 1;
+                return this._id;
+            }
+        }
+        private int _id = -1;
+
+        public BoxVertex(Vector2 pos)
+        {
+            this.CurrentPosition = this.MissionPosition = pos; 
+        }
+        public BoxVertex() { }
+
+        public BoxVertex Next { get; set; }
+        public BoxVertex Previous { get; set; }
+
+        public void Move(float scale)
+        {
+            this.CurrentPosition = CurrentPosition * (1 - scale) + MissionPosition * scale;
+        }
+        public void InstantMove(Vector2 position)
+        {
+            this.CurrentPosition = this.MissionPosition = position;
+        }
+        private LinkedList<BoxVertex> GetAll(LinkedList<BoxVertex> prev)
+        {
+            if(prev.First.Value == this) return prev;
+            prev.AddLast(this);
+            GetAll(prev);
+            return prev;
+        }
+        public BoxVertex[] GetAll() => this.GetAll(new()).ToArray();
+    }
+
     public abstract class FightBox : Entity
     {
-        public virtual Vector2[] Vertexs { get; set; }
+        public BoxVertex[] Vertexs { get; set; }
         public static FightBox instance;
         public static List<FightBox> boxs = new();
         public abstract void MoveTo(object v);
         public abstract void InstanceMove(object v);
 
         protected readonly Player.Heart detect;
-        public Player.Heart Detect => detect;
-
-        public Vector2[] MissionVertexs { get; protected set; }
+        public Player.Heart Detect => detect; 
 
         public float GreenSoulAlpha { get; set; } = 0.5f;
         public float InstantSetAlpha(float alpha) => GreenSoulAlpha = curAlpha = alpha;
@@ -27,23 +70,23 @@ namespace UndyneFight_Ex.Entities
         {
             curAlpha = detect != null && detect.SoulType == 1
                 ? curAlpha * 0.9f + GreenSoulAlpha * 0.1f : curAlpha * 0.9f + 1 * 0.1f;
-            if (MissionVertexs == null) return;
+            if (Vertexs == null) return;
             float scale = MovingScale * 0.6f;
             for (int i = 0; i < Vertexs.Length; i++)
             {
-                float scaleBuff = MathF.Max(0, 1 - scale - Vector2.Distance(Vertexs[i], MissionVertexs[i]));
-                Vertexs[i] = Vertexs[i] * (1 - (scale + scaleBuff)) + MissionVertexs[i] * (scale + scaleBuff);
+                float scaleBuff = MathF.Max(0, 1 - scale - Vertexs[i].ToMissionDistance);
+                Vertexs[i].Move(scale + scaleBuff);// = Vertexs[i] * (1 - ()) + MissionVertexs[i] * (scale + scaleBuff);
             }
         }
         public override void Draw()
         {
             Vector2 gravity = Vector2.Zero;
             for (int i = 0; i < Vertexs.Length; i++)
-                gravity += Vertexs[i] / Vertexs.Length;
+                gravity += Vertexs[i].CurrentPosition / Vertexs.Length;
             Vector2[] positions = new Vector2[Vertexs.Length];
             for (int i = 0; i < Vertexs.Length; i++)
             {
-                Vector2 delta = Vertexs[i] - gravity;
+                Vector2 delta = Vertexs[i].CurrentPosition - gravity;
                 delta = MathUtil.GetVector2(delta.Length() + 2f, MathF.Atan2(delta.Y, delta.X) * 180 / MathF.PI);
                 positions[i] = delta + gravity;
             }
@@ -66,17 +109,17 @@ namespace UndyneFight_Ex.Entities
 
         public float MovingScale { get; set; } = 0.15f;
     }
+
     public class VertexBox : FightBox
     {
         public VertexBox(Player.Heart heart, RectangleBox rectangleBox) : base(heart)
-        {
-            this.MissionVertexs = new Vector2[4];
-            this.Vertexs = new Vector2[4];
-            this.MissionVertexs[0] = rectangleBox.CollidingBox.TopRight;
-            this.MissionVertexs[1] = rectangleBox.CollidingBox.BottomRight;
-            this.MissionVertexs[2] = rectangleBox.CollidingBox.BottomLeft;
-            this.MissionVertexs[3] = rectangleBox.CollidingBox.TopLeft;
-            Array.Copy(this.MissionVertexs, this.Vertexs, 4);
+        { 
+            this.Vertexs = new BoxVertex[4];
+
+            this.Vertexs[0] = new(rectangleBox.CollidingBox.TopRight);
+            this.Vertexs[1] = new(rectangleBox.CollidingBox.BottomRight);
+            this.Vertexs[2] = new(rectangleBox.CollidingBox.BottomLeft);
+            this.Vertexs[3] = new(rectangleBox.CollidingBox.TopLeft); 
         }
 
         public override void Draw()
@@ -89,10 +132,11 @@ namespace UndyneFight_Ex.Entities
             if (v is not Vector2[]) throw new ArgumentException($"{nameof(v)} has to be an vector array");
 
             Vector2[] temp = v as Vector2[];
-            if(temp.Length != MissionVertexs.Length) 
+            if(temp.Length != Vertexs.Length) 
                 throw new ArgumentOutOfRangeException($"{nameof(v)} must be in same length with vertex count");
 
-            this.MissionVertexs = this.Vertexs = temp;
+            for (int i = 0; i < temp.Length; i++)
+                this.Vertexs[i].InstantMove(temp[i]);
         }
 
         public override void MoveTo(object v)
@@ -100,47 +144,39 @@ namespace UndyneFight_Ex.Entities
             if (v is not Vector2[]) throw new ArgumentException($"nameof(v) has to be an vector array");
 
             Vector2[] temp = v as Vector2[];
-            if (temp.Length != MissionVertexs.Length)
+            if (temp.Length != Vertexs.Length)
                 throw new ArgumentOutOfRangeException($"{nameof(v)} must be in same length with vertex count");
 
-            this.MissionVertexs = temp;
+            for (int i = 0; i < temp.Length; i++)
+                this.Vertexs[i].MissionPosition = temp[i];
         }
 
         public int Split(int originID, float scale)
         {
             if (scale < 0 || scale > 1) throw new ArgumentOutOfRangeException($"{nameof(scale)} has to be in [0, 1]");
-            if (originID != this.MissionVertexs.Length - 1) {
-                Vector2 a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
-                Vector2 pos = Vector2.Lerp(a, b, scale);
+            if (originID != this.Vertexs.Length - 1) {
+                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
+                Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
 
-                Vector2[] temp = new Vector2[MissionVertexs.Length + 1];
-                Array.Copy(MissionVertexs, 0, temp, 0, originID + 1);
-                temp[originID + 1] = pos;
-                Array.Copy(MissionVertexs, originID + 1, temp, originID + 2, MissionVertexs.Length - originID - 1);
+                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1]; 
 
-                MissionVertexs = temp;
-
-                temp = new Vector2[Vertexs.Length + 1];
+                temp = new BoxVertex[Vertexs.Length + 1];
                 Array.Copy(Vertexs, 0, temp, 0, originID + 1);
-                temp[originID + 1] = pos;
+                temp[originID + 1] = new(pos);
                 Array.Copy(Vertexs, originID + 1, temp, originID + 2, Vertexs.Length - originID - 1);
 
                 Vertexs = temp;
             }
             else
-            { 
-                Vector2 a = this.Vertexs[originID], b = this.Vertexs[0];
-                Vector2 pos = Vector2.Lerp(a, b, scale);
+            {
+                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[0];
+                Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
 
-                Vector2[] temp = new Vector2[MissionVertexs.Length + 1];
-                Array.Copy(MissionVertexs, temp, MissionVertexs.Length);
-                temp[originID + 1] = pos;
-
-                MissionVertexs = temp;
+                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1];  
                 
-                temp = new Vector2[Vertexs.Length + 1];
+                temp = new BoxVertex[Vertexs.Length + 1];
                 Array.Copy(Vertexs, temp, Vertexs.Length);
-                temp[originID + 1] = pos;
+                temp[originID + 1] = new(pos);
 
                 Vertexs = temp; 
             }
@@ -150,19 +186,20 @@ namespace UndyneFight_Ex.Entities
 
         public void SetPosition(int originID, Vector2 position)
         {
-            this.MissionVertexs[originID] = position;
+            this.Vertexs[originID].MissionPosition = position;
         }
 
         public override void Update()
         {
             base.Update();
-            float x1 = Vertexs[0].X, x2 = Vertexs[0].X, y1 = Vertexs[0].Y, y2 = Vertexs[0].Y;
+            float x1 = Vertexs[0].CurrentPosition.X, x2 = Vertexs[0].CurrentPosition.X, 
+                  y1 = Vertexs[0].CurrentPosition.Y, y2 = Vertexs[0].CurrentPosition.Y;
             for(int i =  1; i < Vertexs.Length; i++)
             {
-                x1 = MathF.Min(x1, Vertexs[i].X);
-                x2 = MathF.Max(x2, Vertexs[i].X);
-                y1 = MathF.Min(y1, Vertexs[i].Y);
-                y2 = MathF.Max(y2, Vertexs[i].Y);
+                x1 = MathF.Min(x1, Vertexs[i].CurrentPosition.X);
+                x2 = MathF.Max(x2, Vertexs[i].CurrentPosition.X);
+                y1 = MathF.Min(y1, Vertexs[i].CurrentPosition.Y);
+                y2 = MathF.Max(y2, Vertexs[i].CurrentPosition.Y);
             }
             this.collidingBox = new(x1, y1, x2 - x1, y2 - y1);
         }
@@ -181,11 +218,14 @@ namespace UndyneFight_Ex.Entities
 
         public RectangleBox(CollideRect Area)
         {
+            this.Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) this.Vertexs[i] = new();
+            this.InstanceMove(Area);
             collidingBox = Area;
         }
 
         public RectangleBox(Player.Heart p) : base(p)
         {
+            this.Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) this.Vertexs[i] = new();
             collidingBox = new CollideRect(0, 0, 640, 480);
             gravityLines[0] = right;
             gravityLines[1] = down;
@@ -194,7 +234,9 @@ namespace UndyneFight_Ex.Entities
         }
         public RectangleBox(Player.Heart p, CollideRect area) : base(p)
         {
+            this.Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) this.Vertexs[i] = new();
             collidingBox = area;
+            this.InstanceMove(area);
             gravityLines[0] = right;
             gravityLines[1] = down;
             gravityLines[2] = left;
@@ -211,9 +253,7 @@ namespace UndyneFight_Ex.Entities
             real.Width += 2; real.Height += 2;
             DrawingLab.DrawRectangle(real, GameMain.themeColor, 4.2f, 0.4f);
             */
-        }
-
-        public override Vector2[] Vertexs { get; set; } = new Vector2[4];
+        } 
 
         public override void Update()
         {
@@ -225,13 +265,13 @@ namespace UndyneFight_Ex.Entities
             right.SetPosition(v2, v4);
             left.SetPosition(v3, v1);
             down.SetPosition(v4, v3);
-            Vertexs[0] = v1;
-            Vertexs[1] = v2;
-            Vertexs[3] = v3;
-            Vertexs[2] = v4;
+            Vertexs[0].CurrentPosition = v1;
+            Vertexs[1].CurrentPosition = v2;
+            Vertexs[3].CurrentPosition = v3;
+            Vertexs[2].CurrentPosition = v4;
 
             base.Update();
-            collidingBox = new CollideRect(Vertexs[0], Vertexs[2] - Vertexs[0]);
+            collidingBox = new CollideRect(Vertexs[0].CurrentPosition, Vertexs[2].CurrentPosition - Vertexs[0].CurrentPosition);
 
             if (detect == null) return;
             bool[] enabled = { false, false, false, false };
@@ -253,12 +293,16 @@ namespace UndyneFight_Ex.Entities
 
         public override void MoveTo(object cl)
         {
-            MissionVertexs = ((CollideRect)cl).GetVertexs();
+            Vector2[] temp = ((CollideRect)cl).GetVertexs();
+            for(int i = 0; i < temp.Length; i++)
+                Vertexs[i].MissionPosition = temp[i];
         }
         public override void InstanceMove(object cl)
         {
-            collidingBox = (CollideRect)(cl);
-            Vertexs = MissionVertexs = collidingBox.GetVertexs();
+            Vector2[] temp = ((CollideRect)cl).GetVertexs();
+            for (int i = 0; i < temp.Length; i++)
+                Vertexs[i].InstantMove(temp[i]);
+            this.collidingBox = (CollideRect)cl;
         }
 
         public float Left => collidingBox.X;

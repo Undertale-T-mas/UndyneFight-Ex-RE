@@ -587,10 +587,10 @@ namespace UndyneFight_Ex.Entities
                 var cl = controlingBox.CollidingBox;
                 for (int i = 0; i < controlingBox.Vertexs.Length; i++)
                 {
-                    controlingBox.Vertexs[i] = controlingBox.Vertexs[i] * v + mergeMission.controlingBox.MissionVertexs[i] * v2;
+                    controlingBox.Vertexs[i].CurrentPosition = controlingBox.Vertexs[i].CurrentPosition * v + mergeMission.controlingBox.Vertexs[i].MissionPosition * v2;
                 }
 
-                controlingBox.InstanceMove(new CollideRect(controlingBox.Vertexs[0], controlingBox.Vertexs[2] - controlingBox.Vertexs[0]));
+                controlingBox.InstanceMove(new CollideRect(controlingBox.Vertexs[0].CurrentPosition, controlingBox.Vertexs[2].CurrentPosition - controlingBox.Vertexs[0].CurrentPosition));
                 mergeTime++;
                 if (mergeTime == 25)
                 {

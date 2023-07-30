@@ -11,15 +11,10 @@
 #define HEIGHT 480.0
 #define PI 3.1415926
 #define DISTORT_SAMPLER float2(12.9898,78.233)
-#define NOISE_SAMPLER float2(76.9898,88.463)
-
-uniform float iSpeedX, iSpeedY;
-uniform float2 iCoreSpeed;
-uniform float iTime;
-float4 iColorA, iColorB;
+#define NOISE_SAMPLER float2(76.9898,88.463) 
  
-sampler2D SpriteTexture : register(s0);
-sampler2D hashSample : register(s1);
+sampler2D sampler0 : register(s0);
+sampler2D sampler1 : register(s1);
 
 struct VertexShaderOutput
 {
@@ -30,7 +25,8 @@ struct VertexShaderOutput
 
 float4 Test(VertexShaderOutput input) : COLOR
 { 
-    return tex2D(hashSample, input.TextureCoordinates);
+    return tex2D(sampler0, input.TextureCoordinates) * tex2D(sampler1, input.TextureCoordinates);
+
 }
  
 technique SpriteDrawing

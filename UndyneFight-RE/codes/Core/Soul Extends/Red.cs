@@ -35,14 +35,14 @@ namespace UndyneFight_Ex.Remake
             Vector2 nexCentre = curCentre + delta;
 
             FightBox box = s.controlingBox;
-            Vector2[] vertexs = box.Vertexs;
+            BoxVertex[] vertexs = box.Vertexs;
 
             // calculate all vertexs' normal vector
 
             Vector2[] normals = new Vector2[vertexs.Length];
             for (int i = 0; i < vertexs.Length; i++)
             {
-                Vector2 a = vertexs[i], b = vertexs[(i + 1) % vertexs.Length];
+                Vector2 a = vertexs[i].CurrentPosition, b = vertexs[(i + 1) % vertexs.Length].CurrentPosition;
                 Vector2 normal = MathUtil.Rotate(b - a, 90);
                 Vector2 centre = (a + b) / 2;
                 Vector2 along = (b - a) / 2;
