@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Numerics;
+using Microsoft.Xna.Framework;
 using System.Runtime.CompilerServices;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
@@ -21,6 +21,15 @@ namespace UndyneFight_Ex.Remake
             curHeart.controlingBox = box; 
             GameStates.InstanceCreate(box);
         }
+        public static void Vertexify(Player.Heart heart)
+        {
+            Player.Heart curHeart = heart;
+            curHeart.controlingBox.Dispose();
+            FightBox.boxs.Remove(curHeart.controlingBox);
+            VertexBox box = new(curHeart, Functions.BoxStates.CurrentBox as RectangleBox);
+            curHeart.controlingBox = box; 
+            GameStates.InstanceCreate(box);
+        }
         public static void DeVertexify(CollideRect area)
         {
             Player.Heart curHeart = Functions.BoxStates.CurrentBox.Detect;
@@ -31,6 +40,10 @@ namespace UndyneFight_Ex.Remake
             GameStates.InstanceCreate(box);
         }
 
+        public static void Move(int index, Vector2 value)
+        {
+            VertexBoxInstance.SetPosition(index, value);
+        }
         public static void Move(Vector2 value)
         {
             FightBox cur = VertexBoxInstance;

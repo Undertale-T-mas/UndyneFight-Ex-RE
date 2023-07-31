@@ -2761,20 +2761,22 @@ namespace Rhythm_Recall.Waves
                         AddInstance(easeC); AddInstance(easeD);
                         easeX?.Dispose();
                         easeX = new();
-                        easeX.TagApply("X");
+                        easeX.TagApply("X1");
                         AddInstance(easeX);
                     });
-                    RegisterFunctionOnce("DoX", () =>
+                    RegisterFunctionOnce("XEase", () =>
                     {
-                        easeX.DeltaEase(EaseOut(BeatTime(1.46f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
+                        DelayBeat(0.125f, () => {
+                            easeX.DeltaEase(EaseOut(BeatTime(1.125f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
+                        });
                     });
                     Settings.GreenTap = true;
                     RegisterFunctionOnce("Box", () => {
                         RunEase(s => { BoxStates.Centre = s; InstantTP(s); },
                             Combine(
                                 Alternate(2,
-                                    EaseOut(BeatTime(6.91f), 320, 260, EaseState.Cubic),
-                                    EaseOut(BeatTime(6.91f), 320, 380, EaseState.Cubic)
+                                    EaseOut(BeatTime(6.91f), 320, 270, EaseState.Cubic),
+                                    EaseOut(BeatTime(6.91f), 320, 370, EaseState.Cubic)
                                 ),
                                 EaseOut(BeatTime(6.91f), 240, 380, EaseState.Quad)
                             )
@@ -2782,32 +2784,123 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("sound", () =>
                     {
-                        PlaySound(Sounds.switchScene);
-                        PlaySound(Sounds.switchScene);
+                        BoxStates.Centre = new(270, 380);
+                        InstantTP(new(170, 380));
 
-                        BoxStates.Centre = new(260, 380);
-                        InstantTP(new(260, 380));
+                        SetPlayerBoxMission(0);
+                        BoxUtils.Vertexify(Heart);
+                        BoxUtils.VertexBoxInstance.Split(2,
+                            new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
+                            );
 
-                        CollideRect rect = new(new Vector2(380 - 42, 380 - 42), new Vector2(84, 84));
+                        CollideRect left = new(new Vector2(170 - 42, 380 - 42), new Vector2(84, 84));
+                        Vector2 tl, tr, bl, br;
+                        tl = left.TopLeft; tr = left.TopRight;
+                        bl = left.BottomLeft; br = left.BottomRight;
+
+                        tl += new Vector2(10, 0); bl += new Vector2(10, 0);
+
+                        BoxStates.BoxMovingScale = 0.25f;
+                        BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
+
+                        Vector2 lerp1 = Vector2.Lerp(tr, br, 0.25f);
+                        Vector2 lerp2 = Vector2.Lerp(tr, br, 0.75f);
+
+                        BoxUtils.Move(4, lerp2);
+                        BoxUtils.Move(5, br);
+                        BoxUtils.Move(6, bl);
+                        BoxUtils.Move(7, (tl + bl) / 2 + new Vector2(-20, 0));
+                        BoxUtils.Move(8, tl);
+                        BoxUtils.Move(9, tr);
+                        BoxUtils.Move(10, lerp1);
+
+                        CollideRect rect = new(new Vector2(40, 340), new Vector2(10, 10));
                         Heart.InstantSplit(rect);
+                        Heart.InstantTP(new(270, 380));
+
+                        rect = new(new Vector2(370 - 42, 380 - 42), new Vector2(84, 84));
+                        Heart.InstantSplit(rect);
+                         
+                        rect = new(new Vector2(600, 340), new Vector2(10, 10));
+                        Heart.InstantSplit(rect);
+                        Heart.InstantTP(new(470, 380));
+                        CollideRect right = new(new Vector2(470 - 42, 380 - 42), new Vector2(84, 84));
+                        tl = right.TopLeft; tr = right.TopRight;
+                        bl = right.BottomLeft; br = right.BottomRight;
+
+                        tr += new Vector2(-10, 0); br += new Vector2(-10, 0);
+
+                        SetPlayerBoxMission(2);
+                        BoxUtils.Vertexify(Heart);
+                        BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
+                        BoxUtils.VertexBoxInstance.Split(0,
+                            new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
+                            );
+
+                        lerp1 = Vector2.Lerp(tl, bl, 0.25f);
+                        lerp2 = Vector2.Lerp(tl, bl, 0.75f);
+
+                        BoxUtils.Move(2, lerp1);
+                        BoxUtils.Move(3, tl);
+                        BoxUtils.Move(4, tr);
+                        BoxUtils.Move(5, (tr + br) / 2 + new Vector2(20, 0));
+                        BoxUtils.Move(6, br);
+                        BoxUtils.Move(7, bl);
+                        BoxUtils.Move(8, lerp2);
+
+                        DelayBeat(0, () => {
+                            SetPlayerBoxMission(0);
+                            Heart.controlLayer = Surface.Hidden;
+                            Heart.Shields.controlLayer = Surface.Hidden;
+                            
+                            SetPlayerBoxMission(3);
+                            Heart.controlLayer = Surface.Hidden;
+                            Heart.Shields.controlLayer = Surface.Hidden;
+                        });
+                        DelayBeat(0.125f, () =>
+                        {
+                            PlaySound(Sounds.switchScene);
+                            PlaySound(Sounds.switchScene);
+                        });
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 9f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "pre", "", "(DoX)", "",    "", "", "", "",
+                        "pre", "", "", "(XEase)",    "", "", "", "",
                          
                         //1 
-                        "(^$00'1.8@X)(^$20'1.8@X)(DoX)", "", "$10", "",    "$30", "",  
-                        "(^$01'1.8@X)(^$21'1.8@X)(DoX)", "", "$11", "",    "$31", "",  
-                        "(^$00'1.8@X)(^$20'1.8@X)(DoX)", "", "$10", "",    "$30", "",
-                        "(^$01'1.8@X)(^$21'1.8@X)(DoX)", "", "$11", "",    "$31", "",
-                        "(^$00'1.8@X)(^$20'1.8@X)", "", "", "",    "", "", "", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)", "(XEase)", "$10", "",    "$30", "",
+                        "(^$01'1.8@X1)(^$21'1.8@X1)", "(XEase)", "$11", "",    "$31", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)", "(XEase)", "$10", "",    "$30", "",
+                        "(^$01'1.8@X1)(^$21'1.8@X1)", "(XEase)", "$11", "",    "$31", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)", "", "", "",    "", "", "", "",
                         //2 
                         "*$30@C(Box)", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
                         "*$30@C", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
                         "*$30", "", "*$30", "",    "*$30", "", "*$30", "",
-                        "*$30", "", "*$30", "",    "sound", "", "", "",
+                        "*$30", "", "*$30", "",    "sound", "", "", "", 
+                    });
+                }
+
+                if (InBeat(920))
+                {
+                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                         
+                        //1 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //2 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
                         //3 
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",

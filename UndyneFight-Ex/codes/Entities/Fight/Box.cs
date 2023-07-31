@@ -66,8 +66,11 @@ namespace UndyneFight_Ex.Entities
         public float InstantSetAlpha(float alpha) => GreenSoulAlpha = curAlpha = alpha;
         float curAlpha = 1.0f;
 
+        private bool _doDraw = false;
+
         public override void Update()
         {
+            _doDraw = false;
             curAlpha = detect != null && detect.SoulType == 1
                 ? curAlpha * 0.9f + GreenSoulAlpha * 0.1f : curAlpha * 0.9f + 1 * 0.1f;
             if (Vertexs == null) return;
@@ -80,6 +83,8 @@ namespace UndyneFight_Ex.Entities
         }
         public override void Draw()
         {
+            if (_doDraw) return;
+            _doDraw = true;
             Vector2 gravity = Vector2.Zero;
             for (int i = 0; i < Vertexs.Length; i++)
                 gravity += Vertexs[i].CurrentPosition / Vertexs.Length;
@@ -185,33 +190,23 @@ namespace UndyneFight_Ex.Entities
         }
         public int Split(int originID, float[] scales)
         {
-            if (scales == null || scales.Length <= 0) throw new ArgumentOutOfRangeException($"{nameof(scales)} has to be in [0, 1]");
-            if (originID != this.Vertexs.Length - 1) {
-                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
-                Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
+            if (scales == null || scales.Length <= 0) throw new ArgumentOutOfRangeException($"{nameof(scales)} should include elements");
 
-                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1]; 
+            BoxVertex a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
+            Vector2[] pos = new Vector2[scales.Length]; 
+            
+            int i = 0;
+            for (i = 0; i < pos.Length; i++)
+                pos[i] = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scales[i]);
 
-                temp = new BoxVertex[Vertexs.Length + 1];
-                Array.Copy(Vertexs, 0, temp, 0, originID + 1);
-                temp[originID + 1] = new(pos);
-                Array.Copy(Vertexs, originID + 1, temp, originID + 2, Vertexs.Length - originID - 1);
+            BoxVertex[] temp = new BoxVertex[Vertexs.Length + scales.Length];
 
-                Vertexs = temp;
-            }
-            else
-            {
-                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[0];
-                Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
+            i = 0; int j = 0, k = 0;
+            for (; i <= originID; i++, j++) temp[j] = Vertexs[i];
+            for (; k < scales.Length; k++, j++) temp[j] = new(pos[k]);
+            for (; i < Vertexs.Length; i++, j++) temp[j] = Vertexs[i];
 
-                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1];  
-                
-                temp = new BoxVertex[Vertexs.Length + 1];
-                Array.Copy(Vertexs, temp, Vertexs.Length);
-                temp[originID + 1] = new(pos);
-
-                Vertexs = temp; 
-            }
+            Vertexs = temp;
 
             return originID + 1;
         }

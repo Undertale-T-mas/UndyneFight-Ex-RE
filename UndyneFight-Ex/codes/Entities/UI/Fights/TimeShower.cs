@@ -22,11 +22,11 @@ namespace UndyneFight_Ex.Entities
             int d = (int)(Fight.Functions.GametimeF / 62.5f * 60f);
             int min = d / 3600, sec = (d / 60) % 60, ms = d % 60;
             FightResources.Font.NormalFont.CentreDraw($"{min}:{(sec < 10 ? "0" : "") + sec}:{(ms < 10 ? "0" : "") + ms}",
-                new Vector2(100, 20), col);
+                new Vector2(94, 20), col);
 #if DEBUG
             FightResources.Font.NormalFont.CentreDraw($"{FloatToString(deltaMin, 1)}/" +
                 $"{FloatToString(deltaCur, 1)}/{FloatToString(deltaMax, 1)}",
-                new Vector2(100, 110), col, 0.9f, 0.3f);
+                new Vector2(94, 110), col, 0.9f, 0.3f);
 #endif
         }
 #if DEBUG

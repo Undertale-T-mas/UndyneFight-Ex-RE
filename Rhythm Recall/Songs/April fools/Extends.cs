@@ -39,7 +39,7 @@ namespace Extends
         public Color DrawingColor = Color.White;
         public float Width = 3.0f;
         public override void Draw()
-        {
+        { 
             if (stop && easeis)
             {
                 positions = new Vector2[easings.Length];

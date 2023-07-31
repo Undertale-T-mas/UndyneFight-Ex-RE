@@ -475,6 +475,8 @@ namespace UndyneFight_Ex.Entities
                 public override void Update()
                 {
                     Heart mission = FatherObject as Heart;
+                    this.Circle.controlLayer = this.controlLayer;
+                    foreach (var v in shields) v.Value.controlLayer = this.controlLayer;
                     if (mission.enabledRedShield && mission.SoulType != 1)
                     {
                         shields[1].enabled = true; shields[0].enabled = false;
