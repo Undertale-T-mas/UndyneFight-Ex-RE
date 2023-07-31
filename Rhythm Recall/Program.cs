@@ -138,7 +138,7 @@ namespace Rhythm_Recall
                 //typeof(BrainPower),
                 //typeof(Weekender), 
                 typeof(DreadNaught),
-                //typeof(TheFuneral),
+                typeof(TheFuneral),
                 //typeof(PapyEn), 
                 typeof(Conflict),
                 //typeof(AprilExtends.Stasis),
@@ -166,7 +166,7 @@ namespace Rhythm_Recall
             try
             {
 #endif
-            UndyneFight_Ex.Remake.Initialize.MainInitialize();
+            //UndyneFight_Ex.Remake.Initialize.MainInitialize();
             GameStartUp.StartGame();
 #if ThrowError
             }
