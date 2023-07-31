@@ -565,6 +565,8 @@ namespace UndyneFight_Ex.Fight
 
         public static HashSet<char> OneElementArrows = new HashSet<char>();
 
+        public static Func<char, int> CustomAnalyzer { private get; set; } = null;
+
         public static int GetWayFromTag(string wayTag)
         {
             int cur;
@@ -626,6 +628,9 @@ namespace UndyneFight_Ex.Fight
                     return colorLastArrow[color] = lastArrow;
                 case 'A':
                     lastArrow = DirectionAllocate[wayTag[1] - '0'];
+                    return colorLastArrow[color] = lastArrow;
+                case 'C':
+                    lastArrow = CustomAnalyzer(wayTag[1]);
                     return colorLastArrow[color] = lastArrow;
                 default:
                     lastArrow = wayTag[0] - '0';
@@ -984,6 +989,8 @@ namespace UndyneFight_Ex.Fight
 
         public static void Reset()
         {
+            GametimeDelta = 0; 
+            CustomAnalyzer = null;
             colorLastArrow = new int[10];
             DirectionAllocate = new int[10];
         }

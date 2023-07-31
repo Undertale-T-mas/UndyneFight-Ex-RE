@@ -56,6 +56,7 @@ namespace UndyneFight_Ex.Entities
             this.mission = mission;
         }
         private readonly Player.Heart mission;
+        public Player.Heart Mission => mission;
 
         public override void Start()
         {

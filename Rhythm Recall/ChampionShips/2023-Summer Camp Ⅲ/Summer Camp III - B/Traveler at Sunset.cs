@@ -2782,87 +2782,7 @@ namespace Rhythm_Recall.Waves
                             )
                         );
                     });
-                    RegisterFunctionOnce("sound", () =>
-                    {
-                        BoxStates.Centre = new(270, 380);
-                        InstantTP(new(170, 380));
-
-                        SetPlayerBoxMission(0);
-                        BoxUtils.Vertexify(Heart);
-                        BoxUtils.VertexBoxInstance.Split(2,
-                            new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
-                            );
-
-                        CollideRect left = new(new Vector2(170 - 42, 380 - 42), new Vector2(84, 84));
-                        Vector2 tl, tr, bl, br;
-                        tl = left.TopLeft; tr = left.TopRight;
-                        bl = left.BottomLeft; br = left.BottomRight;
-
-                        tl += new Vector2(10, 0); bl += new Vector2(10, 0);
-
-                        BoxStates.BoxMovingScale = 0.25f;
-                        BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
-
-                        Vector2 lerp1 = Vector2.Lerp(tr, br, 0.25f);
-                        Vector2 lerp2 = Vector2.Lerp(tr, br, 0.75f);
-
-                        BoxUtils.Move(4, lerp2);
-                        BoxUtils.Move(5, br);
-                        BoxUtils.Move(6, bl);
-                        BoxUtils.Move(7, (tl + bl) / 2 + new Vector2(-20, 0));
-                        BoxUtils.Move(8, tl);
-                        BoxUtils.Move(9, tr);
-                        BoxUtils.Move(10, lerp1);
-
-                        CollideRect rect = new(new Vector2(40, 340), new Vector2(10, 10));
-                        Heart.InstantSplit(rect);
-                        Heart.InstantTP(new(270, 380));
-
-                        rect = new(new Vector2(370 - 42, 380 - 42), new Vector2(84, 84));
-                        Heart.InstantSplit(rect);
-                         
-                        rect = new(new Vector2(600, 340), new Vector2(10, 10));
-                        Heart.InstantSplit(rect);
-                        Heart.InstantTP(new(470, 380));
-                        CollideRect right = new(new Vector2(470 - 42, 380 - 42), new Vector2(84, 84));
-                        tl = right.TopLeft; tr = right.TopRight;
-                        bl = right.BottomLeft; br = right.BottomRight;
-
-                        tr += new Vector2(-10, 0); br += new Vector2(-10, 0);
-
-                        SetPlayerBoxMission(2);
-                        BoxUtils.Vertexify(Heart);
-                        BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
-                        BoxUtils.VertexBoxInstance.Split(0,
-                            new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
-                            );
-
-                        lerp1 = Vector2.Lerp(tl, bl, 0.25f);
-                        lerp2 = Vector2.Lerp(tl, bl, 0.75f);
-
-                        BoxUtils.Move(2, lerp1);
-                        BoxUtils.Move(3, tl);
-                        BoxUtils.Move(4, tr);
-                        BoxUtils.Move(5, (tr + br) / 2 + new Vector2(20, 0));
-                        BoxUtils.Move(6, br);
-                        BoxUtils.Move(7, bl);
-                        BoxUtils.Move(8, lerp2);
-
-                        DelayBeat(0, () => {
-                            SetPlayerBoxMission(0);
-                            Heart.controlLayer = Surface.Hidden;
-                            Heart.Shields.controlLayer = Surface.Hidden;
-                            
-                            SetPlayerBoxMission(3);
-                            Heart.controlLayer = Surface.Hidden;
-                            Heart.Shields.controlLayer = Surface.Hidden;
-                        });
-                        DelayBeat(0.125f, () =>
-                        {
-                            PlaySound(Sounds.switchScene);
-                            PlaySound(Sounds.switchScene);
-                        });
-                    });
+                
                     BarrageCreate(BeatTime(4), BeatTime(2), 9f, new string[]
                     {
                         //pre
@@ -2879,40 +2799,155 @@ namespace Rhythm_Recall.Waves
                         "*$30@C(Box)", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
                         "*$30@C", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
                         "*$30", "", "*$30", "",    "*$30", "", "*$30", "",
-                        "*$30", "", "*$30", "",    "sound", "", "", "", 
+                        "*$30", "", "*$30", "",    "", "", "", "", 
                     });
                 }
 
-                if (InBeat(920))
+                if (InBeat(927))
                 {
-                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    To4k();
+                    CustomAnalyzer = (s) =>
                     {
-                        //pre
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        int mission = s - '0';
+                        SetPlayerMission(mission);
+                        mission = mission % 4;
+                        return mission switch
+                        {
+                            0 => 1,
+                            1 => 0,
+                            2 => 2,
+                            3 => 1,
+                            _ => throw new Exception()
+                        };
+                    };
+                    HashSet<Player.Heart> colorRed = new();
+                    colorRed.Add(Player.hearts[0]);
+                    colorRed.Add(Player.hearts[1]);
+                    ArrowProcesser = (s) =>
+                    {
+                        s.LateWaitingScale = 0.215f;
+                        s.Scale = 1.65f;
+                        s.JudgeType = Arrow.JudgementType.Tap;
+                        if (colorRed.Contains(s.Mission)) s.ResetColor(1);
+                    };
+
+                    BarrageCreate(0, BeatTime(2), 14.6f, new string[]
+                    {
+                        //pre 
+                        "", "", "", "",
                          
                         //1 
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "C0(C1)(C3)", "C2", "C0", "C1",    "C2(C3)", "C1", "C0(C3)", "C2",
+                        "C1(C0)", "C3", "C2(C0)", "C1",    "C0(C3)", "C2", "C1(C3)", "C0",
+                        "C1(C2)", "C3", "C0", "C2",    "(C0)(C1)", "C2(C3)", "(C0)(C1)", "C3",
+                        "C0(C2)", "C1", "C3", "C0(C1)",    "C2", "C3", "(C1)(C2)", "C0",
                         //2 
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "C1(C3)", "C2", "C0(C1)", "C3",    "(C2)(C0)", "C1", "C3", "C0",
+                        "C1(C2)", "C3", "C0(C1)", "C2",    "(C0)(C3)", "C1", "(C2)(C3)", "C0",
+                        "C1(C2)", "C3", "C0", "C2",    "C3(C0)", "C1", "C2", "C3",
+                        "C0(C1)", "C3", "C0", "C1(C2)",    "C3", "C0", "(C2)(C3)", "C1",
                         //3 
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "C0(C2)", "C3", "C1", "C2",    "C0(C3)", "C1", "C0(C2)", "C3",
+                        "C1", "C0", "C2(C3)", "C1",    "(C0)(C3)", "C2", "(C1)(C0)", "C3",
+                        "C0(C2)", "C1", "C3", "C0",    "C2(C3)", "C0(C1)", "C2(C3)", "C0",
+                        "C1(C2)", "C3", "C0", "C1(C3)",    "C2", "C0", "C2(C3)", "C1",
                         //4 
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "C0(C3)", "C2", "C0", "C1",    "C2(C3)", "C0", "C1(C3)", "C2",
+                        "C0", "C3", "C0(C1)", "C3",    "C0(C2)", "C1", "C2(C3)", "C0",
+                        "C2(C3)", "C1", "(C2)C3", "C0",    "C2(C3)", "C1", "C2", "C3",
+                        "C0(C1)", "", "C0(C3)", "C1(C2)",    "C0(C3)", "", "(C2)(C3)", "",
 
                     });
+                }
+            }
+            void To4k() {
+                {
+                    BoxStates.Centre = new(270, 380);
+                    InstantTP(new(170, 380));
+
+                    SetPlayerBoxMission(0);
+                    BoxUtils.Vertexify(Heart);
+                    BoxUtils.VertexBoxInstance.Split(2,
+                        new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
+                        );
+
+                    CollideRect left = new(new Vector2(170 - 42, 380 - 42), new Vector2(84, 84));
+                    Vector2 tl, tr, bl, br;
+                    tl = left.TopLeft; tr = left.TopRight;
+                    bl = left.BottomLeft; br = left.BottomRight;
+
+                    tl += new Vector2(10, 0); bl += new Vector2(10, 0);
+
+                    BoxStates.BoxMovingScale = 0.25f;
+                    BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
+
+                    Vector2 lerp1 = Vector2.Lerp(tr, br, 0.25f);
+                    Vector2 lerp2 = Vector2.Lerp(tr, br, 0.75f);
+
+                    BoxUtils.Move(4, lerp2);
+                    BoxUtils.Move(5, br);
+                    BoxUtils.Move(6, bl);
+                    BoxUtils.Move(7, (tl + bl) / 2 + new Vector2(-20, 0));
+                    BoxUtils.Move(8, tl);
+                    BoxUtils.Move(9, tr);
+                    BoxUtils.Move(10, lerp1);
+
+                    CollideRect rect = new(new Vector2(40, 340), new Vector2(10, 10));
+                    Heart.InstantSplit(rect);
+                    Heart.InstantTP(new(270, 380));
+
+                    rect = new(new Vector2(370 - 42, 380 - 42), new Vector2(84, 84));
+                    Heart.InstantSplit(rect);
+
+                    rect = new(new Vector2(600, 340), new Vector2(10, 10));
+                    Heart.InstantSplit(rect);
+                    Heart.InstantTP(new(470, 380));
+                    CollideRect right = new(new Vector2(470 - 42, 380 - 42), new Vector2(84, 84));
+                    tl = right.TopLeft; tr = right.TopRight;
+                    bl = right.BottomLeft; br = right.BottomRight;
+
+                    tr += new Vector2(-10, 0); br += new Vector2(-10, 0);
+
+                    SetPlayerBoxMission(2);
+                    BoxUtils.Vertexify(Heart);
+                    BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
+                    BoxUtils.VertexBoxInstance.Split(0,
+                        new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
+                        );
+
+                    lerp1 = Vector2.Lerp(tl, bl, 0.25f);
+                    lerp2 = Vector2.Lerp(tl, bl, 0.75f);
+
+                    BoxUtils.Move(2, lerp1);
+                    BoxUtils.Move(3, tl);
+                    BoxUtils.Move(4, tr);
+                    BoxUtils.Move(5, (tr + br) / 2 + new Vector2(20, 0));
+                    BoxUtils.Move(6, br);
+                    BoxUtils.Move(7, bl);
+                    BoxUtils.Move(8, lerp2);
+
+                    DelayBeat(0, () => {
+                        SetPlayerBoxMission(0);
+                        Heart.controlLayer = Surface.Hidden;
+                        Heart.Shields.controlLayer = Surface.Hidden;
+
+                        SetPlayerBoxMission(3);
+                        Heart.controlLayer = Surface.Hidden;
+                        Heart.Shields.controlLayer = Surface.Hidden;
+                    });
+                    DelayBeat(0.125f, () =>
+                    {
+                        PlaySound(Sounds.switchScene);
+                        PlaySound(Sounds.switchScene);
+                    });
+                    SetPlayerMission(0);
+                    Heart.InstantSetRotation(180);
+                    SetPlayerMission(1);
+                    Heart.InstantSetRotation(-90);
+                    SetPlayerMission(2);
+                    Heart.InstantSetRotation(90);
+                    SetPlayerMission(3);
+                    Heart.InstantSetRotation(180);
                 }
             }
             private void Effect01()
@@ -3244,7 +3279,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    int beat = 711 + 128 + 32;
+                    float beat = 711 + 128 + 32 + 32 + 23.5f;
                     //beat = 328;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
