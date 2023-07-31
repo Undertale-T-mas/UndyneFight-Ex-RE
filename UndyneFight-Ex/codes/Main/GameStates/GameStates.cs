@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
@@ -159,8 +160,7 @@ namespace UndyneFight_Ex
                 if (!isDead && GameInterface.UFEXSettings.RecordEnabled)
                     Recorder.Save();
             }
-
-            Fight.Functions.GametimeDelta = 0;
+            Fight.Functions.Reset();
             Surface.Normal.drawingAlpha = 1.0f;
             isInBattle = false;
 

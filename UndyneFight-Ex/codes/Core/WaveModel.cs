@@ -206,6 +206,7 @@ namespace UndyneFight_Ex.SongSystem
         {
             AddInstance(new TimeRangedEvent(delayBeat * SingleBeat, durationBeat * SingleBeat, action) { UpdateIn120 = true });
         }
+        public Action<Arrow> ArrowProcesser { private get; set; } = null;
 
         private class BracketTreeNode
         {
@@ -523,6 +524,8 @@ namespace UndyneFight_Ex.SongSystem
                     ;
                 if (isvoid) arr.VolumeFactor *= this.Settings.VoidArrowVolume;
                 LastArrow = arr;
+
+                if (ArrowProcesser != null) ArrowProcesser(arr);
             }
             return result;
         }

@@ -234,8 +234,8 @@ namespace UndyneFight_Ex.Entities
             FightResources.Font.NormalFont.CentreDraw(score.Value.ToString(), new Vector2(540, 20), GameMain.CurrentDrawingSettings.UIColor);
             if (totalCount != 0)
             {
-                FightResources.Font.NormalFont.CentreDraw("p/a:" + MathF.Round((float)(perfect * 100.0 / totalCount), 1) + "%", new Vector2(100, 50), GameMain.CurrentDrawingSettings.UIColor);
-                FightResources.Font.NormalFont.CentreDraw("m/a:" + MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1) + "%", new Vector2(100, 80), GameMain.CurrentDrawingSettings.UIColor);
+                FightResources.Font.NormalFont.CentreDraw("p/a:" + MathF.Round((float)(perfect * 100.0 / totalCount), 1) + "%", new Vector2(92, 50), GameMain.CurrentDrawingSettings.UIColor);
+                FightResources.Font.NormalFont.CentreDraw("m/a:" + MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1) + "%", new Vector2(92, 80), GameMain.CurrentDrawingSettings.UIColor);
             }
             current?.Draw();
         }
