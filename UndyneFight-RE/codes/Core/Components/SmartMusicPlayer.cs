@@ -28,7 +28,7 @@ namespace UndyneFight_Ex.Remake.Components
             player.IsLoop = false;
         }
         public void Play()
-        {
+        { 
             currentIndex = 0;
             currentPeriod = periods[0];
             currentPeriod.Player.Play();
@@ -38,6 +38,9 @@ namespace UndyneFight_Ex.Remake.Components
         int currentIndex = -1;
 
         bool _inFadeOut = false;
+
+        public bool Onplay => currentIndex != -1;
+
         public override void Update()
         {
             var list = GameStates.DetectEvent("MusicFadeOut");
@@ -61,7 +64,7 @@ namespace UndyneFight_Ex.Remake.Components
             }
         }
         public void Stop()
-        {
+        { 
             currentIndex = -1;
             currentPeriod.Player.Stop();
         }

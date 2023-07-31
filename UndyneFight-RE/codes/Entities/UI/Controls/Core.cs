@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace UndyneFight_Ex.Remake.UI
 {
-    enum SelectState
+    public enum SelectState
     {
         False = 0,
         MouseOn = 1,
@@ -13,7 +13,7 @@ namespace UndyneFight_Ex.Remake.UI
     /// <summary>
     /// A unit which is in a select chunk
     /// </summary>
-    abstract class SelectingModule : Entity
+    abstract public class SelectingModule : Entity
     {
         public SelectingModule(ISelectChunk father)
         {
@@ -99,7 +99,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             Color mission = this.State switch
             {
-                SelectState.False => ColorNormal,
+                SelectState.False => _mouseOn ? ColorMouseOn : ColorNormal,
                 SelectState.MouseOn => ColorMouseOn,
                 SelectState.Selected => ColorSelected,
                 SelectState.Disabled => ColorDisabled,
@@ -157,7 +157,7 @@ namespace UndyneFight_Ex.Remake.UI
             this._mouseOn = this.collidingBox.Contain(MouseSystem.TransferredPosition);
         }
     }
-    interface ISelectChunk
+    public interface ISelectChunk
     {
         void Activate();
         void Deactivate();
@@ -170,9 +170,13 @@ namespace UndyneFight_Ex.Remake.UI
 
         SelectingModule Focus { get; }
     }
-    abstract class SmartSelector : Entity, ISelectChunk
+    abstract public class SmartSelector : Entity, ISelectChunk
     {
-        public bool Activated => _activated; 
+        protected int DefaultFocus { private get;  set; } = 0;
+
+        private int _activateTime = 0;
+
+        public bool Activated => _activateTime > 2; 
         public bool DrawEnabled => _activated;
 
         public SelectingModule Focus => this.currentFocus;
@@ -276,6 +280,8 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Update()
         {
+            if (_activated) _activateTime++;
+            else _activateTime = 0;
             if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
             {
                 if (_state == SelectState.False) _state = SelectState.MouseOn;
@@ -295,7 +301,7 @@ namespace UndyneFight_Ex.Remake.UI
             };
             DrawingColor = Color.Lerp(DrawingColor, mission, 0.12f);
 
-            if (!this.Activated) return;
+            if (_activateTime < 2) return;
             if (this.ChildObjects.Count == 0) { return; }
 
             if (this.CurrentSelected != null && this.CurrentSelected.KeyLocked) return;
@@ -325,8 +331,11 @@ namespace UndyneFight_Ex.Remake.UI
                 all[i] = item;
                 i++;
             }
-            if (all.Length > 0)
-                this.currentFocus = all[0];
+            if (all.Length > 0 && this.currentFocus == null)
+            {
+                this.currentFocus = all[DefaultFocus];
+                this.currentFocus.OnFocus();
+            }
             base.Start();
         }
     }

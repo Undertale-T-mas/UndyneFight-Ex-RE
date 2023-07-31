@@ -47,8 +47,14 @@ namespace UndyneFight_Ex.Remake.UI
                 }
                 else if(selected == _cancel)
                 {
-                    throw new NotImplementedException();
+                    DoBack();
                 }
+            }
+
+            private void DoBack()
+            {
+                this._virtualFather.FatherObject.Dispose();
+                GameStates.InstanceCreate(new IntroUI());
             }
 
             private void DoConfirm()
@@ -61,11 +67,10 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         GlobalMemory.RememberUser.Value = _account.Result;
                     }
-                    SaveGlobal();
-                    this.Dispose();
+                    SaveGlobal(); 
                     this.FatherObject?.FatherObject?.Dispose();
                     PlayerManager.Login(_account.Result);
-                    InstanceCreate(new SelectUI());
+                    InstanceCreate(new IntroUI());
                 }
                 else
                 {

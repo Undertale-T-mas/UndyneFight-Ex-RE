@@ -112,7 +112,7 @@ namespace UndyneFight_Ex.Remake.UI
                 if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus.ConfirmKeyDown();
-                }
+                } 
             }
 
             SelectingModule[] all;
@@ -171,11 +171,11 @@ namespace UndyneFight_Ex.Remake.UI
                 this.AddChild(currentFocus = startButton = new Button(this, new(440, 100), "Start!") { DefaultScale = 1.7f, NeverEnable = true });
                 currentFocus.OnFocus();
                 this.AddChild(noHitButton = new Button(this, new(440, 210), "No Hit") ); 
-                this.AddChild(apButton = new Button(this, new(440, 290), "Perfect Only") ); 
-                this.AddChild(buffButton = new Button(this, new(440, 370), "Buffed") ); 
-                this.AddChild(practiceButton = new Button(this, new(440, 450), "Practice") ); 
-                this.AddChild(ngsButton = new Button(this, new(440, 530), "No Greensoul") );
-                this.AddChild(autoButton = new Button(this, new(440, 610), "Autoplay") );
+                this.AddChild(apButton = new Button(this, new(440, 285), "Perfect Only") ); 
+                this.AddChild(buffButton = new Button(this, new(440, 360), "Buffed") ); 
+                this.AddChild(practiceButton = new Button(this, new(440, 435), "Practice") ); 
+                this.AddChild(ngsButton = new Button(this, new(440, 510), "No Greensoul") );
+                this.AddChild(autoButton = new Button(this, new(440, 585), "Autoplay") );
 
                 startButton.LeftClick += () => {  
                     this._virtualFather.SongSelect.Activate();

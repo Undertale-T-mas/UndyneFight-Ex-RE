@@ -34,7 +34,7 @@ namespace UndyneFight_Ex.UserService
 
             arrowSpeed = info.Nexts.ContainsKey("arrowSpeed") ? info.Nexts["arrowSpeed"].FloatValue : ArrowSpeed;
 
-            fps = info.Nexts.ContainsKey("fps") ? info.Nexts["fps"].FloatValue : ArrowSpeed;
+            fps = info.Nexts.ContainsKey("fps") ? info.Nexts["fps"].FloatValue : DrawFPS;
 
             mirror = info.Nexts.ContainsKey("mirror") ? info.Nexts["mirror"].BoolValue : Mirror;
 
@@ -61,7 +61,7 @@ namespace UndyneFight_Ex.UserService
             ArrowSpeed = arrowSpeed;
             ArrowScale = arrowScale;
             Mirror = mirror;
-            DrawFPS = fps;
+            DrawFPS = MathUtil.Clamp(25, fps, 125);
             SettingsManager.DataLibrary.perciseWarning = perciseWarning;
             SettingsManager.DataLibrary.dialogAvailable = dialogAvailable;
             SettingsManager.DataLibrary.drawingQuality = (DrawingQuality)drawingQuality;
@@ -111,14 +111,14 @@ namespace UndyneFight_Ex.UserService
             get
             {
                 UpdateTime();
-                return playedTime;
+                return (int)playedTime;
             }
         }
-        int playedTime = 0;
+        float playedTime = 0;
         private void UpdateTime()
         {
             TimeSpan del = DateTime.Now - span;
-            playedTime += (int)del.TotalSeconds;
+            playedTime += (float)del.TotalSeconds;
             span = DateTime.Now;
         }
 
@@ -130,14 +130,14 @@ namespace UndyneFight_Ex.UserService
         public void Load(SaveInfo info)
         {
             DeathCount = info.Nexts["DeathCount"].IntValue;
-            playedTime = info.Nexts["PlayedTime"].IntValue;
+            playedTime = info.Nexts["PlayedTime"].FloatValue;
         }
 
         public SaveInfo Save()
         {
             SaveInfo info = new SaveInfo("Statistic{");
             info.PushNext(new SaveInfo("DeathCount:" + DeathCount));
-            info.PushNext(new SaveInfo("PlayedTime:" + PlayedTime));
+            info.PushNext(new SaveInfo("PlayedTime:" + MathUtil.FloatToString(playedTime, 4)));
             return info;
         }
     }

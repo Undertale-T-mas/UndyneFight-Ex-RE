@@ -54,6 +54,9 @@ namespace UndyneFight_Ex
             long temp = timer.ElapsedTicks;
             long temp2 = timer.ElapsedMilliseconds;
 
+            float frames = DrawFPS / 125f; // gameTime.ElapsedGameTime.Milliseconds / 16f;
+            Shader.TimeElapsed = 1 / frames;
+            RenderProduction.TimeElapsed = frames;
             Surface.DistributeEntity(GameStates.GetEntities(), matrix);
 
             finalTarget = GameStates.DrawAll();

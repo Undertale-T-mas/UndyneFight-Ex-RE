@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -219,7 +220,7 @@ namespace UndyneFight_Ex
         }
 
         public override void Update()
-        {
+        { 
         }
     }
     public abstract class AutoEntity : Entity
@@ -235,6 +236,7 @@ namespace UndyneFight_Ex
     }
     public abstract class Entity : GameObject
     {
+        public bool Visible { internal get; set; } = true;
         public bool AngelMode { set; get; } = false; 
         private float DrawingRotation(float rotation) => AngelMode ? MathUtil.GetRadian(rotation) : rotation;
 
@@ -244,6 +246,8 @@ namespace UndyneFight_Ex
         }
 
         public Surface controlLayer;
+
+        protected SpriteBatchEX SpriteBatch => GameMain.MissionSpriteBatch;
 
         public void FormalDraw(Texture2D tex, Vector2 centre, Color color, float rotation, Vector2 rotateCentre)
         {
@@ -304,8 +308,10 @@ namespace UndyneFight_Ex
             if (!DrawOptimize) return false;
             float scale = (1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale)) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.212f;
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
-            CollideRect cur = new CollideRect(0, -480 * extend.W, 640 * scale * GameStates.SurfaceScale, 480 * (scale + extend.W) * GameStates.SurfaceScale);
-            cur.SetCentre(new Vector2(320, 240 - 240 * extend.W) * GameStates.SurfaceScale);
+            float scrWidth = CurrentScene.CurrentDrawingSettings.defaultWidth;
+            float scrHeight = scrWidth / GameStates.Aspect;
+            CollideRect cur = new CollideRect(0, -scrHeight * extend.W, scrWidth * scale * GameStates.SurfaceScale, scrHeight * (scale + extend.W) * GameStates.SurfaceScale);
+            cur.SetCentre(new Vector2(scrWidth / 2f, (1 - extend.W) * 0.5f * scrHeight) * GameStates.SurfaceScale);
             cur.Offset(-CurrentScene.CurrentDrawingSettings.screenDetla / CurrentScene.CurrentDrawingSettings.screenScale);
 
             if (cur.Contain(centre)) return false;
@@ -626,7 +632,8 @@ namespace UndyneFight_Ex
         public List<Entity> GetDrawableTree()
         {
             List<Entity> list = new List<Entity>();
-            if (BeingUpdated && this is Entity) list.Add(this as Entity);
+            if (BeingUpdated && this is Entity) 
+                if((this as Entity).Visible) list.Add(this as Entity);
             foreach (GameObject child in ChildObjects)
             {
                 list.AddRange(child.GetDrawableTree());

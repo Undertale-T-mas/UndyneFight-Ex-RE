@@ -56,6 +56,9 @@ namespace UndyneFight_Ex.Remake.UI
                 };
                 float l = L + delta, r = R - delta;
 
+                var attributes = _currentSelection.Attributes;
+                if (attributes != null)
+                    diffPanel.RemoveWhere(s => !attributes.UnlockedDifficulties.Contains(s));
                 Difficulty[] difficulties = diffPanel.ToArray();
                 Array.Sort(difficulties);
 

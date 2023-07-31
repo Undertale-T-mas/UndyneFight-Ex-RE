@@ -115,13 +115,7 @@ namespace UndyneFight_Ex.Remake.UI
         public SettingUI()
         {
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
-             
-            if (PlayerManager.CurrentUser != null)
-            {
-                this.Dispose();
-                GameStates.InstanceCreate(new SelectUI());
-                return;
-            }
+              
             this.AddChild(new MouseCursor());
             this.AddChild(new LineDistributer());
             this.AddChild(new VirtualFather());
@@ -134,6 +128,11 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Update()
         {
+            if (GameStates.IsKeyPressed(InputIdentity.Cancel))
+            {
+                this.Dispose();
+                GameStates.InstanceCreate(new IntroUI());
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ using static UndyneFight_Ex.GlobalResources.Sprites;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal static class StartingShower
+    public static class StartingShower
     {
         public static Type TitleSetUp;
         public static Type TitleShower;

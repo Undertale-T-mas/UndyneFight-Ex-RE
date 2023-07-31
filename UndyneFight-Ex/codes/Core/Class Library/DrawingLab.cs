@@ -252,12 +252,12 @@ namespace UndyneFight_Ex
 
 
         public const float quarterAngle = (float)(0.5 * Math.PI);
-        public static void DrawLine(Vector2 P1, Vector2 P2, float width, Color cl, float depth)
+        public static void DrawLine(Vector2 P1, Vector2 P2, float width, Color cl, float depth, Texture2D texture = null)
         {
             Vector2 Centre = (P1 + P2) / 2;
             float Angle = (float)Math.Atan2(P2.Y - P1.Y, P2.X - P1.X);
             float dist = MathUtil.GetDistance(P1, P2) + 2;
-            DrawLine(Centre, Angle, dist, width, cl, depth);
+            DrawLine(Centre, Angle, dist, width, cl, depth, texture);
         }
 
         /// <summary>
@@ -278,8 +278,9 @@ namespace UndyneFight_Ex
         /// <param name="Length">线条长度</param>
         /// <param name="width">线宽度</param>
         /// <param name="cl">线条颜色</param>
-        public static void DrawLine(Vector2 Centre, float angle, float length, float width, Color cl, float depth)
+        public static void DrawLine(Vector2 Centre, float angle, float length, float width, Color cl, float depth, Texture2D texture = null)
         {
+            if (texture == null) texture = FightResources.Sprites.pixiv; 
             angle = GetAngle(angle);
             Vector2 v1 = GetVector2(length / 2f, angle);
             Vector2 v2 = -v1;
@@ -287,11 +288,11 @@ namespace UndyneFight_Ex
             Vector2 del = GetVector2(width / 2f, angle + 90);
             Vector2 p1 = v1 + del, p2 = v2 + del;
             Vector2 p3 = v1 - del, p4 = v2 - del;
-            MissionSpriteBatch.DrawVertex(depth, 
-                new VertexPositionColor(new(p1, depth), cl),
-                new VertexPositionColor(new(p2, depth), cl),
-                new VertexPositionColor(new(p4, depth), cl),
-                new VertexPositionColor(new(p3, depth), cl)
+            MissionSpriteBatch.DrawVertex(texture, depth, 
+                new VertexPositionColorTexture(new(p1, depth), cl, new(0, 0)),
+                new VertexPositionColorTexture(new(p2, depth), cl, new(0, 1)),
+                new VertexPositionColorTexture(new(p4, depth), cl, new(1, 1)),
+                new VertexPositionColorTexture(new(p3, depth), cl, new(1, 0))
                 );
         }
 
@@ -331,6 +332,7 @@ namespace UndyneFight_Ex
         public Action<Effect> StableEvents { private get; set; }
 
         public bool LateApply { get; set; } = false;
+        public static float TimeElapsed { get; internal set; }
 
         public void RegisterTexture(Texture2D tex, int index)
         {

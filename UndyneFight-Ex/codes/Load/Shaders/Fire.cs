@@ -14,7 +14,7 @@ namespace UndyneFight_Ex
                     
                     StableEvents = (x) =>
                     {
-                        Time += Speed;
+                        Time += Speed * TimeElapsed;
                         RegisterTexture(Sprites.hashtex2, 1);
 
                         /*

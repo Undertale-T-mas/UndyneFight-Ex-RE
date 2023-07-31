@@ -72,7 +72,8 @@ namespace UndyneFight_Ex
         private readonly float depth;
         protected Shader Shader { set => shader = value; get => shader; }
 
-        protected SamplerState SamplerState { get; set; } = null;
+        protected SamplerState SamplerState { get; 
+            set; } = null;
 
         public int CompareTo(RenderProduction r)
         {
@@ -246,6 +247,7 @@ namespace UndyneFight_Ex
         protected static RenderTarget2D HelperTarget3 { private set; get; }
 
         public bool Enabled { get; set; } = true;
+        public static float TimeElapsed { get; internal set; }
     }
 
     public class Surface : RenderProduction
@@ -277,8 +279,8 @@ namespace UndyneFight_Ex
         }
         private class BoxPartDrawer : Entity
         {
-            Vector2[] _vertexs;
-            public BoxPartDrawer(RenderTarget2D target, Vector2[] vertexs)
+            BoxVertex[] _vertexs;
+            public BoxPartDrawer(RenderTarget2D target, BoxVertex[] vertexs)
             {
                 _vertexs = vertexs;
                 Image = target;
@@ -289,7 +291,7 @@ namespace UndyneFight_Ex
                 VertexPositionColorTexture[] vertexs = new VertexPositionColorTexture[_vertexs.Length];
                 for (int i = 0; i < _vertexs.Length; i++)
                 {
-                    vertexs[i] = new(new(_vertexs[i], 0.395f), Color.White, _vertexs[i] / new Vector2(640, 480));
+                    vertexs[i] = new(new(_vertexs[i].CurrentPosition, 0.395f), Color.White, _vertexs[i].CurrentPosition / new Vector2(640, 480));
                 }
                 if (vertexs.Length == 4)
                     SpriteBatch.DrawVertex(this.Image, 0.39f, vertexs);

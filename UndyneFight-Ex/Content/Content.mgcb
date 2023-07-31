@@ -200,6 +200,12 @@
 /processorParam:Defines=
 /build:Global/Shaders/Effect Library/Cos1Ball.fx
 
+#begin Global/Shaders/Effect Library/DislocationX.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/DislocationX.fx
+
 #begin Global/Shaders/Effect Library/Gray.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -235,6 +241,12 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Lens.fx
+
+#begin Global/Shaders/Effect Library/LightSweep.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/LightSweep.fx
 
 #begin Global/Shaders/Effect Library/Mosaic.fx
 /importer:EffectImporter
@@ -307,6 +319,12 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Tyndall.fx
+
+#begin Global/Shaders/Effect Library/Wave.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/Wave.fx
 
 #begin Global/Shaders/Effect Library/Wrong.fx
 /importer:EffectImporter
@@ -391,6 +409,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Global/UI/maingame.png
+
+#begin Global/UI/medal0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Global/UI/medal0.png
 
 #begin Global/UI/medal1.png
 /importer:TextureImporter
@@ -2952,6 +2982,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/others/lightBallS.png
+
+#begin Sprites/others/lightLine.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/others/lightLine.png
 
 #begin Sprites/others/pixiv.png
 /importer:TextureImporter

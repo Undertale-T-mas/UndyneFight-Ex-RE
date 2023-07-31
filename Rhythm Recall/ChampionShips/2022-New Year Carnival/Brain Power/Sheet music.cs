@@ -635,30 +635,24 @@ namespace Rhythm_Recall.Waves
                     {
                         foreach (var box in FightBox.boxs)
                         {
-                            box.MissionVertexs[0].Y -= 140;
-                            box.MissionVertexs[1].Y -= 140;
-                            box.MissionVertexs[2].Y -= 140;
-                            box.MissionVertexs[3].Y -= 140;
+                            for (int i = 0; i < 4; i++)
+                                box.Vertexs[i].MissionPosition -= new Vector2(0, 140); 
                         }
                     }
                     if (GametimeF == 4495 + 2 * 22 + 11)
                     {
                         foreach (var box in FightBox.boxs)
                         {
-                            box.MissionVertexs[0].Y += 140;
-                            box.MissionVertexs[1].Y += 140;
-                            box.MissionVertexs[2].Y += 140;
-                            box.MissionVertexs[3].Y += 140;
+                            for (int i = 0; i < 4; i++)
+                                box.Vertexs[i].MissionPosition += new Vector2(0, 140);
                         }
                     }
                     if (GametimeF == 4495 + 3 * 22)
                     {
                         foreach (var box in FightBox.boxs)
                         {
-                            box.MissionVertexs[0].Y -= 140;
-                            box.MissionVertexs[1].Y -= 140;
-                            box.MissionVertexs[2].Y -= 140;
-                            box.MissionVertexs[3].Y -= 140;
+                            for (int i = 0; i < 4; i++)
+                                box.Vertexs[i].MissionPosition -= new Vector2(0, 140);
                         }
                     }
 
@@ -666,10 +660,8 @@ namespace Rhythm_Recall.Waves
                     {
                         foreach (var box in FightBox.boxs)
                         {
-                            box.MissionVertexs[0].Y += 140;
-                            box.MissionVertexs[1].Y += 140;
-                            box.MissionVertexs[2].Y += 140;
-                            box.MissionVertexs[3].Y += 140;
+                            for (int i = 0; i < 4; i++)
+                                box.Vertexs[i].MissionPosition += new Vector2(0, 140);
                         }
                         float time = 2 * 22 + 5;
                         Fortimes(8, (t) => { CreateArrow(time, 2 * t, 15, 1, 0); time += 5.54f; });
@@ -678,10 +670,8 @@ namespace Rhythm_Recall.Waves
                     {
                         foreach (var box in FightBox.boxs)
                         {
-                            box.MissionVertexs[0].Y -= 140;
-                            box.MissionVertexs[1].Y -= 140;
-                            box.MissionVertexs[2].Y -= 140;
-                            box.MissionVertexs[3].Y -= 140;
+                            for (int i = 0; i < 4; i++)
+                                box.Vertexs[i].MissionPosition -= new Vector2(0, 140);
                         }
                     }
                     if (GametimeF == 4495 + 5 * 22 + 11)
@@ -692,10 +682,8 @@ namespace Rhythm_Recall.Waves
                         }
                         foreach (var box in FightBox.boxs)
                         {
-                            box.MissionVertexs[0].Y += 140;
-                            box.MissionVertexs[1].Y += 140;
-                            box.MissionVertexs[2].Y += 140;
-                            box.MissionVertexs[3].Y += 140;
+                            for (int i = 0; i < 4; i++)
+                                box.Vertexs[i].MissionPosition += new Vector2(0, 140);
                         }
                     }
 

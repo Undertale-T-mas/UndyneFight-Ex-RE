@@ -19,6 +19,10 @@ namespace UndyneFight_Ex.Remake
             UI.Tick = loader.Load<Texture2D>("UI\\tick");
             UI.ScrollArrow = loader.Load<Texture2D>("UI\\scrollArrow");
             UI.Gear = loader.Load<Texture2D>("UI\\gear");
+            UI.Mail = loader.Load<Texture2D>("UI\\mail");
+            UI.IntroStart = loader.Load<Texture2D>("UI\\introStart");
+            UI.IntroAccount = loader.Load<Texture2D>("UI\\account");
+            UI.IntroSetting = loader.Load<Texture2D>("UI\\introSetting");
 
             Musics.DreamDiver_INTRO = new("ReEngine\\Musics\\Dream diver_INTRO.ogg");
             Musics.DreamDiver_LOOP = new("ReEngine\\Musics\\Dream diver_LOOP.ogg");
@@ -35,8 +39,9 @@ namespace UndyneFight_Ex.Remake
             FightSprites.MettBlockA = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockA");
             FightSprites.MettBlockB = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockB");
             FightSprites.MettBullet = loader.Load<Texture2D>("FightSprites\\Mettaton\\bullet");
+            FightSprites.Spider = loader.Load<Texture2D>("FightSprites\\spider");
 
-            for(int i = 0; i < 18; i++)
+            for (int i = 0; i < 18; i++)
             {
                 FightSprites.ParasolMett[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_parasolmett_" + i);
                 if (i < 7)
@@ -77,6 +82,10 @@ namespace UndyneFight_Ex.Remake
             public static Texture2D Tick { get; set; }
             public static Texture2D ScrollArrow { get; set; }
             public static Texture2D Gear { get; set; }
+            public static Texture2D Mail { get; internal set; }
+            public static Texture2D IntroStart { get; internal set; }
+            public static Texture2D IntroAccount { get; internal set; }
+            public static Texture2D IntroSetting { get; internal set; }
         }
         public static class Musics
         {
@@ -92,7 +101,8 @@ namespace UndyneFight_Ex.Remake
         public static class FightSprites
         {
             public static Texture2D[] Fireball { get; private set; } = new Texture2D[2];
-           
+
+            public static Texture2D Spider { get; set; }
             public static Texture2D SoulShoot { get; set; }
             public static Texture2D MettBlockA { get; set; }
             public static Texture2D MettBlockB { get; set; }

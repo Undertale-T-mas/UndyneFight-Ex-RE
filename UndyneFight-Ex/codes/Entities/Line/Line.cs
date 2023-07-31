@@ -146,22 +146,22 @@ namespace UndyneFight_Ex.Entities
         public override void Draw()
         {
             if (Alpha < 0) return;
-            DrawLine(vec1.CentrePosition, vec2.CentrePosition, Width, DrawingColor * Alpha, Depth);
+            DrawLine(vec1.CentrePosition, vec2.CentrePosition, Width, DrawingColor * Alpha, Depth, Image);
             if (VerticalMirror)
-                DrawLine(new Vector2(vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth);
+                DrawLine(new Vector2(vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth, Image);
             if (TransverseMirror)
-                DrawLine(new Vector2(640 - vec1.CentrePosition.X, vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth);
+                DrawLine(new Vector2(640 - vec1.CentrePosition.X, vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth, Image);
             if (ObliqueMirror)
-                DrawLine(new Vector2(640 - vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth);
+                DrawLine(new Vector2(640 - vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth, Image);
             if (VerticalLine)
             {
-                DrawLine(new Vector2(-vec1.CentrePosition.Y - 80, vec1.CentrePosition.X - 80), new Vector2(-vec2.CentrePosition.Y - 80, vec2.CentrePosition.X - 80), Width, DrawingColor * Alpha, Depth);
+                DrawLine(new Vector2(-vec1.CentrePosition.Y - 80, vec1.CentrePosition.X - 80), new Vector2(-vec2.CentrePosition.Y - 80, vec2.CentrePosition.X - 80), Width, DrawingColor * Alpha, Depth, Image);
                 if (TransverseMirror)
-                    DrawLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), vec1.CentrePosition.X - 80), new Vector2(640 - (560 - vec2.CentrePosition.Y), vec2.CentrePosition.X - 80), Width, DrawingColor * Alpha, Depth);
+                    DrawLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), vec1.CentrePosition.X - 80), new Vector2(640 - (560 - vec2.CentrePosition.Y), vec2.CentrePosition.X - 80), Width, DrawingColor * Alpha, Depth, Image);
                 if (VerticalMirror)
-                    DrawLine(new Vector2(560 - vec1.CentrePosition.Y, 480 - (vec1.CentrePosition.X - 80)), new Vector2(560 - vec2.CentrePosition.Y, 480 - (vec2.CentrePosition.X - 80)), Width, DrawingColor * Alpha, Depth);
+                    DrawLine(new Vector2(560 - vec1.CentrePosition.Y, 480 - (vec1.CentrePosition.X - 80)), new Vector2(560 - vec2.CentrePosition.Y, 480 - (vec2.CentrePosition.X - 80)), Width, DrawingColor * Alpha, Depth, Image);
                 if (ObliqueMirror)
-                    DrawLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), 480 - (vec1.CentrePosition.X - 80)), new Vector2(640 - (560 - vec2.CentrePosition.Y), 480 - (vec2.CentrePosition.X - 80)), Width, DrawingColor * Alpha, Depth);
+                    DrawLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), 480 - (vec1.CentrePosition.X - 80)), new Vector2(640 - (560 - vec2.CentrePosition.Y), 480 - (vec2.CentrePosition.X - 80)), Width, DrawingColor * Alpha, Depth, Image);
             }
         }
 

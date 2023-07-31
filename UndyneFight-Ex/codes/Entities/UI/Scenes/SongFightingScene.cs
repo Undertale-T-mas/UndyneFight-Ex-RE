@@ -126,7 +126,7 @@ namespace UndyneFight_Ex.Entities
 
             public Texture2D SongIllustration { get; set; }
 
-            public SceneParams(IWaveSet waveset, Texture2D songIllustration, int difficulty, string musicPath, JudgementState judgeState, GameMode mode)
+            public SceneParams(IWaveSet waveset, Texture2D songIllustration, int difficulty, string musicPath, JudgementState judgeState, GameMode mode = GameMode.None)
             {
                 SongIllustration = songIllustration;
                 JudgeState = judgeState;

@@ -58,6 +58,7 @@ namespace UndyneFight_Ex
             record =            loader.Load<Texture2D>("UI\\record");
             medal =             loader.Load<Texture2D>("UI\\medal1");
             starMedal =         loader.Load<Texture2D>("UI\\medal2");
+            brimMedal =         loader.Load<Texture2D>("UI\\medal0");
             loadingText =       loader.Load<Texture2D>("Loading\\Loading");
             progressArrow =     loader.Load<Texture2D>("Loading\\ProgressArrow");
 
@@ -93,7 +94,7 @@ namespace UndyneFight_Ex
             CustomShaders.Swirl =       new SwirlShader(loader.Load<Effect>("Swirl"));
             CustomShaders.Blur =        new BlurShader(loader.Load<Effect>("Blur"));
             CustomShaders.FastBlur =    new BlurShader(loader.Load<Effect>("BlurLow"));
-            CustomShaders.BlurKawase =    new BlurKawaseShader(loader.Load<Effect>("BlurKawase"));
+            CustomShaders.BlurKawase =  new BlurKawaseShader(loader.Load<Effect>("BlurKawase"));
             CustomShaders.Lens =        new LensShader(loader.Load<Effect>("Lens"));
             CustomShaders.Polar =       new PolarShader(loader.Load<Effect>("Polar"));
             CustomShaders.Gray =        new GrayShader(loader.Load<Effect>("Gray"));
@@ -101,11 +102,16 @@ namespace UndyneFight_Ex
             CustomShaders.Scatter =     new ScatterShader(loader.Load<Effect>("Scatter"));
             CustomShaders.Mosaic =      new MosaicShader(loader.Load<Effect>("Mosaic"));
             CustomShaders.BlockTile =   new BlockTileShader(loader.Load<Effect>("BlockTile"));
+            CustomShaders.LightSweep =  new LightSweepShader(loader.Load<Effect>("LightSweep"));
+            CustomShaders.Wave =        new WaveShader(loader.Load<Effect>("Wave"));
 
             CustomShaders.Tyndall =     new TyndallShader(loader.Load<Effect>("Tyndall"));
             CustomShaders.Spiral =      new SpiralShader(loader.Load<Effect>("Sprial3D"));
             CustomShaders.Wrong =       new WrongShader(loader.Load<Effect>("Wrong"));
             CustomShaders.Fire =        new FireShader(loader.Load<Effect>("NoiseFire"));
+            
+            CustomShaders.DislocationX =  new DislocationShaderX(loader.Load<Effect>("DislocationX"));
+            //      CustomShaders.DislocationY =  new DislocationYShader(loader.Load<Effect>("DislocationY"));
             LoadInternals(loader);
             //Effects.CustomShaders.ShaderTiler = new Effects.ShaderTiler(loader.Load<Effect>("ShaderTiler"));
             //Effects.CustomShaders.Smear = new Effects.Smear(loader.Load<Effect>("Smear"));
@@ -120,11 +126,13 @@ namespace UndyneFight_Ex
             {
                 public static Shader Sinwave { get; set; }
                 public static AuroraShader Aurora { get; set; }
+                public static LightSweepShader LightSweep { get; set; }
                 public static TyndallShader Tyndall { get; set; }
                 public static NeonLineShader NeonLine { get; set; }
                 public static ColorBlendShader ColorBlend { get; set; }
                 public static SpiralShader Spiral { get; set; }
                 
+                public static WaveShader Wave { get; set; }
                 public static BallShapingShader Cos1Ball { get; set; }
                 public static ScaleShader Scale { get; set; }
                 public static CameraShader Camera { get; set; }
@@ -144,6 +152,8 @@ namespace UndyneFight_Ex
                 public static BlockTileShader BlockTile { get; set; }
                 public static WrongShader Wrong { get; set; }
                 public static FireShader Fire { get; set; }
+                public static DislocationShaderX DislocationX { get; set; }
+                public static DislocationShaderY DislocationY { get; set; }
             }
         }
 
@@ -173,6 +183,7 @@ namespace UndyneFight_Ex
             public static Texture2D progressArrow;
             public static Texture2D medal;
             public static Texture2D starMedal;
+            public static Texture2D brimMedal;
             public static Texture2D loadingTexture;
         }
     }
@@ -261,6 +272,7 @@ namespace UndyneFight_Ex
             Sprites.firePartical =  loader.Load<Texture2D>("Sprites\\others\\firePartical");
             Sprites.lightBall =     loader.Load<Texture2D>("Sprites\\others\\lightBall");
             Sprites.lightBallS =    loader.Load<Texture2D>("Sprites\\others\\lightBallS");
+            Sprites.lightLine =    loader.Load<Texture2D>("Sprites\\others\\lightLine");
             Sprites.square =        loader.Load<Texture2D>("Sprites\\others\\square");
             Sprites.boxPiece =      loader.Load<Texture2D>("Sprites\\others\\boxPiece");
 
@@ -419,6 +431,7 @@ namespace UndyneFight_Ex
             /// </summary>
             public static Texture2D lightBall;
             public static Texture2D lightBallS;
+            public static Texture2D lightLine;
             public static Texture2D square;
 
             /// <summary>
@@ -646,6 +659,10 @@ namespace UndyneFight_Ex
             public static SpiralShader Spiral => CustomShaders.Spiral;
             public static WrongShader Wrong => CustomShaders.Wrong;
             public static FireShader Fire => CustomShaders.Fire;
+            public static LightSweepShader LightSweep => CustomShaders.LightSweep;
+            public static DislocationShaderX DislocationX => CustomShaders.DislocationX;
+            public static DislocationShaderY DislocationY => CustomShaders.DislocationY;
+            public static WaveShader Wave => CustomShaders.Wave;
         }
     }
 }

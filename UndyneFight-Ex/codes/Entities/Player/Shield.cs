@@ -368,7 +368,7 @@ namespace UndyneFight_Ex.Entities
                         {
                             Centre = attracter.Centre + MathUtil.GetVector2(33, attracter.Rotation + (attracter as IShieldImage).User.Rotation);
                             Rotation = attracter.Rotation;
-                            Depth = attracter.Depth + 0.001f;
+                            Depth = attracter.Depth + 0.0101f;
                         }
                         drawingScale += darkerSpeed / 100f;
                         if (drawingScale >= 2f)

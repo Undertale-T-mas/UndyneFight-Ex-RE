@@ -134,7 +134,7 @@ namespace UndyneFight_Ex.Remake.UI
                     NormalFont.CentreDraw(this._name, this.Centre, DrawingColor, 1.48f * _secondaryScale, 0.1f);
                 }
                 float _secondaryScale = 1.0f;
-                public float SecondaryScale { private get; set; } = 1.1f;
+                public float SecondaryScale { private get; set; } = 1.15f;
                 bool _mouseOn = false;
                 public void KeyOn()
                 {

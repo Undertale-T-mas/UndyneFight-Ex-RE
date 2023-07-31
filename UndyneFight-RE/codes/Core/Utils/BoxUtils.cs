@@ -33,18 +33,18 @@ namespace UndyneFight_Ex.Remake
 
         public static void Move(Vector2 value)
         {
-            VertexBox cur = VertexBoxInstance;
-            for(int i = 0; i < cur.MissionVertexs.Length; i++)
+            FightBox cur = VertexBoxInstance;
+            for(int i = 0; i < cur.Vertexs.Length; i++)
             {
-                cur.MissionVertexs[i] += value;
+                cur.Vertexs[i].MissionPosition += value;
             }
         }
         public static void Rotate(Vector2 centre, float rotation)
         {
-            VertexBox cur = VertexBoxInstance;
-            for(int i = 0; i < cur.MissionVertexs.Length; i++)
+            FightBox cur = VertexBoxInstance;
+            for(int i = 0; i < cur.Vertexs.Length; i++)
             {
-                cur.MissionVertexs[i] = centre + MathUtil.Rotate(cur.MissionVertexs[i] - centre, rotation);
+                cur.Vertexs[i].MissionPosition = centre + MathUtil.Rotate(cur.Vertexs[i].MissionPosition - centre, rotation);
             }
         }
     }

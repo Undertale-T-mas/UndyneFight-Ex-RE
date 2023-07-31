@@ -61,9 +61,9 @@ namespace Rhythm_Recall.Waves
                 {
                     foreach (var v in (FightBox.instance as RectangleBox).Vertexs)
                     {
-                        BarrageStruct.BoneWindfall(v, 2, 6, 200, 11, 1, false);
-                        BarrageStruct.BoneWindfall(v, 2, 10, 200, 11, 1, false);
-                        BarrageStruct.BoneWindfall(v, 2, 14, 200, 11, 1, false);
+                        BarrageStruct.BoneWindfall(v.CurrentPosition, 2, 6, 200, 11, 1, false);
+                        BarrageStruct.BoneWindfall(v.CurrentPosition, 2, 10, 200, 11, 1, false);
+                        BarrageStruct.BoneWindfall(v.CurrentPosition, 2, 14, 200, 11, 1, false);
                     }
                 }
                 if (waveTime == 1275)

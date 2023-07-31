@@ -20,9 +20,7 @@ namespace Rhythm_Recall
         }
         public SetUpDrawing()
         {
-            Camera cam = new Camera();
-            AddChild(cam);
-            AddChild(new BackGround(Resources.BackGround, cam, new(320, 240)) { Alpha = 0.4f });
+            AddChild(new ImageEntity(Resources.BackGround) { Scale = 1.5f, Centre = new(480, 360), Alpha = 0.37f });
         }
 
         private Vector2 detla = new Vector2(320, 240) * 6;
@@ -39,6 +37,7 @@ namespace Rhythm_Recall
                 width += (charTextures[str[i]].Width + 5);
             }
             float curX = centre.X - width / 2f * scale;
+            this.Depth = 0.5f;
             for (int i = 0; i < str.Length; i++)
             {
                 FormalDraw(charTextures[str[i]], new Vector2(curX, centre.Y), Microsoft.Xna.Framework.Color.White, scale, 0, new Vector2(0, Resources.charTextures[str[i]].Height / 2f));
@@ -48,15 +47,15 @@ namespace Rhythm_Recall
 
         public override void Draw()
         {
-            DrawString("RHYTHM", new Vector2(190 + RhythmX, 90) - detla, scale);
-            DrawString("RECALL", new Vector2(450 + RecallX, 170) + detla, scale);
+            DrawString("RHYTHM", (new Vector2(190 + RhythmX, 90) - detla) * 1.5f, scale * 1.5f);
+            DrawString("RECALL", (new Vector2(450 + RecallX, 170) + detla) * 1.5f, scale * 1.5f);
         }
 
         public override void Update()
         {
             if (appearTime == 0)
             {
-                GameStates.InstanceCreate(new BlockMaker());
+                this.AddChild(new BlockMaker());
             }
             appearTime++;
             if (appearTime < 10) return;

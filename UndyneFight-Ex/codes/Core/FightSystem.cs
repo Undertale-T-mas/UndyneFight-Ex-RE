@@ -38,8 +38,8 @@ namespace UndyneFight_Ex
 
         public void Push(Type type)
         {
-            if (fightDictionary.ContainsKey(type.Name)) return;
-            fightDictionary.Add(type.Name, type);
+            if (fightDictionary.ContainsKey(type.FullName)) return;
+            fightDictionary.Add(type.FullName, type);
         }
 
         public Type[] Values => fightDictionary.Values.ToArray();
