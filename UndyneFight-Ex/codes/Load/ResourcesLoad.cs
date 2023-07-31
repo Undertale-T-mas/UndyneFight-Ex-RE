@@ -103,6 +103,7 @@ namespace UndyneFight_Ex
             CustomShaders.Mosaic =      new MosaicShader(loader.Load<Effect>("Mosaic"));
             CustomShaders.BlockTile =   new BlockTileShader(loader.Load<Effect>("BlockTile"));
             CustomShaders.LightSweep =  new LightSweepShader(loader.Load<Effect>("LightSweep"));
+            CustomShaders.Wave =        new WaveShader(loader.Load<Effect>("Wave"));
 
             CustomShaders.Tyndall =     new TyndallShader(loader.Load<Effect>("Tyndall"));
             CustomShaders.Spiral =      new SpiralShader(loader.Load<Effect>("Sprial3D"));
@@ -131,6 +132,7 @@ namespace UndyneFight_Ex
                 public static ColorBlendShader ColorBlend { get; set; }
                 public static SpiralShader Spiral { get; set; }
                 
+                public static WaveShader Wave { get; set; }
                 public static BallShapingShader Cos1Ball { get; set; }
                 public static ScaleShader Scale { get; set; }
                 public static CameraShader Camera { get; set; }
@@ -270,6 +272,7 @@ namespace UndyneFight_Ex
             Sprites.firePartical =  loader.Load<Texture2D>("Sprites\\others\\firePartical");
             Sprites.lightBall =     loader.Load<Texture2D>("Sprites\\others\\lightBall");
             Sprites.lightBallS =    loader.Load<Texture2D>("Sprites\\others\\lightBallS");
+            Sprites.lightLine =    loader.Load<Texture2D>("Sprites\\others\\lightLine");
             Sprites.square =        loader.Load<Texture2D>("Sprites\\others\\square");
             Sprites.boxPiece =      loader.Load<Texture2D>("Sprites\\others\\boxPiece");
 
@@ -428,6 +431,7 @@ namespace UndyneFight_Ex
             /// </summary>
             public static Texture2D lightBall;
             public static Texture2D lightBallS;
+            public static Texture2D lightLine;
             public static Texture2D square;
 
             /// <summary>
@@ -658,6 +662,7 @@ namespace UndyneFight_Ex
             public static LightSweepShader LightSweep => CustomShaders.LightSweep;
             public static DislocationShaderX DislocationX => CustomShaders.DislocationX;
             public static DislocationShaderY DislocationY => CustomShaders.DislocationY;
+            public static WaveShader Wave => CustomShaders.Wave;
         }
     }
 }

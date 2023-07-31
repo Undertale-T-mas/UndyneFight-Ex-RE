@@ -590,13 +590,50 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("winder", () => { 
                         //r.Intensity = 6.0f;
                     });
+
+                    RegisterFunctionOnce("pre", () => {
+                        DelayBeat(0.1f, () => {
+                            production4 = ScreenDrawing.ActivateShader(Shaders.Seismic, 0.2341f);
+
+                            Shaders.Seismic.Radius = 460f;
+                            RunEase(s => { Shaders.Seismic.Progress = s; },
+                                EaseOut(BeatTime(0.85f), 1.0f, EaseState.Quad)
+                                );
+
+                            RunEase(s => { ScreenDrawing.ScreenScale = s; },
+                                EaseOut(BeatTime(0.85f), 1.15f, 1.0f, EaseState.Cubic)
+                                );
+
+                            production3 = ScreenDrawing.ActivateShader(Shaders.Wave, 0.3522f);
+
+                            Shaders.Wave.Intensity1 = 7f;
+                            Shaders.Wave.Intensity2 = 5.5f;
+                            Shaders.Wave.Frequency1 = 0.08f;
+                            Shaders.Wave.Frequency2 = 0.21f;
+
+                            RunEase(s => {
+                                Shaders.Wave.Intensity1 = s;
+                            }, Linear(BeatTime(1.4f), 7f, 0.0f));
+                            RunEase(s => {
+                                Shaders.Wave.Intensity2 = s;
+                            }, EaseOut(BeatTime(1.4f), 5.5f, 0.0f, EaseState.Quad));
+                            RunEase(s => {
+                                Shaders.Wave.Frequency2 = s;
+                            }, EaseOut(BeatTime(1.4f), 0.21f, 0.16f, EaseState.Quad));
+
+                            Shaders.Wave.Time = 0; Shaders.Wave.Speed = 16.0f;
+                            DelayBeat(1.5f, production3.Dispose);
+                            DelayBeat(1, production4.Dispose); 
+                        });
+                    });
+                    
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.4f, new string[]
                     {   //10
                         "$0(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
                         "+11(LoadB)","+11","+11","+11",   "+11","+11","+11","+11",
                         //11
 
-                        "(*$0'2)(*$2'2)(KickA)","","","",    "","","","",
+                        "(*$0'2)(*$2'2)(KickA)(pre)","","","",    "","","","",
                         "(d)","","","",    "","","","",
                         "(d)","","","",    "","","","",
                         "d","","","",    "d","","","",
@@ -1917,7 +1954,13 @@ namespace Rhythm_Recall.Waves
                             int x = i;
                             DelayBeat(x * 0.66f, () =>
                             {
-                                Line l = new(320, 90) { DrawingColor=Color.DarkRed,Width=8};
+                                Line l = new(320, 90) { DrawingColor = Color.DarkRed, Width = 17, Image = Sprites.lightLine };
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(0.66f));
+                            });
+                            DelayBeat(x * 0.66f, () =>
+                            {
+                                Line l = new(320, 90) { DrawingColor = Color.DarkRed * 0.25f, Width = 17 };
                                 CreateEntity(l);
                                 l.AlphaDecrease(BeatTime(0.66f));
                             });
@@ -1927,13 +1970,25 @@ namespace Rhythm_Recall.Waves
                             int x = i;
                             DelayBeat(0.33f+x * 1f, () =>
                             {
-                                Line l = new(x2, 90) { DrawingColor = Color.DarkRed, Width = 8 };
+                                Line l = new(x2, 90) { DrawingColor = Color.DarkRed, Width = 17, Image = Sprites.lightLine };
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(0.66f));
+                            });
+                            DelayBeat(0.33f+x * 1f, () =>
+                            {
+                                Line l = new(x2, 90) { DrawingColor = Color.DarkRed * 0.25f, Width = 17 };
                                 CreateEntity(l);
                                 l.AlphaDecrease(BeatTime(0.66f));
                             });
                             DelayBeat(1f + x * 1f, () =>
                             {
-                                Line l = new(x1, 90) { DrawingColor = Color.DarkRed, Width = 8 };
+                                Line l = new(x1, 90) { DrawingColor = Color.DarkRed, Width = 17, Image = Sprites.lightLine };
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(0.66f));
+                            });
+                            DelayBeat(1f + x * 1f, () =>
+                            {
+                                Line l = new(x1, 90) { DrawingColor = Color.DarkRed * 0.25f, Width = 17 };
                                 CreateEntity(l);
                                 l.AlphaDecrease(BeatTime(0.66f));
                             });
@@ -2400,8 +2455,7 @@ namespace Rhythm_Recall.Waves
                         production2?.Dispose();
                         production2 = ScreenDrawing.ActivateShader(Shaders.Scale, 0.5593f);
 
-                        RunEase((s) => Shaders.Scale.Intensity = s,
-                            EaseOut(BeatTime(0.25f), -0.19f, EaseState.Sine),
+                        RunEase((s) => Shaders.Scale.Intensity = s, 
                             EaseOut(BeatTime(16.25f), -0.19f, 0.0f, EaseState.Sine),
                             Stable(BeatTime(0.1f), 0.0f)
                             );
@@ -2409,8 +2463,7 @@ namespace Rhythm_Recall.Waves
                         production3?.Dispose();
                         production3 = ScreenDrawing.ActivateShader(Shaders.StepSample, 0.55933f);
 
-                        RunEase((s) => Shaders.StepSample.Intensity = s,
-                            EaseOut(BeatTime(0.25f), 0.59f, EaseState.Sine),
+                        RunEase((s) => Shaders.StepSample.Intensity = s, 
                             EaseOut(BeatTime(16.25f), 0.59f, 0.0f, EaseState.Sine),
                             Stable(BeatTime(0.1f), 0.0f)
                             );
@@ -2684,7 +2737,7 @@ namespace Rhythm_Recall.Waves
                             MathHelper.Lerp(bdis, 210, s);
                         ScreenDrawing.BackGroundColor = Color.Lerp(Color.Red * 0.4f, Color.DarkRed * 0.12f, s);
                         ScreenDrawing.BoundColor = Color.Lerp(Color.White, Color.Red * 0.4f, s);
-                    }, EaseOut(BeatTime(2), 1, EaseState.Cubic));
+                    }, EaseOut(BeatTime(1.4f), 1, EaseState.Cubic));
                     p1.Sigma = 0.0f;
                     p1.GlitterScale = 0.0f;
                     p1.KawaseMode = true;
@@ -2698,7 +2751,39 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.MasterAlpha = s, 
                         EaseOut(BeatTime(0.3f), 0.88f, 1.0f, EaseState.Quad)
                     );
+                    Vector2 cur = new Vector2(20, 457);
+                    RunEase(s => ScreenDrawing.UISettings.NameShowerPos = s,
+                        EaseOut(BeatTime(1), cur - new Vector2(80, 0), cur,EaseState.Quint)
+                        ); cur = new(320, 443);
+                    RunEase(s => ScreenDrawing.UISettings.HPShowerPos = s,
+                        EaseOut(BeatTime(1), cur + new Vector2(50, 0), cur,EaseState.Quint)
+                        );
+
                     RunEase(s => splitter.Intensity = s, EaseOut(BeatTime(0.25f), 12f, 0.5f, EaseState.Quad));
+
+                    RunEase(s => { Shaders.Fire.Height = s; }, EaseOut(BeatTime(1f), 260, 180, EaseState.Quart));
+                    RunEase(s => { Shaders.Fire.Blend = Color.Red * s; }, EaseOut(BeatTime(1f), 0.25f, 0.125f, EaseState.Cubic));
+                    RunEase(s => { Shaders.Fire.BlendEdge = Color.Orange * s; }, EaseOut(BeatTime(1f), 0.25f, 0.125f, EaseState.Quad));
+                });
+                RegisterFunctionOnce("line1", () => {
+                    Line l1, l2;
+                    CreateEntity(l1 = new Line(EaseOut(BeatTime(1.0f), new Vector2(20, 0), new(50, 0), EaseState.Quad).Easing, Stable(999999, 90).Easing)
+                    { Width = 24, Image = Sprites.lightLine, TransverseMirror = true });
+                    CreateEntity(l2 = new Line(EaseOut(BeatTime(1.0f), new Vector2(70, 0), new(100, 0), EaseState.Quad).Easing, Stable(999999, 90).Easing)
+                    { Width = 24, Image = Sprites.lightLine, TransverseMirror = true });
+                    l1.Alpha = 1; l2.Alpha = 1;
+                    l1.AlphaDecrease(BeatTime(0.7f));
+                    l2.AlphaDecrease(BeatTime(0.7f));
+                });
+                RegisterFunctionOnce("line2", () => {
+                    Line l1, l2;
+                    CreateEntity(l1 = new Line(EaseOut(BeatTime(1.0f), new Vector2(30, 240), new(0, 240), EaseState.Quad).Easing, Stable(999999, 36).Easing)
+                    { Width = 24, Image = Sprites.lightLine, TransverseMirror = true });
+                    CreateEntity(l2 = new Line(EaseOut(BeatTime(1.0f), new Vector2(30, 240), new(0, 240), EaseState.Quad).Easing, Stable(999999, -36).Easing)
+                    { Width = 24, Image = Sprites.lightLine, TransverseMirror = true });
+                    l1.Alpha = 0.9f; l2.Alpha = 0.9f;
+                    l1.AlphaDecrease(BeatTime(0.7f));
+                    l2.AlphaDecrease(BeatTime(0.7f));
                 });
                 Lighting.Light light = null;
                 Lighting lighter = null;
@@ -2720,7 +2805,7 @@ namespace Rhythm_Recall.Waves
                         RunEase(s =>
                         {
                             lighter.AmbientColor = Color.White * s;
-                        }, Linear(BeatTime(1.7f), 1.0f, 0.35f));
+                        }, Linear(BeatTime(1.7f), 1.0f, 0.42f));
                         lighter.Lights.Add(light = new()
                         {
                             position = new(320, 240),
@@ -2789,7 +2874,7 @@ namespace Rhythm_Recall.Waves
                     RunEase(s => light.size = s,
                         EaseOut(BeatTime(0.6f), 490f, 350f, EaseState.Quad));
                     RunEase(s => lighter.AmbientColor = Color.White * s,
-                        EaseOut(BeatTime(0.6f), 1.0f, 0.65f, EaseState.Quad));
+                        EaseOut(BeatTime(0.6f), 1.0f, 0.7f, EaseState.Quad));
                     ScreenDrawing.MakeFlicker(Color.White * 0.41f);
                     RunEase(s => splitter.Intensity = s, EaseOut(BeatTime(0.25f), 7f, 0.5f, EaseState.Quad));
                 });
@@ -2810,18 +2895,36 @@ namespace Rhythm_Recall.Waves
                         EaseOut(BeatTime(0.21f), 0.04f, 1.0f, EaseState.Quad)
                         );
                 });
+                RegisterFunctionOnce("fire", () => {
+                    production4?.Dispose();
+                    production4 = ScreenDrawing.ActivateShaderBack(Shaders.Fire, 0.1234f);
+                    Shaders.Fire.Blend = Color.Red * 0.0f;
+                    Shaders.Fire.Height = 0.0f;
+                    Shaders.Fire.BlendEdge = Color.Orange * 0.0f;
+                    Shaders.Fire.Distort = 0.0f;
+                    Shaders.Fire.Speed = 2.7f;
+                    RunEase(s => { Shaders.Fire.Height = s; }, EaseOut(BeatTime(1.5f), 0, 180, EaseState.Quad));
+                    RunEase(s => { Shaders.Fire.Blend = Color.Red * s; }, EaseOut(BeatTime(1.5f), 0, 0.125f, EaseState.Cubic));
+                    RunEase(s => { Shaders.Fire.BlendEdge = Color.Orange * s; }, EaseOut(BeatTime(1.5f), 0, 0.125f, EaseState.Quad));
+                });
+                RegisterFunctionOnce("deFire", () => {
+                    RunEase(s => { Shaders.Fire.Height = s; }, EaseOut(BeatTime(1f), 180, 0, EaseState.Quart));
+                    RunEase(s => { Shaders.Fire.Blend = Color.Red * s; }, EaseOut(BeatTime(1f), 0.125f, 0, EaseState.Cubic));
+                    RunEase(s => { Shaders.Fire.BlendEdge = Color.Orange * s; }, EaseOut(BeatTime(1f), 0.125f, 0, EaseState.Quad));
+                    DelayBeat(2, production4.Dispose);
+                });
                 BarrageCreate(BeatTime(2), BeatTime(2), 1, new string[] {
                     //pre
-                    "", "pre", "", "",    "", "", "", "",   
+                    "", "pre", "", "",    "", "fire", "", "",   
                     //1
-                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeL)", "", "", "",    "glow(shakeR)", "", "glow(shakeL)", "",
-                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeR)", "", "", "glow(shakeL)",    "glow(shakeR)", "", "glow(shakeL)", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeL)(line1)", "", "", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeL)(line1)", "", "", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeL)(line1)", "", "", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeR)(line2)", "", "glow(shakeL)(line1)", "",
+                    "glow(shakeR)(line2)", "", "", "",    "glow(shakeL)(line2)", "", "", "",
+                    "glow(shakeR)(line2)", "", "", "",    "glow(shakeL)(line2)", "", "", "",
+                    "glow(shakeR)(line2)", "", "", "",    "glow(shakeL)(line2)", "", "", "",
+                    "glow(shakeR)(line2)", "", "", "glow(shakeL)(line2)",    "glow(shakeR)(line1)(deFire)", "", "glow(shakeL)(line2)", "",
                     //2
                     "close", "", "", "",    "", "", "", "",
                     "", "", "", "",    "", "", "", "",
@@ -2830,16 +2933,16 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "",    "", "", "", "",
                     "", "", "", "",    "", "", "", "",
                     "", "", "", "",    "returnP", "", "", "",
-                    "", "", "", "",    "return", "", "", "",
+                    "", "", "fire", "",    "return", "", "", "",
                     //3
-                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeL)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeL)", "", "", "",    "glow(shakeR)", "", "glow(shakeL)", "",
-                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "", "",
-                    "glow(shakeR)", "", "", "",    "glow(shakeL)", "", "glow(shakeL)", "",
-                    "glow(shakeR)", "", "", "glow(shakeL)",    "glow(shakeR)", "", "glow(shakeL)", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeL)(line1)", "", "", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeL)(line1)", "", "", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeL)(line1)", "", "", "",
+                    "glow(shakeL)(line1)", "", "", "",    "glow(shakeR)(line2)", "", "glow(shakeL)(line1)", "",
+                    "glow(shakeR)(line2)", "", "", "",    "glow(shakeL)(line2)", "", "", "",
+                    "glow(shakeR)(line2)", "", "", "",    "glow(shakeL)(line2)", "", "", "",
+                    "glow(shakeR)(line2)", "", "", "",    "glow(shakeL)(line2)", "", "glow(shakeL)(line1)", "",
+                    "glow(shakeR)(line2)", "", "", "glow(shakeL)(line2)",    "glow(shakeR)(line1)(deFire)", "", "glow(shakeL)(line2)", "",
                     //4
                     "close", "", "", "",    "", "", "", "",
                     "", "", "", "",    "", "", "", "",
@@ -2946,11 +3049,12 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
                     //int beat = 192;
                     int beat = 711 + 128;
+                    beat = 328;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
