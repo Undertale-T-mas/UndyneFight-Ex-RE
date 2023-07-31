@@ -2692,13 +2692,38 @@ namespace Rhythm_Recall.Waves
                 }
 
                 if (InBeat(872))
-                { 
+                {
+                    RegisterFunctionOnce("pre", () => {
+                        easeA?.Dispose(); easeB?.Dispose();
+                        easeA = new(); easeB = new();
+                        easeA.RotationEase = EaseOut(BeatTime(3.8f), 10, 0, EaseState.Sine);
+                        easeB.RotationEase = EaseOut(BeatTime(3.8f), -10, 0, EaseState.Sine);
+                        easeA.ApplyTime = BeatTime(4); easeB.ApplyTime = BeatTime(4);
+                        easeA.TagApply("A"); easeB.TagApply("B");
+                        AddInstance(easeA); AddInstance(easeB);
+                        easeC?.Dispose(); easeD?.Dispose();
+                        easeC = new(); easeD = new();
+                        easeC.RotationEase = EaseOut(BeatTime(3.8f), 100, 0, EaseState.Sine);
+                        easeD.RotationEase = EaseOut(BeatTime(3.8f), -100, 0, EaseState.Sine);
+                        easeC.ApplyTime = BeatTime(4); easeD.ApplyTime = BeatTime(4);
+                        easeC.TagApply("C"); easeD.TagApply("D");
+                        AddInstance(easeC); AddInstance(easeD);
 
+                        easeX?.Dispose();
+                        easeX = new();
+                        easeX.TagApply("X");
+                        AddInstance(easeX);
+                    });
+
+                    RegisterFunctionOnce("DoX", () => {
+                        easeX.DeltaEase(EaseOut(BeatTime(1.6f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
+                    });
+                    Settings.GreenTap = true;
                     BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "pre",
                          
                         //1 
                         "", "", "", "",    "", "", "d", "",
@@ -2709,7 +2734,80 @@ namespace Rhythm_Recall.Waves
                         "$2@A($2@A)", "", "", "",    "d1", "", "d1", "",
                         "", "", "d1", "",    "", "", "", "",
                         "d", "", "", "",    "", "", "d", "",
+                        "", "", "DoX", "",    "", "", "", "",
+                        //3 
+                        "(^$01'1.7@X)(^$21'1.7@X)", "", "", "*$21@A",    "*$0@B", "", "*$21@A", "",
+                        "*$0@B", "", "*$31", "",    "*$0@B", "", "*$31", "",
+                        "(*$0@A)(*$21@B)", "", "", "*$21@B",    "*$0@A", "", "", "",
+                        "(*$0@A)(*$21@B)", "", "", "*$21@B",    "*$0@A", "", "*$21@B", "",
+                        //4 
+                        "$1($1)", "$3", "$1", "",    "*$0@B", "", "*$0@B", "",
+                        "*$0@B(*$21@A)", "", "*$21@A", "",    "$10@C", "$11@D", "$30@C", "$31@D",
+                        "*$0@A", "", "*$0@A", "",    "*$0@A", "", "*$21@B", "",
+                        "(*$0@A)(*$21@B)", "", "", "*$21@B",    "*$0@A", "", "*$21@B", "",
+
+                    });
+                }
+
+                if (InBeat(904)) {
+                    RegisterFunctionOnce("pre", () =>
+                    {
+                        easeC?.Dispose(); easeD?.Dispose();
+                        easeC = new(); easeD = new();
+                        easeC.RotationEase = EaseOut(BeatTime(3.8f), 940, 0, EaseState.Sine);
+                        easeD.RotationEase = EaseOut(BeatTime(3.8f), -940, 0, EaseState.Sine);
+                        easeC.ApplyTime = BeatTime(3.8f); easeD.ApplyTime = BeatTime(3.8f);
+                        easeC.TagApply("C"); easeD.TagApply("D");
+                        AddInstance(easeC); AddInstance(easeD);
+                        easeX?.Dispose();
+                        easeX = new();
+                        easeX.TagApply("X");
+                        AddInstance(easeX);
+                    });
+                    RegisterFunctionOnce("DoX", () =>
+                    {
+                        easeX.DeltaEase(EaseOut(BeatTime(1.46f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
+                    });
+                    Settings.GreenTap = true;
+                    RegisterFunctionOnce("Box", () => {
+                        RunEase(s => { BoxStates.Centre = s; InstantTP(s); },
+                            Combine(
+                                Alternate(2,
+                                    EaseOut(BeatTime(6.91f), 320, 260, EaseState.Cubic),
+                                    EaseOut(BeatTime(6.91f), 320, 380, EaseState.Cubic)
+                                ),
+                                EaseOut(BeatTime(6.91f), 240, 380, EaseState.Quad)
+                            )
+                        );
+                    });
+                    RegisterFunctionOnce("sound", () =>
+                    {
+                        PlaySound(Sounds.switchScene);
+                        PlaySound(Sounds.switchScene);
+
+                        BoxStates.Centre = new(260, 380);
+                        InstantTP(new(260, 380));
+
+                        CollideRect rect = new(new Vector2(380 - 42, 380 - 42), new Vector2(84, 84));
+                        Heart.InstantSplit(rect);
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(2), 9f, new string[]
+                    {
+                        //pre
                         "", "", "", "",    "", "", "", "",
+                        "pre", "", "(DoX)", "",    "", "", "", "",
+                         
+                        //1 
+                        "(^$00'1.8@X)(^$20'1.8@X)(DoX)", "", "$10", "",    "$30", "",  
+                        "(^$01'1.8@X)(^$21'1.8@X)(DoX)", "", "$11", "",    "$31", "",  
+                        "(^$00'1.8@X)(^$20'1.8@X)(DoX)", "", "$10", "",    "$30", "",
+                        "(^$01'1.8@X)(^$21'1.8@X)(DoX)", "", "$11", "",    "$31", "",
+                        "(^$00'1.8@X)(^$20'1.8@X)", "", "", "",    "", "", "", "",
+                        //2 
+                        "*$30@C(Box)", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
+                        "*$30@C", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
+                        "*$30", "", "*$30", "",    "*$30", "", "*$30", "",
+                        "*$30", "", "*$30", "",    "sound", "", "", "",
                         //3 
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
@@ -3053,8 +3151,8 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    int beat = 711 + 128;
-                    beat = 328;
+                    int beat = 711 + 128 + 32;
+                    //beat = 328;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
 

@@ -183,6 +183,38 @@ namespace UndyneFight_Ex.Entities
 
             return originID + 1;
         }
+        public int Split(int originID, float[] scales)
+        {
+            if (scales == null || scales.Length <= 0) throw new ArgumentOutOfRangeException($"{nameof(scales)} has to be in [0, 1]");
+            if (originID != this.Vertexs.Length - 1) {
+                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
+                Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
+
+                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1]; 
+
+                temp = new BoxVertex[Vertexs.Length + 1];
+                Array.Copy(Vertexs, 0, temp, 0, originID + 1);
+                temp[originID + 1] = new(pos);
+                Array.Copy(Vertexs, originID + 1, temp, originID + 2, Vertexs.Length - originID - 1);
+
+                Vertexs = temp;
+            }
+            else
+            {
+                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[0];
+                Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
+
+                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1];  
+                
+                temp = new BoxVertex[Vertexs.Length + 1];
+                Array.Copy(Vertexs, temp, Vertexs.Length);
+                temp[originID + 1] = new(pos);
+
+                Vertexs = temp; 
+            }
+
+            return originID + 1;
+        }
 
         public void SetPosition(int originID, Vector2 position)
         {
