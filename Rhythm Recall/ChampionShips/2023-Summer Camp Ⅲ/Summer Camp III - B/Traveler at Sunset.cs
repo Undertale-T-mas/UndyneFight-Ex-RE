@@ -2925,6 +2925,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("Box", () =>
                     {
+                        DrawingUtil.ScreenAngle(180, BeatTime(1));
                         InstantSetBox(380, 184, 252);
                         SetBox(270 - 42, 370 + 42, -60, 650);
                         SetSoul(0);
@@ -3472,13 +3473,13 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 192;
-                    //float beat = 711 + 128 + 32 + 32 + 23.5f;
+                    float beat = 711 + 128 + 32 + 32 + 23.5f;
                     //beat = 328;
-                    int beat = 198;
+                    //int beat = 198;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);

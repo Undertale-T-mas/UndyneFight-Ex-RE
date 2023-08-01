@@ -138,7 +138,8 @@ namespace UndyneFight_Ex.Remake.UI
                     IChampionShip championShip;
                     this.SongSelected = (championShip = result as IChampionShip).GameContent;
                     foreach (Difficulty difficulty in championShip.DifficultyPanel.Values) {
-                        DifficultyPanel.Add(difficulty); 
+                        if (championShip.GameContent.Attributes.UnlockedDifficulties.Contains(difficulty))
+                            DifficultyPanel.Add(difficulty); 
                     }
                 }
             }
