@@ -1232,7 +1232,6 @@ namespace Extends
                     PositionRouteParam = new float[] { speed.X, speed.Y },
                     LengthRouteParam = new float[] { length, 114514 },
                     RotationRouteParam = new float[] { 4, (180 / num) * i },
-                    ColorType = 0
                 });
             }
         }
@@ -1253,6 +1252,19 @@ namespace Extends
                     PositionRouteParam = new float[] { speed.X, speed.Y },
                     LengthRouteParam = new float[] { length, 114514 },
                     RotationRouteParam = new float[] { 4, (180 / num) * i },
+                    ColorType = color
+                });
+            }
+        }
+        public static void CrossBone(Vector2 start, Vector2 speed, float length, float num, int color, float RotSpeed)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                CreateBone(new CustomBone(new(start.X, start.Y), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
+                {
+                    PositionRouteParam = new float[] { speed.X, speed.Y },
+                    LengthRouteParam = new float[] { length, 114514 },
+                    RotationRouteParam = new float[] { RotSpeed, (180 / num) * i },
                     ColorType = color
                 });
             }
