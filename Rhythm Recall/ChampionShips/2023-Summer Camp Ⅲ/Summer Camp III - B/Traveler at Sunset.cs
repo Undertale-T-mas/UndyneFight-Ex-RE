@@ -16,6 +16,7 @@ using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Remake.TextUtils;
 using static UndyneFight_Ex.MathUtil;
+using System.Threading.Tasks;
 
 namespace Rhythm_Recall.Waves
 {
@@ -1001,9 +1002,26 @@ namespace Rhythm_Recall.Waves
                             {
                                 box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
                             }
-                            if (At0thBeat(1))
+                            if (InBeat(200, 214) && At0thBeat(0.5f))
                             {
-                                
+                                var count = 18;
+                                for (int i = 0; i < count; ++i)
+                                {
+                                    for (int ii = 0; ii < 2; ++ii)
+                                    {
+                                        var ang = ii * 180;
+                                        var finang = ang + i * 360 / count + GametimeF * 5 * 40 / SingleBeat;
+                                        var spd = 3;
+                                        CreateSpear(new NormalSpear(new Vector2(320, 240 - Cos(GametimeF * 2) * 100) + GetVector2(300, ang), finang + 180, spd)
+                                        {
+                                            Rebound = true,
+                                            ReboundCount = 2,
+                                            IsMute = true,
+                                            Acceleration = -spd / 600f,
+                                            Duration = 600
+                                        });
+                                    }
+                                }
                             }
                         });
                         
@@ -1020,6 +1038,12 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(1, () => {
                             ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
                         });
+                        var spears = GetAll<NormalSpear>();
+                        foreach(NormalSpear sprs in spears)
+                        {
+                            sprs.Acceleration = 0.7f;
+                            sprs.Rebound = false;
+                        }
                     });
                     RegisterFunctionOnce("Box", () =>
                     {
@@ -1028,16 +1052,17 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("BounceSpear", () =>
                     {
-                        var dir = Rand(0, 360);
-                        Vector2 pos = GetVector2(Rand(100, 400), Rand(0, 360)) + new Vector2(320, 240);
+                        var dir = 45;
+                        Vector2 pos = GetVector2(150, GametimeF * 360 / BeatTime(1)) + new Vector2(320, 240);
                         for (int i = 0; i < 6; i++)
                         {
                             CreateEntity(new NormalSpear(pos, dir + i * 60, 4)
                             {
                                 DelayTargeting = false,
                                 Rebound = true,
+                                ReboundCount = 5,
                                 Duration = 600,
-                                Acceleration = 0.05f,
+                                Acceleration = 0.02f,
                                 WaitingTime = BeatTime(1)
                             });
                         }
@@ -3279,9 +3304,9 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    float beat = 711 + 128 + 32 + 32 + 23.5f;
+                    //float beat = 711 + 128 + 32 + 32 + 23.5f;
                     //beat = 328;
-                 //   int beat = 198 ;
+                    int beat = 198;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);

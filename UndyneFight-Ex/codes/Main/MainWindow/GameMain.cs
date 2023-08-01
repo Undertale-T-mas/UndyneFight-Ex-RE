@@ -85,7 +85,7 @@ namespace UndyneFight_Ex
             Graphics.PreferredBackBufferHeight = 480;
             Graphics.PreferredBackBufferWidth = 640;
             Window.AllowUserResizing = true;
-            Window.Title = "UF-Ex [V0.1.7]";
+            Window.Title = "Rhythm Recall p-? (UF-Ex [V0.2.0])";
             Graphics.ApplyChanges();
 
             // TODO: Add your initialization logic here
