@@ -2831,39 +2831,75 @@ namespace Rhythm_Recall.Waves
                         if (colorRed.Contains(s.Mission)) s.ResetColor(1);
                     };
 
-                    BarrageCreate(0, BeatTime(2), 14.6f, new string[]
+                    easeX?.Dispose(); easeY?.Dispose();
+                    easeX = new();  easeY = new();
+                    easeX.TagApply("X");  easeY.TagApply("Y");
+                    AddInstance(easeX); AddInstance(easeY);
+
+
+                    easeA?.Dispose(); easeB?.Dispose();
+                    easeA = new(); easeB = new();
+                    easeA.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(100, 0)), 
+                        EaseOut(BeatTime(0.42f), new(100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeB.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(-100, 0)),
+                        EaseOut(BeatTime(0.42f), new(-100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeA.TagApply("L"); easeB.TagApply("R");
+                    easeA.ApplyTime = BeatTime(2f + 0.25f); easeB.ApplyTime = BeatTime(2f + 0.25f);
+                    AddInstance(easeA); AddInstance(easeB);
+
+                    easeC?.Dispose(); easeD?.Dispose();
+                    easeC = new(); easeD = new();
+                    easeC.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(100, 0)), 
+                        EaseOut(BeatTime(0.42f), new(100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeD.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(-100, 0)),
+                        EaseOut(BeatTime(0.42f), new(-100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeC.TagApply("L2"); easeD.TagApply("R2");
+                    easeC.ApplyTime = BeatTime(2.25f + 0.25f); easeD.ApplyTime = BeatTime(2.25f + 0.25f);
+                    AddInstance(easeC); AddInstance(easeD);
+
+                    RegisterFunctionOnce("j", () => {
+                        PlaySound(Sounds.ArrowStuck);
+                        PlaySound(Sounds.ArrowStuck);
+                    });
+                    RegisterFunctionOnce("y", () => {
+                        easeY.SelfRotationEase(EaseOut(BeatTime(0.75f), 60f, 0.0f, EaseState.Cubic));
+                        easeY.DeltaEase(EaseOut(BeatTime(0.75f), new Vector2(15, 0), Vector2.Zero, EaseState.Back));
+                    }); RegisterFunctionOnce("x", () => {
+                        easeX.SelfRotationEase(EaseOut(BeatTime(0.75f), -60f, 0.0f, EaseState.Cubic));
+                        easeX.DeltaEase(EaseOut(BeatTime(0.75f), new Vector2(-15, 0), Vector2.Zero, EaseState.Back));
+                    });
+                    BarrageCreate(0, BeatTime(2), 15.4f, new string[]
                     {
                         //pre 
                         "", "", "", "",
                          
                         //1 
-                        "C0(C1)(C3)", "C2", "C0", "C1",    "C2(C3)", "C1", "C0(C3)", "C2",
-                        "C1(C0)", "C3", "C2(C0)", "C1",    "C0(C3)", "C2", "C1(C3)", "C0",
-                        "C1(C2)", "C3", "C0", "C2",    "(C0)(C1)", "C2(C3)", "(C0)(C1)", "C3",
-                        "C0(C2)", "C1", "C3", "C0(C1)",    "C2", "C3", "(C1)(C2)", "C0",
+                        "C0(C2)(C3)(j)(x)", "C1", "C2", "C0@X",       "C1@X(C3@R)(j)(y)", "C2@R2", "C0", "C3@Y",
+                        "C1@R(C2@Y)(j)(x)", "C0@L2", "C3", "C1@X",       "C0@X(C3@R)(j)(y)", "C2@R2", "C0", "C1@Y",
+                        "C2@R(C3@Y)(j)(x)", "C0@L2", "C2", "C1@X",       "C0@X(C3@R)(j)", "", "", "",
+                        "C2(C3)(j)", "", "", "C1(C2)(j)",       "", "", "C0(C1)(j)", "",
                         //2 
-                        "C1(C3)", "C2", "C0(C1)", "C3",    "(C2)(C0)", "C1", "C3", "C0",
-                        "C1(C2)", "C3", "C0(C1)", "C2",    "(C0)(C3)", "C1", "(C2)(C3)", "C0",
-                        "C1(C2)", "C3", "C0", "C2",    "C3(C0)", "C1", "C2", "C3",
-                        "C0(C1)", "C3", "C0", "C1(C2)",    "C3", "C0", "(C2)(C3)", "C1",
+                        "C0(C3)(j)(x)", "C2@", "C1", "C2@X",       "C0@X(C3@R)(j)(y)", "C1@R2", "C2", "C1@Y",
+                        "C0@L(C3@Y)(j)(x)", "C2@L2", "C1", "C3@X",       "C0@X(C2@L)(j)(y)", "C3@R2", "C1", "C2@Y",
+                        "C0@L(C3@Y)(j)(x)", "C1@R2", "C2", "C3@X",       "C0@X(C1@L)(j)", "", "", "",
+                        "C0(C1)(j)", "", "", "C1(C2)(j)",       "", "", "C2(C3)(j)", "",
                         //3 
-                        "C0(C2)", "C3", "C1", "C2",    "C0(C3)", "C1", "C0(C2)", "C3",
-                        "C1", "C0", "C2(C3)", "C1",    "(C0)(C3)", "C2", "(C1)(C0)", "C3",
-                        "C0(C2)", "C1", "C3", "C0",    "C2(C3)", "C0(C1)", "C2(C3)", "C0",
-                        "C1(C2)", "C3", "C0", "C1(C3)",    "C2", "C0", "C2(C3)", "C1",
+                        "C0(C1)(j)(x)", "C2", "C3", "C0@X",       "C2@R(C3@X)(j)(y)", "C1@R2", "C0", "C3@Y",
+                        "C0@L(C1@L)(j)(x)", "C2@X", "C3", "C1@X",       "C0@X(C2@R)(j)(y)", "C3@R2", "C2", "C0@Y",
+                        "C1@R(C3@Y)(j)(x)", "C2@R2", "C0", "C1@X",       "C2@R(C3@X)(j)", "C0@L2", "C1", "C0",
+                        "C2(C3)(j)", "", "", "C1(C2)(j)",       "", "", "C0(C1)(j)", "",
                         //4 
-                        "C0(C3)", "C2", "C0", "C1",    "C2(C3)", "C0", "C1(C3)", "C2",
-                        "C0", "C3", "C0(C1)", "C3",    "C0(C2)", "C1", "C2(C3)", "C0",
-                        "C2(C3)", "C1", "(C2)C3", "C0",    "C2(C3)", "C1", "C2", "C3",
-                        "C0(C1)", "", "C0(C3)", "C1(C2)",    "C0(C3)", "", "(C2)(C3)", "",
-
+                        "C0(C3)(j)(x)", "C1", "C2", "C3@X",       "C1@X(C2@L)(j)(y)", "C0@X", "C1", "C2@Y",
+                        "C0@Y(C3@Y)(j)", "", "", "",       "C0(C2)(j)", "", "C1(C2)(j)", "",
+                        "C0(C1)(j)", "", "C2(C3)(j)", "",       "C0(C2)(j)", "", "", "",
+                        "C0(C1)(j)", "", "C0(C3)(j)", "C1(C2)(j)",       "C0(C3)(j)", "", "C2(C3)(j)", "", 
                     });
                 }
             }
             void To4k() {
                 {
                     BoxStates.Centre = new(270, 380);
-                    InstantTP(new(170, 380));
+                    InstantTP(new(173, 380));
 
                     SetPlayerBoxMission(0);
                     BoxUtils.Vertexify(Heart);
@@ -2876,7 +2912,7 @@ namespace Rhythm_Recall.Waves
                     tl = left.TopLeft; tr = left.TopRight;
                     bl = left.BottomLeft; br = left.BottomRight;
 
-                    tl += new Vector2(10, 0); bl += new Vector2(10, 0);
+                    tl += new Vector2(13, 0); bl += new Vector2(13, 0);
 
                     BoxStates.BoxMovingScale = 0.25f;
                     BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
@@ -2901,12 +2937,12 @@ namespace Rhythm_Recall.Waves
 
                     rect = new(new Vector2(600, 340), new Vector2(10, 10));
                     Heart.InstantSplit(rect);
-                    Heart.InstantTP(new(470, 380));
+                    Heart.InstantTP(new(467, 380));
                     CollideRect right = new(new Vector2(470 - 42, 380 - 42), new Vector2(84, 84));
                     tl = right.TopLeft; tr = right.TopRight;
                     bl = right.BottomLeft; br = right.BottomRight;
 
-                    tr += new Vector2(-10, 0); br += new Vector2(-10, 0);
+                    tr += new Vector2(-13, 0); br += new Vector2(-13, 0);
 
                     SetPlayerBoxMission(2);
                     BoxUtils.Vertexify(Heart);
@@ -3279,7 +3315,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    float beat = 711 + 128 + 32 + 32 + 23.5f;
+                    float beat = 711 + 128 + 32 + 32;
                     //beat = 328;
                  //   int beat = 198 ;
                     GametimeDelta = -3.5f + BeatTime(beat);
