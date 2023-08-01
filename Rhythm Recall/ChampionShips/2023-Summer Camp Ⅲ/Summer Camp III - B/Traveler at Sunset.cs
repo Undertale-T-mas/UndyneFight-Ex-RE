@@ -16,6 +16,7 @@ using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Remake.TextUtils;
 using static UndyneFight_Ex.MathUtil;
+using Extends;
 
 namespace Rhythm_Recall.Waves
 {
@@ -2803,7 +2804,7 @@ namespace Rhythm_Recall.Waves
                     });
                 }
 
-                if (InBeat(927))
+                /*if (InBeat(927))
                 {
                     To4k();
                     CustomAnalyzer = (s) =>
@@ -2894,6 +2895,141 @@ namespace Rhythm_Recall.Waves
                         "C0(C1)(j)", "", "C2(C3)(j)", "",       "C0(C2)(j)", "", "", "",
                         "C0(C1)(j)", "", "C0(C3)(j)", "C1(C2)(j)",       "C0(C3)(j)", "", "C2(C3)(j)", "", 
                     });
+                }*/
+                if (InBeat(927))
+                {
+                    RegisterFunctionOnce("Box", () =>
+                    {
+                        InstantSetBox(380, 184, 252);
+                        SetBox(270 - 42, 370 + 42, -60, 650);
+                        SetSoul(0);
+                        Heart.InstantSetRotation(180);
+                        InstantTP(new(320, 380));
+                        DelayBeat(0.5f, () =>
+                        {
+                            InstantSetBox(270 - 42, 370 + 42, -10, 650);
+                        });
+                        RunEase((s) => { InstantTP(new(Heart.Centre.X, s)); }, 
+                            LinkEase(EaseIn(BeatTime(1), 380, 360, EaseState.Sine), 
+                            EaseIn(BeatTime(28), 360, 240, EaseState.Sine)));
+                    });
+                    RegisterFunctionOnce("BoneGA", () =>
+                    {
+                        for (int i = 0; i < 240; i++)
+                        {
+                            float h = i;
+                            LeftBone b1 = new(false, 640 + i * -16, 0, 35 + i * 0.105f) { MarkScore = false };
+                            RightBone b2 = new(false, 640 + i * -16, 0, 35 + i * 0.105f) { MarkScore = false };
+                            CreateBone(b1);
+                            CreateBone(b2);
+                            RunEase(k => b1.Speed=b2.Speed = k, EaseOut(BeatTime(1), 0, 8, EaseState.Linear));
+                        }
+                    });
+                    RegisterFunctionOnce("CrossL", () =>
+                    {
+                        Extends.DrawingUtil.CrossBone(new Vector2(270 - 42, -10), new Vector2(0, 8), 200, 4, 0, -8);
+                    });
+                    RegisterFunctionOnce("CrossR", () =>
+                    {
+                        Extends.DrawingUtil.CrossBone(new Vector2(370 + 42, -10), new Vector2(0, 8), 200, 4, 0, 8);
+                    });
+                    RegisterFunctionOnce("BoneWall1", () =>
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            CustomBone b = new(new Vector2(320, i * -16), Motions.PositionRoute.linear, 90, 194)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                                ColorType=1
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall2", () =>
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            CustomBone b = new(new Vector2(320, i * -16), Motions.PositionRoute.linear, 90, 194)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                                ColorType = 2
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Al", () =>
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            LeftBone b = new(false, i * -16, 8, 70 + i * 8);
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Ar", () =>
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            RightBone b = new(false, i * -16, 8, 70 + i * 8);
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Bl", () =>
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            float rot = -60;
+                            CustomBone b = new(new Vector2(270 - 42, i * -16), Motions.PositionRoute.linear, -rot, 184)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Br", () =>
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            float rot = -60;
+                            CustomBone b = new(new Vector2(370 +  42, i * -16), Motions.PositionRoute.linear, rot, 184)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("text", () =>
+                    {
+                        
+                    });
+                    RegisterFunctionOnce("s", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                    });
+                    BarrageCreate(0, BeatTime(2), 15.4f, new string[]
+                    {
+                        //pre 
+                        "(Box)(BoneGA)", "", "", "",
+                        //1 
+                        "CrossL(s)", "", "", "",    "BoneWall2(s)", "", "", "",
+                        "CrossR(s)", "", "", "",    "BoneWall0Ar(s)", "", "BoneWall0Al(s)", "",
+                        "BoneWall0Ar(s)", "", "", "",    "BoneWall1(s)", "", "", "",
+                        "BoneWall0Al(s)", "", "", "",    "BoneWall0Br(s)", "", "BoneWall0Bl(s)", "",
+                        //2 
+                        "BoneWall2(s)", "", "", "",    "CrossR(s)", "", "", "",
+                        "BoneWall1(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
+                        "BoneWall0Bl(s)", "", "", "",    "BoneWall1(s)", "", "", "",
+                        "CrossL(s)", "", "", "",    "BoneWall2(s)", "", "", "",
+                        //3 
+                        "CrossR(s)", "", "", "",    "BoneWall2(s)", "", "", "",
+                        "CrossL(s)", "", "", "",    "BoneWall0Al(s)", "", "BoneWall0Ar(s)", "",
+                        "BoneWall0Al(s)", "", "", "",    "BoneWall1(s)", "", "", "",
+                        "BoneWall0Ar(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
+                        //4 
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                    });//zKronO's version
                 }
             }
             void To4k() {
