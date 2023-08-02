@@ -2935,8 +2935,8 @@ namespace Rhythm_Recall.Waves
                         {
                             InstantSetBox(270 - 42, 370 + 42, -10, 650);
                         });
-                        RunEase((s) => { InstantTP(new(Heart.Centre.X, s)); }, 
-                            LinkEase(EaseIn(BeatTime(1), 380, 360, EaseState.Sine), 
+                        RunEase((s) => { InstantTP(new(Heart.Centre.X, s)); },
+                            LinkEase(EaseIn(BeatTime(1), 380, 360, EaseState.Sine),
                             EaseIn(BeatTime(28), 360, 240, EaseState.Sine)));
                     });
                     RegisterFunctionOnce("BoneGA", () =>
@@ -2948,7 +2948,7 @@ namespace Rhythm_Recall.Waves
                             RightBone b2 = new(false, 640 + i * -16, 0, 35 + i * 0.105f) { MarkScore = false };
                             CreateBone(b1);
                             CreateBone(b2);
-                            RunEase(k => b1.Speed=b2.Speed = k, EaseOut(BeatTime(1), 0, 8, EaseState.Linear));
+                            RunEase(k => b1.Speed = b2.Speed = k, EaseOut(BeatTime(1), 0, 8, EaseState.Linear));
                         }
                     });
                     RegisterFunctionOnce("CrossL", () =>
@@ -2966,7 +2966,7 @@ namespace Rhythm_Recall.Waves
                             CustomBone b = new(new Vector2(320, i * -16), Motions.PositionRoute.linear, 90, 194)
                             {
                                 PositionRouteParam = new float[] { 0, 8 },
-                                ColorType=1
+                                ColorType = 1
                             };
                             CreateBone(b);
                         }
@@ -3016,7 +3016,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < 2; i++)
                         {
                             float rot = -60;
-                            CustomBone b = new(new Vector2(370 +  42, i * -16), Motions.PositionRoute.linear, rot, 184)
+                            CustomBone b = new(new Vector2(370 + 42, i * -16), Motions.PositionRoute.linear, rot, 184)
                             {
                                 PositionRouteParam = new float[] { 0, 8 },
                             };
@@ -3025,7 +3025,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("text", () =>
                     {
-                        
+
                     });
                     RegisterFunctionOnce("s", () =>
                     {
@@ -3033,7 +3033,7 @@ namespace Rhythm_Recall.Waves
                     });
                     BarrageCreate(0, BeatTime(2), 15.4f, new string[]
                     {
-                        //pre 
+                        /*//pre 
                         "(Box)(BoneGA)", "", "", "",
                         //1 
                         "CrossL(s)", "", "", "",    "BoneWall2(s)", "", "", "",
@@ -3056,6 +3056,51 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                     });//zKronO's version
+                        */
+                    });
+                }                   
+                if(InBeat(927))
+                {
+                    RegisterFunctionOnce("Save", () =>
+                    {
+                        SetBox(240, 480, 360);
+                        SetSoul(0);
+                        HeartAttribute.HP = 5;
+                        Color c = ScreenDrawing.HPBar.HPExistColor;
+                        ScreenDrawing.HPBar.HPExistColor = Color.Gold;
+                        ForBeat(4, () => { ScreenDrawing.HPBar.HPExistColor = Color.Lerp(ScreenDrawing.HPBar.HPExistColor, c, 0.03f); });
+                        Vector2 v1 = Vector2.Zero;
+                        Vector2 v2 = Vector2.Zero;
+                        Vector2 v3 = Vector2.Zero;
+                        Vector2 v4 = Vector2.Zero;
+                        var cd = ScreenDrawing.HPBar.AreaOccupied;
+                        ScreenDrawing.HPBar.Vertical = true;
+                        RunEase((s) => { v1 = s; }, Stable(0, cd.TopLeft),EaseOut(BeatTime(2),cd.TopLeft,new Vector2(15,240-110),EaseState.Cubic));
+                        RunEase((s) => { v2 = s; }, Stable(0, cd.TopRight), EaseOut(BeatTime(2), cd.TopRight, new Vector2(15+25, 240 - 110), EaseState.Cubic));
+                        RunEase((s) => { v3 = s; }, Stable(0, cd.BottomRight), EaseOut(BeatTime(2), cd.BottomRight, new Vector2(15+25, 240 + 110), EaseState.Cubic));
+                        RunEase((s) => { v4 = s;ScreenDrawing.HPBar.AreaOccupied = new CollideRect(v1.X ,v1.Y, v2.X - v1.X, v3.Y - v2.Y); }, Stable(0, cd.BottomLeft), EaseOut(BeatTime(2), cd.BottomLeft, new Vector2(15, 240 + 110), EaseState.Cubic));
+                        RunEase((s) => { ScreenDrawing.ScreenScale = s; }, EaseOut(BeatTime(2), -0.15f, EaseState.Quad));
+                    });
+                    RegisterFunctionOnce("Bone1", () =>
+                    {
+                        //CustomBone b=new()
+                    });
+                    RegisterFunctionOnce("Bone2", () =>
+                    {
+
+                    });
+                    RegisterFunctionOnce("Bone3", () =>
+                    {
+
+                    });
+                    RegisterFunctionOnce("Bone4", () =>
+                    {
+
+                    });
+                    BarrageCreate(0, BeatTime(2), 9, new string[]
+                    {
+                        "Save"
+                    });
                 }
             }
             void To4k() {
@@ -3473,11 +3518,11 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
                     //int beat = 192;
-                    float beat = 711 + 128 + 32 + 32 + 23.5f;
+                    float beat = 711 + 128 + 32 + 32 + 23.5f-2;
                     //beat = 328;
                     //int beat = 198;
                     GametimeDelta = -3.5f + BeatTime(beat);

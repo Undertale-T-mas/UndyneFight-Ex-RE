@@ -89,8 +89,8 @@ namespace UndyneFight_Ex.Fight
             }
             public static class HPBar
             {
-                public static Color HPExistColor { set => (GameStates.CurrentScene as FightScene).HPBar.HPExistColor = value; }
-                public static Color HPLoseColor { set => (GameStates.CurrentScene as FightScene).HPBar.HPLoseColor = value; }
+                public static Color HPExistColor { get => (GameStates.CurrentScene as FightScene).HPBar.HPExistColor; set => (GameStates.CurrentScene as FightScene).HPBar.HPExistColor = value; }
+                public static Color HPLoseColor { get=> (GameStates.CurrentScene as FightScene).HPBar.HPLoseColor; set => (GameStates.CurrentScene as FightScene).HPBar.HPLoseColor = value; }
                 public static CollideRect AreaOccupied
                 {
                     set => (GameStates.CurrentScene as FightScene).HPBar.ResetArea(value);
