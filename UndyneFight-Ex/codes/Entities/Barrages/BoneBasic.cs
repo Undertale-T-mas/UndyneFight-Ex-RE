@@ -112,7 +112,7 @@ namespace UndyneFight_Ex.Entities
 
             if (colorType == 1 && Heart.IsStable) return;
             if (colorType == 2 && Heart.IsMoved) return;
-            if (PlayerInstance.hpControl.protectTime > 0) return;
+            if (PlayerInstance.hpControl.ScoreProtected && PlayerInstance.hpControl.protectTime > 0) return;
             if (res < 0)
             {
                     if (!hasHit)

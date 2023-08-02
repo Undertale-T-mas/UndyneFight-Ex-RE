@@ -129,7 +129,7 @@ namespace Rhythm_Recall.Waves
                     if (GameStates.IsKeyPressed(InputIdentity.Alternate))
                     {
                         count++;
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                     }
                 }
             }

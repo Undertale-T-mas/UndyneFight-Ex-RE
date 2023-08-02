@@ -46,7 +46,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     else if (PlayerManager.playerInfos.ContainsKey(this._account.Result))
                     {
-                        GameStates.InstanceCreate(new InfoText("User already exist!", new Vector2(672, 400)) { DrawingColor = Color.Red });
+                        GameStates.InstanceCreate(new InfoText("User already exists!", new Vector2(672, 400)) { DrawingColor = Color.Red });
                     }
                     else
                     {
