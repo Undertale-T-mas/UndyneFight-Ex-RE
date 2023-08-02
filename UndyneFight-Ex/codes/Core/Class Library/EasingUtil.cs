@@ -271,6 +271,10 @@ namespace UndyneFight_Ex.Entities
         {
             return new EaseUnit<Vector2>(start, start, 99999.0f, (s) => start + s.AppearTime * speed);
         }
+        public static EaseUnit<Vector2> InfLinear(Vector2 speed)
+        {
+            return new EaseUnit<Vector2>(Vector2.Zero, Vector2.Zero, 99999.0f, (s) => s.AppearTime * speed);
+        }
         /// <summary>
         /// 返回一个<see cref="Vector2"/>的<see langword="均速直线运动的缓动"/><br/>
         /// </summary>
