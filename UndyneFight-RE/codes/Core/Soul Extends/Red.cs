@@ -25,7 +25,7 @@ namespace UndyneFight_Ex.Remake
             Vector2 curCentre = curPos.GetCentre();
 
             float speed = s.Speed;
-            if(GameStates.IsKeyDown(InputIdentity.Cancel)) { speed *= 0.5f; }
+            if (GameStates.IsKeyDown(InputIdentity.Cancel)) { speed *= 0.5f; }
             Vector2 delta = Vector2.Zero;
             for (int i = 0; i < 4; i++)
             {
@@ -39,6 +39,13 @@ namespace UndyneFight_Ex.Remake
 
             // calculate all vertexs' normal vector
 
+            nexCentre = DoBoxRestriction(curCentre, nexCentre, vertexs);
+
+            s.Centre = nexCentre;
+        }
+
+        private static Vector2 DoBoxRestriction(Vector2 curCentre, Vector2 nexCentre, BoxVertex[] vertexs)
+        {
             Vector2[] normals = new Vector2[vertexs.Length];
             for (int i = 0; i < vertexs.Length; i++)
             {
@@ -70,7 +77,7 @@ namespace UndyneFight_Ex.Remake
                 }
             }
 
-            s.Centre = nexCentre;
+            return nexCentre;
         }
     }
 }

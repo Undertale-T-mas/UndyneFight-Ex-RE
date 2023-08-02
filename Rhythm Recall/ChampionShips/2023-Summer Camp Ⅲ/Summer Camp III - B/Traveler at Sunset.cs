@@ -3256,7 +3256,7 @@ namespace Rhythm_Recall.Waves
                     });
                     BarrageCreate(0, BeatTime(2), 15.4f, new string[]
                     {
-                        /*//pre 
+                        //pre 
                         "(Box)(BoneGA)", "", "", "",
                         //1 
                         "CrossL(s)", "", "", "",    "BoneWall2(s)", "", "", "",
@@ -3278,9 +3278,7 @@ namespace Rhythm_Recall.Waves
                         "(s)(MoveL)(BoneMid)", "", "", "",    "(s)(MoveR)(BoneWallX)", "", "", "",
                         "(s)(BoneMid)", "", "(s)(BoneMid)", "",    "(s)(BoneMid)", "", "", "",
                         "(s)BoneWallX", "", "(s)(BoneLeft)", "(s)(BoneLeft)",    "(s)BoneWallX", "", "(s)BoneRight", "",
-                    });//zKronO's version
-                        */
-                    });
+                    });//zKronO's version 
                 }                   
                 if(InBeat(927))
                 {
@@ -3320,10 +3318,10 @@ namespace Rhythm_Recall.Waves
                     {
 
                     });
-                    BarrageCreate(0, BeatTime(2), 9, new string[]
+                /*    BarrageCreate(0, BeatTime(2), 9, new string[]
                     {
                         "Save"
-                    });
+                    });*/
                 }
             }
             void To4k() {
