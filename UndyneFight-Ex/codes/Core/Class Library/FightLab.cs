@@ -235,7 +235,16 @@ namespace UndyneFight_Ex.Fight
             }
             public static Vector2 Location => (FightBox.instance as RectangleBox).CollidingBox.BottomLeft;
             public static float Width => (FightBox.instance as RectangleBox).CollidingBox.Width;
-            public static float Height => (FightBox.instance as RectangleBox).CollidingBox.Height;
+            public static float Height
+            {
+                get => (FightBox.instance as RectangleBox).CollidingBox.Height;
+                set
+                {
+                    CollideRect old = (FightBox.instance as RectangleBox).CollidingBox;
+                    old.Height = value;
+                    (FightBox.instance as RectangleBox).InstanceMove(old);
+                }
+            }
             /// <summary>
             /// 每次移动取的比例，一个 0-1 的浮点数。越大表示移动速度越快。0为静止不动，1为瞬间完成。默认0.15
             /// </summary>

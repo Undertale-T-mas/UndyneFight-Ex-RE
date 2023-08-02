@@ -73,6 +73,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     public float Alpha { get; set; } = 0.0f;
                 }
+
                 public InputSetting() : base("Input", 345)
                 {
                     this.AddChild(_delay = new(new CollideRect(510 - 80, 80, 80 * 2, 60), "Arrow Delay", -50, 250, this)

@@ -413,6 +413,17 @@ namespace UndyneFight_Ex.Entities
             LengthRoute = lengthRoute;
             RotationRoute = rotationRoute;
         }
+        public CustomBone(Vector2 startPos, Func<ICustomMotion, Vector2> positionRoute, Func<ICustomMotion, float> rotationRoute, float length)
+        {
+            alpha = 1.0f;
+
+            LengthRouteParam = new float[] { length };
+            Centre = startPos;
+            this.startPos = startPos;
+            PositionRoute = positionRoute;
+            LengthRoute = Motions.LengthRoute.stableValue;
+            RotationRoute = rotationRoute;
+        }
         public CustomBone(Func<ICustomMotion, Vector2> positionRoute1, Func<ICustomMotion, Vector2> positionRoute2)
         {
             alpha = 1.0f;

@@ -18,6 +18,7 @@ using static UndyneFight_Ex.Remake.TextUtils;
 using static UndyneFight_Ex.MathUtil;
 using System.Threading.Tasks;
 using Extends;
+using System.Reflection.Metadata;
 
 namespace Rhythm_Recall.Waves
 {
@@ -2923,63 +2924,135 @@ namespace Rhythm_Recall.Waves
                 }*/
                 if (InBeat(927))
                 {
+                    const int COUNT = 4;
                     RegisterFunctionOnce("Box", () =>
                     {
-                        DrawingUtil.ScreenAngle(180, BeatTime(1));
+                        Vector2 cur = ScreenDrawing.UISettings.HPShowerPos;
+                        ForBeat(4, () => {
+                            ScreenDrawing.UISettings.HPShowerPos = Vector2.Lerp(ScreenDrawing.UISettings.HPShowerPos, cur + new Vector2(110, 0), 0.23f);
+                        });
+                        HeartAttribute.Speed = 3.0f;
+
                         InstantSetBox(380, 184, 252);
                         SetBox(270 - 42, 370 + 42, -60, 650);
-                        SetSoul(0);
+                        SetSoul(Souls.RedSoul);
                         Heart.InstantSetRotation(180);
                         InstantTP(new(320, 380));
                         DelayBeat(0.5f, () =>
                         {
-                            InstantSetBox(270 - 42, 370 + 42, -10, 650);
+                            InstantSetBox(270 - 42, 370 + 42, -5, 485);
                         });
-                        RunEase((s) => { InstantTP(new(Heart.Centre.X, s)); },
-                            LinkEase(EaseIn(BeatTime(1), 380, 360, EaseState.Sine),
-                            EaseIn(BeatTime(28), 360, 240, EaseState.Sine)));
+                        RunEase((s) => { InstantTP(new(Heart.Centre.X, s)); }, 
+                            LinkEase(EaseIn(BeatTime(1), 380, 360, EaseState.Sine), 
+                            EaseIn(BeatTime(17), 360, 300, EaseState.Linear)));
                     });
                     RegisterFunctionOnce("BoneGA", () =>
                     {
-                        for (int i = 0; i < 240; i++)
+                        for (int i = 0; i < 148; i++)
                         {
                             float h = i;
                             LeftBone b1 = new(false, 640 + i * -16, 0, 35 + i * 0.105f) { MarkScore = false };
                             RightBone b2 = new(false, 640 + i * -16, 0, 35 + i * 0.105f) { MarkScore = false };
                             CreateBone(b1);
                             CreateBone(b2);
-                            RunEase(k => b1.Speed = b2.Speed = k, EaseOut(BeatTime(1), 0, 8, EaseState.Linear));
+                            RunEase(k => b1.Speed=b2.Speed = k, EaseOut(BeatTime(1), 0, 7.8f, EaseState.Linear), Stable(1, 7.8f));
                         }
                     });
                     RegisterFunctionOnce("CrossL", () =>
                     {
-                        Extends.DrawingUtil.CrossBone(new Vector2(270 - 42, -10), new Vector2(0, 8), 200, 4, 0, -8);
+                        float angle = 0.0f;
+                        for (int i = 0; i < COUNT; i++)
+                        {
+                            angle += 180.0f / COUNT;
+                            CreateBone(new CustomBone(
+                                Add(LinkEase(EaseOut(BeatTime(2f), new(-110, 0), Vector2.Zero, EaseState.Back),
+                                    Stable(BeatTime(1), Vector2.Zero)
+                                ),
+                                InfLinear(new Vector2(270 - 46, -10), new(0, 8))),
+                                InfLinear(angle, 4), 200));
+                        }
+
+                        //  Extends.DrawingUtil.CrossBone(new Vector2(270 - 42, -10), new Vector2(0, 8), 200, 4, 0, -8);
                     });
                     RegisterFunctionOnce("CrossR", () =>
                     {
-                        Extends.DrawingUtil.CrossBone(new Vector2(370 + 42, -10), new Vector2(0, 8), 200, 4, 0, 8);
+                        float angle = 0.0f;
+                        for (int i = 0; i < COUNT; i++)
+                        {
+                            angle += 180.0f / COUNT;
+                            CreateBone(new CustomBone(
+                                Add(LinkEase(EaseOut(BeatTime(2f), new(110, 0), Vector2.Zero, EaseState.Back),
+                                    Stable(BeatTime(1), Vector2.Zero)
+                                ),
+                                InfLinear(new Vector2(370 + 46, -10), new(0, 8))),
+                                InfLinear(angle, -4), 200));
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWallX", () =>
+                    {
+                        for (int i = 0; i < 5; i += 2)
+                        {
+                            LeftBone b = new(false, i * (-16), 18.0f, 194);
+                            b.ColorType = 2;
+                            b.LengthLerpScale = 0.1637f;
+                            CreateBone(b);
+                        }
+                        for (int i = 1; i < 5; i += 2)
+                        {
+                            RightBone b = new(false, i * (-16), 18.0f, 194);
+                            b.ColorType = 2;
+                            b.LengthLerpScale = 0.1637f;
+                            CreateBone(b);
+                        }
                     });
                     RegisterFunctionOnce("BoneWall1", () =>
                     {
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 5; i+= 2)
                         {
-                            CustomBone b = new(new Vector2(320, i * -16), Motions.PositionRoute.linear, 90, 194)
-                            {
-                                PositionRouteParam = new float[] { 0, 8 },
-                                ColorType = 1
-                            };
+                            LeftBone b = new(false, i * (-16), 8.0f, 194);
+                            b.ColorType = 1;
+                            b.LengthLerpScale = 0.1137f;
+                            CreateBone(b);
+                        }
+                        for (int i = 1; i < 5; i+= 2)
+                        {
+                            RightBone b = new(false, i * (-16), 8.0f, 194);
+                            b.ColorType = 1;
+                            b.LengthLerpScale = 0.1137f;
                             CreateBone(b);
                         }
                     });
                     RegisterFunctionOnce("BoneWall2", () =>
                     {
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 5; i += 2)
                         {
-                            CustomBone b = new(new Vector2(320, i * -16), Motions.PositionRoute.linear, 90, 194)
-                            {
-                                PositionRouteParam = new float[] { 0, 8 },
-                                ColorType = 2
-                            };
+                            RightBone b = new(false, i * (-16), 8.0f, 194);
+                            b.ColorType = 2;
+                            b.LengthLerpScale = 0.1137f;
+                            CreateBone(b);
+                        }
+                        for (int i = 1; i < 5; i += 2)
+                        {
+                            LeftBone b = new(false, i * (-16), 8.0f, 194);
+                            b.ColorType = 2;
+                            b.LengthLerpScale = 0.1137f;
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall3", () =>
+                    {
+                        for (int i = 0; i < 4; i += 2)
+                        {
+                            RightBone b = new(false, i * (-16) - 10, 12.0f, 194);
+                            b.ColorType = 2;
+                            b.LengthLerpScale = 0.1237f;
+                            CreateBone(b);
+                        }
+                        for (int i = 1; i < 4; i += 2)
+                        {
+                            LeftBone b = new(false, i * (-16) - 10, 12.0f, 194);
+                            b.ColorType = 2;
+                            b.LengthLerpScale = 0.1237f;
                             CreateBone(b);
                         }
                     });
@@ -2988,6 +3061,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < 3; i++)
                         {
                             LeftBone b = new(false, i * -16, 8, 70 + i * 8);
+                            b.LengthLerpScale = 0.1137f;
                             CreateBone(b);
                         }
                     });
@@ -2996,6 +3070,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < 3; i++)
                         {
                             RightBone b = new(false, i * -16, 8, 70 + i * 8);
+                            b.LengthLerpScale = 0.1137f;
                             CreateBone(b);
                         }
                     });
@@ -3003,11 +3078,12 @@ namespace Rhythm_Recall.Waves
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            float rot = -60;
-                            CustomBone b = new(new Vector2(270 - 42, i * -16), Motions.PositionRoute.linear, -rot, 184)
-                            {
-                                PositionRouteParam = new float[] { 0, 8 },
-                            };
+                            var ease = Add(LinkEase(EaseOut(BeatTime(0.9f), new(-110, 0), Vector2.Zero, EaseState.Back),
+                                    Stable(BeatTime(1), Vector2.Zero)
+                                ),
+                                InfLinear(Vector2.Zero, new(0, 8)));
+                            float rot = 70;
+                            CustomBone b = new(new Vector2(270 - 42, i * -16), ease.Easing, -rot, 165);
                             CreateBone(b);
                         }
                     });
@@ -3015,11 +3091,12 @@ namespace Rhythm_Recall.Waves
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            float rot = -60;
-                            CustomBone b = new(new Vector2(370 + 42, i * -16), Motions.PositionRoute.linear, rot, 184)
-                            {
-                                PositionRouteParam = new float[] { 0, 8 },
-                            };
+                            var ease = Add(LinkEase(EaseOut(BeatTime(0.9f), new(110, 0), Vector2.Zero, EaseState.Back),
+                                    Stable(BeatTime(1), Vector2.Zero)
+                                ),
+                                InfLinear(Vector2.Zero, new(0, 8)));
+                            float rot = 70;
+                            CustomBone b = new(new Vector2(370 + 42, i * -16), ease.Easing, rot, 165);
                             CreateBone(b);
                         }
                     });
@@ -3030,6 +3107,152 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("s", () =>
                     {
                         PlaySound(Sounds.pierce);
+                    });
+
+                    List<SideBone> rbones = new(), lbones = new();
+                    RegisterFunctionOnce("MoreBone", () => {
+                        for(int i = 0; i < 162; i++)
+                        {
+                            RightBone bone = new(false, -15 - i * 16, 7.8f, 50f);
+                            if (i % 16 < 2 && i > 15 && i < 60)
+                                rbones.Add(bone);
+                            bone.Length = 50f;
+                            bone.LengthLerpScale = 0.2f;
+                            AddInstance(bone);
+                            if(i < 30)
+                            {
+                                DelayBeat(2.25f, () => {
+                                    bone.MissionLength = 15f;
+                                });
+                            }
+                            else
+                            {
+                                bone.Length = 15f;
+                                bone.MissionLength = 15f;
+                            }
+                            if (i % 3 < 2) bone.MarkScore = false;
+                        }
+                        for(int i = 0; i < 162; i++)
+                        {
+                            LeftBone bone = new(false, -15 - i * 16, 7.8f, 50f);
+                            if (i % 16 >= 8 && i % 16 < 10 && i > 15 && i < 60)
+                                lbones.Add(bone);
+                            bone.LengthLerpScale = 0.2f;
+                            bone.Length = 50f;
+                            AddInstance(bone);
+                            if(i < 30)
+                            {
+                                DelayBeat(2.25f, () => {
+                                    bone.MissionLength = 15f;
+                                });
+                            }
+                            else
+                            {
+                                bone.Length = 15f;
+                                bone.MissionLength = 15f;
+                            }
+                            if (i % 3 < 2) bone.MarkScore = false;
+                        }
+                        DelayBeat(2.75f, () => {
+                            lbones.ForEach(s => { s.MissionLength = 95f; s.MarkScore = false; });
+                            rbones.ForEach(s => { s.MissionLength = 95f; s.MarkScore = false; });
+                        });
+                    });
+
+                    RegisterFunctionOnce("Move", () => {
+                        ForBeat(4, () => {
+                            Vector2 cur = ScreenDrawing.UISettings.HPShowerPos;
+                            ScreenDrawing.UISettings.HPShowerPos = Vector2.Lerp(cur, new(61, 407), 0.23f);
+                        });
+                        RunEase(s => BoxStates.Centre = new(s, 240), EaseOut(BeatTime(1), 320, 400, EaseState.Cubic));
+                    });
+                    RegisterFunctionOnce("BoneTunnel", () => { 
+                        
+                    });
+                    float y = 0;
+                    RegisterFunctionOnce("GB", () => {
+                        y = Heart.Centre.Y - 5;
+                        CreateGB(new NormalGB(new(250, y + 3), Heart.Centre, new(1, 0.5f), 0, BeatTime(1), 4));
+                        CreateGB(new NormalGB(new(550, y + 3), Heart.Centre, new(1, 0.5f), 180, BeatTime(1.5f), 4));
+                        y -= 4;
+                    });
+                    RegisterFunctionOnce("BoneHorizon1", () => {
+                        CreateBone(new CustomBone(new Vector2(350 - 42, y), InfLinear(new Vector2(21, 0)).Easing, InfLinear(0, 5).Easing, 25) { ColorType = 2 });
+                        CreateBone(new CustomBone(new Vector2(450 + 42, y), InfLinear(new Vector2(-21, 0)).Easing, InfLinear(0, -5).Easing, 25) { ColorType = 2 });
+                        CreateBone(new CustomBone(new Vector2(350 - 42, y), InfLinear(new Vector2(21, 0)).Easing, InfLinear(90, 5).Easing, 25) { ColorType = 2 });
+                        CreateBone(new CustomBone(new Vector2(450 + 42, y), InfLinear(new Vector2(-21, 0)).Easing, InfLinear(90, -5).Easing, 25) { ColorType = 2 });
+                    });
+                    RegisterFunctionOnce("BoneHorizon2", () => {
+                        CreateBone(new CustomBone(new Vector2(350 - 42, y), InfLinear(new Vector2(21, 0)).Easing, InfLinear(0, 5).Easing, 25) { ColorType = 1 });
+                        CreateBone(new CustomBone(new Vector2(450 + 42, y), InfLinear(new Vector2(-21, 0)).Easing, InfLinear(0, -5).Easing, 25) { ColorType = 1 });
+                        CreateBone(new CustomBone(new Vector2(350 - 42, y), InfLinear(new Vector2(21, 0)).Easing, InfLinear(90, 5).Easing, 25) { ColorType = 1 });
+                        CreateBone(new CustomBone(new Vector2(450 + 42, y), InfLinear(new Vector2(-21, 0)).Easing, InfLinear(90, -5).Easing, 25) { ColorType = 1 });
+                    });
+                    RegisterFunctionOnce("Shrink", () => {
+                        lbones.ForEach(s => s.Length = 65f);
+                        rbones.ForEach(s => s.Length = 65f);
+                    });
+                    
+                    RegisterFunctionOnce("ShrinkL", () => {
+                        lbones.ForEach(s => s.Length = 75f);
+                        lbones.ForEach(s => s.ColorType = 1);
+                        DelayBeat(0.25f, () => {
+                            lbones.ForEach(s => s.ColorType = 0);
+                        });
+                    });
+                    RegisterFunctionOnce("ShrinkR", () => {
+                        rbones.ForEach(s => s.Length = 75f);
+                        rbones.ForEach(s => s.ColorType = 1);
+                        DelayBeat(0.25f, () => {
+                            rbones.ForEach(s => s.ColorType = 0);
+                        });
+                    });
+                    RegisterFunctionOnce("MoveL", () => {
+                        float cur = BoxStates.Centre.X;
+                        RunEase(s => BoxStates.Centre = new(s, 240), EaseOut(BeatTime(1), cur, cur - 80, EaseState.Cubic)); 
+                    });
+                    RegisterFunctionOnce("MoveR", () => {
+                        float cur = BoxStates.Centre.X;
+                        RunEase(s => BoxStates.Centre = new(s, 240), EaseOut(BeatTime(1), cur, cur + 80, EaseState.Cubic)); 
+                    });
+                    RegisterFunctionOnce("DeMove", () => {
+                        ForBeat(4, () => {
+                            Vector2 cur = ScreenDrawing.UISettings.HPShowerPos;
+                            ScreenDrawing.UISettings.HPShowerPos = Vector2.Lerp(cur, new(430, 443), 0.23f);
+                        });
+                    });
+                    RegisterFunctionOnce("BoneMid", () =>
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            LeftBone b = new(false, i * -16, 15, 45 + i * 11);
+                            b.LengthLerpScale = 0.1537f;
+                            CreateBone(b);
+                        }
+                        for (int i = 0; i < 3; i++)
+                        {
+                            RightBone b = new(false, i * -16, 15, 45 + i * 11);
+                            b.LengthLerpScale = 0.1537f;
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneLeft", () =>
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            LeftBone b = new(false, i * -16, 15, 90);
+                            b.LengthLerpScale = 0.1537f;
+                            CreateBone(b);
+                        } 
+                    });
+                    RegisterFunctionOnce("BoneRight", () =>
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            RightBone b = new(false, i * -16, 15, 90);
+                            b.LengthLerpScale = 0.1537f;
+                            CreateBone(b);
+                        } 
                     });
                     BarrageCreate(0, BeatTime(2), 15.4f, new string[]
                     {
@@ -3043,18 +3266,18 @@ namespace Rhythm_Recall.Waves
                         //2 
                         "BoneWall2(s)", "", "", "",    "CrossR(s)", "", "", "",
                         "BoneWall1(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
-                        "BoneWall0Bl(s)", "", "", "",    "BoneWall1(s)", "", "", "",
-                        "CrossL(s)", "", "", "",    "BoneWall2(s)", "", "", "",
-                        //3 
-                        "CrossR(s)", "", "", "",    "BoneWall2(s)", "", "", "",
-                        "CrossL(s)", "", "", "",    "BoneWall0Al(s)", "", "BoneWall0Ar(s)", "",
-                        "BoneWall0Al(s)", "", "", "",    "BoneWall1(s)", "", "", "",
-                        "BoneWall0Ar(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
+                        "BoneWall0Bl(s)", "", "", "(MoreBone)",    "BoneWall1(s)", "", "", "",
+                        "CrossL(s)", "", "", "",    "(s)", "", "", "",
+                        //3  
+                        "Move(s)", "", "", "",    "BoneWall3(s)(Shrink)", "", "", "",
+                        "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)", "", "BoneHorizon2(s)(ShrinkR)", "",
+                        "", "", "", "",    "BoneWall3(s)(Shrink)", "", "", "",
+                        "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)", "", "BoneHorizon2(s)(ShrinkR)", "",
                         //4 
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "(s)(MoveL)(DeMove)(BoneMid)", "", "", "",    "(s)BoneWallX", "", "", "",
+                        "(s)(MoveL)(BoneMid)", "", "", "",    "(s)(MoveR)(BoneWallX)", "", "", "",
+                        "(s)(BoneMid)", "", "(s)(BoneMid)", "",    "(s)(BoneMid)", "", "", "",
+                        "(s)BoneWallX", "", "(s)(BoneLeft)", "(s)(BoneLeft)",    "(s)BoneWallX", "", "(s)BoneRight", "",
                     });//zKronO's version
                         */
                     });

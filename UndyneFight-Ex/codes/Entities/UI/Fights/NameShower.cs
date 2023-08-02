@@ -19,7 +19,7 @@ namespace UndyneFight_Ex.Entities
             Vector2 namePos = new(Centre.X, Centre.Y - FightFont.SFX.MeasureString("HP").Y / 2f);
             string showing = string.IsNullOrEmpty(name) ? (string.IsNullOrEmpty(PlayerManager.currentPlayer)
                 ? "guest" : PlayerManager.currentPlayer) : name;
-            Vector2 lvPos = new(FightFont.SFX.MeasureString(showing).X + 42 + (GameRule.nameColor == "Colorful" ? 20 : 0), Centre.Y - FightFont.SFX.MeasureString("HP").Y / 2f);
+            Vector2 lvPos = new(FightFont.SFX.MeasureString(showing).X + 22 + Centre.X + (GameRule.nameColor == "Colorful" ? 20 : 0), Centre.Y - FightFont.SFX.MeasureString("HP").Y / 2f);
 
             switch (GameRule.nameColor)
             {
