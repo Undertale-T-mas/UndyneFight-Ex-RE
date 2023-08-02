@@ -104,10 +104,8 @@ namespace UndyneFight_Ex.Remake.UI
             });
 
             font.CentreDraw(MathUtil.FloatToString(AccountData.Skill, 2), new(370, 328), Color.Wheat, 1.3f, 0.1f);
-            if (playTimeHour < 1000)
-                font.CentreDraw(MathUtil.FloatToString(playTimeHour, 1) + "h", new(595, 328), Color.Wheat, 1.23f, 0.1f);
-            else
-                font.CentreDraw(MathUtil.FloatToString(playTimeHour, 0) + "h", new(595, 328), Color.Wheat, 1.23f, 0.1f);
+            var digit = playTimeHour < 1000 ? 1 : 0;
+            font.CentreDraw(MathUtil.FloatToString(playTimeHour, digit) + "h", new(595, 328), Color.Wheat, 1.23f, 0.1f);
 
             for (int i = 0; i < 3; i++)
             {

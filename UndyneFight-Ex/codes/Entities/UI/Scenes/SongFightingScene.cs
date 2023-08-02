@@ -43,8 +43,8 @@ namespace UndyneFight_Ex.Entities
                 timer += 0.5f;
 
                 float del2 = GameMain.gameSpeed;
-                del2 *= 10;
-                del2 -= 10;
+                del2 *= 15;
+                del2 -= 15;
 
                 bool result = false;
                 Audio music = fatherScene.music;

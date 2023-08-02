@@ -145,7 +145,7 @@ namespace UndyneFight_Ex.Entities
 
             public override void Update()
             {
-                if(protectTime   > 0)
+                if(protectTime > 0)
                     protectTime--;
                 if (protectTime == 0) ScoreProtected = false;
                 curLost = MathHelper.Lerp(curLost, missionLostSpeed, 0.05f);

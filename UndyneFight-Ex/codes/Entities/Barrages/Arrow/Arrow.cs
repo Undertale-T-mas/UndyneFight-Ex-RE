@@ -56,6 +56,7 @@ namespace UndyneFight_Ex.Entities
             this.mission = mission;
         }
         private readonly Player.Heart mission;
+        public Player.Heart Mission => mission;
 
         public override void Start()
         {
@@ -119,7 +120,7 @@ namespace UndyneFight_Ex.Entities
         {
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             float max = MathF.Max(MathF.Max(extend.X, extend.Y), MathF.Max(extend.Z, extend.W));
-            if ((Speed) * (shootShieldTime - GametimeF) + this.additiveDistance > 640 * (max + 1.1f)) return;
+            if ((Speed) * (shootShieldTime - GametimeF) + this.additiveDistance > 640 * (max + 1.5f)) return;
             PositionCalculate();
             AppearTime += 0.5f;
             if (shootShieldTime - GametimeF < 15)

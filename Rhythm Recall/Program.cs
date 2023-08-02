@@ -117,6 +117,9 @@ namespace Rhythm_Recall
             test.Push(typeof(AprilExtends.EtherStrike));
             test.Push(typeof(AprilExtends.GrievousLady));
             test.Push(typeof(AprilExtends.Rrharil));
+            test.Push(typeof(AprilExtends.HorizonBlue));
+            test.Push(typeof(AprilExtends.Pentiment));
+            test.Push(typeof(AprilExtends.Seraphim));
             test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(MEGALOVANIA));
             test.Push(typeof(RIP));
@@ -135,7 +138,7 @@ namespace Rhythm_Recall
                 //typeof(BrainPower),
                 //typeof(Weekender), 
                 typeof(DreadNaught),
-                //typeof(TheFuneral),
+                typeof(TheFuneral),
                 //typeof(PapyEn), 
                 typeof(Conflict),
                 //typeof(AprilExtends.Stasis),

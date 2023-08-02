@@ -63,8 +63,8 @@ namespace UndyneFight_Ex
         public RenderingManager BackgroundRendering { get; internal set; } = new();
         public RenderingManager SceneRendering { get; internal set; } = new();
 
-        private readonly List<GameObject> buffer = new List<GameObject>();
-        private readonly List<GameObject> objects = new List<GameObject>();
+        private readonly List<GameObject> buffer = new();
+        private readonly List<GameObject> objects = new();
         public List<GameObject> Objects => objects;
 
         public static ContentManager Loader { get; private set; }

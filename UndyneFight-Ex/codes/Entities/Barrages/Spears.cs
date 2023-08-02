@@ -44,7 +44,6 @@ namespace UndyneFight_Ex.Entities
                 }
             }
             appearTime++;
-            alpha = Min(appearTime, 25) * 0.04f;
             if (appearTime < WaitingTime)
             {
                 Rotation += (float)Pow(WaitingTime + 8 - appearTime, 1.5) / 31f * (59 / WaitingTime);
@@ -66,8 +65,10 @@ namespace UndyneFight_Ex.Entities
             }
             if (appearTime >= Duration)
             {
-                Dispose();
+                alpha -= 0.16f;
+                if (alpha <= 0) Dispose();
             }
+            else alpha = Min(appearTime, 25) * 0.04f;
 
             base.Update();
         }

@@ -16,6 +16,8 @@ using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Remake.TextUtils;
 using static UndyneFight_Ex.MathUtil;
+using System.Threading.Tasks;
+using Extends;
 
 namespace Rhythm_Recall.Waves
 {
@@ -1001,9 +1003,26 @@ namespace Rhythm_Recall.Waves
                             {
                                 box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
                             }
-                            if (At0thBeat(1))
+                            if (InBeat(200, 214) && At0thBeat(0.5f))
                             {
-                                
+                                var count = 18;
+                                for (int i = 0; i < count; ++i)
+                                {
+                                    for (int ii = 0; ii < 2; ++ii)
+                                    {
+                                        var ang = ii * 180;
+                                        var finang = ang + i * 360 / count + GametimeF * 5 * 40 / SingleBeat;
+                                        var spd = 3;
+                                        CreateSpear(new NormalSpear(new Vector2(320, 240 - Cos(GametimeF * 2) * 100) + GetVector2(300, ang), finang + 180, spd)
+                                        {
+                                            Rebound = true,
+                                            ReboundCount = 2,
+                                            IsMute = true,
+                                            Acceleration = -spd / 600f,
+                                            Duration = 600
+                                        });
+                                    }
+                                }
                             }
                         });
                         
@@ -1020,6 +1039,12 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(1, () => {
                             ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
                         });
+                        var spears = GetAll<NormalSpear>();
+                        foreach(NormalSpear sprs in spears)
+                        {
+                            sprs.Acceleration = 0.7f;
+                            sprs.Rebound = false;
+                        }
                     });
                     RegisterFunctionOnce("Box", () =>
                     {
@@ -1028,16 +1053,17 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("BounceSpear", () =>
                     {
-                        var dir = Rand(0, 360);
-                        Vector2 pos = GetVector2(Rand(100, 400), Rand(0, 360)) + new Vector2(320, 240);
+                        var dir = 45;
+                        Vector2 pos = GetVector2(150, GametimeF * 360 / BeatTime(1)) + new Vector2(320, 240);
                         for (int i = 0; i < 6; i++)
                         {
                             CreateEntity(new NormalSpear(pos, dir + i * 60, 4)
                             {
                                 DelayTargeting = false,
                                 Rebound = true,
+                                ReboundCount = 5,
                                 Duration = 600,
-                                Acceleration = 0.05f,
+                                Acceleration = 0.02f,
                                 WaitingTime = BeatTime(1)
                             });
                         }
@@ -2692,13 +2718,38 @@ namespace Rhythm_Recall.Waves
                 }
 
                 if (InBeat(872))
-                { 
+                {
+                    RegisterFunctionOnce("pre", () => {
+                        easeA?.Dispose(); easeB?.Dispose();
+                        easeA = new(); easeB = new();
+                        easeA.RotationEase = EaseOut(BeatTime(3.8f), 10, 0, EaseState.Sine);
+                        easeB.RotationEase = EaseOut(BeatTime(3.8f), -10, 0, EaseState.Sine);
+                        easeA.ApplyTime = BeatTime(4); easeB.ApplyTime = BeatTime(4);
+                        easeA.TagApply("A"); easeB.TagApply("B");
+                        AddInstance(easeA); AddInstance(easeB);
+                        easeC?.Dispose(); easeD?.Dispose();
+                        easeC = new(); easeD = new();
+                        easeC.RotationEase = EaseOut(BeatTime(3.8f), 100, 0, EaseState.Sine);
+                        easeD.RotationEase = EaseOut(BeatTime(3.8f), -100, 0, EaseState.Sine);
+                        easeC.ApplyTime = BeatTime(4); easeD.ApplyTime = BeatTime(4);
+                        easeC.TagApply("C"); easeD.TagApply("D");
+                        AddInstance(easeC); AddInstance(easeD);
 
+                        easeX?.Dispose();
+                        easeX = new();
+                        easeX.TagApply("X");
+                        AddInstance(easeX);
+                    });
+
+                    RegisterFunctionOnce("DoX", () => {
+                        easeX.DeltaEase(EaseOut(BeatTime(1.6f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
+                    });
+                    Settings.GreenTap = true;
                     BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "pre",
                          
                         //1 
                         "", "", "", "",    "", "", "d", "",
@@ -2709,19 +2760,392 @@ namespace Rhythm_Recall.Waves
                         "$2@A($2@A)", "", "", "",    "d1", "", "d1", "",
                         "", "", "d1", "",    "", "", "", "",
                         "d", "", "", "",    "", "", "d", "",
-                        "", "", "", "",    "", "", "", "",
+                        "", "", "DoX", "",    "", "", "", "",
                         //3 
+                        "(^$01'1.7@X)(^$21'1.7@X)", "", "", "*$21@A",    "*$0@B", "", "*$21@A", "",
+                        "*$0@B", "", "*$31", "",    "*$0@B", "", "*$31", "",
+                        "(*$0@A)(*$21@B)", "", "", "*$21@B",    "*$0@A", "", "", "",
+                        "(*$0@A)(*$21@B)", "", "", "*$21@B",    "*$0@A", "", "*$21@B", "",
+                        //4 
+                        "$1($1)", "$3", "$1", "",    "*$0@B", "", "*$0@B", "",
+                        "*$0@B(*$21@A)", "", "*$21@A", "",    "$10@C", "$11@D", "$30@C", "$31@D",
+                        "*$0@A", "", "*$0@A", "",    "*$0@A", "", "*$21@B", "",
+                        "(*$0@A)(*$21@B)", "", "", "*$21@B",    "*$0@A", "", "*$21@B", "",
+
+                    });
+                }
+
+                if (InBeat(904)) {
+                    RegisterFunctionOnce("pre", () =>
+                    {
+                        easeC?.Dispose(); easeD?.Dispose();
+                        easeC = new(); easeD = new();
+                        easeC.RotationEase = EaseOut(BeatTime(3.8f), 940, 0, EaseState.Sine);
+                        easeD.RotationEase = EaseOut(BeatTime(3.8f), -940, 0, EaseState.Sine);
+                        easeC.ApplyTime = BeatTime(3.8f); easeD.ApplyTime = BeatTime(3.8f);
+                        easeC.TagApply("C"); easeD.TagApply("D");
+                        AddInstance(easeC); AddInstance(easeD);
+                        easeX?.Dispose();
+                        easeX = new();
+                        easeX.TagApply("X1");
+                        AddInstance(easeX);
+                    });
+                    RegisterFunctionOnce("XEase", () =>
+                    {
+                        DelayBeat(0.125f, () => {
+                            easeX.DeltaEase(EaseOut(BeatTime(1.125f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
+                        });
+                    });
+                    Settings.GreenTap = true;
+                    RegisterFunctionOnce("Box", () => {
+                        RunEase(s => { BoxStates.Centre = s; InstantTP(s); },
+                            Combine(
+                                Alternate(2,
+                                    EaseOut(BeatTime(6.91f), 320, 270, EaseState.Cubic),
+                                    EaseOut(BeatTime(6.91f), 320, 370, EaseState.Cubic)
+                                ),
+                                EaseOut(BeatTime(6.91f), 240, 380, EaseState.Quad)
+                            )
+                        );
+                    });
+                
+                    BarrageCreate(BeatTime(4), BeatTime(2), 9f, new string[]
+                    {
+                        //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "pre", "", "", "(XEase)",    "", "", "", "",
+                         
+                        //1 
+                        "(^$00'1.8@X1)(^$20'1.8@X1)", "(XEase)", "$10", "",    "$30", "",
+                        "(^$01'1.8@X1)(^$21'1.8@X1)", "(XEase)", "$11", "",    "$31", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)", "(XEase)", "$10", "",    "$30", "",
+                        "(^$01'1.8@X1)(^$21'1.8@X1)", "(XEase)", "$11", "",    "$31", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)", "", "", "",    "", "", "", "",
+                        //2 
+                        "*$30@C(Box)", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
+                        "*$30@C", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
+                        "*$30", "", "*$30", "",    "*$30", "", "*$30", "",
+                        "*$30", "", "*$30", "",    "", "", "", "", 
+                    });
+                }
+
+                /*if (InBeat(927))
+                {
+                    To4k();
+                    CustomAnalyzer = (s) =>
+                    {
+                        int mission = s - '0';
+                        SetPlayerMission(mission);
+                        mission = mission % 4;
+                        return mission switch
+                        {
+                            0 => 1,
+                            1 => 0,
+                            2 => 2,
+                            3 => 1,
+                            _ => throw new Exception()
+                        };
+                    };
+                    HashSet<Player.Heart> colorRed = new();
+                    colorRed.Add(Player.hearts[0]);
+                    colorRed.Add(Player.hearts[1]);
+                    ArrowProcesser = (s) =>
+                    {
+                        s.LateWaitingScale = 0.215f;
+                        s.Scale = 1.65f;
+                        s.JudgeType = Arrow.JudgementType.Tap;
+                        if (colorRed.Contains(s.Mission)) s.ResetColor(1);
+                    };
+
+                    easeX?.Dispose(); easeY?.Dispose();
+                    easeX = new();  easeY = new();
+                    easeX.TagApply("X");  easeY.TagApply("Y");
+                    AddInstance(easeX); AddInstance(easeY);
+
+
+                    easeA?.Dispose(); easeB?.Dispose();
+                    easeA = new(); easeB = new();
+                    easeA.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(100, 0)), 
+                        EaseOut(BeatTime(0.42f), new(100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeB.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(-100, 0)),
+                        EaseOut(BeatTime(0.42f), new(-100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeA.TagApply("L"); easeB.TagApply("R");
+                    easeA.ApplyTime = BeatTime(2f + 0.25f); easeB.ApplyTime = BeatTime(2f + 0.25f);
+                    AddInstance(easeA); AddInstance(easeB);
+
+                    easeC?.Dispose(); easeD?.Dispose();
+                    easeC = new(); easeD = new();
+                    easeC.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(100, 0)), 
+                        EaseOut(BeatTime(0.42f), new(100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeD.PositionEase = LinkEase(Stable(BeatTime(1), new Vector2(-100, 0)),
+                        EaseOut(BeatTime(0.42f), new(-100, 0), Vector2.Zero, EaseState.Cubic));
+                    easeC.TagApply("L2"); easeD.TagApply("R2");
+                    easeC.ApplyTime = BeatTime(2.25f + 0.25f); easeD.ApplyTime = BeatTime(2.25f + 0.25f);
+                    AddInstance(easeC); AddInstance(easeD);
+
+                    RegisterFunctionOnce("j", () => {
+                        PlaySound(Sounds.ArrowStuck);
+                        PlaySound(Sounds.ArrowStuck);
+                    });
+                    RegisterFunctionOnce("y", () => {
+                        easeY.SelfRotationEase(EaseOut(BeatTime(0.75f), 60f, 0.0f, EaseState.Cubic));
+                        easeY.DeltaEase(EaseOut(BeatTime(0.75f), new Vector2(15, 0), Vector2.Zero, EaseState.Back));
+                    }); RegisterFunctionOnce("x", () => {
+                        easeX.SelfRotationEase(EaseOut(BeatTime(0.75f), -60f, 0.0f, EaseState.Cubic));
+                        easeX.DeltaEase(EaseOut(BeatTime(0.75f), new Vector2(-15, 0), Vector2.Zero, EaseState.Back));
+                    });
+                    BarrageCreate(0, BeatTime(2), 15.4f, new string[]
+                    {
+                        //pre 
+                        "", "", "", "",
+                         
+                        //1 
+                        "C0(C2)(C3)(j)(x)", "C1", "C2", "C0@X",       "C1@X(C3@R)(j)(y)", "C2@R2", "C0", "C3@Y",
+                        "C1@R(C2@Y)(j)(x)", "C0@L2", "C3", "C1@X",       "C0@X(C3@R)(j)(y)", "C2@R2", "C0", "C1@Y",
+                        "C2@R(C3@Y)(j)(x)", "C0@L2", "C2", "C1@X",       "C0@X(C3@R)(j)", "", "", "",
+                        "C2(C3)(j)", "", "", "C1(C2)(j)",       "", "", "C0(C1)(j)", "",
+                        //2 
+                        "C0(C3)(j)(x)", "C2@", "C1", "C2@X",       "C0@X(C3@R)(j)(y)", "C1@R2", "C2", "C1@Y",
+                        "C0@L(C3@Y)(j)(x)", "C2@L2", "C1", "C3@X",       "C0@X(C2@L)(j)(y)", "C3@R2", "C1", "C2@Y",
+                        "C0@L(C3@Y)(j)(x)", "C1@R2", "C2", "C3@X",       "C0@X(C1@L)(j)", "", "", "",
+                        "C0(C1)(j)", "", "", "C1(C2)(j)",       "", "", "C2(C3)(j)", "",
+                        //3 
+                        "C0(C1)(j)(x)", "C2", "C3", "C0@X",       "C2@R(C3@X)(j)(y)", "C1@R2", "C0", "C3@Y",
+                        "C0@L(C1@L)(j)(x)", "C2@X", "C3", "C1@X",       "C0@X(C2@R)(j)(y)", "C3@R2", "C2", "C0@Y",
+                        "C1@R(C3@Y)(j)(x)", "C2@R2", "C0", "C1@X",       "C2@R(C3@X)(j)", "C0@L2", "C1", "C0",
+                        "C2(C3)(j)", "", "", "C1(C2)(j)",       "", "", "C0(C1)(j)", "",
+                        //4 
+                        "C0(C3)(j)(x)", "C1", "C2", "C3@X",       "C1@X(C2@L)(j)(y)", "C0@X", "C1", "C2@Y",
+                        "C0@Y(C3@Y)(j)", "", "", "",       "C0(C2)(j)", "", "C1(C2)(j)", "",
+                        "C0(C1)(j)", "", "C2(C3)(j)", "",       "C0(C2)(j)", "", "", "",
+                        "C0(C1)(j)", "", "C0(C3)(j)", "C1(C2)(j)",       "C0(C3)(j)", "", "C2(C3)(j)", "", 
+                    });
+                }*/
+                if (InBeat(927))
+                {
+                    RegisterFunctionOnce("Box", () =>
+                    {
+                        DrawingUtil.ScreenAngle(180, BeatTime(1));
+                        InstantSetBox(380, 184, 252);
+                        SetBox(270 - 42, 370 + 42, -60, 650);
+                        SetSoul(0);
+                        Heart.InstantSetRotation(180);
+                        InstantTP(new(320, 380));
+                        DelayBeat(0.5f, () =>
+                        {
+                            InstantSetBox(270 - 42, 370 + 42, -10, 650);
+                        });
+                        RunEase((s) => { InstantTP(new(Heart.Centre.X, s)); }, 
+                            LinkEase(EaseIn(BeatTime(1), 380, 360, EaseState.Sine), 
+                            EaseIn(BeatTime(28), 360, 240, EaseState.Sine)));
+                    });
+                    RegisterFunctionOnce("BoneGA", () =>
+                    {
+                        for (int i = 0; i < 240; i++)
+                        {
+                            float h = i;
+                            LeftBone b1 = new(false, 640 + i * -16, 0, 35 + i * 0.105f) { MarkScore = false };
+                            RightBone b2 = new(false, 640 + i * -16, 0, 35 + i * 0.105f) { MarkScore = false };
+                            CreateBone(b1);
+                            CreateBone(b2);
+                            RunEase(k => b1.Speed=b2.Speed = k, EaseOut(BeatTime(1), 0, 8, EaseState.Linear));
+                        }
+                    });
+                    RegisterFunctionOnce("CrossL", () =>
+                    {
+                        Extends.DrawingUtil.CrossBone(new Vector2(270 - 42, -10), new Vector2(0, 8), 200, 4, 0, -8);
+                    });
+                    RegisterFunctionOnce("CrossR", () =>
+                    {
+                        Extends.DrawingUtil.CrossBone(new Vector2(370 + 42, -10), new Vector2(0, 8), 200, 4, 0, 8);
+                    });
+                    RegisterFunctionOnce("BoneWall1", () =>
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            CustomBone b = new(new Vector2(320, i * -16), Motions.PositionRoute.linear, 90, 194)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                                ColorType=1
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall2", () =>
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            CustomBone b = new(new Vector2(320, i * -16), Motions.PositionRoute.linear, 90, 194)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                                ColorType = 2
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Al", () =>
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            LeftBone b = new(false, i * -16, 8, 70 + i * 8);
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Ar", () =>
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            RightBone b = new(false, i * -16, 8, 70 + i * 8);
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Bl", () =>
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            float rot = -60;
+                            CustomBone b = new(new Vector2(270 - 42, i * -16), Motions.PositionRoute.linear, -rot, 184)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("BoneWall0Br", () =>
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            float rot = -60;
+                            CustomBone b = new(new Vector2(370 +  42, i * -16), Motions.PositionRoute.linear, rot, 184)
+                            {
+                                PositionRouteParam = new float[] { 0, 8 },
+                            };
+                            CreateBone(b);
+                        }
+                    });
+                    RegisterFunctionOnce("text", () =>
+                    {
+                        
+                    });
+                    RegisterFunctionOnce("s", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                    });
+                    BarrageCreate(0, BeatTime(2), 15.4f, new string[]
+                    {
+                        //pre 
+                        "(Box)(BoneGA)", "", "", "",
+                        //1 
+                        "CrossL(s)", "", "", "",    "BoneWall2(s)", "", "", "",
+                        "CrossR(s)", "", "", "",    "BoneWall0Ar(s)", "", "BoneWall0Al(s)", "",
+                        "BoneWall0Ar(s)", "", "", "",    "BoneWall1(s)", "", "", "",
+                        "BoneWall0Al(s)", "", "", "",    "BoneWall0Br(s)", "", "BoneWall0Bl(s)", "",
+                        //2 
+                        "BoneWall2(s)", "", "", "",    "CrossR(s)", "", "", "",
+                        "BoneWall1(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
+                        "BoneWall0Bl(s)", "", "", "",    "BoneWall1(s)", "", "", "",
+                        "CrossL(s)", "", "", "",    "BoneWall2(s)", "", "", "",
+                        //3 
+                        "CrossR(s)", "", "", "",    "BoneWall2(s)", "", "", "",
+                        "CrossL(s)", "", "", "",    "BoneWall0Al(s)", "", "BoneWall0Ar(s)", "",
+                        "BoneWall0Al(s)", "", "", "",    "BoneWall1(s)", "", "", "",
+                        "BoneWall0Ar(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
                         //4 
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
+                    });//zKronO's version
+                }
+            }
+            void To4k() {
+                {
+                    BoxStates.Centre = new(270, 380);
+                    InstantTP(new(173, 380));
 
+                    SetPlayerBoxMission(0);
+                    BoxUtils.Vertexify(Heart);
+                    BoxUtils.VertexBoxInstance.Split(2,
+                        new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
+                        );
+
+                    CollideRect left = new(new Vector2(170 - 42, 380 - 42), new Vector2(84, 84));
+                    Vector2 tl, tr, bl, br;
+                    tl = left.TopLeft; tr = left.TopRight;
+                    bl = left.BottomLeft; br = left.BottomRight;
+
+                    tl += new Vector2(13, 0); bl += new Vector2(13, 0);
+
+                    BoxStates.BoxMovingScale = 0.25f;
+                    BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
+
+                    Vector2 lerp1 = Vector2.Lerp(tr, br, 0.25f);
+                    Vector2 lerp2 = Vector2.Lerp(tr, br, 0.75f);
+
+                    BoxUtils.Move(4, lerp2);
+                    BoxUtils.Move(5, br);
+                    BoxUtils.Move(6, bl);
+                    BoxUtils.Move(7, (tl + bl) / 2 + new Vector2(-20, 0));
+                    BoxUtils.Move(8, tl);
+                    BoxUtils.Move(9, tr);
+                    BoxUtils.Move(10, lerp1);
+
+                    CollideRect rect = new(new Vector2(40, 340), new Vector2(10, 10));
+                    Heart.InstantSplit(rect);
+                    Heart.InstantTP(new(270, 380));
+
+                    rect = new(new Vector2(370 - 42, 380 - 42), new Vector2(84, 84));
+                    Heart.InstantSplit(rect);
+
+                    rect = new(new Vector2(600, 340), new Vector2(10, 10));
+                    Heart.InstantSplit(rect);
+                    Heart.InstantTP(new(467, 380));
+                    CollideRect right = new(new Vector2(470 - 42, 380 - 42), new Vector2(84, 84));
+                    tl = right.TopLeft; tr = right.TopRight;
+                    bl = right.BottomLeft; br = right.BottomRight;
+
+                    tr += new Vector2(-13, 0); br += new Vector2(-13, 0);
+
+                    SetPlayerBoxMission(2);
+                    BoxUtils.Vertexify(Heart);
+                    BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
+                    BoxUtils.VertexBoxInstance.Split(0,
+                        new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
+                        );
+
+                    lerp1 = Vector2.Lerp(tl, bl, 0.25f);
+                    lerp2 = Vector2.Lerp(tl, bl, 0.75f);
+
+                    BoxUtils.Move(2, lerp1);
+                    BoxUtils.Move(3, tl);
+                    BoxUtils.Move(4, tr);
+                    BoxUtils.Move(5, (tr + br) / 2 + new Vector2(20, 0));
+                    BoxUtils.Move(6, br);
+                    BoxUtils.Move(7, bl);
+                    BoxUtils.Move(8, lerp2);
+
+                    DelayBeat(0, () => {
+                        SetPlayerBoxMission(0);
+                        Heart.controlLayer = Surface.Hidden;
+                        Heart.Shields.controlLayer = Surface.Hidden;
+
+                        SetPlayerBoxMission(3);
+                        Heart.controlLayer = Surface.Hidden;
+                        Heart.Shields.controlLayer = Surface.Hidden;
                     });
+                    DelayBeat(0.125f, () =>
+                    {
+                        PlaySound(Sounds.switchScene);
+                        PlaySound(Sounds.switchScene);
+                    });
+                    SetPlayerMission(0);
+                    Heart.InstantSetRotation(180);
+                    SetPlayerMission(1);
+                    Heart.InstantSetRotation(-90);
+                    SetPlayerMission(2);
+                    Heart.InstantSetRotation(90);
+                    SetPlayerMission(3);
+                    Heart.InstantSetRotation(180);
                 }
             }
             private void Effect01()
@@ -3049,13 +3473,13 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 192;
-                    int beat = 711 + 128;
-                    beat = 328;
-                 //   int beat = 198 ;
+                    float beat = 711 + 128 + 32 + 32 + 23.5f;
+                    //beat = 328;
+                    //int beat = 198;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);
