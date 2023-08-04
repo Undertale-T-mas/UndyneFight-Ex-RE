@@ -1007,7 +1007,7 @@ namespace UndyneFight_Ex.Entities
             Time = time;
             Easing = easing;
         }
-
+        public static implicit operator Func<ICustomMotion, T>(EaseUnit<T> u) => u.Easing;
     }
     public static class EasingUtil
     {

@@ -1963,14 +1963,14 @@ namespace Rhythm_Recall.Waves
                         {
                             x1 = s;
                         },
-                        EaseOut(BeatTime(32),320,100,EaseState.Back),
+                        EaseOut(BeatTime(24),320,100,EaseState.Back),
                         EaseOut(BeatTime(8), 100, 180, EaseState.Back)
                         );
                         RunEase((s) =>
                         {
                             x2 = s;
                         },
-                        EaseOut(BeatTime(32), 320, 540, EaseState.Back),
+                        EaseOut(BeatTime(24), 320, 540, EaseState.Back),
                         EaseOut(BeatTime(8), 540, 460, EaseState.Back)
                         );
                     });

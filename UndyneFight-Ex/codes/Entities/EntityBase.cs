@@ -10,7 +10,7 @@ namespace UndyneFight_Ex.Entities
     {
         Func<ICustomMotion, Vector2> PositionRoute { get; set; }
         Func<ICustomMotion, float> RotationRoute { get; set; }
-
+        
         float[] RotationRouteParam { get; set; }
         float[] PositionRouteParam { get; set; }
 
