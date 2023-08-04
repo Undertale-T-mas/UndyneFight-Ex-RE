@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using UndyneFight_Ex.IO;
 
 namespace UndyneFight_Ex.UserService
@@ -13,12 +14,26 @@ namespace UndyneFight_Ex.UserService
     }
     public abstract class StoreItem
     {
-        public abstract string Name { get; }
-        public abstract bool Stackable { get; }
+        protected StoreItem(string name, string fullName, bool stackable, string description, ItemRarity rarity, int count)
+        {
+            Name = name;
+            FullName = fullName;
+            Stackable = stackable;
+            Description = description;
+            Rarity = rarity;
+            Count = count;
+        }
 
-        public abstract string Description { get; }
-        public abstract ItemRarity Rarity { get; }
         public abstract bool InShop { get; }
+
+        public string Name { get; init; }
+        public string FullName { get; init; }
+        public bool Stackable { get; init; }
+
+        public string Description { get; init; }
+        public ItemRarity Rarity { get; init; }
+
+        public Texture2D Image { get; set; }
 
         /// <summary>
         /// count of the item you have if it's stackable
@@ -41,14 +56,15 @@ namespace UndyneFight_Ex.UserService
     public class StoreData : ISaveLoad
     {
         private static Dictionary<string, StoreItem> allItems = new();
+        public static Dictionary<string, StoreItem> AllItems => allItems;
 
         public List<ISaveLoad> Children => null;
 
         public Dictionary<string, StoreItem> userItems = new();
 
-        private static void AddToItemList(StoreItem item)
+        internal static void AddToItemList(StoreItem item)
         {
-            allItems.Add(item.Name, item);
+            allItems.Add(item.FullName, item);
         }
         public static void StoreItemLoad()
         {
@@ -68,7 +84,7 @@ namespace UndyneFight_Ex.UserService
             foreach (SaveInfo itemInfo in info.Nexts.Values)
             {
                 StoreItem item = allItems[itemInfo.Title];
-                userItems.Add(item.Name, item);
+                userItems.Add(item.FullName, item);
                 item.Count = itemInfo.IntValue;
             }
         }
@@ -78,7 +94,7 @@ namespace UndyneFight_Ex.UserService
             SaveInfo result = new("StoreData{");
 
             foreach (StoreItem item in userItems.Values)
-                result.PushNext(new SaveInfo(item.Name + ":value=" + item.Count));
+                result.PushNext(new SaveInfo(item.FullName + ":value=" + item.Count));
 
             return result;
         }

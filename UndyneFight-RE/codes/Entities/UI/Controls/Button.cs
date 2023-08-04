@@ -39,7 +39,7 @@ namespace UndyneFight_Ex.Remake.UI
     {
         public Button(ISelectChunk father, Vector2 centre, string text) : base(father)
         {
-            fontSize = FightResources.Font.NormalFont.SFX.MeasureString(text) * DefaultScale;
+            fontSize = Font.SFX.MeasureString(text) * DefaultScale;
             this._centre = centre;
             this._text = text;
             UpdateIn120 = true;
@@ -50,13 +50,13 @@ namespace UndyneFight_Ex.Remake.UI
         string _text;
         public override void Start()
         {
-            fontSize = FightResources.Font.NormalFont.SFX.MeasureString(_text) * DefaultScale;
+            fontSize = Font.SFX.MeasureString(_text) * DefaultScale;
             base.Start();
         }
         protected void ChangeText(string text)
         {
             _text = text;
-            fontSize = FightResources.Font.NormalFont.SFX.MeasureString(text) * DefaultScale * 1.04f;
+            fontSize = Font.SFX.MeasureString(text) * DefaultScale * 1.04f;
         }
 
         protected Vector2 fontSize, _centre;
@@ -71,12 +71,14 @@ namespace UndyneFight_Ex.Remake.UI
         {
             if (!this._father.DrawEnabled) return;
             if (CentreDraw)
-                FightResources.Font.NormalFont.CentreDraw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, 0.4f);
+                Font.CentreDraw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, 0.4f);
             else
-                FightResources.Font.NormalFont.Draw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, 0.4f);
+                Font.Draw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, 0.4f);
         }
         float sizeScale = 1.0f;
         protected float CurrentScaleFactor { set => sizeScale = value; }
+        public GLFont Font { get; internal set; } = FightResources.Font.NormalFont;
+
         public override void Update()
         {
             base.Update();

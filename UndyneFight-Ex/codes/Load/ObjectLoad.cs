@@ -25,8 +25,6 @@ namespace UndyneFight_Ex
             Surface.Initialize();
             Challenge.Initialize();
 
-            PlayerManager.Initialize();
-
             Fight.Functions.OneElementArrows.Add('R');
             Fight.Functions.OneElementArrows.Add('D');
             Fight.Functions.OneElementArrows.Add('d');

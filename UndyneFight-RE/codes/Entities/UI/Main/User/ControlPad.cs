@@ -47,8 +47,7 @@ namespace UndyneFight_Ex.Remake.UI
         public UserUI()
         {
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
-
-
+             
             if (PlayerManager.CurrentUser != null)
             {
                 this.Dispose();

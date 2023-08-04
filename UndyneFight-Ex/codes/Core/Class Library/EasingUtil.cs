@@ -103,7 +103,7 @@ namespace UndyneFight_Ex.Entities
                     Rotation = RotationRoute.Invoke(this);
             }
         }
-        
+         
         public static void RunEase(Action<Vector2> action, bool isAdjust, params EaseUnit<Vector2>[] funcs)
         {
             CEaseBuilder builder = new();

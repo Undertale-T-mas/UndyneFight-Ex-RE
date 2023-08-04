@@ -316,7 +316,7 @@ namespace Rhythm_Recall.Waves
                 {
                     SetSoul(Souls.CyanSoul);
                     InstantSetBox(260, 300, 300);
-                    /*BoxUtils.Vertexify();
+                    BoxUtils.Vertexify();
                     BoxUtils.VertexBoxInstance.SetPosition(
                         BoxUtils.VertexBoxInstance.Split(1, 0.35f), 
                         new Vector2(340, 350)
@@ -334,7 +334,7 @@ namespace Rhythm_Recall.Waves
                     BoxUtils.VertexBoxInstance.SetPosition(
                         BoxUtils.VertexBoxInstance.Split(6, 0.65f), 
                         new Vector2(340, 250)
-                        ); */
+                        ); 
                     InstantTP(320, 260);
                 }
                 if (InBeat(1f))

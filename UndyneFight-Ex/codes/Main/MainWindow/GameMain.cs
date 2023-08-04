@@ -161,8 +161,8 @@ namespace UndyneFight_Ex
             }
 #endif
 
-            InitializeRendering();
-            // TODO: use this.Content to load your game content here
+            InitializeRendering(); 
+            PlayerManager.Initialize(); 
         }
 
         /// <summary>

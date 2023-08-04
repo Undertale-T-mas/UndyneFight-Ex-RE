@@ -58,7 +58,7 @@ namespace Rhythm_Recall.Waves
                 public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 8.5f),
-                            new(Difficulty.Easy, 13.5f),
+                            new(Difficulty.Normal, 13.5f),
                             new(Difficulty.Extreme, 21.0f),
                         }
                     );
