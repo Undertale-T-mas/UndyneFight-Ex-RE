@@ -40,7 +40,8 @@ namespace UndyneFight_Ex.Remake.UI
     {
         public TextureButton(ISelectChunk father, Vector2 centre, Texture2D tex) : base(father)
         {
-            textureSize = tex.Bounds.Size.ToVector2() * DefaultScale;
+            if (tex != null)
+                textureSize = tex.Bounds.Size.ToVector2() * DefaultScale;
             this._centre = centre;
             this.Image = tex;
             UpdateIn120 = true;
@@ -50,7 +51,8 @@ namespace UndyneFight_Ex.Remake.UI
         } 
         public override void Start()
         {
-            textureSize = this.Image.Bounds.Size.ToVector2() * DefaultScale;
+            if (Image != null)
+                textureSize = this.Image.Bounds.Size.ToVector2() * DefaultScale;
             base.Start();
         } 
 

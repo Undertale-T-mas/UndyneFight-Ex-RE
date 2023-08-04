@@ -59,7 +59,7 @@ namespace UndyneFight_Ex.Entities
                 float extraDist = (Scale - 1) * 10f + additiveDistance;
                 Vector2 offset = Offset;
                 if (RotateOffset) offset = MathUtil.Rotate(offset, this.Rotation + this.CentreRotationOffset);
-                Centre = mission.Centre + MathUtil.GetVector2(distance + 44 + 5 + extraDist + (hasGreenFlag ? 5 : 0), Rotation + CentreRotationOffset) + offset;
+                Centre = MissionCentre + MathUtil.GetVector2(distance + 44 + 5 + extraDist + (hasGreenFlag ? 5 : 0), Rotation + CentreRotationOffset) + offset;
             }
             else
             {
@@ -68,7 +68,7 @@ namespace UndyneFight_Ex.Entities
                 rotation += Rotation;
                 dist += 44 + 5 + (hasGreenFlag ? 5 : 0);
                 float extraDist = (Scale - 1) * 10f + additiveDistance;
-                Centre = mission.Centre + MathUtil.GetVector2(dist + extraDist, rotation + CentreRotationOffset) * SettingsManager.DataLibrary.ArrowSpeed;
+                Centre = MissionCentre + MathUtil.GetVector2(dist + extraDist, rotation + CentreRotationOffset) * SettingsManager.DataLibrary.ArrowSpeed;
             }
 
             if (lastScale != Scale)
@@ -97,6 +97,15 @@ namespace UndyneFight_Ex.Entities
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
         }
+
+        public Vector2 MissionCentre { set {
+                _anchorOnHeart = false;
+                _missionCentre = value;
+            }
+            get => _anchorOnHeart ? mission.Centre : _missionCentre; 
+        }
+        private Vector2 _missionCentre;
+        private bool _anchorOnHeart = true;
 
         public Vector2 CentrePosition => Centre - mission.Centre;
 

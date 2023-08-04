@@ -3203,6 +3203,42 @@
 /processorParam:Quality=Best
 /build:Musics/Weekender/Hey! Say! JUMP - ウィークエンダー [Official Music Video].mp3;Musics/Weekender/song.mp3
 
+#begin Shop/Souvenir/MemoryBronze.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shop/Souvenir/MemoryBronze.png
+
+#begin Shop/Souvenir/MemoryGold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shop/Souvenir/MemoryGold.png
+
+#begin Shop/Souvenir/MemorySilver.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shop/Souvenir/MemorySilver.png
+
 #begin Sprites/Blocks/block.png
 /importer:TextureImporter
 /processor:TextureProcessor

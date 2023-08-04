@@ -9,12 +9,63 @@ using Microsoft.Xna.Framework;
 using UndyneFight_Ex.Remake.Components;
 using UndyneFight_Ex.Remake.Effects;
 using Microsoft.Xna.Framework.Graphics;
+using UndyneFight_Ex.UserService;
+using vec2 = Microsoft.Xna.Framework.Vector2;
+using col = Microsoft.Xna.Framework.Color;
 
 namespace UndyneFight_Ex.Remake.UI
 {
     public class IntroUI : SmartSelector
     {
         TextureButton mail, start, setting, account;
+        Button contributor, showPage;
+
+        class ExhibitButton : SelectingModule
+        {
+            public ExhibitButton(ISelectChunk father) : base(father)
+            {
+                this.Image = StoreData.AllItems["2023MEMTroBrz"].Image;
+            }
+            public override void Start()
+            {
+                this.LeftClick += ExhibitButton_LeftClick;
+            }
+
+            private void ExhibitButton_LeftClick()
+            { 
+                
+            }
+
+            public override void Draw()
+            {
+                if (this.Image != null)
+                {
+                    this.Depth = 0.1f;
+                    this.FormalDraw(this.Image, this.collidingBox, col.White * 0.8f);
+                    this.FormalDraw(StoreData.AllItems["2023MEMTroSil"].Image, this.collidingBox + new vec2(140, 0), col.White * 0.8f);
+            /*        CollideRect rect = this.collidingBox;
+                    rect.X -= 20; rect.Y -= 20; rect.Height += 40; rect.Width += 40;
+                    DrawingLab.DrawRectangle(rect, col.White, 3.0f, 0.1f);
+                    this.Depth = 0.01f;
+                    this.FormalDraw(FightResources.Sprites.pixiv, rect, col.Black * 0.38f);*/
+                }
+                else
+                {
+                    this.FormalDraw(FightResources.Sprites.pixiv, this.collidingBox, col.White * 0.8f);
+                }
+
+            }
+            float scale = 1.0f;
+            public override void Update()
+            {
+                scale = MathHelper.Lerp(scale, _mouseOn ? 1.1f : 1.0f, 0.15f);
+                this.collidingBox.Size = new vec2(125, 125) * scale;
+                this.Centre = new(110, 616);
+                base.Update();
+            }
+        }
+        ExhibitButton exhibit;
+
         static SmartMusicPlayer music;
         BackGenerater _backGenerater;
 
@@ -38,15 +89,22 @@ namespace UndyneFight_Ex.Remake.UI
             this.Activate();
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
 
+            float x = 440;
+
             mail = new(this, new(20, 20), Resources.UI.Mail);
-            start = new(this, new(480, 430), Resources.UI.IntroStart); 
-            setting = new(this, new(480, 500), Resources.UI.IntroSetting);
-            account = new(this, new(480, 570), Resources.UI.IntroAccount);
+            start = new(this, new(x, 430), Resources.UI.IntroStart); 
+            setting = new(this, new(x, 500), Resources.UI.IntroSetting);
+            account = new(this, new(x, 570), Resources.UI.IntroAccount);
+            showPage = new(this, new(960 - 115, 640), "show page") { DefaultScale = 1.15f }; 
+            contributor = new(this, new(960 - 115, 690), "contributors") { DefaultScale = 1.15f }; 
 
             this.AddChild(mail);
             this.AddChild(start);
             this.AddChild(setting);
             this.AddChild(account);
+       //     this.AddChild(showPage);
+            this.AddChild(contributor);
+            
 
             DefaultFocus = 1;
 
@@ -100,6 +158,16 @@ namespace UndyneFight_Ex.Remake.UI
                     GameStates.InstanceCreate(new AccountManager());
                 else
                     GameStates.InstanceCreate(new UserUI());
+            }
+            else if(selection == contributor)
+            {
+                this.Dispose();
+                GameStates.InstanceCreate(new ContributerUI());
+            }
+            else if(selection == showPage)
+            {
+                this.Dispose();
+                GameStates.InstanceCreate(new ItemShowUI());
             }
         }
 

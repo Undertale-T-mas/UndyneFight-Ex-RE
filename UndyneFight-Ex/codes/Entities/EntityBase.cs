@@ -277,7 +277,7 @@ namespace UndyneFight_Ex
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, spriteEffects, Depth);
           
         }
-        public void FormalDraw(Texture2D tex, Rectangle area, Color color)
+        public void FormalDraw(Texture2D tex, CollideRect area, Color color)
         {
             GameMain.MissionSpriteBatch.Draw(tex, area, null, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth);
         

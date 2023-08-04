@@ -36,7 +36,6 @@ namespace Rhythm_Recall.Waves
         {
             public Project() : base(62.5f/(226f/60f)) { }
             
-            
             public string Music => "Traveler at Sunset";
 
             public string FightName => "Traveler at Sunset";
@@ -3254,6 +3253,7 @@ namespace Rhythm_Recall.Waves
                             CreateBone(b);
                         } 
                     });
+
                     BarrageCreate(0, BeatTime(2), 15.4f, new string[]
                     {
                         //pre 
@@ -3279,7 +3279,287 @@ namespace Rhythm_Recall.Waves
                         "(s)(BoneMid)", "", "(s)(BoneMid)", "",    "(s)(BoneMid)", "", "", "",
                         "(s)BoneWallX", "", "(s)(BoneLeft)", "(s)(BoneLeft)",    "(s)BoneWallX", "", "(s)BoneRight", "",
                     });//zKronO's version 
-                }                   
+                }
+                if (InBeat(959))
+                {
+                    Settings.VoidArrowVolume = 0f;
+                    Settings.GreenTap = true;
+                    RegisterFunctionOnce("Box", () => {
+                        SetSoul(0);
+                        BoxStates.BoxMovingScale = 0.25f;
+                        Heart.InstantSetRotation(0);
+                        SetBox(270 - 42, 370 + 42, 190 - 42, 190 + 42);
+                    });
+                    RegisterFunctionOnce("BoxG", () => {
+                        SetGreenBox();
+                        TP();
+                        SetSoul(1);
+                    });
+
+                    float curTime = GametimeF + UndyneFight_Ex.Settings.SettingsManager.DataLibrary.ArrowDelay / 16;
+                    ArrowApply("ANC", (s) => s.MissionCentre = new(320, 240));
+                    ArrowApply("LN1", (s) =>
+                    {
+                        for (float i = 1; i < 4; i += 1f) {
+                            CreateArrow(s.BlockTime + BeatTime(0.125f * i) - curTime, s.Way, s.Speed, s.ArrowColor, s.RotateType, ArrowAttribute.Void | ArrowAttribute.Hold | ArrowAttribute.NoScore | ArrowAttribute.NoGoldTag); ;
+                        }
+                    });          
+                    ArrowApply("LN1+", (s) =>
+                    {
+                        for (float i = 1; i < 4 + 4; i += 1f) {
+                            CreateArrow(s.BlockTime + BeatTime(0.125f * i) - curTime, s.Way, s.Speed, s.ArrowColor, s.RotateType, ArrowAttribute.Void | ArrowAttribute.Hold | ArrowAttribute.NoScore | ArrowAttribute.NoGoldTag); ;
+                        }
+                    });     
+                    ArrowApply("LN2", (s) =>
+                    {
+                        for (float i = 1; i < 12; i += 1f) {
+                            CreateArrow(s.BlockTime + BeatTime(0.125f * i) - curTime, s.Way, s.Speed, s.ArrowColor, s.RotateType, ArrowAttribute.Void | ArrowAttribute.Hold | ArrowAttribute.NoScore | ArrowAttribute.NoGoldTag); ;
+                        }
+                    });
+                    ArrowApply("LN2+", (s) =>
+                    {
+                        for (float i = 1; i < 12 + 4; i += 1f) {
+                            CreateArrow(s.BlockTime + BeatTime(0.125f * i) - curTime, s.Way, s.Speed, s.ArrowColor, s.RotateType, ArrowAttribute.Void | ArrowAttribute.Hold | ArrowAttribute.NoScore | ArrowAttribute.NoGoldTag); ;
+                        }
+                    });
+
+
+                    int u;
+                    ArrowAllocate(1, u = Rand(0, 1) * 2 + 1);
+                    ArrowAllocate(2, u + 1); 
+                    ArrowAllocate(3, u + 2); 
+                    ArrowAllocate(4, u + 3); 
+                    BarrageCreate(0, BeatTime(2), 7.4f, new string[]
+                    {
+                        // pre 
+                        "", "", "", "",      
+                        // 1
+                        "Box", "", "", "",      "BoxG", "", "d@ANC", "",
+                        "", "", "d@ANC", "",      "d@ANC", "", "d@ANC", "",
+                        "(d1)(*A1)", "", "",   "!!12/3", "", "A2@LN2", "A3@LN2",
+                        "A4@LN2", "", "", "",
+                        "*A11@LN2", "", "", "",      "(*A2)(*A3)(*A4)", "", "(*A2)(*A3)(*A4)", "",   
+                        
+                        // 2
+                        "*A31@LN2(*A4@LN2+)", "", "(*A1@LN2+)", "",     "(*A2@LN2+)", "", "", "",
+                        "*A31@LN2", "", "*A4@LN1+", "",     "*A1@LN1", "", "*A2",    "!!12/3", "", "*A21@LN1", "*A11@LN1",
+                        "*A41@LN1(*A3@LN2)", "", "", "",     "(*A21@LN1)(*A11@LN2+)(*A41@LN1)", "", "",    "!!12/3", "", "*A2@LN1", "*A3@LN1",
+                        "A4@LN1", "", "", "",     "(*A2)(*A3)(*A4)", "", "(*A2)(*A3)(*A4)", "",
+                    });
+                }
+                if(InBeat(956 + 16))
+                {
+                    CreateHeart(new(320 - 1142, 240 - 42, 84, 84));
+                    InstantTP(320, 240);
+                    Heart.Alpha = 0.0f;
+                    RegisterFunctionOnce("Split", () => {
+                        DelayBeat(0.1f, () => {
+                            SetPlayerBoxMission(0);
+                            BoxStates.BoxMovingScale = 0.2f;
+                            SetPlayerBoxMission(1);
+                            Heart.Alpha = 1.0f;
+                            BoxStates.BoxMovingScale = 0.2f;
+                            BoxStates.Centre = new(320, 240);
+                            RunEase(s => { SetPlayerBoxMission(0); BoxStates.Centre = s; InstantTP(s); }, EaseOut(
+                                    BeatTime(0.35f), new Vector2(320, 240), new(320 - 66, 240 - 44), EaseState.Cubic)
+                                );
+                            RunEase(s => { SetPlayerBoxMission(1); BoxStates.Centre = s; InstantTP(s); }, EaseOut(
+                                   BeatTime(0.35f), new Vector2(320, 240), new(320 + 66, 240 + 44), EaseState.Cubic)
+                               );
+                        });
+                    });
+                    RegisterFunctionOnce("Move1", () => {
+                        RunEase(s => { SetPlayerBoxMission(0); BoxStates.Centre = s; InstantTP(s); }, EaseOut(
+                                    BeatTime(0.95f), new Vector2(320 - 66, 240 - 44), new(320 + 66, 240 - 44), EaseState.Back)
+                                );
+                        RunEase(s => { SetPlayerBoxMission(1); BoxStates.Centre = s; InstantTP(s); }, EaseOut(
+                               BeatTime(0.95f), new Vector2(320 + 66, 240 + 44), new(320 - 66, 240 + 44), EaseState.Back)
+                           );
+                        ArrowApply("A", (s) => {
+                            s.Delay(BeatTime(1.26f));
+                        });
+                    });
+
+                    int count = 4;
+                    this.ArrowProcesser = (s) => {
+                        if (s.Way % 2 == 0)
+                        {
+                            if (s.ArrowColor == 1) s.Mission = Player.hearts[1];
+                            else s.Mission = Player.hearts[0];
+                            if (count > 0)
+                            {
+                                count--;
+                                s.Offset = new(0, -(s.ArrowColor * 2 - 1) * 15);
+                            }
+                        }
+                        else
+                        {
+                            if (s.Way % 4 == 3) s.Mission = Player.hearts[1];
+                            else s.Mission = Player.hearts[0];
+                        }
+                    };
+
+                    RegisterFunctionOnce("Converge", () => {
+                        RunEase(s => { SetPlayerBoxMission(0); BoxStates.Centre = s; InstantTP(s); }, EaseOut(
+                                    BeatTime(0.85f), new Vector2(320 + 66, 240 - 44), new(320 , 240 ), EaseState.Cubic)
+                                );
+                        RunEase(s => { SetPlayerBoxMission(1); BoxStates.Centre = s; InstantTP(s); }, EaseOut(
+                               BeatTime(0.85f), new Vector2(320 - 66, 240 + 44), new(320 , 240  ), EaseState.Cubic)
+                           );
+                        RunEase(s => { SetPlayerBoxMission(1); BoxStates.CurrentBox.GreenSoulAlpha = s * 0.5f; Heart.Alpha = s; },
+                            Stable(0.6f, 1.0f),
+                            EaseOut(BeatTime(0.25f), 1.0f, 0.0f, EaseState.Cubic)
+                        );
+                    });
+                    string s = "((*^$0*i'1.7)(*^$2*i'1.7))[i:0..1]";
+                    string s1 = "(*$10)(*$30)";
+                    string s11 = "(*$10@A)(*$30@A)";
+                    string s2 = "(*$11)(*$31)";
+                    string s21 = "(*$11@A)(*$31@A)";
+
+                    RegisterFunctionOnce("Reset", () => {
+                        ArrowProcesser = null;
+                    });
+                    production2?.Dispose();
+                    production1?.Dispose();
+                    production1 = ScreenDrawing.ActivateShader(Shaders.StepSample, 0.9125f);
+                    production2 = ScreenDrawing.ActivateShader(Shaders.Scale, 0.99325f);
+                    Shaders.StepSample.Intensity = 0; Shaders.Scale.Intensity = 0;
+
+                    RegisterFunctionOnce("Eff1", () => {
+                        ScreenDrawing.MakeFlicker(Color.White * 0.42f);
+                        RunEase(s => Shaders.StepSample.Intensity = s,
+                            EaseOut(BeatTime(0.225f), 0.4f, EaseState.Cubic),
+                            EaseOut(BeatTime(3.125f), 0.4f, 0f, EaseState.Cubic)
+                            );
+                        RunEase(s => Shaders.Scale.Intensity = s,
+                            EaseOut(BeatTime(0.225f), -0.14f, EaseState.Cubic),
+                            EaseOut(BeatTime(3.125f), -0.14f, 0f, EaseState.Cubic)
+                            );
+                        RunEase(s => splitter.Intensity = s,
+                            EaseOut(BeatTime(0.225f), 6.14f, EaseState.Cubic),
+                            EaseOut(BeatTime(3.125f), 6.14f, 0f, EaseState.Cubic)
+                            );
+                         
+                    });
+                    RegisterFunctionOnce("Eff0", () => {
+                        ScreenDrawing.MakeFlicker(Color.White * 0.36f);
+
+                        RunEase(s => Shaders.StepSample.Intensity = s,
+                            EaseOut(BeatTime(0.125f), 0.37f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.525f), 0.37f, 0f, EaseState.Cubic)
+                            );
+                        RunEase(s => Shaders.Scale.Intensity = s,
+                            EaseOut(BeatTime(0.125f), -0.09f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.525f), -0.09f, 0f, EaseState.Cubic)
+                            );
+                        RunEase(s => ScreenDrawing.ScreenScale = s,
+                            EaseOut(BeatTime(0.125f), 1f, 1.1f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.525f), 1.1f, 1.0f, EaseState.Quart)
+                            );
+                        RunEase(s => splitter.Intensity = s,
+                            EaseOut(BeatTime(0.125f), 4.14f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.525f), 4.14f, 0f, EaseState.Cubic)
+                            );
+                         
+                    });
+                    RegisterFunctionOnce("Eff2", () => { 
+                        RunEase(s => Shaders.StepSample.Intensity = s,
+                            EaseOut(BeatTime(0.225f), 0.4f, EaseState.Cubic),
+                            EaseOut(BeatTime(3.775f), 0.4f, 0.1f, EaseState.Quad),
+                            EaseOut(BeatTime(0.225f), 0.4f, EaseState.Cubic),
+                            EaseOut(BeatTime(3.775f), 0.4f, 0.1f, EaseState.Quad),
+                            EaseOut(BeatTime(0.725f), 0.3f, EaseState.Quad),
+                            EaseOut(BeatTime(13.775f), 0.4f, 0.1f, EaseState.Cubic)
+                            );
+                        RunEase(s => Shaders.Scale.Intensity = s,
+                            EaseOut(BeatTime(0.225f), -0.11f, EaseState.Cubic),
+                            EaseOut(BeatTime(3.775f), -0.11f, -0.04f, EaseState.Quad),
+                            EaseOut(BeatTime(0.225f), -0.11f, EaseState.Cubic),
+                            EaseOut(BeatTime(3.775f), -0.11f, -0.04f, EaseState.Quad),
+                            EaseOut(BeatTime(0.725f), -0.17f, EaseState.Cubic),
+                            EaseOut(BeatTime(13.775f), -0.14f, -0.04f, EaseState.Cubic)
+                            );
+                    });
+                    RegisterFunctionOnce("ShakeL", () => {
+                        RunEase(s => ScreenDrawing.ScreenPositionDetla = s,
+                            EaseOut(BeatTime(0.57f), new(-18, 0), new Vector2(0, 0), EaseState.Cubic)
+                            );
+                        RunEase(s => ScreenDrawing.ScreenAngle = s,
+                            EaseOut(BeatTime(0.57f), 3, 0f, EaseState.Quart)
+                            );
+                    });
+                    RegisterFunctionOnce("ShakeR", () => {
+                        RunEase(s => ScreenDrawing.ScreenPositionDetla = s,
+                            EaseOut(BeatTime(0.57f), new(18, 0), new Vector2(0, 0), EaseState.Cubic)
+                            );
+                        RunEase(s => ScreenDrawing.ScreenAngle = s,
+                            EaseOut(BeatTime(0.57f), -3, 0f, EaseState.Quart)
+                            );
+                    });
+                    RegisterFunctionOnce("Scale2", () => { 
+                        RunEase((s) => ScreenDrawing.ScreenScale = s,
+                            EaseOut(BeatTime(4), 1.0f, 1.1f, EaseState.Elastic),
+                            EaseOut(BeatTime(4), 1.0f, 1.08f, EaseState.Elastic),
+                            EaseOut(BeatTime(8), 1.0f, 1.12f, EaseState.Cubic)
+                            );   
+                        RunEase((s) => ScreenDrawing.ScreenAngle = s,
+                            EaseOut(BeatTime(4), 0, 4, EaseState.Elastic),
+                            EaseOut(BeatTime(4), 4, -4, EaseState.Elastic),
+                            EaseOut(BeatTime(8), -4, 1, EaseState.Cubic)
+                            );
+                    });
+
+                    BarrageCreate(BeatTime(2), BeatTime(2), 7.4f, new string[]
+                    {
+                        // pre 
+                        "", "", "", "",    "", "", "Split", "",      
+                        // 1 
+                        s + "Eff1(ShakeL)", "", s1, s2,    s1, "", s, "",
+                        s2, s1, s2, "",    s + "(Move1)" + "(Eff0)(ShakeL)", s11, s21, s11,
+                        s+ "Eff1(ShakeR)", "", "", "",    "", "", s, "",
+                        s2, s1, s2, "",    s + "(Converge)" + "(Eff0)(ShakeR)", "", "", "",
+                        
+                        // 2 
+                        "(<!>Reset)(#3#$0(#3#$21))(Eff2)(Scale2)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "(#3#$1(#3#$31))", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "", "(#6#$2(#6#$01))",
+                    }); 
+                }
+
+                if (InBeat(956 + 32))
+                {
+                    RegisterFunctionOnce("Alpha", () => {
+                        RunEase(s => ScreenDrawing.MasterAlpha = s,
+                            EaseInOut(BeatTime(12), 1.0f, 0.0f, EaseState.Quad),
+                            Linear(BeatTime(12), 0.0f, 1.0f)
+                            );
+                    });
+                    RegisterFunctionOnce("Change", () => {
+                        production1?.Dispose();
+                        production2?.Dispose();
+                        ScreenDrawing.ScreenAngle = 0;
+                        ScreenDrawing.ScreenScale = 1.0f;
+                        r.BasicSpeed = 0.35f;
+                        r.Intensity = 15f;
+                    });
+                    BarrageCreate(BeatTime(2), BeatTime(2), 7.4f, new string[] { 
+                        // pre 
+                        "", "", "", "",    "", "", "", "",      
+                        // 1 
+                        "Alpha", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        // 2
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "Change", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                    });
+                }
+
                 if(InBeat(927))
                 {
                     RegisterFunctionOnce("Save", () =>
@@ -3650,7 +3930,7 @@ namespace Rhythm_Recall.Waves
 
             }
             public void Start()
-            {
+            { 
                 RegisterFunction("Drum", () =>
                 {
                     ScreenDrawing.ScreenAngle = 0;
@@ -3743,7 +4023,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 192;
-                    float beat = 711 + 128 + 32 + 32 + 23.5f-2;
+                    float beat = 711 + 128 + 32 + 32 + 23.5f-2 + 44;
                     //beat = 328;
                     //int beat = 198;
                     GametimeDelta = -3.5f + BeatTime(beat);

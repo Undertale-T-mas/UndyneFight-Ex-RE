@@ -47,8 +47,8 @@ namespace Rhythm_Recall
 
         public override void Draw()
         {
-            DrawString("RHYTHM", (new Vector2(190 + RhythmX, 90) - detla) * 1.5f, scale * 1.5f);
-            DrawString("RECALL", (new Vector2(450 + RecallX, 170) + detla) * 1.5f, scale * 1.5f);
+            DrawString("RHYTHM", (new Vector2(190 + RhythmX, 70) - detla) * 1.5f, scale * 1.5f);
+            DrawString("RECALL", (new Vector2(450 + RecallX, 144) + detla) * 1.5f, scale * 1.5f);
         }
 
         public override void Update()

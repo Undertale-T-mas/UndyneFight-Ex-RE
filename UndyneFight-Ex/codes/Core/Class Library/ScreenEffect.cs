@@ -415,6 +415,19 @@ namespace UndyneFight_Ex.Fight
 
             public static class Shaders
             {
+                public class Converging : RenderProduction
+                {
+                    public Converging(float depth) : base(null, SpriteSortMode.Immediate, BlendState.Additive, depth)
+                    {
+                    }
+
+                    public override RenderTarget2D Draw(RenderTarget2D obj)
+                    {
+                        this.MissionTarget = HelperTarget;
+                        //          this.DrawTextures(obj, )
+                        return obj;
+                    }
+                }
                 public class Lighting : RenderProduction
                 {
                     private static bool Initialized = false;
@@ -661,6 +674,9 @@ namespace UndyneFight_Ex.Fight
                         base.Dispose();
                     }
                 }
+                /// <summary>
+                /// using the helper channel of 3
+                /// </summary>
                 public class Filter : RenderProduction
                 {
                     public override void WindowSizeChanged(Vector2 vec)

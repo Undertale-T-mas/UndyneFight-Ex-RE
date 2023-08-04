@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using UndyneFight_Ex.ChampionShips;
+using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.UserService;
 
 namespace UndyneFight_Ex.GameInterface
 {
@@ -15,9 +17,12 @@ namespace UndyneFight_Ex.GameInterface
         private static List<Type> MainGameFights;
 
         public static void SetMainSongs(List<Type> fights)
-        {
-
+        { 
             MainGameFights = fights;
+        }
+        public static void PushStoreItem(StoreItem item)
+        {
+            StoreData.AddToItemList(item);
         }
         public static void PushChampionShip(ChampionShip system)
         {
