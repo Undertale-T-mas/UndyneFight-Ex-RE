@@ -10,6 +10,7 @@ using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.MathUtil;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Rhythm_Recall.Waves
 {

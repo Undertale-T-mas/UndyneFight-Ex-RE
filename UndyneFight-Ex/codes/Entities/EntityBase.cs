@@ -228,6 +228,8 @@ namespace UndyneFight_Ex
         public Color BlendColor { set; private get; } = Color.White;
         public float Alpha { get; set; }
 
+        public Vector2 Anchor { get; set; } = new(-1.1234f, 0);
+
         public override void Draw()
         {
             if (Alpha <= 0 || Image == null) return;
