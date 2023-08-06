@@ -320,6 +320,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                         TP();
                         SetGreenBox();
+                        Heart.RotateTo(0);
                     });
                     var val = EaseIn(BeatTime(1), new Vector2(-80, 0), EaseState.Quad);
                     float spd = -5;
@@ -654,9 +655,14 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(124))
                 {
+                    RegisterFunctionOnce("Bomb", () =>
+                    {
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0,new Vector2(0,200)),InfLinear(new Vector2(2,0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0,new Vector2(0,180)),InfLinear(new Vector2(2,0)))));
+                    });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
-                        "","","","",   "","","","",
+                        "Bomb","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -731,12 +737,13 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 84, 84);
                 InstantTP(320, 240);
                 bool jump = true;
-                int jumpbeat=92;
+                int jumpbeat=60;
                 if (jump)
                 {
                     GametimeDelta = -4.5f + BeatTime(jumpbeat);
                     PlayOffset=BeatTime(jumpbeat);
-                    SetSoul(1);
+                    SetSoul(Souls.YellowSoul);
+                    //Heart.RotateTo(0);
                 }
             }
         }

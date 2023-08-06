@@ -109,7 +109,7 @@ namespace UndyneFight_Ex.Remake.Entities
 
         public void Explode()
         {
-            if (AbleLink) this.Broadcast("Explode");
+            this.Broadcast("Explode");
             this.GenerateBlast();
             this.Dispose();
         }
