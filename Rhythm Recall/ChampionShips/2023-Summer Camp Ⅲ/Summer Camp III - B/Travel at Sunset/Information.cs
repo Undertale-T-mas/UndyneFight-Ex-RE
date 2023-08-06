@@ -5,8 +5,22 @@ namespace Rhythm_Recall.Waves
 {
     public partial class Traveler_at_Sunset
     {
+        Dictionary<string, Difficulty> dif = new();
+        public Traveler_at_Sunset()
+        {
+            dif.Add("Anomoly", Difficulty.Noob);
+            dif.Add("Div.2", Difficulty.Normal);
+            dif.Add("Div.1", Difficulty.ExtremePlus);
+        }
+        public IWaveSet GameContent => new Project();
+        public Dictionary<string, Difficulty> DifficultyPanel => dif;
+
         public partial class Project
         {
+            public string Music => "Traveler at Sunset";
+
+            public string FightName => "Traveler at Sunset";
+
             class Information : SongInformation
             {
                 public Information() { this.MusicOptimized = true; }

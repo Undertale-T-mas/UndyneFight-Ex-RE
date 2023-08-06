@@ -85,9 +85,10 @@ namespace UndyneFight_Ex
             }
         }
 
-        public LoadingScene(Action loadingFinished, Action loadingAction)
+        public LoadingScene(Action loadingFinished, Action loadingAction, bool unLoad = true)
         {
-            Loader.Unload();
+            if (unLoad)
+                Loader.Unload();
             this.loadingFinished = loadingFinished;
             if (GlobalResources.Sprites.loadingTexture != null)
                 InstanceCreate(new TitleShower(GlobalResources.Sprites.loadingTexture));
@@ -164,7 +165,7 @@ namespace UndyneFight_Ex
             if (songParams.Waveset.Attributes != null && songParams.Waveset.Attributes.MusicOptimized)
                 songParams.MusicOptimized = true;
             SongLoadingScene.songParams.LoadMusic();
-        })
+        }, songParams.IsUnload)
         {
             //SongLoadingScene(){...}
             SongLoadingScene.songParams = songParams;

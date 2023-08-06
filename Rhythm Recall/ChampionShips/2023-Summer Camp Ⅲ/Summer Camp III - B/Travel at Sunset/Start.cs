@@ -16,13 +16,9 @@ namespace Rhythm_Recall.Waves
 {
     public partial class Traveler_at_Sunset
     {
-        public partial class Project : WaveConstructor,IWaveSet
+        public partial class Project : WaveConstructor, IWaveSet
         {
             public Project() : base(62.5f/(226f/60f)) { }
-            
-            public string Music => "Traveler at Sunset";
-
-            public string FightName => "Traveler at Sunset";
 
             public SongInformation Attributes => new Information();
             Blur Blur;
@@ -30,10 +26,6 @@ namespace Rhythm_Recall.Waves
             GlobalResources.Effects.StepSampleShader StepSample;
             RGBSplitting splitter = new();
             #region disused
-            public void Noob()
-            {
-                throw new NotImplementedException();
-            }
 
             public void Hard()
             {
@@ -59,8 +51,15 @@ namespace Rhythm_Recall.Waves
             {
 
             }
+            Sans sans;
             public void Start()
             { 
+                if(CurrentDifficulty == Difficulty.Noob)
+                {
+                    DelayBeat(1, () => {
+                        GameStates.ResetScene(new Anomaly());
+                    }); 
+                }
                 RegisterFunction("Drum", () =>
                 {
                     ScreenDrawing.ScreenAngle = 0;
@@ -149,19 +148,23 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
-                bool jump = false;
+                CreateEntity(sans = new Sans(Loader));
+                bool jump = false   ;
                 if (jump)
                 {
                     //int beat = 192;
-                    float beat = 711 + 128 + 32 + 32 + 23.5f-2 + 44;
-                    //beat = 328;
+                    float beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
+                    //  beat = 328;
                     //int beat = 198;
+                //    beat = 711;
+                    sans.Alpha = 0.0f;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
                 }
+                else sans.Alpha = 1.0f;
             }
         }
     }
