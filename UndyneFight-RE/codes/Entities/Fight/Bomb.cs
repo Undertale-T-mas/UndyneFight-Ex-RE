@@ -54,8 +54,10 @@ namespace UndyneFight_Ex.Remake.Entities
             this.HitRadius = 6.6f;
             this.PositionRoute = ease;
             this.Depth = 0.501f;
+            this.ObjectWidth = 8;
         }
         List<Entity> canDestroy = new();
+
         public void ConnectEntity(Entity entity)
         {
             canDestroy.Add(entity);
