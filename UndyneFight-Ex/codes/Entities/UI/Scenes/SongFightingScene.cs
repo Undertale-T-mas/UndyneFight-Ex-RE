@@ -125,9 +125,11 @@ namespace UndyneFight_Ex.Entities
             public float MusicDuration => musicDuration;
 
             public Texture2D SongIllustration { get; set; }
+            public bool IsUnload { get; private set; }
 
-            public SceneParams(IWaveSet waveset, Texture2D songIllustration, int difficulty, string musicPath, JudgementState judgeState, GameMode mode = GameMode.None)
+            public SceneParams(IWaveSet waveset, Texture2D songIllustration, int difficulty, string musicPath, JudgementState judgeState, GameMode mode = GameMode.None, bool unload = true)
             {
+                IsUnload = unload;
                 SongIllustration = songIllustration;
                 JudgeState = judgeState;
                 wavesetType = waveset.GetType();
