@@ -3,13 +3,13 @@ using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal class GameMenuScene : Scene
+    public class GameMenuScene : Scene
     {
         private bool initialized = false;
 
         public GameMenuScene() : base() { }
 
-        public GameMenuScene(Selector selector) : base(selector)
+        internal GameMenuScene(Selector selector) : base(selector)
         {
             initialized = true;
         }

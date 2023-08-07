@@ -44,6 +44,10 @@ namespace UndyneFight_Ex
 
         internal static int seed = -1;
 
+        public static void ResetTime()
+        {
+            GameMain.gameTime = 0;
+        }
         internal static void StateUpdate()
         {
             if (!Paused)
@@ -130,12 +134,7 @@ namespace UndyneFight_Ex
         public static void StartSong(SongFightingScene.SceneParams @params)
         {
             ResetScene(@params.MusicLoaded ? new SongFightingScene(@params) : new SongLoadingScene(@params));
-        }
-
-        internal static void ResetTime()
-        {
-            GameMain.gameTime = 0;
-        }
+        } 
         public static void ResetScene(Scene scene)
         {
             List<GameObject> crossObjects = null;

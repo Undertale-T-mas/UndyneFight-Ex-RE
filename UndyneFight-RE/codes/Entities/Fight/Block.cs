@@ -31,7 +31,8 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Image = Resources.FightSprites.MettBlockA;
             this.Alpha = 1.0f;
             this.Depth = 0.45f;
-            this.HitRadius = 6.5f;
+            this.HitRadius = 7f;
+            this.ObjectWidth = 10;
         }
 
         protected override float GetDistance(Player.Heart heart)
@@ -75,6 +76,7 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Alpha = 1.0f;
             this.Depth = 0.45f;
             this.HitRadius = 6.5f;
+            this.ObjectWidth = 10;
         }
 
         protected override float GetDistance(Player.Heart heart)

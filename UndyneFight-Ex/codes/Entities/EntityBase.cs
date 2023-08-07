@@ -222,18 +222,32 @@ namespace UndyneFight_Ex
         public override void Update()
         { 
         }
+
+        public event Action OnDraw;
+
+        public override void Draw()
+        {
+            if(OnDraw != null) OnDraw.Invoke();
+            else base.Draw();
+        }
     }
     public abstract class AutoEntity : Entity
     {
         public Color BlendColor { set; private get; } = Color.White;
         public float Alpha { get; set; }
 
-        public Vector2 Anchor { get; set; } = new(-1.1234f, 0);
+        private Vector2 _anchor;
+        private bool _anchorEnabled = false;
+        public Vector2 Anchor { 
+            get => _anchorEnabled ? _anchor : ImageCentre; 
+            set { _anchor = value; _anchorEnabled = true; } 
+        }
 
         public override void Draw()
         {
             if (Alpha <= 0 || Image == null) return;
-            FormalDraw(Image, Centre, BlendColor * Alpha, Scale, Rotation, ImageCentre);
+            
+            FormalDraw(Image, Centre, BlendColor * Alpha, Scale, Rotation, Anchor);
         }
     }
     public abstract class Entity : GameObject

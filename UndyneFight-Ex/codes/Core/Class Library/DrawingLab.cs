@@ -250,6 +250,20 @@ namespace UndyneFight_Ex
                 MissionSpriteBatch.Draw(tex, drawArea, new CollideRect(samplerPlace, size), color, rotation, rotateCentre, SpriteEffects.None, depth);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="triangle">Three vertex information, first is (0, 0), second is (1, 0), third is (0, 1)</param>
+        /// <param name="cur"></param>
+        /// <returns></returns>
+        public static Vector2 UVPosition(Vector2[] triangle, Vector2 cur)
+        {
+            Vector2 dirX, dirY;
+            dirX = triangle[1] - triangle[0]; dirY = triangle[2] - triangle[0];
+            Vector2 target = cur - triangle[0];
+            float proX = Project(dirX, target), proY = Project(dirY, target);
+            return new Vector2(proX / dirX.Length(), proY / dirY.Length());
+        }
 
         public const float quarterAngle = (float)(0.5 * Math.PI);
         public static void DrawLine(Vector2 P1, Vector2 P2, float width, Color cl, float depth, Texture2D texture = null)

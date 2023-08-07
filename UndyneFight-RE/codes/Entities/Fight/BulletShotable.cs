@@ -50,19 +50,25 @@ namespace UndyneFight_Ex.Remake.Entities
             {
                 var args = pair2.Item2;
                 Bomb et = args.Source as Bomb;
-                float dis = 4;
+                float dis = 6;
+                args.Dispose();
+                
                 if (MathF.Abs(et.Centre.X-this.Centre.X)<=dis|| MathF.Abs(et.Centre.Y - this.Centre.Y)<=dis)
                 {
+                    
                     if (this is not Bomb) 
                     {
-                        if(et.Destructive)
-                        this.Dispose(); 
+                        if (et.Destructive)
+                        { this.Dispose();}
                     }
                     else
                     {
                         Bomb b = this as Bomb;
-                        if (b.AbleLink) b.Explode();
+                        if (b.AbleLink) 
+                        {
+                            b.Explode();
                     }
+                }
                 }
             }
         }

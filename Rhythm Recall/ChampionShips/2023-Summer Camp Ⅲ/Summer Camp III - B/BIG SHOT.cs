@@ -82,7 +82,7 @@ namespace Rhythm_Recall.Waves
             #endregion
             public void Extreme()
             {
-                if(InBeat(0))
+                if (InBeat(0))
                 {
                     ForBeat120(32, () =>
                     {
@@ -127,7 +127,7 @@ namespace Rhythm_Recall.Waves
                             PositionRoute =
                                 LinkEase(
                                     Stable(0, new Vector2(-10, 240)),
-                                    EaseIn(BeatTime(2f), new Vector2(330, 0),EaseState.Quad),
+                                    EaseIn(BeatTime(2f), new Vector2(330, 0), EaseState.Quad),
                                     EaseOut(BeatTime(2f), new Vector2(330, 0), EaseState.Quad)
                                     ).Easing
                         });
@@ -182,7 +182,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("ChordLine1", () =>
                     {
                         var c1 = LinkEase(Stable(0, new Vector2(320, 0)), Linear(BeatTime(4), new Vector2(240, 0)), Linear(BeatTime(4), new Vector2(-240, 0)), Linear(BeatTime(4), new Vector2(240, 0)), Linear(BeatTime(4), new Vector2(-240, 0)));
-                        Line l = new(c1.Easing, Stable(0, 90).Easing) { Alpha=0.01f};
+                        Line l = new(c1.Easing, Stable(0, 90).Easing) { Alpha = 0.01f };
                         CreateEntity(l);
                         l.DelayAlphaIncrease(0, BeatTime(4), 0.99f);
                         l.DelayAlphaDecrease(BeatTime(4), BeatTime(4), 0.95f);
@@ -248,7 +248,7 @@ namespace Rhythm_Recall.Waves
                         "","","<270>Angle","",   "Mark","","","",
                     });
                 }
-                if(InBeat(28))
+                if (InBeat(28))
                 {
                     RegisterFunctionOnce("SetSoul", () =>
                     {
@@ -256,6 +256,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                         ScreenDrawing.CameraEffect.Convulse(4, BeatTime(2), true);
                     });
+
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   "","","","",
@@ -305,67 +306,649 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("SetSoul", () =>
                     {
                         SetSoul(Souls.YellowSoul);
-                        SetBox(320 - 42, 650, 240 - 60, 240 + 60);
+                        SetBox(320 - 120, 650, 240 - 60, 240 + 60);
                         Heart.RotateTo(270);
+                    });
+                    RegisterFunctionOnce("Change", () =>
+                    {
+                        SetSoul(Souls.YellowSoul);
+                        SetBox(-10, 320 + 120, 240 - 60, 240 + 60);
+                        Heart.RotateTo(90);
+                    });
+                    RegisterFunctionOnce("Over", () =>
+                    {
+                        SetSoul(1);
+                        TP();
+                        SetGreenBox();
+                        Heart.RotateTo(0);
+                    });
+                    var val = EaseIn(BeatTime(1), new Vector2(-80, 0), EaseState.Quad);
+                    float spd = -5;
+                    RegisterFunctionOnce("Block1", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("Block2", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("Block3", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("Block4", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("Block5", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
                     });
                     RegisterFunctionOnce("Bomb1", () =>
                     {
-                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240)), InfLinear(new Vector2(-4,0)))));
-                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240+40)), InfLinear(new Vector2(-4,0)))));
-                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240-40)), InfLinear(new Vector2(-4, 0)))));
-                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240+80)), InfLinear(new Vector2(-4,0)))));
-                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240 - 80)), InfLinear(new Vector2(-4, 0)))));
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))) { AbleLink = false });
                     });
-                    RegisterFunctionOnce("Block1", () =>
+                    RegisterFunctionOnce("Bomb2", () =>
                     {
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 20)), InfLinear(new Vector2(-4, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 20)), InfLinear(new Vector2(-4, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 + 60)), InfLinear(new Vector2(-4, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(650, 240 - 60)), InfLinear(new Vector2(-4 , 0)))));
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("Bomb3", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("Bomb4", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("Bomb5", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 + 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 24)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240)), val, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(650, 240 + 48)), val, InfLinear(new Vector2(spd, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(650, 240 - 48)), val, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    var vals = EaseIn(BeatTime(1), new Vector2(80, 0), EaseState.Quad);
+                    float spds = 5;
+                    RegisterFunctionOnce("sBlock1", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("sBlock2", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("sBlock3", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("sBlock4", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("sBlock5", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spd, 0)))));
+                    });
+                    RegisterFunctionOnce("sBomb1", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))) { AbleLink = false });
+                    });
+                    RegisterFunctionOnce("sBomb2", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("sBomb3", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("sBomb4", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("sBomb5", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))) { AbleLink = false });
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                    });
+                    RegisterFunctionOnce("PlaySound", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                    });
+                    Vector3 blockpos()
+                    {
+                        int rand = Rand(1, 5);
+                        int nextrand = 0;
+                        if (Rand(0, 1) == 0)
+                        {
+                            if (rand != 1) nextrand = rand - 1;
+                            else if (rand != 5) nextrand = rand + 1;
+                        }
+                        else
+                        {
+                            if (rand != 5) nextrand = rand + 1;
+                            else if (rand != 1) nextrand = rand - 1;
+                        }
+                        int Lastrand = 0;
+                        if (Rand(0, 1) == 0)
+                        {
+                            if (nextrand != 1) Lastrand = nextrand - 1;
+                            else if (nextrand != 5) Lastrand = nextrand + 1;
+                        }
+                        else
+                        {
+                            if (nextrand != 5) Lastrand = nextrand + 1;
+                            else if (nextrand != 1) Lastrand = nextrand - 1;
+                        }
+                        return new Vector3(rand, nextrand, Lastrand);
+                    }
+                    Vector3 rand1 = blockpos();
+                    Vector3 rand2 = blockpos();
+                    Vector3 rand3 = blockpos();
+                    Vector3 rand4 = blockpos();
+                    Vector3 rand5 = blockpos();
+                    Vector3 rand6 = blockpos();
+                    Vector3 rand7 = blockpos();
+                    Vector3 rand8 = blockpos();
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    {
+                        "SetSoul","","","",   $"(Block{rand1.X})","","","",
+                        "","",$"(Block{rand1.X})","",   "","","","",
+                        $"(Block{rand1.Y})","","","",   "","",$"(Block{rand1.Y})","",
+                        "","","","",   $"(Block{rand1.Z})","","","",
+
+                        "","","","",   $"(Bomb{rand2.X})","","","",
+                        "","",$"(Bomb{rand2.X})","",   "","","","",
+                        $"(Bomb{rand2.Y})","","","",   "","",$"(Bomb{rand2.Y})","",
+                        "","","","",   $"(Bomb{rand2.Z})","","","",
+
+                        "","","","",   $"(Block{rand3.X})","","","",
+                        "","",$"(Block{rand3.X})","",   "","","","",
+                        $"(Block{rand3.Y})","","","",   "","",$"(Block{rand3.Y})","",
+                        "","","","",   $"(Block{rand3.Z})","","","",
+
+                        "","","","",   $"(Bomb{rand4.X})","","","",
+                        "","","PlaySound","",   "","","","",
+                        "PlaySound","","","",   "","","PlaySound","",
+                        "","","","",   "PlaySound","","","",
+                        //
+                        "Change","","","",   $"(sBlock{rand5.X})","","","",
+                        "","",$"(sBlock{rand5.X})","",   "","","","",
+                        $"(sBlock{rand5.Y})","","","",   "","",$"(sBlock{rand5.Y})","",
+                        "","","","",   $"(sBlock{rand5.Z})","","","",
+
+                        "","","","",   $"(sBomb{rand6.X})","","","",
+                        "","",$"(sBomb{rand6.X})","",   "","","","",
+                        $"(sBomb{rand6.Y})","","","",   "","",$"(sBomb{rand6.Y})","",
+                        "","","","",   $"(sBomb{rand6.Z})","","","",
+
+                        "","","","",   $"(sBlock{rand7.X})","","","",
+                        "","",$"(sBlock{rand7.X})","",   "","","","",
+                        $"(sBlock{rand7.Y})","","","",   "","",$"(sBlock{rand7.Y})","",
+                        "","","","",   $"(sBlock{rand7.Z})","","","",
+
+                        "","","","",   $"(sBomb{rand8.X})","","","",
+                        "","",$"PlaySound","",   "","","","",
+                        $"PlaySound","","","",   "","",$"PlaySound","",
+                        "","","","",   $"PlaySound","","","",
+                        //
+                        "Over"
+                    });
+                }
+                if (InBeat(92))
+                {
+                    RegisterFunctionOnce("LKickLine", () =>
+                    {
+                        var cr = LinkEase(EaseOut(BeatTime(1), new Vector2(650, 0), EaseState.Quart));
+                        Line l = new(cr, Stable(0, 90));
+                        CreateEntity(l);
+                        l.DelayDispose(BeatTime(1) + 1);
+                        l.AddShadow(4, 0.6f);
+                        l.AddShadow(8, 0.3f);
+                    });
+                    RegisterFunctionOnce("RKickLine", () =>
+                    {
+                        var cr = LinkEase(Stable(0, new Vector2(640, 0)), EaseOut(BeatTime(1), new Vector2(-650, 0), EaseState.Quart));
+                        Line l = new(cr, Stable(0, 90));
+                        CreateEntity(l);
+                        l.DelayDispose(BeatTime(1) + 1);
+                        l.AddShadow(4, 0.6f);
+                        l.AddShadow(8, 0.3f);
+                    });
+                    RegisterFunctionOnce("RSA", () =>
+                    {
+                        ScreenDrawing.ScreenAngle = Rand(-4.0f, 4.0f);
                     });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
-                        "SetSoul","","","",   "Bomb1(Block1)","","","",
-                        "","","Bomb1(Block1)","",   "","","","",
-                        "Bomb1(Block1)","","","",   "","","Bomb1(Block1)","",
-                        "","","","",   "Bomb1(Block1)","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "R","","","",   "+01","","","",
+                        "+0","","","",   "","","","",
 
-                        "","","","",   "Bomb1(Block1)","","","",
-                        "","","Bomb1(Block1)","",   "","","","",
-                        "Bomb1(Block1)","","","",   "","","Bomb1(Block1)","",
-                        "","","","",   "Bomb1(Block1)","","","",
+                        "(R)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
+                        "(D)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
+                        "*D(RSA)","","*+01(RSA)","",   "*+0(RSA)","","*+01(RSA)","",
+                        "*+0(<0>Scrangle)","","","",   "+0","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","($01)($01)","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
+                        "$31($31)","","","",   "","","","",
+                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","$01($01)","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
+                        "$31($31)","","","",   "","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21($21)","",   "","","(*$1)(*$0)(<0.5,-3>Drum)(RKickLine)","",
+                        "$31($31)","","","",   "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21($21)","",
+                        "(*$1)(*$0)(<0.75,-3>Drum)(RKickLine)","","$31($31)","",   "","","","",
+                        "(*$1)(*$0)(<0.75,-3>Drum)(RKickLine)","","","",   "","","","",
                         //
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "R1","","","",   "+0","","","",
+                        "+01","","","",   "","","","",
+                        "D","","","",   "+01","","","",
+                        "+0","","","",   "","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "(R)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
+                        "(D)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
+                        "*D(RSA)","","*+01(RSA)","",   "*+0(RSA)","","*+01(RSA)","",
+                        "*+0(<0>Scrangle)","","","",   "+0","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "(*$11)(*$21)(<0.5,-3>Drum)(RKickLine)","","$0($0)","",   "","","(*$11)(*$21)(<0.75,-3>Drum)(RKickLine)","",
+                        "$3($3)","","","",   "","","","",
+                        "(*$11)(*$21)(<0.5,-3>Drum)(RKickLine)","","$0($0)","",   "","","(*$11)(*$21)(<0.75,-3>Drum)(RKickLine)","",
+                        "$3($3)","","","",   "","","","",
 
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        //
+                        "(*$11)(*$01)(<0.5,-3>Drum)(RKickLine)","","$2($2)","",   "","","(*$11)(*$01)(<0.5,3>Drum)(LKickLine)","",
+                        "$3($3)","","","",   "(*$11)(*$01)(<0.5,-3>Drum)(RKickLine)","","$2($2)","",
+                        "(*$11)(*$01)(<0.75,3>Drum)(LKickLine)","","$3($3)","",   "","","","",
+                        "(*$11)(*$01)(<0.75,3>Drum)(LKickLine)","","","",   "","","","",
                     });
+                }
+                if (InBeat(124))
+                {
+                    RegisterFunctionOnce("Mtt", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        mt.BulletDepth = 0.3f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
+                    RegisterFunctionOnce("Mtt2", () =>
+                    {
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(3)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        //mt.BulletDepth = 0.49f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
+                    RegisterFunctionOnce("Bomb", () =>
+                    {
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(-10, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth = 0.3f });
+                    });
+                    RegisterFunctionOnce("Bomb2", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(-10, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(2)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth = 0.49f });
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    {
+                        "Mtt(#4#R)","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Bomb","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Mtt","","","",   "(R1)","","","",
+                        "(R1)","","","",   "(R1)","","","",
+                        "Bomb(#1#R)","","","",   "","","","",
+                        "R1","","","",   "(#4#R)","","","",
+
+                        "Mtt","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Bomb","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Mtt","","","",   "R1","","","",
+                        "R1","","","",   "R1","","","",
+                        "Bomb(#1#R)","","","",   "","","","",
+                        "(#1#R1)","","","",   "","","","",
+                        //
+                        "Mtt(R)(R1)","","","",   "(R)(R1)","","","",
+                        "(R)(R1)","","","",   "(#1#R)(R1)","","","",
+                        "Bomb","","","",   "","","","",
+                        "R1","","","",   "R1","","","",
+
+                        "Mtt(#1#R)","","","",   "","","","",
+                        "(#1#R1)","","","",  "","","","",
+                        "Bomb(#1#R)","","","",   "","","+01","",
+                        "","","","",   "$0","$1","#3#$2","",
+
+                        "Mtt","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Bomb","","","",   "","","","",
+                        "(#1#R)","","","",   "","","","",
+
+                        "Mtt(#1#R1)","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Bomb(R1)","","","",   "","","","",
+                        "","","","",   "","","","",
+                    });
+                }
+                if (InBeat(156))
+                {
+                    RegisterFunctionOnce("Mtt", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        mt.BulletDepth = 0.3f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
+                    RegisterFunctionOnce("Mtt2", () =>
+                    {
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(3)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        mt.BulletDepth = 0.3f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
+                    RegisterFunctionOnce("Bomb", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(-10, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth = 0.3f });
+                    });
+                    RegisterFunctionOnce("Bomb2", () =>
+                    {
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(650, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(2)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth = 0.3f });
+                    });
+                    Arrow.UnitEasing ease;
+                    AddInstance(ease = new Arrow.UnitEasing() { ApplyTime = BeatTime(2) });
+
+                    ease.RotationEase = LinkEase(Stable(BeatTime(1), 30), EaseOut(BeatTime(1), -30, EaseState.Back));
+                    ease.TagApply("s");
+                    Arrow.UnitEasing ease2;
+                    AddInstance(ease2 = new Arrow.UnitEasing() { ApplyTime = BeatTime(2) });
+
+                    ease2.RotationEase = LinkEase(Stable(BeatTime(1), 60), EaseOut(BeatTime(1), -60, EaseState.Elastic));
+                    ease2.TagApply("ss");
+                    Arrow.UnitEasing ease3;
+                    AddInstance(ease3 = new Arrow.UnitEasing() { ApplyTime = BeatTime(2) });
+
+                    ease3.RotationEase = LinkEase(Stable(BeatTime(1), -30), EaseOut(BeatTime(1), 30, EaseState.Back));
+                    ease3.TagApply("w");
+                    Arrow.UnitEasing ease4;
+                    AddInstance(ease4 = new Arrow.UnitEasing() { ApplyTime = BeatTime(2) });
+
+                    ease4.RotationEase = LinkEase(Stable(BeatTime(1), -60), EaseOut(BeatTime(1), 60, EaseState.Elastic));
+                    ease4.TagApply("ww");
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    {
+                        "*$3@s(Mtt)","","","",   "","","*$3@ss","",
+                        "","","","",   "*$3@s","","","",
+                        "Bomb","","*$3@ss","",   "","","","",
+                        "*$3@s","","","",   "*$3@ss","","","",
+
+                        "*$31@w(Mtt2)","","","",   "","","*$31@ww","",
+                        "","","","",   "*$31@w","","","",
+                        "Bomb2","","*$31@ww","",   "","","","",
+                        "*$31@w","","","",   "*$31@ww","","","",
+
+                        "*$1@s(Mtt)","","","",   "","","*$1@ss","",
+                        "","","","",   "*$1@s","","","",
+                        "Bomb","","*$1@ss","",   "","","","",
+                        "*$1@s","","","",   "*$1@ss","","","",
+
+                        "*$11@w(Mtt2)","","","",   "","","*$11@ww","",
+                        "","","","",   "*$11@w","","","",
+                        "Bomb2","","*$11@ww","",   "","","","",
+                        "*$11@w","","","",   "*$11@ww","","","",
+                        //
+                        "*$3@s(Mtt)","","","",   "","","*$11@ss","",
+                        "","","","",   "*$3@s","","","",
+                        "Bomb","","*$11@ss","",   "","","","",
+                        "*$3@s","","","",   "*$11@ss","","","",
+
+                        "*$3@w(Mtt2)","","","",   "","","*$11@ww","",
+                        "","","","",   "*$3@w","","","",
+                        "Bomb2","","*$11@ww","",   "","","","",
+                        "*$3@w","","","",   "*$11@ww","","","",
+
+                        "*$1@s(Mtt)","","","",   "","","*$31@ss","",
+                        "","","","",   "*$1@s","","","",
+                        "Bomb","","*$31@ss","",   "","","","",
+                        "*$1@s","","","",   "*$31@ss","","","",
+
+                        "*$1@w(Mtt2)","","","",   "","","*$31@ww","",
+                        "","","","",   "*$1@w","","","",
+                        "Bomb2","","*$31@ww","",   "","","","",
+                        "*$1@w","","","",   "*$31@ww","","","",
+                    });
+                }
+                if (InBeat(188))
+                {
+                    RegisterFunctionOnce("SetSoul", () =>
+                    {
+                        Heart.RotateTo(360);
+                        SetSoul(1);
+                        ScreenDrawing.CameraEffect.Convulse(4, BeatTime(2), true);
+                    });
+
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    {
+                        "SetSoul","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "R","","+1","",   "+1","","+1","",
+                        "R1","","","",   "R","","","",
+
+                        "R","","","",   "R","","D1","",
+                        "","","R","",   "D1","","","",
+                        "R","","+1","",   "+1","","+1","",
+                        "R1","","","",   "R","","","",
+
+                        "R","","","",   "R","","D1","",
+                        "","","R","",   "D1","","","",
+                        "R","","+1","",   "+1","","+1","",
+                        "R1","","","",   "R","","","",
+
+                        "R","","","",   "R","","D1","",
+                        "","","R","",   "D1","","","",
+                        "(*R1)(+1)(*+11)","~_-1","~_+0","~_+0",   "~_+0","","","",
+                        "(*R1)(-1)(*-11)","~_+1","~_+0","~_+0",   "~_+0","","","",
+                        //
+                        "(*$01)(*$21)","","","",   "$1","","","",
+                        "(*$01)(*$21)","","","",   "$3","","","",
+                        "(*$01)(*$21)","","","",   "$1","","","",
+                        "(*$01)(*$21)","","","",   "$3","","","",
+
+                        "(*$0)(*$2)","","","",   "$11","","","",
+                        "(*$0)(*$2)","","","",   "$31","","","",
+                        "(*$0)(*$2)","","","",   "$11","","","",
+                        "(*$0)(*$2)","","","",   "$31","","","",
+
+                        "(R)(+21)","","","",   "(R)(+21)","","(-1)(+21)","",
+                        "","","(R)(+21)","",   "(-1)(+21)","","","",
+                        "($0)(+21)","","(-1)(+21)","",   "(-1)(+21)","","(-1)(+21)","",
+                        "(-1)(+21)","","","",   "(R)(+21)","","","",
+
+                        "R","","","",   "R","","+1","",
+                        "+1","","","",   "R","","","",
+                        "R","","","",   "R","","-1","",
+                        "-1","","","",   "R","","","",
+                        });
+                }
+                if (InBeat(220))
+                {
+
+
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                        {
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        //
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                       });
                 }
             }
             public void Easy()
@@ -388,7 +971,7 @@ namespace Rhythm_Recall.Waves
                     );
                     //Delay(time+2, () => { ScreenDrawing.ScreenAngle = 0; });
                 });
-                RegisterFunction("SetAngle", () =>
+                RegisterFunction("Scrangle", () =>
                 {
                     ScreenDrawing.ScreenAngle = Arguments[0];
                 });
@@ -401,11 +984,13 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 84, 84);
                 InstantTP(320, 240);
                 bool jump = true;
-                int jumpbeat=60;
+                int jumpbeat=188;
                 if (jump)
                 {
                     GametimeDelta = -4.5f + BeatTime(jumpbeat);
                     PlayOffset=BeatTime(jumpbeat);
+                    SetSoul(1);
+                    //Heart.RotateTo(0);
                 }
             }
         }

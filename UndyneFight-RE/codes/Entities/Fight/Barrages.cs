@@ -51,7 +51,10 @@ namespace UndyneFight_Ex.Remake.Entities
         public float AppearTime { get; set; }
 
         private bool _hasBeenInside = false;
-        protected bool _autoDispose = true;
+        /// <summary>
+        /// 是否自动Dispose
+        /// </summary>
+        public bool _autoDispose = true;
 
         protected Player.Heart PlayerMission { get; private init; }
 
