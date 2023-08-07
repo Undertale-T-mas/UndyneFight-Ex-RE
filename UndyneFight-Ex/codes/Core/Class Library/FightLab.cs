@@ -975,7 +975,13 @@ namespace UndyneFight_Ex.Fight
         {
             effect.CreateInstance().Play();
         }
-
+        public static void PlaySound(params Microsoft.Xna.Framework.Audio.SoundEffect[] effect)
+        {
+            for(int a=0;a<effect.Length;a++)
+            {
+                PlaySound(effect[a]);
+            }
+        }
         /// <summary>
         /// 制造黑屏，持续一段时间用以切换场景
         /// </summary>

@@ -506,6 +506,10 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(new Bomb(20, LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))) { AbleLink = false });
                         CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
                     });
+                    RegisterFunctionOnce("PlaySound", () =>
+                    {
+                        PlaySound(Sounds.pierce);
+                    });
                     Vector3 blockpos() 
                     {
                         int rand = Rand(1, 5);
@@ -559,9 +563,9 @@ namespace Rhythm_Recall.Waves
                         "","","","",   $"(Block{rand3.Z})","","","",
 
                         "","","","",   $"(Bomb{rand4.X})","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "","","","",   "","","","",
+                        "","","PlaySound","",   "","","","",
+                        "PlaySound","","","",   "","","PlaySound","",
+                        "","","","",   "PlaySound","","","",
                         //
                         "Change","","","",   $"(sBlock{rand5.X})","","","",
                         "","",$"(sBlock{rand5.X})","",   "","","","",
@@ -579,9 +583,9 @@ namespace Rhythm_Recall.Waves
                         "","","","",   $"(sBlock{rand7.Z})","","","",
 
                         "","","","",   $"(sBomb{rand8.X})","","","",
-                        "","",$"(sBomb{rand8.X})","",   "","","","",
-                        $"(sBomb{rand8.Y})","","","",   "","",$"(sBomb{rand8.Y})","",
-                        "","","","",   $"(sBomb{rand8.Z})","","","",
+                        "","",$"PlaySound","",   "","","","",
+                        $"PlaySound","","","",   "","",$"PlaySound","",
+                        "","","","",   $"PlaySound","","","",
                         //
                         "Over"
                     });
@@ -617,19 +621,19 @@ namespace Rhythm_Recall.Waves
                         "R","","","",   "+01","","","",
                         "+0","","","",   "","","","",
 
-                        "R(RSA)","","+01(RSA)","",   "D(RSA)","","+01(RSA)","",
-                        "D(RSA)","","+01(RSA)","",   "D(RSA)","","+01(RSA)","",
+                        "(R)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
+                        "(D)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
                         "*D(RSA)","","*+01(RSA)","",   "*+0(RSA)","","*+01(RSA)","",
                         "*+0(<0>Scrangle)","","","",   "+0","","","",
 
-                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","$01","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
-                        "$31","","","",   "","","","",
-                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","$01","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
-                        "$31","","","",   "","","","",
+                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","($01)($01)","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
+                        "$31($31)","","","",   "","","","",
+                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","$01($01)","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
+                        "$31($31)","","","",   "","","","",
 
-                        "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21","",   "","","(*$1)(*$0)(<0.5,-3>Drum)(RKickLine)","",
-                        "$31","","","",   "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21","",
-                        "(*$1)(*$0)(<0.75,-3>Drum)(RKickLine)","","$31","",   "","","","",
+                        "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21($21)","",   "","","(*$1)(*$0)(<0.5,-3>Drum)(RKickLine)","",
+                        "$31($31)","","","",   "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21($21)","",
+                        "(*$1)(*$0)(<0.75,-3>Drum)(RKickLine)","","$31($31)","",   "","","","",
                         "(*$1)(*$0)(<0.75,-3>Drum)(RKickLine)","","","",   "","","","",
                         //
                         "R1","","","",   "+0","","","",
@@ -637,32 +641,200 @@ namespace Rhythm_Recall.Waves
                         "D","","","",   "+01","","","",
                         "+0","","","",   "","","","",
 
-                        "R","","+01","",   "D","","+01","",
-                        "D","","+01","",   "D","","+01","",
-                        "*D","","*+01","",   "*+0","","*+01","",
-                        "*+0","","","",   "+0","","","",
+                        "(R)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
+                        "(D)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
+                        "*D(RSA)","","*+01(RSA)","",   "*+0(RSA)","","*+01(RSA)","",
+                        "*+0(<0>Scrangle)","","","",   "+0","","","",
 
-                        "(*$11)(*$21)","","$0","",   "","","(*$11)(*$21)","",
-                        "$3","","","",   "","","","",
-                        "(*$11)(*$21)","","$0","",   "","","(*$11)(*$21)","",
-                        "$3","","","",   "","","","",
+                        "(*$11)(*$21)(<0.5,-3>Drum)(RKickLine)","","$0($0)","",   "","","(*$11)(*$21)(<0.75,-3>Drum)(RKickLine)","",
+                        "$3($3)","","","",   "","","","",
+                        "(*$11)(*$21)(<0.5,-3>Drum)(RKickLine)","","$0($0)","",   "","","(*$11)(*$21)(<0.75,-3>Drum)(RKickLine)","",
+                        "$3($3)","","","",   "","","","",
 
-                        "(*$11)(*$01)","","$2","",   "","","(*$11)(*$01)","",
-                        "$3","","","",   "(*$11)(*$01)","","$2","",
-                        "(*$11)(*$01)","","$3","",   "","","","",
-                        "(*$11)(*$01)","","","",   "","","","",
+                        "(*$11)(*$01)(<0.5,-3>Drum)(RKickLine)","","$2($2)","",   "","","(*$11)(*$01)(<0.5,3>Drum)(LKickLine)","",
+                        "$3($3)","","","",   "(*$11)(*$01)(<0.5,-3>Drum)(RKickLine)","","$2($2)","",
+                        "(*$11)(*$01)(<0.75,3>Drum)(LKickLine)","","$3($3)","",   "","","","",
+                        "(*$11)(*$01)(<0.75,3>Drum)(LKickLine)","","","",   "","","","",
                     });
                 }
                 if (InBeat(124))
                 {
+                    RegisterFunctionOnce("Mtt", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        //mt.BulletDepth = 0.49f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
+                    RegisterFunctionOnce("Mtt2", () =>
+                    {
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6),99999,BeatTime(3)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        //mt.BulletDepth = 0.49f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
                     RegisterFunctionOnce("Bomb", () =>
                     {
-                        CreateEntity(new Bomb(20, LinkEase(Stable(0,new Vector2(0,200)),InfLinear(new Vector2(2,0)))));
-                        CreateEntity(new ShotableBlock(LinkEase(Stable(0,new Vector2(0,180)),InfLinear(new Vector2(2,0)))));
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(-10, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth=0.49f});
+                    });
+                    RegisterFunctionOnce("Bomb2", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(-10, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(2)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth = 0.49f });
                     });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
+                        "Mtt(#4#R)","","","",   "","","","",
+                        "","","","",   "","","","",
                         "Bomb","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Mtt","","","",   "(R1)","","","",
+                        "(R1)","","","",   "(R1)","","","",
+                        "Bomb(#1#R)","","","",   "","","","",
+                        "R1","","","",   "(#4#R)","","","",
+
+                        "Mtt","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Bomb","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "Mtt","","","",   "R1","","","",
+                        "R1","","","",   "R1","","","",
+                        "Bomb(#1#R)","","","",   "","","","",
+                        "(#1#R1)","","","",   "","","","",
+                        //
+                        "Mtt(R)(R1)","","","",   "(R)(R1)","","","",
+                        "(R)(R1)","","","",   "(#1#R)(R1)","","","",
+                        "Bomb","","","",   "","","","",
+                        "R1","","","",   "R1","","","",
+
+                        "Mtt(#1#R)","","","",   "","","","",
+                        "(#1#R1)","","","",  "","","","",
+                        "Bomb(#1#R)","","","",   "","","+01","",
+                        "","","","",   "$0","$1","#3#$2","",
+
+                        "Mtt","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Bomb","","","",   "","","","",
+                        "(#1#R)","","","",   "","","","",
+
+                        "Mtt(#1#R1)","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "Bomb(R1)","","","",   "","","","",
+                        "","","","",   "","","","",
+                    });
+                }
+                if (InBeat(156))
+                {
+                    RegisterFunctionOnce("Mtt", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        mt.BulletDepth = 0.49f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
+                    RegisterFunctionOnce("Mtt2", () =>
+                    {
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(3)))
+                            );
+                        ParasolMett mt = new ParasolMett(ce);
+                        CreateEntity(mt);
+                        //mt.BulletDepth = 0.49f;
+                        mt.InsertShot(8, BeatTime(2f));
+                    });
+                    RegisterFunctionOnce("Bomb", () =>
+                    {
+                        float speed = -Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(-10, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth = 0.49f });
+                    });
+                    RegisterFunctionOnce("Bomb2", () =>
+                    {
+                        float speed = Rand(2.50f, 3.50f);
+                        float offset = Rand(-80, 80);
+                        var ce2 = LinkEase(Stable(0, new Vector2(-10, 200 + offset)),
+                          Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(2)))
+                            );
+                        CreateEntity(new Bomb(20, ce2) { Depth = 0.49f });
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    {
+                        "*$3(Mtt)","","","",   "","","*$3","",
+                        "","","","",   "*$3","","","",
+                        "Bomb","","*$3","",   "","","","",
+                        "*$3","","","",   "*$3","","","",
+
+                        "*$31(Mtt2)","","","",   "","","*$31","",
+                        "","","","",   "*$31","","","",
+                        "Bomb2","","*$31","",   "","","","",
+                        "*$31","","","",   "*$31","","","",
+
+                        "*$1(Mtt)","","","",   "","","*$1","",
+                        "","","","",   "*$1","","","",
+                        "Bomb","","*$1","",   "","","","",
+                        "*$1","","","",   "*$1","","","",
+
+                        "*$11(Mtt2)","","","",   "","","*$11","",
+                        "","","","",   "*$11","","","",
+                        "Bomb2","","*$11","",   "","","","",
+                        "*$11","","","",   "*$11","","","",
+                        //
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                    });
+                    if (InBeat(188))
+                    {
+                        BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                        {
+                        "","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -701,7 +873,8 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
-                    });
+                        });
+                    }
                 }
             }
             public void Easy()
@@ -737,12 +910,12 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 84, 84);
                 InstantTP(320, 240);
                 bool jump = true;
-                int jumpbeat=60;
+                int jumpbeat=124;
                 if (jump)
                 {
                     GametimeDelta = -4.5f + BeatTime(jumpbeat);
                     PlayOffset=BeatTime(jumpbeat);
-                    SetSoul(Souls.YellowSoul);
+                    SetSoul(1);
                     //Heart.RotateTo(0);
                 }
             }
