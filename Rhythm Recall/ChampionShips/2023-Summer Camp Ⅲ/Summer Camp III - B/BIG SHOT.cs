@@ -983,7 +983,7 @@ namespace Rhythm_Recall.Waves
                 GametimeDelta = -2.5f;
                 InstantSetBox(240, 84, 84);
                 InstantTP(320, 240);
-                bool jump = true;
+                bool jump = false;
                 int jumpbeat=188;
                 if (jump)
                 {
