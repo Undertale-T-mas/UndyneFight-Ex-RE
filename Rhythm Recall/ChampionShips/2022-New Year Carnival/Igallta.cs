@@ -40,7 +40,28 @@ namespace Rhythm_Recall.Waves
 
         public class Game : WaveConstructor, IWaveSet
         {
-            public SongInformation Attributes => null;
+            class Information : SongInformation
+            {
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                new KeyValuePair<Difficulty, float>[]
+                {
+
+                }
+                );
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                    new KeyValuePair<Difficulty, float>[]
+                    {
+
+                    }
+                    );
+                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                    new KeyValuePair<Difficulty, float>[]
+                    {
+
+                    }
+                    );
+            }
+            public SongInformation Attributes => new Information();
             private class KickCounter : Entity
             {
                 public override void Draw()
