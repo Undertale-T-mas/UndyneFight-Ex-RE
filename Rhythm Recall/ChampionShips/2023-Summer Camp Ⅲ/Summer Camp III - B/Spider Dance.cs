@@ -406,8 +406,7 @@ namespace Rhythm_Recall.Waves
                     //在实现缓动的前4beat中观众会先看到偏移的箭头运作，然后看到箭头变换到正常（不正常也可以，但不推荐）的位置
                     //ApplyTime和缓动Time不等的情况很少，因为这会导致两者时间轴不同，例如缓动没运行完箭头已经dispose了，是否有用这点需要看有什么花招了
                     easeX.PositionEase= LinkEase(Stable(0,new Vector2(0,400)),EaseOut(BeatTime(3), new Vector2(0,-400), EaseState.Elastic));
-                    easeX.TagApply("X");//注意的是，极坐标变换是默认启用的，从下到上的0轨箭头的缓动，用在2轨箭头会变成从上到下过来，用在1轨箭头会变成从左向右
-                    //如果你此时写了个0,2双押，但是不想进行极坐标变换，实现两个都是从上向下，那么你不需要手动换缓动，↓
+                    easeX.TagApply("X");//注意的是，极坐标变换开启后(默认关闭)的，从下到上的0轨箭头的缓动，用在2轨箭头会变成从上到下过来，用在1轨箭头会变成从左向右
                     //我忘了是啥，也忘了写过没，但我和master提过也讨论过，如果没有这个方法，记得问一下master，让他写一下
 
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
