@@ -1005,6 +1005,7 @@ namespace Rhythm_Recall.Waves
                             }
                             if (InBeat(200, 214) && At0thBeat(0.5f))
                             {
+                                /* Unused V2
                                 var count = 18;
                                 for (int i = 0; i < count; ++i)
                                 {
@@ -1022,7 +1023,7 @@ namespace Rhythm_Recall.Waves
                                             Duration = 600
                                         });
                                     }
-                                }
+                                }*/
                             }
                         });
                         
@@ -1039,12 +1040,14 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(1, () => {
                             ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
                         });
+                        /* Unused v2
                         var spears = GetAll<NormalSpear>();
                         foreach(NormalSpear sprs in spears)
                         {
                             sprs.Acceleration = 0.7f;
                             sprs.Rebound = false;
-                        }
+                        }*/
+
                     });
                     RegisterFunctionOnce("Box", () =>
                     {
