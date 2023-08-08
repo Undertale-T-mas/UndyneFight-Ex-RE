@@ -11,6 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecallCharter", "RecallChar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UndyneFight_RE", "UndyneFight-RE\UndyneFight_RE.csproj", "{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UFProcessor", "UFProcessor\UFProcessor.csproj", "{84AA83CE-6EF6-4A9D-B8FA-F2167B910881}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5CC8C0A3-BF26-4591-8499-0D940D270034} = {5CC8C0A3-BF26-4591-8499-0D940D270034}
+		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B} = {D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +39,10 @@ Global
 		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D94AEF1F-D759-466A-AC82-9A3CA1C9CB8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84AA83CE-6EF6-4A9D-B8FA-F2167B910881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84AA83CE-6EF6-4A9D-B8FA-F2167B910881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84AA83CE-6EF6-4A9D-B8FA-F2167B910881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84AA83CE-6EF6-4A9D-B8FA-F2167B910881}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

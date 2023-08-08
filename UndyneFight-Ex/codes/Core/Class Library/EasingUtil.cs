@@ -103,7 +103,7 @@ namespace UndyneFight_Ex.Entities
                     Rotation = RotationRoute.Invoke(this);
             }
         }
-        
+         
         public static void RunEase(Action<Vector2> action, bool isAdjust, params EaseUnit<Vector2>[] funcs)
         {
             CEaseBuilder builder = new();
@@ -266,6 +266,15 @@ namespace UndyneFight_Ex.Entities
             Back = 9,
             Bounce = 10
         }
+
+        public static EaseUnit<Vector2> InfLinear(Vector2 start, Vector2 speed)
+        {
+            return new EaseUnit<Vector2>(start, start, 99999.0f, (s) => start + s.AppearTime * speed);
+        }
+        public static EaseUnit<Vector2> InfLinear(Vector2 speed)
+        {
+            return new EaseUnit<Vector2>(Vector2.Zero, Vector2.Zero, 99999.0f, (s) => s.AppearTime * speed);
+        }
         /// <summary>
         /// 返回一个<see cref="Vector2"/>的<see langword="均速直线运动的缓动"/><br/>
         /// </summary>
@@ -286,6 +295,11 @@ namespace UndyneFight_Ex.Entities
         public static EaseUnit<Vector2> Linear(float time, Vector2 end)
         {
             return Linear(time, Vector2.Zero, end);
+        }
+         
+        public static EaseUnit<float> InfLinear(float start, float speed)
+        {
+            return new EaseUnit<float>(start, start, 99999.0f, (s) => start + s.AppearTime * speed);
         }
         /// <summary>
         /// 返回一个<see cref="float"/>的<see langword="均速直线运动的缓动"/><br/>
@@ -993,7 +1007,7 @@ namespace UndyneFight_Ex.Entities
             Time = time;
             Easing = easing;
         }
-
+        public static implicit operator Func<ICustomMotion, T>(EaseUnit<T> u) => u.Easing;
     }
     public static class EasingUtil
     {

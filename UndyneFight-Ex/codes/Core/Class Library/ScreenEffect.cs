@@ -89,8 +89,8 @@ namespace UndyneFight_Ex.Fight
             }
             public static class HPBar
             {
-                public static Color HPExistColor { set => (GameStates.CurrentScene as FightScene).HPBar.HPExistColor = value; }
-                public static Color HPLoseColor { set => (GameStates.CurrentScene as FightScene).HPBar.HPLoseColor = value; }
+                public static Color HPExistColor { get => (GameStates.CurrentScene as FightScene).HPBar.HPExistColor; set => (GameStates.CurrentScene as FightScene).HPBar.HPExistColor = value; }
+                public static Color HPLoseColor { get=> (GameStates.CurrentScene as FightScene).HPBar.HPLoseColor; set => (GameStates.CurrentScene as FightScene).HPBar.HPLoseColor = value; }
                 public static CollideRect AreaOccupied
                 {
                     set => (GameStates.CurrentScene as FightScene).HPBar.ResetArea(value);
@@ -399,6 +399,7 @@ namespace UndyneFight_Ex.Fight
                 get => ScreenExtending.Y;
                 set => ScreenExtending = new(ScreenExtending.X, value, ScreenExtending.Z, ScreenExtending.W);
             }
+            public static SpriteBatchEX SpriteBatch => GameMain.MissionSpriteBatch;
 
             public static Shaders.Filter ActivateShader(Shader shader, float depth = 0.5f)
             {
@@ -415,6 +416,19 @@ namespace UndyneFight_Ex.Fight
 
             public static class Shaders
             {
+                public class Converging : RenderProduction
+                {
+                    public Converging(float depth) : base(null, SpriteSortMode.Immediate, BlendState.Additive, depth)
+                    {
+                    }
+
+                    public override RenderTarget2D Draw(RenderTarget2D obj)
+                    {
+                        this.MissionTarget = HelperTarget;
+                        //          this.DrawTextures(obj, )
+                        return obj;
+                    }
+                }
                 public class Lighting : RenderProduction
                 {
                     private static bool Initialized = false;
@@ -584,6 +598,8 @@ namespace UndyneFight_Ex.Fight
                     public int Intensity { get; set; } = 1;
                     public int AverageInterval { get; set; } = 4;
                     public float AverageDelta { get; set; } = 1f;
+                    public float RGBSplitIntensity = 0.0f;
+                    public float BlockScale = 1.0f;
                     private class Updater : GameObject
                     {
                         Glitching father;
@@ -595,11 +611,12 @@ namespace UndyneFight_Ex.Fight
                         {
                             public Vector2 Delta { get; private set; }
                             public Rectangle Area { get; private set; }
+                            public Vector2 RGBDelta { get; private set; }
                             public MoveBlock(Glitching father)
                             {
                                 Area = new Rectangle(Rand(0, (int)AdaptedSize.X), Rand(0, (int)AdaptedSize.Y),
-                                        (int)Rand(10 * AdaptingScale, 30 * AdaptingScale),
-                                        (int)Rand(10 * AdaptingScale, 30 * AdaptingScale)
+                                        (int)Rand(10 * AdaptingScale * father.BlockScale, 30 * AdaptingScale * father.BlockScale),
+                                        (int)Rand(10 * AdaptingScale * father.BlockScale, 30 * AdaptingScale * father.BlockScale)
                                     );
                                 ColorType = Rand(0, 2);
                                 switch (Rand(0, 2))
@@ -651,8 +668,13 @@ namespace UndyneFight_Ex.Fight
 
                         Tuple<Rectangle, Vector2, int>[] all = updater.GetMoves();
                         for (int i = 0; i < all.Length; i++)
-                            DrawTexture(HelperTarget, (new CollideRect(all[i].Item1) + all[i].Item2).ToRectangle(), all[i].Item1, Color.White);
-
+                        {
+                            if (MathF.Abs(RGBSplitIntensity) > 0.1f)
+                            {
+                                DrawTexture(HelperTarget, (new CollideRect(all[i].Item1) + all[i].Item2 + new Vector2(-RGBSplitIntensity, 0)), all[i].Item1, Color.Red);
+                                DrawTexture(HelperTarget, (new CollideRect(all[i].Item1) + all[i].Item2 + new Vector2(RGBSplitIntensity, 0)), all[i].Item1, new Color(0, 0, 1f));
+                            } DrawTexture(HelperTarget, (new CollideRect(all[i].Item1) + all[i].Item2).ToRectangle(), all[i].Item1, Color.White);
+                        }
                         return MissionTarget;
                     }
                     public override void Dispose()
@@ -661,6 +683,9 @@ namespace UndyneFight_Ex.Fight
                         base.Dispose();
                     }
                 }
+                /// <summary>
+                /// using the helper channel of 3
+                /// </summary>
                 public class Filter : RenderProduction
                 {
                     public override void WindowSizeChanged(Vector2 vec)

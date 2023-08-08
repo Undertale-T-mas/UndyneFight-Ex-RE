@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
@@ -235,7 +236,16 @@ namespace UndyneFight_Ex.Fight
             }
             public static Vector2 Location => (FightBox.instance as RectangleBox).CollidingBox.BottomLeft;
             public static float Width => (FightBox.instance as RectangleBox).CollidingBox.Width;
-            public static float Height => (FightBox.instance as RectangleBox).CollidingBox.Height;
+            public static float Height
+            {
+                get => (FightBox.instance as RectangleBox).CollidingBox.Height;
+                set
+                {
+                    CollideRect old = (FightBox.instance as RectangleBox).CollidingBox;
+                    old.Height = value;
+                    (FightBox.instance as RectangleBox).InstanceMove(old);
+                }
+            }
             /// <summary>
             /// 每次移动取的比例，一个 0-1 的浮点数。越大表示移动速度越快。0为静止不动，1为瞬间完成。默认0.15
             /// </summary>
@@ -469,9 +479,13 @@ namespace UndyneFight_Ex.Fight
             /// </summary>
             NoScore = 64,
             /// <summary>
-            /// 无得分
+            /// 标绿
             /// </summary>
             ForceGreen = 128,
+            /// <summary>
+            /// 无多押标记
+            /// </summary>
+            NoGoldTag = 256,
         }
 
         private static void GiveAttribute(Arrow arr, ArrowAttribute attribute)
@@ -499,6 +513,8 @@ namespace UndyneFight_Ex.Fight
                 arr.NoScore = true;
             if ((attribute & ArrowAttribute.ForceGreen) == ArrowAttribute.ForceGreen)
                 arr.ForceGreenBack = true;
+            if ((attribute & ArrowAttribute.NoGoldTag) == ArrowAttribute.NoGoldTag)
+                arr.EnableGoldMark = false;
         }
 
         /// <summary>
@@ -750,7 +766,17 @@ namespace UndyneFight_Ex.Fight
         {
             InstanceCreate(go);
         }
-
+        public static void ArrowApply(string tag, Action<Arrow> action)
+        {
+            if (CurrentScene is SongFightingScene)
+                AddInstance(new InstantEvent(1.2f, () =>
+                {
+                    var map = (CurrentScene as SongFightingScene).Accuracy.TaggedArrows;
+                    if (!map.ContainsKey(tag)) return;
+                    var v = map[tag];
+                    v.ForEach(s => action(s));
+                }));
+        }
         /// <summary>
         /// 将框平滑地移动到一个位置
         /// </summary>
@@ -949,7 +975,13 @@ namespace UndyneFight_Ex.Fight
         {
             effect.CreateInstance().Play();
         }
-
+        public static void PlaySound(params Microsoft.Xna.Framework.Audio.SoundEffect[] effect)
+        {
+            for(int a=0;a<effect.Length;a++)
+            {
+                PlaySound(effect[a]);
+            }
+        }
         /// <summary>
         /// 制造黑屏，持续一段时间用以切换场景
         /// </summary>

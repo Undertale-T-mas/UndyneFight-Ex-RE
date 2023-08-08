@@ -9,6 +9,8 @@ using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.Fight.Functions;
 using System.Resources;
 using Microsoft.Xna.Framework.Graphics;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex.Remake.Entities
 {
@@ -44,14 +46,18 @@ namespace UndyneFight_Ex.Remake.Entities
             }
         }
         float _explodeDelay;
-        public Bomb(float explodeDelay)
+        public Bomb(float explodeDelay, Func<ICustomMotion, Vector2> ease)
         {
             this._explodeDelay = explodeDelay;
             this.Image = Resources.FightSprites.MettBomb[0];
             this.Alpha = 1.0f;
             this.HitRadius = 6.6f;
+            this.PositionRoute = ease;
+            this.Depth = 0.501f;
+            this.ObjectWidth = 8;
         }
         List<Entity> canDestroy = new();
+
         public void ConnectEntity(Entity entity)
         {
             canDestroy.Add(entity);
@@ -69,10 +75,18 @@ namespace UndyneFight_Ex.Remake.Entities
         protected override void OnShot(SoulBullet bullet)
         {
             bullet.Dispose();
+            Trigger();
+        }
+
+        private void Trigger()
+        {
             PlaySound(FightResources.Sounds.Warning);
             this.isShot = true;
         }
+
         private int count = 0;
+        public bool AbleLink { get; set; }= true;
+        public bool Destructive { get; set; }= true;
         public override void Update()
         {
             base.Update();
@@ -87,11 +101,17 @@ namespace UndyneFight_Ex.Remake.Entities
                 if(count / 2f >= _explodeDelay)
                 {
                     PlaySound(Resources.Sounds.Bomb);
-                    this.Broadcast("Explode");
-                    this.GenerateBlast();
-                    this.Dispose();
+                    Explode();
                 }
             }
+            
+        }
+
+        public void Explode()
+        {
+            this.Broadcast("Explode");
+            this.GenerateBlast();
+            this.Dispose();
         }
 
         private void GenerateBlast()

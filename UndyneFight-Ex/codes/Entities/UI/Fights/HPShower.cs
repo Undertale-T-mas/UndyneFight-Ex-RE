@@ -16,8 +16,8 @@ namespace UndyneFight_Ex.Entities
 
         public bool Vertical { set; private get; } = false;
         private bool Buffed => ((CurrentScene as FightScene).Mode & GameMode.Buffed) != 0;
-        public Color HPExistColor { set => hpExistColor = hpExistCurrent = value; }
-        public Color HPLoseColor { set => hpLoseColor = hpExistCurrent = value; }
+        public Color HPExistColor { get => hpExistColor; set => hpExistColor = hpExistCurrent = value; }
+        public Color HPLoseColor { get => hpExistColor; set => hpLoseColor = hpExistCurrent = value; }
         public Color HPKRColor { set => hpKRColor = hpKRCurrent = value; }
         private Color hpExistColor, hpExistCurrent;
         private Color hpLoseColor, hpLoseCurrent;

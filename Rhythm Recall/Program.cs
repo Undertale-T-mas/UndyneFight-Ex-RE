@@ -80,8 +80,12 @@ namespace Rhythm_Recall
             UFEXSettings.GamejoltPrivateKey = "bcf22bf14c202efe873a06c7b9980269";
             UFEXSettings.GamejoltID = 707354;
 
+            UFEXSettings.MainServerURL = "www.uf-ex.com";
+            UFEXSettings.MainServerPort = 9982;
+
             ClassicalGUI.MainMenuSettings.AchievementsEnabled = true;
             ClassicalGUI.MainMenuSettings.RecordEnabled = false;
+
             UFEXSettings.RecordEnabled = false;
 
             GameStartUp.PushChampionShip(SpringCelebration2021.GetChampionShip);

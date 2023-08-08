@@ -190,11 +190,30 @@ namespace UndyneFight_Ex.Entities
                 InstanceCreate(new InstantEvent(time + 5, () => { Dispose(); }));
             }));
         }
+        public void DelayAlphaDecrease(float delay,float time, float val)
+        {
+            InstanceCreate(new InstantEvent(delay, () =>
+            {
+                float total = val;
+                float once = total / time;
+                InstanceCreate(new TimeRangedEvent(time + 5, () => { Alpha -= once; }));
+               
+            }));
+        }
         public void AlphaIncrease(float time, float val)
         {
             float total = val;
             float once = total / time;
             InstanceCreate(new TimeRangedEvent(time, () => { Alpha += once; }));
+        }
+        public void DelayAlphaIncrease(float delay,float time, float val)
+        {
+            InstanceCreate(new InstantEvent(delay, () =>
+            {
+                float total = val;
+                float once = total / time;
+                InstanceCreate(new TimeRangedEvent(time, () => { Alpha += once; }));
+            }));
         }
         public void AlphaDecrease(float time, float val)
         {
@@ -225,7 +244,22 @@ namespace UndyneFight_Ex.Entities
                 ? this
                 : new Line(vec1.CentrePosition, vec2.CentrePosition) { Alpha = Alpha, Depth = Depth, DrawingColor = DrawingColor, };
         }
-
+        public void AddShadow(float timeLag,float alphaFactor)
+        {          
+            this.InsertRetention(new RetentionEffect(timeLag, alphaFactor));
+        }
+        public void AddShadow(RetentionEffect r)
+        {
+            this.InsertRetention(r);           
+        }
+        public void AddShadow(params RetentionEffect[] r)
+        {
+            for (int a = 0; a < r.Length; a++)
+            {
+                int x = a;
+                this.InsertRetention(r[x]);
+            }
+        }
         private struct LineState
         {
             public Vector2 p1, p2;

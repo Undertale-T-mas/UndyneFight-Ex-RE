@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using UndyneFight_Ex.GameInterface;
+using UndyneFight_Ex.UserService;
 
 namespace Rhythm_Recall
 {
@@ -33,7 +35,30 @@ namespace Rhythm_Recall
             TKSpecial.AprilFools2023.FlanHand = cm.Load<Texture2D>("TK2023\\FlanHand");
 
             rander = new Random();
+
+            SouvenirLoad(cm);
         }
+
+        private static void SouvenirLoad(ContentManager cm)
+        {
+            cm.RootDirectory = "Content\\Shop";
+            GameStartUp.PushStoreItem(
+                new Souvenir("Gold Trophy", "2023MEMTroGol", "The gold trophy of Memory-2023. It symbolizes your strength.", ItemRarity.Legendary)
+                {
+                    Image = cm.Load<Texture2D>("Souvenir\\MemoryGold")
+                }); ;
+            GameStartUp.PushStoreItem(
+                new Souvenir("Silver Trophy", "2023MEMTroSil", "The silver trophy of Memory-2023. It symbolizes your strength.", ItemRarity.Epic)
+                {
+                    Image = cm.Load<Texture2D>("Souvenir\\MemorySilver")
+                }); ;
+            GameStartUp.PushStoreItem(
+                new Souvenir("Bronze Trophy", "2023MEMTroBrz", "The bronze trophy of Memory-2023. It symbolizes your strength.", ItemRarity.Epic)
+                {
+                    Image = cm.Load<Texture2D>("Souvenir\\MemoryBronze")
+                }); ;
+        }
+
         static Random rander;
         public static Dictionary<char, Texture2D> charTextures = new Dictionary<char, Texture2D>();
         private static Texture2D blockTail, block, blockTmas, blockOtokp;

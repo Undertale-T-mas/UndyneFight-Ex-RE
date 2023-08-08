@@ -7,6 +7,7 @@ using UndyneFight_Ex.Remake.Data;
 using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.Remake.FileData;
+using UndyneFight_Ex.Remake.Network;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -71,6 +72,11 @@ namespace UndyneFight_Ex.Remake.UI
                     this.FatherObject?.FatherObject?.Dispose();
                     PlayerManager.Login(_account.Result);
                     InstanceCreate(new IntroUI());
+
+                    UFSocket<float> login = new((s) => {
+                        ;
+                    });
+                    login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
                 }
                 else
                 {

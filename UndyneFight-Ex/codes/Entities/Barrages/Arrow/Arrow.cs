@@ -55,9 +55,12 @@ namespace UndyneFight_Ex.Entities
             missionRotation = this.way * 90f;
             this.mission = mission;
         }
-        private readonly Player.Heart mission;
-        public Player.Heart Mission => mission;
-
+        private Player.Heart mission;
+        public Player.Heart Mission
+        {
+            get => mission;
+            set => mission = value;
+        }
         public override void Start()
         {
             base.Start();
@@ -83,7 +86,7 @@ namespace UndyneFight_Ex.Entities
         private float shootShieldTime;
         public float CentreRotationOffset { get; set; } = 0;
         public float SelfRotationOffset { get; set; } = 0;
-        public float Speed { private get; set; }
+        public float Speed { get; set; }
         public float Alpha { private get; set; } = 1;
         private readonly float missionRotation;
         private bool isSpeedUp = false, isRotate = false;
@@ -93,6 +96,7 @@ namespace UndyneFight_Ex.Entities
         internal bool IsRotate { set => isRotate = value; }
         internal float RotateScale { get; set; } = 1.0f;
         internal int GoldenMarkIntensity { private get; set; }
+        internal bool EnableGoldMark { private get; set; } = true;
 
         internal bool ForceGreenBack { private get; set; } = false;
 
@@ -108,7 +112,7 @@ namespace UndyneFight_Ex.Entities
             Depth = 0.5f - ArrowColor / 200f;
             FormalDraw(Image, Centre, new Color(0.98f, 0.98f, 0.98f, ArrowColor == 1 ? 0.75f : 0.25f) * Alpha, DrawingScale * Scale, GetRadian(Rotation + additiveRotation + SelfRotationOffset), ImageCentre);
 
-            if (GoldenMarkIntensity > 0)
+            if (GoldenMarkIntensity > 0 && EnableGoldMark)
             {
                 Depth += 0.02f;
                 Texture2D tex = Sprites.goldenBrim;

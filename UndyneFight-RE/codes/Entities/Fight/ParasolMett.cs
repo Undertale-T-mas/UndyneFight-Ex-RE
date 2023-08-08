@@ -14,13 +14,14 @@ namespace UndyneFight_Ex.Remake.Entities
     public class ParasolMett : BulletShotable
     {
         public float WaveTime { get; set; } = 50.0f;
+        public float BulletDepth { get; set; } = 0.5f;
+
         private class MettBullet : Barrage
         {
             public MettBullet(Vector2 pos, float waveTime) {
                 this.Image = Resources.FightSprites.MettBullet;
                 this.Centre = pos;
                 this.AngelMode = true;
-                this.Depth = 0.5f;
                 this.HitRadius = 6.5f;
 
                 this.PositionRoute = EasingUtil.CentreEasing.Combine(EasingUtil.CentreEasing.Linear(
@@ -38,13 +39,31 @@ namespace UndyneFight_Ex.Remake.Entities
                 return Vector2.Distance(heart.Centre, this.Centre);
             }
         }
-        public ParasolMett() {
+        ParasolMett() {
             images = Resources.FightSprites.ParasolMett;
             this.Image = images[0];
             shootQueue = new();
             this.Alpha = 1.0f;
             ObjectWidth = 9.0f;
             HitRadius = 7.5f;
+        }
+        public ParasolMett(EaseUnit<Vector2> centreEasing) : this()
+        {
+            this.PositionRoute = centreEasing.Easing;
+        }
+        public ParasolMett(Func<ICustomMotion, Vector2> centreEasing) : this()
+        {
+            this.PositionRoute = centreEasing;
+        }
+        public ParasolMett(EaseUnit<Vector2> centreEasing, EaseUnit<float> rotationEasing) : this()
+        {
+            this.PositionRoute = centreEasing.Easing;
+            this.RotationRoute = rotationEasing.Easing;
+        }
+        public ParasolMett(Func<ICustomMotion, Vector2> centreEasing, Func<ICustomMotion, float> rotationEasing) : this()
+        {
+            this.PositionRoute = centreEasing;
+            this.RotationRoute = rotationEasing;
         }
         Texture2D[] images;
 
@@ -58,7 +77,18 @@ namespace UndyneFight_Ex.Remake.Entities
         {
             shootQueue.Enqueue(time);
         }
-
+        public void InsertShot(params float[] times)
+        {
+            for(int a=0;a<times.Length; a++)
+            {
+                InsertShot(times[a]);
+            }
+        }
+        public void InsertShot(int val,float time)
+        {
+            for(int a=0;a<val;a++)
+            shootQueue.Enqueue(time*a);
+        }
         protected override float GetDistance(Player.Heart heart)
         {
             return Vector2.Distance(heart.Centre, this.Centre);
@@ -74,7 +104,7 @@ namespace UndyneFight_Ex.Remake.Entities
         private void MakeShoot()
         {
             index = 0;
-            this.AddChild(new InstantEvent(7, () => { GameStates.InstanceCreate(new MettBullet(this.Centre, this.WaveTime)); }));
+            this.AddChild(new InstantEvent(7, () => { GameStates.InstanceCreate(new MettBullet(this.Centre, this.WaveTime) { Depth = this.BulletDepth }); }));
         }
         int index = -1;
 
