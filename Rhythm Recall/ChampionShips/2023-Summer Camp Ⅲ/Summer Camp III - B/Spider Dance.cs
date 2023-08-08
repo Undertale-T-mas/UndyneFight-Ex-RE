@@ -69,7 +69,7 @@ namespace Rhythm_Recall.Waves
                     );
             }
             static Arrow.UnitEasing easeA, easeB, easeC, easeD;
-            static Arrow.EnsembleEasing easeX, easeY;
+            static Arrow.EnsembleEasing easeY;
             Blur Blur;
             RenderProduction production, production1, production2, production3, production4;
             GlobalResources.Effects.StepSampleShader StepSample;
@@ -396,24 +396,25 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(184))
                 {
                     easeC.TagApply("C");
-                    RegisterFunctionOnce("pre", () =>
-                    {
-                        easeX = new();
-                        easeX.TagApply("X");
-                        AddInstance(easeX);
-                    });
-                    RegisterFunctionOnce("XE", () =>
-                    {
-                        DelayBeat(0.125f, () =>
-                        {
-                            easeX.DeltaEase(EaseOut(BeatTime(1.125f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
-                        });
-                    });
+
+                    Arrow.UnitEasing easeX = new();//创建箭头缓动的实例，其实这里也可以这么写  new(){ApplyTime=...},下面的ApplyTime就可以省略
+                    AddInstance(easeX);//添加事件
+                    float RunTime = BeatTime(3);//这里创建变量只是为了说明清楚ApplyTime和缓动的Time的关系，即最常见的是相等，相等的时候意味着
+                    easeX.ApplyTime= RunTime;//会在标记箭头的x时间之前使用缓动，经过x时间后缓动正好完成，箭头标准地击中盾牌
+                    //同样，缓动的使用也有更高级的用法，例如可以实现“偏移入眼，后转正常”的效果
+                    //例如我在rotateEase中Stable了2beat，quad了2beat,ApplyTime是4beat（2beat+2beat）
+                    //在实现缓动的前4beat中观众会先看到偏移的箭头运作，然后看到箭头变换到正常（不正常也可以，但不推荐）的位置
+                    //ApplyTime和缓动Time不等的情况很少，因为这会导致两者时间轴不同，例如缓动没运行完箭头已经dispose了，是否有用这点需要看有什么花招了
+                    easeX.PositionEase= LinkEase(Stable(0,new Vector2(0,400)),EaseOut(BeatTime(3), new Vector2(0,-400), EaseState.Elastic));
+                    easeX.TagApply("X");//注意的是，极坐标变换是默认启用的，从下到上的0轨箭头的缓动，用在2轨箭头会变成从上到下过来，用在1轨箭头会变成从左向右
+                    //如果你此时写了个0,2双押，但是不想进行极坐标变换，实现两个都是从上向下，那么你不需要手动换缓动，↓
+                    //我忘了是啥，也忘了写过没，但我和master提过也讨论过，如果没有这个方法，记得问一下master，让他写一下
+
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "pre", "", "", "XE",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
                         //1
                         "#1#d", "", "", "",    "+2", "", "", "",
                         "#1#d1", "", "", "",    "+21", "", "", "",
@@ -427,8 +428,8 @@ namespace Rhythm_Recall.Waves
                         //3
                         "d", "", "d", "",    "d", "", "d", "",
                         "d", "", "d", "",    "d", "", "d", "",
-                        "d", "", "d", "",    "d", "", "d", "d",
-                        "d", "", "d", "",    "d", "", "d", "",
+                        "d", "", "d", "",    "d", "", "d", "+21",
+                        "+2", "", "d", "",    "d", "", "d", "",
                         //4
                         "d", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",
@@ -486,8 +487,6 @@ namespace Rhythm_Recall.Waves
                     ApplyTime = BeatTime(2.5f),
                     RotationEase = LinkEase(EaseOut(BeatTime(2.5f), 90, 0, EaseState.Sine))
                 });
-                easeX = new();
-                AddInstance(easeX);
                 easeY = new();
                 AddInstance(easeY);
                 production = Blur = new Blur(0.505f);
@@ -511,7 +510,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 118;
-                    int beat = 54 + 64 + 64;
+                    int beat = 54;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
