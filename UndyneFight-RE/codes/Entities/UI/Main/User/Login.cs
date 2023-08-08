@@ -73,11 +73,10 @@ namespace UndyneFight_Ex.Remake.UI
                     PlayerManager.Login(_account.Result);
                     InstanceCreate(new IntroUI());
 
-                    //因为跑不了所以就这了（ ~TK
-                    //UFSocket<float> login = new((s) => {
-                    //  ;
-                    //});
-                    //login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
+                    UFSocket<Empty> login = new((s) => {
+                        ;
+                    });
+                    login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
                 }
                 else
                 {
