@@ -63,23 +63,14 @@ namespace UndyneFight_Ex.Remake.Entities
         public class LineSpider : Spider
         {
             protected float speed;
+            private float count;
             public float Speed { set => speed = value; get => speed; }
             public LineSpider(int CountLine, bool IsLeftOrRight, float Speed)
             {
-                /*float SpiderX1 = BoxStates.Centre.X - BoxStates.Width / 2f;
-                float SpiderX2 = BoxStates.Centre.X + BoxStates.Width / 2f;
-                float SpiderY = BoxStates.Height / (Heart.PurpleLineCount + 1f) * CountLine + BoxStates.Centre.Y - BoxStates.Height / 2f;
-                if (IsLeftOrRight)
-                {
-                    this.PositionRoute = EaseOut(BoxStates.Width / Speed, new Vector2(SpiderX1, SpiderY), new Vector2(SpiderX2, SpiderY), EaseState.Linear).Easing;
-                }
-                else
-                {
-                    this.PositionRoute = EaseOut(BoxStates.Width / Speed, new Vector2(SpiderX2, SpiderY), new Vector2(SpiderX1, SpiderY), EaseState.Linear).Easing;
-                }*/
-                collidingBox.X = IsLeftOrRight ? BoxStates.Centre.X - BoxStates.Width / 2f - 10f : BoxStates.Centre.X + BoxStates.Width / 2f + 10f;
+                collidingBox.X = IsLeftOrRight ? BoxStates.Centre.X - BoxStates.Width / 2f  : BoxStates.Centre.X + BoxStates.Width / 2f;
                 this.speed = Speed;
                 movingWay = IsLeftOrRight;
+                count = CountLine;
             }
             private readonly bool movingWay;
             public override void Draw()
@@ -89,6 +80,7 @@ namespace UndyneFight_Ex.Remake.Entities
             public override void Update()
             {
                 collidingBox.X += speed * 0.5f * (movingWay ? 1 : -1);
+                collidingBox.Y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1f) * count;
                 base.Update(); 
             }
         }
