@@ -1,6 +1,7 @@
 ﻿using UndyneFight_Ex.Server;
 
 Command.AddCommand(new Login());
+Command.AddCommand(new KeepAlive());
 
 SocketReceiver receiver = new();
 

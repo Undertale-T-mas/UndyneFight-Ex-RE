@@ -43,7 +43,7 @@ namespace UndyneFight_Ex.Server
                 string result = streamReader.ReadToEnd();
                 User? user = JsonSerializer.Deserialize<User>(result);
                 if (user == null) return new("F deserialize failure", null);
-                string hash = SHA512Encode(result);
+                string hash = SHA512Encode(password);
 
                 streamReader.Close();
                 stream.Close();

@@ -13,11 +13,11 @@ namespace UndyneFight_Ex.Server
         public string? PasswordHash { get; set; }
         public float Rating { get; set; } = 0;
 
-        private DateTime _lastRefreshTime;
+        private DateTime _lastRefreshTime = DateTime.Now;
         public bool IsDead()
         {
             TimeSpan secondSpan = new TimeSpan(DateTime.Now.Ticks - _lastRefreshTime.Ticks);
-            return secondSpan.TotalSeconds >= 500;
+            return secondSpan.TotalSeconds >= 600; // 10 min
         }
         public void Refresh()
         {

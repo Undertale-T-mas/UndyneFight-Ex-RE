@@ -85,6 +85,7 @@ namespace UndyneFight_Ex.Remake.UI
             private void SendLoginRequest()
             {
                 string password = _password.Result;
+                string newPassword = "";
                 bool keyPeriod = true;
                 UFSocket<Empty> login = null;
                 login = new((s) =>
@@ -92,7 +93,7 @@ namespace UndyneFight_Ex.Remake.UI
                     if (keyPeriod) {
                         if (s.Info[0..4] == "<RSA")
                         {
-                            string newPassword = MathUtil.Encrypt(password, s.Info);
+                            newPassword = MathUtil.Encrypt(password, s.Info);
                             login.SendRequest("Log\\in\\" + _account.Result + "\\" + newPassword);
                             keyPeriod = false;
                         } 
@@ -103,7 +104,11 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             var v = new OnlineRegisterUI();
                             IntroUI.CurrentUI.PushTip(v);
-                            v.PasswordTosend = password;
+                            v.PasswordTosend = newPassword;
+                        }
+                        else if(s.Info == "success login")
+                        {
+                            InstanceCreate(new KeepAliver());
                         }
                     }
                 });
