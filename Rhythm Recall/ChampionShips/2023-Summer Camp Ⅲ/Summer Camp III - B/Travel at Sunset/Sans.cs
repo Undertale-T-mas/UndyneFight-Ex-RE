@@ -17,15 +17,16 @@ namespace Rhythm_Recall.Waves
 {
     public partial class Traveler_at_Sunset
     {
-        public partial class Project  
-        { 
+        public partial class Project
+        {
             private class Sans : Entity
             {
                 private Texture2D head;
                 private Texture2D body, bodyPreR, bodyR, bodyPreB, bodyB, bodyPreU, bodyU;
                 private Texture2D leg;
 
-                public Sans(ContentManager loader) {
+                public Sans(ContentManager loader)
+                {
                     loader.RootDirectory = "Content\\Musics\\Traveler at Sunset\\Sans";
                     head = loader.Load<Texture2D>("head");
                     body = loader.Load<Texture2D>("body");
@@ -37,6 +38,7 @@ namespace Rhythm_Recall.Waves
                     bodyU = loader.Load<Texture2D>("bodyU");
                     leg = loader.Load<Texture2D>("leg");
                     GeneratePart();
+                    loader.RootDirectory = "Content";
                 }
 
                 public class Component : AutoEntity
@@ -65,7 +67,7 @@ namespace Rhythm_Recall.Waves
                             base.Draw();
                     }
                     public VertexPositionColorTexture[] Vertexs = new VertexPositionColorTexture[4];
-                    public bool Vertex { get; set; } = false;   
+                    public bool Vertex { get; set; } = false;
                     public event Action<Component> OnUpdate;
 
                     float _time = 0.0f;
@@ -75,8 +77,9 @@ namespace Rhythm_Recall.Waves
                         StateChangedTime = 0.0f;
                         _time = time;
                         action.Invoke(this);
-                        GameStates.InstanceCreate(new TimeRangedEvent(time - 0.5f, 
-                            () => action.Invoke(this)) { UpdateIn120 = true });
+                        GameStates.InstanceCreate(new TimeRangedEvent(time - 0.5f,
+                            () => action.Invoke(this))
+                        { UpdateIn120 = true });
                     }
                 }
 
@@ -100,7 +103,7 @@ namespace Rhythm_Recall.Waves
                     {
                         case 0:
                             compBody.Image = bodyPreR;
-                             
+
                             compBody.ChangeState(9, (s) => {
                                 s.Centre = curPos + delta;
                                 if (s.StateChangedTime >= 8) s.Image = body;
@@ -109,7 +112,7 @@ namespace Rhythm_Recall.Waves
                             break;
                         case 1:
                             compBody.Image = bodyPreB; compBody.Anchor = anchBody + new Vector2(0, 26);
-                              
+
                             compBody.ChangeState(9, (s) =>
                             {
                                 s.Centre = curPos + delta;
@@ -126,12 +129,12 @@ namespace Rhythm_Recall.Waves
 
                             compBody.ChangeState(9, (s) => {
                                 s.Centre = curPos + delta;
-                                if (s.StateChangedTime >= 7) s.Image = body; 
+                                if (s.StateChangedTime >= 7) s.Image = body;
                             });
                             break;
                         case 3:
                             compBody.Image = bodyPreU; compBody.Anchor = anchBody + new Vector2(0, 26);
-                               
+
                             compBody.ChangeState(9, (s) =>
                             {
                                 s.Centre = curPos + delta;
@@ -171,7 +174,7 @@ namespace Rhythm_Recall.Waves
                 }
 
                 private void CompLeg_OnUpdate(Component obj)
-                { 
+                {
                     obj.Alpha = Alpha;
                     Vector2 size = obj.Image.Bounds.Size.ToVector2() * 2;
                     obj.Centre = new(320 + Offset.X, 145 + Offset.Y);
@@ -191,7 +194,7 @@ namespace Rhythm_Recall.Waves
                 private void CompBody_OnUpdate(Component obj)
                 {
                     obj.Alpha = Alpha;
-                    obj.Centre = compHead.Centre+ new Vector2(0, 49);
+                    obj.Centre = compHead.Centre + new Vector2(0, 49);
                 }
 
                 private void CompHead_OnUpdate(Component component)
@@ -201,11 +204,11 @@ namespace Rhythm_Recall.Waves
                 }
 
                 public override void Draw()
-                { 
+                {
                 }
 
                 public override void Update()
-                { 
+                {
                 }
             }
         }
