@@ -458,6 +458,154 @@ namespace Rhythm_Recall.Waves
                         "(d01)(+211)", "", "", "",    "", "", "", "",
                     });
                 }
+                if (InBeat(248))
+                {
+                    RegisterFunctionOnce("Change", () =>
+                    {
+                        SetBox(240, 340, 180);
+                        SetSoul(4);
+                        Heart.PurpleLineCount = 5;
+                    });
+                    RegisterFunctionOnce("SpUR", () =>
+                    {
+                        float r = Rand(320 - 160, 320 + 160);
+                        if (r == Heart.Centre.X) { return ; }
+                        Spider sp = new(LinkEase(EaseIn(BeatTime(2), new Vector2(r, 240 - 100), new Vector2(r, 240 - 10), EaseState.Quad),
+                            EaseOut(BeatTime(2), new Vector2(r, 240 - 10), new Vector2(r, 240 + 70), EaseState.Quad),
+                            EaseIn(BeatTime(4), new Vector2(r, 240 + 70), new Vector2(r, 240 - 100), EaseState.Quad)))
+                        { Rotation = 90 };
+                        Line l = new(Stable(BeatTime(8), new Vector2(r, 240 - 90)).Easing,
+                            LinkEase(EaseIn(BeatTime(2), new Vector2(r, 240 - 90), new Vector2(r, 240 - 10), EaseState.Quad),
+                            EaseOut(BeatTime(2), new Vector2(r, 240 - 10), new Vector2(r, 240 + 70), EaseState.Quad),
+                            EaseIn(BeatTime(4), new Vector2(r, 240 + 70), new Vector2(r, 240 - 90), EaseState.Quad)).Easing)
+                        { Alpha = 0.8f, Depth = 0.9f };
+                        CreateEntity(sp, l);
+                        DelayBeat(8, () => { l.Dispose(); });
+                    });
+                    #region Transverse Line Spiders
+                    RegisterFunctionOnce("TL1", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 1f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TTL1", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 1f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
+                        { Rotation = 180 };
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TL2", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 2f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TTL2", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 2f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
+                        { Rotation = 180 };
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TL3", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 3f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TTL3", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 3f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
+                        { Rotation = 180 };
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TL4", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 4f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TTL4", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 4f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
+                        { Rotation = 180 };
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TL5", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 5f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        CreateEntity(sp);
+                    });
+                    RegisterFunctionOnce("TTL5", () =>
+                    {
+                        float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 5f;
+                        Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
+                            EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
+                        { Rotation = 180 };
+                        CreateEntity(sp);
+                    });
+                    #endregion
+                    BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
+                    {
+                        //pre
+                        "", "", "", "",    "", "", "", "",
+                        "Change", "", "", "",    "", "", "", "",
+                        //1
+                        "(SpUR)(SpUR)(TL1)(TL2)(TL3)(TL4)(TL5)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "(SpUR)(SpUR)(TTL1)(TTL2)(TTL3)(TTL4)(TTL5)", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //2
+                        "(SpUR)(SpUR)(TL3)", "(TL2)(TL4)", "(TL1)(TL5)", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "(SpUR)(SpUR)(TTL3)", "(TTL2)(TTL4)", "(TTL1)(TTL5)", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //3
+                        "(SpUR)(SpUR)(TL3)", "", "(TL2)(TL4)", "",    "(TL1)(TL5)", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "(SpUR)(SpUR)(TTL3)", "", "(TTL2)(TTL4)", "",    "(TTL1)(TTL5)", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //4
+                        "(SpUR)(SpUR)(TL3)", "", "", "(TL2)(TL4)",    "", "", "(TL1)(TL5)", "",
+                        "", "", "", "",    "", "", "", "",
+                        "(SpUR)(SpUR)(TTL3)", "", "", "(TTL2)(TTL4)",    "", "", "(TTL1)(TTL5)", "",
+                        "", "", "", "",    "", "", "", "",
+                        //5
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //6
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //7
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        //8
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                    });
+                }
             }
             public void Easy()
             {
@@ -511,7 +659,8 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     //int beat = 118;
-                    int beat = 54;
+                    int beat = 54 + 128 + 64;
+                    //int beat = 54;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;

@@ -34,7 +34,7 @@ namespace UndyneFight_Ex.Remake.Network
                     ipAddress = ipHostInfo.AddressList[0];
                     socketClient = new(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 }
-                catch(Exception ex) { return ex; }
+                catch (Exception ex) { return ex; }
             }
             try
             {
@@ -91,7 +91,7 @@ namespace UndyneFight_Ex.Remake.Network
                 {
                     _onReceive.Invoke(new(false, ex2.Message));
                 }
-            }); 
+            });
         }
     }
 }

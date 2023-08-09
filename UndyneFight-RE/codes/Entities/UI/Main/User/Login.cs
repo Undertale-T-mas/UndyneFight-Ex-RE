@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 
 namespace UndyneFight_Ex.Remake.UI
 {
-    internal partial class UserUI 
+    internal partial class UserUI
     {
         internal class LoginUI : SmartSelector
         {
@@ -43,11 +43,11 @@ namespace UndyneFight_Ex.Remake.UI
             private void Selected()
             {
                 SelectingModule selected = CurrentSelected;
-                if(selected == _confirm)
+                if (selected == _confirm)
                 {
                     DoConfirm();
                 }
-                else if(selected == _cancel)
+                else if (selected == _cancel)
                 {
                     DoBack();
                 }
@@ -78,7 +78,7 @@ namespace UndyneFight_Ex.Remake.UI
                 }
                 else
                 {
-                    InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red});
+                    InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red });
                 }
             }
 
@@ -120,8 +120,8 @@ namespace UndyneFight_Ex.Remake.UI
             // 1
             //2 3
             //4 5
-            int[] _downNext = { 1, 2, 4, 5, 4, 5};
-            int[] _upNext = { 0, 0, 1, 1, 2, 3};
+            int[] _downNext = { 1, 2, 4, 5, 4, 5 };
+            int[] _upNext = { 0, 0, 1, 1, 2, 3 };
             private void LoginKeyChange()
             {
                 if (IsKeyPressed120f(InputIdentity.MainRight) && currentFocus is not TextInputer)
@@ -176,13 +176,13 @@ namespace UndyneFight_Ex.Remake.UI
             private void SetChild()
             {
                 ChildObjects.Clear();
-                ChildObjects.Add(_account =  new SmartInputer(allNames, this, new CollideRect(new Vector2(571, 66), new Vector2(330, 50))) { FontScale = 1.2f });
-                ChildObjects.Add(_password =  new PasswordInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
-                ChildObjects.Add(_remember = new TickBox(this, new Vector2(543, 255),"Remember me") { DefaultScale = 1.1f });
-                ChildObjects.Add(_autoAuthentic = new TickBox(this, new Vector2(800, 255),"Auto login") { DefaultScale = 1.1f });
+                ChildObjects.Add(_account = new SmartInputer(allNames, this, new CollideRect(new Vector2(571, 66), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(_password = new PasswordInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(_remember = new TickBox(this, new Vector2(543, 255), "Remember me") { DefaultScale = 1.1f });
+                ChildObjects.Add(_autoAuthentic = new TickBox(this, new Vector2(800, 255), "Auto login") { DefaultScale = 1.1f });
 
-                ChildObjects.Add(_confirm =  new Button(this, new Vector2(543, 315), "Confirm") { NeverEnable = true });
-                ChildObjects.Add(_cancel =  new Button(this, new Vector2(800, 315), "Cancel") { NeverEnable = true });
+                ChildObjects.Add(_confirm = new Button(this, new Vector2(543, 315), "Confirm") { NeverEnable = true });
+                ChildObjects.Add(_cancel = new Button(this, new Vector2(800, 315), "Cancel") { NeverEnable = true });
 
                 if (GlobalMemory.AutoAuthentic)
                 {
@@ -193,14 +193,14 @@ namespace UndyneFight_Ex.Remake.UI
                     }));
                     InstanceCreate(new SelectUI());
                 }
-                else if(PlayerManager.CurrentUser != null)
+                else if (PlayerManager.CurrentUser != null)
                 {
                     InstanceCreate(new InstantEvent(2, () => {
                         this.FatherObject?.FatherObject?.Dispose();
                     }));
                     InstanceCreate(new SelectUI());
                 }
-                else if(GlobalMemory.RememberUser != "null")
+                else if (GlobalMemory.RememberUser != "null")
                 {
                     _account.SetString(GlobalMemory.RememberUser);
                     _remember.Tick();
@@ -234,7 +234,7 @@ namespace UndyneFight_Ex.Remake.UI
             float _secondaryScale = 1.0f;
 
             public override void Update()
-            { 
+            {
                 this.Centre = new Vector2(204, 84);
                 base.Update();
                 if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
@@ -242,7 +242,7 @@ namespace UndyneFight_Ex.Remake.UI
                     this._secondaryScale = MathHelper.Lerp(_secondaryScale, 1.1f, 0.1f);
                 }
                 else _secondaryScale = MathHelper.Lerp(_secondaryScale, 1.0f, 0.1f);
-            } 
+            }
         }
     }
 }

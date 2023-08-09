@@ -14768,10 +14768,10 @@ namespace Rhythm_Recall.Waves
                 StepSample.Intensity = 0.01f;
                 ShadersScale.Intensity = 0;
 
-                production1 = new ScreenDrawing.Shaders.Filter(Shaders.StepSample, 0.51f);
-                production2 = new ScreenDrawing.Shaders.Filter(Shaders.Scale, 0.501f);
-                production3 = Blur = new ScreenDrawing.Shaders.Blur(0.505f);
-                grayProduction = new ScreenDrawing.Shaders.Filter(Shaders.Gray, 0.998f);
+                production1 = new Filter(Shaders.StepSample, 0.51f);
+                production2 = new Filter(Shaders.Scale, 0.501f);
+                production3 = Blur = new Blur(0.505f);
+                grayProduction = new Filter(Shaders.Gray, 0.998f);
 
                 Blur.Sigma = 0.0f;
 
@@ -14785,7 +14785,7 @@ namespace Rhythm_Recall.Waves
                 */
                 Effect3D.CameraRotation = new(0, 0, 0);
 
-                splitter = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
+                splitter = new RGBSplitting(0.9f) { Disturbance = false };
                 //  var production2 = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
                 splitter.Intensity = 1.0f;
                 //  production2.RandomDisturb = 3.0f;
