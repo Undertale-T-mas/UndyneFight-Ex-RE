@@ -20,6 +20,8 @@ namespace UndyneFight_Ex.Remake.UI
         TextureButton mail, start, setting, account;
         Button contributor, showPage;
 
+        MouseCursor cursor;
+
         class ExhibitButton : SelectingModule
         {
             public ExhibitButton(ISelectChunk father) : base(father)
@@ -69,8 +71,10 @@ namespace UndyneFight_Ex.Remake.UI
         static SmartMusicPlayer music;
         BackGenerater _backGenerater;
 
+        public static IntroUI CurrentUI { get; private set; }
         public IntroUI()
         {
+            CurrentUI = this;
             if (music == null || !music.Onplay)
             {
                 SmartMusicPlayer smartPlayer = new();
@@ -176,22 +180,49 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Start()
         {
             base.Start();
-
-            this.AddChild(new MouseCursor());
+            cursor = new MouseCursor();
             if (StartingShower.TitleShower != null)
             {
-                Entity entity = Activator.CreateInstance(StartingShower.TitleShower) as Entity;
-                this.AddChild(entity);
+                titleShower = Activator.CreateInstance(StartingShower.TitleShower) as Entity;
             }
         }
+        Entity titleShower;
 
         public override void Draw()
         { 
+            if(topUI != null)
+            {
+                IEnumerable<Entity> all = topUI.GetDrawableTree();
+                foreach (Entity entity in all) { entity.Draw(); }
+            }
+            if (titleShower != null) {
+                IEnumerable<Entity> all = titleShower.GetDrawableTree();
+                foreach(Entity entity in all) { entity.Draw(); }
+            }
+            cursor.Draw();
         }
 
         public override void Update()
-        { 
-            base.Update();
+        {
+            if (topUI != null)
+            {
+                this.UpdateChildren = false;
+                topUI.TreeUpdate();
+                if (topUI.Disposed) topUI = null;
+            }
+            if (topUI == null)
+            {
+                this.UpdateChildren = true;
+                base.Update();
+            }
+            titleShower?.TreeUpdate();
+            cursor.Update();
+        }
+        Entity topUI;
+
+        internal void PushTip(Entity obj)
+        {
+            topUI = obj;
         }
     }
 }

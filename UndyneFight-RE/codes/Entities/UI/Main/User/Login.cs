@@ -8,6 +8,7 @@ using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.Remake.FileData;
 using UndyneFight_Ex.Remake.Network;
+using System.Security.Cryptography;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -64,24 +65,50 @@ namespace UndyneFight_Ex.Remake.UI
                 if (result == "Success!")
                 {
                     GlobalMemory.AutoAuthentic.Value = _autoAuthentic.Ticked;
-                    if(_autoAuthentic.Ticked || _remember.Ticked)
+                    if (_autoAuthentic.Ticked || _remember.Ticked)
                     {
                         GlobalMemory.RememberUser.Value = _account.Result;
                     }
-                    SaveGlobal(); 
+                    SaveGlobal();
                     this.FatherObject?.FatherObject?.Dispose();
                     PlayerManager.Login(_account.Result);
-                    InstanceCreate(new IntroUI());
-
-                    UFSocket<Empty> login = new((s) => {
-                        ;
-                    });
-                    login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
+                    IntroUI introUI;
+                    InstanceCreate(introUI = new IntroUI());
+                    SendLoginRequest();
                 }
                 else
                 {
                     InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red});
                 }
+            }
+
+            private void SendLoginRequest()
+            {
+                string password = _password.Result;
+                bool keyPeriod = true;
+                UFSocket<Empty> login = null;
+                login = new((s) =>
+                {
+                    if (keyPeriod) {
+                        if (s.Info[0..4] == "<RSA")
+                        {
+                            string newPassword = MathUtil.Encrypt(password, s.Info);
+                            login.SendRequest("Log\\in\\" + _account.Result + "\\" + newPassword);
+                            keyPeriod = false;
+                        } 
+                    }
+                    else
+                    {
+                        if (s.Info == "user not exist")
+                        {
+                            var v = new OnlineRegisterUI();
+                            IntroUI.CurrentUI.PushTip(v);
+                            v.PasswordTosend = password;
+                        }
+                    }
+                });
+                login.SendRequest($"Log\\key\\none");
+           //     login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
             }
 
             private void NameInitialize()

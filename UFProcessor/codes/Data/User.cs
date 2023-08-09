@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UFProcessor.codes.Data
+namespace UndyneFight_Ex.Server
 {
-    internal class User
+    public class User
     {
+        public int UUID { get; set; }
+        public string? Name { get; set; }
+        public string? PasswordHash { get; set; }
+        public float Rating { get; set; }
     }
 }

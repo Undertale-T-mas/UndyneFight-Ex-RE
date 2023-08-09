@@ -534,6 +534,7 @@ namespace UndyneFight_Ex
 
     public abstract class GameObject
     {
+        protected bool UpdateChildren { get; set; } = true;
         protected bool ChildrenUpdateFirst { private get; set; } = false;
         protected Scene CurrentScene => GameStates.CurrentScene;
         public bool UpdateIn120 { get; init; } = false;
@@ -588,10 +589,10 @@ namespace UndyneFight_Ex
         public abstract void Update();
         public virtual void Start() { }
 
-        internal void TreeUpdate()
+        public void TreeUpdate()
         {
             if (disposed) return;
-            if (ChildrenUpdateFirst)
+            if (ChildrenUpdateFirst && UpdateChildren)
                 ChildObjects.ForEach(s => s.TreeUpdate());
             if (Update120F || UpdateIn120)
             {
@@ -599,21 +600,22 @@ namespace UndyneFight_Ex
                 Update();
                 BeingUpdated = true;
             }
-            ChildObjects.RemoveAll(
-                s =>
-                {
-                    return s.disposed;
-                    // test
-                    bool result = s.disposed;
-
-                    if (result)
+            if (UpdateChildren)
+                ChildObjects.RemoveAll(
+                    s =>
                     {
-                        ;
+                        return s.disposed;
+                        // test
+                        bool result = s.disposed;
+
+                        if (result)
+                        {
+                            ;
+                        }
+                        return result;
                     }
-                    return result;
-                }
-            );
-            if (!ChildrenUpdateFirst)
+                );
+            if (!ChildrenUpdateFirst && UpdateChildren)
                 ChildObjects.ForEach(s => s.TreeUpdate());
         }
 

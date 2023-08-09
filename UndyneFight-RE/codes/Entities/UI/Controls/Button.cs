@@ -42,10 +42,15 @@ namespace UndyneFight_Ex.Remake.UI
             fontSize = Font.SFX.MeasureString(text) * DefaultScale;
             this._centre = centre;
             this._text = text;
-            UpdateIn120 = true;
+            UpdateIn120 = true; Depth = 0.4f;
 
             this.MouseOn += MouseOnEvent;
             this.LeftClick += MouseClick;
+        }
+        public void ResetPosition(Vector2 position)
+        {
+            this._centre = position;
+            this._realLocation = _centre + PositionDelta;
         }
         string _text;
         public override void Start()
@@ -71,9 +76,9 @@ namespace UndyneFight_Ex.Remake.UI
         {
             if (!this._father.DrawEnabled) return;
             if (CentreDraw)
-                Font.CentreDraw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, 0.4f);
+                Font.CentreDraw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, this.Depth);
             else
-                Font.Draw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, 0.4f);
+                Font.Draw(_text, _realLocation, _drawingColor, sizeScale * DefaultScale, this.Depth);
         }
         float sizeScale = 1.0f;
         protected float CurrentScaleFactor { set => sizeScale = value; }

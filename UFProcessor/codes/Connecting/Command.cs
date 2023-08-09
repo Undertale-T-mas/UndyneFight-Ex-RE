@@ -8,7 +8,8 @@ namespace UndyneFight_Ex.Server
     {
         public Command(string title)        {
             Title = title; 
-        } 
+        }
+        public bool Log { get; init; } = true;
         public string Title { get; init; } 
         public abstract void Processor(string[] args, Client? client);
 

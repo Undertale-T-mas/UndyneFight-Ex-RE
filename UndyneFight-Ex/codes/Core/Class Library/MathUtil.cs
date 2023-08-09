@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using static System.Math;
 using static System.MathF;
 
@@ -307,6 +310,26 @@ namespace UndyneFight_Ex
                 result = new(LinePoint1.X + t * dx, LinePoint1.Y + t * dy);
             }
             return result;
+        }
+
+        public static string Encrypt(string password, string rsaKeyPublic)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(password);
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            rsa.FromXmlString(rsaKeyPublic);
+            byte[] encrypted = rsa.Encrypt(bytes, false);
+            return Convert.ToBase64String(encrypted);
+        }
+        public static string Decrypt(string base64Origin, string rsaKeyPrivate)
+        {
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(); 
+            rsa.FromXmlString(rsaKeyPrivate);
+
+            byte[] buffer = Convert.FromBase64String(base64Origin);
+            byte[] DecryptBuffer = rsa.Decrypt(buffer, false); // 进行解密
+            string str = Encoding.UTF8.GetString(DecryptBuffer); // 将byte[]转换为明文
+
+            return str;
         }
     }
 }

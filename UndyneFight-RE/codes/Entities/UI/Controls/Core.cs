@@ -244,6 +244,39 @@ namespace UndyneFight_Ex.Remake.UI
         private SelectState _state = SelectState.False;
         protected SelectState State { get => _state ; set => _state = value; }
 
+        protected void KeyEventFull()
+        {
+            if (GameStates.IsKeyPressed120f(InputIdentity.MainDown) || GameStates.IsKeyPressed120f(InputIdentity.MainRight))
+            {
+                int id = FocusID;
+                for (int i = id + 1; i < all.Length; i++)
+                {
+                    if (all[i].ModuleEnabled)
+                    {
+                        currentFocus.OffFocus();
+                        all[i].OnFocus();
+                        break;
+                    }
+                }
+            }
+            else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp) || GameStates.IsKeyPressed120f(InputIdentity.MainLeft))
+            {
+                int id = FocusID;
+                for (int i = id - 1; i >= 0; i--)
+                {
+                    if (all[i].ModuleEnabled)
+                    {
+                        currentFocus.OffFocus();
+                        all[i].OnFocus();
+                        break;
+                    }
+                }
+            }
+            if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+            {
+                currentFocus?.ConfirmKeyDown();
+            }
+        }
         protected void KeyEventNormal()
         {
             if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))

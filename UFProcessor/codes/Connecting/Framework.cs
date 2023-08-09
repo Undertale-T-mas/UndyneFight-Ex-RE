@@ -11,13 +11,21 @@ namespace UndyneFight_Ex.Server
         internal void DoCommand(Client? source, string? str)
         {
             if (string.IsNullOrEmpty(str)) return;
-            Console.WriteLine("@" + DateTime.Now + ": " + (source == null ? "Unknown user" : source.UserName) + " >> ran command:" + str);
 
-            string[] args = str.Split('\\'); 
-            
+            string[] args = str.Split('\\');
+
             Command runner = Command.GetCommand(args[0]);
+            if (runner.Log)
+                Console.WriteLine("[ @ ]" + DateTime.Now + ": " + (source == null ? "Unknown user" : source.UserName) + " >> ran command:" + str);
+            else Console.WriteLine("[ @ ]" + DateTime.Now + ": " + (source == null ? "Unknown user" : source.UserName) + " >> ran hidden command.");
 
-            runner.Processor(args[1..], source);
+            try {
+                runner.Processor(args[1..], source);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("An exception was thrown when running the command: " + ex.Message);
+            }
         }
 
         private void ReceiveMessage(Client client)
@@ -25,27 +33,34 @@ namespace UndyneFight_Ex.Server
             byte[] buffer = new byte[1024];
             int index = -1;
             while (true) {
+                client.Update();
+                if (client.Disposed) break;
                 int len = client.ConnectSocket.Receive(buffer);
                 index += len;
                 if (index < 0) continue;
                 if (buffer[index] == 1)
                 {
                     // Message end!
-                    string str = Encoding.ASCII.GetString(buffer, 0, index + 1);
+                    string str = Encoding.ASCII.GetString(buffer, 0, index);
                     DoCommand(client, str);
                     index = -1;
                 }
             }
         }
+        List<Client> allClients = new();
         private void ReceiveClient()
         {
             Task.Run(() => {
                 while (true)
                 {
+                    Client client;
                     Socket socket = listener.Accept();
                     socket.ReceiveTimeout = -1; socket.SendTimeout = 3000;
                     Console.WriteLine(DateTime.Now + ": " + "New user have logged in. IP: " + socket.RemoteEndPoint?.Serialize().ToString());
-                    Task.Run(() => ReceiveMessage(new Client("unknown", socket)));
+                    client = new Client("unknown", socket);
+                    Task.Run(() => ReceiveMessage(client));
+                    allClients.Add(client);
+                    allClients.ForEach(s => s.PendUpdate());
                 }
             });
         }
