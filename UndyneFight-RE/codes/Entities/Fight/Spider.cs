@@ -11,8 +11,13 @@ using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Fight.Functions;
 using System.Runtime.ExceptionServices;
 using System.Net.Http;
+using UndyneFight_Ex;
 using System.Diagnostics;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Entities.EasingUtil;
+using static UndyneFight_Ex.FightResources;
+using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex.Remake.Entities
 {
@@ -20,6 +25,8 @@ namespace UndyneFight_Ex.Remake.Entities
     {
         public Spider(EaseUnit<Vector2> _positionRoute) : this() {
             this.PositionRoute = _positionRoute.Easing;
+            var ease = _positionRoute;
+            Rotation=MathUtil.Direction(ease.Start, ease.End);
         }
         public Spider(Func<ICustomMotion, Vector2> _positionRoute) : this() {
             this.PositionRoute = _positionRoute;
@@ -42,7 +49,7 @@ namespace UndyneFight_Ex.Remake.Entities
         public bool AutoDispose { set;  get; } = true;
         Spider()
         {
-            this.Image = Resources.FightSprites.Spider;
+            this.Image = Sprites.spider;
             this.Depth = 0.5f;
             this._autoDispose = true;
             this.Alpha = 1.0f;
@@ -68,6 +75,7 @@ namespace UndyneFight_Ex.Remake.Entities
             public LineSpider(int CountLine, bool IsLeftOrRight, float Speed)
             {
                 collidingBox.X = IsLeftOrRight ? BoxStates.Centre.X - BoxStates.Width / 2f  : BoxStates.Centre.X + BoxStates.Width / 2f;
+                Rotation =IsLeftOrRight ? 0 : 180;
                 this.speed = Speed;
                 movingWay = IsLeftOrRight;
                 count = CountLine;
@@ -83,6 +91,32 @@ namespace UndyneFight_Ex.Remake.Entities
                 collidingBox.Y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1f) * count;
                 base.Update(); 
             }
+        }
+    }
+    public class FakeSpider : Entity
+    {
+        public float scale;
+        public float depth = 0.75f;
+        public float alpha = 1f;
+        public Color color=Color.White;
+        public FakeSpider(Vector2 center, float scale, float rotation, float alpha)
+        {
+            Image = Sprites.spider;
+            Centre = center;
+            this.scale = scale;
+            Rotation = rotation;
+            this.alpha = alpha;
+        }
+        float timer;
+        public override void Draw()
+        {
+            Depth = depth;
+            FormalDraw(Image, Centre, color * alpha, scale, Rotation / 180 * MathF.PI, ImageCentre);
+        }
+
+        public override void Update()
+        {
+
         }
     }
 }

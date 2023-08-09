@@ -149,7 +149,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = false   ;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 192;
