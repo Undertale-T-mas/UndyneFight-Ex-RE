@@ -709,6 +709,8 @@ namespace UndyneFight_Ex.SongSystem
         /// 比如RegisterFunctionOnce("func", ()=> {});<br/>
         /// "(func)(R)"，即会发动事件和做一根随机蓝矛<br/>
         /// "!!X*/Y"，即会在接下来的Y拍切成8 * X 分音符<br/>
+        /// 事件还可以在前面加上"<参数,参数...>"的形式自定义参数，在写谱的时候可以加入<br/>
+        /// 在事件里使用Arguments[x]参数，就同等于自定义参数，顺序为0123..如果使用了Arguments而不填会报错
         /// </summary>
         /// <param name="Delay">延迟时间，一般用来让箭头不闪现入场</param>
         /// <param name="Beat">拍号，如果写BeatTime(1)即为每个字符串占一个32分的长度</param>
