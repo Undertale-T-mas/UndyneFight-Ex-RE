@@ -13,6 +13,11 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using UndyneFight_Ex.Remake.Entities;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
+using UndyneFight_Ex.Remake;
+using System.Security.Cryptography.X509Certificates;
+using Extends;
 
 namespace AprilExtends
 {
@@ -171,6 +176,13 @@ namespace AprilExtends
             }
         }
         static Arrow.UnitEasing easeX, easeY;
+        //private class Rotate()
+        //{
+        //     public Rotate(float angle)
+        //    {
+
+        //    }
+        //}
         public void Extreme()
         {
             Arrow[] voids = GetAll<Arrow>("Hold");
@@ -1126,27 +1138,218 @@ namespace AprilExtends
             }
             if (InBeat(243))
             {
+                RegisterFunctionOnce("Box", () =>
+                {
+                    //     320,160
+                    //240,240    400,240
+                    //     320,320
+                    //BoxUtils.Vertexify();
+                    //var box = BoxUtils.VertexBoxInstance;
+                    //SetBox(320 - 42, 320 + 42, 240 - 42, 240 + 42);
+                    SetBox(new Vector2(320, 240), 250, 250);
+                    RunEase(r =>
+                        CreateEntity(new DrawingUtil.SpecialBox(1, r, Heart) { alpha = 0.5f })
+                    ,
+                        EaseIn(BeatTime(4), 0, 720, EaseState.Cubic),
+                        EaseOut(BeatTime(2), 0, 10, EaseState.Elastic),
+                        EaseOut(BeatTime(2), 0, -20, EaseState.Back),
+                        EaseOut(BeatTime(16), 0, 730, EaseState.Cubic),
+                        Stable(BeatTime(1)),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(1), 8, 10, EaseState.Elastic),
+                        EaseInOut(BeatTime(3), 0, 240, EaseState.Cubic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseIn(BeatTime(0.5f), 0, 8, EaseState.Cubic),
+                        EaseOut(BeatTime(0.5f), 8, 10, EaseState.Elastic),
+                        EaseOut(BeatTime(3), 0, 120, EaseState.Expo),
+                        EaseIn(BeatTime(9), 0, 1800, EaseState.Cubic)
+                    );
+                    
+                    Heart.controlingBox.GreenSoulAlpha = 0.01f;
+                    //DelayBeat(16 + 8, () =>
+                    //{
+                    //    Heart.controlingBox.GreenSoulAlpha = 0.5f;
+                        
+                    //});
+                    //{
+                    //    //box.SetPosition(2, new Vector2(320 - Sin(r) * 60, 240 + Cos(r) * 60));//
+                    //    //box.SetPosition(3, new Vector2(320 - Sin(r + 90) * 60, 240 + Cos(r + 90) * 60));
+                    //    //box.SetPosition(0, new Vector2(320 + Sin(r) * 60, 240 - Cos(r) * 60));//
+                    //    //box.SetPosition(1, new Vector2(320 - Sin(r + 270) * 60, 240 + Cos(r + 270) * 60));
+
+                    //    //box.SetPosition(2, new Vector2(320 - 42, 240 + 42));
+                    //    //box.SetPosition(3, new Vector2(320 - 42, 240 - 42));
+                    //    //box.SetPosition(0, new Vector2(320 + 42, 240 - 42));
+                    //    //box.SetPosition(1, new Vector2(320 + 42, 240 + 42));
+                    //    //BoxUtils.Rotate(new(320, 240),  r);
+                    //},
+                    //    EaseIn(BeatTime(4), 45, 360 + 45, EaseState.Cubic),
+                    //    EaseOut(BeatTime(4), 45, 90 + 45, EaseState.Cubic)
+                    //);
+
+
+                });
                 BarrageCreate(BeatTime(1), BeatTime(1), 7, new string[]
                 {
-                    "($0)($21)","","$0","",    "($0)($21)","","$0","",
-                    "($0)($21)","","$0","",    "($0)($21)","","$0","",
-                    "($1)($31)","","$1","",    "($1)($31)","","$1","",
-                    "($1)($31)","","$1","",    "($1)($31)","","$1","",
+                    "($0)($21)(<$21)","","$0","",    "($0)($21)(>$21)","","$0","",
+                    "($0)($21)(<$21)","","$0","",    "($0)($21)(>$21)","","$0","",
+                    "($1)($31)(<$31)","","$1","",    "($1)($31)(>$31)","","$1","",
+                    "($1)($31)(<$31)","","$1","",    "($1)($31)(>$31)","","$1","",
 
-                    "($2)($01)","","$2","",    "($2)($01)","","$2","",
-                    "($2)($01)","","$2","",    "($2)($01)","","$2","",
-                    "($3)($11)","","$3","",    "($3)($11)","","$3","",
-                    "($3)($11)","","$3","",    "($3)($11)","","$3","",
+                    "($2)($01)(<$01)","","$2","",    "($2)($01)(>$01)","","$2","",
+                    "($2)($01)(<$01)","","$2","",    "($2)($01)(>$01)","","$2","",
+                    "($3)($11)(<$11)","","$3","",    "($3)($11)(>$11)","","$3","",
+                    "($3)($11)(<$11)","","$3","",    "($3)($11)(>$11)","","$3","",
 
-                    "($0)($21)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
+                    "($0)($21)(Box)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
                     "($0)($21)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
+                    
+                    "($0)($1)($21)($31)","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                });
+            }
+            if (InBeat(256))
+            {
+                RegisterFunctionOnce("Pos", () =>
+                {
+                    ScreenDrawing.SceneOut(Color.White, BeatTime(0.0125f));
+                    //Heart.controlingBox.GreenSoulAlpha = 0.5f;
+                    RunEase(p =>
+                    {
+                        //BoxStates.Centre = p;
+                        InstantTP(p);
+                        //InstantSetBox(240 + p, 100, 100);
+                    },
+                    EaseOut(BeatTime(8), new Vector2(320, 240), new Vector2(320, 140), EaseState.Quint)
+                    );
+                    DelayBeat(16, () =>
+                    {
+                        RunEase(p =>
+                        {
+                            //BoxStates.Centre = p;
+                            InstantTP(p);
+                            //InstantSetBox(240 + p, 100, 100);
+                        },
+                    EaseOut(BeatTime(4), new Vector2(320, 140), new Vector2(320, 240), EaseState.Expo)
+                    );
+                    });
+                    DelayBeat(28, () =>
+                    {
+                        RunEase(p =>
+                        {
+                            //BoxStates.Centre = p;
+                            InstantTP(320 + p, 240);
+                            //InstantSetBox(240 + p, 100, 100);
+                        },
+                        Scale(
+                            EaseOut(BeatTime(4), 40, 0, EaseState.Cubic),
+                            //Alternate(2, Stable(1, 1), Stable(1, -1)))
+                            Alternate(2, Stable(1, 1), Stable(1, -1)))
+                    );
+                    });
+                });
+                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                {
+                    "(#0.5#$1)(Pos)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($21)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
 
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
-                    "","","","",    "","","","",
+                    "($1{Hold})($21)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($21)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+
+                    "($1{Hold})($21)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($21)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+
+                    "($1{Hold})($21)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($21)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
+                    "($1{Hold})($01)","","$1{Hold}","",    "($1{Hold})($21)","","$1{Hold}","",
+
+                    "($01)($21)","","","",    "","","","",
+                });
+            }
+            if (InBeat(272 + 1))
+            {
+                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                {
+                    "$3","","+1","",    "+1","","+1","",
+                    "$31","","-11","",    "-11","","-11","",
+                    "$3","","+1","",    "+1","","+1","",
+                    "$31","","-11","",    "-11","","-11","",
+
+                    "$3","","+1","",    "+1","","+1","",
+                    "$31","","-11","",    "-11","","-11","",
+                    "$0","","+1","",    "+1","","+0{Hold}","",
+                    "$21","","-11","",    "-11","","-0{Hold}","",
+
+                    "$0","","+1","",    "+1","","+0{Hold}","",
+                    "$21","","-11","",    "-11","","-0{Hold}","",
+                    "$0","","+1","",    "+1","","+0{Hold}","",
+                    "($0)($21)","","","",    "","","","",
+
+                    //"$0","","+1","",    "+1","","+0{Hold}","",
+                    //"$21","","-11","",    "-11","","-0{Hold}","",
+
+                    //"($0)($21)","","","",    "","","","",
+                    //"","","","",    "","","","",
                 });
             }
         }
@@ -1221,20 +1424,81 @@ namespace AprilExtends
 
             //}
         }
-
         public void Noob()
         {
             throw new NotImplementedException();
         }
+        //private class Buffed : AutoEntity
+        //{
+        //    public override void Draw()
+        //    {
+                
+        //    }
+        //    float alpha = 0;
+        //    float HP = HeartAttribute.HP;
+        //    bool HPBar = false;
+        //    public override void Update()
+        //    {
+        //        if (HP < 20)
+        //        {
+        //            HPBar = true;
+        //        }
+        //        else
+        //        {
+        //            HPBar = false;
+        //        }
+        //        if (HPBar == true & alpha <= 1)
+        //        {
+        //            alpha += 0.01f;
+        //        }
+        //        else if( HPBar == false & alpha >= 0)
+        //        {
+        //            alpha -= 0.01f;
+        //        }
+        //        ScreenDrawing.HPBar.HPExistColor = Color.Lerp(new(0, 255, 0), new(255, 0, 0), alpha);
+        //    }
+        //}
+        // WHAT THE F**K LOOK WHAT HAVE I CREATE, LIKE A PIECE OF ****, IT CAN'T WORK.
+
 
         public void Normal()
         {
             throw new NotImplementedException();
         }
-
+        
         public override void Start()
         {
+            float i = 0;
+            ScreenDrawing.DownBoundDistance = 120;
+            AddInstance(new TimeRangedEvent(BeatTime(1000), () =>
+            {
+                if (At0thBeat(0.5f))
+                {
+                    RunEase((a) =>
+                    {
+                        ScreenDrawing.BoundColor = Color.Lerp(Color.Aqua, new(255, 0, 0), i) * a;   //DownBound
+                    }
+                        ,
+                        EaseOut(BeatTime(1), 0.5f, 0.2f, EaseState.Linear)
+                    );
+
+                }
+            }));
             
+            //CreateEntity(new Buffed());   ←THIS IS THE S**T
+            AddInstance(new TimeRangedEvent(BeatTime(1000), () =>
+            {
+                if (HeartAttribute.HP < 20 & i <= 1)
+                {
+                    i += 0.001f;
+                }
+                else if(HeartAttribute.HP > 20 & i >= 0)
+                {
+                    i -= 0.02f;
+                }
+                ScreenDrawing.HPBar.HPExistColor = Color.Lerp(new(0, 255, 0), new(255, 0, 0), i);   //Change HP's Color
+            }));
+            //THIS IS MUCH EASIER THAN THAT 'S**T'
             easeX = new();
             AddInstance(easeX = new Arrow.UnitEasing()
             {
@@ -1246,6 +1510,8 @@ namespace AprilExtends
                 //RotationEase=EaseOut(BeatTime(16),720,0,EaseState.Linear)
             });
             GametimeDelta = -0.4f;
+            ScreenDrawing.HPBar.HPLoseColor = Color.Black;
+            HeartAttribute.BuffedLevel = 1;
             SetGreenBox();
             HeartAttribute.MaxHP = 50;
             HeartAttribute.DamageTaken = 1;
@@ -1254,7 +1520,7 @@ namespace AprilExtends
             bool jump = true;
             if (jump)
             {
-                int beat = 192;
+                int beat = 240;
                 //   int beat = 326;
                 //    int beat = 198 + 64;
                 GametimeDelta = -3.5f + BeatTime(beat);
