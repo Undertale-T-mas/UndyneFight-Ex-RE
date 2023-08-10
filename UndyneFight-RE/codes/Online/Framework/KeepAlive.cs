@@ -12,13 +12,13 @@ namespace UndyneFight_Ex.Remake.Network
         public override void Update()
         { 
             TimeSpan secondSpan = new TimeSpan(DateTime.Now.Ticks - time.Ticks);
-            if(secondSpan.TotalSeconds >= 300) // 5 min
+            if(secondSpan.TotalSeconds >= 60) // 5 min
             {
                 UFSocket<Empty> socket = new((s) => {
                     ;
                 });
                 time = DateTime.Now;
-                socket.SendRequest("keepAlive");
+                socket.SendRequest("keepAlive\\none");
             }
         }
     }

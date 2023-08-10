@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace UndyneFight_Ex.Server
 {
     public class User
     {
+        public Dictionary<string, SongResult>? SongRecord { get; set; }
         public long UUID { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public string? PasswordHash { get; set; }
         public float Rating { get; set; } = 0;
 
@@ -22,6 +25,14 @@ namespace UndyneFight_Ex.Server
         public void Refresh()
         {
             _lastRefreshTime = DateTime.Now;
+        }
+        public void Save()
+        {
+            FileStream stream = new("Data/User/" + Name, FileMode.OpenOrCreate, FileAccess.Write);
+            byte[] bytes = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(this));
+            stream.Write(bytes, 0, bytes.Length);
+            stream.Flush();
+            stream.Close();
         }
     }
 }

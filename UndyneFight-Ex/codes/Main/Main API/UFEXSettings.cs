@@ -1,4 +1,5 @@
 ﻿using System;
+using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.GameInterface
 {
@@ -10,6 +11,7 @@ namespace UndyneFight_Ex.GameInterface
 
         public static string MainServerURL { get; set; }
         public static int MainServerPort { get; set; }
+        public static Action<SongPlayData> OnSongComplete;
 
         public static event Action Update;
 

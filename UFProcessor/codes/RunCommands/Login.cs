@@ -6,7 +6,7 @@ namespace UndyneFight_Ex.Server
 {
     public class Login : Command
     {
-        public Login() : base("Log") { Log = false; }
+        public Login() : base("Log") { Log = true; }
         public override void Processor(string[] args, Client? client)
         { 
             if (client == null) return; 
@@ -25,6 +25,7 @@ namespace UndyneFight_Ex.Server
                     if (tuple.Item1[0] == 'S')
                     {
                         client.BindUser = tuple.Item2;
+                        client.UserName = client.BindUser.Name;
                         client.Reply(tuple.Item1);
                     }
                     else
@@ -38,6 +39,7 @@ namespace UndyneFight_Ex.Server
                     if (tuple.Item1[0] == 'S')
                     {
                         client.BindUser = tuple.Item2;
+                        client.UserName = client.BindUser.Name;
                         client.Reply(tuple.Item1);
                     }
                     else

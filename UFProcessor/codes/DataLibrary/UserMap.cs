@@ -42,19 +42,22 @@ namespace UndyneFight_Ex.Server
                 StreamReader streamReader = new StreamReader(stream);
                 string result = streamReader.ReadToEnd();
                 User? user = JsonSerializer.Deserialize<User>(result);
-                if (user == null) return new("F deserialize failure", null);
+                if (user == null) return new("E deserialize failure", null);
                 string hash = SHA512Encode(password);
 
                 streamReader.Close();
                 stream.Close();
 
-                if (hash == user.PasswordHash) return new("S success login", user);
+                if (hash == user.PasswordHash)
+                { 
+                    return new("S success login", user);
+                }
                 else return new("F wrong password", null);
             }
             catch(Exception ex) 
             {
                 Console.WriteLine(ex.ToString());
-                return new("F an exception was thrown", null);
+                return new("E an exception was thrown", null);
             }
         }
         private static bool _onRegister = false;
@@ -86,7 +89,7 @@ namespace UndyneFight_Ex.Server
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return new("F an exception was thrown", null);
+                return new("E an exception was thrown", null);
             }
         }
 
@@ -110,7 +113,7 @@ namespace UndyneFight_Ex.Server
                 catch (Exception ex)
                 {
                     Console.WriteLine("Exception was thrown: " + ex.Message);
-                    return "F an exception was thrown";
+                    return "E an exception was thrown";
                 }
                 finally
                 {
@@ -118,6 +121,15 @@ namespace UndyneFight_Ex.Server
                 }
             }  
             return "S " + publicKey;
+        }
+
+        internal static void SaveAll()
+        {
+            foreach (var user in onlineUsers)
+            {
+                UFConsole.WriteLine("Saving the data of " + user.Name);
+                user.Save();
+            }
         }
     }
 }

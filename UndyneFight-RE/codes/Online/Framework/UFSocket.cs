@@ -85,6 +85,11 @@ namespace UndyneFight_Ex.Remake.Network
                     {
                         _onReceive.Invoke(new(false, state[2..]));
                     }
+                    else if (state[0] == 'E')
+                    {
+                        _onReceive.Invoke(new(false, state[2..]));
+                        throw new Exception(state[2..]);
+                    }
                     return;
                 }
                 catch (Exception ex2)

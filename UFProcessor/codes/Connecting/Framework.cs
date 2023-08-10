@@ -16,15 +16,15 @@ namespace UndyneFight_Ex.Server
 
             Command runner = Command.GetCommand(args[0]);
             if (runner.Log)
-                Console.WriteLine("[ @ ]" + DateTime.Now + ": " + (source == null ? "Unknown user" : source.UserName) + " >> ran command:" + str);
-            else Console.WriteLine("[ @ ]" + DateTime.Now + ": " + (source == null ? "Unknown user" : source.UserName) + " >> ran hidden command.");
+                UFConsole.WriteLine("\0#Yellow][ @ ] \0#Green]" + DateTime.Now + ": \0#White]" + (source == null ? "Unknown user" : source.UserName) + " >> ran command: " + str);
+            else UFConsole.WriteLine("\0#Yellow][ @ ] \0#Green]" + DateTime.Now + ": \0#White]" + (source == null ? "Unknown user" : source.UserName) + " >> ran hidden command. ");
 
             try {
                 runner.Processor(args[1..], source);
             }
             catch(Exception ex)
             {
-                Console.WriteLine("An exception was thrown when running the command: " + ex.Message);
+                UFConsole.WriteLine("\0#Red]An exception was thrown when running the command: " + ex.Message + "\n" + ex.ToString());
             }
         }
 
@@ -46,8 +46,12 @@ namespace UndyneFight_Ex.Server
                     index = -1;
                 }
             }
+            string? ip;
+            UFConsole.WriteLine("Disconnected with " + client.UserName + ", ip: " + (ip = client.ConnectSocket.RemoteEndPoint?.Serialize().ToString()));
+            ipExists.Remove(ip);
         }
         List<Client> allClients = new();
+        Dictionary<string, Client> ipExists = new();
         private void ReceiveClient()
         {
             Task.Run(() => {
@@ -55,11 +59,20 @@ namespace UndyneFight_Ex.Server
                 {
                     Client client;
                     Socket socket = listener.Accept();
+                    string? ip = socket.RemoteEndPoint?.Serialize().ToString();
+                    if (string.IsNullOrEmpty(ip)) continue; 
+                    if (ipExists.ContainsKey(ip)) { 
+                        ipExists[ip].ConnectSocket.Close();
+                        ipExists[ip].ConnectSocket.Dispose();
+                        ipExists[ip].ConnectSocket = socket;
+                        continue;
+                    }
                     socket.ReceiveTimeout = -1; socket.SendTimeout = 3000;
-                    Console.WriteLine(DateTime.Now + ": " + "New user have logged in. IP: " + socket.RemoteEndPoint?.Serialize().ToString());
+                    UFConsole.WriteLine("\0#Green]" + DateTime.Now + "\0#White]: " + "New user have logged in. IP: \0#Magenta]" + socket.RemoteEndPoint?.Serialize().ToString());
                     client = new Client("unknown", socket);
                     Task.Run(() => ReceiveMessage(client));
                     allClients.Add(client);
+                    ipExists.Add(ip, client);
                     allClients.ForEach(s => s.PendUpdate());
                 }
             });
@@ -74,14 +87,14 @@ namespace UndyneFight_Ex.Server
                 listener.Bind(point);
                 listener.Listen(200);
 
-                ReceiveClient(); 
+                ReceiveClient();
 
-                Console.WriteLine("UFProcessor started successfully"); return true;
+                UFConsole.WriteLine("\0#Green]UFProcessor started successfully"); return true;
             }
             catch  (Exception ex) 
             {
-                Console.WriteLine("Start failed. Exception:" );
-                Console.WriteLine(ex.ToString());
+                UFConsole.WriteLine("\0#Red]Start failed. Exception:");
+                UFConsole.WriteLine(ex.ToString());
                 return false;
             }
         }

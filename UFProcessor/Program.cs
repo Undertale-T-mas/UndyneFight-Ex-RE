@@ -2,8 +2,10 @@
 
 Command.AddCommand(new Login());
 Command.AddCommand(new KeepAlive());
+Command.AddCommand(new SongUpdate());
 
 SocketReceiver receiver = new();
+Console.CancelKeyPress += myHandler;
 
 if (!receiver.Start())
 {
@@ -17,4 +19,14 @@ while (true)
     {
         receiver.DoCommand(null, str);
     }
+} 
+
+void myHandler(object? sender, ConsoleCancelEventArgs args)
+{
+    //退出事件
+    UFConsole.WriteLine("\0#Red]Quit pending!");
+    UFConsole.WriteLine("\0#Green]Saving Data ... ");
+    UserLibrary.SaveAll();
+    UFConsole.WriteLine("\0#Red]Quitting!");
 }
+

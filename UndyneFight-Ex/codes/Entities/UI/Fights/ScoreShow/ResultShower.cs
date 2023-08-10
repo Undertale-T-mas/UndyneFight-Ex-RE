@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.PlayerManager;
@@ -78,6 +79,7 @@ namespace UndyneFight_Ex.Entities
                         CompleteThreshold = gamePlayed.Attributes.CompleteDifficulty[(Difficulty)difficulty],
                         ComplexThreshold = gamePlayed.Attributes.ComplexDifficulty[(Difficulty)difficulty],
                         APThreshold = gamePlayed.Attributes.APDifficulty[(Difficulty)difficulty],
+                        Difficulty = (Difficulty)difficulty
                     }
                     : new SongPlayData()
                     {
@@ -87,6 +89,7 @@ namespace UndyneFight_Ex.Entities
                         CompleteThreshold = 0,
                         ComplexThreshold = 0,
                         APThreshold = 0,
+                        Difficulty = (Difficulty)difficulty
                     };
                 if (float.IsNaN(playData.CompleteThreshold))
                 {
@@ -117,6 +120,8 @@ namespace UndyneFight_Ex.Entities
                     PushModifiers("Paused");
                 }
                 if (ModifiersUsed) return;
+
+                UFEXSettings.OnSongComplete?.Invoke(playData);
 
                 ModesUsed = "None";
                 if (CurrentUser == null) return;
