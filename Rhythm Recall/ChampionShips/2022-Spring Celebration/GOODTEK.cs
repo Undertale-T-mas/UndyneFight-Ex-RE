@@ -128,6 +128,8 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.DamageTaken = 1;
                 HeartAttribute.MaxHP = 9;
                 Heart.JumpTimeLimit = 2;
+                //GametimeDelta = (int)(bpm * 16 * 73 - bpm - 85);
+                //PlayOffset = (int)(bpm * 16 * 73 - bpm - 78);
             }
 
             public static float bpm = 4.9342f;
@@ -383,14 +385,6 @@ namespace Rhythm_Recall.Waves
             public void Noob()
             {
 
-                if (GametimeF >= 0 && GametimeF <= 114514)
-                {
-
-                    CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1,
-                        GametimeF.ToString(),
-                        new Vector2(0, 100),
-                        new UndyneFight_Ex.Fight.TextColorAttribute(new Color(Rand(0, 255), Rand(0, 255), Rand(0, 255)))));
-                }
                 Effect();
                 for (int a = 0; a < 10; a++)
                 {
@@ -1512,7 +1506,10 @@ namespace Rhythm_Recall.Waves
 
                 public static void Intro76()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 6));
+                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 10));
+                    CreateArrow(80, LastRand, 6.7f, 1, 0);
+                    CreateGB(new GreenSoulGB(80+bpm*14, Rand(0, 3), 1, bpm * 4));
+                    CreateArrow(80 + bpm * 14, LastRand, 6.7f, 1, 0);
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
@@ -1539,7 +1536,7 @@ namespace Rhythm_Recall.Waves
                 "/","/","/","/",
                 "/","/","/","/",
                 "/","/","/","/",
-                "/","/","R","/",
+                "R","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -1558,14 +1555,15 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro77()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 1));
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, Rand(0, 3), 1, bpm * 8));
+                    CreateArrow(80 + bpm * 14, LastRand, 6.7f, 1, 0);
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
                 "R","/","R","/",
-                "/","/","R","/",
                 "R","/","R","/",
-                "/","/","R","/",
+                "R","/","R","/",
+                "R","/","R","/",
             };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
@@ -1584,8 +1582,8 @@ namespace Rhythm_Recall.Waves
                     {
                 "/","/","/","/",
                 "R","/","/","/",
-                "/","/","R","/",
-                "R","/","R","/",
+                "R","/","/","/",
+                "R","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -1604,7 +1602,8 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro78()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 7));
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, Rand(0, 3), 1, bpm * 8));
+                    CreateArrow(80 + bpm * 14, LastRand, 6.7f, 1, 0);
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
@@ -1630,8 +1629,8 @@ namespace Rhythm_Recall.Waves
                     {
                 "/","/","/","/",
                 "/","/","/","/",
-                "/","/","/","/",
-                "R","/","R","/",
+                "/","/","R","/",
+                "R","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -1650,15 +1649,10 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro79and80()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 7));
-                    AddInstance(new InstantEvent(bpm * 12, () =>
-                    {
-                        CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 5));
-                    }));
-                    AddInstance(new InstantEvent(bpm * 22, () =>
-                    {
-                        CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 5));
-                    }));
+                    CreateGB(new GreenSoulGB(80+bpm*16, Rand(0, 3), 1, bpm * 10));
+                    CreateArrow(80 + bpm * 16, LastRand, 6.7f, 1, 0);
+                    CreateGB(new GreenSoulGB(80 + bpm * 30, Rand(0, 3), 1, bpm * 4));
+                    CreateArrow(80 + bpm * 30, LastRand, 6.7f, 1, 0);
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
@@ -1689,13 +1683,13 @@ namespace Rhythm_Recall.Waves
                     {
                 "/","/","/","/",
                 "/","/","/","/",
-                "/","/","/","/",
+                "R","/","/","/",
                 "/","/","/","/",
 
                 "/","/","/","/",
                 "/","/","/","/",
                 "/","/","/","/",
-                "/","/","/","/",
+                "R","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -1714,14 +1708,15 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro81()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 3));
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, Rand(0, 3), 1, bpm * 10));
+                    CreateArrow(80 + bpm * 14, LastRand, 6.7f, 1, 0);
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
                 "R","/","R","/",
                 "R","/","R","/",
-                "/","/","R","/",
-                "/","/","R","/",
+                "R","/","R","/",
+                "R","/","R","/",
             };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
@@ -1739,9 +1734,9 @@ namespace Rhythm_Recall.Waves
                     string[] Redarrowway =
                     {
                 "/","/","/","/",
-                "/","/","R","/",
-                "R","/","R","/",
-                "R","/","R","/",
+                "R","/","/","/",
+                "R","/","/","/",
+                "R","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -1758,7 +1753,8 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro82()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 7));
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, Rand(0, 3), 1, bpm * 8));
+                    CreateArrow(80 + bpm * 14, LastRand, 6.7f, 1, 0);
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
@@ -1784,8 +1780,13 @@ namespace Rhythm_Recall.Waves
                     {
                 "/","/","/","/",
                 "/","/","/","/",
+                "/","/","R","/",
+                "R","/","/","/",
+
                 "/","/","/","/",
-                "R","/","R","/",
+                "/","/","/","/",
+                "R","/","/","/",
+                "/","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -1802,11 +1803,6 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro83and84()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 5));
-                    AddInstance(new InstantEvent(bpm * 10, () =>
-                    {
-                        CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 2));
-                    }));
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
@@ -1888,17 +1884,13 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro86()
                 {
-                    AddInstance(new InstantEvent(bpm * 12, () =>
-                    {
-                        CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 1));
-                    }));
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "/","/","/","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","/","/",
             };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
@@ -1920,10 +1912,10 @@ namespace Rhythm_Recall.Waves
                     float BeattimeR = 0;
                     string[] Redarrowway =
                     {
-                "/","/","SR","/",
-                "/","/","SR","/",
-                "/","/","SR","/",
-                "/","/","/","/",
+                "SR","/","/","/",
+                "SR","/","/","/",
+                "SR","/","/","/",
+                "SR","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -1949,10 +1941,10 @@ namespace Rhythm_Recall.Waves
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "/","/","/","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","/","/",
             };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
@@ -1974,10 +1966,10 @@ namespace Rhythm_Recall.Waves
                     float BeattimeR = 0;
                     string[] Redarrowway =
                     {
-                "/","/","SR","/",
-                "/","/","SR","/",
-                "/","/","SR","/",
-                "/","/","/","/",
+                "SR","/","","/",
+                "SR","/","","/",
+                "SR","/","","/",
+                "SR","/","/","/",
             };
                     for (int a = 0; a < Redarrowway.Length; a++)
                     {
@@ -2593,52 +2585,48 @@ namespace Rhythm_Recall.Waves
                     }
 
                 }
+
+
                 public static void Intro76()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 7));
-
+                    CreateGB(new GreenSoulGB(80, 0, 0, bpm * 10));
+                    CreateArrow(80, 0, 6.7f, 0, 0);
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, 0, 0, bpm * 4));
+                    CreateArrow(80 + bpm * 14, 0, 6.7f, 0, 0);
 
                 }
                 public static void Intro77()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 1));
-
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, 0, 0, bpm * 8));
+                    CreateArrow(80 + bpm * 14, 0, 6.7f, 0, 0);
                 }
                 public static void Intro78()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 7));
-
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, 2, 0, bpm * 8));
+                    CreateArrow(80 + bpm * 14, 2, 6.7f, 0, 0);
 
                 }
                 public static void Intro79and80()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 7));
-                    AddInstance(new InstantEvent(bpm * 12, () =>
-                    {
-                        CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 5));
-                    }));
-                    AddInstance(new InstantEvent(bpm * 22, () =>
-                    {
-                        CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 5));
-                    }));
+                    CreateGB(new GreenSoulGB(80 + bpm * 16, 2, 0, bpm * 10));
+                    CreateArrow(80 + bpm * 16, 2, 6.7f, 0, 0);
+                    CreateGB(new GreenSoulGB(80 + bpm * 30, 2, 0, bpm * 4));
+                    CreateArrow(80 + bpm * 30, 2, 6.7f, 0, 0);
 
 
                 }
                 public static void Intro81()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 3));
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, 0, 0, bpm * 10));
+                    CreateArrow(80 + bpm * 14, 0, 6.7f, 0, 0);
                 }
                 public static void Intro82()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 7));
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, 0, 0, bpm * 8));
+                    CreateArrow(80 + bpm * 14, 0, 6.7f, 0, 0);
                 }
                 public static void Intro83and84()
                 {
-                    CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 5));
-                    AddInstance(new InstantEvent(bpm * 10, () =>
-                    {
-                        CreateGB(new GreenSoulGB(80, Rand(0, 3), 0, bpm * 2));
-                    }));
 
 
                 }
@@ -2647,10 +2635,10 @@ namespace Rhythm_Recall.Waves
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "R","/","SB","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","/","/",
             };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
@@ -2672,17 +2660,13 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro86()
                 {
-                    AddInstance(new InstantEvent(bpm * 12, () =>
-                    {
-                        CreateArrow(80, "+0", 9, 0, 0);
-                    }));
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "/","/","/","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","/","/",
             };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
@@ -2708,10 +2692,10 @@ namespace Rhythm_Recall.Waves
                     float BeattimeB = 0;
                     string[] Bluearrowway =
                     {
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "R","/","SB","/",
-                "/","/","/","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","R","/",
+                "SB","/","/","/",
             };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
