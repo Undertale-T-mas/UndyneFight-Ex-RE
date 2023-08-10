@@ -669,7 +669,7 @@ namespace Rhythm_Recall.Waves
                         ParasolMett mt = new ParasolMett(ce);
                         CreateEntity(mt);
                         mt.BulletDepth = 0.3f;
-                        mt.InsertShot(8, BeatTime(2f));
+                        mt.InsertShot(4, BeatTime(2f));
                     });
                     RegisterFunctionOnce("Mtt2", () =>
                     {
@@ -681,7 +681,7 @@ namespace Rhythm_Recall.Waves
                         ParasolMett mt = new ParasolMett(ce);
                         CreateEntity(mt);
                         //mt.BulletDepth = 0.49f;
-                        mt.InsertShot(8, BeatTime(2f));
+                        mt.InsertShot(4, BeatTime(2f));
                     });
                     RegisterFunctionOnce("Bomb", () =>
                     {
@@ -1673,7 +1673,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                         "","","","",   "","","","",
-                        "(Block2)","","","",   "","","","",
+                        "","","","",   "","","","",
                     });
                 }
                 if (InBeat(28))
@@ -1684,7 +1684,10 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                         ScreenDrawing.CameraEffect.Convulse(4, BeatTime(2), true);
                     });
-
+                    Arrow.UnitEasing ease;
+                    AddInstance(ease = new Arrow.UnitEasing() { ApplyTime = BeatTime(2f) });
+                    ease.RotationEase = LinkEase(Stable(0, 15), EaseOut(BeatTime(2f), -15, EaseState.Sine));
+                    ease.TagApply("L");
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   "","","","",
@@ -1692,40 +1695,40 @@ namespace Rhythm_Recall.Waves
                         "R","","+0","",   "+0","","+0","",
                         "+0","","","",   "R","","","",
 
-                        "R","","","",   "R","","+0","",
-                        "","","R","",   "+0","","","",
+                        "R","","","",   "R","","+0@L","",
+                        "","","R","",   "+0@L","","","",
                         "R","","+0","",   "+0","","+0","",
                         "+0","","","",   "R","","","",
 
-                        "R","","","",   "R","","+0","",
-                        "","","R","",   "+0","","","",
+                        "R","","","",   "R","","+0@L","",
+                        "","","R","",   "+0@L","","","",
                         "R","","+0","",   "+0","","+0","",
                         "R","","","",   "R","","","",
 
-                        "R","","","",   "R","","+0","",
-                        "","","R","",   "+0","","","",
+                        "R","","","",   "R","","+0@L","",
+                        "","","R","",   "+0@L","","","",
                         "R","~_+0","~_+0","~_+0",   "~_+0","","","",
                         "R","~_+0","~_+0","~_+0",   "~_+0","","","",
                         //
-                        "(*$01)(*$21)","","","",   "$1","","","",
-                        "(*$01)(*$21)","","","",   "$3","","","",
-                        "(*$01)(*$21)","","","",   "$1","","","",
-                        "(*$01)(*$21)","","","",   "$3","","","",
+                        "$0@L","","","",   "$1","","","",
+                        "$2@L","","","",   "$3","","","",
+                        "$0@L","","","",   "$1","","","",
+                        "$2@L","","","",   "$3","","","",
 
-                        "(*$0)(*$2)","","","",   "$11","","","",
-                        "(*$0)(*$2)","","","",   "$31","","","",
-                        "(*$0)(*$2)","","","",   "$11","","","",
-                        "(*$0)(*$2)","","","",   "$31","","","",
+                        "$0@L","","","",   "$3","","","",
+                        "$2@L","","","",   "$1","","","",
+                        "$0@L","","","",   "$3","","","",
+                        "$2@L","","","",   "$1","","","",
 
-                        "(R)(+21)","","","",   "(R)(+21)","","(-1)(+21)","",
-                        "","","(R)(+21)","",   "(-1)(+21)","","","",
-                        "($0)(+21)","","(-1)(+21)","",   "(-1)(+21)","","(-1)(+21)","",
-                        "(-1)(+21)","","","",   "(R)(+21)","","","",
+                        "R","","","",   "R","","+0@L","",
+                        "","","R","",   "+0@L","","","",
+                        "$0","","+2","",   "+2","","+2","",
+                        "+2","","","",   "+2","","","",
 
-                        "R","","","",   "R","","+1","",
-                        "+1","","","",   "R","","","",
-                        "R","","","",   "R","","-1","",
-                        "-1","","","",   "R","","","",
+                        "R","","","",   "R","","+0@L","",
+                        "+0@L","","","",   "R","","","",
+                        "R","","","",   "R","","+0@L","",
+                        "+0@L","","","",   "R","","","",
                         //
                     });
                 }
@@ -1883,11 +1886,11 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("sBlock5", () =>
                     {
                         PlaySound(Sounds.pierce);
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
                     });
                     RegisterFunctionOnce("sBomb1", () =>
                     {
@@ -1977,40 +1980,40 @@ namespace Rhythm_Recall.Waves
                     {
                         "SetSoul","","","",   $"(Block{rand1.X})","","","",
                         "","",$"(Block{rand1.X})","",   "","","","",
+                        $"(Block{rand1.X})","","","",   "","",$"(Block{rand1.X})","",
+                        "","","","",   $"(Block{rand1.X})","","","",
+
+                        "","","","",   $"(Block{rand1.Y})","","","",
+                        "","",$"(Block{rand1.Y})","",   "","","","",
                         $"(Block{rand1.Y})","","","",   "","",$"(Block{rand1.Y})","",
+                        "","","","",   $"(Block{rand1.Y})","","","",
+
+                        "","","","",   $"(Block{rand1.Z})","","","",
+                        "","",$"(Block{rand1.Z})","",   "","","","",
+                        $"(Block{rand1.Z})","","","",   "","",$"(Block{rand1.Z})","",
                         "","","","",   $"(Block{rand1.Z})","","","",
 
-                        "","","","",   $"(Bomb{rand2.X})","","","",
-                        "","",$"(Bomb{rand2.X})","",   "","","","",
-                        $"(Bomb{rand2.Y})","","","",   "","",$"(Bomb{rand2.Y})","",
-                        "","","","",   $"(Bomb{rand2.Z})","","","",
-
-                        "","","","",   $"(Block{rand3.X})","","","",
-                        "","",$"(Block{rand3.X})","",   "","","","",
-                        $"(Block{rand3.Y})","","","",   "","",$"(Block{rand3.Y})","",
-                        "","","","",   $"(Block{rand3.Z})","","","",
-
-                        "","","","",   $"(Bomb{rand4.X})","","","",
+                        "","","","",   $"(Block{rand1.Y})","","","",
                         "","","PlaySound","",   "","","","",
                         "PlaySound","","","",   "","","PlaySound","",
                         "","","","",   "PlaySound","","","",
                         //
                         "Change","","","",   $"(sBlock{rand5.X})","","","",
                         "","",$"(sBlock{rand5.X})","",   "","","","",
+                        $"(sBlock{rand5.X})","","","",   "","",$"(sBlock{rand5.X})","",
+                        "","","","",   $"(sBlock{rand5.X})","","","",
+
+                        "","","","",   $"(sBlock{rand5.Y})","","","",
+                        "","",$"(sBlock{rand5.Y})","",   "","","","",
                         $"(sBlock{rand5.Y})","","","",   "","",$"(sBlock{rand5.Y})","",
+                        "","","","",   $"(sBlock{rand5.Y})","","","",
+
+                        "","","","",   $"(sBlock{rand5.Z})","","","",
+                        "","",$"(sBlock{rand5.Z})","",   "","","","",
+                        $"(sBlock{rand5.Z})","","","",   "","",$"(sBlock{rand5.Z})","",
                         "","","","",   $"(sBlock{rand5.Z})","","","",
 
-                        "","","","",   $"(sBomb{rand6.X})","","","",
-                        "","",$"(sBomb{rand6.X})","",   "","","","",
-                        $"(sBomb{rand6.Y})","","","",   "","",$"(sBomb{rand6.Y})","",
-                        "","","","",   $"(sBomb{rand6.Z})","","","",
-
-                        "","","","",   $"(sBlock{rand7.X})","","","",
-                        "","",$"(sBlock{rand7.X})","",   "","","","",
-                        $"(sBlock{rand7.Y})","","","",   "","",$"(sBlock{rand7.Y})","",
-                        "","","","",   $"(sBlock{rand7.Z})","","","",
-
-                        "","","","",   $"(sBomb{rand8.X})","","","",
+                        "","","","",   $"(sBlock{rand5.Y})","","","",
                         "","",$"PlaySound","",   "","","","",
                         $"PlaySound","","","",   "","",$"PlaySound","",
                         "","","","",   $"PlaySound","","","",
@@ -2046,43 +2049,43 @@ namespace Rhythm_Recall.Waves
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
-                        "R","","","",   "+01","","","",
+                        "R","","","",   "+0","","","",
                         "+0","","","",   "","","","",
 
-                        "(R)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
-                        "(D)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
-                        "*D(RSA)","","*+01(RSA)","",   "*+0(RSA)","","*+01(RSA)","",
-                        "*+0(<0>Scrangle)","","","",   "+0","","","",
+                        "(R)(RSA)","","","",   "(D)(RSA)","","","",
+                        "(D)(RSA)","","","",   "(D)(RSA)","","","",
+                        "D(RSA)","","","",   "+0(RSA)","","","",
+                        "+0(<0>Scrangle)","","","",   "+0","","","",
 
-                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","($01)($01)","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
-                        "$31($31)","","","",   "","","","",
-                        "(*$1)(*$2)(<0.5,3>Drum)(LKickLine)","","$01($01)","",   "","","(*$1)(*$2)(<0.75,-3>Drum)(LKickLine)","",
-                        "$31($31)","","","",   "","","","",
+                        "(D)(+01)(<0.5,3>Drum)(LKickLine)","","","",   "","","(D)(+01)(<0.75,-3>Drum)(LKickLine)","",
+                        "","","","",   "","","","",
+                        "(D)(+01)(<0.5,3>Drum)(LKickLine)","","","",   "","","(D)(+01)(<0.75,-3>Drum)(LKickLine)","",
+                        "","","","",   "","","","",
 
-                        "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21($21)","",   "","","(*$1)(*$0)(<0.5,-3>Drum)(RKickLine)","",
-                        "$31($31)","","","",   "(*$1)(*$0)(<0.5,3>Drum)(LKickLine)","","$21($21)","",
-                        "(*$1)(*$0)(<0.75,-3>Drum)(RKickLine)","","$31($31)","",   "","","","",
-                        "(*$1)(*$0)(<0.75,-3>Drum)(RKickLine)","","","",   "","","","",
+                        "(D)(+01)(<0.5,3>Drum)(LKickLine)","","","",   "","","(D)(+01)(<0.5,-3>Drum)(RKickLine)","",
+                        "","","","",   "(D)(+01)(<0.5,3>Drum)(LKickLine)","","","",
+                        "(D)(+01)(<0.75,-3>Drum)(RKickLine)","","","",   "","","","",
+                        "(D)(+01)(<0.75,-3>Drum)(RKickLine)","","","",   "","","","",
                         //
-                        "R1","","","",   "+0","","","",
-                        "+01","","","",   "","","","",
-                        "D","","","",   "+01","","","",
+                        "R","","","",   "+0","","","",
+                        "+0","","","",   "","","","",
+                        "D","","","",   "+0","","","",
                         "+0","","","",   "","","","",
 
-                        "(R)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
-                        "(D)(+0)(RSA)","","+01(RSA)","",   "(D)(+0)(RSA)","","+01(RSA)","",
-                        "*D(RSA)","","*+01(RSA)","",   "*+0(RSA)","","*+01(RSA)","",
-                        "*+0(<0>Scrangle)","","","",   "+0","","","",
+                        "(R)(RSA)","","","",   "(D)(RSA)","","","",
+                        "(D)(RSA)","","","",   "(D)(RSA)","","","",
+                        "D(RSA)","","","",   "+0(RSA)","","","",
+                        "+0(<0>Scrangle)","","","",   "+0","","","",
 
-                        "(*$11)(*$21)(<0.5,-3>Drum)(RKickLine)","","$0($0)","",   "","","(*$11)(*$21)(<0.75,-3>Drum)(RKickLine)","",
-                        "$3($3)","","","",   "","","","",
-                        "(*$11)(*$21)(<0.5,-3>Drum)(RKickLine)","","$0($0)","",   "","","(*$11)(*$21)(<0.75,-3>Drum)(RKickLine)","",
-                        "$3($3)","","","",   "","","","",
+                        "(D)(+01)(<0.5,-3>Drum)(RKickLine)","","","",   "","","(D)(+01)(<0.75,-3>Drum)(RKickLine)","",
+                        "","","","",   "","","","",
+                        "(D)(+01)(<0.5,-3>Drum)(RKickLine)","","","",   "","","(D)(+01)(<0.75,-3>Drum)(RKickLine)","",
+                        "","","","",   "","","","",
 
-                        "(*$11)(*$01)(<0.5,-3>Drum)(RKickLine)","","$2($2)","",   "","","(*$11)(*$01)(<0.5,3>Drum)(LKickLine)","",
-                        "$3($3)","","","",   "(*$11)(*$01)(<0.5,-3>Drum)(RKickLine)","","$2($2)","",
-                        "(*$11)(*$01)(<0.75,3>Drum)(LKickLine)","","$3($3)","",   "","","","",
-                        "(*$11)(*$01)(<0.75,3>Drum)(LKickLine)","","","",   "","","","",
+                        "(D)(+01)(<0.5,-3>Drum)(RKickLine)","","","",   "","","(D)(+01)(<0.5,3>Drum)(LKickLine)","",
+                        "","","","",   "(D)(+01)(<0.5,-3>Drum)(RKickLine)","","","",
+                        "(D)(+01)(<0.75,3>Drum)(LKickLine)","","","",   "","","","",
+                        "(D)(+01)(<0.75,3>Drum)(LKickLine)","","","",   "","","","",
                     });
                 }
                 if (InBeat(124))
@@ -2131,44 +2134,44 @@ namespace Rhythm_Recall.Waves
                     });
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
-                        "Mtt(#4#R)","","","",   "","","","",
+                        "(#4#R)","","","",   "","","","",
                         "","","","",   "","","","",
-                        "Bomb","","","",   "","","","",
                         "","","","",   "","","","",
-
-                        "Mtt","","","",   "(R1)","","","",
-                        "(R1)","","","",   "(R1)","","","",
-                        "Bomb(#1#R)","","","",   "","","","",
-                        "R1","","","",   "(#4#R)","","","",
-
-                        "Mtt","","","",   "","","","",
-                        "","","","",   "","","","",
-                        "Bomb","","","",   "","","","",
                         "","","","",   "","","","",
 
-                        "Mtt","","","",   "R1","","","",
-                        "R1","","","",   "R1","","","",
-                        "Bomb(#1#R)","","","",   "","","","",
-                        "(#1#R1)","","","",   "","","","",
+                        "","","","",   "(+0)","","","",
+                        "(+1)","","","",   "(+1)","","","",
+                        "(#1#+1)","","","",   "","","","",
+                        "+0","","","",   "(#4#+1)","","","",
+
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+
+                        "","","","",   "+1","","","",
+                        "+1","","","",   "+1","","","",
+                        "(#1#-1)","","","",   "","","","",
+                        "(#1#-1)","","","",   "","","","",
                         //
-                        "Mtt(R)(R1)","","","",   "(R)(R1)","","","",
-                        "(R)(R1)","","","",   "(#1#R)(R1)","","","",
-                        "Bomb","","","",   "","","","",
-                        "R1","","","",   "R1","","","",
-
-                        "Mtt(#1#R)","","","",   "","","","",
-                        "(#1#R1)","","","",  "","","","",
-                        "Bomb(#1#R)","","","",   "","","+01","",
-                        "","","","",   "$0","$1","#3#$2","",
-
-                        "Mtt","","","",   "","","","",
+                        "(R)(+01)","","","",   "(+1)(+01)","","","",
+                        "(+1)(+01)","","","",   "(+1)(+01)","","","",
                         "","","","",   "","","","",
-                        "Bomb","","","",   "","","","",
-                        "(#1#R)","","","",   "","","","",
+                        "+0","","","",   "R","","","",
 
-                        "Mtt(#1#R1)","","","",   "","","","",
+                        "-1","","","",   "","","","",
+                        "+2","","","",  "","","","",
+                        "+1","","","",   "","","+1","",
+                        "","","","",   "R","+0","#3#+0","",
+
                         "","","","",   "","","","",
-                        "Bomb(R1)","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "(#1#+2)","","","",   "","","","",
+
+                        "(#1#+0)","","","",   "","","","",
+                        "","","","",   "","","","",
+                        "(+2)","","","",   "","","","",
                         "","","","",   "","","","",
                     });
                 }
@@ -2225,58 +2228,58 @@ namespace Rhythm_Recall.Waves
                     AddInstance(ease2 = new Arrow.UnitEasing() { ApplyTime = BeatTime(2) });
 
                     ease2.RotationEase = LinkEase(Stable(BeatTime(1), 60), EaseOut(BeatTime(1), -60, EaseState.Elastic));
-                    ease2.TagApply("ss");
+                    //ease2.TagApply("ss");
                     Arrow.UnitEasing ease3;
                     AddInstance(ease3 = new Arrow.UnitEasing() { ApplyTime = BeatTime(2) });
 
                     ease3.RotationEase = LinkEase(Stable(BeatTime(1), -30), EaseOut(BeatTime(1), 30, EaseState.Back));
-                    ease3.TagApply("w");
+                    //ease3.TagApply("w");
                     Arrow.UnitEasing ease4;
                     AddInstance(ease4 = new Arrow.UnitEasing() { ApplyTime = BeatTime(2) });
 
                     ease4.RotationEase = LinkEase(Stable(BeatTime(1), -60), EaseOut(BeatTime(1), 60, EaseState.Elastic));
-                    ease4.TagApply("ww");
+                    //ease4.TagApply("ww");
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
-                        "*$3@s(Mtt)","","","",   "","","*$3@ss","",
-                        "","","","",   "*$3@s","","","",
-                        "Bomb","","*$3@ss","",   "","","","",
-                        "*$3@s","","","",   "*$3@ss","","","",
+                        "$3@s","","","",   "","","$1@s","",
+                        "","","","",   "$3@s","","","",
+                        "","","$1@s","",   "","","","",
+                        "$3@s","","","",   "$1@s","","","",
 
-                        "*$31@w(Mtt2)","","","",   "","","*$31@ww","",
-                        "","","","",   "*$31@w","","","",
-                        "Bomb2","","*$31@ww","",   "","","","",
-                        "*$31@w","","","",   "*$31@ww","","","",
+                        "$3@s","","","",   "","","$1@s","",
+                        "","","","",   "$3@s","","","",
+                        "","","$1@s","",   "","","","",
+                        "$3@s","","","",   "$1@s","","","",
 
-                        "*$1@s(Mtt)","","","",   "","","*$1@ss","",
-                        "","","","",   "*$1@s","","","",
-                        "Bomb","","*$1@ss","",   "","","","",
-                        "*$1@s","","","",   "*$1@ss","","","",
+                        "$3@s","","","",   "","","$1@s","",
+                        "","","","",   "$3@s","","","",
+                        "","","$1@s","",   "","","","",
+                        "$3@s","","","",   "$1@s","","","",
 
-                        "*$11@w(Mtt2)","","","",   "","","*$11@ww","",
-                        "","","","",   "*$11@w","","","",
-                        "Bomb2","","*$11@ww","",   "","","","",
-                        "*$11@w","","","",   "*$11@ww","","","",
+                        "$3@s","","","",   "","","$1@s","",
+                        "","","","",   "$3@s","","","",
+                        "","","$1@s","",   "","","","",
+                        "$3@s","","","",   "$1@s","","","",
                         //
-                        "*$3@s(Mtt)","","","",   "","","*$11@ss","",
-                        "","","","",   "*$3@s","","","",
-                        "Bomb","","*$11@ss","",   "","","","",
-                        "*$3@s","","","",   "*$11@ss","","","",
+                        "$11@s","","","",   "","","$31@s","",
+                        "","","","",   "$11@s","","","",
+                        "","","$31@s","",   "","","","",
+                        "$11@s","","","",   "$31@s","","","",
 
-                        "*$3@w(Mtt2)","","","",   "","","*$11@ww","",
-                        "","","","",   "*$3@w","","","",
-                        "Bomb2","","*$11@ww","",   "","","","",
-                        "*$3@w","","","",   "*$11@ww","","","",
+                        "$11@s","","","",   "","","$31@s","",
+                        "","","","",   "$11@s","","","",
+                        "","","$31@s","",   "","","","",
+                        "$11@s","","","",   "$31@s","","","",
 
-                        "*$1@s(Mtt)","","","",   "","","*$31@ss","",
-                        "","","","",   "*$1@s","","","",
-                        "Bomb","","*$31@ss","",   "","","","",
-                        "*$1@s","","","",   "*$31@ss","","","",
+                        "$11@s","","","",   "","","$31@s","",
+                        "","","","",   "$11@s","","","",
+                        "","","$31@s","",   "","","","",
+                        "$11@s","","","",   "$31@s","","","",
 
-                        "*$1@w(Mtt2)","","","",   "","","*$31@ww","",
-                        "","","","",   "*$1@w","","","",
-                        "Bomb2","","*$31@ww","",   "","","","",
-                        "*$1@w","","","",   "*$31@ww","","","",
+                        "$11@s","","","",   "","","$31@s","",
+                        "","","","",   "$11@s","","","",
+                        "","","$31@s","",   "","","","",
+                        "$11@s","","","",   "$31@s","","","",
                     });
                 }
                 if (InBeat(188))
@@ -2351,46 +2354,50 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(0.8f));
                     });
+                    Arrow.UnitEasing ease;
+                    AddInstance(ease = new Arrow.UnitEasing() { ApplyTime = BeatTime(2f) });
+                    ease.RotationEase = LinkEase(Stable(0, 15), EaseOut(BeatTime(2f), -15, EaseState.Sine));
+                    ease.TagApply("L"); 
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul(BaseLine)","","","",   "","","","",
                         "","","","",   "","","","",
-                        "R","","+1","",   "+1","","+1","",
-                        "R1","","","",   "R","","","",
+                        "R","","+0","",   "+0","","+0","",
+                        "+2","","","",   "R","","","",
 
-                        "R(BaseLine2)","","","",   "R","","D1","",
-                        "","","R","",   "D1","","","",
-                        "R","","+1","",   "+1","","+1","",
-                        "R1","","","",   "R","","","",
+                        "R(BaseLine2)","","","",   "R","","+0@L","",
+                        "","","R","",   "+0@L","","","",
+                        "R","","+0","",   "+0","","+0","",
+                        "+2","","","",   "R","","","",
 
-                        "R(<200,-15>aLine)","","","",   "R","","D1(<300,-15>aLine)","",
-                        "","","R","",   "D1(<400,-15>aLine)","","","",
-                        "R","","+1(<300,15>aLine)","",   "+1","","+1","",
-                        "R1(<400,-15>aLine)","","","",   "R(<200,15>aLine)","","","",
+                        "R(<200,-15>aLine)","","","",   "R","","+0@L(<300,-15>aLine)","",
+                        "","","R","",   "+0@L(<400,-15>aLine)","","","",
+                        "R","","+0(<300,15>aLine)","",   "+0","","+0","",
+                        "+2(<400,-15>aLine)","","","",   "R(<200,15>aLine)","","","",
 
-                        "R(<440,15>aLine)","","","",   "R","","D1(<340,15>aLine)","",
-                        "","","R","",   "D1(<240,15>aLine)","","","",
-                        "(*R1)(+1)(*+11)(<380,10,60>aLine2)","~_-1(<350,10,30>aLine2)","~_+0(<320,10,0>aLine2)","~_+0(<290,10,-30>aLine2)",   "~_+0(<260,10,-60>aLine2)","","","",
-                        "(*R1)(-1)(*-11)(<260,-10,-60>aLine2)","~_+1(<290,-10,-30>aLine2)","~_+0(<320,-10,0>aLine2)","~_+0(<350,-10,30>aLine2)",   "~_+0(<380,-10,60>aLine2)","","","",
+                        "R(<440,15>aLine)","","","",   "R","","+0@L(<340,15>aLine)","",
+                        "","","R","",   "+0@L(<240,15>aLine)","","","",
+                        "(R)(<380,10,60>aLine2)","~_-0(<350,10,30>aLine2)","~_+0(<320,10,0>aLine2)","~_+0(<290,10,-30>aLine2)",   "~_+0(<260,10,-60>aLine2)","","","",
+                        "(R)(<260,-10,-60>aLine2)","~_+0(<290,-10,-30>aLine2)","~_+0(<320,-10,0>aLine2)","~_+0(<350,-10,30>aLine2)",   "~_+0(<380,-10,60>aLine2)","","","",
                         //
-                        "(*$01)(*$21)(<0.8,2>Drum)","","","",   "$1","","","",
-                        "(*$01)(*$21)(<0.8,-2>Drum)","","","",   "$3","","","",
-                        "(*$01)(*$21)(<0.8,2>Drum)","","","",   "$1","","","",
-                        "(*$01)(*$21)(<0.8,-2>Drum)","","","",   "$3","","","",
+                        "$0@L(<0.8,2>Drum)","","","",   "$1","","","",
+                        "$2@L(<0.8,-2>Drum)","","","",   "$3","","","",
+                        "$0@L(<0.8,2>Drum)","","","",   "$1","","","",
+                        "$2@L(<0.8,-2>Drum)","","","",   "$3","","","",
 
-                        "(*$0)(*$2)(<0.8,2>Drum)","","","",   "$11","","","",
-                        "(*$0)(*$2)(<0.8,-2>Drum)","","","",   "$31","","","",
-                        "(*$0)(*$2)(<0.8,2>Drum)","","","",   "$11","","","",
-                        "(*$0)(*$2)(<0.8,-2>Drum)","","","",   "$31","","","",
+                        "$0@L(<0.8,2>Drum)","","","",   "$3","","","",
+                        "$2@L(<0.8,-2>Drum)","","","",   "$1","","","",
+                        "$0@L(<0.8,2>Drum)","","","",   "$3","","","",
+                        "$2@L(<0.8,-2>Drum)","","","",   "$1","","","",
 
-                        "(R)(+21)(<0.8,3>Drum2)","","","",   "(R)(+21)","","(-1)(+21)","",
-                        "(<0.8,-3>Drum2)","","(R)(+21)","",   "(-1)(+21)","","","",
-                        "($0)(+21)(<0.8,3>Drum2)","","(-1)(+21)","",   "(-1)(+21)","","(-1)(+21)","",
-                        "(-1)(+21)(<0.8,-3>Drum2)","","","",   "(R)(+21)","","","",
+                        "(R)(<0.8,3>Drum2)","","","",   "(R)","","+1","",
+                        "(<0.8,-3>Drum2)","","(R)","",   "-1","","","",
+                        "R(<0.8,3>Drum2)","","(+2)","",   "(+2)","","(+2)","",
+                        "(+2)(<0.8,-3>Drum2)","","","",   "(R)","","","",
 
-                        "R(<0>Scrangle)","","","",   "R","","+1","",
+                        "R(<0>Scrangle)","","","",   "R","","+0","",
                         "+1","","","",   "R","","","",
-                        "R","","","",   "R","","-1","",
+                        "R","","","",   "R","","+0","",
                         "-1","","","",   "R","","","",
                         });
                 }
@@ -2435,8 +2442,8 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("ArrowLine1", () =>
                     {
                         var ce = LinkEase(
-                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f, 560)),
-                            Linear(BeatTime(1), new Vector2(-BeatTime(1) * 3.1f, 0)),
+                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 6.2f, 560)),
+                            Linear(BeatTime(1), new Vector2(-BeatTime(1) * 6.2f, 0)),
                             EaseOut(BeatTime(1), new Vector2(-150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(-45, 0), EaseState.Quad),
@@ -2446,8 +2453,8 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine)
                             );
                         var ce2 = LinkEase(
-                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f, 560)),
-                            Combine(Linear(BeatTime(1), -BeatTime(1) * 3.1f), EaseOut(BeatTime(1), -640, EaseState.Quad)),
+                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 6.2f, 560)),
+                            Combine(Linear(BeatTime(1), -BeatTime(1) * 6.2f), EaseOut(BeatTime(1), -640, EaseState.Quad)),
                             EaseOut(BeatTime(1), new Vector2(-150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(-45, 0), EaseState.Quad),
@@ -2463,8 +2470,8 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("ArrowLine2", () =>
                     {
                         var ce = LinkEase(
-                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f, 560)),
-                            Linear(BeatTime(1), new Vector2(BeatTime(1) * 3.1f, 0)),
+                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f*2, 560)),
+                            Linear(BeatTime(1), new Vector2(BeatTime(1) * 3.1f*2, 0)),
                             EaseOut(BeatTime(1), new Vector2(150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(-45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(45, 0), EaseState.Quad),
@@ -2474,8 +2481,8 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(0.25f), new Vector2(-470 / 3f, 0), EaseState.Sine)
                             );
                         var ce2 = LinkEase(
-                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f, 560)),
-                            Combine(Linear(BeatTime(1), BeatTime(1) * 3.1f), EaseOut(BeatTime(1), -640, EaseState.Quad)),
+                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f*2, 560)),
+                            Combine(Linear(BeatTime(1), BeatTime(1) * 3.1f*2), EaseOut(BeatTime(1), -640, EaseState.Quad)),
                             EaseOut(BeatTime(1), new Vector2(150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(-45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(45, 0), EaseState.Quad),
@@ -2491,8 +2498,8 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("ArrowLine3", () =>
                     {
                         var ce = LinkEase(
-                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f, -80)),
-                            Linear(BeatTime(1), new Vector2(-BeatTime(1) * 3.1f, -80)),
+                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f * 2, -80)),
+                            Linear(BeatTime(1), new Vector2(-BeatTime(1) * 3.1f * 2, -80)),
                             EaseOut(BeatTime(1), new Vector2(-150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(-45, 0), EaseState.Quad),
@@ -2502,8 +2509,8 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine)
                             );
                         var ce2 = LinkEase(
-                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f, -80)),
-                            Combine(Linear(BeatTime(1), -BeatTime(1) * 3.1f), EaseOut(BeatTime(1), 640, EaseState.Quad)),
+                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f * 2, -80)),
+                            Combine(Linear(BeatTime(1), -BeatTime(1) * 3.1f * 2), EaseOut(BeatTime(1), 640, EaseState.Quad)),
                             EaseOut(BeatTime(1), new Vector2(-150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(-45, 0), EaseState.Quad),
@@ -2519,8 +2526,8 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("ArrowLine4", () =>
                     {
                         var ce = LinkEase(
-                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f, -80)),
-                            Linear(BeatTime(1), new Vector2(BeatTime(1) * 3.1f, -80)),
+                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f * 2, -80)),
+                            Linear(BeatTime(1), new Vector2(BeatTime(1) * 3.1f * 2, -80)),
                             EaseOut(BeatTime(1), new Vector2(150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(-45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(45, 0), EaseState.Quad),
@@ -2530,8 +2537,8 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(0.25f), new Vector2(-470 / 3f, 0), EaseState.Sine)
                             );
                         var ce2 = LinkEase(
-                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f, -80)),
-                            Combine(Linear(BeatTime(1), BeatTime(1) * 3.1f), EaseOut(BeatTime(1), 640, EaseState.Quad)),
+                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f * 2, -80)),
+                            Combine(Linear(BeatTime(1), BeatTime(1) * 3.1f * 2), EaseOut(BeatTime(1), 640, EaseState.Quad)),
                             EaseOut(BeatTime(1), new Vector2(150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(-45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(45, 0), EaseState.Quad),
@@ -2547,43 +2554,43 @@ namespace Rhythm_Recall.Waves
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                         {
                         "(<1,-5>SCR)(ArrowLine1)","","","",   "","","","",
-                        "$0'0.5@X","","","",   "","","","",
-                        "R","","+1","",   "","","R1","",
-                        "","","R","",   "+1","","+1","",
+                        "$0@X","","","",   "","","","",
+                        "R","","+0","",   "","","R","",
+                        "","","R","",   "+0","","+0","",
 
                         "(<1,5>SCR)(ArrowLine2)","","","",   "","","","",
-                        "$2'0.5@X","","","",   "","","","",
-                        "R","","-1","",   "","","R1","",
-                        "","","R","",   "-1","","-1","",
+                        "$2@X","","","",   "","","","",
+                        "R","","+0","",   "","","R","",
+                        "","","R","",   "-0","","-0","",
 
                         "(<1,-5>SCR)(ArrowLine3)","","","",   "","","","",
-                        "$01'0.5@Y","","","",   "","","","",
-                        "R1","","+11","",   "","","R","",
-                        "","","R1","",   "+01","","+01","",
+                        "$0@Y","","","",   "","","","",
+                        "R","","+0","",   "","","R","",
+                        "","","R","",   "+0","","+0","",
 
-                        "($0)($0)(<-3>Scrangle)(<0>ThreeLine1)","$1(<-2>Scrangle)(<30>ThreeLine1)","$2(<-1>Scrangle)(<60>ThreeLine1)","",   "$21($21)(<3>Scrangle)(<0>ThreeLine2)","$31(<2>Scrangle)(<30>ThreeLine2)","$01(<1>Scrangle)(<60>ThreeLine2)","",
-                        "$0($0)(<-3>Scrangle)(<0>ThreeLine1)","$1(<-2>Scrangle)(<30>ThreeLine1)","$2(<-1>Scrangle)(<60>ThreeLine1)","",   "$21($21)(<3>Scrangle)(<0>ThreeLine2)","$31(<2>Scrangle)(<30>ThreeLine2)","$01(<1>Scrangle)(<60>ThreeLine2)","",
-                        "$0($0)(<-3>Scrangle)(<0>ThreeLine1)","$1(<-2>Scrangle)(<30>ThreeLine1)","$2(<-1>Scrangle)(<60>ThreeLine1)","",   "$21($21)(<3>Scrangle)(<0>ThreeLine2)","$31(<2>Scrangle)(<30>ThreeLine2)","$01(<1>Scrangle)(<60>ThreeLine2)","",
-                        "$0($0)(<-3>Scrangle)(<0>ThreeLine1)","$1(<-2>Scrangle)(<30>ThreeLine1)","$2(<-1>Scrangle)(<60>ThreeLine1)","",   "$21($21)(<3>Scrangle)(<0>ThreeLine2)","$31(<2>Scrangle)(<30>ThreeLine2)","$01(<1>Scrangle)(<60>ThreeLine2)","",
+                        "$0(<-1>Scrangle)(<0>ThreeLine1)","","","",   "$21(<1>Scrangle)(<0>ThreeLine2)","","","",
+                        "$0(<-1>Scrangle)(<0>ThreeLine1)","","","",   "$21(<1>Scrangle)(<0>ThreeLine2)","","","",
+                        "$0(<-1>Scrangle)(<0>ThreeLine1)","","","",   "$21(<1>Scrangle)(<0>ThreeLine2)","","","",
+                        "$0(<-1>Scrangle)(<0>ThreeLine1)","","","",   "$21(<1>Scrangle)(<0>ThreeLine2)","","","",
                         //
                         "(ArrowLine4)(<0>Scrangle)(<1,5>SCR)","","","",   "","","","",
-                        "$21'0.5@Y","","","",   "","","","",
-                        "R1","","-11","",   "","","R","",
-                        "","","R1","",   "-11","","-11","",
+                        "$2@Y","","","",   "","","","",
+                        "R","","-1","",   "","","R","",
+                        "","","R","",   "+0","","-1","",
 
-                        "(ArrowLine1)(ArrowLine4)(<1,-5>SCR)","","","",   "","","","",
-                        "$21'0.5@Y($0'0.5@X)","","","",   "","","","",
-                        "(R1)(R)","","+1","",   "","","(R1)(R)","",
+                        "(ArrowLine1)(<1,-5>SCR)","","","",   "","","","",
+                        "$0@X","","","",   "","","","",
+                        "(R)","","+1","",   "","","(R)","",
+                        "","","R","",   "+0","","+1","",
+
+                        "(ArrowLine2)(<1,5>SCR)","","","",   "","","","",
+                        "$2@X","","","",   "","","","",
+                        "(R)","","+1","",   "","","(R)","",
                         "","","R","",   "+1","","+1","",
 
-                        "(ArrowLine2)(ArrowLine3)(<1,5>SCR)","","","",   "","","","",
-                        "$2'0.5@X($01'0.5@Y)","","","",   "","","","",
-                        "(R)(R1)","","+11","",   "","","(R1)(R)","",
-                        "","","R1","",   "+11","","+11","",
-
                         "R","","","",   "+1","","","",
-                        "+1","","","",   "+1","","$0'0.5@X(<140>ThreeLine1)","$0'0.5@X(<110>ThreeLine1)",
-                        "$0'0.5@X(<80>ThreeLine1)","","","",   "$21'0.5@Y(<100>ThreeLine2)","$21'0.5@Y(<40>ThreeLine2)","$21'0.5@Y(<70>ThreeLine2)","",
+                        "+1","","","",   "+1","","$0@X(<140>ThreeLine1)","$0@X(<110>ThreeLine1)",
+                        "$0@X(<80>ThreeLine1)","","","",   "$2@Y(<100>ThreeLine2)","$2@Y(<40>ThreeLine2)","$2@Y(<70>ThreeLine2)","",
                         "","","","",   "R","","","",
                        });
                 }
@@ -2741,11 +2748,11 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("sBlock5", () =>
                     {
                         PlaySound(Sounds.pierce);
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
                     });
                     RegisterFunctionOnce("sBomb1", () =>
                     {
@@ -2835,40 +2842,40 @@ namespace Rhythm_Recall.Waves
                     {
                         "SetSoul","","","",   $"(Block{rand1.X})","","","",
                         "","",$"(Block{rand1.X})","",   "","","","",
+                        $"(Block{rand1.X})","","","",   "","",$"(Block{rand1.X})","",
+                        "","","","",   $"(Block{rand1.X})","","","",
+
+                        "","","","",   $"(Block{rand1.Y})","","","",
+                        "","",$"(Block{rand1.Y})","",   "","","","",
                         $"(Block{rand1.Y})","","","",   "","",$"(Block{rand1.Y})","",
+                        "","","","",   $"(Block{rand1.Y})","","","",
+
+                        "","","","",   $"(Block{rand1.Z})","","","",
+                        "","",$"(Block{rand1.Z})","",   "","","","",
+                        $"(Block{rand1.Z})","","","",   "","",$"(Block{rand1.Z})","",
                         "","","","",   $"(Block{rand1.Z})","","","",
 
-                        "","","","",   $"(Bomb{rand2.X})","","","",
-                        "","",$"(Bomb{rand2.X})","",   "","","","",
-                        $"(Bomb{rand2.Y})","","","",   "","",$"(Bomb{rand2.Y})","",
-                        "","","","",   $"(Bomb{rand2.Z})","","","",
-
-                        "","","","",   $"(Block{rand3.X})","","","",
-                        "","",$"(Block{rand3.X})","",   "","","","",
-                        $"(Block{rand3.Y})","","","",   "","",$"(Block{rand3.Y})","",
-                        "","","","",   $"(Block{rand3.Z})","","","",
-
-                        "","","","",   $"(Bomb{rand4.X})","","","",
+                        "","","","",   $"(Block{rand1.Y})","","","",
                         "","","PlaySound","",   "","","","",
                         "PlaySound","","","",   "","","PlaySound","",
                         "","","","",   "PlaySound","","","",
                         //
                         "Change","","","",   $"(sBlock{rand5.X})","","","",
                         "","",$"(sBlock{rand5.X})","",   "","","","",
+                        $"(sBlock{rand5.X})","","","",   "","",$"(sBlock{rand5.X})","",
+                        "","","","",   $"(sBlock{rand5.X})","","","",
+
+                        "","","","",   $"(sBlock{rand5.Y})","","","",
+                        "","",$"(sBlock{rand5.Y})","",   "","","","",
                         $"(sBlock{rand5.Y})","","","",   "","",$"(sBlock{rand5.Y})","",
+                        "","","","",   $"(sBlock{rand5.Y})","","","",
+
+                        "","","","",   $"(sBlock{rand5.Z})","","","",
+                        "","",$"(sBlock{rand5.Z})","",   "","","","",
+                        $"(sBlock{rand5.Z})","","","",   "","",$"(sBlock{rand5.Z})","",
                         "","","","",   $"(sBlock{rand5.Z})","","","",
 
-                        "","","","",   $"(sBomb{rand6.X})","","","",
-                        "","",$"(sBomb{rand6.X})","",   "","","","",
-                        $"(sBomb{rand6.Y})","","","",   "","",$"(sBomb{rand6.Y})","",
-                        "","","","",   $"(sBomb{rand6.Z})","","","",
-
-                        "","","","",   $"(sBlock{rand7.X})","","","",
-                        "","",$"(sBlock{rand7.X})","",   "","","","",
-                        $"(sBlock{rand7.Y})","","","",   "","",$"(sBlock{rand7.Y})","",
-                        "","","","",   $"(sBlock{rand7.Z})","","","",
-
-                        "","","","",   $"(sBomb{rand8.X})","","","",
+                        "","","","",   $"(sBlock{rand5.Y})","","","",
                         "","",$"PlaySound","",   "","","","",
                         $"PlaySound","","","",   "","",$"PlaySound(Over)","",
                         "","","","",   $"PlaySound","","","",
@@ -2907,45 +2914,45 @@ namespace Rhythm_Recall.Waves
                     });
                     BarrageCreate(BeatTime(4), BeatTime(1), 7f, new string[]
                         {
-                        "$1","","","",   "(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","","(N11)(+01)","",
-                        "","","(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","",   "(N11)(+01)","","","",
-                        "(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","","(N11)(+01)","",   "","","(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","",
-                        "(N11)(+01)","","","",   "(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","","(N11)(+01)","",
+                        "$1","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
+                        "","","(<0.5,2>Drum2)(D)(+01)","",   "(+0)","","","",
+                        "(<0.5,2>Drum2)(D)(+01)","","(+0)","",   "","","(<0.5,2>Drum2)(D)(+01)","",
+                        "(+0)","","","",   "(<0.5,2>Drum2)(D)(+0)","","(+0)","",
 
-                        "(+01)(+01)","","","",   "(<0.5,-2>Drum2)(*$0'1.5@R)(*!$3)(*$2'1.5@L)","","(N31)(+01)","",
-                        "","","(<0.5,-2>Drum2)(*$0'1.5@R)(*!$3)(*$2'1.5@L)","",   "(N31)(+01)","","","",
-                        "(<0.5,-2>Drum2)(*$0'1.5@R)(*!$3)(*$2'1.5@L)","","(N31)(+01)","",   "","","(<0.5,-2>Drum2)(*$0'1.5@R)(*!$3)(*$2'1.5@L)","",
-                        "(N31)(+01)","","","",   "(<0.5,-2>Drum2)(*$0'1.5@R)(*!$3)(*$2'1.5@L)","","(N31)(+01)","",
+                        "(+0)","","","",   "(<0.5,-2>Drum2)(D)(+01)","","(+01)","",
+                        "","","(<0.5,-2>Drum2)(D)(+01)","",   "(+01)","","","",
+                        "(<0.5,-2>Drum2)(D)(+01)","","(+01)","",   "","","(<0.5,-2>Drum2)(D)(+01)","",
+                        "(+01)","","","",   "(<0.5,-2>Drum2)(D)(+01)","","(+01)","",
 
-                        "(+01)(+01)","","","",   "(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","","(N11)(+01)","",
-                        "","","(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","",   "(N11)(+01)","","","",
-                        "(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","","(N11)(+01)","",   "","","(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","",
-                        "(N11)(+01)","","","",   "(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","","(N11)(+01)","",
+                        "(+01)","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
+                        "","","(<0.5,2>Drum2)(D)(+01)","",   "(+0)","","","",
+                        "(<0.5,2>Drum2)(D)(+01)","","(+0)","",   "","","(<0.5,2>Drum2)(D)(+01)","",
+                        "(+0)","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
 
-                        "(+01)(+01)","","","",   "$2","","$01","",
-                        "","","","",   "($21)(+01)","","","",
-                        "$0","","","",   "($0@L)($21@L)(<15>Scrangle)","($0@R)($21@R)(<10>Scrangle)","($0@L)($21@L)(<5>Scrangle)","($0@R)($21@R)(<3>Scrangle)",
+                        "(+0)","","","",   "+2","","+0","",
+                        "","","","",   "+0","","","",
+                        "($0)($21)","","","",   "($0@L)($21@L)(<15>Scrangle)","($0@R)($21@R)(<10>Scrangle)","($0@L)($21@L)(<5>Scrangle)","($0@R)($21@R)(<3>Scrangle)",
                         "($0@L)($21@L)($0@R)($21@R)(<-3>Scrangle)","","","",   "($21)($21)(<0>Scrangle)","","","",
                         //
-                        "$11","","","",   "(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","","(N1)(+0)","",
-                        "","","(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","",   "(N1)(+0)","","","",
-                        "(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","","(N1)(+0)","",   "","","(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","",
-                        "(N1)(+0)","","","",   "(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","","(N1)(+0)","",
+                        "$21","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
+                        "","","(<0.5,2>Drum2)(D)(+01)","",   "(+0)","","","",
+                        "(<0.5,2>Drum2)(D)(+01)","","(+0)","",   "","","(<0.5,2>Drum2)(D)(+01)","",
+                        "(+0)","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
 
-                        "(+0)(+0)","","","",   "(<0.5,-2>Drum2)(*$01'1.5@R)(*!$31)(*$21'1.5@L)","","(N3)(+0)","",
-                        "","","(<0.5,-2>Drum2)(*$01'1.5@R)(*!$31)(*$21'1.5@L)","",   "(N3)(+0)","","","",
-                        "(<0.5,-2>Drum2)(*$01'1.5@R)(*!$31)(*$21'1.5@L)","","(N3)(+0)","",   "","","(<0.5,-2>Drum2)(*$01'1.5@R)(*!$31)(*$21'1.5@L)","",
-                        "(N3)(+0)","","","",   "(<0.5,-2>Drum2)(*$01'1.5@R)(*!$31)(*$21'1.5@L)","","(N3)(+0)","",
+                        "(+0)","","","",   "(<0.5,-2>Drum2)(D)(+01)","","(+01)","",
+                        "","","(<0.5,-2>Drum2)(D)(+01)","",   "(+01)","","","",
+                        "(<0.5,-2>Drum2)(D)(+01)","","(+01)","",   "","","(<0.5,-2>Drum2)(D)(+01)","",
+                         "(+01)","","","",   "(<0.5,-2>Drum2)(D)(+01)","","(+01)","",
 
-                        "(+0)(+0)","","","",   "(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","","(N1)(+0)","",
-                        "","","(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","",   "(N1)(+0)","","","",
-                        "(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","","(N1)(+0)","",   "","","(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","",
-                        "(N1)(+0)","","","",   "(<0.5,2>Drum2)(*$01'1.5@L)(*!$11)(*$21'1.5@R)","","(N1)(+0)","",
+                        "(+0)","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
+                        "","","(<0.5,2>Drum2)(D)(+01)","",   "(+0)","","","",
+                        "(<0.5,2>Drum2)(D)(+01)","","(+0)","",   "","","(<0.5,2>Drum2)(D)(+01)","",
+                        "(+0)","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
 
-                        "Expand(*$01)(*+21)","<0>Scrangle","","",   "Expand(*$01)(*+21)","","","",
-                        "Expand(*$01)(*+21)","","","",   "Expand(*$01)(*+21)","","","",
-                        "Expand(*$01)(*+21)","","","",   "Expand(*$01)(*+21)","","","",
-                        "Expand(*$01)(*+21)","","","",   "Expand(*$01)(*+21)","","","",
+                        "Expand($0)","<0>Scrangle","","",   "Expand($21)","","","",
+                        "Expand($0)","","","",   "Expand($21)","","","",
+                        "Expand($0)","","","",   "Expand($21)","","","",
+                        "Expand($0)","","","",   "Expand($21)","","","",
 
                         "<80>DAL","","","",   "<160>DAL","","","",
                         "<240>DAL","","","",   "<320>DAL","","<270>DAL","<290>DAL",
@@ -2962,6 +2969,7 @@ namespace Rhythm_Recall.Waves
             public void Start()
             {
                 //黄魂射击十字炸弹那一段，当向左射击时弹幕会有概率不明所以地突然向左移动
+                //(已修复)
                 Settings.GreenTap = true;
                 RegisterFunction("Drum", () =>
                 {
