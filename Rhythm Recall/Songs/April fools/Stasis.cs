@@ -23,6 +23,82 @@ namespace AprilExtends
 {
     public class Stasis : WaveConstructor, IWaveSet
     {
+        public class Hexagon : RectangleBox
+        {
+            static float r = 0;
+            float d;
+            public Hexagon(Player.Heart Position, float Rotation, float Duration) :base(Position)
+            {
+                r = Rotation;
+                d = Duration;
+            }
+
+            public override void Draw()
+            {
+                for (int a = 0; a < 6; a++)
+                    DrawingLab.DrawLine(Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + a * 60), Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + 60 + a * 60), 4.2f, Color.White * 0.5f, 0.99f);
+            }
+            int time = 0;
+            public override void Update()
+            {
+                time++;
+                if (time == d)
+                {
+                    this.Dispose();
+                }
+            }
+            //六边形
+        }
+        public class RegularPolygon : RectangleBox
+        {
+            //可实时修改边数的多边形（有缝）
+            static float r { get; set; } = 0;
+            float d;
+            float side { get; set; } = 3;
+            public RegularPolygon(Player.Heart Position, float Side, float Rotation, float Duration) : base(Position)
+            {
+                r = Rotation;
+                d = Duration;
+                side = Side;
+            }
+
+            public override void Draw()
+            {
+                if (side.GetType() == typeof(float))
+                {
+
+                }
+                for (int a = 0; a < side; a++)
+                    DrawingLab.DrawLine(Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 180 / side + r + a * 360 / side), Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 180 / side + r + 360 / side + a * 360 / side), 4.2f, Color.White * 0.5f, 0.99f);
+            }
+            int time = 0;
+            public override void Update()
+            {
+                time++;
+                if (time == d)
+                {
+                    this.Dispose();
+                }
+            }
+        }
+        private void WhiteScreen(float duration, float alpha)
+        {//BeatTime(x) = duration//alpha -= 1 / duration (alpha >= 0 ,alpha <= 1)
+            
+            DrawingUtil.MaskSquare square = new(0, 0, 640, 480, duration, Color.White, alpha);
+            CreateEntity(square);
+            AddInstance(new TimeRangedEvent(duration + 1, () =>
+            {
+                if (alpha >= 0)
+                {
+                        alpha -= 1 / duration;
+                }
+                    square.alpha = alpha;
+                if(square.alpha <= 0)
+                {
+                    square.Dispose();
+                }
+            }));  
+        }
 
         public Stasis() : base(62.5f / (180 / 60)) { }
         public string Music => "Stasis";
@@ -1265,7 +1341,9 @@ namespace AprilExtends
             {
                 RegisterFunctionOnce("Pos", () =>
                 {
-                    ScreenDrawing.SceneOut(Color.White, BeatTime(0.0125f));
+                    WhiteScreen(BeatTime(8), 0.8f);
+                    //CreateEntity(new WhiteScreen(BeatTime(1), 0.5f));
+                    //ScreenDrawing.SceneOut(Color.White, BeatTime(0.0125f));
                     //Heart.controlingBox.GreenSoulAlpha = 0.5f;
                     RunEase(p =>
                     {
@@ -1351,6 +1429,85 @@ namespace AprilExtends
                     //"($0)($21)","","","",    "","","","",
                     //"","","","",    "","","","",
                 });
+            }
+            if (InBeat(272 + 16))
+            {
+                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                {
+                    "(^$0'2)(^$21'2)","","","",    "","","","",
+                    "$0","","+1","",    "+1","","-1","",
+                    "-1","","+1","",    "+1","","-1","",
+                    "-1","","+1","",    "+1","","-1","",
+
+                    "-1","","+1","",    "+1","","-1","",
+                    "-1","","+1","",    "+1","","-1","",
+                    "-1","","+1","",    "+1","","-1","",
+                    "-1","","+1","",    "+1","","-1","",
+
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+                    "($1)($01)","","$1","",    "($1)($21)","","$1","",
+                });
+            }
+            if (InBeat(272 + 32))
+            {
+                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                {
+                    "($0)($2)","","","",    "","","","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
+                    "(#0.25#$0)(#0.25#$21)","","","",    "","","","",
+                });
+            }
+            if (InBeat(272 + 32 + 16))
+            {
+                float side = 4;
+                float rot = 0;
+                //RunEase(r =>
+                //    CreateEntity(new Hexagon(Heart, r, 1))
+                //,
+                //    EaseOut(BeatTime(1.5f), 0, 90, EaseState.Circ), 
+                //    EaseOut(BeatTime(1.5f), 0, -90, EaseState.Circ)
+                //);
+                //CreateEntity(new RegularPolygon(Heart, 4, 0, BeatTime(4)));
+                RunEase((s) =>
+                {
+                    side = s;
+                }
+                ,
+                    EaseOut(BeatTime(1.5f), 4, 5, EaseState.Circ),
+                    EaseOut(BeatTime(1.5f), 5, 6, EaseState.Cubic)
+                );
+                RunEase((r) =>
+                {
+                    rot = r;
+                }
+                ,
+                    EaseOut(BeatTime(1.5f), 0, 90, EaseState.Circ),
+                    EaseOut(BeatTime(1.5f), 0, -90, EaseState.Circ)
+                );
+                RegularPolygon polygon = new(Heart, 4, 0, 1);
+                AddInstance(new TimeRangedEvent(BeatTime(16), () =>
+                {
+                    CreateEntity(new RegularPolygon(Heart, side, rot, 2));
+                }));
+
             }
         }
 
