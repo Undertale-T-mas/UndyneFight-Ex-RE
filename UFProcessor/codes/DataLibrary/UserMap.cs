@@ -165,5 +165,10 @@ namespace UndyneFight_Ex.Server
             }
             userData.Save();
         }
+
+        internal static string NameOf(long uuid)
+        {
+            return userData.PlayerNames[uuid];
+        }
     }
 }

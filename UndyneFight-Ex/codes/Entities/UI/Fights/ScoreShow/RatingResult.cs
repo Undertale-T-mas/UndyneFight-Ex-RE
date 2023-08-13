@@ -6,9 +6,9 @@ using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal partial class StateShower
+    public partial class StateShower
     {
-        internal partial class ResultShower
+        public partial class ResultShower
         {
             private class RatingResult : Entity
             {

@@ -12,8 +12,7 @@ namespace UndyneFight_Ex.Server
     {
         private class ScoreboardManager
         {
-            public ScoreboardManager() { 
-                
+            public ScoreboardManager() {  
             }
             private SongScoreBoard Ready(string name)
             {
@@ -37,6 +36,33 @@ namespace UndyneFight_Ex.Server
                 var board = Ready(data.Name);
                 board.InsertData(user.UUID, data);
             }
+            public string Enquire(User? enquirer, string songName, Difficulty difficulty)
+            {
+                var board = Ready(songName);
+                if (!board.DifficultyResults.ContainsKey(difficulty)) return "F Empty scoreboard.";
+                UnitScoreBoard unitScoreBoard = board.DifficultyResults[difficulty];
+                List<Tuple<string, SongSystem.SongResult>> answer = new();
+
+                var rbt = unitScoreBoard.ScoreUnits;
+                int len = rbt.Count;
+                if (len <= 0) return "F Empty scoreboard.";
+                if (enquirer != null) {
+                    int rank = unitScoreBoard.RankOf(enquirer.UUID);
+                    if (rank != -1)
+                    {
+                        answer.Add(new(enquirer.Name, unitScoreBoard.ResultOf(enquirer.UUID)));
+                    } 
+                }
+                len = Math.Min(10, len);
+                for(int i = 0; i < len; i++)
+                {
+                    var res = rbt[i];
+                    answer.Add(new(UserLibrary.NameOf(res.PlayerID), res.Data));
+                }
+
+                return JsonSerializer.Serialize(answer);
+            }
+
             private void Save(SongScoreBoard scoreBoard)
             {
                 FileStream stream = new("Data/Scoreboard/" + scoreBoard.SongName, FileMode.OpenOrCreate, FileAccess.Write);

@@ -50,6 +50,6 @@ namespace UndyneFight_Ex.Entities
 
     internal class WinScene : Scene
     {
-        public WinScene(StateShower ss, Player.Analyzer analyzer) : base(new StateShower.ResultShower(ss, analyzer)) { }
+        public WinScene(StateShower ss, Player.Analyzer analyzer) : base(UFEXSettings.SongCompleteCreate(ss, analyzer)) { }
     }
 }

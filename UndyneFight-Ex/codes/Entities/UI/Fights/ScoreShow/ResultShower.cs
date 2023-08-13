@@ -7,7 +7,7 @@ using static UndyneFight_Ex.PlayerManager;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal partial class StateShower
+    public partial class StateShower
     {
         private bool isPaused = false;
 
@@ -18,7 +18,7 @@ namespace UndyneFight_Ex.Entities
             isPaused = true;
         }
 
-        internal partial class ResultShower : Entity
+        public partial class ResultShower : Entity
         {
             RatingResult ratingResult;
             AnalyzeShow analyzeShow;

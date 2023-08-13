@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 using UFData;
 using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Server
-{
+{ 
     public class SongScoreBoard : AliveData
     {
         public SongScoreBoard(string name) => this.SongName = name;
@@ -22,11 +23,23 @@ namespace UndyneFight_Ex.Server
     {
         public RBTree<ScoreUnit> ScoreUnits { get; set; } = new();
 
-        private Dictionary<long, int> _ranks { get; set; } = new();
+        private Dictionary<long, ScoreUnit> _temp { get; set; } = new();
+
+        public int RankOf(long uuid)
+        {
+            if (!_temp.ContainsKey(uuid)) return -1;
+            return ScoreUnits.IndexOf(_temp[uuid]);
+        }
 
         private bool _updated = false;
         private void Update()
         {
+            int index = -1;
+            foreach (ScoreUnit scoreUnit in ScoreUnits)
+            {
+                index++;
+                _temp.Add(scoreUnit.PlayerID, scoreUnit);
+            }
             return;
       /*      int pos = 0;
             var enumerator = ScoreUnits.GetEnumerator();
@@ -46,23 +59,28 @@ namespace UndyneFight_Ex.Server
         internal void InsertData(long playerID, SongPlayData playData)
         {
             if (!_updated) { _updated = true; Update(); }
-            if (_ranks.ContainsKey(playerID))
+            if (_temp.ContainsKey(playerID))
             {   // If the player already exist in the scoreboard, remove the record is necessary
-                int rank = _ranks[playerID];
-                _ranks.Remove(playerID);
-                ScoreUnit old = ScoreUnits[rank];
+               
+                ScoreUnit old = _temp[playerID];
+                _temp.Remove(playerID);
                 ScoreUnits.Remove(old);
                 old.Data = SongSystem.SongResult.PickBest(old.Data, playData.Result);
                 this.ScoreUnits.Add(old);
-                _ranks.Add(playerID, ScoreUnits.IndexOf(old));
+                _temp.Add(playerID, old);
             }
             else
             {
                 // If not, simply add it to the scoreboard
                 ScoreUnit d = new(playerID, playData.Result);
                 this.ScoreUnits.Add(d);
-                _ranks.Add(playerID, ScoreUnits.IndexOf(d));
+                _temp.Add(playerID, d);
             }
+        }
+
+        public SongSystem.SongResult ResultOf(long uuID)
+        {
+            return _temp[uuID].Data;
         }
     }
     public struct ScoreUnit : IComparable<ScoreUnit>, IComparable

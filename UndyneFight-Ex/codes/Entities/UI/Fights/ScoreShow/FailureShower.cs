@@ -8,7 +8,7 @@ using static UndyneFight_Ex.GlobalResources.Font;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal partial class StateShower
+    public partial class StateShower
     {
         internal class FailureShower : Entity
         {
