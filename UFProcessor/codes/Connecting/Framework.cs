@@ -12,7 +12,7 @@ namespace UndyneFight_Ex.Server
         {
             if (string.IsNullOrEmpty(str)) return;
 
-            string[] args = str.Split('\\');
+            string[] args = Command.Split(str);
 
             Command runner = Command.GetCommand(args[0]);
             if (runner.Log)

@@ -8,7 +8,23 @@ using System.Xml.Linq;
 
 namespace UndyneFight_Ex.Server
 {
-    public class User
+    public class AliveData
+    {
+        public AliveData(int timeAliveSeconds = 600) { this.timeAliveSeconds = timeAliveSeconds; }
+        private int timeAliveSeconds;
+        private DateTime _lastRefreshTime = DateTime.Now;
+        public bool IsDead()
+        {
+            TimeSpan secondSpan = new TimeSpan(DateTime.Now.Ticks - _lastRefreshTime.Ticks);
+            return secondSpan.TotalSeconds >= timeAliveSeconds;
+        }
+        public void Refresh()
+        {
+            _lastRefreshTime = DateTime.Now;
+        }
+    }
+
+    public class User : AliveData
     {
         public Dictionary<string, SongResult>? SongRecord { get; set; }
         public long UUID { get; set; }
@@ -16,16 +32,6 @@ namespace UndyneFight_Ex.Server
         public string? PasswordHash { get; set; }
         public float Rating { get; set; } = 0;
 
-        private DateTime _lastRefreshTime = DateTime.Now;
-        public bool IsDead()
-        {
-            TimeSpan secondSpan = new TimeSpan(DateTime.Now.Ticks - _lastRefreshTime.Ticks);
-            return secondSpan.TotalSeconds >= 600; // 10 min
-        }
-        public void Refresh()
-        {
-            _lastRefreshTime = DateTime.Now;
-        }
         public void Save()
         {
             FileStream stream = new("Data/User/" + Name, FileMode.OpenOrCreate, FileAccess.Write);

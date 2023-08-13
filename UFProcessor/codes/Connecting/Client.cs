@@ -53,6 +53,7 @@ namespace UndyneFight_Ex.Server
         }
 
         private bool updatePending = false;
+        private string aliveString = null;
         internal void PendUpdate()
         {
             updatePending = true;

@@ -6,7 +6,8 @@ namespace UndyneFight_Ex.Server
 {
     public abstract class Command
     {
-        public Command(string title)        {
+        public Command(string title)
+        {
             Title = title; 
         }
         public bool Log { get; init; } = true;
@@ -21,6 +22,29 @@ namespace UndyneFight_Ex.Server
         internal static Command GetCommand(string str)
         {
             return commands[str];
+        }
+
+        internal static string[] Split(string? str)
+        {
+            if (string.IsNullOrEmpty(str)) return new string[] { };
+            List<string> results = new();
+            StringBuilder last = new();
+            int bracketDepth = 0;
+            for(int i = 0; i < str.Length; i++)
+            {
+                char c = str[i];
+                if(c == '\\' && bracketDepth == 0)
+                {
+                    results.Add(last.ToString());
+                    last.Clear();
+                    continue;
+                }
+                if(c == '{') bracketDepth++;
+                else if(c == '}') bracketDepth--;
+                last.Append(c);
+            }
+            if (last.Length > 0) results.Add(last.ToString());
+            return results.ToArray();
         }
     }
 }

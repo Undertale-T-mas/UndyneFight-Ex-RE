@@ -10,6 +10,54 @@ namespace UndyneFight_Ex.Server
 {
     public static class SongResultUpload
     {
+        private class ScoreboardManager
+        {
+            public ScoreboardManager() { 
+                
+            }
+            private SongScoreBoard Ready(string name)
+            {
+                if (_songs.ContainsKey(name)) return _songs[name];
+                if(!File.Exists("Data/Scoreboard/" + name))
+                {
+                    SongScoreBoard board = new(name);
+                    _songs.Add(name, board);
+                    return board;
+                }
+                FileStream stream = new("Data/Scoreboard/" + name, FileMode.Open, FileAccess.Read);
+                StreamReader sr = new StreamReader(stream);
+
+                SongScoreBoard scoreBoard = JsonSerializer.Deserialize<SongScoreBoard>(sr.ReadToEnd()) ?? throw new FileLoadException();
+                _songs.Add(name, scoreBoard);
+                return scoreBoard;
+            }
+            private Dictionary<string, SongScoreBoard> _songs = new();
+            public void Insert(User user, SongPlayData data)
+            {
+                var board = Ready(data.Name);
+                board.InsertData(user.UUID, data);
+            }
+            private void Save(SongScoreBoard scoreBoard)
+            {
+                FileStream stream = new("Data/Scoreboard/" + scoreBoard.SongName, FileMode.OpenOrCreate, FileAccess.Write);
+                stream.Write(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(scoreBoard)));
+                stream.Flush();
+                stream.Dispose();
+            }
+            public void Save()
+            {
+                foreach(var pair in _songs.Values)
+                {
+                    Save(pair);
+                    if (pair.IsDead()) _songs.Remove(pair.SongName);
+                }
+            } 
+        }
+        private static ScoreboardManager scoreboardManager = new ScoreboardManager();
+        public static void SaveAll()
+        {
+            scoreboardManager.Save();
+        }
         public static void PushSong(string songDataJson, Client client) {
             if(client.BindUser == null)
             {
@@ -39,6 +87,9 @@ namespace UndyneFight_Ex.Server
 
             record[data.Name].SongName = data.Name;
             record[data.Name].Push(data);
+
+            scoreboardManager.Insert(user, data);
+
             client.Reply("S Song message received.");
             user.Save();
         }

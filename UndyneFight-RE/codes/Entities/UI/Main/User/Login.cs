@@ -81,7 +81,6 @@ namespace UndyneFight_Ex.Remake.UI
                     InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red });
                 }
             }
-
             private void SendLoginRequest()
             {
                 string password = _password.Result;
@@ -102,9 +101,8 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         if (s.Info == "user not exist")
                         {
-                            var v = new OnlineRegisterUI();
-                            IntroUI.CurrentUI.PushTip(v);
-                            v.PasswordTosend = newPassword;
+                            var v = new PageTips.OnlineRegisterUI(_account.Result, newPassword);
+                            IntroUI.CurrentUI.PushTip(v); 
                         }
                         else if(s.Info == "success login")
                         {

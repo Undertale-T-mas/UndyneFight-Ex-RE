@@ -1,4 +1,5 @@
-﻿using UndyneFight_Ex.SongSystem;
+﻿using System.Text.Json.Serialization;
+using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Server
 {
@@ -45,7 +46,7 @@ namespace UndyneFight_Ex.SongSystem
         public SongResult Result { get; set; } = SongResult.Empty;
         public GameMode GameMode { get; set; } = GameMode.None;
         public float PauseTime { get; set; } = 0;
-        public string? Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public float CompleteThreshold { get; set; } = 0;
         public float ComplexThreshold { get; set; } = 0;
         public float APThreshold { get; set; } = 0;
@@ -85,13 +86,18 @@ namespace UndyneFight_Ex.SongSystem
             AP = ap;
             this.PauseTime = pauseTime;
         }
-
-        public SkillMark CurrentMark { get; set; }
-        public int Score { get; set; }
-        public bool AC { get; set; }
-        public bool AP { get; set; }
-        public float Accuracy { get; set; }
-        public float PauseTime { get; set; }
+        [JsonInclude]
+        public SkillMark CurrentMark;
+        [JsonInclude]
+        public int Score;
+        [JsonInclude]
+        public bool AC;
+        [JsonInclude]
+        public bool AP;
+        [JsonInclude]
+        public float Accuracy;
+        [JsonInclude]
+        public float PauseTime;
 
         public static SongResult PickBest(SongResult result1, SongResult result2)
         {
