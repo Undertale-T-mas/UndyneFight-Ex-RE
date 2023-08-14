@@ -102,7 +102,7 @@ namespace UndyneFight_Ex.Remake.UI
                         if (s.Info == "user not exist")
                         {
                             var v = new PageTips.OnlineRegisterUI(_account.Result, newPassword);
-                            IntroUI.CurrentUI.PushTip(v); 
+                            IntroUI.PendingTip(v); 
                         }
                         else if(s.Info == "success login")
                         {

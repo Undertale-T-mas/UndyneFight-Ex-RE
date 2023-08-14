@@ -171,7 +171,7 @@ namespace UndyneFight_Ex
                     if (alp <= 0.001f) return obj;
                     MissionTarget = normalTarget2;
                     DrawTexture(obj, Vector2.Zero);
-                    DrawTexture(FightResources.Sprites.pixiv, new CollideRect(Vector2.Zero, AdaptedSize).ToRectangle(), col * alp * (col.A / 255f));
+                    DrawTexture(FightResources.Sprites.pixUnit, new CollideRect(Vector2.Zero, AdaptedSize).ToRectangle(), col * alp * (col.A / 255f));
                     return MissionTarget;
                 }
             }

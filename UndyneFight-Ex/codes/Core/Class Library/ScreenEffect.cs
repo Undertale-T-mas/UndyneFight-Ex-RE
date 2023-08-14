@@ -469,7 +469,7 @@ namespace UndyneFight_Ex.Fight
                         MissionTarget = lightSources[0];
                         ResetTargetColor(Color.Transparent);
                         Shader = GlobalResources.Effects.Light0;
-                        DrawTexture(FightResources.Sprites.pixiv, lightSources[0].Bounds);
+                        DrawTexture(FightResources.Sprites.pixUnit, lightSources[0].Bounds);
                         Initialized = true;
                     }
 

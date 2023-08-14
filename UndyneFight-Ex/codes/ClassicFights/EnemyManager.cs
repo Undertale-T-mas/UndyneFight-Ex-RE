@@ -107,9 +107,9 @@ namespace UndyneFight_Ex.Fight
             {
                 if (appearTime < 0) return;
                 Depth = 0.5f;
-                FormalDraw(Sprites.pixiv, collidingBox.ToRectangle(), Color.Red);
+                FormalDraw(Sprites.pixUnit, collidingBox.ToRectangle(), Color.Red);
                 Depth = 0.501f;
-                FormalDraw(Sprites.pixiv, currentHPBar.ToRectangle(), Color.Lime);
+                FormalDraw(Sprites.pixUnit, currentHPBar.ToRectangle(), Color.Lime);
             }
 
             public override void Update()

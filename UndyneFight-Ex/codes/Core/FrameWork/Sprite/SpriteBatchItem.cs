@@ -31,7 +31,7 @@ namespace UndyneFight_Ex
 
         private class PrimitiveItem : SpriteBatchItem
         {
-            public PrimitiveItem(float key, VertexPositionColor[] vertexs) : base(FightResources.Sprites.pixiv, key)
+            public PrimitiveItem(float key, VertexPositionColor[] vertexs) : base(FightResources.Sprites.pixUnit, key)
             {
                 this.Vertexs = new VertexPositionColorTexture[vertexs.Length];
                 for (int i = 0; i < vertexs.Length; i++)

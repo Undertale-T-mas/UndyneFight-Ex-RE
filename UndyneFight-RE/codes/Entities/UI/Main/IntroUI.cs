@@ -53,7 +53,7 @@ namespace UndyneFight_Ex.Remake.UI
                 }
                 else
                 {
-                    this.FormalDraw(FightResources.Sprites.pixiv, this.collidingBox, col.White * 0.8f);
+                    this.FormalDraw(FightResources.Sprites.pixUnit, this.collidingBox, col.White * 0.8f);
                 }
 
             }
@@ -71,10 +71,13 @@ namespace UndyneFight_Ex.Remake.UI
         static SmartMusicPlayer music;
         BackGenerater _backGenerater;
 
-        public static IntroUI CurrentUI { get; private set; }
-        public IntroUI()
+        private static TipUI _tipUI = null;
+        public static void PendingTip(TipUI tipUI)
         {
-            CurrentUI = this;
+            _tipUI = tipUI;
+        }
+        public IntroUI()
+        { 
             if (music == null || !music.Onplay)
             {
                 SmartMusicPlayer smartPlayer = new();
@@ -204,6 +207,14 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Update()
         {
+            if (_tipUI != null)
+            {
+                if (_tipUI.Disposed) _tipUI = null;
+                if (topUI == null)
+                {
+                    this.topUI = _tipUI;
+                }
+            }
             if (topUI != null)
             {
                 this.UpdateChildren = false;
@@ -218,11 +229,6 @@ namespace UndyneFight_Ex.Remake.UI
             titleShower?.TreeUpdate();
             cursor.Update();
         }
-        Entity topUI;
-
-        internal void PushTip(Entity obj)
-        {
-            topUI = obj;
-        }
+        Entity topUI; 
     }
 }

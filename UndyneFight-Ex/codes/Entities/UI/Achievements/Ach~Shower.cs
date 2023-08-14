@@ -82,7 +82,7 @@ namespace UndyneFight_Ex.Achievements
                 CollideRect box = new(infoPos + infoDelta, infoSize);
                 DrawingLab.DrawRectangle(box, Color.LightBlue * infoAlpha, 3, 0.98f);
                 Depth = 0.91f;
-                FormalDraw(pixiv, box.ToRectangle(), Color.DarkSlateBlue * infoAlpha);
+                FormalDraw(pixUnit, box.ToRectangle(), Color.DarkSlateBlue * infoAlpha);
 
                 GLFont font = FightResources.Font.NormalFont;
                 Vector2 boxCentre = box.GetCentre();
@@ -97,9 +97,9 @@ namespace UndyneFight_Ex.Achievements
                     rect.Height);
 
                 Depth = 0.963f;
-                FormalDraw(pixiv, rect.ToRectangle(), Color.Red * infoAlpha);
+                FormalDraw(pixUnit, rect.ToRectangle(), Color.Red * infoAlpha);
                 Depth = 0.975f;
-                FormalDraw(pixiv, occp.ToRectangle(), Color.Lime * infoAlpha);
+                FormalDraw(pixUnit, occp.ToRectangle(), Color.Lime * infoAlpha);
 
                 font.CentreDraw(achievementPresenting.CurrentProgress + "/" + achievementPresenting.FullProgress, rect.GetCentre() - new Vector2(0, 21),
                     (!achievementPresenting.Achieved ? Color.White : (achievementPresenting.OnlineAchieved ? Color.Gold : Color.Yellow)) * infoAlpha, 1.0f, 0.99f);

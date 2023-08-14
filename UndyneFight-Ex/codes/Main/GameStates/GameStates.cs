@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using UndyneFight_Ex.Entities;
@@ -65,7 +66,14 @@ namespace UndyneFight_Ex
                 GC.Collect();
             }
             KeysUpdate2();
+#if DEBUG
+            Stopwatch watch = new(); watch.Start();
+#endif
             CharInput = KeysUpdate();
+#if DEBUG
+            KeyCheckTime1 = (float)watch.Elapsed.TotalMilliseconds;
+            watch.Stop();
+#endif
             if (hacked)
             {
                 GameMain.ExitGame();

@@ -10,7 +10,7 @@ using System;
 
 namespace UndyneFight_Ex.Remake.UI
 {
-    internal class TipUI : SmartSelector
+    public class TipUI : SmartSelector
     { 
         private string _title;
         private string[] _message;

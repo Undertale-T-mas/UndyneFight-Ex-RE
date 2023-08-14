@@ -37,7 +37,7 @@ namespace UndyneFight_Ex.Remake.UI
             public override void Draw()
             {
                 this.Depth = 0.65f;
-                this.FormalDraw(FightResources.Sprites.pixiv, this.collidingBox.ToRectangle(), Color.DarkSlateGray * alpha);
+                this.FormalDraw(FightResources.Sprites.pixUnit, this.collidingBox.ToRectangle(), Color.DarkSlateGray * alpha);
 
                 DrawingLab.DrawRectangle(this.collidingBox, Color.White * alpha, 3f, 0.7f);
 

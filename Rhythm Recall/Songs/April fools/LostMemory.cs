@@ -636,7 +636,7 @@ namespace AprilExtends
                     public float speed = 1;
                     public override void Draw()
                     {
-                        FormalDraw(Sprites.pixiv, new CollideRect(CentreX, CentreY, width, height).ToRectangle(), color);
+                        FormalDraw(Sprites.pixUnit, new CollideRect(CentreX, CentreY, width, height).ToRectangle(), color);
                         Depth = 0.1f;
                     }
                     public override void Update()

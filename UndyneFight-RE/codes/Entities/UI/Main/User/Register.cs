@@ -85,7 +85,7 @@ namespace UndyneFight_Ex.Remake.UI
                         else if(s.Info == "the name already exists")
                         {
                             var v = new PageTips.NameConflictUI(_account.Result, newPassword);
-                            IntroUI.CurrentUI.PushTip(v); 
+                            IntroUI.PendingTip(v); 
                         }
                     }
                 });
