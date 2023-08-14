@@ -200,7 +200,7 @@ namespace UndyneFight_Ex.Remake.UI
             if (this._vFather.CurrentActivate == _vFather.ModeSelect && GameStates.IsKeyPressed120f(InputIdentity.Cancel))
             {
                 this.Dispose();
-                GameStates.InstanceCreate(new IntroUI());
+                GameStates.InstanceCreate(new DEBUG.IntroUI());
             }
         }
     }

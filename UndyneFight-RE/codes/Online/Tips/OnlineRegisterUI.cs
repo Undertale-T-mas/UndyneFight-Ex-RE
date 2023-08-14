@@ -33,6 +33,7 @@ namespace UndyneFight_Ex.Remake.UI.PageTips
                 }
             });
             login.SendRequest($"Log\\reg\\{_name}\\{_password}");
+            Back();
         }
     } 
     internal class NameConflictUI : TipUI

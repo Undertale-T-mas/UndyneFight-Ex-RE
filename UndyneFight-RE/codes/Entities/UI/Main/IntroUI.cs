@@ -12,8 +12,9 @@ using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex.UserService;
 using vec2 = Microsoft.Xna.Framework.Vector2;
 using col = Microsoft.Xna.Framework.Color;
+using Microsoft.Xna.Framework.Input;
 
-namespace UndyneFight_Ex.Remake.UI
+namespace UndyneFight_Ex.Remake.UI.DEBUG
 {
     public class IntroUI : SmartSelector
     {
@@ -228,6 +229,13 @@ namespace UndyneFight_Ex.Remake.UI
             }
             titleShower?.TreeUpdate();
             cursor.Update();
+
+            if (GameStates.IsKeyDown(Keys.LeftControl) && GameStates.IsKeyPressed120f(Keys.D))
+            {
+                // DEBUG INTRO
+                this.Dispose();
+                GameStates.InstanceCreate(new DebugWindow());
+            }
         }
         Entity topUI; 
     }

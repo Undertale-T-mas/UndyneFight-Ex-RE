@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.GameInterface;
+using UndyneFight_Ex.Remake.UI.DEBUG;
 
 namespace UndyneFight_Ex.Remake.Network
 {
@@ -57,8 +59,10 @@ namespace UndyneFight_Ex.Remake.Network
         Action<Message<T>> _onReceive;
         byte[] buffer = new byte[256];
         public UFSocket(Action<Message<T>> OnReceive) { this._onReceive = OnReceive; }
+
         public void SendRequest(string info)
         {
+            PromptLine.Memories.Enqueue(info);
             Task.Run(() => {
                 Exception ex = TryConnect();
                 if (ex != null)
@@ -77,6 +81,9 @@ namespace UndyneFight_Ex.Remake.Network
 
                     int len = _socketClient.Receive(buffer);
                     string state = Encoding.ASCII.GetString(buffer, 0, len);
+
+                    PromptLine.Memories.Enqueue(state);
+
                     if (state[0] == 'S')
                     {
                         string following = state[2..];

@@ -96,7 +96,7 @@ namespace UndyneFight_Ex.Remake.UI
         private void Back()
         {
             this.Dispose();
-            GameStates.InstanceCreate(new IntroUI());
+            GameStates.InstanceCreate(new DEBUG.IntroUI());
         }
 
         public override void Draw()

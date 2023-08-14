@@ -55,7 +55,7 @@ namespace UndyneFight_Ex.Remake.UI
                         PlayerManager.AddNewUser(_account.Result, this._password2.Result);
                         this._virtualFather.FatherObject.Dispose();
                         SendRegRequest();
-                        GameStates.InstanceCreate(new IntroUI());
+                        GameStates.InstanceCreate(new DEBUG.IntroUI());
                     }
                 }
             }
@@ -85,7 +85,7 @@ namespace UndyneFight_Ex.Remake.UI
                         else if(s.Info == "the name already exists")
                         {
                             var v = new PageTips.NameConflictUI(_account.Result, newPassword);
-                            IntroUI.PendingTip(v); 
+                            DEBUG.IntroUI.PendingTip(v); 
                         }
                     }
                 });

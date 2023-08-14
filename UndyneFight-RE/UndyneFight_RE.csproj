@@ -34,9 +34,6 @@
     <ProjectReference Include="..\UFData\UFData.csproj" />
     <ProjectReference Include="..\UndyneFight-Ex\UndyneFight-Ex.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="codes\Online\Debug\" />
-  </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />
