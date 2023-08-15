@@ -21,6 +21,7 @@ using vec2 = Microsoft.Xna.Framework.Vector2;
 using rect = UndyneFight_Ex.CollideRect;
 using col = Microsoft.Xna.Framework.Color;
 using VPCT = Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture;
+using UndyneFight_Ex.Remake.Texts;
 
 namespace Rhythm_Recall.Waves
 {
@@ -35,6 +36,7 @@ namespace Rhythm_Recall.Waves
             {  
                 if (InBeat(0))
                 {
+                    CreateEntity(new TASSongInfo());
                     int index = -1;
                     float v = GametimeF;
                     RegisterFunctionOnce("Image1", () => {
@@ -92,13 +94,13 @@ namespace Rhythm_Recall.Waves
                         i2.Centre = new(320, -450);
                         i2.Scale = 0.790774299f;
                         i2.AngelMode = true;
-                        i2.Depth = 0.22f;
+                        i2.Depth = 0.32f;
                         i2.Alpha = 1;
                         CreateEntity(i3 = new(anomalyImage3));
                         i3.Centre = new(320, 240);
                         i3.Scale = 1.0f;
                         i3.AngelMode = true;
-                        i3.Depth = 0.27f;
+                        i3.Depth = 0.37f;
                         i3.Alpha = 0.0f;
 
                         rect[] rects = {
@@ -145,6 +147,12 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(1f), 1.15f, 1.0f, EaseState.Cubic)
                             );
                     });
+                    RegisterFunctionOnce("Lag", () => {
+                        glitch.Intensity = 14;
+                        glitch.RGBSplitIntensity = 5.5f;
+                        glitch.AverageDelta = 0.5f;
+                        Extends.DrawingUtil.LerpScreenScale(BeatTime(128), 2, 0.02f);
+                    });
 
                     BarrageCreate(0, BeatTime(4), 0, new[] { 
                         //1
@@ -164,7 +172,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",     "", "", "", "",
                         //7
                         "Screen", "", "", "Screen",     "", "", "Screen", "",
-                        "", "Screen", "", "",     "", "", "", "",
+                        "", "Screen", "", "",     "", "", "Lag", "",
                         "", "", "", "",     "", "", "", "",
                         "", "", "", "",     "", "", "", "",
                     });
@@ -225,6 +233,36 @@ namespace Rhythm_Recall.Waves
                     }
                 }
                 base.Update();
+            }
+        }
+        public class TASSongInfo : Entity
+        {
+            private float NameX = 0;
+            private float DescX = 640;
+            public override void Update()
+            {
+                if(NameX == 0)
+                {
+                    Text text = TextUtils.DrawText(4, "$T$raveller $A$t $S$unset", new vec2(10, 45), true,
+                        new TextColorEffect(Color.Red, 1),
+                        new TextColorEffect(Color.White, 8),
+                        new TextColorEffect(Color.Red, 1),
+                        new TextColorEffect(Color.White, 1),
+                        new TextColorEffect(Color.Red, 1),
+                        new TextColorEffect(Color.White, 5)
+                        );
+                    AddInstance(text);
+                }
+                if (NameX < 340)
+                    NameX = MathHelper.Lerp(NameX, 340, MathF.Min(GametimeF / 240, 1));
+                if (DescX > 440)
+                    DescX = MathHelper.Lerp(DescX, 440, MathF.Min(GametimeF / 360, 1));
+            }
+            public override void Draw()
+            {
+                DrawingLab.DrawLine(new(0, 60), new(NameX, 60), 50, col.Lerp(col.Green, col.Yellow, AdvanceFunctions.Sin01(GametimeF / 90)), 0);
+                DrawingLab.DrawLine(new(640, 450), new(DescX, 450), 50, col.White, 0);
+                Font.NormalFont.LimitDraw("div 1 : 19.X", new(DescX + 5, 430), col.Red, DescX - 5, 999999, 1, 0);
             }
         }
     }

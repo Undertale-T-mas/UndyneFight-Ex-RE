@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Entities.Advanced;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
@@ -10,6 +11,7 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
+using static UndyneFight_Ex.Fight.AdvanceFunctions;
 
 namespace Rhythm_Recall.Waves
 {
@@ -36,9 +38,9 @@ namespace Rhythm_Recall.Waves
                         //box.SetPosition(box.Split(2, 0.5f), new(320, 200));
                         //box.SetPosition(box.Split(1, 0.5f), new(240, 280));
                         //box.SetPosition(box.Split(0, 0.5f), new(320, 360));
-                        for (int i = 0; i < 4; ++i)
+                        for (int i = 0; i < 360; ++i)
                         {
-                            box.SetPosition(i, GetVector2((i % 2) == 0 ? 40 : 80, i * 90) + new Vector2(320, 240));
+                            box.SetPosition(box.Split(i, 0.5f), GetVector2(100, i) + new Vector2(320, 240));
                         }
                         //BoxUtils.Move(new(0, -40));
                         ScreenDrawing.BoxBackColor = Color.Transparent;
@@ -46,11 +48,11 @@ namespace Rhythm_Recall.Waves
                         SetSoul(Souls.RedSoul);
                         ForBeat(28, () =>
                         {
-                            var D = (GametimeF - BeatTime(200)) / 4;
-                            for (int i = 0; i < 4; ++i)
-                            {
-                                box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
-                            }
+                            //var D = (GametimeF - BeatTime(200)) / 4;
+                            //for (int i = 0; i < 4; ++i)
+                            //{
+                            //    box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
+                            //}
                             if (InBeat(200, 214) && At0thBeat(0.5f))
                             {
                                 /* Unused V2
@@ -72,6 +74,17 @@ namespace Rhythm_Recall.Waves
                                         });
                                     }
                                 }*/
+                                //if (At0thBeat(1))
+                                {
+                                    for(int i = 0; i < 6; ++i)
+                                    {
+                                        CreateSpear(new CustomSpear(new(240, 320), Motions.PositionRoute.linear, Motions.RotationRoute.linear)
+                                        {
+                                            PositionRouteParam = new float[] { 5 * Cos(i * 60), 5 * Sin(i * 60)},
+                                            RotationRouteParam = new float[] { 0, i * 60 }
+                                        });
+                                    }
+                                }
                             }
                         });
 
@@ -383,7 +396,7 @@ namespace Rhythm_Recall.Waves
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "(pre)", "", "", "",
+                        "", "", "", "",    "(pre)", "", "", "", //Red soul begin
                         //1
                         "(BoundA)(GaussBlur)", "BounceSpear", "BounceSpear", "BounceSpear",    "BounceSpear", "", "", "",
                         "", "", "", "",    "", "", "", "",
@@ -402,7 +415,7 @@ namespace Rhythm_Recall.Waves
                         //4
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "(BoundB)", "", "", "SpearFake",    "", "", "", "",
+                        "(BoundB)", "", "", "SpearFake",    "", "", "", "", //Red soul end
                         "(Green)(Box)", "", "", "",    "", "", "", "",      
                         //5
                         "(d1)(+00)(LineL)", "", "", "",    "(d1)(+00)(SCS)(LineL)", "", "d1", "",

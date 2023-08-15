@@ -166,11 +166,18 @@ namespace UndyneFight_Ex.Entities
                 if (hp.Hacked)
                     GameStates.CheatAffirmed();
 
-
-                if (hp <= 0 && ((CurrentScene as FightScene).Mode & GameMode.Practice) == 0)
+                bool PracticeDisbled = ((CurrentScene as FightScene).Mode & GameMode.Practice) == 0;
+                if (hp <= 0)
                 {
-                    (CurrentScene as FightScene).PlayDeath();
-                    return;
+                    if (PracticeDisbled)
+                    {
+                        (CurrentScene as FightScene).PlayDeath();
+                        return;
+                    }
+                    else
+                    {
+                        //想写个如果开了Practice可是没死就是没作弊可是想不到）））
+                    }
                 }
             }
 

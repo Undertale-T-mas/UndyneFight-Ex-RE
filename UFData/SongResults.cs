@@ -104,7 +104,7 @@ namespace UndyneFight_Ex.SongSystem
 
         public static SongResult PickBest(SongResult result1, SongResult result2)
         {
-            SongResult result = new SongResult(
+            SongResult result = new(
                 (SkillMark)Math.Min((int)result1.CurrentMark, (int)result2.CurrentMark),
                 Math.Max(result1.Score, result2.Score),
                 MathF.Max(result1.Accuracy, result2.Accuracy),

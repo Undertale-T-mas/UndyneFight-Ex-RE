@@ -1,46 +1,69 @@
-﻿namespace UndyneFight_Ex
+﻿using System;
+
+namespace UndyneFight_Ex
 {
     //全域变量
     public class Global
     {
         public float[] floatDatas = { };
         public string[] stringDatas = { };
-        public string[] keys = { };
+        public bool[] boolDatas = { };
+        public string[] floatKeys = { };
+        public string[] stringKeys = { };
+        public string[] boolKeys = { };
         public void Add(string key, float value)
         {
-            keys[^1] = key;
+            floatKeys[^1] = key;
             floatDatas[^1] = value;
         }
         public float GetValue(string key)
         {
             var i = 0;
-            while (i < keys.Length)
+            while (i < floatKeys.Length)
             {
-                if (keys[i] == key)
+                if (floatKeys[i] == key)
                 {
                     return floatDatas[i];
                 }
                 ++i;
             }
-            return -1;
+            throw new NotImplementedException();
         }
         public void Add(string key, string value)
         {
-            keys[^1] = key;
+            stringKeys[^1] = key;
             stringDatas[^1] = value;
         }
         public string GetString(string key)
         {
             var i = 0;
-            while (i < keys.Length)
+            while (i < stringKeys.Length)
             {
-                if (keys[i] == key)
+                if (stringKeys[i] == key)
                 {
                     return stringDatas[i];
                 }
                 ++i;
             }
-            return "";
+            throw new NotImplementedException();
+        }
+        public void Add(string key, bool value)
+        {
+            boolKeys[^1] = key;
+            boolDatas[^1] = value;
+        }
+        public bool GetBool(string key)
+        {
+            var i = 0;
+            while (i < boolKeys.Length)
+            {
+                if (boolKeys[i] == key)
+                {
+                    return boolDatas[i];
+                }
+                ++i;
+            }
+            throw new NotImplementedException();
         }
     }
 }

@@ -28,25 +28,25 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "zKronO vs Tlottgodinf vs T-mas ft. TK";
                 public override string AttributeAuthor => "Woem feat. ParaDOXXX and TK";
                 public override string PaintAuthor => "Unknown";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
                 {
-                    new(Difficulty.Normal,12.0f),
-                    new(Difficulty.ExtremePlus,19.4f)
+                    new(Difficulty.Normal, 12.0f),
+                    new(Difficulty.ExtremePlus, 19.4f)
                 }
                 );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                        new(Difficulty.Normal,12.0f),
-                        new(Difficulty.ExtremePlus,19.4f)
+                        new(Difficulty.Normal, 12.0f),
+                        new(Difficulty.ExtremePlus, 19.4f)
                     }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                        new(Difficulty.Normal,16.0f),
-                        new(Difficulty.ExtremePlus,20.9f)
+                        new(Difficulty.Normal, 16.0f),
+                        new(Difficulty.ExtremePlus, 20.9f)
                     }
                     );
             }

@@ -272,7 +272,6 @@ namespace UndyneFight_Ex.Entities
         public Vector2 CentrePosition => delta;
 
         public float[] PositionRouteParam { get; set; }
-        public float[] LengthRouteParam { get; set; }
         public float[] RotationRouteParam { get; set; }
         public float AppearTime => appearTime;
 

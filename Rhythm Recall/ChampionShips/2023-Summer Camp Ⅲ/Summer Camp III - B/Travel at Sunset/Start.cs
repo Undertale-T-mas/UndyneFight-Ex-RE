@@ -149,14 +149,14 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
-                    //int beat = 192;
-                    float beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
-                    //  beat = 328;
+                    int beat = 192;
+                    //float beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
+                    //beat = 328;
                     //int beat = 198;
-                //    beat = 711;
+                    //beat = 711;
                     sans.Alpha = 0.0f;
                     GametimeDelta = -3.5f + BeatTime(beat);
 

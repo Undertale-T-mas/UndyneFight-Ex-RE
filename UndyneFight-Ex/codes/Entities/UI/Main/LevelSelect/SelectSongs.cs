@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.IO.File;
 using UndyneFight_Ex.SongSystem;
 using UndyneFight_Ex.UserService;
 using static UndyneFight_Ex.ChampionShips.ChampionShip;
@@ -488,9 +489,9 @@ namespace UndyneFight_Ex.Entities
 
                 Texture2D songImage = null;
 
-                if (!System.IO.File.Exists(filePath + "\\song.xnb"))
+                if (!Exists(filePath + "\\song.xnb"))
                 {
-                    if (!System.IO.File.Exists(filePath + ".xnb"))
+                    if (!Exists(filePath + ".xnb"))
                     {
                         available = false;
                         name = $"({name})";
@@ -498,7 +499,7 @@ namespace UndyneFight_Ex.Entities
                 }
                 else
                 {
-                    if (System.IO.File.Exists(filePath + "\\paint.xnb"))
+                    if (Exists(filePath + "\\paint.xnb"))
                     {
                         string tmp = Scene.Loader.RootDirectory;
                         Scene.Loader.RootDirectory = "";
@@ -511,7 +512,7 @@ namespace UndyneFight_Ex.Entities
                     filePath += "\\song";
                 }
 
-                TextSelectionEx selection = new TextSelectionEx(name, new Vector2(100, 160 + 52 * y))
+                TextSelectionEx selection = new(name, new Vector2(100, 160 + 52 * y))
                 {
                     SetSelectionAction = () =>
                     {
