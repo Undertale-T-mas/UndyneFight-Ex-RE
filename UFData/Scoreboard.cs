@@ -8,6 +8,7 @@ namespace UndyneFight_Ex.Server
 { 
     public class SongScoreBoard : AliveData
     {
+        public SongScoreBoard() { this.SongName = string.Empty; }
         public SongScoreBoard(string name) => this.SongName = name;
         public string SongName { get; set; } 
         public Dictionary<Difficulty, UnitScoreBoard> DifficultyResults { get; set; } = new(); 
@@ -21,12 +22,14 @@ namespace UndyneFight_Ex.Server
     }
     public class UnitScoreBoard
     {
-        public RBTree<ScoreUnit> ScoreUnits { get; set; } = new();
+        public RBTree<ScoreUnit>? ScoreUnits { get; set; } = null;
 
         private Dictionary<long, ScoreUnit> _temp { get; set; } = new();
 
         public int RankOf(long uuid)
         {
+            if (ScoreUnits == null) ScoreUnits = new();
+            if (!_updated) { _updated = true; Update(); }
             if (!_temp.ContainsKey(uuid)) return -1;
             return ScoreUnits.IndexOf(_temp[uuid]);
         }
@@ -34,6 +37,7 @@ namespace UndyneFight_Ex.Server
         private bool _updated = false;
         private void Update()
         {
+            if (ScoreUnits == null) ScoreUnits = new();
             int index = -1;
             foreach (ScoreUnit scoreUnit in ScoreUnits)
             {
@@ -58,6 +62,7 @@ namespace UndyneFight_Ex.Server
 
         internal void InsertData(long playerID, SongPlayData playData)
         {
+            if (ScoreUnits == null) ScoreUnits = new();
             if (!_updated) { _updated = true; Update(); }
             if (_temp.ContainsKey(playerID))
             {   // If the player already exist in the scoreboard, remove the record is necessary
@@ -81,10 +86,15 @@ namespace UndyneFight_Ex.Server
         public SongSystem.SongResult ResultOf(long uuID)
         {
             return _temp[uuID].Data;
-        }
+        } 
     }
     public struct ScoreUnit : IComparable<ScoreUnit>, IComparable
     {
+        public ScoreUnit()
+        {
+            this.PlayerID = 0;
+            this.Data = new();
+        }
         public ScoreUnit(long uuID, SongSystem.SongResult data)
         {
             this.PlayerID = uuID;

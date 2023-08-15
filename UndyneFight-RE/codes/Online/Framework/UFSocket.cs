@@ -23,8 +23,8 @@ namespace UndyneFight_Ex.Remake.Network
                 if (_socketClient.Connected) return null;
                 else
                 {
-                    socketClient = _socketClient;
                     ipAddress = _ipAddress;
+                    socketClient = new(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 }
             }
             else
@@ -57,12 +57,12 @@ namespace UndyneFight_Ex.Remake.Network
         }
 
         Action<Message<T>> _onReceive;
-        byte[] buffer = new byte[256];
+        byte[] buffer = new byte[1024 * 2];
         public UFSocket(Action<Message<T>> OnReceive) { this._onReceive = OnReceive; }
 
         public void SendRequest(string info)
         {
-            PromptLine.Memories.Enqueue(info);
+            PromptLine.Memories.Enqueue("Local >> " + info);
             Task.Run(() => {
                 Exception ex = TryConnect();
                 if (ex != null)
@@ -70,6 +70,7 @@ namespace UndyneFight_Ex.Remake.Network
                     var scene = (GameStates.CurrentScene as GameMenuScene);
                     if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
                     _onReceive.Invoke(new(false, ex.Message, 'D'));
+                    _isConnected = false;
                     return;
                 }
                 try
@@ -82,7 +83,7 @@ namespace UndyneFight_Ex.Remake.Network
                     int len = _socketClient.Receive(buffer);
                     string state = Encoding.ASCII.GetString(buffer, 0, len);
 
-                    PromptLine.Memories.Enqueue(state);
+                    PromptLine.Memories.Enqueue("Server >> " + state);
 
                     if (state[0] == 'S')
                     {
@@ -105,6 +106,7 @@ namespace UndyneFight_Ex.Remake.Network
                 catch (Exception ex2)
                 {
                     _onReceive.Invoke(new(false, ex2.Message, 'D'));
+                    _isConnected = false;
                     var scene = (GameStates.CurrentScene as GameMenuScene);
                     if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
                 }

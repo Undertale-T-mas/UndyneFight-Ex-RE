@@ -12,9 +12,10 @@ namespace UFData
     public unsafe class RBTree<T> : IReadOnlyCollection<T>, IReadOnlyList<T>, ICollection<T>, IList<T>, IEnumerable<T> where T : unmanaged, IComparable<T>
     {
         int elementSize;
-        public RBTree(int allocateSize = 512, params T[] values)
+        public RBTree() : this(512, null) {}
+        public RBTree(int allocateSize, params T[] values)
         {
-            allocateSize = Math.Max(allocateSize, values.Length);
+            allocateSize = Math.Max(allocateSize, values == null ? -1 : values.Length);
             int checker = allocateSize & -allocateSize;
             if (checker != allocateSize)
             {
@@ -135,7 +136,7 @@ namespace UFData
             private set;
         } = 0;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         private void RotateL(RBTreeNode<T>* parent)
         {

@@ -3,6 +3,7 @@
 Command.AddCommand(new Login());
 Command.AddCommand(new KeepAlive());
 Command.AddCommand(new SongUpdate());
+Command.AddCommand(new Enquire());
 
 UFUpdater.Initialize();
 

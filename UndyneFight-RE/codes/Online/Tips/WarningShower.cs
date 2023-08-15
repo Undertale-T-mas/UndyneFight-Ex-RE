@@ -22,7 +22,7 @@ namespace UndyneFight_Ex.Remake.Network
         {
             appearTime += 0.5f;
             if (appearTime < 60) location = Vector2.Lerp(location, new(50, 600), 0.12f);
-            else if (appearTime > 300) location.X -= 4f;
+            else if (appearTime > 300) location.X -= 6f;
             else if (appearTime > 600) this.Dispose();
         }
         public override void Draw()

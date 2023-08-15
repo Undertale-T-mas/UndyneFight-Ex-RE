@@ -14,7 +14,10 @@ namespace UndyneFight_Ex.Server
 
             string[] args = Command.Split(str);
 
-            Command runner = Command.GetCommand(args[0]);
+            Command? runner = Command.GetCommand(args[0]);
+            if (runner == null) {
+                source.Reply("E Running unknown command!");
+                return; }
             if (runner.Log)
                 UFConsole.WriteLine("\0#Yellow][ @ ] \0#Green]" + DateTime.Now + ": \0#White]" + (source == null ? "Unknown user" : source.UserName) + " >> ran command: " + str);
             else UFConsole.WriteLine("\0#Yellow][ @ ] \0#Green]" + DateTime.Now + ": \0#White]" + (source == null ? "Unknown user" : source.UserName) + " >> ran hidden command. ");

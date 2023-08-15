@@ -170,5 +170,22 @@ namespace UndyneFight_Ex.Server
         {
             return userData.PlayerNames[uuid];
         }
+
+        internal static string? Check(long uuid)
+        {
+            if (!userData.PlayerNames.ContainsKey(uuid)) return null;
+            try
+            {
+                FileStream stream = new("Data/User/" + userData.PlayerNames[uuid], FileMode.Open, FileAccess.Read);
+                StreamReader streamReader = new StreamReader(stream);
+                string result = streamReader.ReadToEnd();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                UFConsole.WriteLine($"An exception occured when checking uuid {uuid}: " + ex.Message);
+                return null;
+            }
+        }
     }
 }

@@ -18,6 +18,16 @@ namespace UndyneFight_Ex.Server
                 string password = "";
                 if (arg2 != "key")
                 { 
+                    if(args.Length <= 2)
+                    {
+                        client.Reply("F message disturbed");
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(client.RSABuffer))
+                    {
+                        client.Reply("E you must require a key");
+                        return;
+                    }
                     password = MathUtil.Decrypt(args[2], client.RSABuffer); 
                 }
                 if (arg2 == "in") {

@@ -30,14 +30,22 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             List<string> results = new();
             StringBuilder last = new();
             int bracketDepth = 0;
+            bool rawCommand = false;
             for (int i = 0; i < str.Length; i++)
             {
                 char c = str[i];
                 if (c == '\\' && bracketDepth == 0)
                 {
+                    rawCommand = true;
                     results.Add(last.ToString());
                     last.Clear();
                     continue;
+                }
+                else if(!rawCommand && c == ' ')
+                {
+                    results.Add(last.ToString());
+                    last.Clear();
+                    continue; 
                 }
                 if (c == '{') bracketDepth++;
                 else if (c == '}') bracketDepth--;
@@ -46,6 +54,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             if (last.Length > 0) results.Add(last.ToString());
             return results.ToArray();
         }
+        internal CommandState CommandState { get; private set; } = CommandState.Unknown;
         public void Build(string str)
         {
             if (string.IsNullOrEmpty(str)) return;
@@ -55,17 +64,32 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                 promptBlocks.RemoveAt(promptBlocks.Count - 1);
             }
             int i = 0;
-            for (; i < list.Length; i++)
-            {
-                promptBlocks[i].SetText(list[i]);
-            }
+            Semantics semantic = new();
             for (; i < promptBlocks.Count; i++)
             {
-                promptBlocks.Add(new(list[i]));
+                string curs = list[i];
+                if (promptBlocks[i].text == curs)
+                {
+                    promptBlocks[i].Analyze(semantic);
+                    continue;
+                }
+                promptBlocks[i].text = curs;
+                promptBlocks[i].TextUpdate(semantic);
             }
+            for (; i < list.Length; i++)
+            {
+                promptBlocks.Add(new(semantic, list[i]));
+            }
+            CommandState = semantic.CurrentState;
         }
         public void SetText(string text)
         {
+            if(string.IsNullOrEmpty(text))
+            {
+                this._str = text;
+                this.promptBlocks.Clear();
+                return;
+            }
             if (_str == text) return;
             _str = text;
             Build(text);
@@ -73,13 +97,21 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
 
         public Vector2 Location { get; set; }
 
+        public int LineCount { get; set; } = 0;
+
+        public float MaxY { get; set; } = 610;
+
         public override void Draw()
         {
             Vector2 pos = Location;
+            int lcount, ltotal = 1;
             foreach(var promptBlock in promptBlocks)
             {
-                pos = promptBlock.Draw(pos);
+                if (pos.Y > MaxY) return;
+                pos = promptBlock.Draw(pos, out lcount);
+                ltotal += lcount;
             }
+            LineCount = ltotal;
         }
 
         public override void Update()

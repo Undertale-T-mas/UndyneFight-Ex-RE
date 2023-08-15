@@ -47,10 +47,12 @@ namespace UndyneFight_Ex.Server
                 int len = rbt.Count;
                 if (len <= 0) return "F Empty scoreboard.";
                 if (enquirer != null) {
+                    UFConsole.WriteLine("Enquirer is " + enquirer.UUID); 
+
                     int rank = unitScoreBoard.RankOf(enquirer.UUID);
                     if (rank != -1)
                     {
-                        answer.Add(new(enquirer.Name, unitScoreBoard.ResultOf(enquirer.UUID)));
+                        answer.Add(new(">" + enquirer.Name + "<", unitScoreBoard.ResultOf(enquirer.UUID)));
                     } 
                 }
                 len = Math.Min(10, len);
@@ -60,12 +62,13 @@ namespace UndyneFight_Ex.Server
                     answer.Add(new(UserLibrary.NameOf(res.PlayerID), res.Data));
                 }
 
-                return JsonSerializer.Serialize(answer);
+                return "S " + JsonSerializer.Serialize(answer);
             }
 
             private void Save(SongScoreBoard scoreBoard)
             {
                 FileStream stream = new("Data/Scoreboard/" + scoreBoard.SongName, FileMode.OpenOrCreate, FileAccess.Write);
+                stream.SetLength(0);
                 stream.Write(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(scoreBoard)));
                 stream.Flush();
                 stream.Dispose();
@@ -118,6 +121,11 @@ namespace UndyneFight_Ex.Server
 
             client.Reply("S Song message received.");
             user.Save();
+        }
+
+        internal static string Enquire(User? user, string arg1, Difficulty arg2)
+        {
+            return scoreboardManager.Enquire(user, arg1, arg2) ;
         }
     }
 }

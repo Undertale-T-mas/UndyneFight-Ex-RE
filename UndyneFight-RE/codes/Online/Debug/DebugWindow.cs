@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Input;
 using UndyneFight_Ex.Remake.Network;
 using System.Security.Principal;
 using UndyneFight_Ex.Remake.UI.DEBUG;
+using System.Xml.Linq;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -34,15 +35,16 @@ namespace UndyneFight_Ex.Remake.UI
             }
             else
             {
+                connect.ChangeText("Connect");
                 connect.NeverEnable = true;
                 connect.State = SelectState.False;
             }
         }
         public DebugWindow() {
-            this.KeyEvent = KeyEventFull;
+            this.KeyEvent = () => { };
             this.AddChild(back = new Button(this, new(100, 680), "<<Back") { State = SelectState.False });
             this.AddChild(connect = new Button(this, new(350, 680), "Connected") { State = SelectState.Disabled });
-            this.AddChild(login = new Button(this, new(600, 680), "Login") { State = SelectState.False });
+            this.AddChild(login = new Button(this, new(600, 680), "Login") { State = SelectState.False, NeverEnable = true });
 
             back.LeftClick += Back_LeftClick;
             connect.LeftClick += Connect_LeftClick;
@@ -55,12 +57,13 @@ namespace UndyneFight_Ex.Remake.UI
 
         private void Login_LeftClick()
         {
-            bool keyPeriod = false;
+            bool keyPeriod = true;
             string password = "DEBUG123abc";
             string newPassword = string.Empty;
             UFSocket<Empty> login = null;
             login = new((s) =>
             {
+                if (s.State == 'D') this.Update(false);
                 if (keyPeriod)
                 {
                     if (s.Info[0..4] == "<RSA")
@@ -74,8 +77,7 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     if (s.Info == "user not exist")
                     {
-                        var v = new PageTips.OnlineRegisterUI("DEBUG", newPassword);
-                        DEBUG.IntroUI.PendingTip(v);
+                        login.SendRequest($"Log\\reg\\DEBUG\\{newPassword}");
                     }
                     else if (s.Info == "success login")
                     {
@@ -105,6 +107,7 @@ namespace UndyneFight_Ex.Remake.UI
             base.Start();
             this.AddChild(new MouseCursor());
             this.AddChild(new PromptDialog());
+            this.AddChild(new CommandEditor());
         }
 
         public override void Update()

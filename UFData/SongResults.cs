@@ -77,7 +77,7 @@ namespace UndyneFight_Ex.SongSystem
     public struct SongResult
     {
         public readonly static SongResult Empty = new();
-        public SongResult(SkillMark currentMark = SkillMark.Failed, int score = 0, float acc = 0, bool ac = false, bool ap = false, float pauseTime = 0)
+        public SongResult(SkillMark currentMark, int score = 0, float acc = 0, bool ac = false, bool ap = false, float pauseTime = 0)
         {
             CurrentMark = currentMark;
             Score = score;
@@ -85,6 +85,9 @@ namespace UndyneFight_Ex.SongSystem
             AC = ac;
             AP = ap;
             this.PauseTime = pauseTime;
+        }
+        public SongResult() : this(SkillMark.Failed)
+        { 
         }
         [JsonInclude]
         public SkillMark CurrentMark;

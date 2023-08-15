@@ -19,9 +19,10 @@ namespace UndyneFight_Ex.Server
             commands.Add(command.Title, command);
         }
 
-        internal static Command GetCommand(string str)
+        internal static Command? GetCommand(string str)
         {
-            return commands[str];
+            if(commands.ContainsKey(str)) return commands[str];
+            return null;
         }
 
         internal static string[] Split(string? str)
