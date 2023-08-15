@@ -43,7 +43,7 @@ namespace RecallCharter
         {
             if (!Father.IsEnabled)
                 return;
-            this.Image = FightResources.Sprites.pixiv;
+            this.Image = FightResources.Sprites.pixUnit;
             float dep = this.Depth;
             this.FormalDraw(Image, this.CollidingBox.ToRectangle(), this.BackgroundColor);
             this.Depth = dep + 0.005f;

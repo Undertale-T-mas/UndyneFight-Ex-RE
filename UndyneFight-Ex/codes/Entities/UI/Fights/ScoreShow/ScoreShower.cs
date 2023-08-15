@@ -6,7 +6,7 @@ using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal partial class StateShower : Entity
+    public partial class StateShower : Entity
     {
         internal void PushBonus(int bonus)
         {

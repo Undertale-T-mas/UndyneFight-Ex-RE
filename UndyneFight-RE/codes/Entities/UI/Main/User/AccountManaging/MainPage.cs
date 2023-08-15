@@ -172,7 +172,7 @@ namespace UndyneFight_Ex.Remake.UI
             if (GameStates.IsKeyPressed(InputIdentity.Cancel))
             {
                 this.Dispose();
-                GameStates.InstanceCreate(new IntroUI());
+                GameStates.InstanceCreate(new DEBUG.IntroUI());
             }
         }
     }

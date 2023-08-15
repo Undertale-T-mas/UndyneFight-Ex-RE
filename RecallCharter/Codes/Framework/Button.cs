@@ -32,7 +32,7 @@ namespace RecallCharter
             float depthTemp = this.Depth;
             float depth2 = MathF.Max(0, this.Depth - 0.01f);
             Texture2D temp = Image;
-            this.Image = FightResources.Sprites.pixiv;
+            this.Image = FightResources.Sprites.pixUnit;
             this.Depth = depth2;
             this.FormalDraw(this.Image, this.CollidingBox.ToRectangle(), _backColor * 0.5f);
             if(this.MouseOn)

@@ -8,6 +8,33 @@ namespace UndyneFight_Ex.Server
 {
     public static class UserLibrary
     {
+        private class UserBufferData
+        {
+            public Dictionary<string, long> UUIDList { get; set; } = new();
+            public Dictionary<long, string> PlayerNames { get; set; } = new();
+
+            public void Save()
+            {
+                FileStream stream = new("Data/User/\\data", FileMode.OpenOrCreate, FileAccess.Write);
+                stream.Write(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(this)));
+                stream.Flush();
+                stream.Dispose();
+            }
+        }
+        private static UserBufferData userData;
+
+        static UserLibrary()
+        {
+            if (!File.Exists("Data/User/\\data"))
+            {
+                userData = new();
+                return;
+            }
+            FileStream stream = new("Data/User/\\data", FileMode.OpenOrCreate, FileAccess.Read);
+            StreamReader streamReader = new StreamReader(stream, Encoding.ASCII);
+            userData = JsonSerializer.Deserialize<UserBufferData>(streamReader.ReadToEnd()) ?? throw new FileLoadException();
+        }
+
         private static string SHA512Encode(string source)
         {
             string result = "";
@@ -22,9 +49,12 @@ namespace UndyneFight_Ex.Server
         }
 
         private static HashSet<User> onlineUsers = new HashSet<User>();
-        private static void Update()
+        private static void InnerUpdate(User user)
         {
-
+            if(!userData.UUIDList.ContainsKey(user.Name)) 
+                userData.UUIDList.Add(user.Name, user.UUID);
+            if (!userData.PlayerNames.ContainsKey(user.UUID))
+                userData.PlayerNames.Add(user.UUID, user.Name);
         }
 
         internal static void Refresh(User user)
@@ -32,29 +62,34 @@ namespace UndyneFight_Ex.Server
             if(!onlineUsers.Contains(user)) onlineUsers.Add(user);
         }
 
+        public static long UUIDOf(string name) => userData.UUIDList[name];
         public static Tuple<string, User?> Auth(string name, string password)
         {
             try
             {
-                if (string.IsNullOrEmpty(name) || name.Contains('/')) return new("F name format incorrect", null);
+                if (string.IsNullOrEmpty(name) || name.Contains('/') || name.Contains('\\')) return new("F name format incorrect", null);
                 if (!File.Exists("Data/User/" + name)) return new("F user not exist", null);
                 FileStream stream = new("Data/User/" + name, FileMode.Open, FileAccess.Read);
                 StreamReader streamReader = new StreamReader(stream);
                 string result = streamReader.ReadToEnd();
                 User? user = JsonSerializer.Deserialize<User>(result);
-                if (user == null) return new("F deserialize failure", null);
+                if (user == null) return new("E deserialize failure", null);
                 string hash = SHA512Encode(password);
 
                 streamReader.Close();
                 stream.Close();
 
-                if (hash == user.PasswordHash) return new("S success login", user);
+                if (hash == user.PasswordHash)
+                {
+                    InnerUpdate(user);
+                    return new("S success login", user);
+                }
                 else return new("F wrong password", null);
             }
             catch(Exception ex) 
             {
                 Console.WriteLine(ex.ToString());
-                return new("F an exception was thrown", null);
+                return new("E an exception was thrown", null);
             }
         }
         private static bool _onRegister = false;
@@ -62,7 +97,7 @@ namespace UndyneFight_Ex.Server
         {
             try
             {
-                if (string.IsNullOrEmpty(name) || name.Contains('/')) return new("F name format incorrect", null);
+                if (string.IsNullOrEmpty(name) || name.Contains('/') || name.Contains('\\')) return new("F name format incorrect", null);
                 if (_onRegister) return new("F the server is busy, try again later", null);
                 if (File.Exists("Data/User/" + name)) return new("F the name already exists", null);
                 _onRegister = true;
@@ -81,12 +116,13 @@ namespace UndyneFight_Ex.Server
                 stream.Close();
 
                 _onRegister = false;
+                InnerUpdate(user);
                 return new("S register complete", user);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return new("F an exception was thrown", null);
+                return new("E an exception was thrown", null);
             }
         }
 
@@ -110,7 +146,7 @@ namespace UndyneFight_Ex.Server
                 catch (Exception ex)
                 {
                     Console.WriteLine("Exception was thrown: " + ex.Message);
-                    return "F an exception was thrown";
+                    return "E an exception was thrown";
                 }
                 finally
                 {
@@ -118,6 +154,21 @@ namespace UndyneFight_Ex.Server
                 }
             }  
             return "S " + publicKey;
+        }
+
+        internal static void SaveAll()
+        {
+            foreach (var user in onlineUsers)
+            {
+                UFConsole.WriteLine("Saving the data of " + user.Name);
+                user.Save();
+            }
+            userData.Save();
+        }
+
+        internal static string NameOf(long uuid)
+        {
+            return userData.PlayerNames[uuid];
         }
     }
 }

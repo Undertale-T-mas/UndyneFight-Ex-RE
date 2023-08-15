@@ -19,8 +19,11 @@ namespace UndyneFight_Ex.UserService
             User user = new User();
             SaveInfo info;
             info = new SaveInfo("StartInfo->{");
+            Random rand = new();
+            long uuid = rand.NextInt64();
             info.Nexts.Add("Password", new SaveInfo("Password:" + MathUtil.StringHash(password)));
             info.Nexts.Add("PlayerName", new SaveInfo("PlayerName:" + name));
+            info.Nexts.Add("UUID", new SaveInfo("UUID:" + uuid));
             info.Nexts.Add("Coins", new SaveInfo("Coins:0"));
             info.Nexts.Add("Achievements", new SaveInfo("Achievements{"));
             info.Nexts.Add("ChampionShips", new SaveInfo("ChampionShips{"));
@@ -51,6 +54,7 @@ namespace UndyneFight_Ex.UserService
         private readonly SongManager _songManager = new();
         private bool _isVip;
         private long _password;
+        private long _uuid;
         private string _name;
         public bool VIP => _isVip;
         public long Password => _password;
@@ -94,6 +98,16 @@ namespace UndyneFight_Ex.UserService
 
             _name = info.GetDirectory("PlayerName").StringValue;
             _password = Convert.ToInt64(info.GetDirectory("Password").StringValue);
+
+            if(info.Nexts.ContainsKey("UUID"))
+                _uuid = Convert.ToInt64(info.GetDirectory("UUID").StringValue);
+            else
+            {
+                Random rand = new();
+                long uuid = rand.NextInt64();
+                _uuid = uuid;
+            }    
+
             if (!info.Nexts.ContainsKey("Achievements"))
                 info.Nexts.Add("Achievements", new SaveInfo("Achievements{"));
             if (!info.Nexts.ContainsKey("GameJolt"))
@@ -162,6 +176,7 @@ namespace UndyneFight_Ex.UserService
 
             info.PushNext(new SaveInfo("VIP:" + (_isVip ? "true" : "false")));
             info.PushNext(new SaveInfo("PlayerName:" + _name));
+            info.PushNext(new SaveInfo("UUID:" + _uuid));
             info.PushNext(new SaveInfo("Password:" + _password));
             info.PushNext(new SaveInfo("Skill:" + MathUtil.FloatToString(Skill, 3)));
             info.PushNext(_custom);

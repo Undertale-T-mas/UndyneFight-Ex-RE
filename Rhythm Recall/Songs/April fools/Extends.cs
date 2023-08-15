@@ -1614,7 +1614,7 @@ namespace Extends
             public float speed = 1;
             public override void Draw()
             {
-                FormalDraw(Sprites.pixiv, new CollideRect(LeftUpX, LeftUpY, width, height).ToRectangle(), color * alpha);
+                FormalDraw(Sprites.pixUnit, new CollideRect(LeftUpX, LeftUpY, width, height).ToRectangle(), color * alpha);
                 Depth = 0.99f;
 
             }

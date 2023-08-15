@@ -38,7 +38,7 @@ namespace UndyneFight_Ex.Achievements
         public override void Draw()
         {
             DrawingLab.DrawRectangle(collidingBox, Color.White, 2f, Depth + 0.01f);
-            FormalDraw(FightResources.Sprites.pixiv, collidingBox.ToRectangle(), Color.Black);
+            FormalDraw(FightResources.Sprites.pixUnit, collidingBox.ToRectangle(), Color.Black);
         }
 
         public override void Update()

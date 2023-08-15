@@ -215,7 +215,7 @@ namespace UndyneFight_Ex.Entities
                     Depth -= 0.005f;
                     Color c = back * 0.2f;
                     c.A = 135;
-                    FormalDraw(FightResources.Sprites.pixiv, area.ToRectangle(), c);
+                    FormalDraw(FightResources.Sprites.pixUnit, area.ToRectangle(), c);
                     Depth += 0.005f;
 
                     if (enabled)

@@ -4,7 +4,9 @@ using System.Xml;
 using System;
 using System.Linq;
 using UndyneFight_Ex.Remake.Data;
-using UndyneFight_Ex.Entities; 
+using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Remake.Network;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -52,9 +54,43 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         PlayerManager.AddNewUser(_account.Result, this._password2.Result);
                         this._virtualFather.FatherObject.Dispose();
-                        GameStates.InstanceCreate(new IntroUI());
+                        SendRegRequest();
+                        GameStates.InstanceCreate(new DEBUG.IntroUI());
                     }
                 }
+            }
+            private void SendRegRequest()
+            {
+                string password = _password.Result;
+                string newPassword = "";
+                bool keyPeriod = true;
+                UFSocket<Empty> login = null;
+                login = new((s) =>
+                {
+                    if (keyPeriod)
+                    {
+                        if (s.Info[0..4] == "<RSA")
+                        {
+                            newPassword = MathUtil.Encrypt(password, s.Info);
+                            login.SendRequest("Log\\reg\\" + _account.Result + "\\" + newPassword);
+                            keyPeriod = false;
+                        }
+                    }
+                    else
+                    { 
+                        if (s.Info == "success login")
+                        {
+                            InstanceCreate(new KeepAliver());
+                        }
+                        else if(s.Info == "the name already exists")
+                        {
+                            var v = new PageTips.NameConflictUI(_account.Result, newPassword);
+                            DEBUG.IntroUI.PendingTip(v); 
+                        }
+                    }
+                });
+                login.SendRequest($"Log\\key\\none");
+                //     login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
             }
 
             private void RegKeyChange()

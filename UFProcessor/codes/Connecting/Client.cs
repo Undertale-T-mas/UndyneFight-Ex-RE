@@ -39,12 +39,13 @@ namespace UndyneFight_Ex.Server
             UserLibrary.UserExit(BindUser);
             Console.WriteLine(DateTime.Now + ": " + "user " + UserName + " is killed because of no response for too long. IP: " + ConnectSocket.RemoteEndPoint?.Serialize().ToString());
             ConnectSocket.Dispose();
+            this.BindUser.Save();
             this.Disposed = true;
         }
 
         public void Reply(string message)
         {
-            Console.WriteLine("Reply >> " + message);
+            UFConsole.WriteLine("Reply >> " + message);
             byte[] b = Encoding.UTF8.GetBytes(message);
             ConnectSocket.Send(b);
 
@@ -52,6 +53,7 @@ namespace UndyneFight_Ex.Server
         }
 
         private bool updatePending = false;
+        private string aliveString = null;
         internal void PendUpdate()
         {
             updatePending = true;

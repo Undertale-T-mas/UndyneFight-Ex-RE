@@ -1,4 +1,6 @@
 ﻿using System;
+using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.GameInterface
 {
@@ -10,6 +12,7 @@ namespace UndyneFight_Ex.GameInterface
 
         public static string MainServerURL { get; set; }
         public static int MainServerPort { get; set; }
+        public static Action<SongPlayData> OnSongComplete;
 
         public static event Action Update;
 
@@ -17,5 +20,7 @@ namespace UndyneFight_Ex.GameInterface
         {
             Update?.Invoke();
         }
+
+        internal static Func<StateShower, Player.Analyzer, GameObject> SongCompleteCreate { get; set; } = (s, t) => new StateShower.ResultShower(s, t);
     }
 }

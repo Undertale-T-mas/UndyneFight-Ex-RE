@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using static System.MathF;
 using UndyneFight_Ex.Settings;
 using static UndyneFight_Ex.Settings.SettingsManager;
+using System.Diagnostics;
 
 namespace UndyneFight_Ex
 {
@@ -235,13 +236,19 @@ namespace UndyneFight_Ex
         }
         public static float DrawFPS { get; set; } = 60f;
         float _totalElapsedMS = 0;
+
+        public static float UpdateCost = 0.0f;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
-        { 
+        {
+#if DEBUG
+            Stopwatch watch = new(); watch.Start();
+#endif
             _totalElapsedMS += gameTime.ElapsedGameTime.Milliseconds;
             if (_totalElapsedMS > 100f) _totalElapsedMS /= 2f;
             #region Event for times
@@ -292,6 +299,11 @@ namespace UndyneFight_Ex
                 task.RunSynchronously();
             }
             GameInterface.UFEXSettings.DoUpdate();
+
+#if DEBUG
+            UpdateCost = (float)watch.Elapsed.TotalMilliseconds ;
+            watch.Stop();
+#endif
             base.Update(gameTime);
         }
 

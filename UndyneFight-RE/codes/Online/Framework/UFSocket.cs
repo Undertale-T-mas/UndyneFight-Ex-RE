@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.GameInterface;
+using UndyneFight_Ex.Remake.UI.DEBUG;
 
 namespace UndyneFight_Ex.Remake.Network
 {
@@ -56,13 +59,17 @@ namespace UndyneFight_Ex.Remake.Network
         Action<Message<T>> _onReceive;
         byte[] buffer = new byte[256];
         public UFSocket(Action<Message<T>> OnReceive) { this._onReceive = OnReceive; }
+
         public void SendRequest(string info)
         {
+            PromptLine.Memories.Enqueue(info);
             Task.Run(() => {
                 Exception ex = TryConnect();
                 if (ex != null)
                 {
-                    _onReceive.Invoke(new(false, ex.Message));
+                    var scene = (GameStates.CurrentScene as GameMenuScene);
+                    if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
+                    _onReceive.Invoke(new(false, ex.Message, 'D'));
                     return;
                 }
                 try
@@ -74,22 +81,32 @@ namespace UndyneFight_Ex.Remake.Network
 
                     int len = _socketClient.Receive(buffer);
                     string state = Encoding.ASCII.GetString(buffer, 0, len);
+
+                    PromptLine.Memories.Enqueue(state);
+
                     if (state[0] == 'S')
                     {
                         string following = state[2..];
-                        Message<T> u = new(true, following);
+                        Message<T> u = new(true, following, 'S');
                         u.Data.Analysis(following);
                         _onReceive.Invoke(u);
                     }
                     else if (state[0] == 'F')
                     {
-                        _onReceive.Invoke(new(false, state[2..]));
+                        _onReceive.Invoke(new(false, state[2..], 'F'));
+                    }
+                    else if (state[0] == 'E')
+                    {
+                        _onReceive.Invoke(new(false, state[2..], 'E'));
+                        throw new Exception(state[2..]);
                     }
                     return;
                 }
                 catch (Exception ex2)
                 {
-                    _onReceive.Invoke(new(false, ex2.Message));
+                    _onReceive.Invoke(new(false, ex2.Message, 'D'));
+                    var scene = (GameStates.CurrentScene as GameMenuScene);
+                    if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
                 }
             });
         }

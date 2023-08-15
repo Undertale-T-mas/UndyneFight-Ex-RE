@@ -268,7 +268,7 @@ namespace UndyneFight_Ex
             Sprites.spear =         loader.Load<Texture2D>("Sprites\\bullet\\spear");
             Sprites.spike =         loader.Load<Texture2D>("Sprites\\Bone\\bone_spike");
             Sprites.spider =        loader.Load<Texture2D>("Sprites\\OtherBarrages\\spider");
-            Sprites.pixiv =         loader.Load<Texture2D>("Sprites\\others\\pixiv");
+            Sprites.pixUnit =         loader.Load<Texture2D>("Sprites\\others\\pixiv");
             Sprites.firePartical =  loader.Load<Texture2D>("Sprites\\others\\firePartical");
             Sprites.lightBall =     loader.Load<Texture2D>("Sprites\\others\\lightBall");
             Sprites.lightBallS =    loader.Load<Texture2D>("Sprites\\others\\lightBallS");
@@ -422,7 +422,7 @@ namespace UndyneFight_Ex
             /// <summary>
             /// 一个像素点
             /// </summary>
-            public static Texture2D pixiv;
+            public static Texture2D pixUnit;
             public static Texture2D firePartical;
             public static Texture2D bullet;
             public static Texture2D target;

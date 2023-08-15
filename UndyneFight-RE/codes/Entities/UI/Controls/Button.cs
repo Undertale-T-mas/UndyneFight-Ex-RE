@@ -23,9 +23,9 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Draw()
         {
             if (CentreDraw)
-                FightResources.Font.NormalFont.CentreDraw(_text, Centre, Color.LimeGreen * alpha, Scale, 0.44f);
+                FightResources.Font.NormalFont.CentreDraw(_text, Centre, Color.LimeGreen * alpha, Scale, Depth);
             else
-                FightResources.Font.NormalFont.Draw(_text, Centre, Color.LimeGreen * alpha, Scale, 0.44f);
+                FightResources.Font.NormalFont.Draw(_text, Centre, Color.LimeGreen * alpha, Scale, Depth);
         }
 
         public override void Update()
@@ -58,7 +58,7 @@ namespace UndyneFight_Ex.Remake.UI
             fontSize = Font.SFX.MeasureString(_text) * DefaultScale;
             base.Start();
         }
-        protected void ChangeText(string text)
+        public void ChangeText(string text)
         {
             _text = text;
             fontSize = Font.SFX.MeasureString(text) * DefaultScale * 1.04f;
@@ -102,7 +102,7 @@ namespace UndyneFight_Ex.Remake.UI
         private void MouseClick()
         {
             Functions.PlaySound(FightResources.Sounds.select);
-            GameStates.InstanceCreate(new Shade(this._realLocation, sizeScale * this.DefaultScale, _text) { CentreDraw = this.CentreDraw });
+            GameStates.InstanceCreate(new Shade(this._realLocation, sizeScale * this.DefaultScale, _text) { CentreDraw = this.CentreDraw, Depth = this.Depth + 0.01f });
         }
 
         private void MouseOnEvent()

@@ -34,7 +34,9 @@ namespace UndyneFight_Ex.Entities
             public override void Draw()
             {
 #if DEBUG
-                FightResources.Font.NormalFont.CentreDraw(GlobalAVG + "-" + avg, new(150, 200), Color.White, 0.7f, 0.1f);
+                FightResources.Font.NormalFont.CentreDraw(GameMain.UpdateCost.ToString("F3"), new(100, 150), Color.White, 0.7f, 0.1f); 
+                FightResources.Font.NormalFont.CentreDraw(KeyCheckTime1.ToString("F3"), new(50, 200), Color.White, 0.7f, 0.1f); 
+                FightResources.Font.NormalFont.CentreDraw(KeyCheckTime2.ToString("F3"), new(150, 200), Color.White, 0.7f, 0.1f); 
 #endif
             }
             

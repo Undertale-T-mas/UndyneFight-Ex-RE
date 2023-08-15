@@ -56,7 +56,7 @@ namespace UndyneFight_Ex.Remake.UI
             private void DoBack()
             {
                 this._virtualFather.FatherObject.Dispose();
-                GameStates.InstanceCreate(new IntroUI());
+                GameStates.InstanceCreate(new DEBUG.IntroUI());
             }
 
             private void DoConfirm()
@@ -72,8 +72,8 @@ namespace UndyneFight_Ex.Remake.UI
                     SaveGlobal();
                     this.FatherObject?.FatherObject?.Dispose();
                     PlayerManager.Login(_account.Result);
-                    IntroUI introUI;
-                    InstanceCreate(introUI = new IntroUI());
+                    DEBUG.IntroUI introUI;
+                    InstanceCreate(introUI = new DEBUG.IntroUI());
                     SendLoginRequest();
                 }
                 else
@@ -81,7 +81,6 @@ namespace UndyneFight_Ex.Remake.UI
                     InstanceCreate(new InfoText(result, new Vector2(672, 400)) { DrawingColor = Color.Red });
                 }
             }
-
             private void SendLoginRequest()
             {
                 string password = _password.Result;
@@ -102,9 +101,8 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         if (s.Info == "user not exist")
                         {
-                            var v = new OnlineRegisterUI();
-                            IntroUI.CurrentUI.PushTip(v);
-                            v.PasswordTosend = newPassword;
+                            var v = new PageTips.OnlineRegisterUI(_account.Result, newPassword);
+                            DEBUG.IntroUI.PendingTip(v); 
                         }
                         else if(s.Info == "success login")
                         {

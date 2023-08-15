@@ -9,6 +9,7 @@
         public override void Processor(string[] args, Client? client)
         {
             if (client == null) return;
+            string arg0 = args[0]; 
             client.Reply("S alive message received.");
         }
     }

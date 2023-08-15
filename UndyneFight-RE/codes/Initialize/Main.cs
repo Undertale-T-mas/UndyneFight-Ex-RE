@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Remake.Network;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -28,12 +29,12 @@ namespace UndyneFight_Ex.Remake
         { 
             FileData.Initialize();  
             
-            GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.IntroUI()); LateInitialize(); };
+            GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.DEBUG.IntroUI()); LateInitialize(); };
             // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.UserUI()); LateInitialize(); };
             // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SettingUI()); LateInitialize(); };
             GameStartUp.Initialize += (loader) => { LateInitialize(); };
 
- 
+            UFEXSettings.OnSongComplete += SongUpload.UploadSong;
             UFEXSettings.Update += MouseSystem.Update;
             GameStartUp.Initialize += Resources.Initialize; 
         }

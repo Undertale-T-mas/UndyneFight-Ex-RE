@@ -28,6 +28,10 @@ namespace UndyneFight_Ex.Remake.Entities
             var ease = _positionRoute;
             Rotation=MathUtil.Direction(ease.Start, ease.End);
         }
+        public Spider(EaseUnit<float>x,EaseUnit<float>y) : this()
+        {
+            this.PositionRoute = Combine(x, y);
+        }
         public Spider(Func<ICustomMotion, Vector2> _positionRoute) : this() {
             this.PositionRoute = _positionRoute;
         }

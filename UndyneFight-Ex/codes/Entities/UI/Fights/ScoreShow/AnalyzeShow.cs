@@ -9,9 +9,9 @@ using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex.Entities
 {
-    internal partial class StateShower
+    public partial class StateShower
     {
-        internal partial class ResultShower
+        public partial class ResultShower
         {
             private class AnalyzeShow : Entity
             {
@@ -161,7 +161,7 @@ namespace UndyneFight_Ex.Entities
                             int remark = remarkOrder[j];
                             if (remarkCount[i, remark] < 0.5f) continue;
                             int height = (int)(remarkCount[i, remark] * 100 / remarkHeightMax);
-                            FormalDraw(FightResources.Sprites.pixiv,
+                            FormalDraw(FightResources.Sprites.pixUnit,
                             new Rectangle((int)lastX, y - height, (int)x - (int)lastX, height), remarkColor[remark]);
                             y -= height;
                         }

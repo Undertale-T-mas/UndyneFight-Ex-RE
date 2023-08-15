@@ -77,12 +77,12 @@ namespace UndyneFight_Ex.Entities
                     if (appearTime < halfTime)
                     {
                         var v = user.controlingBox.CollidingBox;
-                        FormalDraw(FightResources.Sprites.pixiv, new CollideRect(v.X, v.Y, v.Width, v.Height * percent).ToRectangle(), Color.MediumPurple);
+                        FormalDraw(FightResources.Sprites.pixUnit, new CollideRect(v.X, v.Y, v.Width, v.Height * percent).ToRectangle(), Color.MediumPurple);
                     }
                     else
                     {
                         var v = user.controlingBox.CollidingBox;
-                        FormalDraw(FightResources.Sprites.pixiv, new CollideRect(v.X, v.Down - v.Height * percent, v.Width, v.Height * percent).ToRectangle(), Color.MediumPurple);
+                        FormalDraw(FightResources.Sprites.pixUnit, new CollideRect(v.X, v.Down - v.Height * percent, v.Width, v.Height * percent).ToRectangle(), Color.MediumPurple);
                     }
                 }
 

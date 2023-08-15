@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex
@@ -91,6 +93,10 @@ namespace UndyneFight_Ex
         }
         public static bool WordsChanged { get; private set; } = false;
         public static char CharInput { get; private set; }
+#if DEBUG
+        public static float KeyCheckTime1 { get; private set; }
+        public static float KeyCheckTime2 { get; private set; }
+#endif
         internal static KeyboardState currentKeyState2;
         internal static KeyboardState lastKeyState2;
 
@@ -151,6 +157,10 @@ namespace UndyneFight_Ex
         }
         internal static void KeysUpdate2()
         {
+#if DEBUG
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+#endif
             lastKeyState2 = currentKeyState2;
             currentKeyState2 = Keyboard.GetState();
 
@@ -185,6 +195,11 @@ namespace UndyneFight_Ex
             }
             checker120f.Update(currentKeyState2);
 
+#if DEBUG
+
+            KeyCheckTime2 = (float)stopwatch.Elapsed.TotalMilliseconds;
+            stopwatch.Stop(); 
+#endif
         }
         public static bool IsKeyPressed(InputIdentity key)
         {
