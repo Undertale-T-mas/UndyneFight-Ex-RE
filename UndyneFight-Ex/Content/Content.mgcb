@@ -2538,12 +2538,8 @@
 #begin Sprites/font/damageShow.ttf
 /copy:Sprites/font/damageShow.ttf
 
-#begin Sprites/font/Japanese.spritefont
-/importer:FontDescriptionImporter
-/processor:LocalizedFontProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Sprites/font/Japanese.spritefont
+#begin Sprites/font/japanese.ttf
+/copy:Sprites/font/japanese.ttf
 
 #begin Sprites/font/menu.spritefont
 /importer:FontDescriptionImporter
