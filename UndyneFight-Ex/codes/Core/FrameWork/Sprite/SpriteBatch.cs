@@ -287,6 +287,26 @@ namespace UndyneFight_Ex
         /// <param name="texture">the texture sprite</param>
         /// <param name="vertexs">The vertexs given. Make them in the order of clockwise! </param>
         /// <param name="depth">The depth to sort</param>
+        public void DrawSortedVertex(float depth, params VertexPositionColor[] vertexs)
+        {
+            Vector2[] list = new Vector2[vertexs.Length];
+            for (int i = 0; i < list.Length; i++) list[i] = new(vertexs[i].Position.X, vertexs[i].Position.Y);
+            var raw = DrawingLab.GetIndices(list);
+            int[] indices = new int[raw.Count * 3];
+            for(int i = 0; i < raw.Count; i++)
+            {
+                indices[i * 3 + 0] = raw[i].Item1;
+                indices[i * 3 + 1] = raw[i].Item2;
+                indices[i * 3 + 2] = raw[i].Item3;
+            }
+            _batcher.Insert(new PrimitiveItem(TextureSortKey(depth), indices, vertexs));
+        }        
+        /// <summary>
+        /// Give the vertexs information of sprite to draw on the current RenderTarget
+        /// </summary>
+        /// <param name="texture">the texture sprite</param>
+        /// <param name="vertexs">The vertexs given. Make them in the order of clockwise! </param>
+        /// <param name="depth">The depth to sort</param>
         public void DrawVertex(Texture2D texture, float depth, int[] indices, params VertexPositionColorTexture[] vertexs)
         {
             _batcher.Insert(new VertexItem(texture, TextureSortKey(depth), indices, vertexs));

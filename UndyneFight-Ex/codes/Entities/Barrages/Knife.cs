@@ -29,7 +29,7 @@ namespace UndyneFight_Ex.Entities
             this.delay = delay;
             this.vecease = vecease;
             this.rotease = rotease;
-            AngelMode = true;
+            AngleMode = true;
 
             UpdateIn120 = true;
         }

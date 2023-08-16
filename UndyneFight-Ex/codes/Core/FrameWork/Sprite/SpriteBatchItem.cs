@@ -48,6 +48,15 @@ namespace UndyneFight_Ex
                 }
                 PrimitiveCount = count;
             }
+            public PrimitiveItem(float key, int[] indices, VertexPositionColor[] vertexs) : base(FightResources.Sprites.pixUnit, key)
+            {
+                this.Vertexs = new VertexPositionColorTexture[vertexs.Length];
+                for (int i = 0; i < vertexs.Length; i++)
+                    this.Vertexs[i] = new(vertexs[i].Position, vertexs[i].Color, new(0, 0));
+                int count = vertexs.Length - 2;
+                Indices = indices;
+                PrimitiveCount = count;
+            }
         }
         private class VertexItem : SpriteBatchItem
         {

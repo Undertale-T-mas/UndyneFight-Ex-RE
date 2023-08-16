@@ -257,7 +257,7 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(new Particle(Color.White * Rand(0.6f, 0.9f) * 0.8f,
                         GetVector2(Rand(6f, 9f) * 0.9f, Rand(-12f, -18f)), Rand(12f, 18f) * 1.4f,
                         new(-12, Rand(0, 640)), FightResources.Sprites.square)
-                    { DarkingSpeed = 1.1f, UpdateIn120 = true, Rotation = -15, AngelMode = true });
+                    { DarkingSpeed = 1.1f, UpdateIn120 = true, Rotation = -15, AngleMode = true });
                 }
                 // back particle 
                 CreateEntity(new Particle(Color.AliceBlue * Rand(0.6f, 0.9f) * 0.42f,
@@ -272,7 +272,7 @@ namespace Rhythm_Recall.Waves
             {
                 this.Centre = new(320, 240);
                 UpdateIn120 = true;
-                this.AngelMode = true;
+                this.AngleMode = true;
                 this.Image = texture;
                 this.Scale = 2.15f;
             }

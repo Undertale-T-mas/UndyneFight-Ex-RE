@@ -115,8 +115,7 @@ namespace UndyneFight_Ex
             objects.RemoveAll(s => s.Disposed);
             objects.ForEach(s =>
             {
-                if (s.UpdateEnabled)
-                    s.TreeUpdate();
+                s.TreeUpdate();
             });
             foreach(var v in GameEvents)
             {

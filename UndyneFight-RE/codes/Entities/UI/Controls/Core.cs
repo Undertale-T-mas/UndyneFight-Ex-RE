@@ -311,11 +311,13 @@ namespace UndyneFight_Ex.Remake.UI
             }
         }
 
+        protected bool MouseOn { get; private set; }
+
         public override void Update()
         {
             if (_activated) _activateTime++;
             else _activateTime = 0;
-            if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
+            if (MouseOn = this.collidingBox.Contain(MouseSystem.TransferredPosition))
             {
                 if (_state == SelectState.False) _state = SelectState.MouseOn;
                 if (_state == SelectState.MouseOn && MouseSystem.IsLeftClick())

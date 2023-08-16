@@ -137,7 +137,7 @@ namespace UndyneFight_Ex.Remake.UI
                     if (!MouseSystem.IsLeftClick()) return;
                 }
                 float x = MouseSystem.TransferredPosition.X;
-                if (x > 231 && x < 644) this.Activate();
+                if (x > 231 && x < 644 && MouseSystem.TransferredPosition.Y < 680f) this.Activate();
             }
 
             private class SongPack

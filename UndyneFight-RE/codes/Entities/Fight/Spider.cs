@@ -60,7 +60,7 @@ namespace UndyneFight_Ex.Remake.Entities
             this.UpdateIn120 = true;
             this.HitRadius = 4f;
             this.Hidden = true;
-            this.AngelMode = true;
+            this.AngleMode = true;
         }
         protected override float GetDistance(Player.Heart heart)
         {

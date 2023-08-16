@@ -21,7 +21,7 @@ namespace UndyneFight_Ex.Remake.Entities
             public MettBullet(Vector2 pos, float waveTime) {
                 this.Image = Resources.FightSprites.MettBullet;
                 this.Centre = pos;
-                this.AngelMode = true;
+                this.AngleMode = true;
                 this.HitRadius = 6.5f;
 
                 this.PositionRoute = EasingUtil.CentreEasing.Combine(EasingUtil.CentreEasing.Linear(

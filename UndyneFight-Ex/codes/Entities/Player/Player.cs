@@ -517,7 +517,7 @@ namespace UndyneFight_Ex.Entities
                     if (Gametime % 2 == 1)
                     {
                         GameStates.InstanceCreate(new RetentionEffect(this, 15, Color.Orange)
-                        { AngelMode = true });
+                        { AngleMode = true });
                     }
                 }
 

@@ -27,7 +27,7 @@ namespace UndyneFight_Ex.Remake.Entities
             this.RotationRoute = rotationEasing;
         }
         public ShotableBlock() {
-            this.AngelMode = true;
+            this.AngleMode = true;
             this.Image = Resources.FightSprites.MettBlockA;
             this.Alpha = 1.0f;
             this.Depth = 0.45f;
@@ -71,7 +71,7 @@ namespace UndyneFight_Ex.Remake.Entities
         }
         public ToughBlock()
         {
-            this.AngelMode = true;
+            this.AngleMode = true;
             this.Image = Resources.FightSprites.MettBlockB;
             this.Alpha = 1.0f;
             this.Depth = 0.45f;

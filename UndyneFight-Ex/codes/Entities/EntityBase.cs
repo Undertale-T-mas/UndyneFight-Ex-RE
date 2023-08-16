@@ -250,11 +250,32 @@ namespace UndyneFight_Ex
             FormalDraw(Image, Centre, BlendColor * Alpha, Scale, Rotation, Anchor);
         }
     }
+    public class TextEntity : Entity
+    {
+        public Color BlendColor { set; private get; } = Color.White;
+        public float Alpha { get; set; } = 1f;
+
+        public string Text { private get; set; }    
+        public TextEntity( string text, Vector2 centre)
+        {
+            this.Text = text;
+            this.Centre = centre;
+        }
+        public GLFont Font { get; set; } = FightResources.Font.NormalFont;
+        public override void Draw()
+        {
+            Font.CentreDraw(Text, Centre, this.BlendColor * this.Alpha, this.Scale,  AngleMode ? MathUtil.GetRadian(this.Rotation) : this.Rotation, this.Depth);
+        }
+
+        public override void Update()
+        { 
+        }
+    }
     public abstract class Entity : GameObject
     {
         public bool Visible { internal get; set; } = true;
-        public bool AngelMode { set; get; } = false; 
-        private float DrawingRotation(float rotation) => AngelMode ? MathUtil.GetRadian(rotation) : rotation;
+        public bool AngleMode { set; get; } = false; 
+        private float DrawingRotation(float rotation) => AngleMode ? MathUtil.GetRadian(rotation) : rotation;
 
         public Entity()
         {
@@ -591,6 +612,7 @@ namespace UndyneFight_Ex
 
         public void TreeUpdate()
         {
+            if (!UpdateEnabled) return;
             if (disposed) return;
             if (ChildrenUpdateFirst && UpdateChildren)
                 ChildObjects.ForEach(s => s.TreeUpdate());

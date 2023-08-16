@@ -52,7 +52,7 @@ namespace UndyneFight_Ex.Server
                     int rank = unitScoreBoard.RankOf(enquirer.UUID);
                     if (rank != -1)
                     {
-                        answer.Add(new(">" + enquirer.Name + "<", unitScoreBoard.ResultOf(enquirer.UUID)));
+                        answer.Add(new(enquirer.Name, unitScoreBoard.ResultOf(enquirer.UUID)));
                     } 
                 }
                 len = Math.Min(10, len);

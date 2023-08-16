@@ -141,12 +141,13 @@ namespace UndyneFight_Ex.Entities
             public float Distance { get; set; } = 0f;
             public Vector2 CentrePosition { get; set; }
             public float SelfRotation { get; set; } = 0f;
+            public bool AutoDispose { get; internal set; }
 
             int maxIndex = 0;
             int arrayIndex = -1;
 
             private int ToArrayIndex(float x) => (int)((x - 0.5f) * 2f);
-
+            
             public override void SetArrowPos(Arrow arr)
             {
                 float time = ApplyTime - arr.TimeDelta;
@@ -163,19 +164,25 @@ namespace UndyneFight_Ex.Entities
 
                 float add = (time - 0.5f) * 2f - l;
 
-                Vector2 realPos;
-                float realRot, realDis;
+                Vector2 realPos = Vector2.Zero;
+                float realRot = 0, realDis = 0;
                 if (l == r)
                 {
-                    realPos = positionBuffer[l] * Intensity;
-                    realRot = rotationBuffer[l] * Intensity;
-                    realDis = distanceBuffer[l] * Intensity;
+                    if (positionEaseEnabled)
+                        realPos = positionBuffer[l] * Intensity;
+                    if (rotationEaseEnabled)
+                        realRot = rotationBuffer[l] * Intensity;
+                    if (distanceEaseEnabled)
+                        realDis = distanceBuffer[l] * Intensity;
                 }
                 else
                 {
-                    realPos = Vector2.Lerp(positionBuffer[l], positionBuffer[r], add) * Intensity;
-                    realRot = MathHelper.Lerp(rotationBuffer[l], rotationBuffer[r], add) * Intensity;
-                    realDis = MathHelper.Lerp(distanceBuffer[l], distanceBuffer[r], add) * Intensity;
+                    if (positionEaseEnabled)
+                        realPos = Vector2.Lerp(positionBuffer[l], positionBuffer[r], add) * Intensity;
+                    if (rotationEaseEnabled)
+                        realRot = MathHelper.Lerp(rotationBuffer[l], rotationBuffer[r], add) * Intensity;
+                    if (distanceEaseEnabled)
+                        realDis = MathHelper.Lerp(distanceBuffer[l], distanceBuffer[r], add) * Intensity;
                 }
 
                 if (positionEaseEnabled)
@@ -198,6 +205,11 @@ namespace UndyneFight_Ex.Entities
                     rotationBuffer[arrayIndex] = Rotation = rotationEase.Easing.Invoke(this);
                 if (distanceEaseEnabled)
                     distanceBuffer[arrayIndex] = Distance = distanceEase.Easing.Invoke(this);
+
+                if(AppearTime > 20 && AutoDispose)
+                {
+                    if (arrows.Count == 0) this.Dispose();
+                }
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.GameInterface;
@@ -56,6 +57,7 @@ namespace UndyneFight_Ex.Remake.Network
             return null;
         }
 
+        private static bool sending = false; 
         Action<Message<T>> _onReceive;
         byte[] buffer = new byte[1024 * 2];
         public UFSocket(Action<Message<T>> OnReceive) { this._onReceive = OnReceive; }
@@ -78,9 +80,15 @@ namespace UndyneFight_Ex.Remake.Network
                     byte[] infobyte = new byte[info.Length + 1];
                     Encoding.ASCII.GetBytes(info, 0, info.Length, infobyte, 0);
                     infobyte[info.Length] = 1;
-                    _socketClient.Send(infobyte);
 
+                    while (sending) {
+                        Thread.Sleep(10);
+                    }
+                    sending = true;
+                    _socketClient.Send(infobyte);
+                    
                     int len = _socketClient.Receive(buffer);
+                    sending = false;
                     string state = Encoding.ASCII.GetString(buffer, 0, len);
 
                     PromptLine.Memories.Enqueue("Server >> " + state);

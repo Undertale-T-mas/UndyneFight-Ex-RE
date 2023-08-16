@@ -777,6 +777,22 @@ namespace UndyneFight_Ex.Fight
                     v.ForEach(s => action(s));
                 }));
         }
+        public static class ArrowEase
+        {
+            public static void UnitRotation(string tag, EaseUnit<float> rotationEase)
+            {
+                if (CurrentScene is SongFightingScene)
+                {
+                    Arrow.UnitEasing ease = new();
+                    ease.ApplyTime = rotationEase.Time;
+                    ease.RotationEase = rotationEase;
+                    ease.TagApply(tag);
+                    AddInstance(ease);
+                    ease.AutoDispose = true;
+                }
+            }
+
+        }
         /// <summary>
         /// 将框平滑地移动到一个位置
         /// </summary>

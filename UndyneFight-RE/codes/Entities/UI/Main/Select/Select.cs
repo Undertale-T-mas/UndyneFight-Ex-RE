@@ -174,6 +174,7 @@ namespace UndyneFight_Ex.Remake.UI
             }
         }
         VirtualFather _vFather;
+        SmartSelector _extra;
         public SelectUI()
         {
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
@@ -182,6 +183,7 @@ namespace UndyneFight_Ex.Remake.UI
             this.AddChild(new MouseCursor());
             this.AddChild(new LineDistributer());
             this.AddChild(_vFather = new VirtualFather());
+            this.AddChild(_extra = new Extra(_vFather));
          /*   GameStates.InstanceCreate(new InstantEvent(2397, () => { 
                 GameStates.InstanceCreate(
                     new MusicPlayer(Resources.Musics.DreamDiver_LOOP) { IsLoop = false }
@@ -202,6 +204,7 @@ namespace UndyneFight_Ex.Remake.UI
                 this.Dispose();
                 GameStates.InstanceCreate(new DEBUG.IntroUI());
             }
+            _vFather.UpdateEnabled = !_extra.Activated;
         }
     }
 }

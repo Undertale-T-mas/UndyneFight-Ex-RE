@@ -18,7 +18,7 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Image = Resources.FightSprites.SoulShoot;
             Fight.Functions.PlaySound(Resources.Sounds.YellowShoot);
             this.Rotation = heart.Rotation + 180;
-            this.AngelMode = true;
+            this.AngleMode = true;
             this.Broadcast("Bullet");
         }
 

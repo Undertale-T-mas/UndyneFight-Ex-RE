@@ -43,7 +43,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(i0 = new(anomalyImage0));
                         i0.Centre = new(420, 140);
                         i0.Scale = 0.45f;
-                        i0.AngelMode = true;
+                        i0.AngleMode = true;
                         i0.Depth = 0.2f;
                         RunEase(s => i0.Alpha = s,
                             Linear(BeatTime(8), 0.97f),
@@ -64,7 +64,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(i1 = new(anomalyImage1));
                         i1.Centre = new(1420, 340);
                         i1.Scale = 1.16f;
-                        i1.AngelMode = true;
+                        i1.AngleMode = true;
                         i1.Depth = 0.12f;
                         RunEase(s => i1.Alpha = s,
                             Linear(BeatTime(8), 0.04f, 0.7f)
@@ -93,13 +93,13 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(i2 = new(anomalyImage2));
                         i2.Centre = new(320, -450);
                         i2.Scale = 0.790774299f;
-                        i2.AngelMode = true;
+                        i2.AngleMode = true;
                         i2.Depth = 0.32f;
                         i2.Alpha = 1;
                         CreateEntity(i3 = new(anomalyImage3));
                         i3.Centre = new(320, 240);
                         i3.Scale = 1.0f;
-                        i3.AngelMode = true;
+                        i3.AngleMode = true;
                         i3.Depth = 0.37f;
                         i3.Alpha = 0.0f;
 
@@ -196,7 +196,6 @@ namespace Rhythm_Recall.Waves
                 GameStates.ResetTime();
                 this.AddChild(project = new Project());
                 UpdateIn120 = true;
-
                 Task.Run(() => {
                     Loader.RootDirectory = "Content\\Musics\\Traveler at Sunset";
                     player = new(new Audio("anomaly.ogg"));

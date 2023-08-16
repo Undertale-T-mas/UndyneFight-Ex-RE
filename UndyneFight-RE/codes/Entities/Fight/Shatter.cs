@@ -15,7 +15,7 @@ namespace UndyneFight_Ex.Remake.Entities
     public class Shattered : Entity
     {
         public Shattered(Entity origin) {
-            this.AngelMode = origin.AngelMode;
+            this.AngleMode = origin.AngleMode;
             this.Image = origin.Image;
             this.Centre = origin.Centre;
             this.Rotation = origin.Rotation;
