@@ -104,7 +104,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             setting = new(this, new(x, 500), Resources.UI.IntroSetting);
             account = new(this, new(x, 570), Resources.UI.IntroAccount);
             showPage = new(this, new(960 - 115, 640), "show page") { DefaultScale = 1.15f }; 
-            contributor = new(this, new(960 - 115, 690), "contributors") { DefaultScale = 1.15f };
+            contributor = new(this, new(960 - 115, 690), "Contributors") { DefaultScale = 1.15f };
             start.DefaultScale = 1.5f;
             setting.DefaultScale = 1.5f;
             account.DefaultScale = 1.5f;

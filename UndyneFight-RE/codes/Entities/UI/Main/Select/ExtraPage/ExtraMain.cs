@@ -22,9 +22,9 @@ namespace UndyneFight_Ex.Remake.UI
                 this.UpdateIn120 = true;
                 this.OnActivated += Extra_OnActivated;
                 vec2 v = new(-111, 2);
-                this.AddChild(score = new(this, v, "score") { Depth = 0.62f});
-                this.AddChild(basicInfo = new(this, v, "info") { Depth = 0.62f });
-                this.AddChild(friend = new(this, v, "friend") { Depth = 0.62f });
+                this.AddChild(score = new(this, v, "Score") { Depth = 0.62f});
+                this.AddChild(basicInfo = new(this, v, "Info") { Depth = 0.62f });
+                this.AddChild(friend = new(this, v, "Friend") { Depth = 0.62f });
                 this.OneSelectionOnly = true;
                 this.OnSelected += Extra_OnSelected;
                 this.KeyEvent = KeyEventFull;
