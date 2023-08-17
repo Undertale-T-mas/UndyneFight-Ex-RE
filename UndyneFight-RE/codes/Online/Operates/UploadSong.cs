@@ -10,10 +10,14 @@ namespace UndyneFight_Ex.Remake.Network
         public static void UploadSong(SongPlayData data)
         {
             if (PlayerManager.CurrentUser == null) return;
-            UFSocket<Empty> sender = new((t) => {
-                ;
+            KeepAliver.CheckAlive(null, (t) => {
+                UFSocket<Empty> sender = new((t) => {
+                    if (t.Info == "Please login first") { 
+                        
+                    }
+                });
+                sender.SendRequest("SongUpdate\\" + JsonSerializer.Serialize(data));
             });
-            sender.SendRequest("SongUpdate\\" + JsonSerializer.Serialize(data));
         }
     }
 }

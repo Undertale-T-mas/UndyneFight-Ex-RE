@@ -143,7 +143,7 @@ namespace Rhythm_Recall
                 //typeof(BrainPower),
                 //typeof(Weekender), 
                 typeof(DreadNaught),
-                typeof(TheFuneral),
+         //       typeof(TheFuneral),
                 //typeof(PapyEn), 
                 typeof(Conflict),
                 //typeof(AprilExtends.Stasis),

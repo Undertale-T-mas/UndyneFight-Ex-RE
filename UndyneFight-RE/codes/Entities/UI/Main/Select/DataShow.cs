@@ -46,16 +46,16 @@ namespace UndyneFight_Ex.Remake.UI
                     else
                         this.FormalDraw(Image, new Vector2(157, 444), Color.White, 0, ImageCentre);
                 }
-                if ( _user.Skill > 60)
+                if ( _user.Skill > 70)
                 {
-                    if (_user.Skill > 90)
+                    if (_user.Skill > 92.5f)
                         this.FormalDraw(GlobalResources.Sprites.starMedal, new Vector2(182, 444), Color.White, 0, ImageCentre);
                     else
                         this.FormalDraw(Image, new Vector2(182, 444), Color.White, 0, ImageCentre);
                 }
-                if ( _user.Skill > 60)
+                if ( _user.Skill > 80)
                 {
-                    if (_user.Skill > 90)
+                    if (_user.Skill > 95)
                         this.FormalDraw(GlobalResources.Sprites.starMedal, new Vector2(207, 444), Color.White, 0, ImageCentre);
                     else
                         this.FormalDraw(Image, new Vector2(207, 444), Color.White, 0, ImageCentre);
