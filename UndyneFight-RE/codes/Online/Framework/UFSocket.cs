@@ -11,12 +11,13 @@ using UndyneFight_Ex.Remake.UI.DEBUG;
 
 namespace UndyneFight_Ex.Remake.Network
 {
-    public class UFSocket<T> where T : IMessageResult, new()
+    internal static class UFSocketData
     {
-        private static bool _isConnected = false;
+        public static bool _isConnected = false;
         private static Socket _socketClient = null;
+        public static Socket Socket => _socketClient;
         private static IPAddress _ipAddress = null;
-        private static Exception TryConnect()
+        public static Exception TryConnect()
         {
             Socket socketClient; IPAddress ipAddress;
             if (_isConnected)
@@ -25,7 +26,7 @@ namespace UndyneFight_Ex.Remake.Network
                 else
                 {
                     ipAddress = _ipAddress;
-                    socketClient = new(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                    socketClient = KeepAliver.IsAlive ? _socketClient : new(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 }
             }
             else
@@ -57,7 +58,11 @@ namespace UndyneFight_Ex.Remake.Network
             return null;
         }
 
-        private static bool sending = false; 
+        public static bool sending = false;
+
+    }
+    public class UFSocket<T> where T : IMessageResult, new()
+    {
         Action<Message<T>> _onReceive;
         byte[] buffer = new byte[1024 * 2];
         public UFSocket(Action<Message<T>> OnReceive) { this._onReceive = OnReceive; }
@@ -66,13 +71,13 @@ namespace UndyneFight_Ex.Remake.Network
         {
             PromptLine.Memories.Enqueue("Local >> " + info);
             Task.Run(() => {
-                Exception ex = TryConnect();
+                Exception ex = UFSocketData.TryConnect();
                 if (ex != null)
                 {
                     var scene = (GameStates.CurrentScene as GameMenuScene);
                     if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
                     _onReceive.Invoke(new(false, ex.Message, 'D'));
-                    _isConnected = false;
+                    UFSocketData._isConnected = false;
                     return;
                 }
                 try
@@ -81,14 +86,14 @@ namespace UndyneFight_Ex.Remake.Network
                     Encoding.ASCII.GetBytes(info, 0, info.Length, infobyte, 0);
                     infobyte[info.Length] = 1;
 
-                    while (sending) {
+                    while (UFSocketData.sending) {
                         Thread.Sleep(10);
                     }
-                    sending = true;
-                    _socketClient.Send(infobyte);
+                    UFSocketData.sending = true;
+                    UFSocketData.Socket.Send(infobyte);
                     
-                    int len = _socketClient.Receive(buffer);
-                    sending = false;
+                    int len = UFSocketData.Socket.Receive(buffer);
+                    UFSocketData.sending = false;
                     string state = Encoding.ASCII.GetString(buffer, 0, len);
 
                     PromptLine.Memories.Enqueue("Server >> " + state);
@@ -99,6 +104,7 @@ namespace UndyneFight_Ex.Remake.Network
                         Message<T> u = new(true, following, 'S');
                         u.Data.Analysis(following);
                         _onReceive.Invoke(u);
+                        KeepAliver.IsAlive = true;
                     }
                     else if (state[0] == 'F')
                     {
@@ -113,10 +119,11 @@ namespace UndyneFight_Ex.Remake.Network
                 }
                 catch (Exception ex2)
                 {
+                    UFSocketData.sending = false;
                     _onReceive.Invoke(new(false, ex2.Message, 'D'));
-                    _isConnected = false;
+                    UFSocketData._isConnected = false;
                     var scene = (GameStates.CurrentScene as GameMenuScene);
-                    if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
+                    if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!")); 
                 }
             });
         }

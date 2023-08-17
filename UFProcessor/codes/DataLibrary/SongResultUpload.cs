@@ -41,7 +41,7 @@ namespace UndyneFight_Ex.Server
                 var board = Ready(songName);
                 if (!board.DifficultyResults.ContainsKey(difficulty)) return "F Empty scoreboard.";
                 UnitScoreBoard unitScoreBoard = board.DifficultyResults[difficulty];
-                List<Tuple<string, SongSystem.SongResult>> answer = new();
+                List<Tuple<string, int, SongSystem.SongResult>> answer = new();
 
                 var rbt = unitScoreBoard.ScoreUnits;
                 int len = rbt.Count;
@@ -52,14 +52,14 @@ namespace UndyneFight_Ex.Server
                     int rank = unitScoreBoard.RankOf(enquirer.UUID);
                     if (rank != -1)
                     {
-                        answer.Add(new(enquirer.Name, unitScoreBoard.ResultOf(enquirer.UUID)));
+                        answer.Add(new(enquirer.Name, rank, unitScoreBoard.ResultOf(enquirer.UUID)));
                     } 
                 }
                 len = Math.Min(10, len);
                 for(int i = 0; i < len; i++)
                 {
                     var res = rbt[i];
-                    answer.Add(new(UserLibrary.NameOf(res.PlayerID), res.Data));
+                    answer.Add(new(UserLibrary.NameOf(res.PlayerID), i, res.Data));
                 }
 
                 return "S " + JsonSerializer.Serialize(answer);

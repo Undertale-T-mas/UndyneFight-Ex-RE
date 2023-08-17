@@ -49,7 +49,6 @@ namespace Rhythm_Recall.Waves
 
             public void Normal()
             {
-
             }
             Sans sans;
             public void Start()

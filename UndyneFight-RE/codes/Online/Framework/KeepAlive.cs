@@ -8,7 +8,6 @@ namespace UndyneFight_Ex.Remake.Network
         public KeepAliver() { 
             this.CrossScene = true;
             time = DateTime.Now;
-            IsAlive = true;
         }
         DateTime time;
         public override void Update()
@@ -30,6 +29,7 @@ namespace UndyneFight_Ex.Remake.Network
                     IsAlive = false;
                     keepAliver?.Dispose();
                 }
+                IsAlive = true;
                 afterCheck?.Invoke(s.Success);
             });
             socket.SendRequest("keepAlive\\none");

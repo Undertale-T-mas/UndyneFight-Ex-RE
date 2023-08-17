@@ -36,6 +36,7 @@ namespace UndyneFight_Ex.Remake.UI
                 base.Start();
                 this.AddChild(info = new Info());
                 this.Selected(score);
+                score.State = SelectState.Selected;
             }
 
             private void Extra_OnActivated()
@@ -76,7 +77,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                 if (this.Activated && current != null)
                 {
-                    if (CurrentSelected.ModuleEnabled)
+                    if (CurrentSelected.ModuleSelected)
                         current.Update();
                 }
             }
@@ -93,7 +94,7 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 if (this.Activated && current != null)
                 {
-                    if (CurrentSelected.ModuleEnabled)
+                    if (CurrentSelected.ModuleSelected)
                         current.Draw();
                 }
                 vec2[] points = this.collidingBox.GetVertexs();

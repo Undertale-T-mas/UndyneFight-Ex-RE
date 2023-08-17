@@ -13,6 +13,7 @@ using UndyneFight_Ex.UserService;
 using vec2 = Microsoft.Xna.Framework.Vector2;
 using col = Microsoft.Xna.Framework.Color;
 using Microsoft.Xna.Framework.Input;
+using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 
 namespace UndyneFight_Ex.Remake.UI.DEBUG
 {
@@ -230,12 +231,14 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             titleShower?.TreeUpdate();
             cursor.Update();
 
+#if DEBUG
             if (GameStates.IsKeyDown(Keys.LeftControl) && GameStates.IsKeyPressed120f(Keys.D))
             {
                 // DEBUG INTRO
                 this.Dispose();
                 GameStates.InstanceCreate(new DebugWindow());
             }
+#endif
         }
         Entity topUI; 
     }

@@ -107,13 +107,13 @@ namespace UndyneFight_Ex.Server
 
         public int CompareTo(ScoreUnit other)
         { 
-            int t = this.Data.Accuracy.CompareTo(other.Data.Accuracy);
+            int t = other.Data.Accuracy.CompareTo(this.Data.Accuracy);
             if(t != 0) return t;
-            t = this.Data.Score.CompareTo(other.Data.Score);
+            t = other.Data.Score.CompareTo(this.Data.Score);
             if (t != 0) return t;
-            t = this.Data.AC.CompareTo(other.Data.AC);
+            t = other.Data.AC.CompareTo(this.Data.AC);
             if (t != 0) return t;
-            return this.PlayerID.CompareTo(other.PlayerID);
+            return other.PlayerID.CompareTo(this.PlayerID);
         }
 
         public int CompareTo(object? obj)
