@@ -9,11 +9,46 @@ using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.Remake.FileData;
 using UndyneFight_Ex.Remake.Network;
 using System.Security.Cryptography;
+using System.Security.Principal;
 
 namespace UndyneFight_Ex.Remake.UI
 {
     internal partial class UserUI
     {
+        public static void AutoAuthentic(string rememberedUser, string pswd)
+        {
+            PlayerManager.Login(rememberedUser);
+            string password = pswd;
+            string newPassword = "";
+            bool keyPeriod = true;
+            UFSocket<Empty> login = null;
+            login = new((s) =>
+            {
+                if (keyPeriod)
+                {
+                    if (s.Info[0..4] == "<RSA")
+                    {
+                        newPassword = MathUtil.Encrypt(password, s.Info);
+                        login.SendRequest("Log\\in\\" + rememberedUser + "\\" + newPassword);
+                        keyPeriod = false;
+                    }
+                }
+                else
+                {
+                    if (s.Info == "user not exist")
+                    {
+                        var v = new PageTips.OnlineRegisterUI(rememberedUser, newPassword);
+                        DEBUG.IntroUI.PendingTip(v);
+                    }
+                    else if (s.Info == "success login")
+                    {
+                        KeepAliver.TryCreate();
+                        PlayerManager.CurrentUser.OnlineAsync = true;
+                    }
+                }
+            });
+            login.SendRequest($"Log\\key\\none");
+        }
         internal class LoginUI : SmartSelector
         {
             GlobalDataRoot.UserMemory GlobalMemory = GlobalData.Memory;
@@ -68,6 +103,10 @@ namespace UndyneFight_Ex.Remake.UI
                     if (_autoAuthentic.Ticked || _remember.Ticked)
                     {
                         GlobalMemory.RememberUser.Value = _account.Result;
+                    }
+                    if (_autoAuthentic.Ticked)
+                    {
+                        GlobalMemory.PasswordMem.Value = _password.Result;
                     }
                     SaveGlobal();
                     this.FatherObject?.FatherObject?.Dispose();
@@ -187,17 +226,8 @@ namespace UndyneFight_Ex.Remake.UI
 
                 ChildObjects.Add(_confirm = new Button(this, new Vector2(543, 315), "Confirm") { NeverEnable = true });
                 ChildObjects.Add(_cancel = new Button(this, new Vector2(800, 315), "Cancel") { NeverEnable = true });
-
-                if (GlobalMemory.AutoAuthentic)
-                {
-                    //Auto authentic
-                    AutoAuthentic(GlobalMemory.RememberUser);
-                    InstanceCreate(new InstantEvent(2, () => {
-                        this.FatherObject?.FatherObject?.Dispose();
-                    }));
-                    InstanceCreate(new SelectUI());
-                }
-                else if (PlayerManager.CurrentUser != null)
+                 
+                if (PlayerManager.CurrentUser != null)
                 {
                     InstanceCreate(new InstantEvent(2, () => {
                         this.FatherObject?.FatherObject?.Dispose();
@@ -209,11 +239,6 @@ namespace UndyneFight_Ex.Remake.UI
                     _account.SetString(GlobalMemory.RememberUser);
                     _remember.Tick();
                 }
-            }
-
-            private void AutoAuthentic(string rememberedUser)
-            {
-                PlayerManager.Login(_account.Result);
             }
 
             public override void Draw()

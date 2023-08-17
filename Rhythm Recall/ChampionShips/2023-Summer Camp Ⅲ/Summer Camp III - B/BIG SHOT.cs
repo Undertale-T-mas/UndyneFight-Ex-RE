@@ -3018,7 +3018,7 @@ namespace Rhythm_Recall.Waves
                     GametimeDelta = -4.5f + BeatTime(jumpbeat);
                     PlayOffset=BeatTime(jumpbeat);
                     SetSoul(1);
-                    //Heart.RotateTo(0);
+                    //Heart.RotateTo(0);for(int i = 0; i < 5;i++) 
                 }
             }
         }

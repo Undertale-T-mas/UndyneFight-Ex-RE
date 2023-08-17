@@ -38,7 +38,7 @@ namespace Rhythm_Recall.Waves
 
             public static Game instance;
 
-            public string FightName => "Indihome Paket Phoenix";
+            public string FightName => "Goyang Ubur Ubur";
 
             private class ThisInformation : SongInformation
             {

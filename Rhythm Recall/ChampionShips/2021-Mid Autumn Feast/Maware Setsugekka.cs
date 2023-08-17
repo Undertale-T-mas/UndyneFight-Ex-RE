@@ -76,7 +76,7 @@ namespace Rhythm_Recall.Waves
 
             public string Music => "Spin! Setsugekka";
 
-            public string FightName => "Spin! setsugekka";
+            public string FightName => "Maware setsugetsuka";
 
             private class ThisInformation : SongInformation
             {
