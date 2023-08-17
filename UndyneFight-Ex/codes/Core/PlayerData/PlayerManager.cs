@@ -127,6 +127,7 @@ namespace UndyneFight_Ex
             }
         }
         public static string currentPlayer;
+        public static bool UserLogin => !string.IsNullOrEmpty(currentPlayer);
 
         public static bool IsPlayerVIP => CurrentUser.VIP;
         public static float PlayerSkill

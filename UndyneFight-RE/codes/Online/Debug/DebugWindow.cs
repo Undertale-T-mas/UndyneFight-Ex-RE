@@ -81,8 +81,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     else if (s.Info == "success login")
                     {
-                        if (!KeepAliver.IsAlive)
-                            GameStates.InstanceCreate(new KeepAliver());
+                        KeepAliver.TryCreate();
                     }
                 }
             });

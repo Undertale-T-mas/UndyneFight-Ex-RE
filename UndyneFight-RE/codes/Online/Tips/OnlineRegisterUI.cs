@@ -31,6 +31,7 @@ namespace UndyneFight_Ex.Remake.UI.PageTips
                 if (s.Info == "user not exist")
                 {
                 }
+                if (s.Success) PlayerManager.CurrentUser.OnlineAsync = true;
             });
             login.SendRequest($"Log\\reg\\{_name}\\{_password}");
             Back();

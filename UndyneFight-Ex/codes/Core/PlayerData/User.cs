@@ -94,7 +94,9 @@ namespace UndyneFight_Ex.UserService
             _isVip = info.GetDirectory("VIP").BoolValue;
 
             if (!info.Nexts.ContainsKey("Skill")) info.Nexts.Add("Skill", new("value:0"));
+            if (!info.Nexts.ContainsKey("CAsync")) info.Nexts.Add("CAsync", new("value:false"));
             Skill = info.GetDirectory("Skill").FloatValue;
+            OnlineAsync = info.GetDirectory("CAsync").BoolValue;
 
             _name = info.GetDirectory("PlayerName").StringValue;
             _password = Convert.ToInt64(info.GetDirectory("Password").StringValue);
@@ -178,6 +180,7 @@ namespace UndyneFight_Ex.UserService
             info.PushNext(new SaveInfo("PlayerName:" + _name));
             info.PushNext(new SaveInfo("UUID:" + _uuid));
             info.PushNext(new SaveInfo("Password:" + _password));
+            info.PushNext(new SaveInfo("CAsync:" + (OnlineAsync ? "true" : "false")));
             info.PushNext(new SaveInfo("Skill:" + MathUtil.FloatToString(Skill, 3)));
             info.PushNext(_custom);
             info.PushNext(GameJoltInformation.Save());
@@ -231,9 +234,13 @@ namespace UndyneFight_Ex.UserService
         {
             if(this._password == MathUtil.StringHash(password))
             {
+                this.PasswordMemory = password;
                 return true;
             }
             return false;
         }
+        public bool OnlineAsync { get; set; } = false;
+        public bool LoginSuccess => PlayerManager.currentPlayer == this._name;
+        public string PasswordMemory { get; private set; }
     }
 }

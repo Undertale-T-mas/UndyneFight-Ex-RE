@@ -16,6 +16,7 @@ namespace UndyneFight_Ex.Server
             public void Save()
             {
                 FileStream stream = new("Data/User/\\data", FileMode.OpenOrCreate, FileAccess.Write);
+                stream.SetLength(0);
                 stream.Write(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(this)));
                 stream.Flush();
                 stream.Dispose();

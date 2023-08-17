@@ -74,24 +74,29 @@ namespace UndyneFight_Ex.Remake.Network
                 Exception ex = UFSocketData.TryConnect();
                 if (ex != null)
                 {
-                    var scene = (GameStates.CurrentScene as GameMenuScene);
-                    if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
-                    _onReceive.Invoke(new(false, ex.Message, 'D'));
-                    UFSocketData._isConnected = false;
-                    return;
+                    ex = UFSocketData.TryConnect();
+                    if (ex != null)
+                    {
+                        var scene = (GameStates.CurrentScene as GameMenuScene);
+                        if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
+                        _onReceive.Invoke(new(false, ex.Message, 'D'));
+                        UFSocketData._isConnected = false;
+                        return;
+                    }
                 }
+                byte[] infobyte = new byte[info.Length + 1];
+                Encoding.ASCII.GetBytes(info, 0, info.Length, infobyte, 0);
+                infobyte[info.Length] = 1;
+
                 try
                 {
-                    byte[] infobyte = new byte[info.Length + 1];
-                    Encoding.ASCII.GetBytes(info, 0, info.Length, infobyte, 0);
-                    infobyte[info.Length] = 1;
-
-                    while (UFSocketData.sending) {
+                    while (UFSocketData.sending)
+                    {
                         Thread.Sleep(10);
                     }
                     UFSocketData.sending = true;
                     UFSocketData.Socket.Send(infobyte);
-                    
+
                     int len = UFSocketData.Socket.Receive(buffer);
                     UFSocketData.sending = false;
                     string state = Encoding.ASCII.GetString(buffer, 0, len);
@@ -108,22 +113,69 @@ namespace UndyneFight_Ex.Remake.Network
                     }
                     else if (state[0] == 'F')
                     {
-                        _onReceive.Invoke(new(false, state[2..], 'F'));
+                        _onReceive.Invoke(new(false, state[2..], 'F')); 
                     }
                     else if (state[0] == 'E')
                     {
                         _onReceive.Invoke(new(false, state[2..], 'E'));
-                        throw new Exception(state[2..]);
+                        return;
                     }
                     return;
                 }
-                catch (Exception ex2)
+                catch
                 {
                     UFSocketData.sending = false;
-                    _onReceive.Invoke(new(false, ex2.Message, 'D'));
-                    UFSocketData._isConnected = false;
-                    var scene = (GameStates.CurrentScene as GameMenuScene);
-                    if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!")); 
+                    ex = UFSocketData.TryConnect();
+                    if (ex != null)
+                    {
+                        var scene2 = (GameStates.CurrentScene as GameMenuScene);
+                        if (scene2 != null) scene2.InstanceCreate(new WarningShower("Cannot connect to server!"));
+                        _onReceive.Invoke(new(false, ex.Message, 'D'));
+                        UFSocketData._isConnected = false;
+                        return;
+                    }
+                    try
+                    {
+                        while (UFSocketData.sending)
+                        {
+                            Thread.Sleep(10);
+                        }
+                        UFSocketData.sending = true;
+                        UFSocketData.Socket.Send(infobyte);
+
+                        int len = UFSocketData.Socket.Receive(buffer);
+                        UFSocketData.sending = false;
+                        string state = Encoding.ASCII.GetString(buffer, 0, len);
+
+                        PromptLine.Memories.Enqueue("Server >> " + state);
+
+                        if (state[0] == 'S')
+                        {
+                            string following = state[2..];
+                            Message<T> u = new(true, following, 'S');
+                            u.Data.Analysis(following);
+                            _onReceive.Invoke(u);
+                            KeepAliver.IsAlive = true;
+                        }
+                        else if (state[0] == 'F')
+                        {
+                            _onReceive.Invoke(new(false, state[2..], 'F'));
+                        }
+                        else if (state[0] == 'E')
+                        {
+                            _onReceive.Invoke(new(false, state[2..], 'E'));
+                            return;
+                        }
+                        return;
+                    }
+                    catch (Exception ex3)
+                    {
+                        UFSocketData.sending = false;
+                        _onReceive.Invoke(new(false, ex3.Message, 'D'));
+                        UFSocketData._isConnected = false;
+                        var scene = (GameStates.CurrentScene as GameMenuScene);
+                        if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
+                    }
                 }
             });
         }

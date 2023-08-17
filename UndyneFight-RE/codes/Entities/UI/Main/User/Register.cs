@@ -80,7 +80,8 @@ namespace UndyneFight_Ex.Remake.UI
                     { 
                         if (s.Info == "success login")
                         {
-                            InstanceCreate(new KeepAliver());
+                            PlayerManager.CurrentUser.OnlineAsync = true;
+                            KeepAliver.TryCreate();
                         }
                         else if(s.Info == "the name already exists")
                         {

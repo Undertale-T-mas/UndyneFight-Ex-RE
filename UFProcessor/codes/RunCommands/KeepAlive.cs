@@ -14,8 +14,11 @@
                 client.Reply("F format wrong, send again.");
                 return;
             }
-            string arg0 = args[0]; 
-            client.Reply("S alive message received.");
+            string arg0 = args[0];
+            if (client.BindUser == null)
+                client.Reply("S none");
+            else
+                client.Reply("S alive message received.");
         }
     }
 }

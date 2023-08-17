@@ -92,6 +92,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
 
                         if (!_list.Updated) return;
+                        _list.Updated = false;
                         scores.Clear();
                         foreach (var v in this._list.Leaderboard) {
                             if(!scores.ContainsKey(v.Value.Item2 + 1))

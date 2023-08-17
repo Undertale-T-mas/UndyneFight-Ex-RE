@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Security.Principal;
 
 namespace UndyneFight_Ex.Remake.Network
 {
     public class KeepAliver : GameObject
     {
+        private static bool exist = false;
         public static bool IsAlive { get; set; } = false;    
-        public KeepAliver() { 
+        private KeepAliver() {
+            exist = true;
             this.CrossScene = true;
             time = DateTime.Now;
+        }
+        public static void TryCreate()
+        {
+            if (!exist) GameStates.InstanceCreate(new KeepAliver());
         }
         DateTime time;
         public override void Update()
@@ -22,15 +29,59 @@ namespace UndyneFight_Ex.Remake.Network
 
         public static void CheckAlive(KeepAliver keepAliver = null, Action<bool> afterCheck = null)
         {
-            UFSocket<Empty> socket = new((s) =>
+            bool type = false;
+            UFSocket<Empty> socket = null;
+            socket = new((s) =>
             {
-                if (!s.Success)
+                if (type)
                 {
-                    IsAlive = false;
-                    keepAliver?.Dispose();
+                    if(!s.Success)
+                    {
+                        IsAlive = false;
+                        exist = false;
+                        afterCheck?.Invoke(false);
+                        keepAliver?.Dispose();
+                        return;
+                    }
+                    if (s.Info[0..4] == "<RSA")
+                    {
+                        string newPassword = MathUtil.Encrypt(PlayerManager.CurrentUser.PasswordMemory, s.Info);
+                        socket.SendRequest("Log\\in\\" + PlayerManager.currentPlayer + "\\" + newPassword);
+                    }
+                    else
+                    {
+                        IsAlive = true; 
+                        afterCheck?.Invoke(true);
+                    }
                 }
-                IsAlive = true;
-                afterCheck?.Invoke(s.Success);
+                else {
+                    if (!s.Success)
+                    {
+                        exist = false;
+                        IsAlive = false;
+                        keepAliver?.Dispose();
+                        afterCheck?.Invoke(false);
+                        return;
+                    }
+
+                    if (s.Info == "none") {
+                        if (PlayerManager.UserLogin && PlayerManager.CurrentUser.OnlineAsync)
+                        {
+                            type = true;
+                            socket.SendRequest($"Log\\key\\none");
+                        }
+                        else
+                        {
+                            IsAlive = true;
+                            afterCheck?.Invoke(true);
+                        }
+                    }
+                    else
+                    {
+                        IsAlive = true;
+                        afterCheck?.Invoke(true);
+                    }
+                }
             });
             socket.SendRequest("keepAlive\\none");
         }
