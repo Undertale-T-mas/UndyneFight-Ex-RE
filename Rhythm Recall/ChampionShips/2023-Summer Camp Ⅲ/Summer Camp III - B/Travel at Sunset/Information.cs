@@ -3,7 +3,7 @@ using UndyneFight_Ex.SongSystem;
 
 namespace Rhythm_Recall.Waves
 {
-    public partial class Traveler_at_Sunset
+    internal partial class Traveler_at_Sunset
     {
         Dictionary<string, Difficulty> dif = new();
         public Traveler_at_Sunset()

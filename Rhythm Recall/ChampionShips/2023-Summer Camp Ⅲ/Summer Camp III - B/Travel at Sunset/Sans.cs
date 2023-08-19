@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Rhythm_Recall.Waves
 {
-    public partial class Traveler_at_Sunset
+    internal partial class Traveler_at_Sunset
     {
         public partial class Project
         {

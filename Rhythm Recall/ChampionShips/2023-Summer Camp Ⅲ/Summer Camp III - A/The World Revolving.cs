@@ -11,7 +11,7 @@ using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 namespace Rhythm_Recall.Waves
 {
-    public class The_World_Revolving : IChampionShip
+    internal class The_World_Revolving : IChampionShip
     {
         Dictionary<string, Difficulty> dif = new();
         public The_World_Revolving()
