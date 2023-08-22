@@ -44,6 +44,7 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         KeepAliver.TryCreate();
                         PlayerManager.CurrentUser.OnlineAsync = true;
+                        PlayerManager.CurrentUser.PasswordMemory = pswd;
                     }
                 }
             });

@@ -241,6 +241,6 @@ namespace UndyneFight_Ex.UserService
         }
         public bool OnlineAsync { get; set; } = false;
         public bool LoginSuccess => PlayerManager.currentPlayer == this._name;
-        public string PasswordMemory { get; private set; }
+        public string PasswordMemory { get; set; }
     }
 }

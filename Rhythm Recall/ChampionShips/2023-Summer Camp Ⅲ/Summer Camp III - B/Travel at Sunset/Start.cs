@@ -22,7 +22,7 @@ namespace Rhythm_Recall.Waves
 
             public SongInformation Attributes => new Information();
             Blur Blur;
-            RenderProduction production, production1, production2, production3, production4;
+            RenderProduction production, production1, production2, production3, production4, production5;
             GlobalResources.Effects.StepSampleShader StepSample;
             RGBSplitting splitter = new();
             #region disused
@@ -47,12 +47,15 @@ namespace Rhythm_Recall.Waves
             static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW, easeS2, easeT2, easeS1, easeT1;
             static Arrow.ClassicApplier easeK1, easeK2, easeK3;
 
+            GridShader shaderGrid;
+
             public void Normal()
             {
             }
             Sans sans;
             public void Start()
-            { 
+            {
+                shaderGrid = new();
                 if(CurrentDifficulty == Difficulty.Noob)
                 {
                     DelayBeat(1, () => {
@@ -148,10 +151,10 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
-                    int beat = 192;
+                    int beat = 897;
                     //float beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
                     //beat = 328;
                     //int beat = 198;
@@ -164,6 +167,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ScreenScale = 1f;
                 }
                 else sans.Alpha = 1.0f;
+                sans.Visible = false;
             }
         }
     }
