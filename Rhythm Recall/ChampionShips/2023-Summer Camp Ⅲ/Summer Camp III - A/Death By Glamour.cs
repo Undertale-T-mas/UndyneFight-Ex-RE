@@ -6,7 +6,7 @@ using static UndyneFight_Ex.Fight.Functions;
 
 namespace Rhythm_Recall.Waves
 {
-    public class Death_By_Glamour : IChampionShip
+    internal class Death_By_Glamour : IChampionShip
     {
         Dictionary<string, Difficulty> dif = new();
         public Death_By_Glamour()

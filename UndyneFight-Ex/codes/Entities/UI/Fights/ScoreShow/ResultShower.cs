@@ -70,7 +70,7 @@ namespace UndyneFight_Ex.Entities
                 #region 分数保存 
                 SongResult result = new(mark, score, scoreResult.judgeState != JudgementState.Lenient ? GetScorePercent() : 0, AC, AP, scoreResult.PauseTime);
                 var att = gamePlayed.Attributes;
-                playData = gamePlayed.Attributes != null
+                playData = gamePlayed.Attributes != null && gamePlayed.Attributes.ComplexDifficulty.ContainsKey((Difficulty)difficulty)
                     ? new SongPlayData()
                     {
                         Result = result,

@@ -23,7 +23,7 @@ using Extends;
 
 namespace Rhythm_Recall.Waves
 {
-    public class Spider_Dance : IChampionShip
+    internal class Spider_Dance : IChampionShip
     {
         Dictionary<string, Difficulty> dif = new();
         public Spider_Dance()

@@ -3,7 +3,7 @@ using UndyneFight_Ex.SongSystem;
 
 namespace Rhythm_Recall.Waves
 {
-    public partial class Traveler_at_Sunset
+    internal partial class Traveler_at_Sunset
     {
         Dictionary<string, Difficulty> dif = new();
         public Traveler_at_Sunset()
@@ -32,21 +32,21 @@ namespace Rhythm_Recall.Waves
                 new KeyValuePair<Difficulty, float>[]
                 {
                     new(Difficulty.Normal, 12.0f),
-                    new(Difficulty.ExtremePlus, 19.4f)
+                    new(Difficulty.ExtremePlus, 19.7f)
                 }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Normal, 12.0f),
-                        new(Difficulty.ExtremePlus, 19.4f)
+                        new(Difficulty.ExtremePlus, 20.6f)
                     }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Normal, 16.0f),
-                        new(Difficulty.ExtremePlus, 20.9f)
+                        new(Difficulty.ExtremePlus, 21.9f)
                     }
                     );
             }
