@@ -24,12 +24,18 @@ namespace UndyneFight_Ex.Remake
             GameStates.ResetFightState(true);
 
             GameStates.CurrentWindow.ClientSizeChanged += WindowSizeChanged;
+
+            Data.GlobalDataRoot.UserMemory m = FileData.GlobalData.Memory;
+            if (m.AutoAuthentic)
+                UI.UserUI.AutoAuthentic(m.RememberUser, m.PasswordMem);
         }
         public static void MainInitialize()
         { 
             FileData.Initialize();  
             
-            GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.DEBUG.IntroUI()); LateInitialize(); };
+            GameStartUp.MainSceneIntro = () => { 
+                GameStates.InstanceCreate(new UI.DEBUG.IntroUI()); LateInitialize(); 
+            };
             // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.UserUI()); LateInitialize(); };
             // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SettingUI()); LateInitialize(); };
             GameStartUp.Initialize += (loader) => { LateInitialize(); };

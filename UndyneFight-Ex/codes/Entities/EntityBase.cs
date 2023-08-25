@@ -273,7 +273,7 @@ namespace UndyneFight_Ex
     }
     public abstract class Entity : GameObject
     {
-        public bool Visible { internal get; set; } = true;
+        public bool Visible { get; set; } = true;
         public bool AngleMode { set; get; } = false; 
         private float DrawingRotation(float rotation) => AngleMode ? MathUtil.GetRadian(rotation) : rotation;
 

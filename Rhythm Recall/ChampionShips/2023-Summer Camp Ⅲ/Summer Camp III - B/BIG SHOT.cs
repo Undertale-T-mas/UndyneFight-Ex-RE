@@ -14,7 +14,7 @@ using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 namespace Rhythm_Recall.Waves
 {
-    public class BIG_SHOT : IChampionShip
+    internal class BIG_SHOT : IChampionShip
     {
         Dictionary<string, Difficulty> dif = new();
         public BIG_SHOT()
@@ -3018,7 +3018,7 @@ namespace Rhythm_Recall.Waves
                     GametimeDelta = -4.5f + BeatTime(jumpbeat);
                     PlayOffset=BeatTime(jumpbeat);
                     SetSoul(1);
-                    //Heart.RotateTo(0);
+                    //Heart.RotateTo(0);for(int i = 0; i < 5;i++) 
                 }
             }
         }

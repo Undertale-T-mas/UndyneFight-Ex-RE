@@ -107,9 +107,15 @@ namespace UndyneFight_Ex.Remake.Network
                     {
                         string following = state[2..];
                         Message<T> u = new(true, following, 'S');
-                        u.Data.Analysis(following);
-                        _onReceive.Invoke(u);
-                        KeepAliver.IsAlive = true;
+                        try
+                        {
+                            u.Data.Analysis(following);
+                            _onReceive.Invoke(u);
+                        }
+                        finally
+                        {
+                            KeepAliver.IsAlive = true; 
+                        }
                     }
                     else if (state[0] == 'F')
                     {

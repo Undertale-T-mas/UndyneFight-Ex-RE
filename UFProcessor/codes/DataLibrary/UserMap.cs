@@ -89,7 +89,7 @@ namespace UndyneFight_Ex.Server
             }
             catch(Exception ex) 
             {
-                Console.WriteLine(ex.ToString());
+                UFConsole.WriteLine(ex.ToString());
                 return new("E an exception was thrown", null);
             }
         }

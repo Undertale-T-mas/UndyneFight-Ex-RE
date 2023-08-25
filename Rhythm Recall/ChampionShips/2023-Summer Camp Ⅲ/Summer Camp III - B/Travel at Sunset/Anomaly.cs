@@ -25,7 +25,7 @@ using UndyneFight_Ex.Remake.Texts;
 
 namespace Rhythm_Recall.Waves
 {
-    public partial class Traveler_at_Sunset : IChampionShip
+    internal partial class Traveler_at_Sunset : IChampionShip
     {
         private static Texture2D anomalyImage0, anomalyImage1, anomalyImage2, anomalyImage3, anomalyImage4;
         public partial class Project 
