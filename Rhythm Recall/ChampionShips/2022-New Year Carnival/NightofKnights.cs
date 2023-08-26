@@ -103,7 +103,7 @@ namespace Rhythm_Recall.Waves
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 8.5f),
                             new(Difficulty.Easy, 12.5f),
-                            new(Difficulty.Hard, 20.5f),
+                            new(Difficulty.Hard, 19.8f),
                         }
                     );
                 public override HashSet<Difficulty> UnlockedDifficulties

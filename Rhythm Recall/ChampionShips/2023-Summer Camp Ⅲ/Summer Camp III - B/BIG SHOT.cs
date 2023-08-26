@@ -42,14 +42,14 @@ namespace Rhythm_Recall.Waves
                 new KeyValuePair<Difficulty, float>[]
                 {
                     new(Difficulty.Easy,4.0f),
-                    new(Difficulty.Extreme,16.0f)
+                    new(Difficulty.Extreme,17.0f)
                 }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[]
                     {
                     new(Difficulty.Easy,4.0f),
-                    new(Difficulty.Extreme,16.0f)
+                    new(Difficulty.Extreme,17.0f)
                     }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
@@ -455,11 +455,11 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("sBlock5", () =>
                     {
                         PlaySound(Sounds.pierce);
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
                     });
                     RegisterFunctionOnce("sBomb1", () =>
                     {
@@ -701,17 +701,19 @@ namespace Rhythm_Recall.Waves
                             );
                         CreateEntity(new Bomb(20, ce2) { Depth = 0.39f });
                     });
+                    int rd1 = Rand(0, 3);
+                    int rd2 = Rand(0, 3);
                     BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
-                        "Mtt(#4#R)","","","",   "","","","",
+                        $"Mtt(#4#${rd1})","","","",   "","","","",
                         "","","","",   "","","","",
                         "Bomb","","","",   "","","","",
                         "","","","",   "","","","",
 
-                        "Mtt","","","",   "(R1)","","","",
-                        "(R1)","","","",   "(R1)","","","",
-                        "Bomb(#1#R)","","","",   "","","","",
-                        "R1","","","",   "(#4#R)","","","",
+                        "Mtt","","","",   $"(N{rd1}1)","","","",
+                        $"(N{rd1}1)","","","",   $"(N{rd1}1)","","","",
+                        $"Bomb(#1#${rd2})","","","",   "","","","",
+                        $"N{rd2}1","","","",   $"(#4#R)","","","",
 
                         "Mtt","","","",   "","","","",
                         "","","","",   "","","","",
@@ -720,17 +722,17 @@ namespace Rhythm_Recall.Waves
 
                         "Mtt","","","",   "R1","","","",
                         "R1","","","",   "R1","","","",
-                        "Bomb(#1#R)","","","",   "","","","",
-                        "(#1#R1)","","","",   "","","","",
+                        "Bomb(#0.5#D)","","","",   "","","","",
+                        "(#0.5#D)","","","",   "","","","",
                         //
-                        "Mtt(R)(R1)","","","",   "(R)(R1)","","","",
-                        "(R)(R1)","","","",   "(#1#R)(R1)","","","",
+                        "Mtt(R)(+21)","","","",   "(D)(+21)","","","",
+                        "(D)(+21)","","","",   "(#1#D)(+21)","","","",
                         "Bomb","","","",   "","","","",
                         "R1","","","",   "R1","","","",
 
-                        "Mtt(#1#R)","","","",   "","","","",
-                        "(#1#R1)","","","",  "","","","",
-                        "Bomb(#1#R)","","","",   "","","+01","",
+                        "Mtt(#1#D)","","","",   "","","","",
+                        "(#1#D1)","","","",  "","","","",
+                        "Bomb(#1#D)","","","",   "","","+01","",
                         "","","","",   "$0","$1","#3#$2","",
 
                         "Mtt","","","",   "","","","",
@@ -738,9 +740,9 @@ namespace Rhythm_Recall.Waves
                         "Bomb","","","",   "","","","",
                         "(#1#R)","","","",   "","","","",
 
-                        "Mtt(#1#R1)","","","",   "","","","",
+                        "Mtt(#1#D1)","","","",   "","","","",
                         "","","","",   "","","","",
-                        "Bomb(R1)","","","",   "","","","",
+                        "Bomb(D)","","","",   "","","","",
                         "","","","",   "","","","",
                     });
                 }
@@ -1313,11 +1315,11 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("sBlock5", () =>
                     {
                         PlaySound(Sounds.pierce);
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spd, 0)))));
-                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spd, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 24)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ShotableBlock(LinkEase(Stable(0, new Vector2(-10, 240 + 48)), vals, InfLinear(new Vector2(spds, 0)))));
+                        CreateEntity(new ToughBlock(LinkEase(Stable(0, new Vector2(-10, 240 - 48)), vals, InfLinear(new Vector2(spds, 0)))));
                     });
                     RegisterFunctionOnce("sBomb1", () =>
                     {
@@ -3011,7 +3013,7 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 bool jump = false;
                 int jumpbeat=284;
-                HeartAttribute.MaxHP = 42;
+                HeartAttribute.MaxHP = 54;
                 HeartAttribute.DamageTaken = 8;
                 if (jump)
                 {

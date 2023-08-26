@@ -42,7 +42,7 @@ namespace Rhythm_Recall.Waves
                 public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 7.5f),
-                            new(Difficulty.Extreme, 21.0f),
+                            new(Difficulty.Extreme, 20.8f),
                         }
                     );
                 public override string BarrageAuthor => "Tlottgodinf";

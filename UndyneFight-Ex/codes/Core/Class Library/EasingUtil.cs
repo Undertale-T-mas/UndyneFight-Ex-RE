@@ -783,6 +783,16 @@ namespace UndyneFight_Ex.Entities
         /// <param name="time">停止持续时间</param>
         /// <param name="value"></param>
         /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
+        public static EaseUnit<Vector2> Stable(float time, float xvalue,float yvalue)
+        {
+            return new(new Vector2(xvalue,yvalue), new Vector2(xvalue, yvalue), time, (s) => new Vector2(xvalue, yvalue));
+        }
+        /// <summary>
+        /// 返回一个<see cref="float"/>的 保持<see langword="值不变"></see>的缓动(也可用来实现瞬移效果)
+        /// </summary>
+        /// <param name="time">停止持续时间</param>
+        /// <param name="value"></param>
+        /// <returns>注意返回类型并不是<see cref="EasingUtil.ValueEasing"/>，如需转换请在后面加上 .Easing</returns>
         public static EaseUnit<float> Stable(float time, float value)
         {
             return new(value, value, time, (s) => value);
