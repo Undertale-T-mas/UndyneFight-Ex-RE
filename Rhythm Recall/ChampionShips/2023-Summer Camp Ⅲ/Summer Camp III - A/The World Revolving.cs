@@ -203,6 +203,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(128 - 4))
                 {
                     Effect3();
+                    Effect4();
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
                     BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
@@ -235,7 +236,6 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(160 - 4))
                 {
                     Effect4();
-                    Effect5();
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
                     BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
@@ -514,6 +514,7 @@ namespace Rhythm_Recall.Waves
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
                     Effect3();
+                    Effect4();
                     BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         //pre   
@@ -545,8 +546,8 @@ namespace Rhythm_Recall.Waves
                 {
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
+                    Effect3();
                     Effect4();
-                    Effect5();
                     BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         //pre   
