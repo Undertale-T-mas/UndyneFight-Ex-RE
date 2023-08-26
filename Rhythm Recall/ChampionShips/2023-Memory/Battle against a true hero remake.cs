@@ -59,7 +59,7 @@ namespace Rhythm_Recall.Waves
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 8.5f),
                             new(Difficulty.Normal, 13.5f),
-                            new(Difficulty.Extreme, 21.0f),
+                            new(Difficulty.Extreme, 20.7f),
                         }
                     );
                 public override string BarrageAuthor => "T-mas";
