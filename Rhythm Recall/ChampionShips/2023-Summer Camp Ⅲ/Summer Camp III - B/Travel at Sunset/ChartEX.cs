@@ -2006,7 +2006,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(easeA = new Arrow.UnitEasing()
                     {
                         ApplyTime = BeatTime(1.6f),
-                        RotationEase = SimplifiedEasing.EaseOut(BeatTime(1.5f), 0, -45, SimplifiedEasing.EaseState.Sine)
+                        RotationEase = EaseOut(BeatTime(1.5f), 0, -45, EaseState.Sine)
                     });
                     RegisterFunctionOnce("pre", () =>
                     {

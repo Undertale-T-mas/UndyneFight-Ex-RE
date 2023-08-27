@@ -56,7 +56,7 @@ namespace UndyneFight_Ex.Remake.UI
             private void DoBack()
             {
                 this._virtualFather.FatherObject.Dispose();
-                GameStates.InstanceCreate(new DEBUG.IntroUI());
+                InstanceCreate(new DEBUG.IntroUI());
             }
 
             private void DoConfirm()
