@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.VisualBasic;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
@@ -78,9 +80,12 @@ namespace Rhythm_Recall.Waves
 
             public string FightName => "Maware setsugetsuka";
 
+            
             private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
+
+                public override string SongAuthor => "HIGE driver";
                 public override string PaintAuthor => "OtokP";
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
