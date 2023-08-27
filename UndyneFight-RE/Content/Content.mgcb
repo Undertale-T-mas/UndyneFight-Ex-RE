@@ -13,9 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin E:/ダウンロード/chinese.xnb
-/copy:E:/ダウンロード/chinese.xnb;ReEngine/Font/chinese.xnb
-
 #begin ReEngine/Effects/NonFight/BackGround.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -597,6 +594,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ReEngine/FightSprites/soulBullet.png
+
+#begin ReEngine/Font/chinese.xnb
+/copy:ReEngine/Font/chinese.xnb
 
 #begin ReEngine/Mouse/cursor.png
 /importer:TextureImporter

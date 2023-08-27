@@ -25,14 +25,14 @@ namespace Rhythm_Recall.Waves
             {
                 public Information() { this.MusicOptimized = true; }
                 public override string SongAuthor => "SK_kent";
-                public override string BarrageAuthor => "zKronO vs Tlottgodinf vs T-mas ft. TK";
-                public override string AttributeAuthor => "Woem feat. ParaDOXXX and TK";
+                public override string BarrageAuthor => "M.T.T";
+                public override string AttributeAuthor => "T-mas ";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
                 {
                     new(Difficulty.Normal, 12.0f),
-                    new(Difficulty.ExtremePlus, 19.7f)
+                    new(Difficulty.ExtremePlus, 20.0f)
                 }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
