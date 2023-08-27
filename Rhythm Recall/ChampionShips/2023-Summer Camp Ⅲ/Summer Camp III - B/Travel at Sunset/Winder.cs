@@ -4,7 +4,7 @@ using static UndyneFight_Ex.Fight.Functions;
 
 namespace Rhythm_Recall.Waves
 {
-    public partial class Traveler_at_Sunset
+    internal partial class Traveler_at_Sunset
     {
         public partial class Project
         { 

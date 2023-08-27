@@ -595,12 +595,8 @@
 /processorParam:TextureFormat=Color
 /build:ReEngine/FightSprites/soulBullet.png
 
-#begin ReEngine/Font/chinese.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:ReEngine/Font/chinese.spritefont
+#begin ReEngine/Font/chinese.xnb
+/copy:ReEngine/Font/chinese.xnb
 
 #begin ReEngine/Mouse/cursor.png
 /importer:TextureImporter

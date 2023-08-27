@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Rhythm_Recall.Waves
 {
-    public partial class Traveler_at_Sunset
+    internal partial class Traveler_at_Sunset
     {
         public partial class Project
         {
@@ -57,10 +57,10 @@ namespace Rhythm_Recall.Waves
                         if (_time > 0) { StateChangedTime += 0.5f; _time -= 0.5f; }
                         else this.OnUpdate?.Invoke(this);
                         appearTime += 0.5f;
-                        this.Visible = Alpha >= 0.0f;
+                        this.Visible = Alpha >= 0.0f && (FatherObject as Entity).Visible;
                     }
                     public override void Draw()
-                    {
+                    { 
                         if (Vertex)
                             this.SpriteBatch.DrawVertex(this.Image, this.Depth, Vertexs);
                         else
@@ -208,7 +208,7 @@ namespace Rhythm_Recall.Waves
                 }
 
                 public override void Update()
-                {
+                { 
                 }
             }
         }

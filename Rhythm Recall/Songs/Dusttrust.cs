@@ -71,7 +71,7 @@ namespace Rhythm_Recall.Waves
             public static Game instance;
 
             public string Music => "DustTrust";
-            public string FightName => "DustTrust Phase 2";
+            public string FightName => "Maniac's Revenge";
             public static float bpm = 62.5f / (560/*bpm*/ / 60f);
             public static float bpmchange = 560;
             #region non

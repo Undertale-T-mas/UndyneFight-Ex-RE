@@ -3176,6 +3176,12 @@
 /processorParam:TextureFormat=Color
 /build:Musics/Traveler at Sunset/Anomoly04.PNG
 
+#begin Musics/Traveler at Sunset/Grid.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Musics/Traveler at Sunset/Grid.fx
+
 #begin Musics/Traveler at Sunset/paint.png
 /importer:TextureImporter
 /processor:TextureProcessor

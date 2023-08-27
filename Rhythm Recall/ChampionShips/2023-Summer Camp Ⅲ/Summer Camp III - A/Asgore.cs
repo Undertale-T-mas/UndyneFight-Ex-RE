@@ -17,7 +17,7 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace Rhythm_Recall.Waves
 {
-    public class Asgore : IChampionShip
+    internal class Asgore : IChampionShip
     {
         Dictionary<string, Difficulty> dif = new();
         public Asgore()
