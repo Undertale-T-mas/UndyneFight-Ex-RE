@@ -84,7 +84,7 @@ namespace Rhythm_Recall.Waves
             class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => GameStates.difficulty == 4 ? "T-mas, modded by TK" : "T-mas";
-                public override string SongAuthor => "BeatMario";
+                public override string SongAuthor => "Touhou";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 1.5f),
