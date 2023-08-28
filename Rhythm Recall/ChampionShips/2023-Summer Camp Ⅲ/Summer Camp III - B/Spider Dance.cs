@@ -711,66 +711,6 @@ namespace Rhythm_Recall.Waves
                             DelayBeat(2, () => { l.Dispose(); });
                         }
                     });
-                    RegisterFunctionOnce("LineGEV", () =>
-                    {
-                        Line a = new(EaseOut(BeatTime(2), new Vector2(320, 240), new Vector2(-5, 240), EaseState.Quad), Stable(BeatTime(2), 90)) { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
-                        CreateEntity(a);
-                        a.TransverseMirror = true;
-                        for (int i = 0; i < 6; i++)
-                        {
-                            a.InsertRetention(new(BeatTime(0.125f * i), 0.7f - 0.1f * i));
-                        }
-                        DelayBeat(2, () => { a.Dispose(); });
-                    });
-                    RegisterFunctionOnce("LineGET", () =>
-                    {
-                        Line a = new(EaseOut(BeatTime(2), new Vector2(320, 240), new Vector2(320, -5), EaseState.Quad), Stable(BeatTime(2), 0)) { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
-                        CreateEntity(a);
-                        a.VerticalMirror = true;
-                        for (int i = 0; i < 6; i++)
-                        {
-                            a.InsertRetention(new(BeatTime(0.125f * i), 0.7f - 0.1f * i));
-                        }
-                        DelayBeat(2, () => { a.Dispose(); });
-                    });
-                    RegisterFunctionOnce("LineXl", () =>
-                    {
-                        Line a = new(LinkEase(EaseOut(BeatTime(1.5f), new Vector2(320, 240), new Vector2(180, 240), EaseState.Quad),
-                            Stable(BeatTime(1), new Vector2(180, 240))),
-                            Stable(BeatTime(2.5f), 50))
-                            { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
-                        Line b = new(LinkEase(EaseOut(BeatTime(1.5f), new Vector2(320, 240), new Vector2(180, 240), EaseState.Quad),
-                            Stable(BeatTime(1), new Vector2(180, 240))),
-                            Stable(BeatTime(2.5f), 130))
-                        { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
-                        Line[] lines = { a, b };
-                        foreach(Line l in lines)
-                        {
-                            CreateEntity(l);
-                            DelayBeat(2.5f, () => { l.Dispose(); });
-                            l.AlphaDecrease(BeatTime(2.5f));
-                        }
-                        ScreenDrawing.CameraEffect.Convulse(1.7f, BeatTime(2), true);
-                    });
-                    RegisterFunctionOnce("LineXr", () =>
-                    {
-                        Line a = new(LinkEase(EaseOut(BeatTime(1.5f), new Vector2(320, 240), new Vector2(460, 240), EaseState.Quad),
-                            Stable(BeatTime(1), new Vector2(460, 240))),
-                            Stable(BeatTime(2.5f), 50))
-                        { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
-                        Line b = new(LinkEase(EaseOut(BeatTime(1.5f), new Vector2(320, 240), new Vector2(460, 240), EaseState.Quad),
-                            Stable(BeatTime(1), new Vector2(460, 240))),
-                            Stable(BeatTime(2.5f), 130))
-                        { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
-                        Line[] lines = { a, b };
-                        foreach (Line l in lines)
-                        {
-                            CreateEntity(l);
-                            DelayBeat(2.5f, () => { l.Dispose(); });
-                            l.AlphaDecrease(BeatTime(2.5f));
-                        }
-                        ScreenDrawing.CameraEffect.Convulse(1.7f, BeatTime(2), false);
-                    });
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     {
                         //pre
@@ -813,9 +753,9 @@ namespace Rhythm_Recall.Waves
                         "(LineGB1)", "", "", "",    "d1", "", "+0", "",
                         //8
                         "d1", "", "+0", "",    "+21", "", "", "",
-                        "(d1)(+21)(LineGEV)", "", "", "",    "(d11)(+201)(LineGET)", "", "", "",
-                        "(d)(+2)(LineXr)", "", "", "",    "(d11)(+201)(LineXl)", "", "", "",
-                        "(d01)(+211)(LineGEV)(LineGET)", "", "", "",    "", "", "", "",
+                        "(d1)(+21)", "", "", "",    "(d11)(+201)", "", "", "",
+                        "(d)(+2)", "", "", "",    "(d11)(+201)", "", "", "",
+                        "(d01)(+211)", "", "", "",    "", "", "", "",
                     });
                 }
                 if (InBeat(184))
@@ -835,32 +775,12 @@ namespace Rhythm_Recall.Waves
                     easeX.PositionEase= LinkEase(Stable(0,new Vector2(0,400)),EaseOut(BeatTime(3), new Vector2(0,-400), EaseState.Elastic));
                     easeX.TagApply("X");//注意的是，极坐标变换开启后(默认关闭)的，从下到上的0轨箭头的缓动，用在2轨箭头会变成从上到下过来，用在1轨箭头会变成从左向右
                     //我忘了是啥，也忘了写过没，但我和master提过也讨论过，如果没有这个方法，记得问一下master，让他写一下
-                    RegisterFunctionOnce("LineG", () =>
-                    {
-                        for (int i = 0; i < 56 * 4; i++)
-                        {
-                            DelayBeat(0.25f * i, () =>
-                            {
-                                Line a = new(EaseOut(BeatTime(4), new Vector2(320 - 240, 0), new Vector2(320 - 240, 480), EaseState.Linear),
-                                    EaseOut(BeatTime(4), 0, -180, EaseState.Linear))
-                                { Alpha = 0.1f, DrawingColor = Color.MediumPurple };
-                                CreateEntity(a);
-                                a.AlphaIncreaseAndDecrease(BeatTime(4), 0.55f);
-                                DelayBeat(4, () => { a.Dispose(); });
-                                Line b = new(EaseOut(BeatTime(4), new Vector2(320 + 240, 480), new Vector2(320 + 240, 0), EaseState.Linear),
-                                    EaseOut(BeatTime(4), 0, -180, EaseState.Linear))
-                                { Alpha = 0.1f, DrawingColor = Color.MediumPurple };
-                                CreateEntity(b);
-                                b.AlphaIncreaseAndDecrease(BeatTime(4), 0.55f);
-                                DelayBeat(4, () => { b.Dispose(); });
-                            });
-                        }
-                    });
+
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "LineG", "", "", "",
+                        "", "", "", "",    "", "", "", "",
                         //1
                         "#1#d", "", "", "",    "+2", "", "", "",
                         "#1#d1", "", "", "",    "+21", "", "", "",
@@ -1278,11 +1198,11 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenDrawing.ScreenScale = 2;
                 HeartAttribute.MaxHP = 8;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 54 + 128 + 64 + 64; 
-                    int beat = 54 +128;
+                    int beat = 54 + 64;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
