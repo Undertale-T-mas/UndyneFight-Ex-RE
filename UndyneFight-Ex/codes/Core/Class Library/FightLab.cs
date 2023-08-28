@@ -791,6 +791,30 @@ namespace UndyneFight_Ex.Fight
                     ease.AutoDispose = true;
                 }
             }
+            public static void UnitDistance(string tag, EaseUnit<float> distanceEase)
+            {
+                if (CurrentScene is SongFightingScene)
+                {
+                    Arrow.UnitEasing ease = new();
+                    ease.ApplyTime = distanceEase.Time;
+                    ease.DistanceEase = distanceEase;
+                    ease.TagApply(tag);
+                    AddInstance(ease);
+                    ease.AutoDispose = true;
+                }
+            }
+            public static void UnitPosition(string tag, EaseUnit<Vector2> positionEase)
+            {
+                if (CurrentScene is SongFightingScene)
+                {
+                    Arrow.UnitEasing ease = new();
+                    ease.ApplyTime = positionEase.Time;
+                    ease.PositionEase = positionEase;
+                    ease.TagApply(tag);
+                    AddInstance(ease);
+                    ease.AutoDispose = true;
+                }
+            }
 
         }
         /// <summary>

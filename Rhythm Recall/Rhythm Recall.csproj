@@ -38,9 +38,6 @@
   <ItemGroup>
     <Folder Include="Content\Shop\Souvenir\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\net6.0\Content\Sprites\font\Japanese.xnb" />
-  </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />
