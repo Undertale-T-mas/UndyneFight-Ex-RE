@@ -1724,7 +1724,7 @@ namespace Rhythm_Recall.Waves
 
                         "R","","","",   "R","","+0@L","",
                         "","","R","",   "+0@L","","","",
-                        "$0","","+2","",   "+2","","+2","",
+                        "$0","","+0","",   "+0","","+0","",
                         "+2","","","",   "+2","","","",
 
                         "R","","","",   "R","","+0@L","",
@@ -2394,7 +2394,7 @@ namespace Rhythm_Recall.Waves
 
                         "(R)(<0.8,3>Drum2)","","","",   "(R)","","+1","",
                         "(<0.8,-3>Drum2)","","(R)","",   "-1","","","",
-                        "R(<0.8,3>Drum2)","","(+2)","",   "(+2)","","(+2)","",
+                        "R(<0.8,3>Drum2)","","(+0)","",   "(+0)","","(+0)","",
                         "(+2)(<0.8,-3>Drum2)","","","",   "(R)","","","",
 
                         "R(<0>Scrangle)","","","",   "R","","+0","",
@@ -3015,6 +3015,7 @@ namespace Rhythm_Recall.Waves
                 int jumpbeat=284;
                 HeartAttribute.MaxHP = 54;
                 HeartAttribute.DamageTaken = 8;
+                HeartAttribute.ArrowFixed = true;
                 if (jump)
                 {
                     GametimeDelta = -4.5f + BeatTime(jumpbeat);
