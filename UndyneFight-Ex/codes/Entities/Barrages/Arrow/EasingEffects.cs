@@ -102,13 +102,23 @@ namespace UndyneFight_Ex.Entities
                 if (positionEaseEnabled) _easingTimeMax = MathF.Max(_easingTimeMax, positionEase.Time);
                 if (rotationEaseEnabled) _easingTimeMax = MathF.Max(_easingTimeMax, rotationEase.Time);
                 if (distanceEaseEnabled) _easingTimeMax = MathF.Max(_easingTimeMax, distanceEase.Time);
+                if (alphaEaseEnabled) _easingTimeMax = MathF.Max(_easingTimeMax, alphaEase.Time);
 
                 maxIndex = ToArrayIndex(_easingTimeMax) + 1;
                 if (maxIndex > 0)
                 {
-                    positionBuffer = new Vector2[maxIndex];
-                    rotationBuffer = new float[maxIndex];
-                    distanceBuffer = new float[maxIndex];
+                    if (positionEaseEnabled)
+                        if (positionBuffer == null || maxIndex > positionBuffer.Length)
+                            positionBuffer = new Vector2[maxIndex];
+                    if (rotationEaseEnabled)
+                        if (rotationBuffer == null || maxIndex > rotationBuffer.Length)
+                            rotationBuffer = new float[maxIndex];
+                    if (distanceEaseEnabled)
+                        if (distanceBuffer == null || maxIndex > distanceBuffer.Length)
+                            distanceBuffer = new float[maxIndex];
+                    if (alphaEaseEnabled)
+                        if (alphaBuffer == null || maxIndex > alphaBuffer.Length)
+                            alphaBuffer = new float[maxIndex];
                 }
             }
             public float ApplyTime { get; set; } = 60;
@@ -117,18 +127,22 @@ namespace UndyneFight_Ex.Entities
             private EaseUnit<Vector2> positionEase;
             private EaseUnit<float> rotationEase;
             private EaseUnit<float> distanceEase;
+            private EaseUnit<float> alphaEase;
 
             private bool positionEaseEnabled = false;
             private bool rotationEaseEnabled = false;
             private bool distanceEaseEnabled = false;
+            private bool alphaEaseEnabled = false;
 
             public EaseUnit<Vector2> PositionEase { set { positionEase = value; positionEaseEnabled = true; arrayIndex = -1; Reset(); } }
             public EaseUnit<float> RotationEase { set { rotationEase = value; rotationEaseEnabled = true; arrayIndex = -1; Reset(); } }
             public EaseUnit<float> DistanceEase { set { distanceEase = value; distanceEaseEnabled = true; arrayIndex = -1; Reset(); } }
+            public EaseUnit<float> AlphaEase { set { alphaEase = value; alphaEaseEnabled = true; arrayIndex = -1; Reset(); } }
 
             private Vector2[] positionBuffer;
             private float[] rotationBuffer;
             private float[] distanceBuffer;
+            private float[] alphaBuffer;
 
             public Func<ICustomMotion, Vector2> PositionRoute { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
             public Func<ICustomMotion, float> RotationRoute { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -138,6 +152,7 @@ namespace UndyneFight_Ex.Entities
             public float AppearTime { get; set; } = 0f;
 
             public float Rotation { get; set; } = 0f;
+            public float TempAlpha { get; set; } = 0f;
             public float Distance { get; set; } = 0f;
             public Vector2 CentrePosition { get; set; }
             public float SelfRotation { get; set; } = 0f;
@@ -165,7 +180,7 @@ namespace UndyneFight_Ex.Entities
                 float add = (time - 0.5f) * 2f - l;
 
                 Vector2 realPos = Vector2.Zero;
-                float realRot = 0, realDis = 0;
+                float realRot = 0, realDis = 0, realAlp = 0.0f;
                 if (l == r)
                 {
                     if (positionEaseEnabled)
@@ -174,6 +189,8 @@ namespace UndyneFight_Ex.Entities
                         realRot = rotationBuffer[l] * Intensity;
                     if (distanceEaseEnabled)
                         realDis = distanceBuffer[l] * Intensity;
+                    if (alphaEaseEnabled)
+                        realAlp = alphaBuffer[l] * Intensity;
                 }
                 else
                 {
@@ -183,6 +200,8 @@ namespace UndyneFight_Ex.Entities
                         realRot = MathHelper.Lerp(rotationBuffer[l], rotationBuffer[r], add) * Intensity;
                     if (distanceEaseEnabled)
                         realDis = MathHelper.Lerp(distanceBuffer[l], distanceBuffer[r], add) * Intensity;
+                    if (alphaEaseEnabled)
+                        realAlp = MathHelper.Lerp(alphaBuffer[l], alphaBuffer[r], add) * 1.0f;
                 }
 
                 if (positionEaseEnabled)
@@ -191,6 +210,8 @@ namespace UndyneFight_Ex.Entities
                     arr.CentreRotationOffset = realRot;
                 if (distanceEaseEnabled)
                     arr.additiveDistance = realDis;
+                if (alphaEaseEnabled)
+                    arr.Alpha = realAlp;
             }
 
             private void UpdateEase()
@@ -205,6 +226,8 @@ namespace UndyneFight_Ex.Entities
                     rotationBuffer[arrayIndex] = Rotation = rotationEase.Easing.Invoke(this);
                 if (distanceEaseEnabled)
                     distanceBuffer[arrayIndex] = Distance = distanceEase.Easing.Invoke(this);
+                if (alphaEaseEnabled)
+                    alphaBuffer[arrayIndex] = TempAlpha = alphaEase.Easing.Invoke(this);
 
                 if(AppearTime > 20 && AutoDispose)
                 {
