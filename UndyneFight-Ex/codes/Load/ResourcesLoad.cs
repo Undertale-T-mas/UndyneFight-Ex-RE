@@ -109,6 +109,7 @@ namespace UndyneFight_Ex
             CustomShaders.Spiral =      new SpiralShader(loader.Load<Effect>("Sprial3D"));
             CustomShaders.Wrong =       new WrongShader(loader.Load<Effect>("Wrong"));
             CustomShaders.Fire =        new FireShader(loader.Load<Effect>("NoiseFire"));
+            CustomShaders.RadialWave =  new RadialWaveShader(loader.Load<Effect>("RadialWave"));
             
             CustomShaders.DislocationX =  new DislocationShaderX(loader.Load<Effect>("DislocationX"));
             //      CustomShaders.DislocationY =  new DislocationYShader(loader.Load<Effect>("DislocationY"));
@@ -132,6 +133,7 @@ namespace UndyneFight_Ex
                 public static ColorBlendShader ColorBlend { get; set; }
                 public static SpiralShader Spiral { get; set; }
                 
+                public static RadialWaveShader RadialWave { get; set; }
                 public static WaveShader Wave { get; set; }
                 public static BallShapingShader Cos1Ball { get; set; }
                 public static ScaleShader Scale { get; set; }
@@ -663,6 +665,7 @@ namespace UndyneFight_Ex
             public static DislocationShaderX DislocationX => CustomShaders.DislocationX;
             public static DislocationShaderY DislocationY => CustomShaders.DislocationY;
             public static WaveShader Wave => CustomShaders.Wave;
+            public static RadialWaveShader RadialWave => CustomShaders.RadialWave;
         }
     }
 }

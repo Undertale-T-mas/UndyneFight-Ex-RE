@@ -1897,31 +1897,15 @@ namespace Rhythm_Recall.Waves
                                 );
 
                             RunEase(s => { ScreenDrawing.ScreenScale = s; },
-                                EaseOut(BeatTime(0.85f), 1.15f, 1.0f, EaseState.Cubic)
+                                Alternate(0.5f,
+                                    EaseOut(BeatTime(0.85f), 1.15f, 1.0f, EaseState.Cubic),
+                                    EaseOut(BeatTime(0.85f), 1.1f, 1.0f, EaseState.Cubic),
+                                    EaseOut(BeatTime(0.85f), 1.05f, 1.0f, EaseState.Cubic),
+                                    Stable(1.0f, 1.0f)
+
+                                    )
                                 );
-
-                            production3 = ScreenDrawing.ActivateShader(Shaders.Wave, 0.3522f);
-
-                            Shaders.Wave.Intensity1 = 7f;
-                            Shaders.Wave.Intensity2 = 5.5f;
-                            Shaders.Wave.Frequency1 = 0.08f;
-                            Shaders.Wave.Frequency2 = 0.21f;
-
-                            RunEase(s =>
-                            {
-                                Shaders.Wave.Intensity1 = s;
-                            }, Linear(BeatTime(1.4f), 7f, 0.0f));
-                            RunEase(s =>
-                            {
-                                Shaders.Wave.Intensity2 = s;
-                            }, EaseOut(BeatTime(1.4f), 5.5f, 0.0f, EaseState.Quad));
-                            RunEase(s =>
-                            {
-                                Shaders.Wave.Frequency2 = s;
-                            }, EaseOut(BeatTime(1.4f), 0.21f, 0.16f, EaseState.Quad));
-
-                            Shaders.Wave.Time = 0; Shaders.Wave.Speed = 16.0f;
-                            DelayBeat(1.5f, production3.Dispose);
+                             
                             DelayBeat(1, production4.Dispose);
                         });
                     });

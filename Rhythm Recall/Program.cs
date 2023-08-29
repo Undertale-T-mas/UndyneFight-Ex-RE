@@ -129,6 +129,7 @@ namespace Rhythm_Recall
             test.Push(typeof(MEGALOVANIA));
             test.Push(typeof(RIP));
             test.Push(typeof(BrokenAltair));
+            test.Push(typeof(mu));
 
 #if DEBUG
             GameStartUp.PushSongset(test);
