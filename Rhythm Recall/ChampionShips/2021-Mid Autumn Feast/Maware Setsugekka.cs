@@ -78,15 +78,15 @@ namespace Rhythm_Recall.Waves
 
             public string Music => "Spin! Setsugekka";
 
-            public string FightName => "Maware setsugetsuka";
+            public string FightName => "Spin! setsugekka";
 
-            
             private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
 
                 public override string SongAuthor => "HIGE driver";
                 public override string PaintAuthor => "OtokP";
+                public override string DisplayName => "Maware setsugetsuka";
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {

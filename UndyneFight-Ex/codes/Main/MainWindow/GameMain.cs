@@ -86,17 +86,17 @@ namespace UndyneFight_Ex
             Graphics.PreferredBackBufferHeight = 480;
             Graphics.PreferredBackBufferWidth = 640;
             Window.AllowUserResizing = true;
-            Window.Title = "Rhythm Recall p-? (UF-Ex [V0.2.0])";
+            Window.Title = "Rhythm Recall v0.2.1 (UF-Ex [V0.2.0])";
             Graphics.ApplyChanges();
 
             // TODO: Add your initialization logic here
-            GameMain.SpriteEffect = new(Graphics.GraphicsDevice);
-            GameMain.SpritePass = SpriteEffect.CurrentTechnique.Passes[0];
+            SpriteEffect = new(Graphics.GraphicsDevice);
+            SpritePass = SpriteEffect.CurrentTechnique.Passes[0];
 #if DEBUG
             debugTarget1 = new RenderTarget2D(GraphicsDevice, 96, 35, true, SurfaceFormat.Color, DepthFormat.None);
             debugTarget2 = new RenderTarget2D(GraphicsDevice, 96, 35, true, SurfaceFormat.Color, DepthFormat.None);
 #endif
-            finalTarget = new RenderTarget2D(GraphicsDevice, (int)(480f * GameMain.Aspect), 480, false, SurfaceFormat.Color, DepthFormat.None);
+            finalTarget = new RenderTarget2D(GraphicsDevice, (int)(480f * Aspect), 480, false, SurfaceFormat.Color, DepthFormat.None);
             Window.ClientSizeChanged += (s, t) =>
             {
                 CilentBoundChanged();
@@ -132,8 +132,8 @@ namespace UndyneFight_Ex
             MissionSpriteBatch.DefaultState = DataLibrary.SamplerState switch
             {
                 "Nearest" => SpriteBatchEX.NearestSample,
-                "3x Linear" => Microsoft.Xna.Framework.Graphics.SamplerState.LinearClamp,
-                "Anisotropic" => Microsoft.Xna.Framework.Graphics.SamplerState.AnisotropicClamp,
+                "3x Linear" => SamplerState.LinearClamp,
+                "Anisotropic" => SamplerState.AnisotropicClamp,
                 _ => throw new Exception()
             };
         }

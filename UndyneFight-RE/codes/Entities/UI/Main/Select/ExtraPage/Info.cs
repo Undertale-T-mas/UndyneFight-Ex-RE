@@ -34,7 +34,9 @@ namespace UndyneFight_Ex.Remake.UI
                     if (this.Centre.Y > 677) return;
                     GLFont font = FightResources.Font.NormalFont;
                     float y = this.Centre.Y + 30;
-                    font.Draw(_vfa.SongSelected.FightName, new vec2(184, y + 22), col.White * alpha, 1.21f, 0.6f);
+                    var father = _vfa.SongSelected;
+                    string FinalText = father.Attributes.DisplayName;
+                    font.Draw(FinalText == "" ? father.FightName : father.Attributes.DisplayName, new vec2(184, y + 22), col.White * alpha, 1.21f, 0.6f);
                     string s = _vfa.CurrentDifficulty.ToString();
                     font.Draw(s, new vec2(752 - font.SFX.MeasureString(s).X, y + 22), _vfa.CurrentDifficulty switch
                     {
