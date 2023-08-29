@@ -815,6 +815,18 @@ namespace UndyneFight_Ex.Fight
                     ease.AutoDispose = true;
                 }
             }
+            public static void UnitAlpha(string tag, EaseUnit<float> alphaEase)
+            {
+                if (CurrentScene is SongFightingScene)
+                {
+                    Arrow.UnitEasing ease = new();
+                    ease.ApplyTime = alphaEase.Time;
+                    ease.AlphaEase = alphaEase;
+                    ease.TagApply(tag);
+                    AddInstance(ease);
+                    ease.AutoDispose = true;
+                }
+            }
 
         }
         /// <summary>
