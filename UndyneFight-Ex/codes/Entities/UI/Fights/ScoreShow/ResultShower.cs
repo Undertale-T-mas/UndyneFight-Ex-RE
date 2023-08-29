@@ -243,7 +243,7 @@ namespace UndyneFight_Ex.Entities
                 if (curSelection == 2)
                     RatingDraw();
 
-                GlobalResources.Font.NormalFont.CentreDraw($"Result of {gamePlayed.Attributes.DisplayName}:", new Vector2(320, 35), Color.White * alpha, 1.1f, 0.5f);
+                GlobalResources.Font.NormalFont.CentreDraw($"Result of {(gamePlayed.Attributes.DisplayName != null && gamePlayed.Attributes.DisplayName != "" ? gamePlayed.Attributes.DisplayName : gamePlayed.FightName)}:", new Vector2(320, 35), Color.White * alpha, 1.1f, 0.5f);
 
                 // modifier used:
                 float centre = ratingResult == null ? 320 : 400;

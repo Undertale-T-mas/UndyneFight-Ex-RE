@@ -108,9 +108,9 @@ namespace Rhythm_Recall.Waves
                     SetSoul(0);
                     InstantSetBox(new Vector2(320, 320), 140, 140);
                     InstantTP(320, 320);
-                    GametimeDelta = 4799;
+                    //GametimeDelta = 4799;
                     //GametimeDelta = 8029;
-                    //GametimeDelta = 0;
+                    GametimeDelta = 0;
                     PlayOffset = GametimeDelta;
                 }
                 // CreateEntity(new KickCounter());

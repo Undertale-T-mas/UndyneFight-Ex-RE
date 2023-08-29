@@ -108,7 +108,7 @@ namespace Rhythm_Recall
             //GameStartUp.PushExtra(new MikuFight());    
 
 
-            SongSet test = new SongSet("Test");
+            SongSet test = new("Test");
             test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(Clb1e86f2));
             test.Push(typeof(TheFuneral));
@@ -135,6 +135,15 @@ namespace Rhythm_Recall
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
                 //typeof(AprilExtends.Stasis),
+                //typeof(AprilExtends.GrievousLady),
+                //typeof(AprilExtends.Rrharil),
+                //typeof(AprilExtends.HorizonBlue),
+                //typeof(BrokenAltair),
+                //typeof(Flan),
+                //typeof(Galileo),
+                //typeof(LoveAndHate),
+                //typeof(Marisa),
+                //typeof(Igallta),
                 //typeof(Determination),
                 //typeof(AprilExtends.Pentiment),
                 //typeof(AprilExtends.BocchiTheRock),
@@ -143,10 +152,9 @@ namespace Rhythm_Recall
                 //typeof(BrainPower),
                 //typeof(Weekender), 
                 typeof(DreadNaught),
-         //       typeof(TheFuneral),
+                //typeof(TheFuneral),
                 //typeof(PapyEn), 
                 typeof(Conflict),
-                //typeof(AprilExtends.Stasis),
                 typeof(Resistance),
 
                 typeof(BadApple),
@@ -171,7 +179,7 @@ namespace Rhythm_Recall
             try
             {
 #endif
-            UndyneFight_Ex.Remake.Initialize.MainInitialize();
+            //UndyneFight_Ex.Remake.Initialize.MainInitialize();
             GameStartUp.StartGame();
 #if ThrowError
             }

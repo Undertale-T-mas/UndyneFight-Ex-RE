@@ -116,7 +116,7 @@ namespace Rhythm_Recall.Waves
                     });
                 }
                 if (InBeat(2.85f) || InBeat(9.75f) || InBeat(16.65f) || InBeat(24.25f)
-                     || InBeat(31.15f) || InBeat(38.75f) || InBeat(45.65f) || InBeat(52.85f))
+                     || InBeat(32.15f) || InBeat(38.75f) || InBeat(45.65f) || InBeat(52.85f))
                 {
                     CreateArrow(BeatTime(2), Rand(0, 3), 6, 0, 0);
                     CreateArrow(BeatTime(3), Rand(0, 3), 6, 0, 0);
@@ -278,7 +278,7 @@ namespace Rhythm_Recall.Waves
                         var dist = Rand(50, 170);
                         for (int i = 0; i < 4; ++i)
                         {
-                            Vector2 pos = new Vector2(320, 240) + MathUtil.GetVector2(dist, dir + i * 90);
+                            Vector2 pos = new Vector2(320, 240) + GetVector2(dist, dir + i * 90);
                             CreateGB(new NormalGB(pos, pos, new(1, 1), dir + (i + 1) * 90, BeatTime(1.5f), 10));
                         }
                     }
@@ -291,15 +291,16 @@ namespace Rhythm_Recall.Waves
                         CreateArrow(BeatTime(2f + i * 0.2f), dir + i * 2, 6, 1, 0);
                     }
                 }
-                if (InBeat(110) || InBeat(125.5f))
+                if (InBeat(110) || InBeat(126.5f))
                 {
                     RotateTo(0, BeatTime(0.5f));
                     for (int i = 0; i < 4; ++i)
                     {
+                        var time = 2f + i * 0.5f;
                         if (i < 3)
-                            CreateArrow(BeatTime(2f + i * 0.5f), Rand(0, 3), 7, 0, 0);
+                            CreateArrow(BeatTime(time), Rand(0, 3), 7, 0, 0);
                         else
-                            CreateGB(new GreenSoulGB(BeatTime(2f + i * 0.5f), Rand(0, 3), 0, BeatTime(3)));
+                            CreateGB(new GreenSoulGB(BeatTime(time), Rand(0, 3), 0, BeatTime(3)));
 
                     }
                 }
@@ -627,9 +628,9 @@ namespace Rhythm_Recall.Waves
                     {
                         "R", "", "", "",    "", "", "","R",
                         "", "", "", "",     "", "","", "",
-                        "", "", "", "",     "","R", "", "",
+                        "", "", "", "",     "R","", "", "",
                         "", "", "", "",     "", "", "", "",
-                        "R", "", "","",     "","", "R", "",
+                        "R", "", "","",     "","", "", "R",
                         "", "","", "",      "", "", "", "",
                         "", "","R", "",     "", "", "", "",
                         "", "", "", "",     "", "", "", "",
@@ -639,19 +640,19 @@ namespace Rhythm_Recall.Waves
 
                         "$01", "", "$11", "", "$21", "", "$01","$31",
                         "", "$21", "", "$01", "", "$21","","",
-                        "", "","", "R",     "", "", "","",
-                        "", "","R", "",     "", "", "", "",
+                        "", "","R", "+01",     "", "", "","",
+                        "", "","", "",      "R", "", "", "",
                         "", "", "", "",     "", "", "", "",
                         "R", "", "", "",    "", "", "","",
-                        "", "R", "", "",    "", "","","",
-                        "", "", "R", "",    "","", "", "",
-                        "", "", "", "",     "","", "R", "",
+                        "", "R", "+01", "",    "", "","","",
+                        "", "", "", "",     "R","", "", "",
+                        "", "", "", "",     "","", "", "R",
                         "", "", "", "",     "", "", "", "",
-                        "", "", "R","",     "", "", "", "",
-                        "", "", "", "R",     "", "", "", "",
+                        "", "", "R","+01",  "", "", "", "",
+                        "", "", "", "",     "", "R", "", "",
                         "", "", "", "",     "", "", "", "",
-                        "R", "", "","",     "","","R", "",
-                        "", "", "", "",     "", "","","",
+                        "R", "", "","",     "","","", "R",
+                        "+01", "", "", "",     "", "","","",
                         "", "", "", "",    "R", "", "","",
                         "", "", "", "",    "", "", "","",
                         "", "", "", "",    "", "", "","",
