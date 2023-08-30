@@ -7,6 +7,9 @@ using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
+using System.Net.Mail;
 
 namespace Rhythm_Recall.Waves
 {
@@ -60,8 +63,7 @@ namespace Rhythm_Recall.Waves
             public static Game game;
             GlobalResources.Effects.StepSampleShader StepSample;
             ScreenDrawing.Shaders.Blur Blur;
-            RenderProduction production1;
-            RenderProduction production2;
+            RenderProduction production, production1, production2;
             ScreenDrawing.Shaders.RGBSplitting splitter = new();
             GlobalResources.Effects.PolarShader Polar;
             #region non
@@ -326,16 +328,16 @@ namespace Rhythm_Recall.Waves
                     "D1","","","",    "+2","","","",    "","","","",    "D1","","+21","",
                     "+21","","","",    "+101(line1)(line2)(convL)","","","",    "+101","","+2","",    "+2","","","",
                     //
-                    "D(line4)(line3)(convR)","","","",    "+002","","","",    "#1.3#+3(lineA1)(line1)(line3)(convL)","","","",    "R","","","",
+                    "D(line4)(line3)(convR)","","","",    "*+002","","","",    "#1.3#+3(lineA1)(line1)(line3)(convL)","","","",    "R","","","",
                     "R","","","",    "(R)(+2)(lineA1)(line1)","","","",    "R","","","",    "(R)(+01)(line1)(line3)(convL)(lineA1)","","","",
                     //
-                    "(D)(+01)(lineA1)(line3)","","","",    "+002","","","",    "#1.3#+3(lineA2)(line4)(line2)(convR)","","","",    "R","","","",
+                    "(D)(+01)(lineA1)(line3)","","","",    "*+002","","","",    "#1.3#+3(lineA2)(line4)(line2)(convR)","","","",    "R","","","",
                     "R1","","","",    "(R1)(+21)(lineA2)(line2)","","","",    "R1","","","",    "(R)(+01)(lineA2)(line4)(line2)(convR)","","","",
                     ////
-                    "(D)(+01)(lineA2)(line4)","","","",    "+012","","","",    "#1.3#+31(lineA1)(line1)(line3)(line4)(line2)(convL)","","","",    "R1","","","",
+                    "(D)(+01)(lineA2)(line4)","","","",    "*+012","","","",    "#1.3#+31(lineA1)(line1)(line3)(line4)(line2)(convL)","","","",    "R1","","","",
                     "R1","","","",    "(R1)(+21)(lineA2)(line1)(line2)(convL)","","","",    "R1","","","",    "(R)(+01)(lineA1)(line1)(line3)(line4)(line2)(convR)","","","",
                     //
-                    "(D)(+01)(lineA1)","","","",    "+012","","","",    "#1.3#+31(lineA2)(line4)(line2)(line1)(line3)(convR)","","","",    "R1","","","",
+                    "(D)(+01)(lineA1)","","","",    "*+012","","","",    "#1.3#+31(lineA2)(line4)(line2)(line1)(line3)(convR)","","","",    "R1","","","",
                     "R","","","",    "(R)(+2)(lineA1)(line4)(line3)(convR)","","","",    "R(lineAr1)","","","",    "+01(lineA2)(line4)(line2)(line1)(line3)(convL)(lineAr1)","","","",
                     //
                 });
@@ -427,8 +429,8 @@ namespace Rhythm_Recall.Waves
                     "R1(lineA1)","","+21","",    "+21(lineA1)","","","",    "$201","","","",    "R(lineA2)","","R","",
                     "R(lineA2)","","","",    "$301","","","",    "R(lineA1)(lineA2)","","R","",    "R(lineA1)(lineA2)","","","",
                     //
-                    "$001","","","",    "(#1.5#$3)(#1.5#$31)","","","",    "","","","",    "","","","",
-                    "(<$10)(>$11)","","","",    "","","","",    "","","","",    "","","","",
+                    "$001","","","",    "(#1.5#$3)(#1.5#$11)","","","",    "","","","",    "","","","",
+                    "(*<$10'1.6)(*<$31'1.6)","","","",    "","","","",    "","","","",    "","","","",
                     //;
                 });
             }
@@ -504,8 +506,8 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("LineRand", () =>
                 {
                     float r = Rand(30, 590);
-                    Line a = new(new Vector2(r, 0), 90) { Alpha = 0.85f };
-                    Line b = new(new Vector2(r + 20, 0), 90) { Alpha = 0.85f };
+                    Line a = new(new Vector2(r, 0), 90) { Alpha = 0.65f };
+                    Line b = new(new Vector2(r + 20, 0), 90) { Alpha = 0.65f };
                     Line[] lines = { a, b };
                     foreach (Line l in lines)
                     {
@@ -566,29 +568,29 @@ namespace Rhythm_Recall.Waves
                 });
                 BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
-                    "(R)(#0.7#+2)(ConvL)(Step)(LineL)","","","",    "","","^+2(LineL)","",    "","","","",    "","","","",
-                    "(R)(#0.7#+2)","","","",    "","","^+2","",    "","","","",    "","","","",
+                    "(*R)(#0.7#+2)(ConvL)(Step)(LineL)","","","",    "","","*^+2(LineL)","",    "","","","",    "","","","",
+                    "(*R)(#0.7#+2)","","","",    "","","*^+2","",    "","","","",    "","","","",
                     //
-                    "(R)(#0.7#+2)(ConvR)(Step)(LineR)","","","",    "","","^+2(LineR)","",    "","","","",    "","","","",
-                    "(R)(#0.7#+2)","","","",    "","","^+2","",    "(#0.5#D1)","","","",    "+21","","","",
+                    "(*R)(#0.7#+2)(ConvR)(Step)(LineR)","","","",    "","","*^+2(LineR)","",    "","","","",    "","","","",
+                    "(*R)(#0.7#+2)","","","",    "","","*^+2","",    "(#0.5#D1)","","","",    "*+21","","","",
                     ////
-                    "(R1)(#0.7#+21)(ConvR)(Step)(LineR)","","","",    "","","^+21(LineR)","",    "","","","",    "","","","",
-                    "(R1)(#0.7#+21)","","","",    "","","^+21","",    "","","","",    "","","","",
+                    "(*R1)(#0.7#+21)(ConvR)(Step)(LineR)","","","",    "","","*^+21(LineR)","",    "","","","",    "","","","",
+                    "(*R1)(#0.7#+21)","","","",    "","","*^+21","",    "","","","",    "","","","",
                     //
-                    "(R1)(#0.7#+21)(ConvL)(Step)(LineL)","","","",    "","","^+21(LineL)","",    "","","","",    "","","","",
-                    "(R1)(#0.7#+21)","","","",    "","","^+21","",    "(#0.5#D)","","","",    "+2","","","",
+                    "(*R1)(#0.7#+21)(ConvL)(Step)(LineL)","","","",    "","","*^+21(LineL)","",    "","","","",    "","","","",
+                    "(*R1)(#0.7#+21)","","","",    "","","*^+21","",    "(#0.5#D)","","","",    "*+2","","","",
                     //
-                    "(R)(#0.7#+2)(ConvL)(Step)(LineL)","","","",    "","","^+2(LineL)","",    "+0(LineR)","","","",    "","","","",
-                    "(R)(#0.7#+2)","","","",    "","","^+2","",    "+0","","","",    "","","","",
+                    "(*R)(#0.7#+2)(ConvL)(Step)(LineL)","","","",    "","","*^+2(LineRand)","",    "+01(LineRand)","","","",    "","","","",
+                    "(*R)(#0.7#+2)","","","",    "","","*^+2","",    "+01","","","",    "","","","",
                     //
-                    "(R)(#0.7#+2)(ConvR)(Step)(LineR)","","","",    "","","^+2(LineR)","",    "+0(LineL)","","","",    "","","","",
-                    "(R)(#0.7#+2)","","","",    "","","^+2","",    "+01","","+21","",    "+21","","","",
+                    "(*R)(#0.7#+2)(ConvR)(Step)(LineR)","","","",    "","","*^+2(LineRand)","",    "+01(LineRand)","","","",    "","","","",
+                    "(*R)(#0.7#+2)","","","",    "","","*^+2","",    "+01","","+21","",    "+21","","","",
                     ////
-                    "(R1)(#0.7#+21)(ConvR)(Step)(LineR)","","","",    "","","^+21(LineR)","",    "+01(LineL)","","","",    "","","","",
-                    "(R1)(#0.7#+21)","","","",    "","","^+21","",    "+01","","","",    "","","","",
+                    "(*R1)(#0.7#+21)(ConvR)(Step)(LineR)","","","",    "","","*^+21(LineRand)","",    "+0(LineRand)","","","",    "","","","",
+                    "(*R1)(#0.7#+21)","","","",    "","","^+21","",    "+0","","","",    "","","","",
                     //
-                    "(R1)(#0.7#+21)(ConvL)(Step)(LineL)","","","",    "","","^+21(LineL)","",    "+01(LineR)","","","",    "","","","",
-                    "(R1)(#0.7#+21)","","","",    "","","^+21","",    "+0","","+2","",    "+2","","","",
+                    "(*R1)(#0.7#+21)(ConvL)(Step)(LineL)","","","",    "","","*^+21(LineRand)","",    "+0(LineRand)","","","",    "","","","",
+                    "(*R1)(#0.7#+21)","","","",    "","","*^+21","",    "+0","","+2","",    "+2","","","",
                     //
                     "(R)(+2)(ConvL)(LineL)(LineR)","","","",    "","","+1","",    "+1","","+1","",    "+1","","","",
                     "(R1)(+21)(ConvR)(LineL)(LineR)","","","",    "","","+31","",    "+31","","+31","",    "+31","","","",
@@ -640,7 +642,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(1.55f, () => { l.Dispose(); });
                     }
                 });
-                CreateEntity(new GreenSoulGB(BeatTime(4), 3, 0, BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 1f))));
+                CreateEntity(new GreenSoulGB(BeatTime(4), 1, 0, BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 1f))));
                 CreateEntity(new GreenSoulGB(BeatTime(4), 3, 1, BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 1f))));
                 BarrageCreate(BeatTime(4f), BeatTime(1), 6.6f, new string[]
                 {
@@ -884,44 +886,44 @@ namespace Rhythm_Recall.Waves
                 });
                 BarrageCreate(BeatTime(4f), BeatTime(19f / 17f), 6.6f, new string[]
                 {
-                    "(R1)(#7.8#R)(LineAd)(LineB)(LineC1)","","","",    "(LineC1)","","","",    "R1(LineB)(LineC1)","","","",    "D1","","","",
+                    "($11)(#7.8#$3)(LineAd)(LineB)(LineC1)","","","",    "(LineC1)","","","",    "R1(LineB)(LineC1)","","","",    "D1","","","",
                     "","","","",    "R1(LineB)","","","",    "D1","","","",    "","","D1(LineB)","",
                     //
-                    "","","R","",    "","","","",    "R(LineB)","","","",    "D","","","",
-                    "","","R(LineB)","",    "","","","",    "R","","","",    "","","","",
+                    "","","*N3","",    "","","","",    "*N3(LineB)","","","",    "*N3","","","",
+                    "","","*N3(LineB)","",    "","","","",    "*N3","","","",    "","","","",
                     //
-                    "(R1)(#7.8#R)(LineAl)(LineB)(LineC2)","","","",    "(LineC2)","","","",    "R1(LineB)(LineC2)","","","",    "D1","","","",
+                    "($01)(#7.8#$2)(LineAl)(LineB)(LineC2)","","","",    "(LineC2)","","","",    "R1(LineB)(LineC2)","","","",    "D1","","","",
                     "","","","",    "R1(LineB)","","","",    "D1","","","",    "","","D1(LineB)","",
                     ////
-                    "","","","",    "R","","","",    "D(LineB)","","","",    "D","","","",
-                    "D(LineB)","","","",    "","","","",    "R","","","",    "","","","",
+                    "","","","",    "*N2","","","",    "*N2(LineB)","","","",    "*N2","","","",
+                    "*N2(LineB)","","","",    "","","","",    "*N2","","","",    "","","","",
                     //
-                    "(R1)(#7.8#R)(LineAr)(LineB)(LineD2)","","","",    "","","","",    "R1(LineB)","","","",    "D1","","","",
+                    "($21)(#7.8#$0)(LineAr)(LineB)(LineD2)","","","",    "","","","",    "R1(LineB)","","","",    "D1","","","",
                     "","","","",    "R1(LineB)","","","",    "D1","","","",    "","","D1(LineB)","",
                     //
-                    "","","R(LineB)","",    "","","","",    "R","","","",    "D(LineB)","","","",
-                    "D","","","",    "","","","",    "R(LineB)","","","",    "D","","","",
+                    "","","*N0(LineB)","",    "","","","",    "*N0","","","",    "*N0(LineB)","","","",
+                    "*N0","","","",    "","","","",    "*N0(LineB)","","","",    "*N0","","","",
                     //
-                    "D(LineB)(LineC1)(LineC2)","","+2","",    "+2","","","",    "+002(LineB)(LineC1)(LineC2)","","","",    "","","+002","",
+                    "D(LineB)(LineC1)(LineC2)","","+2","",    "+2","","","",    "*+002(LineB)(LineC1)(LineC2)","","","",    "","","*+002","",
                     "(LineB)(LineC1)(LineC2)","","N01","",    "D1","","D1","",    "D1(LineB)","","D1","",    "D1","","","",
                     ////
-                    "(R)(#7.8#R1)(LineAu)(LineB)(LineC2)","","","",    "(LineC2)","","","",    "R(LineC2)","","","",    "D(LineB)","","","",
+                    "($3)(#7.8#$11)(LineAu)(LineB)(LineC2)","","","",    "(LineC2)","","","",    "R(LineC2)","","","",    "D(LineB)","","","",
                     "","","","",    "R","","","",    "D(LineB)","","","",    "","","D","",
                     //
-                    "","","R1(LineB)","",    "","","","",    "R1","","","",    "D1(LineB)","","","",
-                    "","","R1","",    "","","","",    "R1(LineB)","","","",    "","","","",
+                    "","","*N11(LineB)","",    "","","","",    "*N11","","","",    "*N11(LineB)","","","",
+                    "","","*N11","",    "","","","",    "*N11(LineB)","","","",    "","","","",
                     //
-                    "(R)(#7.8#R1)(LineAr)(LineB)(LineC1)","","","",    "(LineC1)","","","",    "R(LineC1)","","","",    "D(LineB)","","","",
+                    "($2)(#7.8#$01)(LineAr)(LineB)(LineC1)","","","",    "(LineC1)","","","",    "R(LineC1)","","","",    "D(LineB)","","","",
                     "","","","",    "R","","","",    "D(LineB)","","","",    "","","D","",
                     //
-                    "","","","",    "R1(LineB)","","","",    "D1","","","",    "D1(LineB)","","","",
-                    "D1","","","",    "","","","",    "R1(LineB)","","","",    "D1","","","",
+                    "","","","",    "*N01(LineB)","","","",    "*N01","","","",    "*N01(LineB)","","","",
+                    "*N01","","","",    "","","","",    "*N01(LineB)","","","",    "*N01","","","",
                     ////
-                    "(R)(#7.8#R1)(LineAl)(LineB)(LineD1)","","","",    "","","","",    "R","","","",    "D(LineB)","","","",
+                    "($0)(#7.8#$21)(LineAl)(LineB)(LineD1)","","","",    "","","","",    "R","","","",    "D(LineB)","","","",
                     "","","","",    "R","","","",    "D(LineB)","","","",    "","","D","",
                     //
-                    "","","R1(LineB)","",    "","","","",    "R1","","","",    "D1(LineB)","","","",
-                    "D1","","","",    "","","","",    "R1(LineB)","","","",    "","","","",
+                    "","","*N21(LineB)","",    "","","","",    "*N21","","","",    "*N21(LineB)","","","",
+                    "*N21","","","",    "","","","",    "*N21(LineB)","","","",    "","","","",
                     //
                     "R1(LineB)(LineC1)(LineC2)","","+21","",    "+21","","","",    "D1(LineB)(LineC1)(LineC2)","","","",    "R1","","+21","",
                     "+21(LineB)(LineC1)(LineC2)","","","",    "R","","D","",    "D(LineB)","","D","",    "D","","D","",
@@ -930,6 +932,10 @@ namespace Rhythm_Recall.Waves
             }
             void ExPart7()
             {
+                RegisterFunctionOnce("LineA", () =>
+                {
+
+                });
                 BarrageCreate(BeatTime(4), BeatTime(19f / 17f), 6.6f, new string[]
                 {
                     "(R1)(+2)","","","",    "D","","","",    "","","","",    "","","","",
@@ -947,7 +953,7 @@ namespace Rhythm_Recall.Waves
                     "(R)(+21)","","","",    "D1","","","",    "","","","",    "","","","",
                     "*R02","","*+002","",    "*+002","","*+002","",    "*+202","","*+002","",    "*+002","","*+002","",
                     ////
-                    "$3{Lm}","","+01{Li}","",    "+0","","+01{Ri}","",    "+0{Rm}","","","",    "","","","",
+                    "*$3{Lm}","","*+01{Li}","",    "*+0","","*+01{Ri}","",    "*+0{Rm}","","","",    "","","","",
                     "R","","","",    "R1","","+21","",    "+21","","+21","",    "+21","","+21","",
                     //
                     "(R)(+21)","","","",    "","","","",    "","","","",    "","","","",
@@ -962,7 +968,7 @@ namespace Rhythm_Recall.Waves
                     "(R)(+01)","","","",    "","","","",    "(D)(+01)","","","",    "","","","",
                     "(D)(+01)","","","",    "","","","",    "(D)(+01)","","","",    "","","","",
                     //
-                    "($31)($1{Ri})","","+0{Li}","",    "+0{Ri}","","+0{Li}","",    "","","","",    "","","","",
+                    "(*$31)(*$1{Ri})","","*+0{Li}","",    "*+0{Ri}","","*+0{Li}","",    "","","","",    "","","","",
                     "R","","","",    "","","","",    "R","","","",    "D","","","",
                     //
                     "R","","","",    "","","","",    "R","","","",    "","","","",
@@ -1377,9 +1383,41 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 });
+                RegisterFunctionOnce("Step", () =>
+                {
+                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(3f * 19f / 14f), 0, 0.8f, EaseState.Quad),
+                        EaseOut(BeatTime(0.5f * 19f / 14f), 0.8f, 0, EaseState.Linear)));
+                });//14*4
+                RegisterFunctionOnce("Blur", () =>
+                {
+                    RunEase((s) => { Blur.Sigma = s; splitter.Intensity = s * 6.5f; },
+                        LinkEase(EaseOut(BeatTime(0.5f * 19f / 14f), 0, 0.7f, EaseState.Linear),
+                        Stable(BeatTime((4f * 14f - 0.5f) * 19f / 14f), 0.7f),
+                        EaseOut(BeatTime(2f * 19f / 14f), 0.7f, 1.5f, EaseState.Linear),
+                        Stable(0, 0)));
+                });
+                RegisterFunctionOnce("cl", () =>
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        Line a = new(LinkEase(EaseOut(BeatTime(2f * 19f / 14f), new Vector2(320, 240), new Vector2(320 - 40 * i, 240), EaseState.Quad),
+                            Stable(1, new Vector2(320 - 40 * i, 240))), Stable(0, 90))
+                        { Alpha = 0.7f - i * 0.05f };
+                        Line b = new(LinkEase(EaseOut(BeatTime(2f * 19f / 14f), new Vector2(320, 240), new Vector2(320 + 40 * i, 240), EaseState.Quad),
+                            Stable(1, new Vector2(320 - 40 * i, 240))), Stable(0, 90))
+                        { Alpha = 0.7f - i * 0.05f };
+                        Line[] ls = { a, b };
+                        foreach(Line l in ls)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(5f * 19f / 14f));
+                            DelayBeat(5f * 19f / 14f, () => { l.Dispose(); });
+                        }
+                    }
+                });
                 BarrageCreate(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
                 {
-                    "(change)(arrow)","","","",    "/","","","",    "/","","","",    "/","","","",
+                    "(change)(arrow)(cl)","","","",    "/","","","",    "/","","","",    "/","","","",
                     "/","","","",    "/","","","",    "/","","","",    "/","","","",
                     //
                     "/","","","",    "/","","","",    "/","","","",    "/","","","",
@@ -1391,30 +1429,32 @@ namespace Rhythm_Recall.Waves
                     "/","","","",    "/","","","",    "/","","","",    "/","","","",
                     "/","","","",    "/","","","",    "/","","","",    "/","","","",
                     //
-                    "(N21)(#7.5#$21)(lineLA)(lineGA)","","","",    "","","N21","",    "","","","",    "N21","","","",
-                    "#1#N2","","","",    "","","","",    "","","","",    "N21","","","",
+                    "(*N21)(#7.5#$21)(lineLA)(lineGA)","","","",    "","","*N21","",    "","","","",    "*N21","","","",
+                    "#1#N2","","","",    "","","","",    "","","","",    "*N21","","","",
                     //
-                    "(N21)(lineRA)","","","",    "","","N21","",    "","","","",    "N21","","","",
-                    "#1#N2","","","",    "","","","",    "","","","",    "(N0)(#8#$0)(lineGB)","","","",
+                    "(N21)(lineRA)","","","",    "","","*N21","",    "","","","",    "*N21","","","",
+                    "#1#N2","","","",    "","","","",    "","","","",    "(*N0)(#8#$0)(lineGB)","","","",
                     //
-                    "N0(lineRA)(lineGB)","","","",    "","","N0","",    "","","","",    "N0","","","",
-                    "#1#N01","","","",    "","","","",    "","","","",    "N0","","","",
+                    "*N0(lineRA)(lineGB)","","","",    "","","*N0","",    "","","","",    "*N0","","","",
+                    "#1#N01","","","",    "","","","",    "","","","",    "*N0","","","",
                     ////
-                    "N0(lineLA)","","","",    "","","N0","",    "","","","",    "N0","","","",
-                    "#1#N01","","","",    "","","","",    "","","","",    "N0","","","",
+                    "*N0(lineLA)","","","",    "","","*N0","",    "","","","",    "*N0","","","",
+                    "#1#N01","","","",    "","","","",    "","","","",    "*N0","","","",
                     //
-                    "(R)(+21)(lineGB)(coFlicker)","","","",    "D(lineGB)","","+2","",    "+2","","","",    "(D)(+21)(coFlicker)","","","",
-                    "(R)(#1#+21)(coFlicker)","","","",    "D","","","",    "D","","","",    "(D)(+21)(coFlicker)","","","",
+                    "(*R)(*+21)(lineGB)(coFlicker)","","","",    "D(lineGB)","","+2","",    "+2","","","",    "(*D)(*+21)(coFlicker)","","","",
+                    "(*R)(#1#+21)(coFlicker)","","","",    "D","","","",    "D","","","",    "(*D)(*+21)(coFlicker)","","","",
                     //
-                    "(R)(+21)(coFlicker)","","","",    "D1","","+21","",    "+21","","","",    "(D)(+21)(coFlicker)","","","",
-                    "(R1)(#1#+2)(coFlicker)","","","",    "D1","","","",    "D1","","","",    "(D)(+21)(lineGB)(coFlicker)","","","",
+                    "(*R)(*+21)(coFlicker)","","","",    "D1","","+21","",    "+21","","","",    "(*D)(*+21)(coFlicker)","","","",
+                    "(*R1)(#1#+2)(coFlicker)","","","",    "D1","","","",    "D1","","","",    "(*D)(*+21)(lineGB)(coFlicker)","","","",
                     //
-                    "($01)(+21)(lineGB)(coFlicker)","","","",    "D1","","+21","",    "+21","","","",    "(R1)(+21)(coFlicker)","","","",
-                    "(R1)(+21)(coFlicker)","","","",    "+21","","","",    "(D)(+21)(coFlicker)","","","",    "(D)(+21)(coFlicker)","","","",
+                    "(*$01)(*+21)(lineGB)(coFlicker)","","","",    "D1","","+21","",    "+21","","","",    "(*R1)(*+21)(coFlicker)","","","",
+                    "(*R1)(*+21)(coFlicker)","","","",    "+21","","","",    "(*D)(*+21)(coFlicker)","","","",    "(*D)(*+21)(coFlicker)","","","",
                     ////
-                    "(D)(+21)(coFlicker)","","","",    "R","","+2","",    "+2","","","",    "!!3","R(coFlicker)(line1)","D(coFlicker)","D(coFlicker)",
+                    "(*D)(*+21)(coFlicker)","","","",    "R","","+2","",    "+2","","","",    "!!3","R(coFlicker)(line1)(Step)","D(coFlicker)","D(coFlicker)",
                     "D(coFlicker)","","D(coFlicker)","",    "D(coFlicker)","","#0.8#$2(coFlicker)","",    "(#2#D1)($2)(coFlicker)(lineG2)","","$2(coFlicker)","",    "$2(coFlicker)","","$2(coFlicker)","",
                     //
+                    "Blur","","","",    "/","","","",    "/","","","",    "/","","","",
+                    "/","","","",    "/","","","",    "/","","","",    "/","","","",//extra phase
                 });
             }
             void ExPart9()
@@ -1464,29 +1504,15 @@ namespace Rhythm_Recall.Waves
             }
             void ExPart10()
             {
-                RegisterFunctionOnce("coFlicker", () =>
+                RegisterFunctionOnce("StepFlicker", () =>
                 {
-                    float rd = Rand(0, 4);
-                    if (rd == 0)
-                    {
-                        ScreenDrawing.MakeFlicker(new(new(157, 48, 118), 0.42f));
-                    }
-                    else if (rd == 1)
-                    {
-                        ScreenDrawing.MakeFlicker(new(new(182, 233, 252), 0.42f));
-                    }
-                    else if (rd == 2)
-                    {
-                        ScreenDrawing.MakeFlicker(new(new(252, 250, 157), 0.42f));
-                    }
-                    else if (rd == 3)
-                    {
-                        ScreenDrawing.MakeFlicker(new(new(104, 175, 164), 0.42f));
-                    }
-                    else if (rd == 4)
-                    {
-                        ScreenDrawing.MakeFlicker(Color.White * 0.42f);
-                    }
+                    ScreenDrawing.MakeFlicker(Color.White * 0.85f);
+                    RunEase(s => StepSample.Intensity = s, EaseOut(BeatTime(0.5f * 19f / 14f), 0.4f, 0, EaseState.Sine));
+                    RunEase(s => splitter.Intensity = s * 6.5f, EaseOut(BeatTime(0.5f * 19f / 14f), 1.3f, 0.7f, EaseState.Sine));
+                });
+                RegisterFunctionOnce("", () =>
+                {
+
                 });
                 RegisterFunctionOnce("lineG2R", () =>
                 {
@@ -1677,24 +1703,35 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(2f * 19f / 14f, () => { a.Dispose(); });
                     DelayBeat(2f * 19f / 14f, () => { c.Dispose(); });
                 });
+                RegisterFunctionOnce("BlackEnd", () =>
+                {
+                    DrawingUtil.MaskSquare m = new(-20, -20, 660, 500, BeatTime(16f * 19f / 14f), Color.Black, 0);
+                    CreateEntity(m);
+                    ForBeat(12f * 19f / 14f, () =>
+                    {
+                        m.alpha += 1f / (BeatTime(12f * 19f / 14f));
+                    });
+                    DelayBeat(16f * 19f / 14f, () => { m.Dispose(); });
+                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(16f * 19f / 14f), 0, 0.8f, EaseState.Linear), Stable(1, 0)));
+                });
                 BarrageCreate(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
                 {
                     "R","","","",    "R","","","",    "#1.5#R1","","","",    "R","","","",
                     "R","","","",    "","","#1#R1","",    "","","","",    "R1","","","",
                     //
                     "!!3","D1(lineG2R)","+21","+21",    "R","","D","",    "D","","R1","",    "D1","","D1","",
-                    "($31)(+01)(coFlicker)","","","",    "","","($21)(+2)(coFlicker)","",    "","","","",    "($2)(+21)(coFlicker)","","","",
+                    "($31)(+01)(StepFlicker)","","","",    "","","($21)(+2)(StepFlicker)","",    "","","","",    "($2)(+21)(StepFlicker)","","","",
                     //
                     "!!3","D(lineG2R)","+2","+2",    "R1","","D1","",    "D1","","R","",    "D","","D","",
-                    "($3)(+0)(coFlicker)","","","",    "","","($2)(+21)(coFlicker)","",    "","","","",    "($21)(+2)(coFlicker)","","","",
+                    "($3)(+0)(StepFlicker)","","","",    "","","($2)(+21)(StepFlicker)","",    "","","","",    "($21)(+2)(StepFlicker)","","","",
                     //
                     "!!3","D(lineG2R)","+2","+2",    "R12","","+012","",    "D1","","R","",    "D","","D","",
-                    "($31)(+0)(coFlicker)","","","",    "$2","","($3)(+01)(coFlicker)","",    "$01","","$21","",    "($3)(+01)(coFlicker)","","$0","",
+                    "($31)(+0)(StepFlicker)","","","",    "$2","","($3)(+01)(StepFlicker)","",    "$01","","$21","",    "($3)(+01)(StepFlicker)","","$0","",
                     ////
                     "!!3","D1(lineG2R)","+21","+21",    "R02","","+002","",    "D","","R1","",    "D1","","D1","",
-                    "($31)(+0)(coFlicker)","","","",    "$21","","($3)(+01)(coFlicker)","",    "$0","","$2","",    "($3)(+01)(coFlicker)","","$01","",
+                    "($31)(+0)(StepFlicker)","","","",    "$21","","($3)(+01)(StepFlicker)","",    "$0","","$2","",    "($3)(+01)(StepFlicker)","","$01","",
                     //
-                    "(#10#$0)(#10#$21)(end)","","","",    "","","","",    "","","","",    "","","","",
+                    "(#10#$0)(#10#$21)(end)(BlackEnd)","","","",    "","","","",    "","","","",    "","","","",
                     "","","","",    "","","","",    "","","","",    "","","","",
                     //
                     "","","","",    "","","","",    "","","","",    "","","","",
@@ -1768,37 +1805,38 @@ namespace Rhythm_Recall.Waves
             public void Start()
             {
                 game = this;
+                production = Blur = new Blur(0.505f);
+                production1 = new Filter(Shaders.StepSample, 0.51f);
+                splitter = new RGBSplitting(0.9f) { Disturbance = false };
                 StepSample = Shaders.StepSample;
-                production1 = new ScreenDrawing.Shaders.Filter(Shaders.StepSample, 0.51f);
-                production2 = new ScreenDrawing.Shaders.Filter(Shaders.Polar, 0.8f);
-                RenderProduction production3 = Blur = new ScreenDrawing.Shaders.Blur(0.8f);
-                splitter = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
-                Polar = Shaders.Polar;
-
-                Polar.Intensity = 0f;
-                splitter.Intensity = 0.0f;
                 Blur.Sigma = 0f;
                 StepSample.Intensity = 0.0f;
                 StepSample.CentreX = 320f;
                 StepSample.CentreY = 240f;
-                ScreenDrawing.SceneRendering.InsertProduction(splitter);
+                splitter.Intensity = 0.0f;
+                ScreenDrawing.SceneRendering.InsertProduction(production);
                 ScreenDrawing.SceneRendering.InsertProduction(production1);
-                ScreenDrawing.SceneRendering.InsertProduction(production2);
-
-                //GametimeDelta = -4;
-                //'PlayOffset = BeatTime(0);
-                GametimeDelta = BeatTime(4 * 40) - 4;
-                PlayOffset = BeatTime(4 * 40);
-                //GametimeDelta = BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f) - 4;
-                //PlayOffset = BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f);
+                ScreenDrawing.SceneRendering.InsertProduction(splitter);
 
                 SetSoul(1);
                 InstantTP(new(320, 240));
                 SetGreenBox();
+                Settings.GreenTap = true;
                 HeartAttribute.MaxHP = 15.4321f;
                 HeartAttribute.DamageTaken = 1;
                 ScreenDrawing.HPBar.HPLoseColor = Color.Gray;
-                ScreenDrawing.HPBar.HPExistColor = Color.Lerp(Color.Red, Color.DarkRed, 0.4f);
+                ScreenDrawing.HPBar.HPExistColor = Color.Lerp(Color.Red, Color.DarkRed, 0.4f); 
+                GametimeDelta = -3.5f ;
+                PlayOffset = 0;
+                bool jump = false;
+                if (jump)
+                {
+                    //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 14f * 19f / 17f;
+                    float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f;
+                    GametimeDelta = -3.5f + BeatTime(beat);
+                    PlayOffset = BeatTime(beat);
+                    ScreenDrawing.ScreenScale = 1f;
+                }
             }
         }
     }

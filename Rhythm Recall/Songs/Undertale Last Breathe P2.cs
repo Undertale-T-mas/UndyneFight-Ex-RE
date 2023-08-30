@@ -11,7 +11,7 @@ namespace Rhythm_Recall.Waves
 {
     public class ULBFight : IWaveSet
     {
-        public string FightName => "The Slaughter Continues";
+        public string FightName => "ULB sans Phase 2";
 
         public string Music => "ulb theme";
 
@@ -20,6 +20,7 @@ namespace Rhythm_Recall.Waves
             public override string BarrageAuthor => "T-mas";
             public override string SongAuthor => "Saster";
             public override string PaintAuthor => "NitrodeZ";
+            public override string DisplayName => "The Slaughter Continues";
 
             public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[] {
