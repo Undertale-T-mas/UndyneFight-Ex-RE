@@ -14,7 +14,7 @@ namespace UndyneFight_Ex.Fight
         /// <summary>
         /// 当前回合属于玩家还是属于敌人, false->敌人, true->玩家
         /// </summary>
-        public static bool RoundType => FightStates.roundType;
+        public static bool RoundType => roundType;
         public static string PlayerName { set => NameShower.name = value; }
         public static int PlayerLevel { set => NameShower.level = value; }
         public static class PlayerInformation

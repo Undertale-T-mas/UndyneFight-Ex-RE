@@ -32,7 +32,7 @@ namespace UndyneFight_Ex.Server
                 return;
             }
             FileStream stream = new("Data/User/\\data", FileMode.OpenOrCreate, FileAccess.Read);
-            StreamReader streamReader = new StreamReader(stream, Encoding.ASCII);
+            StreamReader streamReader = new(stream, Encoding.ASCII);
             userData = JsonSerializer.Deserialize<UserBufferData>(streamReader.ReadToEnd()) ?? throw new FileLoadException();
         }
 
@@ -49,7 +49,7 @@ namespace UndyneFight_Ex.Server
             return result.ToLower();
         }
 
-        private static HashSet<User> onlineUsers = new HashSet<User>();
+        private static HashSet<User> onlineUsers = new();
         private static void InnerUpdate(User user)
         {
             if(!userData.UUIDList.ContainsKey(user.Name)) 
@@ -71,7 +71,7 @@ namespace UndyneFight_Ex.Server
                 if (string.IsNullOrEmpty(name) || name.Contains('/') || name.Contains('\\')) return new("F name format incorrect", null);
                 if (!File.Exists("Data/User/" + name)) return new("F user not exist", null);
                 FileStream stream = new("Data/User/" + name, FileMode.Open, FileAccess.Read);
-                StreamReader streamReader = new StreamReader(stream);
+                StreamReader streamReader = new(stream);
                 string result = streamReader.ReadToEnd();
                 User? user = JsonSerializer.Deserialize<User>(result);
                 if (user == null) return new("E deserialize failure", null);
@@ -178,7 +178,7 @@ namespace UndyneFight_Ex.Server
             try
             {
                 FileStream stream = new("Data/User/" + userData.PlayerNames[uuid], FileMode.Open, FileAccess.Read);
-                StreamReader streamReader = new StreamReader(stream);
+                StreamReader streamReader = new(stream);
                 string result = streamReader.ReadToEnd();
                 return result;
             }

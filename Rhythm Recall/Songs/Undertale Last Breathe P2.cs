@@ -22,7 +22,7 @@ namespace Rhythm_Recall.Waves
             public override string PaintAuthor => "NitrodeZ";
             public override string DisplayName => "The Slaughter Continues";
 
-            public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 3.5f),
                             new(Difficulty.Easy, 7.0f),
@@ -31,7 +31,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 18.0f),
                     }
                 );
-            public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 3.6f),
                             new(Difficulty.Easy, 7.1f),
@@ -40,7 +40,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 18.0f),
                     }
                 );
-            public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 6.0f),
                             new(Difficulty.Easy, 12.0f),
@@ -78,11 +78,11 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 390)
             {
-                Platform p = new Platform(0, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                Platform p = new(0, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { 1.9f, 0 }
                 };
-                CreatePlatform(p); Platform q = new Platform(0, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                CreatePlatform(p); Platform q = new(0, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { -1.9f, 0 }
                 };
@@ -456,12 +456,12 @@ namespace Rhythm_Recall.Waves
                 CreateBone(new UpBone(false, 4.0f, 92));
                 CreateBone(new UpBone(true, 4.0f, 92));
 
-                Platform p = new Platform(1, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                Platform p = new(1, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { 2.4f, 0 }
                 };
                 CreatePlatform(p);
-                Platform q = new Platform(1, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                Platform q = new(1, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { -2.4f, 0 }
                 };
@@ -567,7 +567,7 @@ namespace Rhythm_Recall.Waves
             {
                 if (Gametime % 50 == 0)
                 {
-                    Vector2 centre = new Vector2(GetRandom(100, 540), GetRandom(100, 380));
+                    Vector2 centre = new(GetRandom(100, 540), GetRandom(100, 380));
                     float angle = Rand(0, 359);
                     for (int i = 0; i < 4; i++)
                     {
@@ -937,11 +937,11 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 400)
             {
-                Platform p = new Platform(1, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                Platform p = new(1, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { 1.9f, 0 }
                 };
-                CreatePlatform(p); Platform q = new Platform(1, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                CreatePlatform(p); Platform q = new(1, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { -1.9f, 0 }
                 };
@@ -1357,11 +1357,11 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 390)
             {
-                Platform p = new Platform(0, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                Platform p = new(0, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { 1.9f, 0 }
                 };
-                CreatePlatform(p); Platform q = new Platform(0, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                CreatePlatform(p); Platform q = new(0, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { -1.9f, 0 }
                 };
@@ -1701,11 +1701,11 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 400)
             {
-                Platform p = new Platform(1, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                Platform p = new(1, new Vector2(140, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { 1.9f, 0 }
                 };
-                CreatePlatform(p); Platform q = new Platform(1, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
+                CreatePlatform(p); Platform q = new(1, new Vector2(500, 290), Motions.PositionRoute.linear, 0.0f, 60)
                 {
                     PositionRouteParam = new float[] { -1.9f, 0 }
                 };

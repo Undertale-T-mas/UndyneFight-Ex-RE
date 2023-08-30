@@ -6,7 +6,7 @@ namespace UndyneFight_Ex
 {
     internal partial class GameMain : Game
     {
-        internal static List<Type> fights = new List<Type>();
+        internal static List<Type> fights = new();
         public void LoadObject()
         {
             InstanceCode();

@@ -165,13 +165,13 @@ namespace Rhythm_Recall
                 typeof(ULBFight),
                 typeof(UniversalCollapse),
                 typeof(Dusttrust),
-                typeof(Resurrection) ,
+                typeof(Resurrection),
 
                 typeof(Letsgonow),
                 typeof(GOODWORLD),
                 //typeof(MistemperedMalignance),
                 //typeof(Rainshower),
-                //typeof(EtherStrike.Game)
+                typeof(mu)
                 });
 #if OSTPublish
             GameStartUp.MainSceneIntro = () => { GameStates.SelectMode(0); ClassicalGUI.CreateFightSelector(); };

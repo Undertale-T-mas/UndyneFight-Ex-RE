@@ -46,7 +46,7 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "U-ske";
                 public override string PaintAuthor => "Mikaze-maruto";
                 public override string AttributeAuthor => "Tlottgodinf";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.3f),//Unrating, 19.3
                             new(Difficulty.Extreme, 17.0f),
@@ -54,7 +54,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 2.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.6f),//Unrating, 19.6
                             new(Difficulty.Extreme, 17.2f),
@@ -62,7 +62,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 2.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 21.0f),
                             new(Difficulty.Extreme, 20.0f),
@@ -255,8 +255,8 @@ namespace Rhythm_Recall.Waves
                     ()=>{PlaySound(Sounds.pierce);DownBone b; CreateBone(b = new(true, 0, 20) { ColorType = 2 }); UpBone c; CreateBone(c = new(false, 0, 20) { ColorType = 2 }); ForBeat(5, () => {b.MissionLength=b.MissionLength*0.96f+84*2*0.04f; c.MissionLength=c.MissionLength*0.96f+84*2*0.04f;c.Speed=c.Speed*0.96f+7f*0.04f; b.Speed=b.Speed*0.96f+7f*0.04f; }); },
                     ()=>{PlaySound(Sounds.pierce);LeftBone b; CreateBone(b = new(true, 0, 84*1.5f-19)); RightBone c; CreateBone(c = new(false, 0, 84*1.5f-19)); ForBeat(5, () => {c.Speed=c.Speed*0.96f+5.5f*0.04f; b.Speed=b.Speed*0.96f+5.5f*0.04f; }); },
                     ()=>{SetSoul(1); TP();SetGreenBox();SizeShrink(7,bpm*4);RotateSymmetricBack(bpm*4,12); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                    ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{MaskSquare maskSquare=new(0,0,640,480,(int)(bpm*0.5f+1),Color.Black,1);CreateEntity(maskSquare);float sin=90; ForBeat(0.5f,()=>{maskSquare.alpha=Sin(sin);sin+=180; }); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -549,7 +549,7 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f);},
-                    ()=>{ CameraEffect.Rotate(360,bpm*2+2); },
+                    ()=>{ Rotate(360,bpm*2+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },
@@ -679,8 +679,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); Vector2 vec1=Heart.Centre-new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec1,vec1,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); DownBone b=new(true,3,124){ ColorType=1};CreateBone(b);ForBeat(4,()=>{ b.Speed=b.Speed*0.95f+8*0.05f; }); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
                     ()=>{LerpScreenPos(bpm*1.5f,new(0,-28),0.09f); },
@@ -734,7 +734,7 @@ namespace Rhythm_Recall.Waves
                                    LineMoveLibrary.LAlphaLerp("e",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("f",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("g",bpm*16,0,0.05f);
-                                   CameraEffect.Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
+                                   Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
                                   DelayBeat(4,()=>{
                                    LineMoveLibrary.LRotLerp("a",bpm*8,180+90,0.09f);
                                    LineMoveLibrary.LRotLerp("b",bpm*8,180+90,0.09f);
@@ -837,8 +837,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-50,50),-Rand(140,180)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); CreateBone(new DownBone(true,6,124){ ColorType=1}); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
 
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -869,8 +869,8 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f);},
-                    ()=>{ CameraEffect.Rotate(360,bpm*3+2); },
-                    ()=>{ CameraEffect.Rotate(-360,bpm*3+2); },
+                    ()=>{ Rotate(360,bpm*3+2); },
+                    ()=>{ Rotate(-360,bpm*3+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },
@@ -900,7 +900,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.Speed = 3;
                 HeartAttribute.MaxHP = 5;
                 HeartAttribute.Gravity = 8.7f;
-                ScreenDrawing.UISettings.CreateUISurface();
+                UISettings.CreateUISurface();
             }
             int x = 0;
             public void Noob()
@@ -1131,8 +1131,8 @@ namespace Rhythm_Recall.Waves
                     ()=>{PlaySound(Sounds.pierce);DownBone b; CreateBone(b = new(true, 0, 20) { ColorType = 1 }); UpBone c; CreateBone(c = new(false, 0, 20) { ColorType = 1 }); ForBeat(5, () => {b.MissionLength=b.MissionLength*0.96f+84*2*0.04f; c.MissionLength=c.MissionLength*0.96f+84*2*0.04f;c.Speed=c.Speed*0.96f+7f*0.04f; b.Speed=b.Speed*0.96f+7f*0.04f; }); },
                     ()=>{PlaySound(Sounds.pierce);LeftBone b; CreateBone(b = new(true, 0, 84*1.5f-30)); RightBone c; CreateBone(c = new(false, 0, 84*1.5f-30)); ForBeat(5, () => {c.Speed=c.Speed*0.96f+5.5f*0.04f; b.Speed=b.Speed*0.96f+5.5f*0.04f; }); },
                     ()=>{SetSoul(1); TP();SetGreenBox();SizeShrink(7,bpm*4);RotateSymmetricBack(bpm*4,12); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                    ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{MaskSquare maskSquare=new(0,0,640,480,(int)(bpm*0.5f+1),Color.Black,1);CreateEntity(maskSquare);float sin=90; ForBeat(0.5f,()=>{maskSquare.alpha=Sin(sin);sin+=180; }); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -1279,7 +1279,7 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f); },
-                    ()=>{ CameraEffect.Rotate(360,bpm*2+2); },
+                    ()=>{ Rotate(360,bpm*2+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },
@@ -1409,8 +1409,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); Vector2 vec1=Heart.Centre-new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec1,vec1,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); DownBone b=new(true,3,124){ ColorType=1};CreateBone(b);ForBeat(4,()=>{ b.Speed=b.Speed*0.95f+8*0.05f; }); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
                     ()=>{LerpScreenPos(bpm*1.5f,new(0,-28),0.09f); },
@@ -1464,7 +1464,7 @@ namespace Rhythm_Recall.Waves
                                    LineMoveLibrary.LAlphaLerp("e",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("f",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("g",bpm*16,0,0.05f);
-                                   CameraEffect.Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
+                                   Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
                                   DelayBeat(4,()=>{
                                    LineMoveLibrary.LRotLerp("a",bpm*8,180+90,0.09f);
                                    LineMoveLibrary.LRotLerp("b",bpm*8,180+90,0.09f);
@@ -1567,8 +1567,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-50,50),-Rand(140,180)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); CreateBone(new DownBone(true,6,124){ ColorType=1}); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
 
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -1599,8 +1599,8 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f);},
-                    ()=>{ CameraEffect.Rotate(360,bpm*3+2); },
-                    ()=>{ CameraEffect.Rotate(-360,bpm*3+2); },
+                    ()=>{ Rotate(360,bpm*3+2); },
+                    ()=>{ Rotate(-360,bpm*3+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },
@@ -1788,8 +1788,8 @@ namespace Rhythm_Recall.Waves
                     ()=>{PlaySound(Sounds.pierce);DownBone b; CreateBone(b = new(true, 0, 20) { ColorType = 1 }); UpBone c; CreateBone(c = new(false, 0, 20) { ColorType = 1 }); ForBeat(5, () => {b.MissionLength=b.MissionLength*0.96f+84*2*0.04f; c.MissionLength=c.MissionLength*0.96f+84*2*0.04f;c.Speed=c.Speed*0.96f+7f*0.04f; b.Speed=b.Speed*0.96f+7f*0.04f; }); },
                     ()=>{PlaySound(Sounds.pierce);LeftBone b; CreateBone(b = new(true, 0, 84*1.5f-30)); RightBone c; CreateBone(c = new(false, 0, 84*1.5f-30)); ForBeat(5, () => {c.Speed=c.Speed*0.96f+5.5f*0.04f; b.Speed=b.Speed*0.96f+5.5f*0.04f; }); },
                     ()=>{SetSoul(1); TP();SetGreenBox();SizeShrink(7,bpm*4);RotateSymmetricBack(bpm*4,12); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                    ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{MaskSquare maskSquare=new(0,0,640,480,(int)(bpm*0.5f+1),Color.Black,1);CreateEntity(maskSquare);float sin=90; ForBeat(0.5f,()=>{maskSquare.alpha=Sin(sin);sin+=180; }); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -1937,7 +1937,7 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f);},
-                    ()=>{ CameraEffect.Rotate(360,bpm*2+2); },
+                    ()=>{ Rotate(360,bpm*2+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },
@@ -2067,8 +2067,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); Vector2 vec1=Heart.Centre-new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec1,vec1,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); DownBone b=new(true,3,124){ ColorType=1};CreateBone(b);ForBeat(4,()=>{ b.Speed=b.Speed*0.95f+8*0.05f; }); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
                     ()=>{LerpScreenPos(bpm*1.5f,new(0,-28),0.09f); },
@@ -2122,7 +2122,7 @@ namespace Rhythm_Recall.Waves
                                    LineMoveLibrary.LAlphaLerp("e",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("f",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("g",bpm*16,0,0.05f);
-                                   CameraEffect.Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
+                                   Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
                                   DelayBeat(4,()=>{
                                    LineMoveLibrary.LRotLerp("a",bpm*8,180+90,0.09f);
                                    LineMoveLibrary.LRotLerp("b",bpm*8,180+90,0.09f);
@@ -2225,8 +2225,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-50,50),-Rand(140,180)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); CreateBone(new DownBone(true,6,124){ ColorType=1}); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
 
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -2257,8 +2257,8 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f);},
-                    ()=>{ CameraEffect.Rotate(360,bpm*3+2); },
-                    ()=>{ CameraEffect.Rotate(-360,bpm*3+2); },
+                    ()=>{ Rotate(360,bpm*3+2); },
+                    ()=>{ Rotate(-360,bpm*3+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },
@@ -2451,8 +2451,8 @@ namespace Rhythm_Recall.Waves
                     ()=>{PlaySound(Sounds.pierce);DownBone b; CreateBone(b = new(true, 0, 20) { ColorType = 2 }); UpBone c; CreateBone(c = new(false, 0, 20) { ColorType = 2 }); ForBeat(5, () => {b.MissionLength=b.MissionLength*0.96f+84*2*0.04f; c.MissionLength=c.MissionLength*0.96f+84*2*0.04f;c.Speed=c.Speed*0.96f+7f*0.04f; b.Speed=b.Speed*0.96f+7f*0.04f; }); },
                     ()=>{PlaySound(Sounds.pierce);LeftBone b; CreateBone(b = new(true, 0, 84*1.5f-19)); RightBone c; CreateBone(c = new(false, 0, 84*1.5f-19)); ForBeat(5, () => {c.Speed=c.Speed*0.96f+5.5f*0.04f; b.Speed=b.Speed*0.96f+5.5f*0.04f; }); },
                     ()=>{SetSoul(1); TP();SetGreenBox();SizeShrink(7,bpm*4);RotateSymmetricBack(bpm*4,12); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                    ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{MaskSquare maskSquare=new(0,0,640,480,(int)(bpm*0.5f+1),Color.Black,1);CreateEntity(maskSquare);float sin=90; ForBeat(0.5f,()=>{maskSquare.alpha=Sin(sin);sin+=180; }); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -2745,7 +2745,7 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f);},
-                    ()=>{ CameraEffect.Rotate(360,bpm*2+2); },
+                    ()=>{ Rotate(360,bpm*2+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },
@@ -2875,8 +2875,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); Vector2 vec1=Heart.Centre-new Vector2(Rand(-100,100),-Rand(120,200)); CreateGB(new NormalGB(vec1,vec1,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); DownBone b=new(true,3,124){ ColorType=1};CreateBone(b);ForBeat(4,()=>{ b.Speed=b.Speed*0.95f+8*0.05f; }); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
                     ()=>{LerpScreenPos(bpm*1.5f,new(0,-28),0.09f); },
@@ -2930,7 +2930,7 @@ namespace Rhythm_Recall.Waves
                                    LineMoveLibrary.LAlphaLerp("e",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("f",bpm*16,0,0.05f);
                                    LineMoveLibrary.LAlphaLerp("g",bpm*16,0,0.05f);
-                                   CameraEffect.Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
+                                   Rotate(180*4,bpm*8); LerpScreenPos(bpm*8,new(0,0),0.05f);});
                                   DelayBeat(4,()=>{
                                    LineMoveLibrary.LRotLerp("a",bpm*8,180+90,0.09f);
                                    LineMoveLibrary.LRotLerp("b",bpm*8,180+90,0.09f);
@@ -3033,8 +3033,8 @@ namespace Rhythm_Recall.Waves
                                ()=>{Vector2 vec=Heart.Centre+new Vector2(Rand(-50,50),-Rand(140,180)); CreateGB(new NormalGB(vec,vec,new(1,0.5f),bpm*1,bpm*0.5f)); },
                                ()=>{PlaySound(Sounds.pierce); CreateBone(new DownBone(true,6,124){ ColorType=1}); },
                                ()=>{ SetBox(240,84,84);TP();SetSoul(1); },
-                               ()=>{CameraEffect.Convulse(120,bpm*1.8f,false); },
-                    ()=>{CameraEffect.Convulse(120,bpm*1.8f,true); },
+                               ()=>{Convulse(120,bpm*1.8f,false); },
+                    ()=>{Convulse(120,bpm*1.8f,true); },
 
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,8); },
                     ()=>{SizeShrink(7,bpm*2);RotateWithBack((int)bpm*2,-8); },
@@ -3065,8 +3065,8 @@ namespace Rhythm_Recall.Waves
                         }));
                     },
                     ()=>{ LerpScreenPos(bpm,new(0,0),0.09f);},
-                    ()=>{ CameraEffect.Rotate(360,bpm*3+2); },
-                    ()=>{ CameraEffect.Rotate(-360,bpm*3+2); },
+                    ()=>{ Rotate(360,bpm*3+2); },
+                    ()=>{ Rotate(-360,bpm*3+2); },
                     ()=>{RotateSymmetricBack(bpm*2,20); },
                     ()=>{ ScreenDrawing.ScreenAngle=90;Heart.InstantSetRotation(90); },
                     ()=>{ ScreenDrawing.ScreenAngle=180;Heart.InstantSetRotation(180); },

@@ -73,7 +73,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         protected string Title { private get; init; }
         public CommandState CommandState { get; protected set; } = CommandState.Unknown;
 
-        static Dictionary<string, Command> _commands = new Dictionary<string, Command>();
+        static Dictionary<string, Command> _commands = new();
         internal static Command TryAnalyze(string text)
         {
             if(_commands.ContainsKey(text)) return _commands[text];

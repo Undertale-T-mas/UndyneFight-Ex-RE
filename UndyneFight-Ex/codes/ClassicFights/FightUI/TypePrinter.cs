@@ -227,7 +227,7 @@ namespace UndyneFight_Ex.Fight
 
         public override void Draw()
         {
-            PrintingSettings printingSettings = new PrintingSettings();
+            PrintingSettings printingSettings = new();
             printingSettings.CurrentData.totalTime = appearTime;
             float rest = appearTime;
             int attributeCount = 0;

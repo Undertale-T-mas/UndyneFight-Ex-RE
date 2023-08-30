@@ -1845,7 +1845,7 @@ namespace UndyneFight_Ex.Entities
                 }
                 public void Run(Action<float> action)
                 {
-                    VirtualEasingObject easer = new VirtualEasingObject();
+                    VirtualEasingObject easer = new();
                     AddInstance(easer);
                     easer.RotationRoute = GetResult();
                     AddInstance(new TimeRangedEvent(_totalTime, () =>

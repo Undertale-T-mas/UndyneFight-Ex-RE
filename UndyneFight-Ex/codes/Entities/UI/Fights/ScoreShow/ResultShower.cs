@@ -448,7 +448,7 @@ namespace UndyneFight_Ex.Entities
             private void CreateNextUI()
             {
                 Dispose();
-                GameStates.ResetScene(GameStates.isRecord && GameInterface.UFEXSettings.RecordEnabled ?
+                GameStates.ResetScene(GameStates.isRecord && UFEXSettings.RecordEnabled ?
                     new GameMenuScene(new RecordSelector())
                     : new GameMenuScene());
             }

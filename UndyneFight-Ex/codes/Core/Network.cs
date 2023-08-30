@@ -8,7 +8,7 @@ namespace UndyneFight_Ex.Network
 {
     public abstract class DataGather<T> : GameObject where T : class
     {
-        protected CancellationTokenSource source = new CancellationTokenSource();
+        protected CancellationTokenSource source = new();
         protected T Result { get; private set; }
         protected bool ResultAvailable { get; set; } = false;
 

@@ -46,12 +46,12 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 18f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 18f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 21f),
                         }
@@ -168,7 +168,7 @@ namespace Rhythm_Recall.Waves
                         {
                             ScreenDrawing.ScreenAngle = Rand(-180, 180);
                             var dir = Rand(0, 360);
-                            Vector2 pos = MathUtil.GetVector2(1000, dir);
+                            Vector2 pos = GetVector2(1000, dir);
                             Vector2 center = new(320, 240);
                             Line a = new(center + pos, center - pos);
                             a.AlphaDecrease(BeatTime(1));

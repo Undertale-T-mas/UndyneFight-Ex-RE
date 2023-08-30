@@ -27,19 +27,19 @@ namespace Rhythm_Recall.Waves
         {
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 3.5f),
                             new(Difficulty.Extreme, 18.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 3.5f),
                             new(Difficulty.Extreme, 18.9f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 7.5f),
                             new(Difficulty.Extreme, 20.8f),
@@ -86,8 +86,8 @@ namespace Rhythm_Recall.Waves
             private class LT : Entity
             {
                 public int duration = 0;
-                public Vector2 point1 = new Vector2(0, 0);
-                public Vector2 point2 = new Vector2(0, 0);
+                public Vector2 point1 = new(0, 0);
+                public Vector2 point2 = new(0, 0);
                 public LT(Vector2 point1, Vector2 point2, int duration, float alpha)
                 {
                     this.point1 = point1;

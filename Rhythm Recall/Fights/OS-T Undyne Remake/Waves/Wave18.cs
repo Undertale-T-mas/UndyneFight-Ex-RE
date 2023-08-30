@@ -198,8 +198,8 @@ namespace Rhythm_Recall.Waves
                     delta -= v;
 
                     int curWay = Rotation >= 45 && Rotation <= 135 ? 3 : Rotation > 135 & Rotation <= 225 ? 0 : Rotation > 225 && Rotation <= 315 ? 1 : 2;
-                    float dist = MathUtil.GetDistance(Heart.Centre, Centre);
-                    if (dist <= 55 && (MathUtil.RotationDist(Rotation + 180, Heart.Shields.RotationOf(colorType)) <= 52 || curWay == Heart.Shields.DirectionOf(colorType)))
+                    float dist = GetDistance(Heart.Centre, Centre);
+                    if (dist <= 55 && (RotationDist(Rotation + 180, Heart.Shields.RotationOf(colorType)) <= 52 || curWay == Heart.Shields.DirectionOf(colorType)))
                     {
                         if (Rand(0, 7) == 7)
                             PlaySound(FightResources.Sounds.Ding, 0.8f);
@@ -311,7 +311,7 @@ namespace Rhythm_Recall.Waves
                 if (_time >= 2060 && _time <= 2150 && (_time - 2060) % 4 == 0)
                 {
                     float posX = (_time - 2060f) / (2150 - 2060) * 640f;
-                    Vector2 pos1 = new Vector2(posX, 10), pos2 = new Vector2(640 - posX, 470);
+                    Vector2 pos1 = new(posX, 10), pos2 = new(640 - posX, 470);
                     for (int i = 0; i <= 4; i++)
                     {
                         CreateSpear(new Pike(pos1, 90, 2250 - _time) { Speed = 5f, Acceleration = 0f, DrawingColor = Color.Silver, IsShootMute = true, IsSpawnMute = true });
@@ -328,7 +328,7 @@ namespace Rhythm_Recall.Waves
                 if (_time >= 2090 && _time <= 2180 && (_time - 2090) % 4 == 0)
                 {
                     float posX = (_time - 2090f) / (2180 - 2090) * 640f;
-                    Vector2 pos1 = new Vector2(posX, 30 + 120), pos2 = new Vector2(640 - posX, 450 - 120);
+                    Vector2 pos1 = new(posX, 30 + 120), pos2 = new(640 - posX, 450 - 120);
                     CreateSpear(new Pike(pos1, 90, 2250 - _time) { Speed = 5f, Acceleration = 0f, DrawingColor = Color.Silver, IsShootMute = true, IsSpawnMute = false });
                     CreateSpear(new Pike(pos2, 270, 2250 - _time) { Speed = 5f, Acceleration = 0f, DrawingColor = Color.Silver, IsShootMute = true, IsSpawnMute = true });
                 }

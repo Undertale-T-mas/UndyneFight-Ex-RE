@@ -22,7 +22,7 @@ namespace Rhythm_Recall.Waves
             public override string SongAuthor => "Cztv-28";
             public override string PaintAuthor => "HZ QVQ";
             public override string AttributeAuthor => "Tlottgodinf";
-            public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 17.4f),
                             new(Difficulty.Hard, 14.6f),
@@ -31,7 +31,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 3.0f),
                     }
                 );
-            public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 17.4f),
                             new(Difficulty.Hard, 14.5f),
@@ -40,7 +40,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 3.0f),
                     }
                 );
-            public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 20.9f),
                             new(Difficulty.Hard, 19.0f),
@@ -214,7 +214,7 @@ namespace Rhythm_Recall.Waves
                     DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red);
                     Line.width = 0;
                     CreateEntity(Line);
-                    Extends.DrawingUtil.Shock(1.2f, 1.3f, 3);
+                    Shock(1.2f, 1.3f, 3);
                     AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
                     {
                         Line.width = Line.width * 0.7f + 25 * 0.3f;
@@ -5571,7 +5571,7 @@ namespace Rhythm_Recall.Waves
             }
             public static void Intro1_Ef()
             {
-                Extends.DrawingUtil.Shock();
+                Shock();
                 SizeExpand(1.5f, 5);
                 AddInstance(new InstantEvent(bpm * 32, () =>
                 {
@@ -5855,7 +5855,7 @@ namespace Rhythm_Recall.Waves
             {
                 AddInstance(new TimeRangedEvent(bpm * 16 * 15, 1, () =>
                 {
-                    Extends.DrawingUtil.BlackScreen(bpm * 4, bpm * 2, bpm * 6);
+                    BlackScreen(bpm * 4, bpm * 2, bpm * 6);
                 }));
                 AddInstance(new TimeRangedEvent(bpm * 16 * 15, bpm * 6, () =>
                 {
@@ -6097,7 +6097,7 @@ namespace Rhythm_Recall.Waves
         #endregion
         public void Start()
         {
-            ScreenDrawing.UISettings.CreateUISurface();
+            UISettings.CreateUISurface();
             //TP(160, 280); 
             //GametimeDelta = (int)(this.BeatTime(1200 - 12 + 96 - 3));
             //SetBox(240, 160, 160);

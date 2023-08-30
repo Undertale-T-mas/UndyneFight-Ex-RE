@@ -134,6 +134,6 @@ namespace UndyneFight_Ex
         {
             get => CurrentUser.Skill;
         }
-        public static Dictionary<string, User> playerInfos = new Dictionary<string, User>();
+        public static Dictionary<string, User> playerInfos = new();
     }
 }

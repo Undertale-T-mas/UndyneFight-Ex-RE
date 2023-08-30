@@ -55,11 +55,11 @@ namespace UndyneFight_Ex.GameInterface
 
         public static Type SetUpShower
         {
-            set => Entities.StartingShower.TitleSetUp = value;
+            set => StartingShower.TitleSetUp = value;
         }
         public static Type TitleShower
         {
-            set => Entities.StartingShower.TitleShower = value;
+            set => StartingShower.TitleShower = value;
         }
         public static class LoadingSettings
         {

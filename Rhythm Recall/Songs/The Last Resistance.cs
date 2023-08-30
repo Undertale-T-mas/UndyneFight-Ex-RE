@@ -21,7 +21,7 @@ namespace Rhythm_Recall.Waves
             public override string SongAuthor => "bl2";
             public override string PaintAuthor => "Thedeathbones";
             public override string AttributeAuthor => "Tlottgodinf";
-            public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 17.9f),
                             new(Difficulty.Hard, 14.0f),
@@ -30,7 +30,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 3.0f),
                     }
                 );
-            public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 17.9f),
                             new(Difficulty.Hard, 14.0f),
@@ -39,7 +39,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Noob, 3.0f),
                     }
                 );
-            public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 20.9f),
                             new(Difficulty.Hard, 19.0f),
@@ -552,7 +552,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -891,7 +891,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -1376,7 +1376,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -1715,7 +1715,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -2225,7 +2225,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -2588,7 +2588,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -3095,7 +3095,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -3455,7 +3455,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -3986,7 +3986,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;
@@ -4365,7 +4365,7 @@ namespace Rhythm_Recall.Waves
              ()=>{LerpScreenScale(bpm*4,1f,0.075f);InstantSetBox(new Vector2(320,240),84,84);InstantTP(320,240); },
              ()=>{
                  float sin=270;
-                 ScreenDrawing.BoundColor=Color.White;
+                 BoundColor=Color.White;
 
                  ForBeat(32,()=>{
                      sin+=360/bpm/8;

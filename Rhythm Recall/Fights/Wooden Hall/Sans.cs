@@ -169,7 +169,7 @@ namespace Rhythm_Recall.Waves
                 bodyMovementTick--;
             }
             appearTime++;
-            Vector2 detla = new Vector2(0 + MathHelper.Min(100, AdvanceFunctions.Sin01(dodgingTime / 75f) * 125), 40);
+            Vector2 detla = new(0 + MathHelper.Min(100, AdvanceFunctions.Sin01(dodgingTime / 75f) * 125), 40);
 
             missionPosition = missionPosition * 0.8f + detla * 0.2f;
             if (FollowBox)

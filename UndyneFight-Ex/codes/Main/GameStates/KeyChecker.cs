@@ -158,7 +158,7 @@ namespace UndyneFight_Ex
         internal static void KeysUpdate2()
         {
 #if DEBUG
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new();
             stopwatch.Start();
 #endif
             lastKeyState2 = currentKeyState2;

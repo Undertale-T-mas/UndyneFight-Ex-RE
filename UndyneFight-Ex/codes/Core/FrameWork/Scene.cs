@@ -23,9 +23,9 @@ namespace UndyneFight_Ex
             public float masterAlpha = 1.0f;
             public float defaultWidth = 640f;
             public Vector2 screenDetla;
-            public Vector2 shakings = new Vector2(0, 0);
+            public Vector2 shakings = new(0, 0);
             public float screenAngle = 0.0f;
-            public Dictionary<string, Surface> surfaces = new Dictionary<string, Surface>();
+            public Dictionary<string, Surface> surfaces = new();
             public Vector4 Extending
             {
                 get => extending;

@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.UserService
     {
         public static User CreateNew(string name, string password)
         {
-            User user = new User();
+            User user = new();
             SaveInfo info;
             info = new SaveInfo("StartInfo->{");
             Random rand = new();
@@ -174,7 +174,7 @@ namespace UndyneFight_Ex.UserService
 
         public SaveInfo Save()
         {
-            SaveInfo info = new SaveInfo("StartInfo->{");
+            SaveInfo info = new("StartInfo->{");
 
             info.PushNext(new SaveInfo("VIP:" + (_isVip ? "true" : "false")));
             info.PushNext(new SaveInfo("PlayerName:" + _name));

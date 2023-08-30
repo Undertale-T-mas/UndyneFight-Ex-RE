@@ -35,21 +35,21 @@ namespace Rhythm_Recall.Waves
 
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                         new(Difficulty.Noob, 3.0f),
                             new(Difficulty.Normal, 10.0f),
                             new(Difficulty.Extreme, 17.5f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                         new(Difficulty.Noob, 3.0f),
                             new(Difficulty.Normal, 10.5f),
                             new(Difficulty.Extreme, 17.9f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                         new(Difficulty.Noob, 9.0f),
                             new(Difficulty.Normal, 15.0f),
@@ -110,7 +110,7 @@ namespace Rhythm_Recall.Waves
             }
             public static void UpForwardLine()
             {
-                Extends.DrawingUtil.Linerotatelong UFL1 = new Extends.DrawingUtil.Linerotatelong(Rand(320 - 120, 320 + 120), 525f, 90f, 600, Rand(0.15f, 0.85f), Rand(25, 75), Color.White);
+                Extends.DrawingUtil.Linerotatelong UFL1 = new(Rand(320 - 120, 320 + 120), 525f, 90f, 600, Rand(0.15f, 0.85f), Rand(25, 75), Color.White);
                 UFL1.width = 2f;
                 if (Rand(1, 3) == 1)
                 {
@@ -1357,10 +1357,10 @@ namespace Rhythm_Recall.Waves
                         return () =>
                         {
                             float start = 1 + MathF.Sqrt(t);
-                            DownBone bone1 = new DownBone(false, start, len);
-                            DownBone bone2 = new DownBone(true, start, len);
-                            UpBone bone3 = new UpBone(false, start, len);
-                            UpBone bone4 = new UpBone(true, start, len);
+                            DownBone bone1 = new(false, start, len);
+                            DownBone bone2 = new(true, start, len);
+                            UpBone bone3 = new(false, start, len);
+                            UpBone bone4 = new(true, start, len);
                             SideBone[] bones = { bone1, bone2, bone3, bone4 };
 
                             foreach (SideBone bone in bones) CreateBone(bone);
@@ -2431,10 +2431,10 @@ namespace Rhythm_Recall.Waves
                         return () =>
                         {
                             float start = 1 + MathF.Sqrt(t);
-                            DownBone bone1 = new DownBone(false, start, len);
-                            DownBone bone2 = new DownBone(true, start, len);
-                            UpBone bone3 = new UpBone(false, start, len);
-                            UpBone bone4 = new UpBone(true, start, len);
+                            DownBone bone1 = new(false, start, len);
+                            DownBone bone2 = new(true, start, len);
+                            UpBone bone3 = new(false, start, len);
+                            UpBone bone4 = new(true, start, len);
                             SideBone[] bones = { bone1, bone2, bone3, bone4 };
 
                             foreach (SideBone bone in bones) CreateBone(bone);
@@ -3498,10 +3498,10 @@ namespace Rhythm_Recall.Waves
                         return () =>
                         {
                             float start = 1 + MathF.Sqrt(t);
-                            DownBone bone1 = new DownBone(false, start, len);
-                            DownBone bone2 = new DownBone(true, start, len);
-                            UpBone bone3 = new UpBone(false, start, len);
-                            UpBone bone4 = new UpBone(true, start, len);
+                            DownBone bone1 = new(false, start, len);
+                            DownBone bone2 = new(true, start, len);
+                            UpBone bone3 = new(false, start, len);
+                            UpBone bone4 = new(true, start, len);
                             SideBone[] bones = { bone1, bone2, bone3, bone4 };
 
                             foreach (SideBone bone in bones) CreateBone(bone);

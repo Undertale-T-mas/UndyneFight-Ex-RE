@@ -38,21 +38,21 @@ namespace Rhythm_Recall.Waves
             public string FightName => "Dreadnaught";
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                     new(Difficulty.Easy, 5.0f),
                             new(Difficulty.Normal, 12.0f),
                             new(Difficulty.Extreme, 18.3f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                     new(Difficulty.Easy, 5.0f),
                             new(Difficulty.Normal, 12.0f),
                             new(Difficulty.Extreme, 18.5f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                     new(Difficulty.Easy, 10.0f),
                             new(Difficulty.Normal, 17.9f),
@@ -761,7 +761,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleRet", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(2), 1, 0.07f);
+                    DrawingUtil.LerpScreenScale(BeatTime(2), 1, 0.07f);
                 });
                 RegisterFunctionOnce("RandomSniperBone", () =>
                 {
@@ -1074,11 +1074,11 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleIn", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(0.75f), ScreenDrawing.ScreenScale + 0.175f, 0.1f);
+                    DrawingUtil.LerpScreenScale(BeatTime(0.75f), ScreenDrawing.ScreenScale + 0.175f, 0.1f);
                 });
                 RegisterFunctionOnce("ScaleBack", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(0.5f), 1, 0.15f);
+                    DrawingUtil.LerpScreenScale(BeatTime(0.5f), 1, 0.15f);
                 });
                 RegisterFunctionOnce("FinalLine", () =>
                 {
@@ -1747,7 +1747,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleBack", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
+                    DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
                 });
                 RegisterFunctionOnce("Bound", () =>
                 {
@@ -1815,7 +1815,7 @@ namespace Rhythm_Recall.Waves
                         ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Extends.Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -1829,14 +1829,14 @@ namespace Rhythm_Recall.Waves
                         ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Extends.Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
                 });
                 RegisterFunctionOnce("Shake", () =>
                 {
-                    Extends.DrawingUtil.Shock();
+                    DrawingUtil.Shock();
                     ValueEasing.EaseBuilder e1 = new();
                     e1.Insert(BeatTime(0.125f), ValueEasing.EaseInQuint(0, 0.1f, BeatTime(0.125f)));
                     e1.Insert(BeatTime(0.25f), ValueEasing.EaseOutQuint(0.1f, 0, BeatTime(0.25f)));
@@ -2285,7 +2285,7 @@ namespace Rhythm_Recall.Waves
 
                 RegisterFunctionOnce("ScaleLerp", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
+                    DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
                 });
                 BarrageCreate(BeatTime(4), BeatTime(1), 7f, new string[]
                 {
@@ -3790,7 +3790,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleRet", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(2), 1, 0.07f);
+                    DrawingUtil.LerpScreenScale(BeatTime(2), 1, 0.07f);
                 });
                 RegisterFunctionOnce("RandomSniperBone", () =>
                 {
@@ -4103,11 +4103,11 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleIn", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(0.75f), ScreenDrawing.ScreenScale + 0.175f, 0.1f);
+                    DrawingUtil.LerpScreenScale(BeatTime(0.75f), ScreenDrawing.ScreenScale + 0.175f, 0.1f);
                 });
                 RegisterFunctionOnce("ScaleBack", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(0.5f), 1, 0.15f);
+                    DrawingUtil.LerpScreenScale(BeatTime(0.5f), 1, 0.15f);
                 });
                 RegisterFunctionOnce("FinalLine", () =>
                 {
@@ -4776,7 +4776,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleBack", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
+                    DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
                 });
                 RegisterFunctionOnce("Bound", () =>
                 {
@@ -4844,7 +4844,7 @@ namespace Rhythm_Recall.Waves
                         ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Extends.Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -4858,14 +4858,14 @@ namespace Rhythm_Recall.Waves
                         ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.15f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.20f) * Extends.Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.20f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
                 });
                 RegisterFunctionOnce("Shake", () =>
                 {
-                    Extends.DrawingUtil.Shock();
+                    DrawingUtil.Shock();
                     ValueEasing.EaseBuilder e1 = new();
                     e1.Insert(BeatTime(0.125f), ValueEasing.EaseInQuint(0, 0.1f, BeatTime(0.125f)));
                     e1.Insert(BeatTime(0.25f), ValueEasing.EaseOutQuint(0.1f, 0, BeatTime(0.25f)));
@@ -5314,7 +5314,7 @@ namespace Rhythm_Recall.Waves
 
                 RegisterFunctionOnce("ScaleLerp", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
+                    DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
                 });
                 BarrageCreate(BeatTime(4), BeatTime(1), 6f, new string[]
                 {
@@ -6772,7 +6772,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleRet", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(2), 1, 0.07f);
+                    DrawingUtil.LerpScreenScale(BeatTime(2), 1, 0.07f);
                 });
                 RegisterFunctionOnce("RandomSniperBone", () =>
                 {
@@ -7085,11 +7085,11 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleIn", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(0.75f), ScreenDrawing.ScreenScale + 0.175f, 0.1f);
+                    DrawingUtil.LerpScreenScale(BeatTime(0.75f), ScreenDrawing.ScreenScale + 0.175f, 0.1f);
                 });
                 RegisterFunctionOnce("ScaleBack", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(0.5f), 1, 0.15f);
+                    DrawingUtil.LerpScreenScale(BeatTime(0.5f), 1, 0.15f);
                 });
                 RegisterFunctionOnce("FinalLine", () =>
                 {
@@ -7737,7 +7737,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("ScaleBack", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
+                    DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
                 });
                 RegisterFunctionOnce("Bound", () =>
                 {
@@ -7805,7 +7805,7 @@ namespace Rhythm_Recall.Waves
                         ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Extends.Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -7819,14 +7819,14 @@ namespace Rhythm_Recall.Waves
                         ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.15f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.20f) * Extends.Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.20f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
                 });
                 RegisterFunctionOnce("Shake", () =>
                 {
-                    Extends.DrawingUtil.Shock();
+                    DrawingUtil.Shock();
                     ValueEasing.EaseBuilder e1 = new();
                     e1.Insert(BeatTime(0.125f), ValueEasing.EaseInQuint(0, 0.1f, BeatTime(0.125f)));
                     e1.Insert(BeatTime(0.25f), ValueEasing.EaseOutQuint(0.1f, 0, BeatTime(0.25f)));
@@ -8275,7 +8275,7 @@ namespace Rhythm_Recall.Waves
 
                 RegisterFunctionOnce("ScaleLerp", () =>
                 {
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
+                    DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
                 });
                 BarrageCreate(BeatTime(4), BeatTime(1), 5f, new string[]
                 {

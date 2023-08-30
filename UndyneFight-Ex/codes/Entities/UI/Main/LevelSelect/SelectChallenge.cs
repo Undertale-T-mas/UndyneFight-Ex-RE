@@ -185,7 +185,7 @@ namespace UndyneFight_Ex.Entities
                 PlaySound(FightResources.Sounds.select, 0.9f);
             };
 
-            Vector2 Position0 = new Vector2(320, 128);
+            Vector2 Position0 = new(320, 128);
             int yCnt = 0, pages = 0;
             FightSystem.Challenges.ForEach(challenge =>
             {

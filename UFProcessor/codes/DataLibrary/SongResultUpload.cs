@@ -24,7 +24,7 @@ namespace UndyneFight_Ex.Server
                     return board;
                 }
                 FileStream stream = new("Data/Scoreboard/" + name, FileMode.Open, FileAccess.Read);
-                StreamReader sr = new StreamReader(stream);
+                StreamReader sr = new(stream);
 
                 SongScoreBoard scoreBoard = JsonSerializer.Deserialize<SongScoreBoard>(sr.ReadToEnd()) ?? throw new FileLoadException();
                 _songs.Add(name, scoreBoard);
@@ -82,7 +82,7 @@ namespace UndyneFight_Ex.Server
                 }
             } 
         }
-        private static ScoreboardManager scoreboardManager = new ScoreboardManager();
+        private static ScoreboardManager scoreboardManager = new();
         public static void SaveAll()
         {
             scoreboardManager.Save();

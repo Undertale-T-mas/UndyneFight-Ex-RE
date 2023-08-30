@@ -14,7 +14,7 @@ namespace AprilExtends
     {
         public GrievousLady()
         {
-            GrievousLady.Game.instance = new GrievousLady.Game();
+            Game.instance = new GrievousLady.Game();
             divisionInformation = new SaveInfo("imf{");
             divisionInformation.PushNext(new SaveInfo("dif:4"));
             difficulties = new Dictionary<string, Difficulty>();
@@ -45,7 +45,7 @@ namespace AprilExtends
                 return new GrievousLady.Game();
             }
         }
-        private readonly Dictionary<string, Difficulty> difficulties = new Dictionary<string, Difficulty>();
+        private readonly Dictionary<string, Difficulty> difficulties = new();
         public SaveInfo divisionInformation;
 
         private class Game : WaveConstructor, IWaveSet
@@ -828,7 +828,7 @@ namespace AprilExtends
             }
             public static class ExtremeBarrage
             {
-                private static readonly Shader shader = new Shader(Loader.Load<Effect>("Musics\\Grievous Lady\\Effects"));
+                private static readonly Shader shader = new(Loader.Load<Effect>("Musics\\Grievous Lady\\Effects"));
                 public static void Intro0t3()
                 {
                     float beat = 0;
@@ -4358,7 +4358,7 @@ namespace AprilExtends
                     float sin = 0;
                     float cos = 0;
                     float speed = 330;
-                    Shader shader = new Shader(Loader.Load<Effect>("Musics\\Grievous Lady\\Effects"));
+                    Shader shader = new(Loader.Load<Effect>("Musics\\Grievous Lady\\Effects"));
                     AddInstance(new TimeRangedEvent(0, bpm * 21 * 16, () =>
                         {
                             shader.Parameters["distance"].SetValue(new Vector2(sin, cos));

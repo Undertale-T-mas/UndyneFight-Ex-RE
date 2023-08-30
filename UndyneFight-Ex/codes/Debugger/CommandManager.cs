@@ -93,7 +93,7 @@ namespace UndyneFight_Ex.Debugging
         }
         internal static class CommandManager
         {
-            private static readonly LinkedList<StringBlock> allBlocks = new LinkedList<StringBlock>();
+            private static readonly LinkedList<StringBlock> allBlocks = new();
             private static StringBlock CurrentBlock { get => blockEnumerator1.Value; }
             private static LinkedListNode<StringBlock> blockEnumerator1, blockEnumerator2;
             private static int positionInBlock1, positionInBlock2;

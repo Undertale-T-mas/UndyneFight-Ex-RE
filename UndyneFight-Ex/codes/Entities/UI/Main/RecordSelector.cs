@@ -148,7 +148,7 @@ namespace UndyneFight_Ex.Entities
             GameStates.isRecord = false;
             GameStates.isReplay = true;
             string path2 = "Content\\Musics\\";
-            if (System.IO.File.Exists(path2 + tem.Music + ".xnb"))
+            if (File.Exists(path2 + tem.Music + ".xnb"))
                 GameStates.StartSong(tem, null, path2, difficulty, JudgementState.Strict, GameMode.None);
             else
                 GameStates.StartSong(tem, null, path2 + "\\song.xnb", difficulty, JudgementState.Strict, GameMode.None);
@@ -216,7 +216,7 @@ namespace UndyneFight_Ex.Entities
                 List<string> parts2 = IOProcess.Divider(res, '.');
 
                 int plc = i;
-                TextSelectionEx selection = new TextSelectionEx(parts2[0], new Vector2(x * 640 + 320, y * 60 + 100))
+                TextSelectionEx selection = new(parts2[0], new Vector2(x * 640 + 320, y * 60 + 100))
                 {
                     SetSelectionAction = () => { LoadLevel(files[plc]); }
                 };

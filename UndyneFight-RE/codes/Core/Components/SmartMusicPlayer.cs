@@ -33,7 +33,7 @@ namespace UndyneFight_Ex.Remake.Components
             currentPeriod = periods[0];
             currentPeriod.Player.Play();
         }
-        List<PeriodData> periods = new List<PeriodData>();
+        List<PeriodData> periods = new();
         PeriodData currentPeriod;
         int currentIndex = -1;
 

@@ -27,7 +27,7 @@ namespace Rhythm_Recall.Waves
                     if (!IsFoolMode)
                         if (waveTime % 120 >= 90 && waveTime % 5 == 0)
                         {
-                            Vector2 pos = new Vector2(Rand(160, 480), Rand(77, 140));
+                            Vector2 pos = new(Rand(160, 480), Rand(77, 140));
                             CreateSpear(new NormalSpear(pos) { Speed = 8f });
                         }
                 }

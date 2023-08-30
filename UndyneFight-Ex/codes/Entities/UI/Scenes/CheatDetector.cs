@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.Entities
             DateTime cur;
             int count = 0;
             float frameAverage = 0;
-            List<int> frames = new List<int>();
+            List<int> frames = new();
             int timeSustain0 = 0, timeSustain1 = 0, timeSustain2 = 0;
             public override void Draw()
             {

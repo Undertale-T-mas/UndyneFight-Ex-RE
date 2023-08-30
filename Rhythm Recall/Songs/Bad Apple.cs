@@ -9,7 +9,6 @@ using static Extends.LineMoveLibrary;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.Entities.EasingUtil;
-using static Rhythm_Recall.Waves.Traveler_at_Sunset;
 using System;
 
 namespace Rhythm_Recall.Waves
@@ -235,65 +234,6 @@ namespace Rhythm_Recall.Waves
             }
         }
 
-        private class Spider : Entity, ICollideAble
-        {
-            public Spider()
-            {
-                collidingBox.Width = 20; collidingBox.Height = 18;
-                int count = Player.heartInstance.PurpleLineCount + 1;
-                float detla = FightBox.instance.CollidingBox.Height / count;
-                float cy = detla * Rand(1, count - 1) + (FightBox.instance as RectangleBox).Up;
-                float cx;
-                if (Rand(0, 1) >= 0)
-                {
-                    speed = Rand(30, 40) / 12f;
-                    cx = (FightBox.instance as RectangleBox).Left - 6;
-                }
-                else
-                {
-                    speed = -Rand(30, 40) / 12f;
-                    cx = (FightBox.instance as RectangleBox).Right + 6;
-                }
-                Centre = new Vector2(cx, cy);
-                ColorType = Rand(0, 2);
-                Image = FightResources.Sprites.spider;
-            }
-
-            private readonly float speed;
-            private Color drawingColor;
-            private int colorType;
-            public int ColorType
-            {
-                set
-                {
-                    switch (value)
-                    {
-                        case 0: drawingColor = Color.White; colorType = 0; break;
-                        case 1: drawingColor = new Color(110, 203, 255, 255); colorType = 1; break;
-                        case 2: drawingColor = Color.Orange; colorType = 2; break;
-                    }
-                }
-            }
-
-
-            public override void Draw()
-            {
-                //FormalDraw(this.Image, this.Centre, drawingColor, Vector2.One, 0, imageCentre);
-                DrawingLab.MaskDraw(Image, collidingBox, drawingColor, 0, Vector2.Zero, 0.5f, RectangleBox.instance.CollidingBox);
-            }
-
-            public override void Update()
-            {
-                Centre += new Vector2(speed, 0);
-                if (Centre.X < 0 || Centre.X > 640) Dispose();
-            }
-
-            public void GetCollide(Player.Heart player)
-            {
-                //throw new System.NotImplementedException();
-            }
-        }
-
         private class BoxPiece : Entity
         {
             public BoxPiece(Vector2 centre)
@@ -333,7 +273,7 @@ namespace Rhythm_Recall.Waves
 
             public override string AttributeAuthor => GameStates.difficulty == 4 ? "T-mas + TK" : "T-mas";
 
-            public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 3.0f),
                             new(Difficulty.Easy, 6.5f),
@@ -342,7 +282,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 17.4f),
                     }
                 );
-            public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 3.0f),
                             new(Difficulty.Easy, 6.5f),
@@ -351,7 +291,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 16.7f),
                     }
                 );
-            public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> APDifficulty => new(
                       new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 7.0f),
                             new(Difficulty.Easy, 10.0f),
@@ -544,7 +484,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.3f) + RectangleBox.instance.Centre, RectangleBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2.3f + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.3f) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2.3f + 180), 40, 20));
             }
             if (InBeat(1290))
             {
@@ -572,8 +512,8 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1546 + 4, 1674 - 14) && At0thBeat(8))
             {
-                CreateGB(new NormalGB(Heart.Centre + MathUtil.GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
-                CreateGB(new NormalGB(Heart.Centre + MathUtil.GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
+                CreateGB(new NormalGB(Heart.Centre + GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
+                CreateGB(new NormalGB(Heart.Centre + GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
             }
             if (InBeat(1669))
             {
@@ -624,15 +564,15 @@ namespace Rhythm_Recall.Waves
                 CreateBone(new CustomBone(Vector2.Zero, (s) =>
                 {
                     float v = Sin(360f * s.AppearTime / BeatTime(32)) * 0.5f + 0.5f;
-                    float xPos = v * RectangleBox.instance.CollidingBox.Width + (FightBox.instance as RectangleBox).Left;
-                    return new Vector2(xPos, RectangleBox.instance.Centre.Y);
+                    float xPos = v * FightBox.instance.CollidingBox.Width + (FightBox.instance as RectangleBox).Left;
+                    return new Vector2(xPos, FightBox.instance.Centre.Y);
                 }, 0, 160, BeatTime(88))
                 { ColorType = 2, AlphaIncrease = true });
                 CreateBone(new CustomBone(Vector2.Zero, (s) =>
                 {
                     float v = Sin(360f * s.AppearTime / BeatTime(32)) * -0.5f + 0.5f;
-                    float xPos = v * RectangleBox.instance.CollidingBox.Width + (FightBox.instance as RectangleBox).Left;
-                    return new Vector2(xPos, RectangleBox.instance.Centre.Y);
+                    float xPos = v * FightBox.instance.CollidingBox.Width + (FightBox.instance as RectangleBox).Left;
+                    return new Vector2(xPos, FightBox.instance.Centre.Y);
                 }, 0, 160, BeatTime(88))
                 { ColorType = 2, AlphaIncrease = true });
             }
@@ -679,7 +619,7 @@ namespace Rhythm_Recall.Waves
                     posX += veloX;
                     veloX -= accX;
                 }
-                ScreenDrawing.ScreenAngle = 90 - (float)System.Math.Pow(0.85f, Gametime - BeatTime(138 - 32)) * 90;
+                ScreenDrawing.ScreenAngle = 90 - (float)Math.Pow(0.85f, Gametime - BeatTime(138 - 32)) * 90;
             }
             if (InBeat(10, 138 - 40) && At0thBeat(8))
             {
@@ -694,7 +634,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(134, 166))
             {
-                ScreenDrawing.ScreenAngle = (float)System.Math.Pow(0.85f, Gametime - BeatTime(134)) * 90;
+                ScreenDrawing.ScreenAngle = (float)Math.Pow(0.85f, Gametime - BeatTime(134)) * 90;
             }
             if(InBeat(134))
             {
@@ -1017,11 +957,11 @@ namespace Rhythm_Recall.Waves
                 Player.hearts[0].ChangeColor(2);
                 Player.hearts[1].ChangeColor(2);
 
-                RectangleBox.instance = RectangleBox.boxs[0];
+                FightBox.instance = FightBox.boxs[0];
                 SetBox(200, 120, 120);
                 TP(320, 200);
 
-                RectangleBox.instance = RectangleBox.boxs[1];
+                FightBox.instance = FightBox.boxs[1];
                 SetBox(330, 120, 120);
                 TP(320, 330);
             }
@@ -1037,19 +977,19 @@ namespace Rhythm_Recall.Waves
                 Player.heartInstance = Player.hearts[1];
                 TP(320, 330);
 
-                RectangleBox.instance = RectangleBox.boxs[0];
+                FightBox.instance = FightBox.boxs[0];
                 CreateEntity(new Boneslab(180, 40, (int)BeatTime(14), (int)BeatTime(110)));
-                RectangleBox.instance = RectangleBox.boxs[1];
+                FightBox.instance = FightBox.boxs[1];
                 CreateEntity(new Boneslab(0, 40, (int)BeatTime(14), (int)BeatTime(110)));
             }
             if (InBeat(906.1f, 906 + 128))
             {
                 float d = Sin((Gametime - BeatTime(10)) / BeatTime(128) * 360) * 162f;
 
-                RectangleBox.instance = RectangleBox.boxs[0];
+                FightBox.instance = FightBox.boxs[0];
                 SetBox(260 - d, 380 - d, 140, 260);
 
-                RectangleBox.instance = RectangleBox.boxs[1];
+                FightBox.instance = FightBox.boxs[1];
                 SetBox(260 - d, 380 - d, 270, 390);
             }
             if (InBeat(1034.1f, 1034 + 128 - 12))
@@ -1057,10 +997,10 @@ namespace Rhythm_Recall.Waves
                 float d = Sin((Gametime - BeatTime(10)) / BeatTime(64) * 360) * 20f;
                 float e = Cos((Gametime - BeatTime(10)) / BeatTime(64) * 360) * 70f;
 
-                RectangleBox.instance = RectangleBox.boxs[0];
+                FightBox.instance = FightBox.boxs[0];
                 SetBox(250 - e, 390 - e, 195 - 80 - d, 345 - 80 - d);
 
-                RectangleBox.instance = RectangleBox.boxs[1];
+                FightBox.instance = FightBox.boxs[1];
                 SetBox(250 + e, 390 + e, 195 + 80 + d, 345 + 80 + d);
             }
             if (InBeat(1034))
@@ -1077,14 +1017,14 @@ namespace Rhythm_Recall.Waves
             if (InBeat(1034 + 4, 1034 + 128 - 16) && AtKthBeat(8, 0))
             {
                 PlaySound(FightResources.Sounds.pierce);
-                RectangleBox.instance = RectangleBox.boxs[0];
+                FightBox.instance = FightBox.boxs[0];
                 CreateBone(new DownBone(false, 3, 66));
                 CreateBone(new UpBone(false, 3, 32));
             }
             if (InBeat(1034 + 4, 1034 + 128 - 16) && AtKthBeat(8, BeatTime(4)))
             {
                 PlaySound(FightResources.Sounds.pierce);
-                RectangleBox.instance = RectangleBox.boxs[1];
+                FightBox.instance = FightBox.boxs[1];
                 CreateBone(new DownBone(true, 3, 66));
                 CreateBone(new UpBone(true, 3, 32));
             }
@@ -1177,7 +1117,7 @@ namespace Rhythm_Recall.Waves
             {
                 float e = Cos((Gametime - BeatTime(10)) / BeatTime(64) * 360) * 80f;
 
-                RectangleBox.instance = RectangleBox.boxs[0];
+                FightBox.instance = FightBox.boxs[0];
                 SetBox(240 - e, 400 - e, 210, 370);
             }
             if (InBeat(1290 - 4))
@@ -1584,7 +1524,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + RectangleBox.instance.Centre, RectangleBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
             }
             if (InBeat(1290))
             {
@@ -1610,7 +1550,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1546 + 4, 1674 - 14) && At0thBeat(8))
             {
-                CreateGB(new NormalGB(Heart.Centre + MathUtil.GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 1.0f), 58, 16));
+                CreateGB(new NormalGB(Heart.Centre + GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 1.0f), 58, 16));
             }
             if (InBeat(1669))
             {
@@ -1798,7 +1738,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + RectangleBox.instance.Centre, RectangleBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
             }
             if (InBeat(1290))
             {
@@ -1826,7 +1766,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1546 + 4, 1674 - 14) && At0thBeat(8))
             {
-                CreateGB(new NormalGB(Heart.Centre + MathUtil.GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 1.0f), 58, 16));
+                CreateGB(new NormalGB(Heart.Centre + GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 1.0f), 58, 16));
             }
             if (InBeat(1669))
             {
@@ -2052,7 +1992,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.8f) + RectangleBox.instance.Centre, RectangleBox.instance.Centre, new Vector2(1.0f, 1.0f), (Gametime * 2.8f + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.8f) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 1.0f), (Gametime * 2.8f + 180), 40, 20));
             }
             if (InBeat(1290))
             {
@@ -2084,8 +2024,8 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1546 + 4, 1674 - 14) && At0thBeat(8))
             {
-                CreateGB(new NormalGB(Heart.Centre + MathUtil.GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
-                CreateGB(new NormalGB(Heart.Centre + MathUtil.GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
+                CreateGB(new NormalGB(Heart.Centre + GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
+                CreateGB(new NormalGB(Heart.Centre + GetVector2(160, Rand(0, 359)), Heart.Centre, new Vector2(1.0f, 0.5f), 58, 16));
             }
             if (InBeat(1669))
             {

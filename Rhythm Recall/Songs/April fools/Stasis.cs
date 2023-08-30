@@ -1071,29 +1071,29 @@ namespace AprilExtends
                     {
                         ScreenDrawing.ScreenAngle = s;
                     },
-                        SimplifiedEasing.EaseOut(BeatTime(12), -720, SimplifiedEasing.EaseState.Expo)
+                        EaseOut(BeatTime(12), -720, EaseState.Expo)
                     );
-                    SimplifiedEasing.RunEase((b) =>
+                    RunEase((b) =>
                     {
                         ScreenDrawing.ScreenPositionDetla = new(0 + b, 0);
                     },
-                        SimplifiedEasing.Scale(
-                        SimplifiedEasing.LinkEase(
-                        SimplifiedEasing.EaseIn(BeatTime(12f), 200, SimplifiedEasing.EaseState.Quart),
-                        SimplifiedEasing.EaseOut(BeatTime(4f), -200, SimplifiedEasing.EaseState.Expo))
+                        Scale(
+                        LinkEase(
+                        EaseIn(BeatTime(12f), 200, EaseState.Quart),
+                        EaseOut(BeatTime(4f), -200, EaseState.Expo))
                         ,
-                        SimplifiedEasing.Alternate(2f, SimplifiedEasing.Stable(1f, 1f), SimplifiedEasing.Stable(1, -1)))
+                        Alternate(2f, Stable(1f, 1f), Stable(1, -1)))
 
                     );
                 });
                 RegisterFunctionOnce("ScreenScale", () =>
                 {
-                    SimplifiedEasing.RunEase((nb) =>
+                    RunEase((nb) =>
                     {
                         ScreenDrawing.ScreenScale = 1 + nb;
                     },
-                        SimplifiedEasing.EaseIn(BeatTime(1), 1, SimplifiedEasing.EaseState.Circ),
-                        SimplifiedEasing.EaseOut(BeatTime(12), -1, SimplifiedEasing.EaseState.Expo)
+                        EaseIn(BeatTime(1), 1, EaseState.Circ),
+                        EaseOut(BeatTime(12), -1, EaseState.Expo)
                     );
                 });
                 BarrageCreate(BeatTime(0), BeatTime(1), 0, new string[]

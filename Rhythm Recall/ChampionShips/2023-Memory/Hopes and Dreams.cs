@@ -44,21 +44,21 @@ namespace Rhythm_Recall.Waves
 
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 4f),
                             new(Difficulty.Normal, 12f),
                             new(Difficulty.Extreme, 16.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 4f),
                             new(Difficulty.Normal, 12f),
                             new(Difficulty.Extreme, 16.9f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 9f),
                             new(Difficulty.Normal, 15.5f),
@@ -711,7 +711,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 200, 480);
                     SetSoul(0);
                     TP();
-                    Extends.DrawingUtil.LerpScreenScale(60, 1, 0.09f);
+                    DrawingUtil.LerpScreenScale(60, 1, 0.09f);
                     CentreEasing.EaseBuilder ce = new();
                     Vector2 Value = ScreenDrawing.HPBar.AreaOccupied.GetCentre();
                     ce.Insert(0, CentreEasing.Stable(ScreenDrawing.HPBar.AreaOccupied.GetCentre()));
@@ -2461,7 +2461,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 200, 480);
                     SetSoul(0);
                     TP();
-                    Extends.DrawingUtil.LerpScreenScale(60, 1, 0.09f);
+                    DrawingUtil.LerpScreenScale(60, 1, 0.09f);
                     CentreEasing.EaseBuilder ce = new();
                     Vector2 Value = ScreenDrawing.HPBar.AreaOccupied.GetCentre();
                     ce.Insert(0, CentreEasing.Stable(ScreenDrawing.HPBar.AreaOccupied.GetCentre()));
@@ -4206,7 +4206,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 200, 480);
                     SetSoul(0);
                     TP();
-                    Extends.DrawingUtil.LerpScreenScale(60, 1, 0.09f);
+                    DrawingUtil.LerpScreenScale(60, 1, 0.09f);
                     CentreEasing.EaseBuilder ce = new();
                     Vector2 Value = ScreenDrawing.HPBar.AreaOccupied.GetCentre();
                     ce.Insert(0, CentreEasing.Stable(ScreenDrawing.HPBar.AreaOccupied.GetCentre()));

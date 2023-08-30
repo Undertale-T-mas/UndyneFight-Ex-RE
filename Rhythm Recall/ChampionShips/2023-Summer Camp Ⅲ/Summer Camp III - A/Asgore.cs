@@ -41,21 +41,21 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "Tlottgodinf";
                 public override string AttributeAuthor => "Unknown";
                 public override string PaintAuthor => "Unknown";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
                 {
                     new(Difficulty.Noob,3.0f),
                     new(Difficulty.Hard,14.8f)
                 }
                 );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                     new(Difficulty.Noob,3.0f),
                     new(Difficulty.Hard,14.8f)
                     }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                     new(Difficulty.Noob,7.0f),
@@ -1690,7 +1690,7 @@ namespace Rhythm_Recall.Waves
                             
                             int x = a;
                             if ((0 < x&&x < 9)||(18<x && x<27)) colortype = 2;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, mt),
                                 Linear(BeatTime(4), -mt)
@@ -1719,7 +1719,7 @@ namespace Rhythm_Recall.Waves
 
                             int x = a;
                             if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, mt),
                                 Linear(BeatTime(4), -mt)
@@ -1746,7 +1746,7 @@ namespace Rhythm_Recall.Waves
                             int colortype = 0;
 
                             int x = a;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
                             var e = LinkEase(
                                 Stable(0, mt),
                                 Linear(BeatTime(4), -mt)
@@ -1773,7 +1773,7 @@ namespace Rhythm_Recall.Waves
                             int colortype = 0;
 
                             int x = a;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
                             var e = LinkEase(
                                 Stable(0, new Vector2(0,0)),
                                 Linear(BeatTime(4), mt)
@@ -1801,7 +1801,7 @@ namespace Rhythm_Recall.Waves
 
                             int x = a;
                             if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, new Vector2(0,0)),
                                 Linear(BeatTime(4), mt)
@@ -1928,7 +1928,7 @@ namespace Rhythm_Recall.Waves
                             for (int i = 0; i < ars.Length; i++)
                             {
                                 int x = i;
-                                Extends.ShadowLibrary.SetOffset2(ars[x], s - 240);
+                                ShadowLibrary.SetOffset2(ars[x], s - 240);
                             }
                         },ease                    
                         );
@@ -3665,7 +3665,7 @@ namespace Rhythm_Recall.Waves
 
                             int x = a;
                             
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, mt),
                                 Linear(BeatTime(5), -mt)
@@ -3698,7 +3698,7 @@ namespace Rhythm_Recall.Waves
 
                             int x = a;
                             if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, mt),
                                 Linear(BeatTime(5), -mt)
@@ -3726,7 +3726,7 @@ namespace Rhythm_Recall.Waves
                             int colortype = 0;
 
                             int x = a;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
                             var e = LinkEase(
                                 Stable(0, mt),
                                 Linear(BeatTime(5), -mt)
@@ -3753,7 +3753,7 @@ namespace Rhythm_Recall.Waves
                             int colortype = 0;
 
                             int x = a;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
                             var e = LinkEase(
                                 Stable(0, new Vector2(0, 0)),
                                 Linear(BeatTime(6), mt)
@@ -3781,7 +3781,7 @@ namespace Rhythm_Recall.Waves
 
                             int x = a;
                             if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
-                            Vector2 mt = MathUtil.GetVector2(System.MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
+                            Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
                                 Stable(0, new Vector2(0, 0)),
                                 Linear(BeatTime(6), mt)
@@ -3908,7 +3908,7 @@ namespace Rhythm_Recall.Waves
                             for (int i = 0; i < ars.Length; i++)
                             {
                                 int x = i;
-                                Extends.ShadowLibrary.SetOffset2(ars[x], s - 240);
+                                ShadowLibrary.SetOffset2(ars[x], s - 240);
                             }
                         }, ease
                         );

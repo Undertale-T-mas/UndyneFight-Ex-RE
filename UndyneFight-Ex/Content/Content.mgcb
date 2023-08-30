@@ -2712,18 +2712,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/hp_show/hp.png
 
-#begin Sprites/OtherBarrages/clo.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/OtherBarrages/clo.png;Sprites/OtherBarrages/Croissant.png
-
 #begin Sprites/OtherBarrages/deadlaser/deadlaser_0.png
 /importer:TextureImporter
 /processor:TextureProcessor

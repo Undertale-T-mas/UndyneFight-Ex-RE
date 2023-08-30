@@ -46,21 +46,21 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "SirDoesArt";
                 public override string Extra => "The barrages is not finished with bugs,\nand we won't fix it nowadays because the ChampionShip.";
                 public override Color ExtraColor => Color.Cyan;
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.1f),
                             new(Difficulty.Hard, 14.0f),
 
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.0f),
                             new(Difficulty.Hard, 14.0f),
 
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 21.9f),
                             new(Difficulty.Hard, 19.9f),
@@ -344,7 +344,7 @@ namespace Rhythm_Recall.Waves
 
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
                     {
-                        Extends.DrawingUtil.Shock(1.2f, 1.3f, 3);
+                        DrawingUtil.Shock(1.2f, 1.3f, 3);
                         PlaySound(Sounds.largeKnife, 0.7f);
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
@@ -386,7 +386,7 @@ namespace Rhythm_Recall.Waves
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
                         CreateEntity(Line);
-                        Extends.DrawingUtil.Shock(1.2f, 1.3f, 3);
+                        DrawingUtil.Shock(1.2f, 1.3f, 3);
                         AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
                         {
                             Line.width = Line.width * 0.7f + 25 * 0.3f;
@@ -428,7 +428,7 @@ namespace Rhythm_Recall.Waves
                         DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red * 0.75f);
                         Line.width = 0;
                         CreateEntity(Line);
-                        Extends.DrawingUtil.Shock(1.2f, 1.3f, 3);
+                        DrawingUtil.Shock(1.2f, 1.3f, 3);
                         AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
                         {
                             Line.width = Line.width * 0.7f + 25 * 0.3f;
@@ -532,7 +532,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 4 * a + bpm * 6, 1, () =>
                         {
-                            Explusfight.Knife(Heart.Centre, 90, false, bpm * 2);
+                            Knife(Heart.Centre, 90, false, bpm * 2);
                         }));
                     }
                     CreatePlatform(new Platform(0, new(320 - 25, 280 + 150 / 2 - 32), Motions.PositionRoute.linear, 0, 50)
@@ -726,7 +726,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 8 * (a + 1) + bpm * 8, 1, () =>
                         {
-                            Explusfight.Knife(Heart.Centre, Rand(0, 360), false, bpm * 4);
+                            Knife(Heart.Centre, Rand(0, 360), false, bpm * 4);
                         }));
                     }
                     for (int a = 0; a < 6; a++)
@@ -1847,7 +1847,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 80, 1, () =>
                     {
                         Vector2 vec = Heart.Centre;
-                        Vector2 vec2 = new Vector2(Rand(20, 620), Rand(20, 460));
+                        Vector2 vec2 = new(Rand(20, 620), Rand(20, 460));
                         PlaySound(Sounds.Ding);
                         PlaySound(Sounds.giga);
                         for (int a = 0; a < 3; a++) PlaySound(Sounds.giga);
@@ -1965,7 +1965,7 @@ namespace Rhythm_Recall.Waves
                         });
                         InstantSetBox(240, 645, 485);
                         MainEffects.Supershake();
-                        Extends.DrawingUtil.Shock(0.5f, 1.5f, 1280);
+                        DrawingUtil.Shock(0.5f, 1.5f, 1280);
 
                     }));
                 }
@@ -2473,7 +2473,7 @@ namespace Rhythm_Recall.Waves
 
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
                     {
-                        Extends.DrawingUtil.Shock(1.2f, 1.3f, 3);
+                        DrawingUtil.Shock(1.2f, 1.3f, 3);
                         PlaySound(Sounds.largeKnife, 0.7f);
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
@@ -2515,7 +2515,7 @@ namespace Rhythm_Recall.Waves
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
                         CreateEntity(Line);
-                        Extends.DrawingUtil.Shock(1.2f, 1.3f, 3);
+                        DrawingUtil.Shock(1.2f, 1.3f, 3);
                         AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
                         {
                             Line.width = Line.width * 0.7f + 25 * 0.3f;
@@ -2557,7 +2557,7 @@ namespace Rhythm_Recall.Waves
                         DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red * 0.75f);
                         Line.width = 0;
                         CreateEntity(Line);
-                        Extends.DrawingUtil.Shock(1.2f, 1.3f, 3);
+                        DrawingUtil.Shock(1.2f, 1.3f, 3);
                         AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
                         {
                             Line.width = Line.width * 0.7f + 25 * 0.3f;
@@ -3656,7 +3656,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 80, 1, () =>
                     {
                         Vector2 vec = Heart.Centre;
-                        Vector2 vec2 = new Vector2(Rand(20, 620), Rand(20, 460));
+                        Vector2 vec2 = new(Rand(20, 620), Rand(20, 460));
                         PlaySound(Sounds.Ding);
                         PlaySound(Sounds.giga);
                         for (int a = 0; a < 3; a++) PlaySound(Sounds.giga);
@@ -3770,7 +3770,7 @@ namespace Rhythm_Recall.Waves
                         });
                         InstantSetBox(240, 645, 485);
                         MainEffects.Supershake();
-                        Extends.DrawingUtil.Shock(0.5f, 1.5f, 1280);
+                        DrawingUtil.Shock(0.5f, 1.5f, 1280);
 
                     }));
                 }
@@ -4384,7 +4384,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(1172 - 4 - 20))
                 {
                     PlaySound(Sounds.destroy);
-                    Extends.DrawingUtil.BlackScreen(5, bpm * 24 - 5, bpm * 80);
+                    DrawingUtil.BlackScreen(5, bpm * 24 - 5, bpm * 80);
                 }
                 if (InBeat(1172 - 4 - 18))
                 {
@@ -4463,7 +4463,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 20 * 16))
                 {
                     ResetBarrage();
-                    Extends.DrawingUtil.BetterBlackScreen(15, bpm * 4, bpm * 14, Color.White);
+                    DrawingUtil.BetterBlackScreen(15, bpm * 4, bpm * 14, Color.White);
                     AddInstance(new TimeRangedEvent(15, 1, () => { GameStates.ChangeSpeedScale(1); }));
                 }
                 /*if (GameStates.IsKeyPressed120f(Microsoft.Xna.Framework.Input.Keys.Space))
@@ -4634,7 +4634,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(1172 - 4 - 20))
                 {
                     PlaySound(Sounds.destroy);
-                    Extends.DrawingUtil.BlackScreen(5, bpm * 24 - 5, bpm * 80);
+                    DrawingUtil.BlackScreen(5, bpm * 24 - 5, bpm * 80);
                 }
                 if (InBeat(1172 - 4 - 18))
                 {

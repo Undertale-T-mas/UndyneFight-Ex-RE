@@ -270,7 +270,7 @@ namespace UndyneFight_Ex
         {
             Vector2 Centre = (P1 + P2) / 2;
             float Angle = (float)Math.Atan2(P2.Y - P1.Y, P2.X - P1.X);
-            float dist = MathUtil.GetDistance(P1, P2) + 2;
+            float dist = GetDistance(P1, P2) + 2;
             DrawLine(Centre, Angle, dist, width, cl, depth, texture);
         }
 
@@ -350,7 +350,7 @@ namespace UndyneFight_Ex
 
         public void RegisterTexture(Texture2D tex, int index)
         {
-            GameMain.RegisterTextures[index - 1] = tex;
+            RegisterTextures[index - 1] = tex;
         }
 
         public void Update()
@@ -370,7 +370,7 @@ namespace UndyneFight_Ex
     public class GLFont
     {
         public SpriteFont SFX;
-        Dictionary<char, int> charIndex = new Dictionary<char, int>();
+        Dictionary<char, int> charIndex = new();
         public GLFont(string path, ContentManager cm)
         {
             SFX = cm.Load<SpriteFont>(path);
@@ -424,7 +424,7 @@ namespace UndyneFight_Ex
             strings.Add(curLine);
             foreach (string s in strings)
             {
-                GameMain.MissionSpriteBatch.DrawString(this, s, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
+                MissionSpriteBatch.DrawString(this, s, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
                 location.Y += lineDistance;
             }
         }

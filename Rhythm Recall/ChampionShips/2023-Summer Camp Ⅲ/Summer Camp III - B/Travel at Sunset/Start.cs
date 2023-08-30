@@ -151,7 +151,8 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = true;
+                bool jump = false;
+                if (GameStates.difficulty == 0) jump = false;
                 if (jump)
                 {
                     //int beat = 897;

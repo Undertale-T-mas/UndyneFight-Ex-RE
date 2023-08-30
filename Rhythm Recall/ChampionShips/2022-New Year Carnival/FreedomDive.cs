@@ -40,11 +40,11 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    FightResources.Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
-                        FightResources.Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        FightResources.Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
                     }
                 }
 
@@ -76,21 +76,21 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "T-mas";
                 public override string AttributeAuthor => "T-mas";
                 public override string SongAuthor => "xi";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 5.0f),
                             new(Difficulty.Hard, 16.0f),
                             new(Difficulty.ExtremePlus, 20.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 6.0f),
                             new(Difficulty.Hard, 17.0f),
                             new(Difficulty.ExtremePlus, 20.7f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 13.5f),
                             new(Difficulty.Hard, 19.5f),
@@ -417,7 +417,7 @@ namespace Rhythm_Recall.Waves
                     {
                         float cycleTick = Gametime / game.BeatTime(16);
                         speedY = speedY * 0.99f + 16 * 0.01f;
-                        Func<float, float> sin01 = UndyneFight_Ex.Fight.AdvanceFunctions.Sin01;
+                        Func<float, float> sin01 = AdvanceFunctions.Sin01;
                         InstantSetBox(new Vector2(320, 240) + new Vector2(sin01(cycleTick / 2.72f) * 15, sin01(cycleTick) * speedY), 84, 84);
                         InstantTP(BoxStates.Centre);
                         CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow((Rand(2, 14) / 20f), 1.5f),
@@ -1056,7 +1056,7 @@ namespace Rhythm_Recall.Waves
                     {
                         float cycleTick = Gametime / game.BeatTime(16);
                         speedY = speedY * 0.99f + 16 * 0.01f;
-                        Func<float, float> sin01 = UndyneFight_Ex.Fight.AdvanceFunctions.Sin01;
+                        Func<float, float> sin01 = AdvanceFunctions.Sin01;
                         InstantSetBox(new Vector2(320, 240) + new Vector2(sin01(cycleTick / 2.72f) * 15, sin01(cycleTick) * speedY), 84, 84);
                         InstantTP(BoxStates.Centre);
                         CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow((Rand(2, 14) / 20f), 1.5f),
@@ -1967,7 +1967,7 @@ namespace Rhythm_Recall.Waves
                     {
                         float cycleTick = Gametime / game.BeatTime(16);
                         speedY = speedY * 0.99f + 16 * 0.01f;
-                        Func<float, float> sin01 = UndyneFight_Ex.Fight.AdvanceFunctions.Sin01;
+                        Func<float, float> sin01 = AdvanceFunctions.Sin01;
                         InstantSetBox(new Vector2(320, 240) + new Vector2(sin01(cycleTick / 2.72f) * 15, sin01(cycleTick) * speedY), 84, 84);
                     }));
                     AddInstance(new TimeRangedEvent(game.BeatTime(61), game.BeatTime(2560), () =>

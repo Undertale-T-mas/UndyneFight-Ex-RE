@@ -15,7 +15,7 @@ namespace UndyneFight_Ex.Remake
     {
         public static Text DrawText(float speed, string text, Vector2 location, bool mute = false, params TextEffect[] effects)
         {
-            List<TextEffect> effects1 = new List<TextEffect>
+            List<TextEffect> effects1 = new()
             {
                 new TextSpeedEffect(speed)
             };

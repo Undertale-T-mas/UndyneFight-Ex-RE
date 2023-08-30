@@ -40,7 +40,7 @@ namespace Rhythm_Recall
             this.Depth = 0.5f;
             for (int i = 0; i < str.Length; i++)
             {
-                FormalDraw(charTextures[str[i]], new Vector2(curX, centre.Y), Microsoft.Xna.Framework.Color.White, scale, 0, new Vector2(0, Resources.charTextures[str[i]].Height / 2f));
+                FormalDraw(charTextures[str[i]], new Vector2(curX, centre.Y), Color.White, scale, 0, new Vector2(0, charTextures[str[i]].Height / 2f));
                 curX += (charTextures[str[i]].Width + 5) * scale;
             }
         }

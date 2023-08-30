@@ -44,17 +44,17 @@ namespace Rhythm_Recall.Waves
             public SongInformation Attributes => new ThisInformation();
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 1)
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 1)
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 1),
                         }
@@ -578,8 +578,8 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(arK);
                     AddInstance(new InstantEvent((int)(bpm * 16), () =>
                     {
-                        Extends.DrawingUtil.Shock(2, 12.5f, 12);
-                        Extends.DrawingUtil.SetScreenScale(1, (int)(bpm * 4));
+                        DrawingUtil.Shock(2, 12.5f, 12);
+                        DrawingUtil.SetScreenScale(1, (int)(bpm * 4));
                         ar1.Stop(256);
                         ar2.Stop(256);
                         ar3.Stop(256);

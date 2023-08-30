@@ -403,13 +403,13 @@ namespace UndyneFight_Ex.Fight
 
             public static Shaders.Filter ActivateShader(Shader shader, float depth = 0.5f)
             {
-                Shaders.Filter textureFilter = new Shaders.Filter(shader, depth);
+                Shaders.Filter textureFilter = new(shader, depth);
                 SceneRendering.InsertProduction(textureFilter);
                 return textureFilter;
             }
             public static Shaders.Filter ActivateShaderBack(Shader shader, float depth = 0.5f)
             {
-                Shaders.Filter textureFilter = new Shaders.Filter(shader, depth);
+                Shaders.Filter textureFilter = new(shader, depth);
                 BackGroundRendering.InsertProduction(textureFilter);
                 return textureFilter;
             }
@@ -468,7 +468,7 @@ namespace UndyneFight_Ex.Fight
                         }
                         MissionTarget = lightSources[0];
                         ResetTargetColor(Color.Transparent);
-                        Shader = GlobalResources.Effects.Light0;
+                        Shader = Light0;
                         DrawTexture(FightResources.Sprites.pixUnit, lightSources[0].Bounds);
                         Initialized = true;
                     }
@@ -558,7 +558,7 @@ namespace UndyneFight_Ex.Fight
                         set; } = 1f;
                     public float RandomDisturb { get; set; } = 0.2f;
                     public bool Disturbance { get; set; } = true;
-                    public Shader DisturbShader { get; set; } = GlobalResources.Effects.CustomShaders.Sinwave;
+                    public Shader DisturbShader { get; set; } = CustomShaders.Sinwave;
 
                     private float time1 = 0, time2 = 0, time3 = 0;
 

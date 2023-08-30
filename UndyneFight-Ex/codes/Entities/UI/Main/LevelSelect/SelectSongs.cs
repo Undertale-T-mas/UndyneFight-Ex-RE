@@ -389,7 +389,7 @@ namespace UndyneFight_Ex.Entities
         }
 
         private readonly Camera camera;
-        private readonly List<BackGround> backs = new List<BackGround>();
+        private readonly List<BackGround> backs = new();
         private readonly GameMode mode;
         private bool customsExist;
         private int songNum;

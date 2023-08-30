@@ -18,7 +18,7 @@ namespace UndyneFight_Ex.Entities
 
             rotation %= 360;
 
-            CollideRect rect = RectangleBox.instance.CollidingBox;
+            CollideRect rect = FightBox.instance.CollidingBox;
 
             bool isDownEnabled = true, isUpEnabled = true, isLeftEnabled = true, isRightEnabled = true;
 
@@ -50,7 +50,7 @@ namespace UndyneFight_Ex.Entities
         private Vector2 missionCentre;
         private float distance;
 
-        private static CollideRect screen = new CollideRect(-50, -50, 740, 580);
+        private static CollideRect screen = new(-50, -50, 740, 580);
 
         public override void Update()
         {
