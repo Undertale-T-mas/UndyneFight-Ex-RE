@@ -272,6 +272,12 @@
 /processorParam:DebugMode=Auto
 /build:Global/Shaders/Effect Library/Polar.fx
 
+#begin Global/Shaders/Effect Library/RadialWave.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Global/Shaders/Effect Library/RadialWave.fx
+
 #begin Global/Shaders/Effect Library/Scale.fx
 /importer:EffectImporter
 /processor:EffectProcessor

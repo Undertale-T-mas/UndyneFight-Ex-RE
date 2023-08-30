@@ -39,6 +39,7 @@ namespace Rhythm_Recall.Waves
         {
             private class ThisInformation : SongInformation
             {
+                public override string DisplayName => "Maniac's Revenge";
                 public override string BarrageAuthor => "meow?meow?meow?";
                 public override string SongAuthor => "Nickolas";
                 public override string AttributeAuthor => "meow?meow?meow?";
@@ -71,7 +72,7 @@ namespace Rhythm_Recall.Waves
             public static Game instance;
 
             public string Music => "DustTrust";
-            public string FightName => "Maniac's Revenge";
+            public string FightName => "DustTrust Phase 2";
             public static float bpm = 62.5f / (560/*bpm*/ / 60f);
             public static float bpmchange = 560;
             #region non

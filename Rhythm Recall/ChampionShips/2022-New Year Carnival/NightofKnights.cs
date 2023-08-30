@@ -77,7 +77,6 @@ namespace Rhythm_Recall.Waves
             public static Game instance;
 
             public string Music => "Night Of Knights";
-            //  public string Music => "Brain Power";
 
             public string FightName => "Night Of Knights";
 

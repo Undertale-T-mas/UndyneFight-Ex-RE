@@ -11,6 +11,7 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
+using static UndyneFight_Ex.GlobalResources.Effects;
 
 namespace Rhythm_Recall.Waves
 {
@@ -21,10 +22,12 @@ namespace Rhythm_Recall.Waves
             Game.game = new Game();
             divisionInformation = new SaveInfo("imf{");
             divisionInformation.PushNext(new SaveInfo("dif:4"));
-            difficulties = new();
-            difficulties.Add("div2", Difficulty.Normal);
-            difficulties.Add("div1", Difficulty.Extreme);
-            //    this.difficulties.Add("Anomaly Test", Difficulty.ExtremePlus);
+            difficulties = new()
+            {
+                { "div2", Difficulty.Normal },
+                { "div1", Difficulty.Extreme }
+                //{ "Anomaly Test", Difficulty.ExtremePlus };
+            };
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
@@ -43,19 +46,19 @@ namespace Rhythm_Recall.Waves
 
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 14.0f),
                             new(Difficulty.Extreme, 19.7f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 14.0f),
                             new(Difficulty.Extreme, 19.9f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 16.5f),
                             new(Difficulty.Extreme, 21.7f),
@@ -10843,13 +10846,13 @@ namespace Rhythm_Recall.Waves
             }
 
             private Rainer rainer;
-            private ScreenDrawing.Shaders.RGBSplitting splitter = new();
+            private RGBSplitting splitter = new();
 
             class FakeArrow : AutoEntity
             {
                 public FakeArrow(int color, int rotateType)
                 {
-                    Image = FightResources.Sprites.arrow[color, rotateType, 0];
+                    Image = Sprites.arrow[color, rotateType, 0];
                 }
                 public override void Update()
                 {
@@ -14737,12 +14740,12 @@ namespace Rhythm_Recall.Waves
                 }
             }
 
-            GlobalResources.Effects.StepSampleShader StepSample;
-            GlobalResources.Effects.ScaleShader ShadersScale;
-            GlobalResources.Effects.CameraShader Effect3D;
-            ScreenDrawing.Shaders.Blur Blur;
+            StepSampleShader StepSample;
+            ScaleShader ShadersScale;
+            CameraShader Effect3D;
+            GrayShader Gray;
+            Blur Blur;
             Shader SinWave;
-            GlobalResources.Effects.GrayShader Gray;
 
             RenderProduction cameraProduction, production1, production2, production3, grayProduction;
             Lighting lightProduction;
@@ -14754,6 +14757,7 @@ namespace Rhythm_Recall.Waves
                 ShadersScale = Shaders.Scale;
                 Effect3D = Shaders.Camera;
                 Gray = Shaders.Gray;
+                Loader.RootDirectory = "Content";
 
                 SinWave = new Shader(Loader.Load<Effect>("Musics\\DustTrust\\shake"));
 
@@ -14785,11 +14789,14 @@ namespace Rhythm_Recall.Waves
                 */
                 Effect3D.CameraRotation = new(0, 0, 0);
 
-                splitter = new RGBSplitting(0.9f) { Disturbance = false };
-                //  var production2 = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
-                splitter.Intensity = 1.0f;
-                //  production2.RandomDisturb = 3.0f;
-                splitter.RandomDisturb = 0;
+                splitter = new RGBSplitting(0.9f)
+                {
+                    Disturbance = false,
+                    Intensity = 1.0f,
+                    RandomDisturb = 0
+                };
+                //var production2 = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
+                //production2.RandomDisturb = 3.0f;
                 ScreenDrawing.SceneRendering.InsertProduction(splitter);
 
                 CreateEntity(rainer = new Rainer());

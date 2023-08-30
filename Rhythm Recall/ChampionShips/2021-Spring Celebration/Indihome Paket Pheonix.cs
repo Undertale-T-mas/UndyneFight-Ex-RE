@@ -38,12 +38,13 @@ namespace Rhythm_Recall.Waves
 
             public static Game instance;
 
-            public string FightName => "Goyang Ubur Ubur";
+            public string FightName => "Indihome Paket Phoenix";
 
             private class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string SongAuthor => "Diego Takupaz";
+                public override string DisplayName => "Goyang Ubur Ubur";
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                         new KeyValuePair<Difficulty, float>[] {
