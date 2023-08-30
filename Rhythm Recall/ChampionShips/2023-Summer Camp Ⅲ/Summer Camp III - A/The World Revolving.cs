@@ -1605,8 +1605,6 @@ namespace Rhythm_Recall.Waves
                 SetSoul(1);
                 TP();
                 GametimeDelta = -311 / 1000f * 62.5f + BeatTime(1);
-                bool jump = true;
-=========
                 bool jump = false;
                 HeartAttribute.ArrowFixed = true;
                 if (jump)
