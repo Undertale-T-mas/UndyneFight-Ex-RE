@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.Debugging
             /// <returns>返回值是新的几个块</returns>
             public StringBlock[] Split()
             {
-                List<string> strs = new List<string>();
+                List<string> strs = new();
                 bool isSplitter = false;
                 string current = "";
                 int i;
@@ -68,14 +68,14 @@ namespace UndyneFight_Ex.Debugging
             }
             private static bool CheckMixed(string data)
             {
-                HashSet<char> part1 = new HashSet<char> { ' ' };
-                HashSet<char> part2 = new HashSet<char> { '+', '-', '*', '/', '%', '=', '<', '>', '=' };
-                HashSet<char> part3 = new HashSet<char> { '(', ')' };
-                HashSet<char> part4 = new HashSet<char> { '[', ']' };
-                HashSet<char> part5 = new HashSet<char> { '}', '{' };
-                HashSet<char> part6 = new HashSet<char> { '<', '>' };
-                HashSet<char> part7 = new HashSet<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-                HashSet<char> part8 = new HashSet<char>();
+                HashSet<char> part1 = new() { ' ' };
+                HashSet<char> part2 = new() { '+', '-', '*', '/', '%', '=', '<', '>', '=' };
+                HashSet<char> part3 = new() { '(', ')' };
+                HashSet<char> part4 = new() { '[', ']' };
+                HashSet<char> part5 = new() { '}', '{' };
+                HashSet<char> part6 = new() { '<', '>' };
+                HashSet<char> part7 = new() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+                HashSet<char> part8 = new();
                 for (int i = 0; i < 26; i++) { part8.Add((char)('A' + i)); part8.Add((char)('a' + i)); }
 
                 HashSet<char>[] all = new HashSet<char>[] { part1, part2, part3, part4, part5, part6, part7, part8 };

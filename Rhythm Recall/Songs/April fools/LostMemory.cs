@@ -20,9 +20,9 @@ namespace AprilExtends
             {
                 controlLayer = Surface.Hidden;
                 boneCount *= 2;
-                rotateSpeed = 2 * (Functions.Rand(0, 1) * 2 - 1);
-                base.Rotation = Functions.Rand(0, 359);
-                base.Centre = start;
+                rotateSpeed = 2 * (Rand(0, 1) * 2 - 1);
+                Rotation = Rand(0, 359);
+                Centre = start;
                 this.speed = speed;
                 bones = new Bone[boneCount];
                 for (int i = 0; i < boneCount; i++)
@@ -39,17 +39,17 @@ namespace AprilExtends
             }
             public override void Update()
             {
-                base.Rotation += rotateSpeed;
-                base.Centre += speed;
+                Rotation += rotateSpeed;
+                Centre += speed;
                 appearTime += 1f;
-                distSin = Functions.Sin(appearTime / LostMemory.instance.BeatTime(24f) * 360f) * 100f;
+                distSin = Sin(appearTime / instance.BeatTime(24f) * 360f) * 100f;
                 float del = 360 / bones.Length;
                 for (int i = 0; i < bones.Length; i++)
                 {
                     Bone v = bones[i];
-                    v.Centre = base.Centre + MathUtil.GetVector2(distSin, base.Rotation + del * i);
-                    v.Rotation = base.Rotation * 1.5f + del * i;
-                    v.GetCollide(Functions.Heart);
+                    v.Centre = Centre + MathUtil.GetVector2(distSin, Rotation + del * i);
+                    v.Rotation = Rotation * 1.5f + del * i;
+                    v.GetCollide(Heart);
                 }
             }
             private Vector2 speed;
@@ -66,15 +66,15 @@ namespace AprilExtends
             {
                 public CrosserBone(int type)
                 {
-                    base.Length = 20f;
-                    base.ColorType = type;
+                    Length = 20f;
+                    ColorType = type;
                     alpha = 1f;
                 }
             }
         }
         public LostMemory()
         {
-            LostMemory.Game.instance = new LostMemory.Game();
+            Game.instance = new LostMemory.Game();
             divisionInformation = new SaveInfo("imf{");
             divisionInformation.PushNext(new SaveInfo("dif:4"));
             difficulties = new Dictionary<string, Difficulty>
@@ -190,12 +190,12 @@ namespace AprilExtends
             {
                 public override void Draw()
                 {
-                    FightResources.Font.NormalFont.CentreDraw((count + 1).ToString() ?? "", new Vector2(320f, 80f), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw((count + 1).ToString() ?? "", new Vector2(320f, 80f), Color.White, GameStates.SpriteBatch);
                     bool flag = time > 0f;
                     if (flag)
                     {
-                        FightResources.Font.NormalFont.CentreDraw("Time = " + (count * 1f / time).ToString(), new Vector2(320f, 120f), Color.White, GameStates.SpriteBatch);
-                        FightResources.Font.NormalFont.CentreDraw("Frame = " + (60f * (count * 1f / time)).ToString(), new Vector2(320f, 160f), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Time = " + (count * 1f / time).ToString(), new Vector2(320f, 120f), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Frame = " + (60f * (count * 1f / time)).ToString(), new Vector2(320f, 160f), Color.White, GameStates.SpriteBatch);
                     }
                 }
                 public override void Update()
@@ -216,7 +216,7 @@ namespace AprilExtends
                             if (flag3)
                             {
                                 count++;
-                                Functions.PlaySound(FightResources.Sounds.pierce);
+                                PlaySound(Sounds.pierce);
                             }
                         }
                     }
@@ -317,8 +317,8 @@ namespace AprilExtends
 
                     public override void Draw()
                     {
-                        DrawingLab.DrawLine(new Vector2(xCenter, yCenter), new Vector2(xCenter + Functions.Cos(rotate) * length, yCenter + Functions.Sin(rotate) * length), width, color * alpha, 0.99f);
-                        base.Depth = 0.99f;
+                        DrawingLab.DrawLine(new Vector2(xCenter, yCenter), new Vector2(xCenter + Cos(rotate) * length, yCenter + Sin(rotate) * length), width, color * alpha, 0.99f);
+                        Depth = 0.99f;
                     }
 
                     public override void Update()
@@ -516,57 +516,57 @@ namespace AprilExtends
                 public static void rain()
                 {
                     float speed = 9f;
-                    Game.DrawLine.Linerotatelong rain = new Game.DrawLine.Linerotatelong(Functions.Rand(0, 860), -45f, 290f + Functions.Rand(-2.5f, 2.5f), Game.bpm * 32f, Functions.Rand(0.2f, 0.4f), Functions.Rand(9, 55), Color.White);
-                    rain.width = Functions.Rand(2, 4);
-                    bool flag = Functions.Rand(1, 3) == 1;
+                    Game.DrawLine.Linerotatelong rain = new(Rand(0, 860), -45f, 290f + Rand(-2.5f, 2.5f), bpm * 32f, Rand(0.2f, 0.4f), Rand(9, 55), Color.White);
+                    rain.width = Rand(2, 4);
+                    bool flag = Rand(1, 3) == 1;
                     if (flag)
                     {
-                        Functions.CreateEntity(rain);
+                        CreateEntity(rain);
                     }
                     else
                     {
                         for (int a = 0; a < 2; a++)
                         {
-                            Functions.CreateEntity(rain);
+                            CreateEntity(rain);
                         }
                     }
-                    Functions.AddInstance(new TimeRangedEvent(0f, Game.bpm * 32f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, bpm * 32f, delegate ()
                     {
-                        rain.xCenter += Functions.Cos(110f) * speed;
-                        rain.yCenter += Functions.Sin(110f) * speed;
+                        rain.xCenter += Cos(110f) * speed;
+                        rain.yCenter += Sin(110f) * speed;
                     }));
                 }
                 public static void rain2()
                 {
-                    Game.DrawLine.Linerotatelong rain = new Game.DrawLine.Linerotatelong(Functions.Rand(0, 640), -45f, 270f, Game.bpm * 32f, 0.15f, Functions.Rand(13, 55), Color.White);
+                    Game.DrawLine.Linerotatelong rain = new(Rand(0, 640), -45f, 270f, bpm * 32f, 0.15f, Rand(13, 55), Color.White);
                     rain.width = 2f;
-                    Game.DrawLine.Linerotatelong rain1 = new Game.DrawLine.Linerotatelong(Functions.Rand(0, 640), 525f, 90f, Game.bpm * 32f, 0.15f, Functions.Rand(13, 55), Color.White);
+                    Game.DrawLine.Linerotatelong rain1 = new(Rand(0, 640), 525f, 90f, bpm * 32f, 0.15f, Rand(13, 55), Color.White);
                     rain.width = 2f;
-                    bool flag = Functions.Rand(1, 3) == 1;
+                    bool flag = Rand(1, 3) == 1;
                     if (flag)
                     {
-                        Functions.CreateEntity(rain);
+                        CreateEntity(rain);
                     }
                     else
                     {
                         for (int a = 0; a < 2; a++)
                         {
-                            Functions.CreateEntity(rain);
+                            CreateEntity(rain);
                         }
                     }
-                    bool flag2 = Functions.Rand(1, 3) == 1;
+                    bool flag2 = Rand(1, 3) == 1;
                     if (flag2)
                     {
-                        Functions.CreateEntity(rain1);
+                        CreateEntity(rain1);
                     }
                     else
                     {
                         for (int a2 = 0; a2 < 2; a2++)
                         {
-                            Functions.CreateEntity(rain1);
+                            CreateEntity(rain1);
                         }
                     }
-                    Functions.AddInstance(new TimeRangedEvent(0f, Game.bpm * 32f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, bpm * 32f, delegate ()
                     {
                         rain.yCenter += 9f;
                         rain1.yCenter -= 9f;
@@ -574,42 +574,42 @@ namespace AprilExtends
                 }
                 public static void rain3()
                 {
-                    Game.DrawLine.Linerotatelong rain1 = new Game.DrawLine.Linerotatelong(Functions.Rand(0, 640), 525f, 90f, Game.bpm * 32f, 0.15f, Functions.Rand(13, 55), Color.White);
+                    Game.DrawLine.Linerotatelong rain1 = new(Rand(0, 640), 525f, 90f, bpm * 32f, 0.15f, Rand(13, 55), Color.White);
                     rain1.width = 2f;
-                    bool flag2 = Functions.Rand(1, 3) == 1;
+                    bool flag2 = Rand(1, 3) == 1;
                     if (flag2)
                     {
-                        Functions.CreateEntity(rain1);
+                        CreateEntity(rain1);
                     }
                     else
                     {
                         for (int a2 = 0; a2 < 2; a2++)
                         {
-                            Functions.CreateEntity(rain1);
+                            CreateEntity(rain1);
                         }
                     }
-                    Functions.AddInstance(new TimeRangedEvent(0f, Game.bpm * 32f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, bpm * 32f, delegate ()
                     {
                         rain1.yCenter -= 9f;
                     }));
                 }
                 public static void rain4()
                 {
-                    Game.DrawLine.Linerotatelong rain = new Game.DrawLine.Linerotatelong(Functions.Rand(0, 640), -45f, 270f, Game.bpm * 32f, 0.15f, Functions.Rand(13, 55), Color.White);
+                    Game.DrawLine.Linerotatelong rain = new(Rand(0, 640), -45f, 270f, bpm * 32f, 0.15f, Rand(13, 55), Color.White);
                     rain.width = 2f;
-                    bool flag = Functions.Rand(1, 3) == 1;
+                    bool flag = Rand(1, 3) == 1;
                     if (flag)
                     {
-                        Functions.CreateEntity(rain);
+                        CreateEntity(rain);
                     }
                     else
                     {
                         for (int a = 0; a < 2; a++)
                         {
-                            Functions.CreateEntity(rain);
+                            CreateEntity(rain);
                         }
                     }
-                    Functions.AddInstance(new TimeRangedEvent(0f, Game.bpm * 32f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, bpm * 32f, delegate ()
                     {
                         rain.yCenter += 9f;
                     }));
@@ -1711,16 +1711,16 @@ namespace AprilExtends
                 }
                 if (GametimeF == 13510 - 30)
                 {
-                    Functions.AddInstance(new TimeRangedEvent(0, 30, () =>
+                    AddInstance(new TimeRangedEvent(0, 30, () =>
                     {
                         int total = 30;
-                        float start = Functions.ScreenDrawing.ScreenAngle;
-                        float end = Functions.ScreenDrawing.ScreenAngle + 180f;
+                        float start = ScreenDrawing.ScreenAngle;
+                        float end = ScreenDrawing.ScreenAngle + 180f;
                         float del = start - end;
                         float t = 0f;
-                        Functions.AddInstance(new TimeRangedEvent(0f, total, delegate ()
+                        AddInstance(new TimeRangedEvent(0f, total, delegate ()
                         {
-                            Functions.ScreenDrawing.ScreenAngle = start - del * (t / (total - 1)) * (t / (total - 1));
+                            ScreenDrawing.ScreenAngle = start - del * (t / (total - 1)) * (t / (total - 1));
                             t = t;
                             t += 1f;
                         }));

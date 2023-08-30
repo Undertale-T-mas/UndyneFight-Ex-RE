@@ -41,21 +41,21 @@ namespace Rhythm_Recall.Waves
 
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 2f),
                             new(Difficulty.Normal, 10f),
                             new(Difficulty.Extreme, 17.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 2f),
                             new(Difficulty.Normal, 10f),
                             new(Difficulty.Extreme, 17.5f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 8.5f),
                             new(Difficulty.Normal, 13.5f),
@@ -181,7 +181,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 3; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 12f + 0.16f;
                                 CreateEntity(line);
@@ -221,7 +221,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -264,7 +264,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -281,7 +281,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);
@@ -296,7 +296,7 @@ namespace Rhythm_Recall.Waves
                             float yPos = sign * 240 + 240;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
+                                Line line = new(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
                                 line.DrawingColor = Color.Silver * 0.5f;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);
@@ -2279,7 +2279,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 3; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 12f + 0.16f;
                                 CreateEntity(line);
@@ -2319,7 +2319,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -2362,7 +2362,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -2379,7 +2379,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);
@@ -2394,7 +2394,7 @@ namespace Rhythm_Recall.Waves
                             float yPos = sign * 240 + 240;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
+                                Line line = new(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
                                 line.DrawingColor = Color.Silver * 0.5f;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);
@@ -4163,7 +4163,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 3; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 12f + 0.16f;
                                 CreateEntity(line);
@@ -4203,7 +4203,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -4246,7 +4246,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -4263,7 +4263,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);
@@ -4278,7 +4278,7 @@ namespace Rhythm_Recall.Waves
                             float yPos = sign * 240 + 240;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
+                                Line line = new(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
                                 line.DrawingColor = Color.Silver * 0.5f;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);
@@ -6176,7 +6176,7 @@ namespace Rhythm_Recall.Waves
             {
                 public FakeArrow(int color, int rotateType)
                 {
-                    Image = FightResources.Sprites.arrow[color, rotateType, 0];
+                    Image = Sprites.arrow[color, rotateType, 0];
                 }
                 public override void Update()
                 {
@@ -6542,7 +6542,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 3; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 12f + 0.16f;
                                 CreateEntity(line);
@@ -6582,7 +6582,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -6625,7 +6625,7 @@ namespace Rhythm_Recall.Waves
                         for (int i = 0; i < origins.Length; i++)
                         {
                             int t = i;
-                            Line line = new Line((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
+                            Line line = new((s) => positions[t], (s) => positions[(t + 1) % positions.Length]);
                             line.DrawingColor = Color.Silver;
                             line.Alpha = 0.3f;
                             CreateEntity(line);
@@ -6642,7 +6642,7 @@ namespace Rhythm_Recall.Waves
                             float xPos = sign * 320 + 320;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
+                                Line line = new(new Vector2(xPos - i * sign * 12, 0), new Vector2(xPos - i * sign * 12, 480));
                                 line.DrawingColor = Color.Yellow;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);
@@ -6657,7 +6657,7 @@ namespace Rhythm_Recall.Waves
                             float yPos = sign * 240 + 240;
                             for (int i = 1; i <= 2; i++)
                             {
-                                Line line = new Line(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
+                                Line line = new(new Vector2(0, yPos - (i + 1) * sign * 10), new Vector2(640, yPos - (i + 1) * sign * 12));
                                 line.DrawingColor = Color.Silver * 0.5f;
                                 line.Alpha = i / 10f + 0.24f;
                                 CreateEntity(line);

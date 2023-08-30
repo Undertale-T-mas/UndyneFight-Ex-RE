@@ -12,7 +12,7 @@ namespace AprilExtends
         // Token: 0x06000070 RID: 112 RVA: 0x0000438C File Offset: 0x0000258C
         public Rrharil()
         {
-            Rrharil.Game.instance = new Rrharil.Game();
+            Game.instance = new Rrharil.Game();
             divisionInformation = new SaveInfo("imf{");
             divisionInformation.PushNext(new SaveInfo("dif:4"));
             difficulties = new Dictionary<string, Difficulty>();
@@ -41,7 +41,7 @@ namespace AprilExtends
                 return new Rrharil.Game();
             }
         }
-        private readonly Dictionary<string, Difficulty> difficulties = new Dictionary<string, Difficulty>();
+        private readonly Dictionary<string, Difficulty> difficulties = new();
         public SaveInfo divisionInformation;
 
         private class Game : WaveConstructor, IWaveSet

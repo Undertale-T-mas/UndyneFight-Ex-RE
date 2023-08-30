@@ -38,7 +38,7 @@ namespace UndyneFight_Ex.Entities
 
         public class HeartPiece : Entity
         {
-            private static CollideRect screen = new CollideRect(-50, -50, 740, 580);
+            private static CollideRect screen = new(-50, -50, 740, 580);
             private Vector2 speed;
             private readonly float rotateSpeed;
             private Color color;

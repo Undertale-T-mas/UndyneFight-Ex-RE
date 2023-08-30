@@ -58,7 +58,7 @@ namespace Rhythm_Recall.Waves
                 float prog;
                 public override void Draw()
                 {
-                    FightResources.Font.Japanese.CentreDraw(prog.ToString() + " %", new(550, 440), Color.DimGray * 0.7f, 0.7f, 0.0f);
+                    Font.Japanese.CentreDraw(prog.ToString() + " %", new(550, 440), Color.DimGray * 0.7f, 0.7f, 0.0f);
                 }
 
                 public override void Update()

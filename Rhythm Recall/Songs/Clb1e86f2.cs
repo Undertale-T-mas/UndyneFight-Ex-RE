@@ -92,19 +92,19 @@ namespace Rhythm_Recall.Waves
                     AddInstance(easeA = new Arrow.UnitEasing()
                     {
                         ApplyTime = BeatTime(2.25f),
-                        RotationEase = SimplifiedEasing.Copy(SimplifiedEasing.LinkEase(
-                            SimplifiedEasing.EaseOut(BeatTime(0.25f), 15, SimplifiedEasing.EaseState.Sine),
-                            SimplifiedEasing.EaseIn(BeatTime(0.25f), -15, SimplifiedEasing.EaseState.Sine),
-                            SimplifiedEasing.EaseOut(BeatTime(0.25f), -15, SimplifiedEasing.EaseState.Sine),
-                            SimplifiedEasing.EaseIn(BeatTime(0.25f), 15, SimplifiedEasing.EaseState.Sine)
+                        RotationEase = Copy(LinkEase(
+                            EaseOut(BeatTime(0.25f), 15, EaseState.Sine),
+                            EaseIn(BeatTime(0.25f), -15, EaseState.Sine),
+                            EaseOut(BeatTime(0.25f), -15, EaseState.Sine),
+                            EaseIn(BeatTime(0.25f), 15, EaseState.Sine)
                         ), 2)
                     });
                     for (int i = 0; i < 4; i++)
                         game.DelayBeat(2 + i * 8, () =>
                         {
-                            SimplifiedEasing.RunEase((s) => easeA.Intensity = s,
-                                    SimplifiedEasing.EaseIn(BeatTime(5f), 1.0f, SimplifiedEasing.EaseState.Sine),
-                                    SimplifiedEasing.EaseIn(BeatTime(3f), -0.9f, SimplifiedEasing.EaseState.Sine)
+                            RunEase((s) => easeA.Intensity = s,
+                                    EaseIn(BeatTime(5f), 1.0f, EaseState.Sine),
+                                    EaseIn(BeatTime(3f), -0.9f, EaseState.Sine)
                                 );
                         });
                     game.DelayBeat(0, () =>
@@ -125,7 +125,7 @@ namespace Rhythm_Recall.Waves
                     });
                     game.RegisterFunctionOnce("Eff0", () =>
                     {
-                        SimplifiedEasing.RunEase((s) =>
+                        RunEase((s) =>
                         {
                             scatter.Ratio = MathHelper.Lerp(0.04f, 0.55f, s);
                             scatter.Intensity = MathHelper.Lerp(1.5f, 10f, s);
@@ -133,23 +133,23 @@ namespace Rhythm_Recall.Waves
                             ScreenDrawing.LeftBoundDistance = ScreenDrawing.RightBoundDistance = MathHelper.LerpPrecise(54f, 190f, s);
                             ScreenDrawing.BoundColor = Color.Lerp(Color.White, Color.Magenta, s * 0.3f + 0.7f) * 0.4f;
                         },
-                                SimplifiedEasing.EaseIn(BeatTime(4f), 1.0f, SimplifiedEasing.EaseState.Sine),
-                                SimplifiedEasing.EaseIn(BeatTime(4f), -1.0f, SimplifiedEasing.EaseState.Sine)
+                                EaseIn(BeatTime(4f), 1.0f, EaseState.Sine),
+                                EaseIn(BeatTime(4f), -1.0f, EaseState.Sine)
                             );
 
 
                         //shake:
-                        SimplifiedEasing.RunEase((s) =>
+                        RunEase((s) =>
                         {
                             BoxStates.Centre = new Vector2(320 + s, 240);
                             Heart.Centre = BoxStates.Centre;
                         },
-                            SimplifiedEasing.Scale(
-                                SimplifiedEasing.LinkEase(
-                                    SimplifiedEasing.EaseOut(BeatTime(4f), 2, SimplifiedEasing.EaseState.Cubic),
-                                    SimplifiedEasing.EaseIn(BeatTime(3f), -2, SimplifiedEasing.EaseState.Cubic))
+                            Scale(
+                                LinkEase(
+                                    EaseOut(BeatTime(4f), 2, EaseState.Cubic),
+                                    EaseIn(BeatTime(3f), -2, EaseState.Cubic))
                                 ,
-                                SimplifiedEasing.Alternate(2f, SimplifiedEasing.Stable(1f, 1f), SimplifiedEasing.Stable(1, -1)))
+                                Alternate(2f, Stable(1f, 1f), Stable(1, -1)))
 
                             );
                     });
@@ -181,7 +181,7 @@ namespace Rhythm_Recall.Waves
                 {
                     game.RegisterFunctionOnce("Eff0", () =>
                     {
-                        SimplifiedEasing.RunEase((s) =>
+                        RunEase((s) =>
                         {
                             scatter.Ratio = MathHelper.Lerp(0.04f, 0.55f, s);
                             scatter.Intensity = MathHelper.Lerp(1.5f, 10f, s);
@@ -190,33 +190,33 @@ namespace Rhythm_Recall.Waves
                             ScreenDrawing.LeftBoundDistance = ScreenDrawing.RightBoundDistance = MathHelper.LerpPrecise(54f, 190f, s);
                             ScreenDrawing.BoundColor = Color.Lerp(Color.White, Color.Magenta, s * 0.3f + 0.7f) * 0.4f;
                         },
-                                SimplifiedEasing.EaseIn(BeatTime(4f), 1.0f, SimplifiedEasing.EaseState.Sine),
-                                SimplifiedEasing.EaseIn(BeatTime(3.9f), -1.0f, SimplifiedEasing.EaseState.Sine),
-                                SimplifiedEasing.Stable(0)
+                                EaseIn(BeatTime(4f), 1.0f, EaseState.Sine),
+                                EaseIn(BeatTime(3.9f), -1.0f, EaseState.Sine),
+                                Stable(0)
                             );
 
                         //shake:
-                        SimplifiedEasing.RunEase((s) =>
+                        RunEase((s) =>
                         {
                             BoxStates.Centre = new Vector2(320 + s, 240);
                         },
-                            SimplifiedEasing.Scale(
-                                SimplifiedEasing.LinkEase(
-                                    SimplifiedEasing.EaseOut(BeatTime(4f), 2, SimplifiedEasing.EaseState.Cubic),
-                                    SimplifiedEasing.EaseIn(BeatTime(3f), -2, SimplifiedEasing.EaseState.Cubic))
+                            Scale(
+                                LinkEase(
+                                    EaseOut(BeatTime(4f), 2, EaseState.Cubic),
+                                    EaseIn(BeatTime(3f), -2, EaseState.Cubic))
                                 ,
-                                SimplifiedEasing.Alternate(2f, SimplifiedEasing.Stable(1f, 1f), SimplifiedEasing.Stable(1, -1)))
+                                Alternate(2f, Stable(1f, 1f), Stable(1, -1)))
 
                             );
                     });
                     game.RegisterFunctionOnce("End", () =>
                     {
-                        SimplifiedEasing.RunEase((s) =>
+                        RunEase((s) =>
                         {
                             scatter.Ratio = MathHelper.Lerp(0.14f, 0, s);
                             scatter.Intensity = MathHelper.Lerp(3.5f, 0, s);
                             rgbSplit.Intensity = MathHelper.Lerp(1.5f, 0, s);
-                        }, SimplifiedEasing.EaseOut(BeatTime(2), 1, SimplifiedEasing.EaseState.Linear), SimplifiedEasing.Stable(1));
+                        }, EaseOut(BeatTime(2), 1, EaseState.Linear), Stable(1));
                         game.DelayBeat(0.5f, () => { scatterP.Dispose(); rgbSplit.Dispose(); });
                     });
                     game.RegisterFunctionOnce("RiseStart", () => {
@@ -230,27 +230,27 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.SceneRendering.InsertProduction(lighting);
 
                         lighting.LightingMode = Lighting.LightMode.Additive;
-                        SimplifiedEasing.RunEase((s) =>
+                        RunEase((s) =>
                         {
                             lighting.AmbientColor = Color.Lerp(Color.Transparent,
                             Color.Lerp(Color.Magenta * 0.72f, Color.White * 0.72f, 0.5f), s);
                         },
-                            SimplifiedEasing.EaseIn(BeatTime(2.5f), 0.7f, SimplifiedEasing.EaseState.Quad),
-                            SimplifiedEasing.EaseOut(BeatTime(1.1f), 0.7f, 1.0f, SimplifiedEasing.EaseState.Quad),
-                            SimplifiedEasing.EaseOut(BeatTime(1.2f), 1.0f, 0.0f, SimplifiedEasing.EaseState.Linear));
+                            EaseIn(BeatTime(2.5f), 0.7f, EaseState.Quad),
+                            EaseOut(BeatTime(1.1f), 0.7f, 1.0f, EaseState.Quad),
+                            EaseOut(BeatTime(1.2f), 1.0f, 0.0f, EaseState.Linear));
 
                         Lighting.Light lightA = new() { position = new(320, 240), color = Color.Transparent, size = 80 };
                         lighting.Lights.Add(lightA);
 
                         lightA.scale = new(1.15f, 1.0f);
-                        SimplifiedEasing.RunEase((s) =>
+                        RunEase((s) =>
                         {
                             lightA.size = MathHelper.Lerp(100, 670, s);
                             lightA.color = Color.Lerp(Color.Transparent, Color.White, s);
                         },
-                            SimplifiedEasing.EaseIn(BeatTime(2.5f), 0.7f, SimplifiedEasing.EaseState.Quad),
-                            SimplifiedEasing.EaseOut(BeatTime(1.1f), 0.7f, 1.0f, SimplifiedEasing.EaseState.Quad),
-                            SimplifiedEasing.EaseOut(BeatTime(0.85f), 1.0f, 0.0f, SimplifiedEasing.EaseState.Linear));
+                            EaseIn(BeatTime(2.5f), 0.7f, EaseState.Quad),
+                            EaseOut(BeatTime(1.1f), 0.7f, 1.0f, EaseState.Quad),
+                            EaseOut(BeatTime(0.85f), 1.0f, 0.0f, EaseState.Linear));
 
 
                         /*
@@ -304,12 +304,12 @@ namespace Rhythm_Recall.Waves
                     AddInstance(easeA = new Arrow.UnitEasing()
                     {
                         ApplyTime = BeatTime(3.0f),
-                        RotationEase = SimplifiedEasing.Copy(SimplifiedEasing.LinkEase(
-                            SimplifiedEasing.EaseOut(BeatTime(0.25f), 7, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.EaseIn(BeatTime(0.25f), -7, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.EaseOut(BeatTime(0.25f), -7, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.EaseIn(BeatTime(0.15f), 7, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.Stable(BeatTime(0.1f))
+                        RotationEase = Copy(LinkEase(
+                            EaseOut(BeatTime(0.25f), 7, EaseState.Circ),
+                            EaseIn(BeatTime(0.25f), -7, EaseState.Circ),
+                            EaseOut(BeatTime(0.25f), -7, EaseState.Circ),
+                            EaseIn(BeatTime(0.15f), 7, EaseState.Circ),
+                            Stable(BeatTime(0.1f))
                         ), 2)
                     });
                     easeA.TagApply("A");
@@ -319,13 +319,13 @@ namespace Rhythm_Recall.Waves
                     {
                         ApplyTime = BeatTime(3.0f),
                         RotationEase =
-                        SimplifiedEasing.LinkEase(false,
-                            SimplifiedEasing.EaseOut(BeatTime(0.35f), 45, 45, SimplifiedEasing.EaseState.Linear),
-                            SimplifiedEasing.EaseOut(BeatTime(0.06f), 45, 46, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.EaseOut(BeatTime(0.06f), 46, 44, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.EaseOut(BeatTime(0.06f), 44, 45, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.EaseOut(BeatTime(1f), 45, 45, SimplifiedEasing.EaseState.Linear),
-                            SimplifiedEasing.EaseOut(BeatTime(1f), 45, 0, SimplifiedEasing.EaseState.Circ)
+                        LinkEase(false,
+                            EaseOut(BeatTime(0.35f), 45, 45, EaseState.Linear),
+                            EaseOut(BeatTime(0.06f), 45, 46, EaseState.Circ),
+                            EaseOut(BeatTime(0.06f), 46, 44, EaseState.Circ),
+                            EaseOut(BeatTime(0.06f), 44, 45, EaseState.Circ),
+                            EaseOut(BeatTime(1f), 45, 45, EaseState.Linear),
+                            EaseOut(BeatTime(1f), 45, 0, EaseState.Circ)
                         )
                     });
                     easeB.TagApply("B");
@@ -333,15 +333,15 @@ namespace Rhythm_Recall.Waves
                     void XEase(float pos)
                     {
                         easeX.RevolutionEase(
-                                SimplifiedEasing.EaseOut(2.5f, pos, -pos, SimplifiedEasing.EaseState.Circ),
-                                SimplifiedEasing.EaseOut(2.2f, -pos, 0, SimplifiedEasing.EaseState.Circ)
+                                EaseOut(2.5f, pos, -pos, EaseState.Circ),
+                                EaseOut(2.2f, -pos, 0, EaseState.Circ)
                             );
                     }
                     void YEase(float pos)
                     {
                         easeX.SelfRotationEase(
-                            SimplifiedEasing.EaseOut(3f, pos, -pos, SimplifiedEasing.EaseState.Circ),
-                            SimplifiedEasing.EaseOut(2.5f, -pos, 0, SimplifiedEasing.EaseState.Circ)
+                            EaseOut(3f, pos, -pos, EaseState.Circ),
+                            EaseOut(2.5f, -pos, 0, EaseState.Circ)
                             );
                     }
                     game.RegisterFunctionOnce("XShakeA", () =>
@@ -498,21 +498,21 @@ namespace Rhythm_Recall.Waves
 
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 14.0f),
                             new(Difficulty.Extreme, 17.2f),
                             new(Difficulty.ExtremePlus, 18.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 14.0f),
                             new(Difficulty.Extreme, 17.2f),
                             new(Difficulty.ExtremePlus, 18.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 16.5f),
                             new(Difficulty.Extreme, 20.7f),

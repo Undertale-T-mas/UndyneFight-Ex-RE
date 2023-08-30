@@ -38,21 +38,21 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "Big Tlott";
                 public override string AttributeAuthor => "Big Tlott";
                 public override string PaintAuthor => "UK";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
                 {
                     new(Difficulty.Easy,4.0f),
                     new(Difficulty.Extreme,17.0f)
                 }
                 );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                     new(Difficulty.Easy,4.0f),
                     new(Difficulty.Extreme,17.0f)
                     }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                     new(Difficulty.Easy,8.0f),
@@ -666,7 +666,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         mt.BulletDepth = 0.3f;
                         mt.InsertShot(4, BeatTime(2f));
@@ -678,7 +678,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(3)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         //mt.BulletDepth = 0.49f;
                         mt.InsertShot(4, BeatTime(2f));
@@ -755,7 +755,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         mt.BulletDepth = 0.3f;
                         mt.InsertShot(8, BeatTime(2f));
@@ -767,7 +767,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(3)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         mt.BulletDepth = 0.3f;
                         mt.InsertShot(8, BeatTime(2f));
@@ -2099,7 +2099,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         mt.BulletDepth = 0.3f;
                         mt.InsertShot(8, BeatTime(2f));
@@ -2111,7 +2111,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(3)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         //mt.BulletDepth = 0.49f;
                         mt.InsertShot(8, BeatTime(2f));
@@ -2186,7 +2186,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(-10, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         mt.BulletDepth = 0.3f;
                         mt.InsertShot(8, BeatTime(2f));
@@ -2198,7 +2198,7 @@ namespace Rhythm_Recall.Waves
                         var ce = LinkEase(Stable(0, new Vector2(650, 240 + offset)),
                           Combine(InfLinear(0, speed), SineWave(80, BeatTime(6), 99999, BeatTime(3)))
                             );
-                        ParasolMett mt = new ParasolMett(ce);
+                        ParasolMett mt = new(ce);
                         CreateEntity(mt);
                         mt.BulletDepth = 0.3f;
                         mt.InsertShot(8, BeatTime(2f));

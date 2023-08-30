@@ -15,7 +15,7 @@ namespace UndyneFight_Ex.Server
         private DateTime _lastRefreshTime = DateTime.Now;
         public bool IsDead()
         {
-            TimeSpan secondSpan = new TimeSpan(DateTime.Now.Ticks - _lastRefreshTime.Ticks);
+            TimeSpan secondSpan = new(DateTime.Now.Ticks - _lastRefreshTime.Ticks);
             return secondSpan.TotalSeconds >= timeAliveSeconds;
         }
         public void Refresh()

@@ -86,7 +86,7 @@ namespace UndyneFight_Ex.Server
             try {
                 listener = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 IPAddress ip = IPAddress.Any;
-                IPEndPoint point = new IPEndPoint(ip, 9982);
+                IPEndPoint point = new(ip, 9982);
                 listener.Bind(point);
                 listener.Listen(200);
 

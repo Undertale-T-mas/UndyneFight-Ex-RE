@@ -43,19 +43,19 @@ namespace Rhythm_Recall.Waves
 
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 14.0f),
                             new(Difficulty.Extreme, 18.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 14.0f),
                             new(Difficulty.Extreme, 18.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 16.5f),
                             new(Difficulty.Extreme, 21.7f),
@@ -477,7 +477,7 @@ namespace Rhythm_Recall.Waves
                             for (int i = 0; i < 4; i++)
                             {
                                 SetPlayerBoxMission(i);
-                                Vector2 basis = new Vector2(140 + 120 * i, 300);
+                                Vector2 basis = new(140 + 120 * i, 300);
                                 InstantTP(basis);
                                 Heart.FixArrow = false;
                                 BoxStates.Centre = basis;

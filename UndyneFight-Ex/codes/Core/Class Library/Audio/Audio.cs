@@ -176,14 +176,13 @@ namespace UndyneFight_Ex
         {
             if (path.EndsWith(".ogg"))
             {
-                if (string.IsNullOrEmpty(loader.RootDirectory))
-                    source = new DynamicSongPlayer(path);
-                else source = new DynamicSongPlayer(loader.RootDirectory + "\\" + path);
+                source = new DynamicSongPlayer(string.IsNullOrEmpty(loader.RootDirectory) ? path : loader.RootDirectory + "\\" + path);
                 return;
             }
             object result = loader.Load<object>(path);
             if (result is SoundEffect) source = new EffectPlayer(result as SoundEffect);
-            else if (result is Song) source = new SongPlayer(result as Song); source.Volume = 1f;
+            else if (result is Song) source = new SongPlayer(result as Song);
+            source.Volume = 1f;
         }
         public Audio(SoundEffect effect)
         {

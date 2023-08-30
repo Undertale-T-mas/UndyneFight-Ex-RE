@@ -90,7 +90,7 @@ namespace UndyneFight_Ex.Entities
         {
             controlLayer = Surface.Hidden;
             drawingColor = GameMain.CurrentDrawingSettings.themeColor;
-            controlingBox = RectangleBox.instance;
+            controlingBox = FightBox.instance;
             rotation %= 360;
             trueRotation = rotation;
             Rotation = rotation;

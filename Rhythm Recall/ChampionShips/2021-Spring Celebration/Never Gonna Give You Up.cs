@@ -49,19 +49,19 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "Rick Astley";
                 public override string PaintAuthor => "OtokP";
 
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 9.5f),
                             new(Difficulty.Extreme, 16.9f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 9.0f),
                             new(Difficulty.Extreme, 16.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 16.0f),
                             new(Difficulty.Extreme, 19.8f),
@@ -352,13 +352,13 @@ namespace Rhythm_Recall.Waves
                         case 0:
                             Fortimes(4, (x) =>
                             {
-                                CreateGB(new NormalGB(RectangleBox.instance.Centre + GetVector2(160, 45 + x * 90), Heart.Centre, Vector2.One, x * 90 + 225, 48, 11));
+                                CreateGB(new NormalGB(FightBox.instance.Centre + GetVector2(160, 45 + x * 90), Heart.Centre, Vector2.One, x * 90 + 225, 48, 11));
                             });
                             break;
                         case 1:
                             Fortimes(4, (x) =>
                             {
-                                CreateGB(new NormalGB(RectangleBox.instance.Centre + GetVector2(140, x * 90), Heart.Centre, Vector2.One, x * 90 + 180, 48, 11));
+                                CreateGB(new NormalGB(FightBox.instance.Centre + GetVector2(140, x * 90), Heart.Centre, Vector2.One, x * 90 + 180, 48, 11));
                             });
                             break;
                         case 2:
@@ -486,7 +486,7 @@ namespace Rhythm_Recall.Waves
                     int[] rhythm2 = { 1, 0, 0, 1, 0, 0, 2, 2 };
                     int[] rhythm3 = { 1, 0, 0, 1, 0, 2, 1, 2 };
 
-                    List<int[]> rhythms = new List<int[]> { rhythm1, rhythm2, rhythm1, rhythm3, rhythm1, rhythm2, rhythm1, rhythm3 };
+                    List<int[]> rhythms = new() { rhythm1, rhythm2, rhythm1, rhythm3, rhythm1, rhythm2, rhythm1, rhythm3 };
 
                     Fortimes(8, (x) =>
                     {
@@ -759,13 +759,13 @@ namespace Rhythm_Recall.Waves
                         case 0:
                             Fortimes(4, (x) =>
                             {
-                                CreateGB(new NormalGB(RectangleBox.instance.Centre + GetVector2(160, 45 + x * 90), Heart.Centre, Vector2.One, x * 90 + 225, 40, 11));
+                                CreateGB(new NormalGB(FightBox.instance.Centre + GetVector2(160, 45 + x * 90), Heart.Centre, Vector2.One, x * 90 + 225, 40, 11));
                             });
                             break;
                         case 1:
                             Fortimes(4, (x) =>
                             {
-                                CreateGB(new NormalGB(RectangleBox.instance.Centre + GetVector2(140, x * 90), Heart.Centre, Vector2.One, x * 90 + 180, 40, 11));
+                                CreateGB(new NormalGB(FightBox.instance.Centre + GetVector2(140, x * 90), Heart.Centre, Vector2.One, x * 90 + 180, 40, 11));
                             });
                             break;
                         case 2:

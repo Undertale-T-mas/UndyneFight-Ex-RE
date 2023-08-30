@@ -31,31 +31,31 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     //confirm:
                     if (string.IsNullOrEmpty(this._account.Result))
-                    { 
-                        GameStates.InstanceCreate(new InfoText("Input user name!", new Vector2(672, 400)) { DrawingColor = Color.Red });
+                    {
+                        InstanceCreate(new InfoText("Input user name!", new Vector2(672, 400)) { DrawingColor = Color.Red });
                     }
                     else if (string.IsNullOrEmpty(this._password.Result))
-                    { 
-                        GameStates.InstanceCreate(new InfoText("Input password!", new Vector2(672, 400)) { DrawingColor = Color.Red });
+                    {
+                        InstanceCreate(new InfoText("Input password!", new Vector2(672, 400)) { DrawingColor = Color.Red });
                     }
                     else if (string.IsNullOrEmpty(this._password2.Result))
-                    { 
-                        GameStates.InstanceCreate(new InfoText("Input password twice!", new Vector2(672, 400)) { DrawingColor = Color.Red });
+                    {
+                        InstanceCreate(new InfoText("Input password twice!", new Vector2(672, 400)) { DrawingColor = Color.Red });
                     }
                     else if (this._password2.Result != this._password.Result)
-                    { 
-                        GameStates.InstanceCreate(new InfoText("Your two passwords are not same", new Vector2(672, 400)) { DrawingColor = Color.Red });
+                    {
+                        InstanceCreate(new InfoText("Your two passwords are not same", new Vector2(672, 400)) { DrawingColor = Color.Red });
                     }
                     else if (PlayerManager.playerInfos.ContainsKey(this._account.Result))
                     {
-                        GameStates.InstanceCreate(new InfoText("User already exists!", new Vector2(672, 400)) { DrawingColor = Color.Red });
+                        InstanceCreate(new InfoText("User already exists!", new Vector2(672, 400)) { DrawingColor = Color.Red });
                     }
                     else
                     {
                         PlayerManager.AddNewUser(_account.Result, this._password2.Result);
                         this._virtualFather.FatherObject.Dispose();
                         SendRegRequest();
-                        GameStates.InstanceCreate(new DEBUG.IntroUI());
+                        InstanceCreate(new DEBUG.IntroUI());
                     }
                 }
             }
@@ -96,7 +96,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             private void RegKeyChange()
             {
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainRight) && currentFocus is not TextInputer)
+                if (IsKeyPressed120f(InputIdentity.MainRight) && currentFocus is not TextInputer)
                 {
                     int id = FocusID;
                     for (int i = id + 1; i < all.Length; i++)
@@ -109,7 +109,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainLeft) && currentFocus is not TextInputer)
+                else if (IsKeyPressed120f(InputIdentity.MainLeft) && currentFocus is not TextInputer)
                 {
                     int id = FocusID;
                     for (int i = id - 1; i >= 0; i--)
@@ -123,19 +123,19 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                 }
 
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                if (IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = _downNext[FocusID];
                     currentFocus.OffFocus();
                     all[id].OnFocus();
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                if (IsKeyPressed120f(InputIdentity.MainUp))
                 {
                     int id = _upNext[FocusID];
                     currentFocus.OffFocus();
                     all[id].OnFocus();
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus?.ConfirmKeyDown();
                 }

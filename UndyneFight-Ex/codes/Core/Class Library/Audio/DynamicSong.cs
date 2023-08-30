@@ -58,7 +58,7 @@ namespace MyMonoGame
 
         public DynamicSongInstance CreateInstance()
         {
-            DynamicSoundEffectInstance dynamicSound = new DynamicSoundEffectInstance(sampleRate, (AudioChannels)channels);
+            DynamicSoundEffectInstance dynamicSound = new(sampleRate, (AudioChannels)channels);
 
             count = AlignTo8Bytes(dynamicSound.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(bufferDuration)) + 4);
             loopLengthBytes = AlignTo8Bytes(dynamicSound.GetSampleSizeInBytes(TimeSpan.FromSeconds((double)loopLengthSamples / sampleRate)));
@@ -76,7 +76,7 @@ namespace MyMonoGame
 
         private void ReadOgg(string path)
         {
-            using (VorbisReader vorbis = new VorbisReader(path))
+            using (VorbisReader vorbis = new(path))
             {
                 channels = vorbis.Channels;
                 sampleRate = vorbis.SampleRate;
@@ -86,7 +86,7 @@ namespace MyMonoGame
 
                 float[] buffer = new float[channels * sampleRate / 5];
 
-                List<byte> byteList = new List<byte>();
+                List<byte> byteList = new();
                 int count;
                 while ((count = vorbis.ReadSamples(buffer, 0, buffer.Length)) > 0)
                 {
@@ -148,7 +148,7 @@ namespace MyMonoGame
             duration = (int)Math.Floor(((float)(allBytes.Length - 8) / (float)(byterate)) * 1000);
 
             Stream waveFileStream = TitleContainer.OpenStream(path);
-            BinaryReader reader = new BinaryReader(waveFileStream);
+            BinaryReader reader = new(waveFileStream);
 
             chunkId = reader.ReadInt32();
             fileSize = reader.ReadInt32();

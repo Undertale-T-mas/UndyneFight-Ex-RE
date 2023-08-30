@@ -46,7 +46,7 @@ namespace UndyneFight_Ex.Fight
         /// <returns></returns>
         public static float Cos01(float v)
         {
-            return MathF.Cos(v * MathF.PI);
+            return Cos(v * MathF.PI);
         }
         /// <summary>
         /// sin01(x)等于sin(x * PI)。也就是说，sin(0) = sin(1) = 0, sin(0.5) = 1
@@ -528,12 +528,12 @@ namespace UndyneFight_Ex.Fight
         /// <param name="attribute">箭头的属性标签</param>
         public static void CreateArrow(float shootShieldTime, int way, float speed, int color, int rotatingType, ArrowAttribute attribute)
         {
-            Arrow arr = new Arrow(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
+            Arrow arr = new(Heart, shootShieldTime + GametimeF, (way + 16) % 4, speed, color, rotatingType);
             last = arr;
 
             GiveAttribute(arr, attribute);
 
-            GameStates.InstanceCreate(arr);
+            InstanceCreate(arr);
         }
         /// <summary>
         /// 获取一个箭头实例但不生成它
@@ -579,7 +579,7 @@ namespace UndyneFight_Ex.Fight
 
         public static int[] DirectionAllocate = new int[10];
 
-        public static HashSet<char> OneElementArrows = new HashSet<char>();
+        public static HashSet<char> OneElementArrows = new();
 
         public static Func<char, int> CustomAnalyzer { private get; set; } = null;
 

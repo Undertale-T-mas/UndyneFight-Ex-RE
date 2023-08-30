@@ -13,7 +13,7 @@ namespace UndyneFight_Ex.Fight
             Image = movingBar;
             Depth = 0.6f;
             controlLayer = Surface.Hidden;
-            Centre = new Vector2((FightBox.instance as RectangleBox).Left + MathUtil.GetRandom(0, 25), RectangleBox.instance.Centre.Y);
+            Centre = new Vector2((FightBox.instance as RectangleBox).Left + MathUtil.GetRandom(0, 25), FightBox.instance.Centre.Y);
         }
         private bool moving = true;
         private int changeTime = 1;
@@ -69,14 +69,14 @@ namespace UndyneFight_Ex.Fight
             isAttacking = false;
             Depth = 0.5f;
             controlLayer = Surface.Hidden;
-            Centre = RectangleBox.instance.Centre;
+            Centre = FightBox.instance.Centre;
             attackTrail = new AttackTrail();
             Image = aimer;
         }
 
         public override void Draw()
         {
-            GameMain.MissionSpriteBatch.Draw(Image, Centre, null, Color.White * alpha, 0, ImageCentre, new Vector2(alpha, 1.0f), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0.5f);
+            GameMain.MissionSpriteBatch.Draw(Image, Centre, null, Color.White * alpha, 0, ImageCentre, new Vector2(alpha, 1.0f), SpriteEffects.None, 0.5f);
         }
 
         public override void Update()
@@ -90,7 +90,7 @@ namespace UndyneFight_Ex.Fight
                     Dispose();
                     return;
                 }
-                Centre = RectangleBox.instance.Centre;
+                Centre = FightBox.instance.Centre;
             }
             attackTrail.Update();
         }

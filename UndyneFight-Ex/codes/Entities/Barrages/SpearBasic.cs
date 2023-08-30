@@ -43,7 +43,7 @@ namespace UndyneFight_Ex.Entities
             base.Dispose();
         }
 
-        private static CollideRect screen = new CollideRect(-50, -50, 740, 580);
+        private static CollideRect screen = new(-50, -50, 740, 580);
 
         public override void Update()
         {

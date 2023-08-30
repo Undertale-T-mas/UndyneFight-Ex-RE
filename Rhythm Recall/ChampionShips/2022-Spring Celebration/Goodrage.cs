@@ -32,19 +32,19 @@ namespace Rhythm_Recall.Waves
         {
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 13.0f),
                             new(Difficulty.ExtremePlus, 19.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 14.3f),
                             new(Difficulty.ExtremePlus, 20.7f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 19.5f),
                             new(Difficulty.ExtremePlus, 21.8f),
@@ -415,7 +415,7 @@ namespace Rhythm_Recall.Waves
                         game.BeatTime(20),
                         game.BeatTime(28),
                     };
-                    ScreenSplit SE = new ScreenSplit(0.4f);
+                    ScreenSplit SE = new(0.4f);
                     SE.count = 1;
                     ScreenDrawing.SceneRendering.InsertProduction(SE);
                     for (int i = 0; i < beats1.Length; i++)
@@ -1963,7 +1963,7 @@ namespace Rhythm_Recall.Waves
                         game.BeatTime(20),
                         game.BeatTime(28),
                     };
-                    ScreenSplit SE = new ScreenSplit(0.4f);
+                    ScreenSplit SE = new(0.4f);
                     SE.count = 1;
                     ScreenDrawing.SceneRendering.InsertProduction(SE);
                     for (int i = 0; i < beats1.Length; i++)

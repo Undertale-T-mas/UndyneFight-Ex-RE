@@ -129,8 +129,8 @@ namespace Rhythm_Recall.Waves
 
                     public override void Draw()
                     {
-                        DrawingLab.DrawLine(new Vector2(xCenter, yCenter), new Vector2(xCenter + Functions.Cos(rotate) * length, yCenter + Functions.Sin(rotate) * length), width, color * alpha, 0.99f);
-                        base.Depth = 0.99f;
+                        DrawingLab.DrawLine(new Vector2(xCenter, yCenter), new Vector2(xCenter + Cos(rotate) * length, yCenter + Sin(rotate) * length), width, color * alpha, 0.99f);
+                        Depth = 0.99f;
                     }
 
                     public override void Update()
@@ -494,7 +494,7 @@ namespace Rhythm_Recall.Waves
                     BarColor = Color.Lerp(BarColor, new Color(0, 0, 0, 0), 0.0015f);
                     LoseColor = Color.Lerp(LoseColor, new Color(0, 0, 0, 0), 0.0015f);
                     ScreenDrawing.UIColor = Color.Lerp(ScreenDrawing.UIColor, new Color(0, 0, 0, 0), 0.0015f);
-                    Functions.ScreenDrawing.HPBar.AreaOccupied = new CollideRect(240 * 0.04f + ScreenDrawing.HPBar.AreaOccupied.X * 0.96f, 140, 20, 180);
+                    ScreenDrawing.HPBar.AreaOccupied = new CollideRect(240 * 0.04f + ScreenDrawing.HPBar.AreaOccupied.X * 0.96f, 140, 20, 180);
                 }));
             }
             public static void HPlerp()
@@ -662,21 +662,21 @@ namespace Rhythm_Recall.Waves
                     }
                 }
 
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.7f),
                             new(Difficulty.Hard, 14.0f),
                             new(Difficulty.Easy, 5.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.8f),
                             new(Difficulty.Hard, 14.1f),
                             new(Difficulty.Easy, 5.9f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 24.2f),
                             new(Difficulty.Hard, 19.8f),
@@ -702,12 +702,12 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF > 28 * 62.5f + 50 && GametimeF < 30 * 62.5f + 10)
                 {
                     ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(muhai));
-                    Functions.AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
                     {
-                        muhai.Parameters["distance1"].SetValue(new Vector2(Functions.Rand(-0.35f, -0.05f), Functions.Rand(-0.15f, 0.15f)));
-                        muhai.Parameters["distance2"].SetValue(new Vector2(Functions.Rand(0.05f, 0.35f), Functions.Rand(-0.15f, 0.15f)));
+                        muhai.Parameters["distance1"].SetValue(new Vector2(Rand(-0.35f, -0.05f), Rand(-0.15f, 0.15f)));
+                        muhai.Parameters["distance2"].SetValue(new Vector2(Rand(0.05f, 0.35f), Rand(-0.15f, 0.15f)));
                     }));
-                    Functions.AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
                     {
                         muhai.Parameters["distance1"].SetValue(new Vector2(0f, 0f));
                         muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
@@ -716,12 +716,12 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF > 39 * 62.5f && GametimeF < 40 * 62.5f)
                 {
                     ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(muhai));
-                    Functions.AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
                     {
-                        muhai.Parameters["distance1"].SetValue(new Vector2(Functions.Rand(-0.35f, -0.05f), Functions.Rand(-0.15f, 0.15f)));
-                        muhai.Parameters["distance2"].SetValue(new Vector2(Functions.Rand(0.05f, 0.35f), Functions.Rand(-0.15f, 0.15f)));
+                        muhai.Parameters["distance1"].SetValue(new Vector2(Rand(-0.35f, -0.05f), Rand(-0.15f, 0.15f)));
+                        muhai.Parameters["distance2"].SetValue(new Vector2(Rand(0.05f, 0.35f), Rand(-0.15f, 0.15f)));
                     }));
-                    Functions.AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
                     {
                         muhai.Parameters["distance1"].SetValue(new Vector2(0f, 0f));
                         muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
@@ -731,12 +731,12 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF > 48 * 62.5f + 50 && GametimeF < 50 * 62.5f + 10)
                 {
                     ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(muhai));
-                    Functions.AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
                     {
-                        muhai.Parameters["distance2"].SetValue(new Vector2(Functions.Rand(-0.35f, 0.15f), Functions.Rand(-0.25f, 0.25f)));
-                        muhai.Parameters["distance3"].SetValue(new Vector2(Functions.Rand(-0.15f, 0.35f), Functions.Rand(-0.25f, 0.25f)));
+                        muhai.Parameters["distance2"].SetValue(new Vector2(Rand(-0.35f, 0.15f), Rand(-0.25f, 0.25f)));
+                        muhai.Parameters["distance3"].SetValue(new Vector2(Rand(-0.15f, 0.35f), Rand(-0.25f, 0.25f)));
                     }));
-                    Functions.AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
                     {
                         muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
                         muhai.Parameters["distance3"].SetValue(new Vector2(0f, 0f));
@@ -745,12 +745,12 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF > 53 * 62.5f + 50 && GametimeF < 55 * 62.5f + 10)
                 {
                     ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(muhai));
-                    Functions.AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
                     {
-                        muhai.Parameters["distance2"].SetValue(new Vector2(Functions.Rand(-0.35f, 0.15f), Functions.Rand(-0.25f, 0.25f)));
-                        muhai.Parameters["distance3"].SetValue(new Vector2(Functions.Rand(-0.15f, 0.35f), Functions.Rand(-0.25f, 0.25f)));
+                        muhai.Parameters["distance2"].SetValue(new Vector2(Rand(-0.35f, 0.15f), Rand(-0.25f, 0.25f)));
+                        muhai.Parameters["distance3"].SetValue(new Vector2(Rand(-0.15f, 0.35f), Rand(-0.25f, 0.25f)));
                     }));
-                    Functions.AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
                     {
                         muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
                         muhai.Parameters["distance3"].SetValue(new Vector2(0f, 0f));
@@ -759,12 +759,12 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF > 43 * 62.5f + 50 && GametimeF < 45 * 62.5f + 10)
                 {
                     ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(muhai));
-                    Functions.AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(0f, 1f, delegate ()
                     {
-                        muhai.Parameters["distance2"].SetValue(new Vector2(Functions.Rand(-0.35f, 0.15f), Functions.Rand(-0.25f, 0.25f)));
-                        muhai.Parameters["distance1"].SetValue(new Vector2(Functions.Rand(-0.15f, 0.35f), Functions.Rand(-0.25f, 0.25f)));
+                        muhai.Parameters["distance2"].SetValue(new Vector2(Rand(-0.35f, 0.15f), Rand(-0.25f, 0.25f)));
+                        muhai.Parameters["distance1"].SetValue(new Vector2(Rand(-0.15f, 0.35f), Rand(-0.25f, 0.25f)));
                     }));
-                    Functions.AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
+                    AddInstance(new TimeRangedEvent(85f, 1f, delegate ()
                     {
                         muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
                         muhai.Parameters["distance1"].SetValue(new Vector2(0f, 0f));
@@ -2835,19 +2835,19 @@ namespace Rhythm_Recall.Waves
                         }
                         else if (arrow[i] == "Shake")
                         {
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat, 5, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat, 5, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(Rand(-3, 3), 0);
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + 8 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + 8 + beat, 1, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(0, 0);
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + beat, 5, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + beat, 5, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(Rand(-3, 3), 0);
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + 8 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + 8 + beat, 1, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(0, 0);
                             }));
@@ -3180,12 +3180,12 @@ namespace Rhythm_Recall.Waves
                         else if (arrow[i] == "EF6")
                         {
                             ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(muhai));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat, bpm * 6, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat, bpm * 6, delegate ()
                             {
-                                muhai.Parameters["distance2"].SetValue(new Vector2(Functions.Rand(-0.35f, 0.15f), Functions.Rand(-0.25f, 0.25f)));
-                                muhai.Parameters["distance3"].SetValue(new Vector2(Functions.Rand(-0.15f, 0.35f), Functions.Rand(-0.25f, 0.25f)));
+                                muhai.Parameters["distance2"].SetValue(new Vector2(Rand(-0.35f, 0.15f), Rand(-0.25f, 0.25f)));
+                                muhai.Parameters["distance3"].SetValue(new Vector2(Rand(-0.15f, 0.35f), Rand(-0.25f, 0.25f)));
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 6 + 1 + bpm * 16 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 6 + 1 + bpm * 16 + beat, 1, delegate ()
                             {
                                 muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
                                 muhai.Parameters["distance3"].SetValue(new Vector2(0f, 0f));
@@ -3204,12 +3204,12 @@ namespace Rhythm_Recall.Waves
                         else if (arrow[i] == "EF7")
                         {
                             ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(muhai));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat, bpm * 6, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat, bpm * 6, delegate ()
                             {
-                                muhai.Parameters["distance2"].SetValue(new Vector2(Functions.Rand(-0.35f, 0.15f), Functions.Rand(-0.25f, 0.25f)));
-                                muhai.Parameters["distance3"].SetValue(new Vector2(Functions.Rand(-0.15f, 0.35f), Functions.Rand(-0.25f, 0.25f)));
+                                muhai.Parameters["distance2"].SetValue(new Vector2(Rand(-0.35f, 0.15f), Rand(-0.25f, 0.25f)));
+                                muhai.Parameters["distance3"].SetValue(new Vector2(Rand(-0.15f, 0.35f), Rand(-0.25f, 0.25f)));
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 6 + 1 + bpm * 16 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 6 + 1 + bpm * 16 + beat, 1, delegate ()
                             {
                                 muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
                                 muhai.Parameters["distance3"].SetValue(new Vector2(0f, 0f));
@@ -3227,7 +3227,7 @@ namespace Rhythm_Recall.Waves
                         }
                         else if (arrow[i] == "Heart")
                         {
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat, 1, delegate ()
                             {
                                 SetSoul(1);
                                 ScreenDrawing.CameraEffect.SizeExpand(12, bpm * 12);
@@ -3244,7 +3244,7 @@ namespace Rhythm_Recall.Waves
                                     SlowLerp = -0.008f
                                 });
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm, 1, delegate ()
                             {
                                 CreateEntity(new Particle(
                                         new(0, 255, 0),
@@ -3259,7 +3259,7 @@ namespace Rhythm_Recall.Waves
                                     SlowLerp = -0.008f
                                 });
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm * 2, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm * 2, 1, delegate ()
                             {
                                 CreateEntity(new Particle(
                                         new(0, 255, 0),
@@ -3277,7 +3277,7 @@ namespace Rhythm_Recall.Waves
                         }
                         else if (arrow[i] == "Line")
                         {
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat, 1, delegate ()
                             {
                                 int way = Rand(0, 1) == 0 ? 1 : -1;
                                 Extends.DrawingUtil.Linerotate line = new(Rand(0, 640), 480, 270 + Rand(-15, 15), bpm * 16, 0, new Color(71, 140, 147) * 0.3f);
@@ -3294,7 +3294,7 @@ namespace Rhythm_Recall.Waves
                                     line.alpha += 1 / bpm / 2;
                                 }));
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm, 1, delegate ()
                             {
                                 int way = Rand(0, 1) == 0 ? 1 : -1;
                                 Extends.DrawingUtil.Linerotate line = new(Rand(0, 640), 480, 270 + Rand(-15, 15), bpm * 16, 0, new Color(71, 140, 147) * 0.3f);
@@ -3311,7 +3311,7 @@ namespace Rhythm_Recall.Waves
                                     line.alpha += 1 / bpm / 2;
                                 }));
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm * 2, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm * 2, 1, delegate ()
                             {
                                 int way = Rand(0, 1) == 0 ? 1 : -1;
                                 Extends.DrawingUtil.Linerotate line = new(Rand(0, 640), 480, 270 + Rand(-15, 15), bpm * 16, 0, new Color(71, 140, 147) * 0.3f);
@@ -3328,7 +3328,7 @@ namespace Rhythm_Recall.Waves
                                     line.alpha += 1 / bpm / 2;
                                 }));
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm * 3, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat + bpm * 3, 1, delegate ()
                             {
                                 int way = Rand(0, 1) == 0 ? 1 : -1;
                                 Extends.DrawingUtil.Linerotate line = new(Rand(0, 640), 480, 270 + Rand(-15, 15), bpm * 16, 0, new Color(71, 140, 147) * 0.3f);
@@ -3348,19 +3348,19 @@ namespace Rhythm_Recall.Waves
                         }
                         else if (arrow[i] == "Shake")
                         {
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + beat, 5, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + beat, 5, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(Rand(-2, 2), 0);
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + 8 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + 8 + beat, 1, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(0, 0);
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + beat, 5, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + beat, 5, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(Rand(-2, 2), 0);
                             }));
-                            Functions.AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + 8 + beat, 1, delegate ()
+                            AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + 8 + beat, 1, delegate ()
                             {
                                 ScreenDrawing.ScreenPositionDetla = new(0, 0);
                             }));
@@ -6248,7 +6248,7 @@ namespace Rhythm_Recall.Waves
                         BarColor = Color.Lerp(BarColor, new Color(120, 115, 115), 0.1f);
                         BarColor = Color.Lerp(BarColor, Color.Gray, 0.1f);
                         ScreenDrawing.UIColor = Color.Lerp(ScreenDrawing.UIColor, BarColor, 0.1f);
-                        Functions.ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25 * 0.08f + ScreenDrawing.HPBar.AreaOccupied.X * 0.92f, 140, 20, 180);
+                        ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25 * 0.08f + ScreenDrawing.HPBar.AreaOccupied.X * 0.92f, 140, 20, 180);
                     }));
 
                 }
@@ -6280,7 +6280,7 @@ namespace Rhythm_Recall.Waves
                     beatVector.Y = 100;
                 }
                 //CreateEntity(new TextPrinter(1, (GametimeF / bpm / 4).ToString(), Heart.Centre + new Vector2(-50, -50), new TextSizeAttribute(0.5f)));
-                Functions.ScreenDrawing.HPBar.HPExistColor = BarColor;
+                ScreenDrawing.HPBar.HPExistColor = BarColor;
                 Heart.InstantSetRotation(HeartRot);
                 //Functions.ScreenDrawing.HPBar.HPLoseColor = LoseColor;
                 //CreateEntity(new TextPrinter(1, (GametimeF / BeatTime(1)).ToString(), new(320, 240), new TextAttribute[] { }));
@@ -6706,7 +6706,7 @@ namespace Rhythm_Recall.Waves
                         BarColor = Color.Lerp(BarColor, new Color(120, 115, 115), 0.1f);
                         BarColor = Color.Lerp(BarColor, Color.Gray, 0.1f);
                         ScreenDrawing.UIColor = Color.Lerp(ScreenDrawing.UIColor, BarColor, 0.1f);
-                        Functions.ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25 * 0.08f + ScreenDrawing.HPBar.AreaOccupied.X * 0.92f, 140, 20, 180);
+                        ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25 * 0.08f + ScreenDrawing.HPBar.AreaOccupied.X * 0.92f, 140, 20, 180);
                     }));
 
                 }
@@ -6738,7 +6738,7 @@ namespace Rhythm_Recall.Waves
                     beatVector.Y = 100;
                 }
                 //CreateEntity(new TextPrinter(1, (GametimeF / bpm / 4).ToString(), Heart.Centre + new Vector2(-50, -50), new TextSizeAttribute(0.5f)));
-                Functions.ScreenDrawing.HPBar.HPExistColor = BarColor;
+                ScreenDrawing.HPBar.HPExistColor = BarColor;
                 Heart.InstantSetRotation(HeartRot);
                 //Functions.ScreenDrawing.HPBar.HPLoseColor = LoseColor;
 
@@ -7086,7 +7086,7 @@ namespace Rhythm_Recall.Waves
                         BarColor = Color.Lerp(BarColor, new Color(120, 115, 115), 0.1f);
                         BarColor = Color.Lerp(BarColor, Color.Gray, 0.1f);
                         ScreenDrawing.UIColor = Color.Lerp(ScreenDrawing.UIColor, BarColor, 0.1f);
-                        Functions.ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25 * 0.08f + ScreenDrawing.HPBar.AreaOccupied.X * 0.92f, 140, 20, 180);
+                        ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25 * 0.08f + ScreenDrawing.HPBar.AreaOccupied.X * 0.92f, 140, 20, 180);
                     }));
 
                 }
@@ -7118,7 +7118,7 @@ namespace Rhythm_Recall.Waves
                     beatVector.Y = 100;
                 }
                 //CreateEntity(new TextPrinter(1, (GametimeF / bpm / 4).ToString(), Heart.Centre + new Vector2(-50, -50), new TextSizeAttribute(0.5f)));
-                Functions.ScreenDrawing.HPBar.HPExistColor = BarColor;
+                ScreenDrawing.HPBar.HPExistColor = BarColor;
                 Heart.InstantSetRotation(HeartRot);
                 //Functions.ScreenDrawing.HPBar.HPLoseColor = LoseColor;
 
@@ -7155,12 +7155,12 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, -100);
                 Heart.Gravity = 0;
                 HeartAttribute.DamageTaken = 0;
-                Functions.HeartAttribute.MaxHP = 10000;
-                Functions.ScreenDrawing.HPBar.Vertical = true;
-                Functions.ScreenDrawing.UIColor = Color.White;
-                Functions.ScreenDrawing.HPBar.HPExistColor = Color.DarkRed;
-                Functions.ScreenDrawing.HPBar.HPLoseColor = Color.Gray;
-                Functions.ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25, 140, 20, 180);
+                HeartAttribute.MaxHP = 10000;
+                ScreenDrawing.HPBar.Vertical = true;
+                ScreenDrawing.UIColor = Color.White;
+                ScreenDrawing.HPBar.HPExistColor = Color.DarkRed;
+                ScreenDrawing.HPBar.HPLoseColor = Color.Gray;
+                ScreenDrawing.HPBar.AreaOccupied = new CollideRect(25, 140, 20, 180);
                 GametimeDelta = (int)(-1f * bpm);
                 abool = true;
                 hit = 0;

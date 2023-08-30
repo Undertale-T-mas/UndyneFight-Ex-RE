@@ -104,7 +104,7 @@ namespace UndyneFight_Ex.Remake.UI
             }
             else if(state == CommandState.Raw)
             {
-                UFSocket<Empty> obj = new UFSocket<Empty>((t) => { });
+                UFSocket<Empty> obj = new((t) => { });
                 current = current.Replace(' ', '\\');
                 obj.SendRequest(current);
             }

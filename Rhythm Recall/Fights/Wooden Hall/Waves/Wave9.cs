@@ -256,7 +256,7 @@ namespace Rhythm_Recall.Waves
                     wave9_rot += wave9_acc;
                     wave9_acc += 0.002f;
                     if (waveTime % 6 == 0)
-                        CreateGB(new NormalGB(RectangleBox.instance.Centre + GetVector2(140, wave9_rot), Heart.Centre, new Vector2(1.0f, 0.5f), wave9_rot + 180, 35, 14)
+                        CreateGB(new NormalGB(FightBox.instance.Centre + GetVector2(140, wave9_rot), Heart.Centre, new Vector2(1.0f, 0.5f), wave9_rot + 180, 35, 14)
                         {
                             IsShake = true
                         });

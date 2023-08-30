@@ -21,7 +21,7 @@ namespace UndyneFight_Ex.Entities
         }
         public FightScene()
         {
-            GameStates.ResetFightState(false);
+            ResetFightState(false);
             UpdateIn120 = true;
             InstanceCreate(NameShow = new NameShower());
             InstanceCreate(new CheatDetector());

@@ -113,8 +113,11 @@ namespace UndyneFight_Ex
 
         bool eventInvoked = false;
 
+        private string Situation = "game";
+
         public override void Update()
         {
+            if (this is SongLoadingScene) Situation = "chart";
             appearTime++;
             if (appearTime == 2) loadingThread.Start();
             if (appearTime >= LeastLoadingTime && finishedLoad && !eventInvoked)
@@ -126,7 +129,7 @@ namespace UndyneFight_Ex
         }
         public override void Draw()
         {
-            GlobalResources.Font.NormalFont.CentreDraw("Initalizing Game\nPlease Stand By...", new(320, 120), Color.White, 0.8f, 0f);
+            GlobalResources.Font.NormalFont.CentreDraw($"Initalizing {Situation}\nPlease wait...", new(320, 120), Color.White, 0.8f, 0f);
         }
     }
     public class SongLoadingScene : LoadingScene

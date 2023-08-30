@@ -33,21 +33,21 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => (GameStates.difficulty == 4) ? "TK" : "T-mas (Extended by TK)";
                 public override string SongAuthor => "Touhou: IN";
                 public override string PaintAuthor => "axpathetic";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 0f),
                             new(Difficulty.Hard, 0f),
                             new(Difficulty.Noob, 0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 0f),
                             new(Difficulty.Hard, 0f),
                             new(Difficulty.Noob, 0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 0f),
                             new(Difficulty.Hard, 0f),
@@ -60,11 +60,11 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    FightResources.Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
-                        FightResources.Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        FightResources.Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
                     }
                 }
 
@@ -256,7 +256,7 @@ namespace Rhythm_Recall.Waves
             }
             private void ShakeStep()
             {
-                Functions.ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Blur
+                ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Blur
                 {
                     //Sigma = (HeartAttribute.MaxHP - HeartAttribute.HP) / HeartAttribute.MaxHP * 6
                     Sigma = 0
@@ -278,7 +278,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.ThemeColor = Color.Lerp(Color.DeepPink, Color.LightPink, Abs(Sin(time * 1.5f)));
                 if (time == 1)
                 {
-                    NormalGB blaster = new NormalGB(new Vector2(320, 150), new Vector2(320, 150), new Vector2(1.0f, 1.0f), 90, 30, 90);
+                    NormalGB blaster = new(new Vector2(320, 150), new Vector2(320, 150), new Vector2(1.0f, 1.0f), 90, 30, 90);
                     CreateGB(blaster);
                 }
                 if (time > 30 && time < 120)
@@ -315,98 +315,98 @@ namespace Rhythm_Recall.Waves
                     if (time == 120)
                     {
                         var Pos = MathUtil.GetVector2(140, -90) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 90, 90, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 90, 90, 60);
                         CreateGB(gb);
                     }
                     if (time == 140)
                     {
                         var Pos = MathUtil.GetVector2(140, -180) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 0, 70, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 0, 70, 60);
                         CreateGB(gb);
                     }
                     if (time == 160)
                     {
                         var Pos = MathUtil.GetVector2(140, -135) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 45, 50, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 45, 50, 60);
                         CreateGB(gb);
                     }
                     if (time == 180)
                     {
                         var Pos = MathUtil.GetVector2(140, -45) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 135, 30, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 135, 30, 60);
                         CreateGB(gb);
                     }
                     if (time == 300)
                     {
                         var Pos = MathUtil.GetVector2(140, 112.5f - 180) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 112.5f, 90, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 112.5f, 90, 60);
                         CreateGB(gb);
                     }
                     if (time == 320)
                     {
                         var Pos = MathUtil.GetVector2(140, 22.5f - 180) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 22.5f, 70, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 22.5f, 70, 60);
                         CreateGB(gb);
                     }
                     if (time == 340)
                     {
                         var Pos = MathUtil.GetVector2(140, 67.5f - 180) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 67.5f, 50, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 67.5f, 50, 60);
                         CreateGB(gb);
                     }
                     if (time == 360)
                     {
                         var Pos = MathUtil.GetVector2(140, 157.5f - 180) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 157.5f, 30, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.72f), 157.5f, 30, 60);
                         CreateGB(gb);
                     }
                     if (time == 470)
                     {
                         var Pos = MathUtil.GetVector2(140, -90) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 90, 90, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 90, 90, 60);
                         CreateGB(gb);
                     }
                     if (time == 490)
                     {
                         var Pos = MathUtil.GetVector2(140, -180) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 0, 70, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 0, 70, 60);
                         CreateGB(gb);
                     }
                     if (time == 510)
                     {
                         var Pos = MathUtil.GetVector2(140, -135) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 45, 50, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 45, 50, 60);
                         CreateGB(gb);
                     }
                     if (time == 530)
                     {
                         var Pos = MathUtil.GetVector2(140, -45) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 135, 30, 60);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 0.6f), 135, 30, 60);
                         CreateGB(gb);
                     }
                     if (time == 630)
                     {
                         var Pos = MathUtil.GetVector2(140, -90) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 90, 60, 20);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 90, 60, 20);
                         CreateGB(gb);
                     }
                     if (time == 655)
                     {
                         var Pos = MathUtil.GetVector2(140, -180) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 0, 40, 20);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 0, 40, 20);
                         CreateGB(gb);
                     }
                     if (time == 670)
                     {
                         var Pos = MathUtil.GetVector2(140, -135) + new Vector2(320, 320);
-                        NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 45, 50, 20);
+                        NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 45, 50, 20);
                         CreateGB(gb);
                     }
                 }
                 if (time == 690)
                 {
                     var Pos = MathUtil.GetVector2(140, -45) + new Vector2(320, 320);
-                    NormalGB gb = new NormalGB(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 135, 30, 20);
+                    NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 135, 30, 20);
                     CreateGB(gb);
                     BarrageCreate(55, BeatTime(2), 6, new string[]
                     {
@@ -611,26 +611,26 @@ namespace Rhythm_Recall.Waves
                 time += 10;
                 if (time == 1470)
                 {
-                    UpBone bone = new UpBone(true, 284, 0, 79);
+                    UpBone bone = new(true, 284, 0, 79);
                     CreateBone(bone);
                     PlaySound(Sounds.spearAppear);
                 }
                 time -= 10;
                 if (time == 1520)
                 {
-                    DownBone bone = new DownBone(true, 356, 0, 79);
+                    DownBone bone = new(true, 356, 0, 79);
                     CreateBone(bone);
                     PlaySound(Sounds.spearAppear);
                 }
                 if (time == 1530)
                 {
-                    UpBone bone = new UpBone(true, 294, 0, 79);
+                    UpBone bone = new(true, 294, 0, 79);
                     CreateBone(bone);
                     PlaySound(Sounds.spearAppear);
                 }
                 if (time == 1540)
                 {
-                    DownBone bone = new DownBone(true, 346, 0, 79);
+                    DownBone bone = new(true, 346, 0, 79);
                     CreateBone(bone);
                     PlaySound(Sounds.spearAppear);
                 }
@@ -791,7 +791,7 @@ namespace Rhythm_Recall.Waves
                 {
                     if ((time % 60) == 0)
                     {
-                        Platform platform = new Platform(1, new Vector2(200f, 280f), Motions.PositionRoute.XAxisSin, Motions.LengthRoute.stableValue, Motions.RotationRoute.sin);
+                        Platform platform = new(1, new Vector2(200f, 280f), Motions.PositionRoute.XAxisSin, Motions.LengthRoute.stableValue, Motions.RotationRoute.sin);
                         platform.createWithScaling = true;
                         platform.PositionRouteParam = new float[] { 2.4f, 24f, 64f, GametimeF / 1.5f };
                         platform.LengthRouteParam = new float[] { 45f };
@@ -1380,7 +1380,7 @@ namespace Rhythm_Recall.Waves
                     {
                         var col = Rand(0, 1) + 1;
                         ArrayUsage[0] = col;
-                        UpBone bone = new UpBone(true, 284, 0, 79);
+                        UpBone bone = new(true, 284, 0, 79);
                         bone.ColorType = col;
                         CreateBone(bone);
                         PlaySound(Sounds.spearAppear);
@@ -1389,7 +1389,7 @@ namespace Rhythm_Recall.Waves
                     {
                         var col = Rand(0, 1) + 1;
                         ArrayUsage[1] = col;
-                        DownBone bone = new DownBone(true, 356, 0, 79);
+                        DownBone bone = new(true, 356, 0, 79);
                         bone.ColorType = col;
                         CreateBone(bone);
                         PlaySound(Sounds.spearAppear);

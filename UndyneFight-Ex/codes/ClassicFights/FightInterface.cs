@@ -45,7 +45,7 @@ namespace UndyneFight_Ex.Fight
     }
     public abstract class FightTextSelection : FightSelection
     {
-        public override Vector2 HeartStayPosition => new Vector2(collidingBox.TopLeft.X + 10, Centre.Y);
+        public override Vector2 HeartStayPosition => new(collidingBox.TopLeft.X + 10, Centre.Y);
         private bool isCollide;
         protected bool IsCollide => isCollide;
         private readonly string text;

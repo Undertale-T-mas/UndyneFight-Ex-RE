@@ -41,21 +41,21 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "CaptainSparklez";
                 public override string PaintAuthor => "CaptainSparklez";
                 public override string AttributeAuthor => "Tlottgodinf";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 16.5f),
                             new(Difficulty.Hard, 13f),
                             new(Difficulty.Noob, 4f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 17.0f),
                             new(Difficulty.Hard, 13f),
                             new(Difficulty.Noob, 4f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Extreme, 21.0f),
                             new(Difficulty.Hard, 19f),
@@ -136,7 +136,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(640, 0));
                         ce.Insert(BeatTime(16), CentreEasing.Linear(-2));
-                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Microsoft.Xna.Framework.Color.DarkGreen };
+                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Color.DarkGreen };
                         CreateEntity(l);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(0));
@@ -150,7 +150,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(640 + BeatTime(1) * 2, 0));
                         ce.Insert(BeatTime(16), CentreEasing.Linear(-2));
-                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Microsoft.Xna.Framework.Color.DarkGreen };
+                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Color.DarkGreen };
                         CreateEntity(l);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(0));
@@ -1293,7 +1293,7 @@ namespace Rhythm_Recall.Waves
                         e1.Insert(1, ValueEasing.Stable(0));
                         e1.Run((s) =>
                         {
-                            ScreenDrawing.ScreenScale += s * 0.020f;
+                            ScreenScale += s * 0.020f;
                         });
                     });
                     RegisterFunctionOnce("ScaleBack", () =>
@@ -1831,7 +1831,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(640, 0));
                         ce.Insert(BeatTime(16), CentreEasing.Linear(-2));
-                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Microsoft.Xna.Framework.Color.DarkGreen };
+                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Color.DarkGreen };
                         CreateEntity(l);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(0));
@@ -1845,7 +1845,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(640 + BeatTime(1) * 2, 0));
                         ce.Insert(BeatTime(16), CentreEasing.Linear(-2));
-                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Microsoft.Xna.Framework.Color.DarkGreen };
+                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Color.DarkGreen };
                         CreateEntity(l);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(0));
@@ -2911,7 +2911,7 @@ namespace Rhythm_Recall.Waves
                         e1.Insert(1, ValueEasing.Stable(0));
                         e1.Run((s) =>
                         {
-                            ScreenDrawing.ScreenScale += s * 0.020f;
+                            ScreenScale += s * 0.020f;
                         });
                     });
                     RegisterFunctionOnce("ScaleBack", () =>
@@ -3288,7 +3288,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(640, 0));
                         ce.Insert(BeatTime(16), CentreEasing.Linear(-2));
-                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Microsoft.Xna.Framework.Color.DarkGreen };
+                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Color.DarkGreen };
                         CreateEntity(l);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(0));
@@ -3302,7 +3302,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(640 + BeatTime(1) * 2, 0));
                         ce.Insert(BeatTime(16), CentreEasing.Linear(-2));
-                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Microsoft.Xna.Framework.Color.DarkGreen };
+                        Line l = new(ce.GetResult(), ValueEasing.Stable(90)) { DrawingColor = Color.DarkGreen };
                         CreateEntity(l);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(0));
@@ -4392,7 +4392,7 @@ namespace Rhythm_Recall.Waves
                         e1.Insert(1, ValueEasing.Stable(0));
                         e1.Run((s) =>
                         {
-                            ScreenDrawing.ScreenScale += s * 0.020f;
+                            ScreenScale += s * 0.020f;
                         });
                     });
                     RegisterFunctionOnce("ScaleBack", () =>
@@ -4777,7 +4777,7 @@ namespace Rhythm_Recall.Waves
                 TP();
                 HeartAttribute.MaxHP = 20;
                 HeartAttribute.DamageTaken = 3;
-                ScreenDrawing.HPBar.HPExistColor = Color.Yellow;
+                HPBar.HPExistColor = Color.Yellow;
                 GametimeDelta = -5f;
                 //    GametimeDelta = BeatTime(140) - 8f;
                 //   PlayOffset = BeatTime(140) ;
@@ -4793,11 +4793,11 @@ namespace Rhythm_Recall.Waves
             {
                 RegisterFunctionOnce("Flicker", () =>
                 {
-                    ScreenDrawing.MakeFlicker(Color.Black * 0.6f);
+                    MakeFlicker(Color.Black * 0.6f);
                 });
                 RegisterFunctionOnce("Fade", () =>
                 {
-                    ScreenDrawing.SceneOut(Color.Black, BeatTime(11));
+                    SceneOut(Color.Black, BeatTime(11));
                     ResetBarrage();
                 });
                 RegisterFunctionOnce("Reset", () =>

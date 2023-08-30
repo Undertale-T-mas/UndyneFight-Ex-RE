@@ -36,19 +36,19 @@ namespace Rhythm_Recall.Waves
         {
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 5.0f),
                             new(Difficulty.Hard, 15.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 5.0f),
                             new(Difficulty.Hard, 15.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 8.0f),
                             new(Difficulty.Hard, 19.0f),
@@ -2088,7 +2088,7 @@ namespace Rhythm_Recall.Waves
                     });
                     game.RegisterFunctionOnce("ScaleBack", () =>
                     {
-                        Extends.DrawingUtil.LerpScreenScale(game.BeatTime(16), 1, 0.03f);
+                        DrawingUtil.LerpScreenScale(game.BeatTime(16), 1, 0.03f);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Heart.Rotation % 360));
                         ve.Insert(game.BeatTime(32), ValueEasing.EaseOutSine(Heart.Rotation % 360, 360 * 2, game.BeatTime(32)));
@@ -4157,7 +4157,7 @@ namespace Rhythm_Recall.Waves
                     });
                     game.RegisterFunctionOnce("ScaleBack", () =>
                     {
-                        Extends.DrawingUtil.LerpScreenScale(game.BeatTime(16), 1, 0.03f);
+                        DrawingUtil.LerpScreenScale(game.BeatTime(16), 1, 0.03f);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Heart.Rotation % 360));
                         ve.Insert(game.BeatTime(32), ValueEasing.EaseOutSine(Heart.Rotation % 360, 360 * 2, game.BeatTime(32)));
@@ -6226,7 +6226,7 @@ namespace Rhythm_Recall.Waves
                     });
                     game.RegisterFunctionOnce("ScaleBack", () =>
                     {
-                        Extends.DrawingUtil.LerpScreenScale(game.BeatTime(16), 1, 0.03f);
+                        DrawingUtil.LerpScreenScale(game.BeatTime(16), 1, 0.03f);
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Heart.Rotation % 360));
                         ve.Insert(game.BeatTime(32), ValueEasing.EaseOutSine(Heart.Rotation % 360, 360 * 2, game.BeatTime(32)));

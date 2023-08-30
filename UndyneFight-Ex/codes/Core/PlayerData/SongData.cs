@@ -171,7 +171,7 @@ namespace UndyneFight_Ex.UserService
 
         public SaveInfo Save()
         {
-            SaveInfo info = new SaveInfo("NormalFights{");
+            SaveInfo info = new("NormalFights{");
             foreach (var v in songData)
                 info.PushNext(v.Value.Save());
             return info;

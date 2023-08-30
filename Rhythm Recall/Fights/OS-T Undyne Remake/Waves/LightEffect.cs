@@ -23,7 +23,7 @@ namespace Rhythm_Recall.Waves
                             for (int i = 0; i < 3; i++)
                             {
                                 float angle;
-                                Vector2 speed = MathUtil.GetVector2(Rand(40, 100) / 10f, angle = Rand(0, 359));
+                                Vector2 speed = GetVector2(Rand(40, 100) / 10f, angle = Rand(0, 359));
                                 CreateEntity(new Particle(Color.Black * (Rand(7, 10) / 10f), speed, Rand(8, 16), GetVector2(500, angle + 180) + new Vector2(320, 240), FightResources.Sprites.square)
                                 {
                                     DarkingSpeed = 4.5f

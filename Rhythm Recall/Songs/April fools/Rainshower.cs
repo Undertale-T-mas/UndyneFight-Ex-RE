@@ -43,17 +43,17 @@ namespace Rhythm_Recall.Waves
             public SongInformation Attributes => new ThisInformation();
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 1)
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 1)
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 1),
                         }
@@ -260,7 +260,7 @@ namespace Rhythm_Recall.Waves
                     {
                         SetSoul(0);
 
-                        Extends.FakeArrow arrow = new Extends.FakeArrow(0, 1, 2, new(320, 200), 1145, 1.5f, 270);
+                        Extends.FakeArrow arrow = new(0, 1, 2, new(320, 200), 1145, 1.5f, 270);
                         CreateEntity(arrow);
                         //   AddInstance(new TimeRangedEvent(150, () =>
                         //CreateEntity(arrow);

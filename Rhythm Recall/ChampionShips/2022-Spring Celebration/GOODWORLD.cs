@@ -45,19 +45,19 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "EBIMAYO";
                 public override string AttributeAuthor => "Tlottgodinf";
                 public override string Extra => "Fixed by TK";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Hard, 13.8f),
                             new(Difficulty.Easy, 7.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Hard, 14.3f),
                             new(Difficulty.Easy, 7.5f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Hard, 19.0f),
                             new(Difficulty.Easy, 12.0f),
@@ -115,8 +115,8 @@ namespace Rhythm_Recall.Waves
             public static float bpm = 62.5f / (165/*bpm*/ / 60f);
             public void Hard()
             {
-                ScreenDrawing.BoundColor = new(200, 18, 35);
-                ScreenDrawing.BackGroundColor = GroundColor;
+                BoundColor = new(200, 18, 35);
+                BackGroundColor = GroundColor;
 
                 if (InBeat(-2))
                 {
@@ -757,7 +757,7 @@ namespace Rhythm_Recall.Waves
                             },
                             () =>
                             {
-                            ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.RGBSplitting());
+                            SceneRendering.InsertProduction(new ScreenDrawing.Shaders.RGBSplitting());
                             AddInstance(new TimeRangedEvent(bpm*4, () =>
                             {
                                 DownBoundDistance=DownBoundDistance*0.91f+300*0.09f;
@@ -1448,7 +1448,7 @@ namespace Rhythm_Recall.Waves
                             },
                             () =>
                             {
-                            ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.RGBSplitting());
+                            SceneRendering.InsertProduction(new ScreenDrawing.Shaders.RGBSplitting());
                             AddInstance(new TimeRangedEvent(bpm*4, () =>
                             {
                                 DownBoundDistance=DownBoundDistance*0.91f+300*0.09f;

@@ -10,7 +10,7 @@ namespace UndyneFight_Ex.Entities
     {
         protected bool autoDispose = true;
         private bool hasBeenInside = false;
-        private static CollideRect screen = new CollideRect(-550, -550, 1740, 1580);
+        private static CollideRect screen = new(-550, -550, 1740, 1580);
 
         private float length;
         private Vector2 startPos;
@@ -65,7 +65,7 @@ namespace UndyneFight_Ex.Entities
         {
             Vector2 delta = GetVector2(length / 2, Rotation);
             var side = platformSide[platformType];
-            GameMain.MissionSpriteBatch.Draw(Image, Centre, new Rectangle(0, 0, (int)length, 12), Color.White, MathUtil.GetRadian(Rotation), new Vector2(length / 2, 6), 1.0f, SpriteEffects.None, 0.35f);
+            GameMain.MissionSpriteBatch.Draw(Image, Centre, new Rectangle(0, 0, (int)length, 12), Color.White, GetRadian(Rotation), new Vector2(length / 2, 6), 1.0f, SpriteEffects.None, 0.35f);
             Depth = 0.35F;
             FormalDraw(side, Centre - delta, Color.White, GetRadian(Rotation), new Vector2(0, 6));
             FormalDraw(side, Centre + delta, Color.White, GetRadian(Rotation), new Vector2(0, 6));

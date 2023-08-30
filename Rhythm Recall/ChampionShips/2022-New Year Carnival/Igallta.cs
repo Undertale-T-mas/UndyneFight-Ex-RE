@@ -42,19 +42,19 @@ namespace Rhythm_Recall.Waves
         {
             class Information : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
                 {
 
                 }
                 );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
 
                     }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
 
@@ -66,12 +66,12 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    FightResources.Font.NormalFont.CentreDraw(MathF.Round(time, 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
-                    FightResources.Font.NormalFont.CentreDraw(MathF.Round(lastTime, 1) + "", new Microsoft.Xna.Framework.Vector2(320, 140), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw(MathF.Round(time, 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw(MathF.Round(lastTime, 1) + "", new Microsoft.Xna.Framework.Vector2(320, 140), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
-                        FightResources.Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        FightResources.Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
+                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
                     }
                 }
 
@@ -189,7 +189,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(4 * 4 * 25 + 4)) Epart7();
             }
             #endregion
-            Color linecolor = new Color(255, 251, 167);
+            Color linecolor = new(255, 251, 167);
             bool colorbluebool = false;
             bool colorwhitebool = false;
             public void Normal()
@@ -419,8 +419,8 @@ namespace Rhythm_Recall.Waves
                     if (GametimeF == 64 + del)
                     {
                         PlaySound(Sounds.pierce);
-                        LeftBone bone1 = new LeftBone(false, 6, 198) { ColorType = 2 };
-                        LeftBone bone2 = new LeftBone(true, 6, 198) { ColorType = 1 };
+                        LeftBone bone1 = new(false, 6, 198) { ColorType = 2 };
+                        LeftBone bone2 = new(true, 6, 198) { ColorType = 1 };
                         CreateBone(bone1); CreateBone(bone2);
                         AddInstance(new TimeRangedEvent(0, 100, () =>
                         {
@@ -431,8 +431,8 @@ namespace Rhythm_Recall.Waves
                     if (GametimeF == 97 + del)
                     {
                         PlaySound(Sounds.pierce);
-                        LeftBone bone1 = new LeftBone(false, 6, 198) { ColorType = 2 };
-                        LeftBone bone2 = new LeftBone(true, 6, 198) { ColorType = 1 };
+                        LeftBone bone1 = new(false, 6, 198) { ColorType = 2 };
+                        LeftBone bone2 = new(true, 6, 198) { ColorType = 1 };
                         CreateBone(bone1); CreateBone(bone2);
                         AddInstance(new TimeRangedEvent(0, 100, () =>
                         {
@@ -563,7 +563,7 @@ namespace Rhythm_Recall.Waves
                     if (_time >= 116 && _time < 124)
                     {
                         ScreenDrawing.ScreenAngle += 4f;
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.8f + 0 * 0.2f;
+                        ScreenScale = ScreenScale * 0.8f + 0 * 0.2f;
                     }
                     if (_time > 120 && _time <= 132)
                     {
@@ -572,7 +572,7 @@ namespace Rhythm_Recall.Waves
 
                     if (_time >= 124 && _time <= 132)
                     {
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.8f + 1.2f * 0.2f;
+                        ScreenScale = ScreenScale * 0.8f + 1.2f * 0.2f;
                     }
                 }
 
@@ -726,7 +726,7 @@ namespace Rhythm_Recall.Waves
                     {
                         BlackScreen(4);
                         ScreenDrawing.ScreenAngle = 0;
-                        ScreenDrawing.ScreenScale = 1.3f;
+                        ScreenScale = 1.3f;
                     }
                 }
 
@@ -736,7 +736,7 @@ namespace Rhythm_Recall.Waves
                     int _time = (int)(GametimeF - del);
                     if (_time >= 0 && _time < 128)
                     {
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.96f + 1.0f * 0.04f;
+                        ScreenScale = ScreenScale * 0.96f + 1.0f * 0.04f;
                     }
                     if (_time == -40)
                     {
@@ -761,7 +761,7 @@ namespace Rhythm_Recall.Waves
                     int _time = (int)(GametimeF - del);
                     if (_time >= 0 && _time < 128)
                     {
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.96f + 1.0f * 0.04f;
+                        ScreenScale = ScreenScale * 0.96f + 1.0f * 0.04f;
                     }
                     if (_time == -40)
                     {
@@ -793,7 +793,7 @@ namespace Rhythm_Recall.Waves
                     int _time = (int)(GametimeF - del);
                     if (_time >= 0 && _time < 128)
                     {
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.96f + 1.0f * 0.04f;
+                        ScreenScale = ScreenScale * 0.96f + 1.0f * 0.04f;
                     }
                     if (_time == -40)
                     {
@@ -825,7 +825,7 @@ namespace Rhythm_Recall.Waves
                     int _time = (int)(GametimeF - del);
                     if (_time >= 0 && _time < 128)
                     {
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.96f + 1.0f * 0.04f;
+                        ScreenScale = ScreenScale * 0.96f + 1.0f * 0.04f;
                     }
                     if (_time == -40)
                     {
@@ -857,7 +857,7 @@ namespace Rhythm_Recall.Waves
                     int _time = (int)(GametimeF - del);
                     if (_time >= 0 && _time < 128)
                     {
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.96f + 1.0f * 0.04f;
+                        ScreenScale = ScreenScale * 0.96f + 1.0f * 0.04f;
                     }
                     if (_time == -40)
                     {
@@ -919,7 +919,7 @@ namespace Rhythm_Recall.Waves
                     }
                     if (_time >= 0 && _time < 128)
                     {
-                        ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.96f + 1.0f * 0.04f;
+                        ScreenScale = ScreenScale * 0.96f + 1.0f * 0.04f;
                     }
                 }
             }
@@ -989,7 +989,7 @@ namespace Rhythm_Recall.Waves
             }
             void part1()
             {
-                ScreenDrawing.UISettings.CreateUISurface();
+                UISettings.CreateUISurface();
                 RegisterFunctionOnce("Line1", () =>
                 {
                     Line l = new(CentreEasing.Stable(420, 240), ValueEasing.Stable(70));
@@ -1032,32 +1032,32 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC", () =>
                  {
-                     ScreenDrawing.CameraEffect.Convulse(4, BeatTime(1.5f), false);
+                     Convulse(4, BeatTime(1.5f), false);
 
                  });
                 RegisterFunctionOnce("RightC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(1.5f), true);
+                    Convulse(4, BeatTime(1.5f), true);
 
                 });
                 RegisterFunctionOnce("LeftC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), true);
+                    Convulse(4, BeatTime(0.5f), true);
 
                 });
                 RegisterFunctionOnce("LeftC3", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(6, BeatTime(0.9f), false);
+                    Convulse(6, BeatTime(0.9f), false);
 
                 });
                 RegisterFunctionOnce("RightC3", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(6, BeatTime(0.9f), true);
+                    Convulse(6, BeatTime(0.9f), true);
 
                 });
                 RegisterFunctionOnce("SizeExpend", () =>
@@ -1065,7 +1065,7 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(1, 1.2f, BeatTime(1)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                 });
                 RegisterFunctionOnce("Shake", () =>
                 {
@@ -1089,8 +1089,8 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(1.2f));
                     ve.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(1.2f, 1f, BeatTime(1f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
-                    DelayBeat(1, () => { ScreenDrawing.ScreenScale = 1; });
+                    ve.Run((s) => { ScreenScale = s; });
+                    DelayBeat(1, () => { ScreenScale = 1; });
                 });
                 RegisterFunctionOnce("CameFromLeftLine", () =>
                 {
@@ -1219,7 +1219,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(20, BeatTime(0.5f));
                 });
                 BarrageCreate(0, BeatTime(1), 6.7f, new string[]
@@ -1385,7 +1385,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change2", () =>
@@ -1394,7 +1394,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(-20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change3", () =>
@@ -1404,7 +1404,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     Heart.GiveForce(180, 0);
                     RotateTo(180 + 20, BeatTime(0.5f));
                 });
@@ -1414,7 +1414,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(180 - 20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change5", () =>
@@ -1423,7 +1423,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(0));
                     ve.Insert(BeatTime(0.02f), ValueEasing.Linear(0, 4, BeatTime(0.02f)));
                     ve.Insert(BeatTime(8f), ValueEasing.EaseOutSine(4, 1, BeatTime(8)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(0, BeatTime(0.5f));
                     Heart.GiveForce(0, 0);
                 });
@@ -2260,7 +2260,7 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("Over", () =>
                 {
                     ValueEasing.EaseBuilder ve = new();
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(2), 1.2f, 0.06f);
+                    LerpScreenScale(BeatTime(2), 1.2f, 0.06f);
                     DelayBeat(4, () => { LerpScreenScale(BeatTime(4), 1, 0.1f); });
                 });
                 RegisterFunctionOnce("Rotate", () =>
@@ -2269,7 +2269,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunction("Heal", () =>
                 {
-                    UndyneFight_Ex.Fight.Functions.Regenerate(60);
+                    Regenerate(60);
                 });
                 BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
@@ -2637,12 +2637,12 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), false);
+                    Convulse(8, BeatTime(1.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), true);
+                    Convulse(8, BeatTime(1.5f), true);
 
                 });
                 RegisterFunctionOnce("RotateBack", () =>
@@ -2678,7 +2678,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("Convulse", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
                     DelayBeat(0.5f, () => { Convulse(4, BeatTime(0.5f), true); });
                 });
                 RegisterFunctionOnce("Expand", () =>
@@ -2952,12 +2952,12 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), true);
+                    Convulse(4, BeatTime(0.5f), true);
 
                 });
                 RegisterFunctionOnce("ScreenScale", () =>
@@ -3036,7 +3036,7 @@ namespace Rhythm_Recall.Waves
             }
             void Epart1()
             {
-                ScreenDrawing.UISettings.CreateUISurface();
+                UISettings.CreateUISurface();
                 RegisterFunctionOnce("Line1", () =>
                 {
                     Line l = new(CentreEasing.Stable(420, 240), ValueEasing.Stable(70));
@@ -3079,32 +3079,32 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(1.5f), false);
+                    Convulse(4, BeatTime(1.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(1.5f), true);
+                    Convulse(4, BeatTime(1.5f), true);
 
                 });
                 RegisterFunctionOnce("LeftC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), true);
+                    Convulse(4, BeatTime(0.5f), true);
 
                 });
                 RegisterFunctionOnce("LeftC3", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(6, BeatTime(0.9f), false);
+                    Convulse(6, BeatTime(0.9f), false);
 
                 });
                 RegisterFunctionOnce("RightC3", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(6, BeatTime(0.9f), true);
+                    Convulse(6, BeatTime(0.9f), true);
 
                 });
                 RegisterFunctionOnce("SizeExpend", () =>
@@ -3112,7 +3112,7 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(1, 1.2f, BeatTime(1)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                 });
                 RegisterFunctionOnce("Shake", () =>
                 {
@@ -3136,8 +3136,8 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(1.2f));
                     ve.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(1.2f, 1f, BeatTime(1f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
-                    DelayBeat(1, () => { ScreenDrawing.ScreenScale = 1; });
+                    ve.Run((s) => { ScreenScale = s; });
+                    DelayBeat(1, () => { ScreenScale = 1; });
                 });
                 RegisterFunctionOnce("CameFromLeftLine", () =>
                 {
@@ -3266,7 +3266,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(20, BeatTime(0.5f));
                 });
                 BarrageCreate(0, BeatTime(1), 6.8f, new string[]
@@ -3432,7 +3432,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change2", () =>
@@ -3441,7 +3441,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(-20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change3", () =>
@@ -3451,7 +3451,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     Heart.GiveForce(180, 0);
                     RotateTo(180 + 20, BeatTime(0.5f));
                 });
@@ -3461,7 +3461,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(180 - 20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change5", () =>
@@ -3470,7 +3470,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(0));
                     ve.Insert(BeatTime(0.02f), ValueEasing.Linear(0, 4, BeatTime(0.02f)));
                     ve.Insert(BeatTime(8f), ValueEasing.EaseOutSine(4, 1, BeatTime(8)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(0, BeatTime(0.5f));
                     Heart.GiveForce(0, 0);
                 });
@@ -4307,7 +4307,7 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("Over", () =>
                 {
                     ValueEasing.EaseBuilder ve = new();
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(2), 1.2f, 0.06f);
+                    LerpScreenScale(BeatTime(2), 1.2f, 0.06f);
                     DelayBeat(4, () => { LerpScreenScale(BeatTime(4), 1, 0.1f); });
                 });
                 RegisterFunctionOnce("Rotate", () =>
@@ -4680,12 +4680,12 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), false);
+                    Convulse(8, BeatTime(1.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), true);
+                    Convulse(8, BeatTime(1.5f), true);
 
                 });
                 RegisterFunctionOnce("RotateBack", () =>
@@ -4721,7 +4721,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("Convulse", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
                     DelayBeat(0.5f, () => { Convulse(4, BeatTime(0.5f), true); });
                 });
                 RegisterFunctionOnce("Expand", () =>
@@ -4984,12 +4984,12 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), true);
+                    Convulse(4, BeatTime(0.5f), true);
 
                 });
                 RegisterFunctionOnce("ScreenScale", () =>
@@ -5068,7 +5068,7 @@ namespace Rhythm_Recall.Waves
             }
             void Npart1()
             {
-                ScreenDrawing.UISettings.CreateUISurface();
+                UISettings.CreateUISurface();
                 RegisterFunctionOnce("Line1", () =>
                 {
                     Line l = new(CentreEasing.Stable(420, 240), ValueEasing.Stable(70));
@@ -5111,32 +5111,32 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(1.5f), false);
+                    Convulse(4, BeatTime(1.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(1.5f), true);
+                    Convulse(4, BeatTime(1.5f), true);
 
                 });
                 RegisterFunctionOnce("LeftC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), true);
+                    Convulse(4, BeatTime(0.5f), true);
 
                 });
                 RegisterFunctionOnce("LeftC3", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(6, BeatTime(0.9f), false);
+                    Convulse(6, BeatTime(0.9f), false);
 
                 });
                 RegisterFunctionOnce("RightC3", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(6, BeatTime(0.9f), true);
+                    Convulse(6, BeatTime(0.9f), true);
 
                 });
                 RegisterFunctionOnce("SizeExpend", () =>
@@ -5144,7 +5144,7 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(1, 1.2f, BeatTime(1)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                 });
                 RegisterFunctionOnce("Shake", () =>
                 {
@@ -5168,8 +5168,8 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(1.2f));
                     ve.Insert(BeatTime(1f), ValueEasing.EaseOutQuad(1.2f, 1f, BeatTime(1f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
-                    DelayBeat(1, () => { ScreenDrawing.ScreenScale = 1; });
+                    ve.Run((s) => { ScreenScale = s; });
+                    DelayBeat(1, () => { ScreenScale = 1; });
                 });
                 RegisterFunctionOnce("CameFromLeftLine", () =>
                 {
@@ -5298,7 +5298,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(20, BeatTime(0.5f));
                 });
                 BarrageCreate(0, BeatTime(1), 6f, new string[]
@@ -5464,7 +5464,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change2", () =>
@@ -5473,7 +5473,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(-20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change3", () =>
@@ -5483,7 +5483,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     Heart.GiveForce(180, 0);
                     RotateTo(180 + 20, BeatTime(0.5f));
                 });
@@ -5493,7 +5493,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(1));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(1, 0, BeatTime(0.5f)));
                     ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutBack(0, 1.05f, BeatTime(0.5f)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(180 - 20, BeatTime(0.5f));
                 });
                 RegisterFunctionOnce("Change5", () =>
@@ -5502,7 +5502,7 @@ namespace Rhythm_Recall.Waves
                     ve.Insert(0, ValueEasing.Stable(0));
                     ve.Insert(BeatTime(0.02f), ValueEasing.Linear(0, 4, BeatTime(0.02f)));
                     ve.Insert(BeatTime(8f), ValueEasing.EaseOutSine(4, 1, BeatTime(8)));
-                    ve.Run((s) => { ScreenDrawing.ScreenScale = s; });
+                    ve.Run((s) => { ScreenScale = s; });
                     RotateTo(0, BeatTime(0.5f));
                     Heart.GiveForce(0, 0);
                 });
@@ -6339,7 +6339,7 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("Over", () =>
                 {
                     ValueEasing.EaseBuilder ve = new();
-                    Extends.DrawingUtil.LerpScreenScale(BeatTime(2), 1.2f, 0.06f);
+                    LerpScreenScale(BeatTime(2), 1.2f, 0.06f);
                     DelayBeat(4, () => { LerpScreenScale(BeatTime(4), 1, 0.1f); });
                 });
                 RegisterFunctionOnce("Rotate", () =>
@@ -6712,12 +6712,12 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), false);
+                    Convulse(8, BeatTime(1.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), true);
+                    Convulse(8, BeatTime(1.5f), true);
 
                 });
                 RegisterFunctionOnce("RotateBack", () =>
@@ -6753,7 +6753,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("Convulse", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
                     DelayBeat(0.5f, () => { Convulse(4, BeatTime(0.5f), true); });
                 });
                 RegisterFunctionOnce("Expand", () =>
@@ -7018,12 +7018,12 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("LeftC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), false);
+                    Convulse(4, BeatTime(0.5f), false);
 
                 });
                 RegisterFunctionOnce("RightC2", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(4, BeatTime(0.5f), true);
+                    Convulse(4, BeatTime(0.5f), true);
 
                 });
                 RegisterFunctionOnce("ScreenScale", () =>
