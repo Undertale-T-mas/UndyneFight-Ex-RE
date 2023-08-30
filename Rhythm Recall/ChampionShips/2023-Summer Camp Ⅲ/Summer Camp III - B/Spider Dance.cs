@@ -479,7 +479,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ChangeA", () =>
                     {
-                        SetBox(240, 240, 160);
+                        SetBox(new Vector2(320,240), 240, 160);
                     });
                     #region Spiders Func
                     RegisterFunctionOnce("Sp1", () =>
@@ -530,6 +530,87 @@ namespace Rhythm_Recall.Waves
                     {
                         CreateEntity(new Spider.LineSpider(6, false, 5));
                     });
+                    RegisterFunctionOnce("DSp1", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp2", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f+24f*1, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp3", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 2, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp4", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 3, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp5", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 4, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp6", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 5, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp7", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 6, true, 5f));
+                    });
+                    RegisterFunctionOnce("DSp8", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 7, true, 5f));
+                    });
+                    RegisterFunctionOnce("DSp9", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 8, true, 5f));
+                    });
+                    RegisterFunctionOnce("DSp10", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 9, true, 5f));
+                    });
+                    RegisterFunctionOnce("USp1", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210, false, 5));
+                    });
+                    RegisterFunctionOnce("USp2", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 1, false, 5));
+                    });
+                    RegisterFunctionOnce("USp3", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 2, false, 5));
+                    });
+                    RegisterFunctionOnce("USp4", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 3, false, 5));
+                    });
+                    RegisterFunctionOnce("USp5", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 4, false, 5));
+                    });
+                    RegisterFunctionOnce("USp6", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 5, false, 5));
+                    });
+                    RegisterFunctionOnce("USp7", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 6, false, 5f));
+                    });
+                    RegisterFunctionOnce("USp8", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 7, false, 5f));
+                    });
+                    RegisterFunctionOnce("USp9", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 8, false, 5f));
+                    });
+                    RegisterFunctionOnce("USp10", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 9, false, 5f));
+                    });
+
                     #endregion
                     RegisterFunctionOnce("SpA", () =>
                     {
@@ -592,18 +673,18 @@ namespace Rhythm_Recall.Waves
                         //1
                         "", "", "Purple(Line1s)", "",    "ChangeA", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "Sp1", "", "Sp2", "",     "Sp3", "", "Sp4","",
-                        "Sp5", "", "Sp6", "",     "Sp5", "", "Sp4","",
+                        "Sp1(DSp1)", "", "Sp2(DSp2)", "",     "Sp3(DSp3)", "", "Sp4(DSp4)","",
+                        "Sp5(DSp5)", "", "Sp6(DSp6)", "",     "Sp5(DSp7)", "", "Sp4(DSp8)","",
                         //2
-                        "Sp3", "", "Sp2", "",     "Sp1", "", "", "",
-                        "tSp6", "", "tSp5", "",     "tSp4", "", "tSp3", "",
-                        "tSp2", "", "tSp1", "",     "tSp2", "", "tSp3", "",
-                        "tSp4", "", "tSp5", "",     "tSp6", "", "", "",
+                        "Sp3(DSp9)", "", "Sp2(DSp9)", "",     "Sp1", "", "", "",
+                        "tSp6(USp10)", "", "tSp5(USp9)", "",     "tSp4(USp8)", "", "tSp3(USp7)", "",
+                        "tSp2(USp6)", "", "tSp1(USp5)", "",     "tSp2(USp4)", "", "tSp3(USp3)", "",
+                        "tSp4(USp2)", "", "tSp5", "",     "tSp6", "", "", "",
                         //3
-                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "", "", "", "",
-                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "", "", "", "",
-                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "", "", "", "",
-                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "", "", "", "",
+                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "(USp1)(USp2)", "(USp3)", "(USp4)", "(USp5)",
+                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "(DSp10)(DSp9)", "(DSp8)", "(DSp7)", "(DSp6)",
+                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "(USp1)(USp2)", "(USp3)", "(USp4)", "(USp5)",
+                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "(DSp10)(DSp9)", "(DSp8)", "(DSp7)", "(DSp6)",
                         //4
                         "(tSp1)(tSp6)", "", "(tSp1)(tSp6)", "",     "(tSp2)(tSp5)", "", "(tSp2)(tSp5)", "",
                         "(tSp3)(tSp4)", "", "(tSp3)(tSp4)", "",     "(tSp3)(tSp4)", "", "(tSp3)(tSp4)", "",
@@ -612,11 +693,11 @@ namespace Rhythm_Recall.Waves
                         //5
                         "(tSp1)(tSp6)", "", "", "",    "(Sp2)(Sp5)", "", "", "",
                         "(tSp3)(tSp4)", "", "", "",    "(Sp1)(Sp6)", "", "", "",
-                        "tSp1", "", "tSp2", "",     "tSp3", "", "tSp4","",
-                        "tSp5", "", "tSp6", "",     "tSp5", "", "tSp4","",
+                        "tSp1(DSp1)", "(DSp1)", "tSp2(DSp1)", "(DSp1)",     "tSp3(USp3)", "(USp3)", "tSp4(USp3)","(USp3)",
+                        "tSp5(DSp5)", "(DSp5)", "tSp6(DSp5)", "(DSp5)",     "tSp5(USp7)", "(USp7)", "tSp4(USp7)","(USp7)",
                         //6
-                        "tSp3", "", "tSp2", "",     "tSp1", "", "", "",
-                        "Sp6", "", "Sp5", "",     "Sp4", "", "Sp3", "",
+                        "tSp3(USp10)", "(USp10)", "tSp2(USp10)", "(USp10)",     "tSp1(DSp8)", "(DSp8)", "(DSp8)", "(DSp8)",
+                        "Sp6(USp6)", "(USp6)", "Sp5(USp6)", "(USp6)",     "Sp4(USp4)", "(USp4)", "Sp3(USp4)", "(USp4)",
                         "Sp2", "", "Sp1", "",     "Sp2", "", "Sp3", "",
                         "Sp4", "", "Sp5", "",     "Sp6", "", "", "",
                         //7
@@ -1005,9 +1086,13 @@ namespace Rhythm_Recall.Waves
                     #region Transverse Line Spiders ( Return )
                     RegisterFunctionOnce("TL1", () =>
                     {
+
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 1f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3*BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1017,6 +1102,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1025,6 +1113,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 2f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1034,6 +1125,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1042,6 +1136,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 3f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1051,6 +1148,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1059,6 +1159,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 4f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1068,6 +1171,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1076,6 +1182,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 5f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1085,6 +1194,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1313,7 +1425,7 @@ namespace Rhythm_Recall.Waves
                     //int beat = 54 + 128 + 64 + 64; 
                     //int beat = 54 + 64;
                     //int beat = 22;
-                    int beat = 98;
+                    int beat = 54;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;

@@ -96,6 +96,31 @@ namespace UndyneFight_Ex.Remake.Entities
                 base.Update(); 
             }
         }
+        public class LineSpider2 : Spider
+        {
+            protected float speed;
+            private float count;
+            public float Speed { set => speed = value; get => speed; }
+            public LineSpider2(float X, bool IsUpOrDown, float Speed)
+            {
+                collidingBox.Y = IsUpOrDown ? BoxStates.Centre.Y - BoxStates.Height / 2f-50 : BoxStates.Centre.Y + BoxStates.Height / 2f+50;
+                Rotation = IsUpOrDown ? 90 : 180;
+                this.speed = Speed;
+                movingWay = IsUpOrDown;
+                count = X;
+            }
+            private readonly bool movingWay;
+            public override void Draw()
+            {
+                base.Draw();
+            }
+            public override void Update()
+            {
+                collidingBox.X = count;
+                collidingBox.Y += speed * 0.5f * (movingWay ? 1 : -1);
+                base.Update();
+            }
+        }
     }
     public class FakeSpider : Entity
     {
