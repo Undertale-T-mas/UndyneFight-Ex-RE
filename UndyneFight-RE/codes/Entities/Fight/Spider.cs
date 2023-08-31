@@ -78,7 +78,7 @@ namespace UndyneFight_Ex.Remake.Entities
             public float Speed { set => speed = value; get => speed; }
             public LineSpider(int CountLine, bool IsLeftOrRight, float Speed)
             {
-                collidingBox.X = IsLeftOrRight ? BoxStates.Centre.X - BoxStates.Width / 2f  : BoxStates.Centre.X + BoxStates.Width / 2f;
+                collidingBox.X = IsLeftOrRight ? BoxStates.Centre.X - BoxStates.Width / 2f -this.Image.Width  : BoxStates.Centre.X + BoxStates.Width / 2f + this.Image.Width;
                 Rotation =IsLeftOrRight ? 0 : 180;
                 this.speed = Speed;
                 movingWay = IsLeftOrRight;
