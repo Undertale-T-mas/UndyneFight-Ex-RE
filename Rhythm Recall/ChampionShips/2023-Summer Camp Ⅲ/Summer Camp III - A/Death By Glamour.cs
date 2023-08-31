@@ -76,6 +76,7 @@ namespace Rhythm_Recall.Waves
             {
                 if (InBeat(0))
                 {
+
                     BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {                        
                         //1
