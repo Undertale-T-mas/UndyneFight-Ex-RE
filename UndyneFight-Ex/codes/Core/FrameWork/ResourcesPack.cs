@@ -7,7 +7,7 @@ namespace UndyneFight_Ex
 {
     internal class ResourcesPackManager
     {
-        private readonly SortedDictionary<int, ResourcesPack> packs = new SortedDictionary<int, ResourcesPack>();
+        private readonly SortedDictionary<int, ResourcesPack> packs = new();
         public KeyValuePair<int, ResourcesPack>[] AllPackages => packs.ToArray();
         public ResourcesPackManager()
         {

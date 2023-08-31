@@ -94,7 +94,7 @@ namespace UndyneFight_Ex.Fight
             {
                 appearTime = -FightStates.attackDelay;
                 Vector2 pos = enemy.Centre;
-                CollideRect bound = new CollideRect(0, 0, enemy.HPBarLength, 16);
+                CollideRect bound = new(0, 0, enemy.HPBarLength, 16);
                 bound.SetCentre(pos + new Vector2(0, 40));
                 currentHPBar = bound;
                 collidingBox = bound;

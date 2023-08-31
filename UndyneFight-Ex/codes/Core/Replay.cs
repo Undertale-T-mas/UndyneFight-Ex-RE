@@ -52,7 +52,7 @@ namespace UndyneFight_Ex
 
         public void Flush()
         {
-            List<string> strs = new List<string>
+            List<string> strs = new()
             {
                 "typeName:" + GameStates.waveSet.GetType().Name,
                 "difficulty:" + GameStates.difficulty,
@@ -99,7 +99,7 @@ namespace UndyneFight_Ex
 
         public static KeyboardState GetState(string val)
         {
-            List<Keys> keys = new List<Keys>();
+            List<Keys> keys = new();
             if (FromInfo(val, 0)) keys.Add(Keys.W);
             if (FromInfo(val, 1)) keys.Add(Keys.A);
             if (FromInfo(val, 2)) keys.Add(Keys.S);

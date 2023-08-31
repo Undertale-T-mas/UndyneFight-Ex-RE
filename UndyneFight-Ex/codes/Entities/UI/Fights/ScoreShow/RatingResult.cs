@@ -42,7 +42,7 @@ namespace UndyneFight_Ex.Entities
 
                     public override void Draw()
                     {
-                        float alpha = MathF.Min(1.0f, appearTime / 60f);
+                        float alpha = Min(1.0f, appearTime / 60f);
                         Color color = Color.White * alpha;
 
                         float height = 30;

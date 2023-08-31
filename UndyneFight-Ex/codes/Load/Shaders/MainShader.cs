@@ -18,7 +18,7 @@ namespace UndyneFight_Ex
                         if (Fight.Functions.Gametime % 2 == 0)
                         {
                             var screenSize = GameMain.ScreenSize;
-                            Vector2 screenDiv = new Vector2((0.7f + splitDegree) / screenSize.X, (0.7f + splitDegree) / screenSize.Y);
+                            Vector2 screenDiv = new((0.7f + splitDegree) / screenSize.X, (0.7f + splitDegree) / screenSize.Y);
                             s.Parameters["v1"].SetValue(new Vector2(GetRandom(-2, 2), GetRandom(-2, 2)) * screenDiv);
                             s.Parameters["v2"].SetValue(new Vector2(GetRandom(-2, 2), GetRandom(-2, 2)) * screenDiv);
                             s.Parameters["v3"].SetValue(new Vector2(GetRandom(-2, 2), GetRandom(-2, 2)) * screenDiv);

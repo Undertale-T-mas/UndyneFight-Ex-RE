@@ -132,7 +132,7 @@ namespace UndyneFight_Ex.Entities
             UpdateIn120 = true;
             AutoDispose = false;
             XPositionDetla = XPositionDetlaMission = 0;
-            Vector2 Position0 = new Vector2(317, 127);
+            Vector2 Position0 = new(317, 127);
             int yCnt = 0;
             foreach (ChampionShip s in FightSystem.ChampionShips)
             {
@@ -197,7 +197,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            System.DateTime time = System.DateTime.UtcNow;
+            System.DateTime time = DateTime.UtcNow;
             time = time.AddHours(8);
             NormalFont.CentreDraw("Championships", new Vector2(120, 34), Color.White);
             NormalFont.CentreDraw("UTC+8: " + time.ToShortTimeString(), new Vector2(520, 34), Color.White, 0.95f, 0.5f);

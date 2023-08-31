@@ -9,7 +9,7 @@ namespace RecallCharter
 {
     internal class Window : Control
     {
-        public static List<Window> Windows = new List<Window>();
+        public static List<Window> Windows = new();
         public Window() { 
             Windows.Add(this);
             this.ClickToFocus = true;
@@ -21,7 +21,7 @@ namespace RecallCharter
 
         public override void Start()
         {
-            Vector2 tr = new Vector2(this.collidingBox.Width, 0);
+            Vector2 tr = new(this.collidingBox.Width, 0);
             tr += new Vector2(-20, 4);
 
             CollideRect area = new(tr, new Vector2(18, 18)); 

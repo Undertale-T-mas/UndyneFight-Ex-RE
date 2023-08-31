@@ -236,7 +236,7 @@ namespace Rhythm_Recall.Waves
             }
             if (RoundType && Heart.SoulType == 0 && Gametime % 24 == 0 && undyne.HP >= 3200)
             {
-                Vector2 pos = new Vector2(Rand(140, 500), Rand(60, 120));
+                Vector2 pos = new(Rand(140, 500), Rand(60, 120));
                 CreateSpear(new UndyneFight_Ex.Entities.NormalSpear(pos) { Speed = 7f });
                 pos = new Vector2(Rand(140, 500), Rand(60, 120));
                 CreateSpear(new UndyneFight_Ex.Entities.NormalSpear(pos) { Speed = 11f, IsMute = true });

@@ -365,7 +365,7 @@ namespace UndyneFight_Ex.Entities
     {
         public bool AlphaIncrease { get; set; } = false;
 
-        public CollideRect screenC = new CollideRect(-50, -50, 740, 580);
+        public CollideRect screenC = new(-50, -50, 740, 580);
 
         private readonly Vector2 startPos;
 

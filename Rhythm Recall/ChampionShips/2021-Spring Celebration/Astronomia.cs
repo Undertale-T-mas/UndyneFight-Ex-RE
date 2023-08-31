@@ -57,19 +57,19 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "T-mas";
                 public override string AttributeAuthor => "TK";
                 public override string PaintAuthor => "Vicetone + Tony Igy";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Easy, 6.0f),
                             new(Difficulty.Normal, 11.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Easy, 6.0f),
                             new(Difficulty.Normal, 11.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Easy, 10.0f),
                             new(Difficulty.Normal, 16f),

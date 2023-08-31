@@ -347,7 +347,7 @@ namespace UndyneFight_Ex
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             float scrWidth = CurrentScene.CurrentDrawingSettings.defaultWidth;
             float scrHeight = scrWidth / GameStates.Aspect;
-            CollideRect cur = new CollideRect(0, -scrHeight * extend.W, scrWidth * scale * GameStates.SurfaceScale, scrHeight * (scale + extend.W) * GameStates.SurfaceScale);
+            CollideRect cur = new(0, -scrHeight * extend.W, scrWidth * scale * GameStates.SurfaceScale, scrHeight * (scale + extend.W) * GameStates.SurfaceScale);
             cur.SetCentre(new Vector2(scrWidth / 2f, (1 - extend.W) * 0.5f * scrHeight) * GameStates.SurfaceScale);
             cur.Offset(-CurrentScene.CurrentDrawingSettings.screenDetla / CurrentScene.CurrentDrawingSettings.screenScale);
 
@@ -427,31 +427,31 @@ namespace UndyneFight_Ex
         public abstract void Draw();
         protected ShinyEffect CreateShinyEffect()
         {
-            ShinyEffect effect = new ShinyEffect(this);
+            ShinyEffect effect = new(this);
             GameStates.InstanceCreate(effect);
             return effect;
         }
         protected ShinyEffect CreateShinyEffect(Color color)
         {
-            ShinyEffect effect = new ShinyEffect(this, color);
+            ShinyEffect effect = new(this, color);
             GameStates.InstanceCreate(effect);
             return effect;
         }
         protected ShinyEffect CreateShinyEffect(Color color, Texture2D image)
         {
-            ShinyEffect effect = new ShinyEffect(this, color, image);
+            ShinyEffect effect = new(this, color, image);
             GameStates.InstanceCreate(effect);
             return effect;
         }
 
         protected void CreateRetentionEffect(float time)
         {
-            RetentionEffect effect = new RetentionEffect(this, time);
+            RetentionEffect effect = new(this, time);
             GameStates.InstanceCreate(effect);
         }
         protected void CreateRetentionEffect(Color color, float time)
         {
-            RetentionEffect effect = new RetentionEffect(this, time, color);
+            RetentionEffect effect = new(this, time, color);
             GameStates.InstanceCreate(effect);
         }
 
@@ -498,7 +498,7 @@ namespace UndyneFight_Ex
             public Vector2 MissionSize { set => missionSize = value; }
 
             private Color drawingColor;
-            private Vector2 missionSize = new Vector2(3.0f, 3.0f);
+            private Vector2 missionSize = new(3.0f, 3.0f);
 
             public override void Update()
             {
@@ -671,7 +671,7 @@ namespace UndyneFight_Ex
 
         public List<Entity> GetDrawableTree()
         {
-            List<Entity> list = new List<Entity>();
+            List<Entity> list = new();
             if (BeingUpdated && this is Entity) 
                 if((this as Entity).Visible) list.Add(this as Entity);
             foreach (GameObject child in ChildObjects)

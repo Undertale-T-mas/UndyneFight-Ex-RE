@@ -11,7 +11,7 @@ namespace UndyneFight_Ex
             this.fightSetName = fightSetName;
         }
         private string fightSetName;
-        private Dictionary<string, Type> fightDictionary = new Dictionary<string, Type>();
+        private Dictionary<string, Type> fightDictionary = new();
 
         public void Push(Type type)
         {
@@ -34,7 +34,7 @@ namespace UndyneFight_Ex
             this.songSetName = songSetName;
         }
         private string songSetName;
-        private Dictionary<string, Type> fightDictionary = new Dictionary<string, Type>();
+        private Dictionary<string, Type> fightDictionary = new();
 
         public void Push(Type type)
         {

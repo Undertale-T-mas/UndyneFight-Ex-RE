@@ -242,13 +242,10 @@ namespace Rhythm_Recall.Waves
             {
                 if(NameX == 0)
                 {
-                    Text text = TextUtils.DrawText(4, "$T$raveller $A$t $S$unset", new vec2(10, 45), true,
+                    Text text = TextUtils.DrawText(4, "$Traveller $At $Sunset", new vec2(10, 45), true,
                         new TextColorEffect(Color.Red, 1),
-                        new TextColorEffect(Color.White, 8),
                         new TextColorEffect(Color.Red, 1),
-                        new TextColorEffect(Color.White, 1),
-                        new TextColorEffect(Color.Red, 1),
-                        new TextColorEffect(Color.White, 5)
+                        new TextColorEffect(Color.Red, 1)
                         );
                     AddInstance(text);
                 }

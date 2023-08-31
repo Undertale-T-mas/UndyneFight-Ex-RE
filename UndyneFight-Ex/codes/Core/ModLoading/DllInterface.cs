@@ -9,7 +9,7 @@ namespace UndyneFight_Ex
     {
         public const string UFExVersion = "0.2.0";
 
-        private List<Type> _fightTypes = new List<Type>();
+        private List<Type> _fightTypes = new();
 
         public ModDynamic(string path)
         {

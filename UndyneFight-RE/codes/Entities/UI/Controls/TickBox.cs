@@ -43,7 +43,7 @@ namespace UndyneFight_Ex.Remake.UI
             if (!this._father.DrawEnabled) return;
             FightResources.Font.NormalFont.CentreDraw(_text, _realLocation - new Vector2(35, 0), _drawingColor, DefaultScale, 0.4f);
             Vector2 pos2 = _realLocation + new Vector2(fontSize.X * 0.5f - 18, 0);
-            CollideRect rect2 = new CollideRect();
+            CollideRect rect2 = new();
             rect2.Size = new(26, 26);
             rect2.SetCentre(pos2);
 

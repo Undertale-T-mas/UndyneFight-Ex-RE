@@ -74,7 +74,7 @@ namespace UndyneFight_Ex.Entities
         }
         public void GetCollide(Player.Heart Heart)
         {
-            Random rd = new Random();
+            Random rd = new();
             int d = rd.Next(0, 5);
             if (alpha <= 0.9f) return;
             float A, B, C, dist;

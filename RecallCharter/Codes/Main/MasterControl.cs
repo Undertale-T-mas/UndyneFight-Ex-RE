@@ -25,7 +25,7 @@ namespace RecallCharter
             this.ChildrenUpdateFirst = false;
             base.Start();
         }
-        private static List<Control> _childBuffer = new List<Control>();
+        private static List<Control> _childBuffer = new();
         public static void AddControl(Control control)
         {
             _childBuffer.Add(control);

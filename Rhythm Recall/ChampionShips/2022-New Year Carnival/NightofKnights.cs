@@ -84,21 +84,21 @@ namespace Rhythm_Recall.Waves
             {
                 public override string BarrageAuthor => GameStates.difficulty == 4 ? "T-mas, modded by TK" : "T-mas";
                 public override string SongAuthor => "Touhou";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 1.5f),
                             new(Difficulty.Easy, 7.5f),
                             new(Difficulty.Hard, 15.6f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 2.0f),
                             new(Difficulty.Easy, 8.5f),
                             new(Difficulty.Hard, 16.4f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 8.5f),
                             new(Difficulty.Easy, 12.5f),

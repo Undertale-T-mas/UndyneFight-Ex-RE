@@ -33,7 +33,7 @@ namespace UndyneFight_Ex.UserService
 
         public SaveInfo Save()
         {
-            SaveInfo res = new SaveInfo("GameJolt{");
+            SaveInfo res = new("GameJolt{");
             res.PushNext(new("ID:" + GameJoltID));
             res.PushNext(new("Token:" + Token));
 

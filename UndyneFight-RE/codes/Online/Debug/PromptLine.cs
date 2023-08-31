@@ -22,7 +22,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         private string _str;
         public PromptLine(string str) { this.Build(_str = str); } 
 
-        private List<PromptBlock> promptBlocks = new List<PromptBlock>();
+        private List<PromptBlock> promptBlocks = new();
 
         private static string[] Split(string? str)
         {

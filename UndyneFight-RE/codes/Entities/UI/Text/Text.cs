@@ -78,7 +78,7 @@ namespace UndyneFight_Ex.Remake
             Settings = new();
             Settings.Depth = this.Depth;
 
-            List<TextEffect> runningEffects = new List<TextEffect>();
+            List<TextEffect> runningEffects = new();
             DefaultTextRender render;
             runningEffects.Add(render = new DefaultTextRender());
             render.GlobalReset();
@@ -92,7 +92,7 @@ namespace UndyneFight_Ex.Remake
             }
             float time = _appearTime;
             Vector2 position = _location;
-            for(; i < _text.Length ; i++)
+            for(; i < _text.Length; i++)
             {
                 if (_text[i] == '$') // add an effect
                 {

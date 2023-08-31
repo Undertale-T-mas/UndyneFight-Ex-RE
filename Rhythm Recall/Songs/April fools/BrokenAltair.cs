@@ -33,19 +33,19 @@ namespace Rhythm_Recall.Waves
             public string FightName => "Broken Altair";
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             //new(Difficulty.Easy, 0),
                             //new(Difficulty.Normal, 0),
                             new(Difficulty.ExtremePlus, 0)
                     });
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             //new(Difficulty.Easy, 0),
                             //new(Difficulty.Normal, 0),
                             new(Difficulty.ExtremePlus, 0)
                     });
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             //new(Difficulty.Easy, 0),
                             //new(Difficulty.Normal, 0),

@@ -360,7 +360,7 @@ namespace UndyneFight_Ex.Entities
                     public Vector2 MissionSize { set => missionSize = value; }
 
                     private Color drawingColor;
-                    private Vector2 missionSize = new Vector2(2.6f, 1.5f);
+                    private Vector2 missionSize = new(2.6f, 1.5f);
 
                     public override void Update()
                     {

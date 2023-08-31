@@ -34,12 +34,12 @@ namespace UndyneFight_Ex
                     Vector2 MainPS(Vector2 textCoordinates)
                     {
                         float fBallArgument = 3.1415926f / 2.0f;
-                        Vector2 center = new Vector2(320, 240);
-                        Vector2 position = new Vector2(textCoordinates.X, 240 * textCoordinates.Y);
+                        Vector2 center = new(320, 240);
+                        Vector2 position = new(textCoordinates.X, 240 * textCoordinates.Y);
                         Vector2 usingPolar = Turnpolar(position - center);
                         Vector2 usingPosition = Turnposition(new Vector2(usingPolar.X, MathF.Asin(usingPolar.Y / (center.Length() * Intensity)) / fBallArgument * (center.Length() * Intensity))) * 1.57f
                         + center;
-                        Vector2 usingTextureCoord = new Vector2(usingPosition.X / 320, usingPosition.Y / 240);
+                        Vector2 usingTextureCoord = new(usingPosition.X / 320, usingPosition.Y / 240);
                         return usingTextureCoord;
                     }
 

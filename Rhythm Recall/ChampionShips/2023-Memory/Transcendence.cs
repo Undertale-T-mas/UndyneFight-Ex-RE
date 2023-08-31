@@ -86,7 +86,7 @@ namespace Rhythm_Recall.Waves
                         return base.UnlockedDifficulties;
 #endif
                         HashSet<Difficulty> difficulties = new();
-                        int v = UndyneFight_Ex.PlayerManager.CurrentUser.Custom.Nexts["reTranscendence"].Nexts["info"].IntValue;
+                        int v = PlayerManager.CurrentUser.Custom.Nexts["reTranscendence"].Nexts["info"].IntValue;
                         for (int i = 0; i <= v; i++) difficulties.Add((Difficulty)i);
                         return difficulties;
                     }
@@ -10029,7 +10029,7 @@ namespace Rhythm_Recall.Waves
                             float time = a.BlockTime - GametimeF;
                             time /= 15f;
                             a.Offset = new(delta * 0.4f, time * time * time * time + delta);
-                            a.Alpha = MathUtil.Clamp(0, 4.1f - time * 1.5f, 0.85f);
+                            a.Alpha = Clamp(0, 4.1f - time * 1.5f, 0.85f);
                         }
                         Arrow[] tagB = GetAll<Arrow>("Y");
                         foreach (Arrow b in tagB)
@@ -10037,7 +10037,7 @@ namespace Rhythm_Recall.Waves
                             float time = b.BlockTime - GametimeF;
                             time /= 15f;
                             b.Offset = new(delta * 0.4f, -time * time * time * time + delta);
-                            b.Alpha = MathUtil.Clamp(0, 4.1f - time * 1.5f, 0.85f);
+                            b.Alpha = Clamp(0, 4.1f - time * 1.5f, 0.85f);
                         }
                     });
                     BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
@@ -10321,7 +10321,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 + 21 + t * 15, BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -10345,7 +10345,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 - (21 + t * 15), BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -10426,7 +10426,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 + 21 + t * 15, BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -10450,7 +10450,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 - (21 + t * 15), BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -10649,7 +10649,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 + 21 + t * 15, BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -10678,7 +10678,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 - (21 + t * 15), BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -12952,7 +12952,7 @@ namespace Rhythm_Recall.Waves
                             float time = a.BlockTime - GametimeF;
                             time /= 15f;
                             a.Offset = new(delta * 0.4f, time * time * time * time + delta);
-                            a.Alpha = MathUtil.Clamp(0, 4.1f - time * 1.5f, 0.85f);
+                            a.Alpha = Clamp(0, 4.1f - time * 1.5f, 0.85f);
                         }
                         Arrow[] tagB = GetAll<Arrow>("Y");
                         foreach (Arrow b in tagB)
@@ -12960,7 +12960,7 @@ namespace Rhythm_Recall.Waves
                             float time = b.BlockTime - GametimeF;
                             time /= 15f;
                             b.Offset = new(delta * 0.4f, -time * time * time * time + delta);
-                            b.Alpha = MathUtil.Clamp(0, 4.1f - time * 1.5f, 0.85f);
+                            b.Alpha = Clamp(0, 4.1f - time * 1.5f, 0.85f);
                         }
                     });
                     BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
@@ -14306,7 +14306,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 + 21 + t * 15, BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -14330,7 +14330,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 - (21 + t * 15), BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -14411,7 +14411,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 + 21 + t * 15, BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -14435,7 +14435,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 - (21 + t * 15), BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -14634,7 +14634,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 + 21 + t * 15, BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;
@@ -14663,7 +14663,7 @@ namespace Rhythm_Recall.Waves
                                 var rot2 = ValueEasing.EaseInCirc(rotation2, rotation2 - (21 + t * 15), BeatTime(3.2f));
                                 var ease1 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot1);
                                 var ease2 = CentreEasing.PolarCombine(CentreEasing.Linear(new Vector2(42, 42), new Vector2(88 + t * 44, 88 + t * 44), BeatTime(3.2f)), rot2);
-                                Line line = new Line(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
+                                Line line = new(CentreEasing.Combine(new Vector2(320, 240), ease1), CentreEasing.Combine(new Vector2(320, 240), ease2));
                                 line.DrawingColor = Color.White;
                                 CreateEntity(line);
                                 float p = line.Alpha = 0.4f - 0.1f * t;

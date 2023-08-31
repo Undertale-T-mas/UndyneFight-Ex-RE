@@ -56,7 +56,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
 
-                    private List<LeafSelection> _leave = new List<LeafSelection>();
+                    private List<LeafSelection> _leave = new();
                     public void LinkLeaf(LeafSelection leafSelection)
                     {
                         _leave.Add(leafSelection);

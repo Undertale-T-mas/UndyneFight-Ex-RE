@@ -263,7 +263,7 @@ namespace Rhythm_Recall
                 {
                     AddInstance(new Charactor());
                     ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Glitching(0.4f) { AverageInterval = 1, AverageDelta = 0.8f });
-                    ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(shader = FightResources.Shaders.Gray, 0.5f));
+                    ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(shader = Shaders.Gray, 0.5f));
                 }
                 if (ScreenDrawing.MasterAlpha < 1f)
                 {

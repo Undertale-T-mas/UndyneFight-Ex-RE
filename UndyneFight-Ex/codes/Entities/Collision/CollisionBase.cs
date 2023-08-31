@@ -16,7 +16,7 @@ namespace UndyneFight_Ex
     internal static class CheckCollision
     {
         internal static Dictionary<Type, Dictionary<Type, Func<CollidingComponent, CollidingComponent, bool>>> collisionCheck =
-            new Dictionary<Type, Dictionary<Type, Func<CollidingComponent, CollidingComponent, bool>>>();
+            new();
         internal static void Initialize()
         {
 
@@ -95,7 +95,7 @@ namespace UndyneFight_Ex
 #if DEBUG
         private Vector2 v1, v2;
 #endif
-        public static HashSet<GravityLine> GravityLines = new HashSet<GravityLine>();
+        public static HashSet<GravityLine> GravityLines = new();
 
         public void Dispose()
         {
@@ -195,7 +195,7 @@ namespace UndyneFight_Ex
 
         private bool isCollide;
         public bool sticky = true;
-        private readonly List<Player.Heart> collidePlayers = new List<Player.Heart>();
+        private readonly List<Player.Heart> collidePlayers = new();
 
         public bool IsCollideWith(Player.Heart player)
         {
@@ -362,7 +362,7 @@ namespace UndyneFight_Ex
             }
         }
         public static implicit operator Rectangle(CollideRect rect) => rect.ToRectangle();
-        public static implicit operator CollideRect(Rectangle rect) => new CollideRect(rect);
+        public static implicit operator CollideRect(Rectangle rect) => new(rect);
 
         public float Up => Y;
         public float Down => Y + Height;

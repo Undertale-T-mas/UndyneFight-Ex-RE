@@ -19,7 +19,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
 {
     public class PromptDialog : Entity
     { 
-        public static List<PromptLine> promptLines = new List<PromptLine>();
+        public static List<PromptLine> promptLines = new();
         private bool _updated = true;
         float delta = 0.0f;
         float deltaBuffer = 0.0f;

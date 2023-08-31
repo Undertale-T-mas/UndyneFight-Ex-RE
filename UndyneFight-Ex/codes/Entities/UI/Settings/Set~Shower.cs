@@ -80,7 +80,7 @@ namespace UndyneFight_Ex.Settings
             AutoDispose = false;
             IsCancelAvailable = false;
 
-            Vector2 startPosition = new Vector2(320, 50);
+            Vector2 startPosition = new(320, 50);
             foreach (var v in SettingsManager.Settings)
             {
                 PushSelection(Activator.CreateInstance(v, startPosition) as Setting);

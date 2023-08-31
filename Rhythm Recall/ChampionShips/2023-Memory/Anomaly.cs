@@ -63,7 +63,7 @@ namespace Rhythm_Recall.Waves
                 public override void Update()
                 {
                     this.AddChild(new Particle(Color.White * Rand(0.4f, 0.6f), GetVector2(Rand(2f, 3f), Rand(-8f, 8f) + Rotation),
-                        Rand(8f, 16f), new(Rand(-100, 740), -12), FightResources.Sprites.square)
+                        Rand(8f, 16f), new(Rand(-100, 740), -12), Sprites.square)
                     { DarkingSpeed = 2f, AutoRotate = true });
                 }
 
@@ -256,13 +256,13 @@ namespace Rhythm_Recall.Waves
                 {
                     CreateEntity(new Particle(Color.White * Rand(0.6f, 0.9f) * 0.8f,
                         GetVector2(Rand(6f, 9f) * 0.9f, Rand(-12f, -18f)), Rand(12f, 18f) * 1.4f,
-                        new(-12, Rand(0, 640)), FightResources.Sprites.square)
+                        new(-12, Rand(0, 640)), Sprites.square)
                     { DarkingSpeed = 1.1f, UpdateIn120 = true, Rotation = -15, AngleMode = true });
                 }
                 // back particle 
                 CreateEntity(new Particle(Color.AliceBlue * Rand(0.6f, 0.9f) * 0.42f,
                     GetVector2(Rand(6f, 9f) * 0.6f, Rand(-12f, -18f) * (-0.6f)), Rand(12f, 18f) * 1.0f,
-                    new(-12, Rand(0 - 170, 480)), FightResources.Sprites.square)
+                    new(-12, Rand(0 - 170, 480)), Sprites.square)
                 { DarkingSpeed = 1.4f, UpdateIn120 = true, AutoRotate = true });
             }
         }
@@ -314,12 +314,12 @@ namespace Rhythm_Recall.Waves
             }
             public override void Draw()
             {
-                FightResources.Font.NormalFont.Draw("Press Z to change difficulty", new(60, 340), Color.White, 1.0f, 0.99f);
-                FightResources.Font.NormalFont.Draw("Current:", new(60, 390), Color.Silver, 1.0f, 0.99f);
+                Font.NormalFont.Draw("Press Z to change difficulty", new(60, 340), Color.White, 1.0f, 0.99f);
+                Font.NormalFont.Draw("Current:", new(60, 390), Color.Silver, 1.0f, 0.99f);
                 if (isDiv1)
-                    FightResources.Font.NormalFont.Draw("Hard", new(220, 390), Color.MediumPurple, 1.0f, 0.99f);
+                    Font.NormalFont.Draw("Hard", new(220, 390), Color.MediumPurple, 1.0f, 0.99f);
                 else
-                    FightResources.Font.NormalFont.Draw("Noob", new(220, 390), Color.Lime, 1.0f, 0.99f);
+                    Font.NormalFont.Draw("Noob", new(220, 390), Color.Lime, 1.0f, 0.99f);
 
             }
             bool isDiv1 = true;
@@ -371,7 +371,7 @@ namespace Rhythm_Recall.Waves
                 // finish by yourself 
                 GametimeDelta = -11.5f - BeatTime(16 - 1);
                 ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Glitching(0.4f) { Intensity = 2, AverageInterval = 2 });
-                ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(gray = FightResources.Shaders.Gray, 0.5f));
+                ScreenDrawing.SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(gray = Shaders.Gray, 0.5f));
                 gray.Intensity = 1f;
             }
             public void UpdateEvent()

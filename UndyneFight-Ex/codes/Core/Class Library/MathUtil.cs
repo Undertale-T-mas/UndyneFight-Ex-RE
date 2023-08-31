@@ -10,7 +10,7 @@ namespace UndyneFight_Ex
 {
     public static class MathUtil
     {
-        internal static Random rander = new Random();
+        internal static Random rander = new();
         public static float PI = 3.141592f;
 
         public static bool InTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 target)
@@ -315,14 +315,14 @@ namespace UndyneFight_Ex
         public static string Encrypt(string password, string rsaKeyPublic)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(password);
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            RSACryptoServiceProvider rsa = new();
             rsa.FromXmlString(rsaKeyPublic);
             byte[] encrypted = rsa.Encrypt(bytes, false);
             return Convert.ToBase64String(encrypted);
         }
         public static string Decrypt(string base64Origin, string rsaKeyPrivate)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(); 
+            RSACryptoServiceProvider rsa = new(); 
             rsa.FromXmlString(rsaKeyPrivate);
 
             byte[] buffer = Convert.FromBase64String(base64Origin);

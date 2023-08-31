@@ -21,6 +21,8 @@ namespace Rhythm_Recall.Waves
         {
             public void ExtremePlus()
             {
+                //Manual end song
+                if (GametimeF == 302 * 60) EndSong();
                 EXPre();
                 EXBuildup();
                 if (InBeat(72 + 128))
@@ -1283,7 +1285,7 @@ namespace Rhythm_Recall.Waves
             {
                 if (InBeat(328))
                 {
-                    base.Settings.VoidArrowVolume = 0.0f;
+                    Settings.VoidArrowVolume = 0.0f;
                     DelayBeat(6.5f, () =>
                     {
                         easeA.Dispose(); easeA = new(); AddInstance(easeA);
@@ -3902,7 +3904,7 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.MasterAlpha = s,
                         EaseOut(BeatTime(0.3f), 0.88f, 1.0f, EaseState.Quad)
                     );
-                    Vector2 cur = new Vector2(20, 457);
+                    Vector2 cur = new(20, 457);
                     RunEase(s => ScreenDrawing.UISettings.NameShowerPos = s,
                         EaseOut(BeatTime(1), cur - new Vector2(80, 0), cur, EaseState.Quint)
                         ); cur = new(320, 443);

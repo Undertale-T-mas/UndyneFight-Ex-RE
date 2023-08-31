@@ -67,7 +67,7 @@ namespace Rhythm_Recall.Waves
                 {
                     float speed = 0.95f;
                     p.ResetStartPosition(new(p.Centre.X + speed, p.Centre.Y));
-                    var v = RectangleBox.instance.CollidingBox;
+                    var v = FightBox.instance.CollidingBox;
                     v.X += speed;
                     (FightBox.instance as RectangleBox).InstanceMove(v);
                 }

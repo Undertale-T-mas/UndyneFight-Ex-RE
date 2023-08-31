@@ -20,7 +20,7 @@ namespace Rhythm_Recall.Waves
             {
                 if (waveTime % 5 == 0 && waveTime <= 440)
                 {
-                    CreateGB(new NormalGB(RectangleBox.instance.Centre + GetVector2(140, waveTime * 4), Heart.Centre, new Vector2(1.0f, 0.5f), waveTime * 4 + 180, 35, 14)
+                    CreateGB(new NormalGB(FightBox.instance.Centre + GetVector2(140, waveTime * 4), Heart.Centre, new Vector2(1.0f, 0.5f), waveTime * 4 + 180, 35, 14)
                     {
                         IsShake = true
                     }); ;

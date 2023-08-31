@@ -60,7 +60,7 @@ namespace Rhythm_Recall
         }
 
         static Random rander;
-        public static Dictionary<char, Texture2D> charTextures = new Dictionary<char, Texture2D>();
+        public static Dictionary<char, Texture2D> charTextures = new();
         private static Texture2D blockTail, block, blockTmas, blockOtokp;
         public static Texture2D BlockTexture
         {

@@ -19,7 +19,7 @@ namespace UndyneFight_Ex.Remake.Network
         DateTime time;
         public override void Update()
         { 
-            TimeSpan secondSpan = new TimeSpan(DateTime.Now.Ticks - time.Ticks);
+            TimeSpan secondSpan = new(DateTime.Now.Ticks - time.Ticks);
             if(secondSpan.TotalSeconds >= 60) // 1 min
             {
                 CheckAlive(this);

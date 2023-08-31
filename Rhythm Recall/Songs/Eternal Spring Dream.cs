@@ -113,7 +113,7 @@ namespace Rhythm_Recall.Waves
                 soundPlayed = false;
                 this.speed = speed;
                 Centre = start;
-                Rotation = System.MathF.Atan2(speed.Y, speed.X);
+                Rotation = MathF.Atan2(speed.Y, speed.X);
                 this.waitingTime = waitingTime;
                 Image = Sprites.explodeTrigger;
             }
@@ -121,7 +121,7 @@ namespace Rhythm_Recall.Waves
             public override void Draw()
             {
                 FormalDraw(Image, Centre, Color.White, 0, ImageCentre);
-                FormalDraw(Sprites.arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + MathUtil.PI, new Vector2(10.5f, 6.5f));
+                FormalDraw(Sprites.arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + PI, new Vector2(10.5f, 6.5f));
             }
 
             public override void Update()
@@ -140,7 +140,7 @@ namespace Rhythm_Recall.Waves
 
             public void GetCollide(Player.Heart player)
             {
-                float dist = MathUtil.GetDistance(player.Centre, Centre);
+                float dist = GetDistance(player.Centre, Centre);
 
                 float res = dist - 7;
 
@@ -227,7 +227,7 @@ namespace Rhythm_Recall.Waves
                 soundPlayed = false;
                 this.speed = speed;
                 Centre = start;
-                Rotation = System.MathF.Atan2(speed.Y, speed.X);
+                Rotation = MathF.Atan2(speed.Y, speed.X);
                 this.waitingTime = waitingTime;
                 Image = Sprites.explodeTrigger;
             }
@@ -235,7 +235,7 @@ namespace Rhythm_Recall.Waves
             public override void Draw()
             {
                 FormalDraw(Image, Centre, Color.White, 0, ImageCentre);
-                FormalDraw(Sprites.arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + MathUtil.PI, new Vector2(10.5f, 6.5f));
+                FormalDraw(Sprites.arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + PI, new Vector2(10.5f, 6.5f));
             }
 
             public override void Update()
@@ -254,7 +254,7 @@ namespace Rhythm_Recall.Waves
 
             public void GetCollide(Player.Heart player)
             {
-                float dist = MathUtil.GetDistance(player.Centre, Centre);
+                float dist = GetDistance(player.Centre, Centre);
 
                 float res = dist - 7;
 
@@ -285,7 +285,7 @@ namespace Rhythm_Recall.Waves
             public override string SongAuthor => "Touhou (ZUN)";
             public override string PaintAuthor => "Touhou (ZUN)";
 
-            public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 4.0f),
                             new(Difficulty.Easy, 6.5f),
@@ -294,7 +294,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 17.4f),
                     }
                 );
-            public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 4.0f),
                             new(Difficulty.Easy, 6.5f),
@@ -303,7 +303,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 16.7f),
                     }
                 );
-            public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 7.0f),
                             new(Difficulty.Easy, 11.5f),
@@ -386,7 +386,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && At0thBeat(8))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -589,7 +589,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && At0thBeat(8))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -792,7 +792,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && At0thBeat(8))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -956,7 +956,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(129, 256 - 18) && At0thBeat(2))
             {
                 float alp = Gametime * 2;
-                CreateGB(new NormalGB(GetVector2(160, alp) + RectangleBox.instance.Centre, Heart.Centre, new Vector2(1.0f, 0.4f), alp + 180, BeatTime(12), 8));
+                CreateGB(new NormalGB(GetVector2(160, alp) + FightBox.instance.Centre, Heart.Centre, new Vector2(1.0f, 0.4f), alp + 180, BeatTime(12), 8));
             }
             if (InBeat(245))
             {
@@ -1195,7 +1195,7 @@ namespace Rhythm_Recall.Waves
             public Func<ICustomMotion, float> RotationRoute { get => Motions.RotationRoute.linear; set => throw new NotImplementedException(); }
             public float[] RotationRouteParam { get => rRP; set => throw new NotImplementedException(); }
             public float[] PositionRouteParam { get => pRP; set => throw new NotImplementedException(); }
-            public Vector2 CentrePosition => new Vector2(0, 0);
+            public Vector2 CentrePosition => new(0, 0);
             public float Rotation => 0;
 
             private readonly float[] pRP;
@@ -1611,7 +1611,7 @@ namespace Rhythm_Recall.Waves
                     for (int j = -1; j <= 1; j += 2)
                     {
                         float rotS = j * (((i + 1) / 2) * -90) + ((j + 1) / 2) * 270;
-                        Vector2 loc = new Vector2(320 + i * 140, 240 + j * 140);
+                        Vector2 loc = new(320 + i * 140, 240 + j * 140);
                         for (int t = 0; t <= 90; t += 15)
                         {
                             float rot = rotS + t;

@@ -152,7 +152,7 @@ namespace UndyneFight_Ex
                 currentScene.Dispose();
             }
             missionScene = scene;
-            if (currentScene != null && currentScene.CurrentDrawingSettings.Extending != Microsoft.Xna.Framework.Vector4.Zero)
+            if (currentScene != null && currentScene.CurrentDrawingSettings.Extending != Vector4.Zero)
             {
                 missionScene.InstanceCreate(new InstantEvent(1, GameMain.ResetRendering));
             }

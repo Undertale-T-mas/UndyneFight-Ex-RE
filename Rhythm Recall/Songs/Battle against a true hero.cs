@@ -17,7 +17,7 @@ namespace Rhythm_Recall.Waves
             public override string SongAuthor => "Toby Fox";
             public override string PaintAuthor => "Undertale - Toby Fox";
 
-            public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 4.5f),
                             new(Difficulty.Easy, 7.5f),
@@ -26,7 +26,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 18.7f),
                     }
                 );
-            public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 4.5f),
                             new(Difficulty.Easy, 7.5f),
@@ -35,7 +35,7 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 18.7f),
                     }
                 );
-            public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+            public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 8.5f),
                             new(Difficulty.Easy, 11.5f),

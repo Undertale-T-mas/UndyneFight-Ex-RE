@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.Remake.UI
             private int _length;
             CollideRect _originArea;
             float alpha = 0.0f;
-            Vector2 delta = new Vector2(300, 0);
+            Vector2 delta = new(300, 0);
 
             public InputShow(CollideRect area, int length) { 
                 this._originArea = this.collidingBox = area; 
@@ -144,7 +144,7 @@ namespace UndyneFight_Ex.Remake.UI
                         if (flag) this._secondaryTip += "/" + origin[result.Length..];
                     }
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Tab))
+                if (IsKeyPressed120f(InputIdentity.Tab))
                 {
                     this._father.SetString(_father._tips[0]);
                 }

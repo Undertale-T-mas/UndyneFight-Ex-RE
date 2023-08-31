@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using System.Net.NetworkInformation;
 using UndyneFight_Ex.Fight;
+using static UndyneFight_Ex.Fight.Functions;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.DebugState;
 using static UndyneFight_Ex.GameStates;
@@ -52,7 +53,7 @@ namespace UndyneFight_Ex.Entities
                 Audio music = fatherScene.music;
                 float curTime = music.TryGetPosition(out result);
 
-                fatherScene.GlobalDelta = curTime - Functions.GametimeF;
+                fatherScene.GlobalDelta = curTime - GametimeF;
 
                 if (!result) fatherScene.GlobalDelta = 0f;
 
@@ -74,7 +75,7 @@ namespace UndyneFight_Ex.Entities
                     bool result2;
                     float realTime = fatherScene.music.TryGetPosition(out result2);
                     if (!result2) return;
-                    cur[^1] = realTime - Functions.GametimeF;
+                    cur[^1] = realTime - GametimeF;
                     for (int i = 0; i < cur.Length - 1; i++) cur[i] = cur[i + 1];
                     GlobalAVG = 0;
                     for (int i = 0; i < cur.Length; i++) GlobalAVG += cur[i] / cur.Length; 
@@ -82,7 +83,7 @@ namespace UndyneFight_Ex.Entities
                 if(index >= data.Length)
                 {
                     if (MathF.Abs(GlobalAVG - avg + del2) > deltaDured)
-                        fatherScene.music.TrySetPosition(avg + Functions.GametimeF + del2);
+                        fatherScene.music.TrySetPosition(avg + GametimeF + del2);
                 }
             }
         }

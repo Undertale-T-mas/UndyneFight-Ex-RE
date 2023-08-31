@@ -425,7 +425,7 @@ namespace UndyneFight_Ex
         }
         public void DrawString(GLFont spriteFont, string text, Vector2 position, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)
         {
-            Vector2 scale2 = new Vector2(scale, scale);
+            Vector2 scale2 = new(scale, scale);
             DrawString(spriteFont, text, position, color, rotation, origin, scale2, effects, layerDepth);
         }
 

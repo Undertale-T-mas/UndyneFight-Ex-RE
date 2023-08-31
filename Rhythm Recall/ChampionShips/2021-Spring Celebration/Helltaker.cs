@@ -60,19 +60,19 @@ namespace Rhythm_Recall.Waves
                 public override Color ExtraColor => Color.Red;
                 public override string PaintAuthor => "SRI GAMES";
 
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 2.5f),
                             new(Difficulty.Hard, 14.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 2.5f),
                             new(Difficulty.Hard, 14.6f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 9.0f),
                             new(Difficulty.Hard, 19.5f),
@@ -126,7 +126,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(320, 448 - 16) && At0thBeat(2))
                 {
-                    CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + RectangleBox.instance.Centre, RectangleBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
+                    CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
                 }
                 if (InBeat(446))
                 {
@@ -354,7 +354,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(320, 448 - 16) && At0thBeat(1))
                 {
-                    CreateGB(new NormalGB(GetVector2(150, Gametime * 4) + RectangleBox.instance.Centre, RectangleBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 4 + 180), 40, 20));
+                    CreateGB(new NormalGB(GetVector2(150, Gametime * 4) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 4 + 180), 40, 20));
                 }
                 if (InBeat(446))
                 {

@@ -46,19 +46,19 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "Diego Takupaz";
                 public override string DisplayName => "Goyang Ubur Ubur";
 
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 10.5f),
                             new(Difficulty.ExtremePlus, 19.2f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 10.5f),
                             new(Difficulty.ExtremePlus, 18.8f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 16.9f),
                             new(Difficulty.ExtremePlus, 21.1f),

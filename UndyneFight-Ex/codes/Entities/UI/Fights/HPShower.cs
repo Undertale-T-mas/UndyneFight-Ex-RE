@@ -94,7 +94,7 @@ namespace UndyneFight_Ex.Entities
                 }
                 else
                 {
-                    Vector2 pos = new Vector2(FullRect.GetCentre().X, FullRect.Down + 18);
+                    Vector2 pos = new(FullRect.GetCentre().X, FullRect.Down + 18);
                     FightFont.CentreDraw(RoundHP.ToString(), pos, CurrentDrawingSettings.UIColor, 1, 0, 0);
                     pos = new Vector2(FullRect.GetCentre().X, FullRect.Up - 16);
                     FightFont.CentreDraw(HeartAttribute.MaxHP.ToString(), pos, CurrentDrawingSettings.UIColor, 1, 0, 0);

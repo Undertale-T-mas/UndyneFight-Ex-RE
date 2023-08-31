@@ -20,7 +20,7 @@ namespace UndyneFight_Ex
         public static void ResetRendering() => GameMain.ResetRendering();
 
         private static GameRenderProductions.RenderEntities EntitiesDrawingProduction;
-        internal static readonly RenderingManager MainScene = new RenderingManager();
+        internal static readonly RenderingManager MainScene = new();
         internal static void InitializeRendering()
         {
             MainScene.InsertProduction(new GameRenderProductions.RenderBackGround());

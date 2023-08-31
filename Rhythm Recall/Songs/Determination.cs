@@ -33,19 +33,19 @@ namespace Rhythm_Recall.Waves
             public string FightName => "Determination";
             private class ThisInformation : SongInformation
             {
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
 
                             new(Difficulty.ExtremePlus, 19.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
 
                             new(Difficulty.ExtremePlus, 19.0f),
                         }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
 
                         new(Difficulty.ExtremePlus, 23.5f),
@@ -199,12 +199,12 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("Filter", () =>
                 {
                     RenderProduction production = new ScreenDrawing.Shaders.Filter(blur, 0.99f);
-                    ScreenDrawing.SceneRendering.InsertProduction(production);
+                    SceneRendering.InsertProduction(production);
                     blur.Factor = new(0.4f, 0.4f);
                     SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(step, 0.98f));
                     splitter = new ScreenDrawing.Shaders.RGBSplitting(0.97f) { Disturbance = false };
                     splitter.RandomDisturb = 0;
-                    ScreenDrawing.SceneRendering.InsertProduction(splitter);
+                    SceneRendering.InsertProduction(splitter);
                     //SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(RGB,0.9999f));
                     //SceneRendering.InsertProduction(new ScreenDrawing.Shaders.Filter(RGB2));
                 });

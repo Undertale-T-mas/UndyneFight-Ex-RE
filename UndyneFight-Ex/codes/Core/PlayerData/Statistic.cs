@@ -50,7 +50,7 @@ namespace UndyneFight_Ex.UserService
 
             samplerState = info.Nexts.ContainsKey("samplerState")
                 ? info.Nexts["samplerState"].StringValue
-                : SettingsManager.DataLibrary.SamplerState;
+                : SamplerState;
         }
         public void Apply()
         {
@@ -84,7 +84,7 @@ namespace UndyneFight_Ex.UserService
             drawingQuality = (int)SettingsManager.DataLibrary.drawingQuality;
             samplerState = SamplerState;
             
-            SaveInfo info = new SaveInfo("Settings{");
+            SaveInfo info = new("Settings{");
             info.PushNext(new SaveInfo("masterVolume:" + masterVolume));
             info.PushNext(new SaveInfo("spearBlockingVolume:" + spearBlockingVolume));
             info.PushNext(new SaveInfo("reduceBlueAmount:" + reduceBlueAmount));
@@ -135,7 +135,7 @@ namespace UndyneFight_Ex.UserService
 
         public SaveInfo Save()
         {
-            SaveInfo info = new SaveInfo("Statistic{");
+            SaveInfo info = new("Statistic{");
             info.PushNext(new SaveInfo("DeathCount:" + DeathCount));
             info.PushNext(new SaveInfo("PlayedTime:" + MathUtil.FloatToString(playedTime, 4)));
             return info;

@@ -133,9 +133,9 @@ namespace UndyneFight_Ex.ChampionShips
 
                 try
                 {
-                    string div = IO.IOProcess.Divider(texts[0], '=')[1];
+                    string div = IOProcess.Divider(texts[0], '=')[1];
                     div = div.Trim();
-                    IO.IOEvent.WriteCustomFile(newpos + "\\" + resName + ".Tmpf", IOEvent.StringToByte("div:" + div));
+                    IOEvent.WriteCustomFile(newpos + "\\" + resName + ".Tmpf", IOEvent.StringToByte("div:" + div));
                 }
                 catch
                 {
