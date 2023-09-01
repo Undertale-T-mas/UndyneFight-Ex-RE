@@ -30,6 +30,7 @@ void myHandler(object? sender, ConsoleCancelEventArgs args)
     UFConsole.WriteLine("\0#Green]Saving Data ... ");
     UserLibrary.SaveAll();
     SongResultUpload.SaveAll();
+    ChampionshipManager.Save();
     UFConsole.WriteLine("\0#Red]Quitting!");
 }
 

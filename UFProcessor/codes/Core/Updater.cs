@@ -16,6 +16,7 @@ namespace UndyneFight_Ex.Server
                     {
                         UserLibrary.SaveAll();
                         SongResultUpload.SaveAll();
+                        ChampionshipManager.Save();
                     }
                     catch (Exception ex)
                     {
