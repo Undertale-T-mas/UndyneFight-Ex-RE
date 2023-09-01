@@ -1060,49 +1060,300 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(0.65f * 19f / 17f, () => { l.Dispose(); });
                     }
                 });
+                RegisterFunctionOnce("rdL", () =>
+                {
+                    float x = Rand(320 - 240, 320 + 240);
+                    float y = Rand(240 - 169, 240 + 160);
+                    Line a = new(new Vector2(x, y), Rand(1, 180)) { Alpha = 0.7f };
+                    CreateEntity(a);
+                    a.AlphaDecrease(BeatTime(2f * 19f / 17f));
+                    DelayBeat(2f * 19f / 17f, () => { a.Dispose(); });
+                });
+                RegisterFunctionOnce("LRlong", () =>
+                {
+                    Line a = new(EaseOut(BeatTime(0.8f * 19f / 17f), new Vector2(-5, 240), new Vector2(645, 240), EaseState.Quad), Stable(0, 90)) { Alpha = 0.7f };
+                    CreateEntity(a);
+                    for (int i = 1; i < 7; i++)
+                    {
+                        a.InsertRetention(new(2.4f * i, 0.7f - 0.7f / 7f * i));
+                    }
+                    DelayBeat(0.8f * 19f / 17f, () => { a.Dispose(); });
+                });
+                RegisterFunctionOnce("LLlong", () =>
+                {
+                    Line a = new(EaseOut(BeatTime(0.8f * 19f / 17f), new Vector2(645, 240), new Vector2(-5, 240), EaseState.Quad), Stable(0, 90)) { Alpha = 0.7f };
+                    CreateEntity(a);
+                    for (int i = 1; i < 7; i++)
+                    {
+                        a.InsertRetention(new(2.4f * i, 0.7f - 0.7f / 7f * i));
+                    }
+                    DelayBeat(0.8f * 19f / 17f, () => { a.Dispose(); });
+                });
+                RegisterFunctionOnce("lineGA1", () =>
+                {
+                    DelayBeat(0, () =>
+                    {
+                        Line la = new(new Vector2(128 * 1 - 10, 96 * 1 - 10), 110) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 1 + 10, 96 * 1 + 10), 110) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                    DelayBeat(0.5f * 19f / 17f, () =>
+                    {
+                        Line la = new(new Vector2(128 * 2 - 10, 96 * 2 - 10), 110) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 2 + 10, 96 * 2 + 10), 110) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                    DelayBeat(1.25f * 19f / 17f, () =>
+                    {
+                        Line la = new(new Vector2(128 * 3 - 10, 96 * 3 - 10), 110) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 3 + 10, 96 * 3 + 10), 110) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                    DelayBeat(2f * 19f / 17f, () =>
+                    {
+                        Line la = new(new Vector2(128 * 4 - 10, 96 * 4 - 10), 110) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 4 + 10, 96 * 4 + 10), 110) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                });
+                RegisterFunctionOnce("lineGA2", () =>
+                {
+                    DelayBeat(0, () =>
+                    {
+                        Line la = new(new Vector2(128 * 4 - 10, 96 * 4 + 10), 70) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 4 + 10, 96 * 4 - 10), 70) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                    DelayBeat(0.5f * 19f / 17f, () =>
+                    {
+                        Line la = new(new Vector2(128 * 3 - 10, 96 * 3 + 10), 70) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 3 + 10, 96 * 3 - 10), 70) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                    DelayBeat(1.25f * 19f / 17f, () =>
+                    {
+                        Line la = new(new Vector2(128 * 2 - 10, 96 * 2 + 10), 70) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 2 + 10, 96 * 2 - 10), 70) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                    DelayBeat(2f * 19f / 17f, () =>
+                    {
+                        Line la = new(new Vector2(128 * 1 - 10, 96 * 1 + 10), 70) { Alpha = 0.72f };
+                        Line lb = new(new Vector2(128 * 1 + 10, 96 * 1 - 10), 70) { Alpha = 0.72f };
+                        Line[] a = { la, lb };
+                        foreach (Line l in a)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f), 0.72f);
+                            DelayBeat(1.2f, () => { l.Dispose(); });
+                        }
+                    });
+                });
+                RegisterFunctionOnce("LineGB", () =>
+                {
+                    for (int i = 0; i < 16; i++)
+                    {
+                        Line a = new(EaseOut(BeatTime(1.6f * 19f / 17f), new Vector2(0, 0), new Vector2(320, 240), EaseState.Linear), Stable(0, -45)) { Alpha = 0.55f };
+                        Line b = new(EaseOut(BeatTime(1.6f * 19f / 17f), new Vector2(640, 480), new Vector2(320, 240), EaseState.Linear), Stable(0, -45)) { Alpha = 0.55f };
+                        Line[] ls = {a, b};
+                        foreach(Line l in ls)
+                        {
+                            DelayBeat(0.0625f * 19f / 17f * i, () =>
+                            {
+                                CreateEntity(l);
+                                l.VerticalMirror = true;
+                                l.AlphaDecrease(BeatTime(1.2f * 19f / 17f));
+                                DelayBeat(1.6f * 19f / 17f, () => {l.Dispose();});
+                            });
+                        }
+                    }
+                });
+                RegisterFunctionOnce("FullLineUp", () =>
+                {
+                    float x = 0;
+                    for (int i = 0; i < 12; i++)
+                    {
+                        DelayBeat(i * 1f / 12f * 19f / 17f, () =>
+                        {
+                            x++;
+                            Line a = new(LinkEase(Stable(BeatTime((1.5f - x * 1f / 12f) * 19f / 17f), new Vector2(320, x * 480f / 13f)),
+                                EaseOut(BeatTime(0.5f * 19f / 17f), new Vector2(320, x * 480f / 13f), new Vector2(320, -5), EaseState.Quad)),
+                                Stable(0, 0))
+                            { Alpha = 0.6f };
+                            CreateEntity(a);
+                            DelayBeat((2f - x * 1f / 12f) * 19f / 17f, () => { a.Dispose(); });
+                        });
+                    }
+                });
+                RegisterFunctionOnce("FullLineDn", () =>
+                {
+                    float x = 0;
+                    for (int i = 0; i < 12; i++)
+                    {
+                        DelayBeat(i * 1f / 12f * 19f / 17f, () =>
+                        {
+                            x++;
+                            Line a = new(LinkEase(Stable(BeatTime((1.5f - x * 1f / 12f) * 19f / 17f), new Vector2(320, 480f - x * 480f / 13f)),
+                                EaseOut(BeatTime(0.5f * 19f / 17f), new Vector2(320, 480f - x * 480f / 13f), new Vector2(320, 485), EaseState.Quad)),
+                                Stable(0, 0))
+                            { Alpha = 0.6f };
+                            CreateEntity(a);
+                            DelayBeat((2f - x * 1f / 12f) * 19f / 17f, () => { a.Dispose(); });
+                        });
+                    }
+                });
+                RegisterFunctionOnce("LineGC", () =>
+                {
+                    float x = 0;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        DelayBeat(0.25f * i * 19f / 17f, () =>
+                        {
+                            x++;
+                            Line l = new(new Vector2(640f - 640f / 9f * x, 240), EaseOut(BeatTime(1.2f * 19f / 17f), 90, 75, EaseState.Quad)){ Alpha = 0.7f };
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f * 19f / 17f));
+                            DelayBeat(1.2f * 19f / 17f, () => { l.Dispose(); });
+                        });
+                    }
+                });
+                RegisterFunctionOnce("LineGD", () =>
+                {
+                    Line a = new(new Vector2(320, 240), EaseOut(BeatTime(2f * 19f / 17f), 45, 45 + 360 + 90, EaseState.Quad)) { Alpha = 0.7f };
+                    Line b = new(new Vector2(320, 240), EaseOut(BeatTime(2f * 19f / 17f), -45, -45 + 360 + 90, EaseState.Quad)) { Alpha = 0.7f };
+                    Line[]ls= { a, b };
+                    foreach(Line l in ls)
+                    {
+                        CreateEntity(l);
+                        l.AlphaDecrease(BeatTime(2f * 19f / 17f));
+                        for (int i = 1; i < 5; i++)
+                        {
+                            l.InsertRetention(new(1.6f * i, 0.7f - i * 0.12f));
+                        }
+                        DelayBeat(2f * 19f / 17f, () => { l.Dispose(); });
+                    }
+                });
+                RegisterFunctionOnce("LineGE1", () =>
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        DelayBeat(i * 0.05f * 19f / 17f, () =>
+                        {
+                            Line l = new(EaseOut(BeatTime(0.5f * 19f / 17f), new Vector2(-5, 240), new Vector2(645, 240), EaseState.Linear), Stable(0, 90)) { Alpha = 0.55f };
+                            CreateEntity(l);
+                            DelayBeat(0.5f * 19f / 17f, () => { l.Dispose(); });
+                        });
+                    }
+                });
+                RegisterFunctionOnce("LineGE2", () =>
+                {
+                    for (int i = 0; i < 30; i++)
+                    {
+                        DelayBeat(i * 0.05f * 19f / 17f, () =>
+                        {
+                            Line l = new(EaseOut(BeatTime(0.5f * 19f / 17f), new Vector2(645, 240), new Vector2(-5, 240), EaseState.Linear), Stable(0, 90)) { Alpha = 0.55f };
+                            CreateEntity(l);
+                            DelayBeat(0.5f * 19f / 17f, () => { l.Dispose(); });
+                        });
+                    }
+                });
+                RegisterFunctionOnce("End", () =>
+                {
+                    for (int i = 1; i < 8; i++)
+                    {
+                        Line a = new(EaseOut(BeatTime(2f * 19f / 17f), new Vector2(40 * i, 240), new Vector2(-5, 240), EaseState.Quad), Stable(0, 90)) { Alpha = 0.7f - 0.08f * i };
+                        Line b = new(EaseOut(BeatTime(2f * 19f / 17f), new Vector2(320, 30 * i), new Vector2(320, -5), EaseState.Quad), Stable(0, 0)) { Alpha = 0.7f - 0.08f * i };
+                        CreateEntity(a, b);
+                        a.TransverseMirror = true;
+                        b.VerticalMirror = true;
+                        DelayBeat(2f * 19f / 17f, () => { a.Dispose(); b.Dispose(); });
+                    }
+                });
                 BarrageCreate(BeatTime(4), BeatTime(19f / 17f), 6.6f, new string[]
                 {
-                    "(R1)(+2)(LineG0)(Blur)","","","",    "D","","","",    "","","","",    "","","","",
+                    "(R1)(+2)(LineG0)(Blur)(lineGA1)","","","",    "D","","","",    "","","","",    "","","","",
                     "R(LineG0t)","","","",    "","","","",    "R","","","",    "(Blur)","","","",
                     ////
-                    "R(LineG0)","","","",    "D","","","",    "(Blur)","","","",    "","","","",
+                    "R(LineG0)(FullLineUp)","","","",    "D","","","",    "(Blur)","","","",    "","","","",
                     "*R12(LineG0t)(LineX)","","*+012(LineX)","",    "*+012(LineX)","","*+012(LineX)","",    "*+212(LineX)","","*+012(LineX)","",    "*+012(LineX)","","*+012(LineX)","",
                     //
                     "!!3","(R)(+01)(LineG0)(Blur)","InLT","",    "!!3","InLT","","InLT",    "!!3","(D)(+01)","InLT","",    "","","","",
                     "(D)(+01)(LineG1)","","","",    "","","","",    "(D)(+01)","","","",    "(Blur)","","","",
                     //
-                    "R1(LineG0)","","","",    "D1","","","",    "(Blur)(rdOut)","","(rdOut)","",    "(rdOut)","","(rdOut)","",
+                    "R1(LineG0)(LLlong)(LRlong)","","(LLlong)(LRlong)","",    "D1","","","",    "(Blur)(rdOut)","","(rdOut)","",    "(rdOut)","","(rdOut)","",
                     "R1(LineG1)(rdOut)","","","",    "","","","",    "R1","","","",    "","","","",
                     //
-                    "(R)(+21)(LineG1t)(Blur)","","","",    "D1","","","",    "","","","",    "!!3","DnL","","DnL",
+                    "(R)(+21)(LineG1t)(Blur)","","","",    "D1","","DnL","",    "","","","",    "!!3","DnL","","DnL",
                     "!!3","(LineG1)","DnL","",    "*R02","*+01","*+002","*+01",    "*+002","*+01","*+202","*+01",    "*+002(Blur)","*+01","*+002","*+01",
                     ////
-                    "*$3{Lm}(LineG1t)","","*+01{Li}","",    "*+0","","*+01{Ri}","",    "*+0{Rm}(Blur)","","","",    "","","","",
-                    "R(LineG1)","","","",    "R1","","+21","",    "+21","","+21","",    "+21","","+21","",
+                    "*$3{Lm}(LineG1t)","","*+01{Li}(LRlong)","",    "*+0","","*+01{Ri}(LLlong)","",    "!!3","*+0{Rm}(Blur)","InLV","",    "!!3","InLV","","InLV",
+                    "!!3","R(LineG1)","InLV","",    "R1(rdL)(rdL)","","+21(rdL)(rdL)","",    "+21(rdL)(rdL)","","+21(rdL)(rdL)","",    "+21(rdL)(rdL)","","+21(rdL)(rdL)","",
                     //
-                    "(R)(+21)(LineG1t)(Blur)","","","",    "","","","",    "","","","",    "","","","",
-                    "R1(LineG0t)","","","",    "D1","","","",    "D1","","","",    "(Blur)","","","",
+                    "(R)(+21)(LineG1t)(Blur)(LineGB)","","","",    "","","","",    "(rdOut)","","","",    "(rdOut)","","","",
+                    "R1(LineG0t)(LLlong)","","","",    "D1","","","",    "D1(LRlong)","","","",    "(Blur)","","","",
                     //
-                    "R1(LineG1t)","","","",    "D1","","","",    "(Blur)","","","",    "","","","",
-                    "R1(LineG0t)","","","",    "","","","",    "R","","","",    "D","","","",
+                    "R1(LineG1t)(lineGA2)","","","",    "D1","","","",    "(Blur)","","","",    "","","","",
+                    "R1(LineG0t)(LineGC)","","","",    "","","","",    "R","","","",    "D","","","",
                     //
-                    "(R1)(+2)(LineG1)(LineG0)(Blur)","","","",    "D","","","",    "","","","",    "","","","",
+                    "(R1)(+2)(LineG1)(LineG0)(Blur)(LineGD)","","","",    "D","","","",    "","","","",    "","","","",
                     "*R02(LineG1)(LineG0)(LineX)","","*+002(LineX)","",    "*+002(LineX)","","*+002(LineX)","",    "*+202(LineX)","","*+002(LineX)","",    "*+002(LineX)(Blur)","","*+002(LineX)","",
                     ////
-                    "(R)(+01)(LineG0)(LineG0t)","","","",    "","","","",    "(D)(+01)(Blur)","","","",    "","","","",
-                    "(D)(+01)(LineG0)(LineG0t)","","","",    "","","","",    "(D)(+01)","","","",    "","","","",
+                    "!!3","(R)(+01)(LineG0)(LineG0t)","","InLT",    "!!3","","InLT","",    "(D)(+01)(Blur)","","","",    "","","","",
+                    "(D)(+01)(LineG0)(LineG0t)","","","",    "","","","",    "(D)(+01)(LineGE1)","","","",    "","","","",
                     //
-                    "(*$31)(*$1{Ri})(LineG0)(LineG1t)(Blur)","","*+0{Li}","",    "*+0{Ri}","","*+0{Li}","",    "","","","",    "","","","",
+                    "(*$31)(*$1{Ri})(LineG0)(LineG1t)(Blur)","","*+0{Li}","",    "*+0{Ri}","","*+0{Li}","",    "FullLineDn","","","",    "","","","",
                     "R(LineG1)(LineG0t)","","","",    "","","","",    "R","","","",    "D(Blur)","","","",
                     //
-                    "R(LineG0)(LineG1t)","","","",    "","","","",    "R(Blur)","","","",    "","","","",
-                    "*R12(LineG1)(LineG0t)","","*+012","",    "*+012","","*+012","",    "*+212","","*+012","",    "*+012","","*+012","",
+                    "R(LineG0)(LineG1t)","","UpL","",    "!!3","","","UpL",    "R(Blur)","","","",    "UpL","","UpL","",
+                    "(LineG1)(LineG0t)","","","",    "*R12","*+0","*+012","*+0",    "*+012","*+0","*+212","*+0",    "*+012","*+0","*+012","*+0",
                     //
-                    "(R1)(+2)(LineG0t)(LineG1t)(Blur)","","","",    "","","","",    "(LineG0)(LineG1)","","","",    "","","","",
-                    "R1","","","",    "D1","","","",    "","","","",    "R1(Blur)","","","",
+                    "(R1)(+2)(LineG0t)(LineG1t)(Blur)","","","",    "InLT","","","",    "(LineG0)(LineG1)(LineGE2)","","","",    "","","","",
+                    "R1","","","",    "D1(FullLineUp)","","","",    "","","","",    "!!3","R1(Blur)","(rdOut)","",
                     ////
-                    "R1","","","",    "","","","",    "R1(Blur)","","","",    "","","","",
-                    "R1","","","",    "#15#$01","","","",    "","","","",    "","","","",
+                    "!!3","R1(rdOut)","","(rdOut)",    "!!3","","(rdOut)","",    "R1(Blur)(rdL)(rdL)","","(rdL)(rdL)","",    "(rdL)(rdL)","","(rdL)(rdL)","",
+                    "R1","","","",    "#15#$01(End)","","","",    "","","","",    "","","","",
                     //
                 });
             }
