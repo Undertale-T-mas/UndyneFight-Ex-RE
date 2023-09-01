@@ -36,7 +36,7 @@ namespace UndyneFight_Ex.Server
                 var board = Ready(data.Name);
                 board.InsertData(user.UUID, data);
             }
-            public string Enquire(User? enquirer, string songName, Difficulty difficulty)
+            public string Enquire( string songName, Difficulty difficulty)
             {
                 var board = Ready(songName);
                 if (!board.DifficultyResults.ContainsKey(difficulty)) return "F Empty scoreboard.";
@@ -45,16 +45,7 @@ namespace UndyneFight_Ex.Server
 
                 var rbt = unitScoreBoard.ScoreUnits;
                 int len = rbt.Count;
-                if (len <= 0) return "F Empty scoreboard.";
-                if (enquirer != null) {
-                    UFConsole.WriteLine("Enquirer is " + enquirer.UUID); 
-
-                    int rank = unitScoreBoard.RankOf(enquirer.UUID);
-                    if (rank != -1)
-                    {
-                        answer.Add(new(enquirer.Name, rank, unitScoreBoard.ResultOf(enquirer.UUID)));
-                    } 
-                }
+                if (len <= 0) return "F Empty scoreboard."; 
                 len = Math.Min(10, len);
                 for(int i = 0; i < len; i++)
                 {
@@ -118,6 +109,7 @@ namespace UndyneFight_Ex.Server
             record[data.Name].Push(data);
 
             scoreboardManager.Insert(user, data);
+            ChampionshipManager.PushScore(user, data);
 
             client.Reply("S Song message received.");
             user.Save();
@@ -125,7 +117,7 @@ namespace UndyneFight_Ex.Server
 
         internal static string Enquire(User? user, string arg1, Difficulty arg2)
         {
-            return scoreboardManager.Enquire(user, arg1, arg2) ;
+            return scoreboardManager.Enquire( arg1, arg2) ;
         }
     }
 }
