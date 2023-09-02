@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
@@ -19,12 +20,7 @@ namespace Rhythm_Recall.Waves
                 fightSet.Push(typeof(Spider_Dance));
                 fightSet.Push(typeof(Traveler_at_Sunset));
 
-                int year = 2023;
-                int month = 8;
-                int day = 20;
-
-                int startHourA = 9, startMinuteA = 30, endHourA = 12, endMinuteA = 0;
-                int startHourB = 14, startMinuteB = 0, endHourB = 17, endMinuteB = 30;
+                DateTime s = new(2023, 10, 1, 9, 0, 0, 0), e = new(2023, 10, 1, 12, 0, 0);
                 return new ChampionShip(fightSet)
                 {
                     Title = "Summer Camp Ⅲ",
@@ -32,23 +28,17 @@ namespace Rhythm_Recall.Waves
                     EditorName = "T-mas",
                     Introduce = "The happiest summer we have",
                     IconPath = "ChampionShips\\TCS",
+                    Start = s,
+                    End = e,
 
                     CheckTime = () =>
                     {
-                        DateTime s = DateTime.UtcNow;
-                        int dayType;
-                        s = s.AddHours(8);
-                        dayType = s.Year < year || (s.Year == year && s.Month < month)
-                            ? -1
-                            : s.Month == month && s.Year == year && s.Day < day ? -1 : s.Month == month && s.Year == year && s.Day == day ? 0 : 1;
-                        if (dayType == -1) return ChampionShip.ChampionShipStates.NotStart;
-                        if (dayType == 1) return ChampionShip.ChampionShipStates.End;
-                        TimeSpan t = s.TimeOfDay;
-                        bool res = (t.Hours > startHourA || t.Hours == startHourA && t.Minutes >= startMinuteA) &&
-                                   (t.Hours < endHourA || (t.Hours == endHourA && t.Minutes < endMinuteA))&& 
-                                   (t.Hours > startHourB || t.Hours == startHourB && t.Minutes >= startMinuteB)&&
-                                   (t.Hours < endHourB || (t.Hours == endHourB && t.Minutes < endMinuteB));
-                        return res ? ChampionShip.ChampionShipStates.Starting : ChampionShip.ChampionShipStates.NotAvailable;
+                        DateTime cur = DateTime.UtcNow;
+                        if (cur < s) return ChampionShip.ChampionShipStates.NotStart;
+                        else if (cur < e) return ChampionShip.ChampionShipStates.Starting;
+                        else if (cur.Day == e.Day && cur.Month == e.Month && cur.Year == e.Year)
+                            return ChampionShip.ChampionShipStates.NotAvailable;
+                        else return ChampionShip.ChampionShipStates.End;
                     }
 
                 };

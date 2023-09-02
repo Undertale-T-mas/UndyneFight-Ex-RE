@@ -90,6 +90,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             PushCommand(new LogCommand());
             PushCommand(new KeepAliveCommand());
             PushCommand(new EnquireCommand());
+            PushCommand(new ChampionshipCommand());
         }
 
         protected Command(string title)
