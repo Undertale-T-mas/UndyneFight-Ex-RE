@@ -18,6 +18,7 @@ namespace UndyneFight_Ex.Server
         private static void TryLoad()
         {
             if(_loaded) return; 
+            _loaded = true;
             FileStream stream = new("Data/Championship/data.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader sr = new(stream);
             championships = JsonSerializer.Deserialize<List<ChampionshipInfo>>(sr.ReadToEnd()) ?? throw new FileLoadException();
@@ -38,9 +39,9 @@ namespace UndyneFight_Ex.Server
             if(string.IsNullOrEmpty(info)) return;
             championships.Add(JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException());
         }
-        public static string SignUp(User? user, string championshipName, string divName)
+        public static string SignUp(User user, string championshipName, string divName)
         {
-            if (user == null) return "F please login first";
+            TryLoad(); 
             ChampionshipInfo? championship = championships.Find(s => s.Name == championshipName);
             if(championship == null) { return "F championship not exist"; }
             if (!championship.Divisions.ContainsKey(divName)) return "F division not exist";
@@ -49,6 +50,7 @@ namespace UndyneFight_Ex.Server
         }
         public static void PushScore(User user, SongPlayData data)
         {
+            TryLoad();
             string songName = data.Name;
             ChampionshipInfo? championShip = championships.Find(s => {
                 foreach(var v in s.Divisions.Values)
@@ -64,9 +66,15 @@ namespace UndyneFight_Ex.Server
             if (curDiv == null) return;
             curDiv.Scoreboard.PushScore(user, curDiv, data);
         }
-
+        internal static string EnquireInfo()
+        {
+            TryLoad();
+            if (championships.Count == 0) return "F there is no championship";
+            else return "S " + JsonSerializer.Serialize (championships);
+        }
         internal static string Enquire(User? bindUser, string arg)
         {
+            TryLoad();
             if (bindUser == null) return "F please login first";
             ChampionshipInfo? cur = championships.Find(s => s.Name == arg);
             if (cur == null) return "F there is such championship";

@@ -30,7 +30,11 @@ namespace UndyneFight_Ex.Server
                     client.Reply(SongResultUpload.Enquire(client.BindUser, arg1, (Difficulty)argInt));
                     return;
                 case "Championship":
+                    if(args.Length < 2) goto A;
                     client.Reply(ChampionshipManager.Enquire(client.BindUser, args[1]));
+                    return;
+                case "ChampionshipInfo":
+                    client.Reply(ChampionshipManager.EnquireInfo());
                     return;
                 case "Self":
                     if(client.BindUser == null)

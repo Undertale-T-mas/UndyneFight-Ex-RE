@@ -64,6 +64,24 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         {
         } 
     }
+
+    internal class ChampionshipCommand : RawCommand
+    {
+        public ChampionshipCommand() : base(
+            ArgumentMatcher.Link(
+                new BranchArgument(new() {
+                    ["Insert"] = new Tuple<col, ArgumentMatcher>(col.Lime, new AbsoluteArgument(col.White)),
+                    ["SignUp"] = new Tuple<col, ArgumentMatcher>(col.Lime, ArgumentMatcher.Link(
+                            new AbsoluteArgument(col.White),
+                            new AbsoluteArgument(col.White)
+                        ))
+                    }
+                    
+                    )
+                )
+            , "Championship")
+        { }
+    }
     internal class EnquireCommand : RawCommand
     {
         public EnquireCommand( ) : base(
@@ -79,6 +97,8 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                         }))
                     ),
                     ["Self"] = new Tuple<col, ArgumentMatcher>(col.Lime, ArgumentMatcher.Empty),
+                    ["Championship"] = new Tuple<col, ArgumentMatcher>(col.Lime, ArgumentMatcher.Empty),
+                    ["ChampionshipInfo"] = new Tuple<col, ArgumentMatcher>(col.Lime, ArgumentMatcher.Empty),
                 })
             )
 
