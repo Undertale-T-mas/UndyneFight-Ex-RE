@@ -636,6 +636,41 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(1.55f, () => { l.Dispose(); });
                     }
                 });
+                RegisterFunctionOnce("LineGA", () =>
+                {
+                    DelayBeat(0, () =>
+                    {
+                        Line a = new(320, 90) { Alpha = 0.7f };
+                        CreateEntity(a);
+                        a.AlphaDecrease(BeatTime(1.2f * 19f / 17f));
+                        DelayBeat(1.2f * 19f / 17f, () => { a.Dispose(); });
+                    });
+                    DelayBeat(19f / 17f, () =>
+                    {
+                        Line a = new(320 + 30, 90) { Alpha = 0.7f };
+                        Line b = new(320 - 30, 90) { Alpha = 0.7f };
+                        Line[] ls = { a, b };
+                        foreach (Line l in ls)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f * 19f / 17f));
+                            DelayBeat(1.2f * 19f / 17f, () => { l.Dispose(); });
+                        }
+                    });
+                    DelayBeat(2f * 19f / 17f, () =>
+                    {
+                        Line a = new(320, 90) { Alpha = 0.7f };
+                        Line b = new(320 - 60, 90) { Alpha = 0.7f };
+                        Line c = new(320 + 60, 90) { Alpha = 0.7f };
+                        Line[] ls = { a, b, c };
+                        foreach (Line l in ls)
+                        {
+                            CreateEntity(l);
+                            l.AlphaDecrease(BeatTime(1.2f * 19f / 17f));
+                            DelayBeat(1.2f * 19f / 17f, () => { l.Dispose(); });
+                        }
+                    });
+                });
                 CreateEntity(new GreenSoulGB(BeatTime(4), 1, 0, BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 1f))));
                 CreateEntity(new GreenSoulGB(BeatTime(4), 3, 1, BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 1f))));
                 BarrageCreate(BeatTime(4f), BeatTime(1), 6.6f, new string[]
@@ -660,7 +695,7 @@ namespace Rhythm_Recall.Waves
                 });
                 BarrageCreate(BeatTime(4f * (2f + 190f / 185f + 19f / 18f + 190f / 175f)), BeatTime(19f / 17f), 6.6f, new string[]
                 {
-                    "","","","",    "","","","",    "/","","","",    "","","","",
+                    "","","","",    "","","","",    "LineGA","","","",    "","","","",
                     "/","","","",    "","","","",    "/","","","",    "","","","",
                 });
             }
@@ -874,9 +909,75 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(4f * 19f / 17f, () => { b.Dispose(); });
                     DelayBeat(8f * 19f / 17f, () => { a.Dispose(); });
                 });
-                RegisterFunctionOnce("LineE", () =>
+                RegisterFunctionOnce("LineGAToR", () =>
                 {
-
+                    float startX = Rand(120, 320 - 80);
+                    float x = 0;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        DelayBeat(i * 1f / 6f * 19f / 17f, () =>
+                        {
+                            Line a = new(new Vector2(startX + x * 80, 240), EaseOut(BeatTime(1.2f * 19f / 17f), 90, 105, EaseState.Quad)) { Alpha = 0.7f };
+                            CreateEntity(a);
+                            a.AlphaDecrease(BeatTime(1.8f * 19f / 17f));
+                            x++;
+                        });
+                    }
+                });
+                RegisterFunctionOnce("LineGAToL", () =>
+                {
+                    float startX = Rand(320 + 80, 640 - 120);
+                    float x = 0;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        DelayBeat(i * 1f / 6f * 19f / 17f, () =>
+                        {
+                            Line a = new(new Vector2(startX - x * 80, 240), EaseOut(BeatTime(1.2f * 19f / 17f), 90, 75, EaseState.Quad)) { Alpha = 0.7f };
+                            CreateEntity(a);
+                            a.AlphaDecrease(BeatTime(1.8f * 19f / 17f));
+                            x++;
+                        });
+                    }
+                });
+                RegisterFunctionOnce("LineGB1", () =>
+                {
+                    float x = 0;
+                    for (int i = 0; i < 16; i++)
+                    {
+                        DelayBeat(i * 0.25f * 19f / 17f, () =>
+                        {
+                            Line a = new(new Vector2(320 - x * 55, 240), -45) { Alpha = 0.6f };
+                            Line b = new(new Vector2(320 + x * 55, 240), -45) { Alpha = 0.6f };
+                            Line[] lines = { a, b };
+                            foreach(Line l in lines)
+                            {
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(2.4f * 19f / 17f));
+                                DelayBeat(2.4f * 19f / 17f, () => { l.Dispose(); });
+                            }
+                            x++;
+                        });
+                    }
+                });
+                RegisterFunctionOnce("LineGB2", () =>
+                {
+                    float x = 0;
+                    for (int i = 0; i < 16; i++)
+                    {
+                        DelayBeat(i * 0.25f * 19f / 17f, () =>
+                        {
+                            Line a = new(new Vector2(320 - x * 55, 240), 45) { Alpha = 0.6f };
+                            Line b = new(new Vector2(320 + x * 55, 240), 45) { Alpha = 0.6f };
+                            Line[] lines = { a, b };
+                            foreach (Line l in lines)
+                            {
+                                CreateEntity(l);
+                                l.AlphaDecrease(BeatTime(2.4f * 19f / 17f));
+                                DelayBeat(2.4f * 19f / 17f, () => { l.Dispose(); });
+                            }
+                            x++;
+                        });
+                    }
                 });
                 BarrageCreate(BeatTime(4f), BeatTime(19f / 17f), 6.6f, new string[]
                 {
@@ -890,7 +991,7 @@ namespace Rhythm_Recall.Waves
                     "","","","",    "R1(LineB)","","","",    "D1","","","",    "","","D1(LineB)","",
                     ////
                     "","","","",    "*N2","","","",    "*N2(LineB)","","","",    "*N2","","","",
-                    "*N2(LineB)","","","",    "","","","",    "*N2","","","",    "","","","",
+                    "*N2(LineB)","","","",    "","","","",    "*N2","","","",    "!!3","","LineGAToR","",
                     //
                     "($21)(#7.8#$0)(LineAr)(LineB)(LineD2)","","","",    "","","","",    "R1(LineB)","","","",    "D1","","","",
                     "","","","",    "R1(LineB)","","","",    "D1","","","",    "","","D1(LineB)","",
@@ -899,22 +1000,22 @@ namespace Rhythm_Recall.Waves
                     "*N0","","","",    "","","","",    "*N0(LineB)","","","",    "*N0","","","",
                     //
                     "D(LineB)(LineC1)(LineC2)","","+2","",    "+2","","","",    "*+002(LineB)(LineC1)(LineC2)","","","",    "","","*+002","",
-                    "(LineB)(LineC1)(LineC2)","","N01","",    "D1","","D1","",    "D1(LineB)","","D1","",    "D1","","","",
+                    "(LineB)(LineC1)(LineC2)","","N01","",    "D1","","D1(LineGB1)","",    "D1(LineB)","","D1","",    "D1","","(LineGB1)","",
                     ////
-                    "($3)(#7.8#$11)(LineAu)(LineB)(LineC2)","","","",    "(LineC2)","","","",    "R(LineC2)","","","",    "D(LineB)","","","",
+                    "($3)(#7.8#$11)(LineAu)(LineB)(LineC2)(LineGAToL)","","","",    "(LineC2)","","","",    "R(LineC2)","","","",    "D(LineB)","","","",
                     "","","","",    "R","","","",    "D(LineB)","","","",    "","","D","",
                     //
                     "","","*N11(LineB)","",    "","","","",    "*N11","","","",    "*N11(LineB)","","","",
                     "","","*N11","",    "","","","",    "*N11(LineB)","","","",    "","","","",
                     //
-                    "($2)(#7.8#$01)(LineAr)(LineB)(LineC1)","","","",    "(LineC1)","","","",    "R(LineC1)","","","",    "D(LineB)","","","",
+                    "!!3","($2)(#7.8#$01)(LineAr)(LineB)(LineC1)(LineGAToR)","","",    "(LineC1)","","","",    "R(LineC1)","","","",    "D(LineB)","","","",
                     "","","","",    "R","","","",    "D(LineB)","","","",    "","","D","",
                     //
                     "","","","",    "*N01(LineB)","","","",    "*N01","","","",    "*N01(LineB)","","","",
                     "*N01","","","",    "","","","",    "*N01(LineB)","","","",    "*N01","","","",
                     ////
-                    "($0)(#7.8#$21)(LineAl)(LineB)(LineD1)","","","",    "","","","",    "R","","","",    "D(LineB)","","","",
-                    "","","","",    "R","","","",    "D(LineB)","","","",    "","","D","",
+                    "!!3","($0)(#7.8#$21)(LineAl)(LineB)(LineD1)(LineGAToL)","","",    "","","","",    "R","","","",    "D(LineB)","","","",
+                    "","","","",    "R(LineGB2)","","","",    "D(LineB)","","","",    "","","D(LineGB2)","",
                     //
                     "","","*N21(LineB)","",    "","","","",    "*N21","","","",    "*N21(LineB)","","","",
                     "*N21","","","",    "","","","",    "*N21(LineB)","","","",    "","","","",
@@ -2230,11 +2331,12 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.HPBar.HPExistColor = Color.Lerp(Color.Red, Color.DarkRed, 0.4f); 
                 GametimeDelta = -3.5f ;
                 PlayOffset = 0;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
+                    float beat = 4f * 40;
                     //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f);
-                    float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 14f * 19f / 17f;
+                    //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 14f * 19f / 17f;
                     //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
