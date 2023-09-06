@@ -51,21 +51,21 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "zKronO";
                 public override string AttributeAuthor => "ParaDOXXX";
                 public override string PaintAuthor => "Unknown";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
                 new KeyValuePair<Difficulty, float>[]
                 {
                     new(Difficulty.Easy,7.0f),
                     new(Difficulty.Extreme,17.5f)
                 }
                 );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[]
                     {
                     new(Difficulty.Easy,7.0f),
                     new(Difficulty.Extreme,17.5f)
                     }
                     );
-                public override Dictionary<Difficulty, float> APDifficulty => new(
+                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
                     new KeyValuePair<Difficulty, float>[]
                     {
                     new(Difficulty.Easy,11.0f),
@@ -103,6 +103,7 @@ namespace Rhythm_Recall.Waves
             {
                 if (InBeat(0))
                 {
+                    Line l = new(EaseOut(BeatTime(2), new Vector2(320, 240), new Vector2(640, 240), EaseState.Cubic), EaseOut(BeatTime(2), 0, 90, EaseState.Circ));
                     easeC.TagApply("C");
                     RegisterFunctionOnce("Shrink", () =>
                     {
@@ -262,6 +263,7 @@ namespace Rhythm_Recall.Waves
                         "(*+1)(*+21)", "", "/", "",    "", "", "", "",
                     });
                 }
+
                 if (InBeat(24))
                 {
                     easeA.TagApply("A");
@@ -479,7 +481,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ChangeA", () =>
                     {
-                        SetBox(240, 240, 160);
+                        SetBox(new Vector2(320, 240), 240, 160);
                     });
                     #region Spiders Func
                     RegisterFunctionOnce("Sp1", () =>
@@ -530,81 +532,230 @@ namespace Rhythm_Recall.Waves
                     {
                         CreateEntity(new Spider.LineSpider(6, false, 5));
                     });
+                    RegisterFunctionOnce("DSp1", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp2", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 1, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp3", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 2, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp4", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 3, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp5", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 4, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp6", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 5, true, 5));
+                    });
+                    RegisterFunctionOnce("DSp7", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 6, true, 5f));
+                    });
+                    RegisterFunctionOnce("DSp8", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 7, true, 5f));
+                    });
+                    RegisterFunctionOnce("DSp9", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 8, true, 5f));
+                    });
+                    RegisterFunctionOnce("DSp10", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 9, true, 5f));
+                    });
+                    RegisterFunctionOnce("USp1", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210, false, 5));
+                    });
+                    RegisterFunctionOnce("USp2", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 1, false, 5));
+                    });
+                    RegisterFunctionOnce("USp3", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 2, false, 5));
+                    });
+                    RegisterFunctionOnce("USp4", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 3, false, 5));
+                    });
+                    RegisterFunctionOnce("USp5", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 4, false, 5));
+                    });
+                    RegisterFunctionOnce("USp6", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 5, false, 5));
+                    });
+                    RegisterFunctionOnce("USp7", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 6, false, 5f));
+                    });
+                    RegisterFunctionOnce("USp8", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 7, false, 5f));
+                    });
+                    RegisterFunctionOnce("USp9", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 8, false, 5f));
+                    });
+                    RegisterFunctionOnce("USp10", () =>
+                    {
+                        CreateEntity(new Spider.LineSpider2(210f + 24f * 9, false, 5f));
+                    });
+
                     #endregion
                     RegisterFunctionOnce("SpA", () =>
                     {
 
                     });
+                    RegisterFunctionOnce("Line0s", () =>
+                    {
+                        float Time = 2;
+                        float Time2 = 5.5f;
+                        for (int i = 0; i < 96; i++)
+                        {
+                            float X = 0;
+                            float Y = 0;
+                            float X2 = 0;
+                            float Y2 = 0;
+                            float L = Rand(0, 1);
+                            if (L == 1)
+                            {
+                                X = Rand(640 - 750, 750 + (640 - 750));
+                                X2 = Rand(640 - 750, 750 + (640 - 750));
+                                if (Rand(1, 2) == 1)
+                                {
+                                    Y = 562.5f + (480 - 562.5f);
+                                    Y2 = 480 - 562.5f;
+                                }
+                                else
+                                {
+                                    Y = 480 - 562.5f;
+                                    Y2 = 562.5f + (480 - 562.5f);
+                                }
+
+                            }
+                            else
+                            {
+                                Y = Rand(480 - 562.5f, 562.5f + (480 - 562.5f));
+                                Y2 = Rand(480 - 562.5f, 562.5f + (480 - 562.5f));
+
+                                if (Rand(1, 2) == 1)
+                                {
+                                    X = 640 - 750;
+                                    X2 = 750 + (640 - 750);
+                                }
+                                else
+                                {
+                                    X = 750 + (640 - 750);
+                                    X2 = 640 - 750;
+                                }
+                            }
+
+                            float z = (float)(Math.Atan2(Y - Y2, X - X2) * (180 / Math.PI)) + 90;
+                            Time += 0.02f;
+                            if (i == 40) { Time2 += 8; }
+                            else if (i == 88) { Time2 += 8; }
+                            else if (i <= 88) { Time2 += 0.5f; }
+                            else if (i >= 88) { Time2 += 0.25f; }
+                            Line d;
+                            CreateEntity(d = new Line(
+
+                                SimplifiedEasing.LinkEase(SimplifiedEasing.EaseOut(BeatTime(4), new Vector2(X, Y), new Vector2(X, Y), EaseState.Quad),
+                                                          SimplifiedEasing.EaseOut(BeatTime(54 + Time), new Vector2(X, Y), new Vector2(X, Y), EaseState.Quad),
+                                                          SimplifiedEasing.EaseIn(BeatTime(4), new Vector2(X, Y), new Vector2(X + Cos(z) * 1000, Y + Sin(z) * 1000), EaseState.Quint)).Easing,
+                                SimplifiedEasing.LinkEase(SimplifiedEasing.EaseOut(BeatTime(4), new Vector2(X, Y), new Vector2(X2, Y2), EaseState.Quad),
+                                                          SimplifiedEasing.EaseOut(BeatTime(54 + Time), new Vector2(X2, Y2), new Vector2(X2, Y2), EaseState.Quad),
+                                                          SimplifiedEasing.EaseIn(BeatTime(4), new Vector2(X2, Y2), new Vector2(X2 + Cos(z) * 1000, Y2 + Sin(z) * 1000), EaseState.Quint)).Easing));
+
+                            if (Rand(0, 1) == 1) { d.DrawingColor = Color.MediumPurple; }
+
+                            SimplifiedEasing.RunEase((s) => { d.Alpha = s; },
+                                           SimplifiedEasing.EaseOut(BeatTime(4f), 1f, 0.2f, SimplifiedEasing.EaseState.Back));
+
+                            DelayBeat(Time2, () => {
+                                SimplifiedEasing.RunEase((s) => { d.Alpha = s; },
+                                            SimplifiedEasing.EaseOut(BeatTime(4f), 1f, 0.2f, SimplifiedEasing.EaseState.Back));
+                            });
+                            d.Width = 1;
+                        }
+                    });
                     RegisterFunctionOnce("Line1s", () =>
                     {
-                        float y = 240;
+                        float y = 0;
                         float x = 0;
-                        for (int i = 0; i < 32; i++)
+                        float z = 90;
+                        for (int i = 0; i < 12; i++)
                         {
                             DelayBeat(i * 0.5f, () => {
 
-                                x += 8;
-                                y += Sin(x * 5) * 60;
-                                Line d;
-                                CreateEntity(d = new Line(EaseOut(BeatTime(2), new Vector2(y, 0), new Vector2(y + 50, 0), EaseState.Quint).Easing,
-                                    EaseOut(BeatTime(2), new Vector2(y, 480), new Vector2(y + 50, 480), EaseState.Quint).Easing));
-                                Line c;
-                                CreateEntity(c = new Line(EaseOut(BeatTime(2), new Vector2(y, 0), new Vector2(y + -50, 0), EaseState.Quint).Easing,
-                                    EaseOut(BeatTime(2), new Vector2(y, 480), new Vector2(y + -50, 480), EaseState.Quint).Easing));
-                                d.DrawingColor = Color.MediumPurple;
-                                d.Depth = 0f;
+                                x += 3;
+                                y += Sin(x * 10) * 100;
+                                z -= Sin(x * 10) * 12;
+
+                                Line c = new(EaseOut(BeatTime(2), new Vector2(y, 240), new Vector2(y, 240), EaseState.Cubic), EaseOut(BeatTime(2), 90, z, EaseState.Quint));
+                                CreateEntity(c);
                                 c.Depth = 0f;
-                                d.AlphaDecrease(BeatTime(2));
+                                c.Alpha = 1;
                                 c.DrawingColor = Color.MediumPurple;
                                 c.AlphaDecrease(BeatTime(2));
                             });
                         }
-                        DelayBeat(16, () => {
-                            Line d;
-                            CreateEntity(d = new Line(EaseOut(BeatTime(4), new Vector2(0, 0), new Vector2(200, 0), EaseState.Cubic).Easing,
-                                EaseOut(BeatTime(4), new Vector2(0, 480), new Vector2(200, 480), EaseState.Cubic).Easing));
-                            d.DrawingColor = Color.MediumPurple;
-                        });
-                        DelayBeat(18, () => {
-                            Line d;
-                            CreateEntity(d = new Line(EaseOut(BeatTime(4), new Vector2(640, 0), new Vector2(440, 0), EaseState.Cubic).Easing,
-                                EaseOut(BeatTime(4), new Vector2(640, 480), new Vector2(440, 480), EaseState.Cubic).Easing));
-                            d.DrawingColor = Color.MediumPurple;
-                        });
-                        DelayBeat(20, () => {
-                            Line d;
-                            CreateEntity(d = new Line(EaseOut(BeatTime(4), new Vector2(0, 0), new Vector2(0, 100), EaseState.Cubic).Easing,
-                                EaseOut(BeatTime(4), new Vector2(640, 0), new Vector2(640, 100), EaseState.Cubic).Easing));
-                            d.DrawingColor = Color.MediumPurple;
-                        });
-                        DelayBeat(22, () => {
-                            Line d;
-                            CreateEntity(d = new Line(EaseOut(BeatTime(4), new Vector2(0, 480), new Vector2(0, 380), EaseState.Quint).Easing,
-                                EaseOut(BeatTime(4), new Vector2(640, 480), new Vector2(640, 380), EaseState.Quint).Easing));
-                            d.DrawingColor = Color.MediumPurple;
-                        });
+
+                    });
+                    RegisterFunctionOnce("Line2s", () =>
+                    {
+                        float y = 640;
+                        float x = 0;
+                        float z = 90;
+                        for (int i = 0; i < 12; i++)
+                        {
+                            DelayBeat(i * 0.5f, () => {
+
+                                x += 3;
+                                y -= Sin(x * 10) * 100;
+                                z += Sin(x * 10) * 12;
+
+                                Line c = new(EaseOut(BeatTime(2), new Vector2(y, 240), new Vector2(y, 240), EaseState.Cubic), EaseOut(BeatTime(2), 90, z, EaseState.Quint));
+                                CreateEntity(c);
+                                c.Depth = 0f;
+                                c.Alpha = 1;
+                                c.DrawingColor = Color.MediumPurple;
+                                c.AlphaDecrease(BeatTime(2));
+                            });
+                        }
+
                     });
                     BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     { 
                         //pre
                         "", "", "", "",    "", "", "", "",
-                        "", "", "SetBox", "",    "", "", "", "",
+                        "", "", "SetBox(Line0s)", "",    "", "", "", "",
                         //1
-                        "", "", "Purple(Line1s)", "",    "ChangeA", "", "", "",
+                        "", "", "Purple", "",    "ChangeA", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "Sp1", "", "Sp2", "",     "Sp3", "", "Sp4","",
-                        "Sp5", "", "Sp6", "",     "Sp5", "", "Sp4","",
+                        "Sp1(DSp1)(Line1s)", "", "Sp2(DSp2)", "",     "Sp3(DSp3)", "", "Sp4(DSp4)","",
+                        "Sp5(DSp5)", "", "Sp6(DSp6)", "",     "Sp5(DSp7)", "", "Sp4(DSp8)","",
                         //2
-                        "Sp3", "", "Sp2", "",     "Sp1", "", "", "",
-                        "tSp6", "", "tSp5", "",     "tSp4", "", "tSp3", "",
-                        "tSp2", "", "tSp1", "",     "tSp2", "", "tSp3", "",
-                        "tSp4", "", "tSp5", "",     "tSp6", "", "", "",
+                        "Sp3(DSp9)", "", "Sp2(DSp9)", "",     "Sp1", "", "", "",
+                        "tSp6(USp10)(Line2s)", "", "tSp5(USp9)", "",     "tSp4(USp8)", "", "tSp3(USp7)", "",
+                        "tSp2(USp6)", "", "tSp1(USp5)", "",     "tSp2(USp4)", "", "tSp3(USp3)", "",
+                        "tSp4(USp2)", "", "tSp5", "",     "tSp6", "", "", "",
                         //3
-                        "(tSp1)(tSp2)(tSp3)", "", "", "",    "", "", "", "",
-                        "(tSp6)(tSp5)(tSp4)", "", "", "",    "", "", "", "",
-                        "(tSp1)(tSp2)(tSp3)", "", "", "",    "", "", "", "",
-                        "(tSp6)(tSp5)(tSp4)", "", "", "",    "", "", "", "",
-                        
+                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "(USp1)(USp2)", "(USp3)", "(USp4)", "(USp5)",
+                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "(DSp10)(DSp9)", "(DSp8)", "(DSp7)", "(DSp6)",
+                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "(USp1)(USp2)", "(USp3)", "(USp4)", "(USp5)",
+                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "(DSp10)(DSp9)", "(DSp8)", "(DSp7)", "(DSp6)",
                         //4
                         "(tSp1)(tSp6)", "", "(tSp1)(tSp6)", "",     "(tSp2)(tSp5)", "", "(tSp2)(tSp5)", "",
                         "(tSp3)(tSp4)", "", "(tSp3)(tSp4)", "",     "(tSp3)(tSp4)", "", "(tSp3)(tSp4)", "",
@@ -613,18 +764,18 @@ namespace Rhythm_Recall.Waves
                         //5
                         "(tSp1)(tSp6)", "", "", "",    "(Sp2)(Sp5)", "", "", "",
                         "(tSp3)(tSp4)", "", "", "",    "(Sp1)(Sp6)", "", "", "",
-                        "tSp1", "", "tSp2", "",     "tSp3", "", "tSp4","",
-                        "tSp5", "", "tSp6", "",     "tSp5", "", "tSp4","",
+                        "tSp1(DSp1)", "(DSp1)", "tSp2(DSp1)", "(DSp1)",     "tSp3(USp3)", "(USp3)", "tSp4(USp3)","(USp3)",
+                        "tSp5(DSp5)", "(DSp5)", "tSp6(DSp5)", "(DSp5)",     "tSp5(USp7)", "(USp7)", "tSp4(USp7)","(USp7)",
                         //6
-                        "tSp3", "", "tSp2", "",     "tSp1", "", "", "",
-                        "Sp6", "", "Sp5", "",     "Sp4", "", "Sp3", "",
-                        "Sp2", "", "Sp1", "",     "Sp2", "", "Sp3", "",
-                        "Sp4", "", "Sp5", "",     "Sp6", "", "", "",
+                        "tSp3(USp10)", "(USp10)", "tSp2(USp10)", "(USp10)",     "tSp1(DSp8)", "(DSp8)", "(DSp8)", "(DSp8)",
+                        "Sp6(USp6)", "(USp6)", "Sp5(USp6)", "(USp6)",     "Sp4(DSp4)", "(DSp4)", "Sp3(DSp4)", "(DSp4)",
+                        "Sp2", "USp1", "Sp1", "DSp10",     "Sp2", "USp2", "Sp3", "DSp9",
+                        "Sp4", "USp3", "Sp5", "DSp8",     "Sp6", "USp4", "", "DSp7",
                         //7
-                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "", "", "", "",
-                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "", "", "", "",
-                        "(Sp1)(Sp2)(Sp3)", "", "", "",    "", "", "", "",
-                        "(Sp6)(Sp5)(Sp4)", "", "", "",    "", "", "", "",
+                        "(tSp1)(tSp2)(tSp3)", "", "", "",    "", "", "", "",
+                        "(tSp6)(tSp5)(tSp4)", "", "", "",    "", "", "", "",
+                        "(tSp1)(tSp2)(tSp3)", "", "", "",    "", "", "", "",
+                        "(tSp6)(tSp5)(tSp4)", "", "", "",    "", "", "", "",
                         //8
                         "(Sp1)(Sp6)", "", "(Sp1)(Sp6)", "",     "(Sp2)(Sp5)", "", "(Sp2)(Sp5)", "",
                         "(Sp3)(Sp4)", "", "(Sp3)(Sp4)", "",     "(Sp3)(Sp4)", "", "(Sp3)(Sp4)", "",
@@ -659,7 +810,7 @@ namespace Rhythm_Recall.Waves
                     {
 
                         ApplyTime = (BeatTime(2f)),
-                       AlphaEase=LinkEase(Stable(0, 1),
+                        AlphaEase = LinkEase(Stable(0, 1),
                         EaseOut(BeatTime(4), 1, -1, EaseState.Linear),
                         Stable(BeatTime(0.25f), 0))
 
@@ -846,13 +997,13 @@ namespace Rhythm_Recall.Waves
                         Line a = new(LinkEase(EaseOut(BeatTime(1.5f), new Vector2(320, 240), new Vector2(180, 240), EaseState.Quad),
                             Stable(BeatTime(1), new Vector2(180, 240))),
                             Stable(BeatTime(2.5f), 50))
-                            { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
+                        { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
                         Line b = new(LinkEase(EaseOut(BeatTime(1.5f), new Vector2(320, 240), new Vector2(180, 240), EaseState.Quad),
                             Stable(BeatTime(1), new Vector2(180, 240))),
                             Stable(BeatTime(2.5f), 130))
                         { Alpha = 0.7f, DrawingColor = Color.MediumPurple };
                         Line[] lines = { a, b };
-                        foreach(Line l in lines)
+                        foreach (Line l in lines)
                         {
                             CreateEntity(l);
                             DelayBeat(2.5f, () => { l.Dispose(); });
@@ -932,7 +1083,7 @@ namespace Rhythm_Recall.Waves
                     easeA.TagApply("A");
                     easeB.TagApply("B");
                     easeC.TagApply("C");
-                   
+
                     Arrow.UnitEasing easeX = new();//创建箭头缓动的实例，其实这里也可以这么写  new(){ApplyTime=...},下面的ApplyTime就可以省略
                     AddInstance(easeX);//添加事件
                     float RunTime = BeatTime(3);//这里创建变量只是为了说明清楚ApplyTime和缓动的Time的关系，即最常见的是相等，相等的时候意味着
@@ -943,20 +1094,33 @@ namespace Rhythm_Recall.Waves
                     //ApplyTime和缓动Time不等的情况很少，因为这会导致两者时间轴不同，例如缓动没运行完箭头已经dispose了，是否有用这点需要看有什么花招了
                     easeX.PositionEase = LinkEase(Stable(0, new Vector2(0, 400)), EaseOut(BeatTime(3), new Vector2(0, -400), EaseState.Elastic));
                     easeX.TagApply("X");//注意的是，极坐标变换开启后(默认关闭)的，从下到上的0轨箭头的缓动，用在2轨箭头会变成从上到下过来，用在1轨箭头会变成从左向右
-                    //我忘了是啥，也忘了写过没，但我和master提过也讨论过，如果没有这个方法，记得问一下master，让他写一下
+                                        //我忘了是啥，也忘了写过没，但我和master提过也讨论过，如果没有这个方法，记得问一下master，让他写一下
+                    Arrow.UnitEasing easeW = new();//创建箭头缓动的实例，其实这里也可以这么写  new(){ApplyTime=...},下面的ApplyTime就可以省略
+                    AddInstance(easeW);//添加事件
+
+                    easeW.ApplyTime = BeatTime(2);//会在标记箭头的x时间之前使用缓动，经过x时间后缓动正好完成，箭头标准地击中盾牌
+                    //同样，缓动的使用也有更高级的用法，例如可以实现“偏移入眼，后转正常”的效果
+                    //例如我在rotateEase中Stable了2beat，quad了2beat,ApplyTime是4beat（2beat+2beat）
+                    //在实现缓动的前4beat中观众会先看到偏移的箭头运作，然后看到箭头变换到正常（不正常也可以，但不推荐）的位置
+                    //ApplyTime和缓动Time不等的情况很少，因为这会导致两者时间轴不同，例如缓动没运行完箭头已经dispose了，是否有用这点需要看有什么花招了
+                    easeW.DistanceEase = LinkEase(Stable(0, 50), EaseOut(BeatTime(3), -50, EaseState.Elastic));
+                    easeW.TagApply("W");//注意的是，极坐标变换开启后(默认关闭)的，从下到上的0轨箭头的缓动，用在2轨箭头会变成从上到下过来，用在1轨箭头会变成从左向右
+                                        //我忘了是啥，也忘了写过没，但我和master提过也讨论过，如果没有这个方法，记得问一下master，让他写一下
                     RegisterFunctionOnce("LineG", () =>
                     {
+                        float sin = 0;
                         for (int i = 0; i < 56 * 4; i++)
                         {
                             DelayBeat(0.25f * i, () =>
                             {
-                                Line a = new(EaseOut(BeatTime(4), new Vector2(320 - 240, 0), new Vector2(320 - 240, 480), EaseState.Linear),
+                                sin += 5;
+                                Line a = new(EaseOut(BeatTime(4), new Vector2(320 - 240 + Sin(sin) * 150, 0), new Vector2(320 - 240 + Sin(sin) * 150, 480), EaseState.Linear),
                                     EaseOut(BeatTime(4), 0, -180, EaseState.Linear))
                                 { Alpha = 0.1f, DrawingColor = Color.MediumPurple };
                                 CreateEntity(a);
                                 a.AlphaIncreaseAndDecrease(BeatTime(4), 0.55f);
                                 DelayBeat(4, () => { a.Dispose(); });
-                                Line b = new(EaseOut(BeatTime(4), new Vector2(320 + 240, 480), new Vector2(320 + 240, 0), EaseState.Linear),
+                                Line b = new(EaseOut(BeatTime(4), new Vector2(320 + 240 - Sin(sin) * 150, 480), new Vector2(320 + 240 - Sin(sin) * 150, 0), EaseState.Linear),
                                     EaseOut(BeatTime(4), 0, -180, EaseState.Linear))
                                 { Alpha = 0.1f, DrawingColor = Color.MediumPurple };
                                 CreateEntity(b);
@@ -965,25 +1129,191 @@ namespace Rhythm_Recall.Waves
                             });
                         }
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
+                    RegisterFunctionOnce("LineF", () =>
                     {
+                        float Y = (Sin(15) * (640 / 5)) * -20;
+                        float Y2 = Y;
+
+
+                        for (int i5 = 0; i5 < 56 * 0.5f; i5++)
+                        {
+
+                            DelayBeat(2 * i5, () =>
+                            {
+                                float g = 0.5f;
+                                Y = Y2;
+                                for (int i2 = 0; i2 < 7; i2++)
+                                {
+
+                                    float G = 0;
+                                    for (int i = 0; i < 5; i++)
+                                    {
+
+
+
+                                        Line a = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * (128) + 5), EaseState.Cubic),
+                                                      EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
+                                        { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                        CreateEntity(a);
+
+                                        DelayBeat(2.05f, () => { a.Dispose(); });
+                                        Line b = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * (128) + 5), EaseState.Cubic),
+                                                      EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
+                                        { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                        CreateEntity(b);
+
+                                        DelayBeat(2.05f, () => { b.Dispose(); });
+                                        G = G + 128;
+
+                                    }
+
+                                    Y = Y + Sin(25) * (128) + 5;
+
+                                }
+                                Y2 = Y2 + Sin(25) * (128) + 5;
+                                if (Y2 >= Sin(25) * (128) + 5) { Y2 = Sin(25) * -128 + 5; }
+                            });
+                        }
+                        DelayBeat(56, () => {
+
+                            Y2 = Sin(25) * -128 + 5;
+                            float time = 2f;
+
+
+                            float g = 0.5f;
+                            Y = Y2;
+                            for (int i2 = 0; i2 < 7; i2++)
+                            {
+                                time += 0.5f;
+                                float G = 0;
+                                for (int i = 0; i < 5; i++)
+                                {
+
+
+
+                                    Line a = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * (128) + 5), EaseState.Cubic),
+                                                  EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
+                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    CreateEntity(a);
+
+                                    DelayBeat(2.05f, () => { a.Dispose(); });
+                                    Line b = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * (128) + 5), EaseState.Cubic),
+                                                 EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
+                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    CreateEntity(b);
+
+                                    DelayBeat(2.05f, () => { b.Dispose(); });
+                                    G = G + 128;
+
+                                }
+
+                                Y = Y + Sin(25) * (128) + 5;
+
+                            }
+
+
+
+
+                        });
+                        DelayBeat(58, () => {
+
+                            Y2 = Sin(25) * -128 + 5;
+                            float time = 2f;
+
+
+                            float g = 0.5f;
+                            Y = Y2;
+                            for (int i2 = 0; i2 < 7; i2++)
+                            {
+
+                                float G = 0;
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    time += 0.125f;
+
+
+                                    Line a = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * (128) + 5), EaseState.Cubic),
+                                                  EaseOut(BeatTime(4), 25, Rand(-90, 90), EaseState.Cubic))
+                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    CreateEntity(a);
+
+                                    DelayBeat(7f, () => { a.Dispose(); });
+                                    Line b = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * (128) + 5), EaseState.Cubic),
+                                                 EaseOut(BeatTime(4), -25, Rand(-90, 90), EaseState.Cubic))
+                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    CreateEntity(b);
+
+                                    DelayBeat(7f, () => { b.Dispose(); });
+                                    G = G + 128;
+                                    SimplifiedEasing.RunEase((s) => { a.Alpha = s; b.Alpha = s; },
+                                    LinkEase(Stable(BeatTime(time - 2f), 0.25f), EaseOut(BeatTime(2), -0.25f, EaseState.Cubic)));
+                                    SimplifiedEasing.RunEase((s) => {
+                                        a.DrawingColor = Color.Lerp(Color.MediumPurple, Color.White, s);
+                                        b.DrawingColor = Color.Lerp(Color.MediumPurple, Color.White, s);
+                                    },
+                                    LinkEase(Stable(BeatTime(time - 2f), 0f), EaseOut(BeatTime(0.5f), 1f, EaseState.Cubic)));
+                                }
+
+                                Y = Y + Sin(25) * (128) + 5;
+
+                            }
+
+
+
+
+                        });
+                    });
+                    RegisterFunctionOnce("ScreenMove1", () =>
+                    {
+                        SimplifiedEasing.RunEase((s) => { ScreenDrawing.ScreenPositionDetla = new(s, 0); },
+                            LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -50, EaseState.Back)),
+                            LinkEase(Stable(0, -50), EaseOut(BeatTime(2f), 50, EaseState.Back)),
+                            LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 50, EaseState.Back)),
+                            LinkEase(Stable(0, 50), EaseOut(BeatTime(2f), -50, EaseState.Back)),
+                            LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -50, EaseState.Back)),
+                            LinkEase(Stable(0, -50), EaseOut(BeatTime(6f), 50, EaseState.Back)));
+
+                        SimplifiedEasing.RunEase((s) => { ScreenDrawing.ScreenAngle = s; },
+                            LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -15, EaseState.Back)),
+                            LinkEase(Stable(0, -15), EaseOut(BeatTime(2f), 15, EaseState.Back)),
+                            LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 15, EaseState.Back)),
+                            LinkEase(Stable(0, 15), EaseOut(BeatTime(2f), -15, EaseState.Back)),
+                            LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -15, EaseState.Back)),
+                            LinkEase(Stable(0, -15), EaseOut(BeatTime(4f), 15, EaseState.Elastic)));
+
+                    });
+                    RegisterFunctionOnce("ScreenMove2", () =>
+                    {
+                        SimplifiedEasing.RunEase((s) => { ScreenDrawing.ScreenScale = s; },
+                            LinkEase(Stable(0, 1), EaseOut(BeatTime(1f), 0.25f, EaseState.Back)),
+                            LinkEase(Stable(0, 1.25f), EaseOut(BeatTime(1f), 0.25f, EaseState.Back)),
+                            LinkEase(Stable(0, 1.5f), EaseOut(BeatTime(1f), 0.25f, EaseState.Back)),
+                            LinkEase(Stable(0, 1.75f), EaseOut(BeatTime(4f), -0.75f, EaseState.Elastic)));
+                        SimplifiedEasing.RunEase((s) => { ScreenDrawing.ScreenAngle = s; },
+                            LinkEase(Stable(0, 0), EaseOut(BeatTime(1f), 5f, EaseState.Back)),
+                            LinkEase(Stable(0, 5f), EaseOut(BeatTime(1f), -10f, EaseState.Back)),
+                            LinkEase(Stable(0, -5), EaseOut(BeatTime(1f), 10, EaseState.Back)),
+                            LinkEase(Stable(0, 5), EaseOut(BeatTime(4f), -5, EaseState.Elastic)));
+                    });
+                    BarrageCreate(BeatTime(4), BeatTime(2), 6.2f, new string[]
+                {
                         //pre
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "LineG", "", "", "",
                         //1
-                        "#0.75#$0", "", "", "",    "+2", "", "", "",
+                        "#0.75#$0(LineF)(ScreenMove1)", "", "", "",    "+2", "", "", "",
                         "#0.75#$21", "", "", "",    "+21", "", "", "",
                         "#0.75#$2", "", "", "",    "+2", "", "", "",
                         "#0.75#$01", "", "", "",    "+21", "", "", "",
                         //2
                         "#0.75#$0", "", "", "",    "+2", "", "", "",
                         "#0.75#$21", "", "", "",    "+21", "", "", "",
-                        "(*$1)(+0@C)", "", "", "",    "(*$3)(+0@C)", "", "", "",
+                        "(*$1)(+0@C)(ScreenMove2)", "", "", "",    "(*$3)(+0@C)", "", "", "",
                         "(*$0)($01@X)", "", "", "",    "(*$21)($2@X)", "", "", "",
                         //3
-                        "d@C", "", "+01@X", "",    "d@C", "", "+01@X", "",
-                        "d@C", "", "+01@X", "",    "d@C", "", "+01@X", "",
-                        "d@C", "", "+01@X", "",    "d@C", "", "$21@X", "$11",
+                        "d@C", "", "+01@W", "",    "d@C", "", "+01@W", "",
+                        "d@C", "", "+01@W", "",    "d@C", "", "+01@W", "",
+                        "d@C", "", "+01@W", "",    "d@C", "", "$21@W", "$11",
                         "$01", "", "+0", "",    "d1", "", "+0", "",
                         //4
                         "#1#d1", "", "", "",    "+21", "", "", "",
@@ -1007,10 +1337,10 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "d", "", "+01", "",
                         //8
                          "$1", "", "+0", "",    "+21", "", "", "",
-                        "($0)(+21)", "", "", "",    "($01)(+2)", "", "", "",
-                        "($21)(+2)", "", "", "",    "($2)(+21)", "", "", "",
-                        "($21)(+2)", "", "", "",    "", "", "", "",
-                    });
+                        "($0)(+21)", "", "", "",    "($01)(+21)", "", "", "",
+                        "($2)(+2)", "", "", "",    "($21)(+21)", "", "", "",
+                        "($01)(+21)($0)($2)", "", "", "",    "", "", "", "",
+                });
                 }
                 if (InBeat(248))
                 {
@@ -1086,9 +1416,13 @@ namespace Rhythm_Recall.Waves
                     #region Transverse Line Spiders ( Return )
                     RegisterFunctionOnce("TL1", () =>
                     {
+
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 1f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1098,6 +1432,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1106,6 +1443,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 2f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1115,6 +1455,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1123,6 +1466,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 3f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1132,6 +1478,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1140,6 +1489,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 4f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1149,6 +1501,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1157,6 +1512,9 @@ namespace Rhythm_Recall.Waves
                         float y = BoxStates.Centre.Y - BoxStates.Height / 2f + BoxStates.Height / (Heart.PurpleLineCount + 1) * 5f;
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 - 180, y), new Vector2(320 + 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 + 20, y), new Vector2(320 - 180, y), EaseState.Sine)));
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 0f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1166,6 +1524,9 @@ namespace Rhythm_Recall.Waves
                         Spider sp = new(LinkEase(EaseOut(BeatTime(3), new Vector2(320 + 180, y), new Vector2(320 - 20, y), EaseState.Sine),
                             EaseIn(BeatTime(3), new Vector2(320 - 20, y), new Vector2(320 + 180, y), EaseState.Sine)))
                         { Rotation = 180 };
+                        sp.Image = Sprites.Croissant;
+                        SimplifiedEasing.RunEase((s) => { sp.Rotation = s; },
+                        SimplifiedEasing.EaseOut(BeatTime(8f), 180f, -3 * BeatTime(8), SimplifiedEasing.EaseState.Linear));
                         CreateEntity(sp);
                         DelayBeat(6, () => { sp.Dispose(); });
                     });
@@ -1289,8 +1650,8 @@ namespace Rhythm_Recall.Waves
                         //8
                         "(*$2)(+0)", "", "", "",    "(*$01)(+01)", "", "", "",
                         "($0)($2)", "", "($01)($21)", "",    "", "", "($001)($201)", "",
-                        "*$3'0.7", "*$31@X", "*$3'0.85", "*$31@Y",    "*$3", "*$31@X", "*$3'1.15", "*$31@Y",
-                        "*$3'1.3", "*$31@X", "*$3'1.45", "*$31@Y",    "*$3'1.6", "*$31@X", "*$3'1.75", "*$31@Y",
+                        "*$3'0.7", "*$31@X", "_$3'0.85", "_$31@Y",    "*$3", "*$31@X", "_$3'1.15", "_$31@Y",
+                        "*$3'1.3", "*$31@X", "_$3'1.45", "_$31@Y",    "*$3'1.6", "*$31@X", "_$3'1.75", "_$31@Y",
                     });
                 }
                 if (InBeat(376))
@@ -1386,13 +1747,15 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(new Vector2(320, 240), 84, 84);
                 InstantTP(320, 240);
                 ScreenDrawing.ScreenScale = 2;
-                HeartAttribute.MaxHP = 8;
-                bool jump = false;
+                HeartAttribute.MaxHP = 10;
+                bool jump = true;
                 if (jump)
                 {
 
                     //int beat = 54 + 128 + 64 + 64; 
-                    int beat = 54 +128;
+                    //int beat = 54 + 64;
+                    //int beat = 22;
+                    int beat = 182;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
