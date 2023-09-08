@@ -793,7 +793,7 @@ namespace Rhythm_Recall.Waves
                     CentreEasing.EaseBuilder builder2 = new();
                     builder2.Insert(BeatTime(4), CentreEasing.EaseInQuad(new(0, 320), new(640, 320), BeatTime(4)));
                     ValueEasing.EaseBuilder builder3 = new();
-                    builder3.Insert(BeatTime(4), ValueEasing.Linear(90, 90, BeatTime(4)));
+                    builder3.Insert(BeatTime(4), ValueEasing.Stable(90));
                     Line line = new(builder2.GetResult(), builder3.GetResult());
                     ValueEasing.EaseBuilder builder = new();
                     builder.Insert(BeatTime(4), ValueEasing.EaseInSine(1.0f, 0.0f, BeatTime(4)));

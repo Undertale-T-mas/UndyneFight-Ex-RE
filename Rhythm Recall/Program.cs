@@ -171,7 +171,6 @@ namespace Rhythm_Recall
                 typeof(GOODWORLD),
                 //typeof(MistemperedMalignance),
                 //typeof(Rainshower),
-                typeof(mu)
                 });
 #if OSTPublish
             GameStartUp.MainSceneIntro = () => { GameStates.SelectMode(0); ClassicalGUI.CreateFightSelector(); };
