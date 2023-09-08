@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace MyMonoGame
+namespace UndyneFight_Ex
 {
     public class DynamicSongInstance
     {

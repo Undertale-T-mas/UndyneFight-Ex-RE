@@ -8,7 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using NVorbis;
 
-namespace MyMonoGame
+namespace UndyneFight_Ex
 { 
     public class DynamicSong
     {
