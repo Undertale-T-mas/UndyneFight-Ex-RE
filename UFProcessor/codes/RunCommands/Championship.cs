@@ -23,19 +23,26 @@ namespace UndyneFight_Ex.Server
             {
                 case "Insert":
                     //Championship Insert {JsonChampionshipInfo}
-                    if(args.Length != 2) goto A;
+                    if(args.Length < 2) goto A;
                     try
                     {
+                        if (ChampionshipManager.Exist(args[1])) {
+                            client.Reply("F the championship already exist!");
+                            return;
+                        }
                         ChampionshipManager.Insert(args[1]);
+                        client.Reply("S successfully inserted");
                     }
-                    catch { 
-                        goto A;
+                    catch (Exception e) {
+                        client.Reply("E an error occured!");
+                        UFConsole.WriteLine("\0#Red] " + e.ToString());
+                        return;
                     }
                     return;
 
                 case "SignUp":
                     //Championship SignUp <Name> <Div> 
-                    if (args.Length != 3) goto A;
+                    if (args.Length < 3) goto A;
                     if (client.BindUser == null) {
                         client.Reply("F please login first");
                         return;

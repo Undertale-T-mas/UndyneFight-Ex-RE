@@ -13,6 +13,10 @@ using col = Microsoft.Xna.Framework.Color;
 using System.Collections.Generic;
 using UndyneFight_Ex.ChampionShips;
 using UndyneFight_Ex.SongSystem;
+using Microsoft.Xna.Framework.Graphics;
+using System.Buffers;
+using UndyneFight_Ex.Remake.Network;
+using System.Text.Json;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -33,17 +37,92 @@ namespace UndyneFight_Ex.Remake.UI
                 }
             }
         }
-        public ChampionshipSelector() {
-            this.KeyEvent = KeyEventFull;
-            this.Activate();
+        private void KeyAction()
+        { 
+            if (GameStates.IsKeyPressed120f(InputIdentity.MainDown) || GameStates.IsKeyPressed120f(InputIdentity.MainRight))
+            {
+                int id = FocusID;
+                for (int i = id + 1; i < all.Length; i++)
+                {
+                    if (all[i].ModuleEnabled)
+                    {
+                        currentFocus.OffFocus();
+                        all[i].OnFocus();
+                        break;
+                    }
+                }
+            }
+            else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp) || GameStates.IsKeyPressed120f(InputIdentity.MainLeft))
+            {
+                int id = FocusID;
+                for (int i = id - 1; i >= 0; i--)
+                {
+                    if (all[i].ModuleEnabled)
+                    {
+                        currentFocus.OffFocus();
+                        all[i].OnFocus();
+                        break;
+                    }
+                }
+            }
+            if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+            {
+                currentFocus?.ConfirmKeyDown();
+            }
         }
+        Button[] _songButtons;
+        public ChampionshipSelector() {
+            this.KeyEvent = KeyAction;
+            UpdateIn120 = true;
+            this.Activate();
+            this.OnSelected += ChampionshipSelector_OnSelected;
+        }
+
+        private void ChampionshipSelector_OnSelected()
+        {
+            if(this.FocusID <= 2)
+            {
+                // clicking a song button
+                this.Dispose();
+                bool state = false;
+#if DEBUG
+                state = true;
+#endif
+                if (currentChampionship.CheckTime() == ChampionShip.ChampionShipStates.Starting || state) {
+                    // get into the song
+
+                    this.Broadcast("MusicFadeOut");
+                    GameStates.InstanceCreate(new InstantEvent(0, () => {
+                        var extra = CurrentSelected.Extras as SongFightingScene.SceneParams;
+                        GameStates.StartSong(extra);
+                        GameStates.difficulty = extra.difficulty;
+                    }));
+                }
+                else
+                {
+                    // get back
+
+                    this.Dispose();
+                    GameStates.InstanceCreate(new SelectUI());
+                }
+            }
+            else
+            {
+                // clicking a division button
+                this.Dispose();
+                GameStates.InstanceCreate(new SelectUI());
+            }
+        }
+
+        ChampionShip currentChampionship;
+
         public override void Start()
         {
             ChampionshipInfoShower cis;
             ChampionShip c;
             this.AddChild(cis = new ChampionshipInfoShower());
-            c = cis.Championship;
-            this.AddChild(new Scoreboard(PlayerManager.CurrentUser?.ChampionshipData?.ChampionshipDivision(_currentChampionship)));
+            currentChampionship = c = cis.Championship;
+            this.AddChild(new Scoreboard(PlayerManager.CurrentUser?.ChampionshipData?.ChampionshipDivision(_currentChampionshipNAME)));
             this.AddChild(new MouseCursor());
             DivisionSelector ds = new DivisionSelector(cis.Info);
             this.AddChild(ds);
@@ -55,8 +134,11 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 if (PlayerManager.CurrentUser.ChampionshipData.InChampionship(c.Title))
                 {
-                    Button[] buttons = new Button[c.Fights.Values.Length];
-                    for (int i = 0; i < c.Fights.Values.Length; i++)
+                    string divName = PlayerManager.CurrentUser.ChampionshipData.ChampionshipDivision(c.Title);
+                    int length = c.Fights.Values.Length;
+                    int pages = (length - 1) / 3 + 1;
+                    Button[] buttons = new Button[length];
+                    for (int i = 0; i < length; i++)
                     {
                         IChampionShip song = Activator.CreateInstance(c.Fights.Values[i]) as IChampionShip;
                         IWaveSet waveset = song.GameContent;
@@ -64,8 +146,30 @@ namespace UndyneFight_Ex.Remake.UI
                         bool hidden = waveset.Attributes.Hidden;
                         if (hidden) text = "? ? ? ? ?";
 
+                        int yi = i % 3;
 
+                        buttons[i] = new Button(this, new(325, yi * 50.5f + 153.5f), text);
+                        buttons[i].CentreDraw = false;
+                        buttons[i].DefaultScale = 1.263f;
+
+                        string path = "Musics\\" + waveset.Music + "\\paint";
+                        Texture2D illustration = null;
+                        if (System.IO.File.Exists("Content\\" + path + ".xnb"))
+                            illustration = Loader.Load<Texture2D>(path);
+                        buttons[i].Extras = new SongFightingScene.SceneParams(waveset, illustration, (int)song.DifficultyPanel[divName], "Content\\Musics\\" + waveset.Music + "\\song", JudgementState.Strict);
+
+                        if (hidden) buttons[i].State = SelectState.Disabled;
                     }
+                    for(int i = 0; i < Math.Min(length, 3); i++)
+                    {
+                        this.AddChild(buttons[i]);
+                        int t = i;
+                        this.AddChild(new TimeRangedEvent(99999f, () =>
+                        {
+                            buttons[t].PositionDelta = cis.Delta;
+                        }));
+                    }
+                    _songButtons = buttons;
                 } 
             }
 
@@ -128,7 +232,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             bound = Color.Lerp(bound, Color.Aqua, 0.035f);
             height = MathHelper.Lerp(height, 200, 0.05f);
-            
+
             DownBoundDistance = height;
             LeftBoundDistance = 0;
             RightBoundDistance = 0;
@@ -139,6 +243,18 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 this.Dispose();
                 GameStates.InstanceCreate(new SelectUI());
+            }
+
+            if (GameStates.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) && GameStates.IsKeyPressed120f(InputIdentity.Special)) {
+                // insert championship
+
+                PlaySound(FightResources.Sounds.select);
+
+                UFSocket<Empty> inserter = new((t) => {
+                    if (t.Success) PlaySound(FightResources.Sounds.Ding);
+                    else PlaySound(FightResources.Sounds.die1);
+                });
+                inserter.SendRequest("Championship\\Insert\\" + JsonSerializer.Serialize(currentChampionship.ToInfo()));
             }
 
             base.Update();

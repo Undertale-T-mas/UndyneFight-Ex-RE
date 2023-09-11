@@ -21,7 +21,7 @@ namespace Rhythm_Recall.Waves
                 return new ChampionShip(fightSet)
                 {
                     DivisionExist = new() { "div.1", "div.2", "Div.1", "Div.2" },
-                    Title = "Summer Camp III",
+                    Title = "Summer Camp III - A",
                     SubTitle = "2023 Aug.20, A:9:00~12:00",
                     EditorName = "T-mas",
                     Introduce = "The happiest summer we have",
@@ -59,7 +59,7 @@ namespace Rhythm_Recall.Waves
                 return new ChampionShip(fightSet)
                 {
                     DivisionExist = new() { "div.1", "div.2", "Div.1", "Div.2" },
-                    Title = "Summer Camp III",
+                    Title = "Summer Camp III - B",
                     SubTitle = "2023 Aug.20, B:13:30~17:00",
                     EditorName = "T-mas",
                     Introduce = "The happiest summer we have",

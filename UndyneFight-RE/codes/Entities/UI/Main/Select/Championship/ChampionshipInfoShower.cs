@@ -12,7 +12,7 @@ namespace UndyneFight_Ex.Remake.UI
 {
     internal partial class ChampionshipSelector
     { 
-        private static string _currentChampionship;
+        private static string _currentChampionshipNAME;
         private class ChampionshipInfoShower : Entity
         {
             public ChampionshipInfoShower() {
@@ -27,7 +27,7 @@ namespace UndyneFight_Ex.Remake.UI
                         this.info = obj.ToInfo();
                         this.Image = Loader.Load<Texture2D>(obj.IconPath);
 
-                        _currentChampionship = obj.Title.Replace("Ⅲ", "III");
+                        _currentChampionshipNAME = obj.Title.Replace("Ⅲ", "III");
 
                         break;
                     }
@@ -43,6 +43,7 @@ namespace UndyneFight_Ex.Remake.UI
                 new(100, 320 - 35)
             };
             vec2 delta;
+            public vec2 Delta => delta;
             public override void Draw()
             {
                 this.SpriteBatch.DrawSortedVertex(0.15f,

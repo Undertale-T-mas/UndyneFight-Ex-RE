@@ -65,7 +65,7 @@ namespace UndyneFight_Ex.Remake.UI
         }
 
         protected Vector2 fontSize, _centre;
-        public Vector2 PositionDelta { get; protected set; } = Vector2.Zero;
+        public Vector2 PositionDelta { get; set; } = Vector2.Zero;
 
         public float DefaultScale { private get; set; } = 1.4f;
         protected float SelectedScale { private get; set; } = 1.16f;

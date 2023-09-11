@@ -67,9 +67,16 @@ namespace UndyneFight_Ex.Remake.Network
         byte[] buffer = new byte[1024 * 2];
         public UFSocket(Action<Message<T>> OnReceive) { this._onReceive = OnReceive; }
 
+        private static string _last;
+        private static DateTime _lastTime = DateTime.Now;
+
         public void SendRequest(string info)
         {
             DateTime time = DateTime.Now;
+            if (info == _last && time.Ticks - _lastTime.Ticks < 200) {
+                return;
+            }
+            _lastTime = time;
             PromptLine.Memories.Enqueue("Local >> " + info);
             Task.Run(() => {
                 Exception ex = UFSocketData.TryConnect();

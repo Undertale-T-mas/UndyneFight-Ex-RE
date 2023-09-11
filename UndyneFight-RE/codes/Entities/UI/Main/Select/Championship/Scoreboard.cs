@@ -43,7 +43,7 @@ namespace UndyneFight_Ex.Remake.UI
                     (t) =>
                         this.scoreboard = t.Data.Scoreboard
                     );
-                socket.SendRequest($"Enquire Championship {_division}");
+                socket.SendRequest($"Enquire\\Championship\\{_currentChampionshipNAME}");
             }
 
             public override void Draw()

@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.Server
 
             Command? runner = Command.GetCommand(args[0]);
             if (runner == null) {
-                source.Reply("E Running unknown command!");
+                source.Reply($"E Running unknown command! ({str}, from client {source.UserName})");
                 return; }
             if (runner.Log)
                 UFConsole.WriteLine("\0#Yellow][ @ ] \0#Green]" + DateTime.Now + ": \0#White]" + (source == null ? "Unknown user" : source.UserName) + " >> ran command: " + str);
