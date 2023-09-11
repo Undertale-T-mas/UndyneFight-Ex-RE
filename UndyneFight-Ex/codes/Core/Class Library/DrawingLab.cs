@@ -398,6 +398,10 @@ namespace UndyneFight_Ex
         {
             MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, 0, Vector2.Zero, scale, SpriteEffects.None, depth);
         }
+        public void Draw(string texts, Vector2 location, Color color, float rotation, float scale, Vector2 anchor, float depth)
+        {
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, anchor, scale, SpriteEffects.None, depth);
+        }
         public void LimitDraw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float lineLength, float lineDistance, float scale, float depth)
         {
             Vector2[] sizes = new Vector2[texts.Length];

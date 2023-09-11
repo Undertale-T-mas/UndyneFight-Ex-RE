@@ -83,6 +83,7 @@ namespace UndyneFight_Ex.Remake.UI
         float sizeScale = 1.0f;
         protected float CurrentScaleFactor { set => sizeScale = value; }
         public GLFont Font { get; internal set; } = FightResources.Font.NormalFont;
+        public string Text => this._text;
 
         public override void Update()
         {
