@@ -19,9 +19,16 @@ namespace UndyneFight_Ex.Server
         {
             if(_loaded) return; 
             _loaded = true;
+
             FileStream stream = new("Data/Championship/data.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader sr = new(stream);
-            championships = JsonSerializer.Deserialize<List<ChampionshipInfo>>(sr.ReadToEnd()) ?? throw new FileLoadException();
+            string str = sr.ReadToEnd();
+            if (string.IsNullOrEmpty(str)) {
+                sr.Dispose();
+                stream.Dispose();
+                return;
+            }
+            championships = JsonSerializer.Deserialize<List<ChampionshipInfo>>(str) ?? throw new FileLoadException();
             sr.Dispose();
             stream.Dispose();
         }
@@ -83,6 +90,19 @@ namespace UndyneFight_Ex.Server
             string participantDivision = cur.Participants[bindUser.UUID];
             DivisionInformation division = cur.Divisions[participantDivision];
             return "S " + JsonSerializer.Serialize(division.Scoreboard);
+        }
+
+        internal static bool Exist(string? info)
+        {
+            TryLoad();
+            if (string.IsNullOrEmpty(info)) return false;
+            ChampionshipInfo cinfo =  (JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException());
+            if(cinfo == null) return false;
+            foreach(ChampionshipInfo obj in championships)
+            {
+                if(obj.Name == cinfo.Name) return true;
+            }
+            return false;   
         }
     }
 }

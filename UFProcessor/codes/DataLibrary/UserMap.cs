@@ -13,6 +13,8 @@ namespace UndyneFight_Ex.Server
             public Dictionary<string, long> UUIDList { get; set; } = new();
             public Dictionary<long, string> PlayerNames { get; set; } = new();
 
+            public long UserCount => PlayerNames.Count;
+
             public void Save()
             {
                 FileStream stream = new("Data/User/\\data", FileMode.OpenOrCreate, FileAccess.Write);
@@ -54,8 +56,11 @@ namespace UndyneFight_Ex.Server
         {
             if(!userData.UUIDList.ContainsKey(user.Name)) 
                 userData.UUIDList.Add(user.Name, user.UUID);
+            else if (userData.UUIDList[user.Name] != user.UUID) userData.UUIDList[user.Name] = user.UUID;
+            
             if (!userData.PlayerNames.ContainsKey(user.UUID))
                 userData.PlayerNames.Add(user.UUID, user.Name);
+            else if (userData.PlayerNames[user.UUID] != user.Name) userData.PlayerNames[user.UUID] = user.Name;
         }
 
         internal static void Refresh(User user)
@@ -106,7 +111,7 @@ namespace UndyneFight_Ex.Server
                 User user = new();
                 user.Name = name;
                 user.PasswordHash = SHA512Encode(password);
-                user.UUID = Directory.GetFiles("Data/User").LongLength + 1;
+                user.UUID = userData.UserCount + 1;
 
                 string result = JsonSerializer.Serialize(user);
                 byte[] bytes = Encoding.ASCII.GetBytes(result);

@@ -3027,10 +3027,10 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.RightBoundDistance = 0;
                         production5 = ScreenDrawing.ActivateShaderBack(shaderGrid, 0.9919f);
                         shaderGrid.BlendColor = Color.Transparent;
-                        RunEase((s) => shaderGrid.BlendColor = new Color(0.8f, 0.4f, 1.0f) * s,
+                        RunEase((s) => shaderGrid.BlendColor = new Color(1.0f, 0.7f, 0.4f) * s,
                             EaseOut(BeatTime(2), 0.0f, 0.3257f, EaseState.Sine
                             ));
-                        RunEase((s) => shaderGrid.SideColor = new Color(0.8f, 0.4f, 1.0f) * s,
+                        RunEase((s) => shaderGrid.SideColor = new Color(1.0f, 0.7f, 0.4f) * s,
                             EaseOut(BeatTime(2), 0.0f, 1, EaseState.Sine
                             ));
                         RunEase((s) => shaderGrid.Intensity1 = s,

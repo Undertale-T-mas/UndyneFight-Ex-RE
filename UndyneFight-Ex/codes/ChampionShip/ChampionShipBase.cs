@@ -15,11 +15,13 @@ namespace UndyneFight_Ex.ChampionShips
         private readonly SongSet fightSet;
         public SongSet Fights => fightSet;
 
-        public string Title { internal get => title; set => title = value; }
-        public string SubTitle { internal get => subTitle; set => subTitle = value; }
-        public string EditorName { internal get => editorName; set => editorName = value; }
-        public string Introduce { internal get => introduce; set => introduce = value; }
-        public string IconPath { internal get => iconPath; set => iconPath = value; }
+        public string Title { get => title; set => title = value; }
+        public string SubTitle { get => subTitle; set => subTitle = value; }
+        public string EditorName { get => editorName; set => editorName = value; }
+        public string Introduce { get => introduce; set => introduce = value; }
+        public string IconPath { get => iconPath; set => iconPath = value; }
+
+        public HashSet<string> DivisionExist { get; set; }
 
         private string title, subTitle, editorName, introduce, iconPath;
 
@@ -31,7 +33,7 @@ namespace UndyneFight_Ex.ChampionShips
             End = 4
         }
 
-        public Func<ChampionShipStates> CheckTime { internal get => checkTime; set => checkTime = value; }
+        public Func<ChampionShipStates> CheckTime { get => checkTime; set => checkTime = value; }
         private Func<ChampionShipStates> checkTime;
 
         public DateTime Start { get; set; }

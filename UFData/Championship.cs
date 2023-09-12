@@ -62,7 +62,7 @@ namespace UFData
         public string Division { get; set; }
         public long UUID { get; set; }
         [JsonInclude]
-        private float[] AccuracyList { get; set; }
+        public float[] AccuracyList { get; set; }
 
         private static float ItemTransfer(float acc)
         { 

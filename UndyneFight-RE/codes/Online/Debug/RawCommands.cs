@@ -115,4 +115,13 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         {
         } 
     }
+    internal class TimeCommand : RawCommand
+    {
+        public TimeCommand( ) : base(
+            ArgumentMatcher.Link(new AbsoluteArgument(col.White)), 
+            
+            "Time")
+        {
+        } 
+    }
 }

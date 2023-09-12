@@ -36,7 +36,9 @@ namespace UndyneFight_Ex.UserService
 
         public string ChampionshipDivision(string championship)
         {
-            return championshipData[championship];
+            if (championshipData.ContainsKey(championship))
+                return championshipData[championship];
+            else return null;
         }
     }
 

@@ -359,11 +359,17 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Start()
         {
-            all = new SelectingModule[this.ChildObjects.Count];
-            int i = 0;
-            foreach (SelectingModule item in this.ChildObjects)
+            int count = 0;
+            for(int x = 0 ; x < ChildObjects.Count; x++)
             {
-                all[i] = item;
+                if (ChildObjects[x] is SelectingModule) count++; 
+            }
+            all = new SelectingModule[count];
+            int i = 0;
+            foreach (GameObject item in this.ChildObjects)
+            {
+                if (item is not SelectingModule) continue;
+                all[i] = item as SelectingModule;
                 i++;
             }
             if (all.Length > 0 && this.currentFocus == null)

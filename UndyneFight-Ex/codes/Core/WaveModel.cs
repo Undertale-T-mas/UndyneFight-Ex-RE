@@ -67,12 +67,14 @@ namespace UndyneFight_Ex.SongSystem
     /// </summary>
     public class WaveConstructor : GameObject
     {
+        private static float _singleBeat;
         /// <summary>
         /// 初始化一个战斗记帧器
         /// </summary>
         /// <param name="beatTime">一个节拍占据的帧数</param>
         public WaveConstructor(float beatTime)
         {
+            _singleBeat = beatTime;
             SingleBeat = beatTime;
             DelayEnabled = true; 
         }
@@ -120,6 +122,15 @@ namespace UndyneFight_Ex.SongSystem
         public void Delay(float delay, Action action)
         {
             AddInstance(new InstantEvent(delay, action));
+        }
+        /// <summary>
+        /// trigger an action after beats you have given
+        /// </summary>
+        /// <param name="delayBeat">the time measured in beats</param>
+        /// <param name="action">the action you want to trigger</param>
+        public static void Trigger(float delayBeat, Action action)
+        {
+            AddInstance(new InstantEvent(delayBeat * _singleBeat, action));
         }
         public void ForBeat(float durationBeat, Action action)
         {

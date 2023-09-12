@@ -5,6 +5,7 @@ Command.AddCommand(new KeepAlive());
 Command.AddCommand(new SongUpdate());
 Command.AddCommand(new Enquire());
 Command.AddCommand(new Championship());
+Command.AddCommand(new Time());
 
 UFUpdater.Initialize();
 
