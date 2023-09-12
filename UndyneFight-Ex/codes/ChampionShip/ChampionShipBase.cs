@@ -36,7 +36,7 @@ namespace UndyneFight_Ex.ChampionShips
 
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public ChampionshipInfo ToInfo()
+        /*public ChampionshipInfo ToInfo()
         {
             return new ChampionshipInfo(this.title, Start, End, GetDiv());
         }
@@ -61,6 +61,6 @@ namespace UndyneFight_Ex.ChampionShips
                 }
             }
             return result;
-        }
+        }*/
     }
 }

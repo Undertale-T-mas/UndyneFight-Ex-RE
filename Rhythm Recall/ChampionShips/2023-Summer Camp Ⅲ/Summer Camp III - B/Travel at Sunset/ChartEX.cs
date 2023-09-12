@@ -36,11 +36,11 @@ namespace Rhythm_Recall.Waves
                         //     320,200
                         //240,280    400,280
                         //     320,360
-                        //box.SetPosition(box.Split(3, 0.5f), new(400, 280));
-                        //box.SetPosition(box.Split(2, 0.5f), new(320, 200));
-                        //box.SetPosition(box.Split(1, 0.5f), new(240, 280));
-                        //box.SetPosition(box.Split(0, 0.5f), new(320, 360));
-                        for (int i = 0; i < 360; ++i)
+                        box.SetPosition(box.Split(3, 0.5f), new(400, 280));
+                        box.SetPosition(box.Split(2, 0.5f), new(320, 200));
+                        box.SetPosition(box.Split(1, 0.5f), new(240, 280));
+                        box.SetPosition(box.Split(0, 0.5f), new(320, 360));
+                        for (int i = 360; i > 4; --i)
                         {
                             box.SetPosition(box.Split(i, 0.5f), GetVector2(100, i) + new Vector2(320, 240));
                         }
