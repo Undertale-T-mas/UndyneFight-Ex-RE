@@ -73,9 +73,10 @@ namespace UndyneFight_Ex.Remake.Network
         public void SendRequest(string info)
         {
             DateTime time = DateTime.Now;
-            if (info == _last && time.Ticks - _lastTime.Ticks < 200) {
+            if (info == _last && time.Ticks - _lastTime.Ticks < 2000) {
                 return;
             }
+            _last = info;
             _lastTime = time;
             PromptLine.Memories.Enqueue("Local >> " + info);
             Task.Run(() => {

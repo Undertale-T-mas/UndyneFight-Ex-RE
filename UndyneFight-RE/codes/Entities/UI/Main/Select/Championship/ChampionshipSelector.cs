@@ -80,7 +80,8 @@ namespace UndyneFight_Ex.Remake.UI
 
         private void ChampionshipSelector_OnSelected()
         {
-            if(this.FocusID <= 2)
+            this.FocusOn(CurrentSelected);
+            if(this.FocusID <= 2 && _songButtons != null)
             {
                 // clicking a song button
                 this.Dispose();
@@ -118,6 +119,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Start()
         {
+            CheckTime();
             ChampionshipInfoShower cis;
             ChampionShip c;
             this.AddChild(cis = new ChampionshipInfoShower());
@@ -130,7 +132,43 @@ namespace UndyneFight_Ex.Remake.UI
             if (c == null) goto A;
 
             // push song selections
-            if(PlayerManager.CurrentUser != null)
+            MakeSongSelection(cis, c);
+
+            // push division selections
+            MakeDivisionButton(c, ds);
+
+        A:
+            this.AddChild(new ParticleGenerater());
+            base.Start();
+        }
+
+        bool timeChecked = false;
+        private void CheckTime()
+        {
+            long start = DateTime.UtcNow.Ticks;
+            UFSocket<Empty> OnlineCheck = new((t) => {
+                timeChecked = true;
+                long result = Convert.ToInt64(t.Info) - t.DelayTick;
+                long delta = start - result;
+                if (Math.Abs(delta) < 5000000000l)
+                {
+                    // acceptable time delta (500s)
+                }
+                else {
+                    // unacceptable time delta
+
+                    this.Dispose();
+                    GameStates.InstanceCreate(new SelectUI());
+
+                    GameStates.InstanceCreate(new InfoText("Time delta too large!", new(480, 400)) { DrawingColor = col.Red }); ;
+                }
+            });
+            OnlineCheck.SendRequest("Time\\none");
+        }
+
+        private void MakeSongSelection(ChampionshipInfoShower cis, ChampionShip c)
+        {
+            if (PlayerManager.CurrentUser != null)
             {
                 if (PlayerManager.CurrentUser.ChampionshipData.InChampionship(c.Title))
                 {
@@ -160,7 +198,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                         if (hidden) buttons[i].State = SelectState.Disabled;
                     }
-                    for(int i = 0; i < Math.Min(length, 3); i++)
+                    for (int i = 0; i < Math.Min(length, 3); i++)
                     {
                         this.AddChild(buttons[i]);
                         int t = i;
@@ -170,15 +208,9 @@ namespace UndyneFight_Ex.Remake.UI
                         }));
                     }
                     _songButtons = buttons;
-                } 
+                }
+
             }
-
-            // push division selections
-            MakeDivisionButton(c, ds);
-
-            A:
-            this.AddChild(new ParticleGenerater());
-            base.Start();
         }
 
         private void MakeDivisionButton(ChampionShip c, DivisionSelector ds)
@@ -198,11 +230,22 @@ namespace UndyneFight_Ex.Remake.UI
                 bt.LeftClick += () =>
                 {
                     if (PlayerManager.CurrentUser == null) return;
-                    PlayerManager.CurrentUser.ChampionshipData.SignUp(c.Title, text);
-                    PlayerManager.Save();
-                    buttons.ForEach(s => s.State = SelectState.Disabled);
-                    bt.ColorDisabled = col.Orange;
-                    all[0].OnFocus();
+
+                    UFSocket<Empty> socket = new(t => {
+                        if (!t.Success) {
+                            PlaySound(FightResources.Sounds.die1);
+                            return;
+                        }
+
+                        PlaySound(FightResources.Sounds.Ding);
+                        PlayerManager.CurrentUser.ChampionshipData.SignUp(c.Title, text);
+                        PlayerManager.Save();
+                        buttons.ForEach(s => s.State = SelectState.Disabled);
+                        bt.ColorDisabled = col.Orange;
+                        all[0].OnFocus();
+                    });
+
+                    socket.SendRequest($"Championship\\SignUp\\{c.Title}\\{text}");
                 };
             }
             if (PlayerManager.CurrentUser != null)
