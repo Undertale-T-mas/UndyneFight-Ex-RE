@@ -38,7 +38,7 @@ namespace UFData
         public DateTime EndTime { get; set; }
         
         [JsonIgnore]
-        public bool Available => DateTime.Now < this.EndTime && DateTime.Now > this.StartTime;
+        public bool Available => DateTime.UtcNow < this.EndTime && DateTime.UtcNow > this.StartTime;
 
         public Dictionary<string, DivisionInformation> Divisions { get; set; } = new();
         public Dictionary<long, string> Participants { get; set; } = new();
@@ -73,6 +73,7 @@ namespace UFData
         }
         float _total;
         bool _count;
+
         [JsonIgnore]
         public float Total
         {

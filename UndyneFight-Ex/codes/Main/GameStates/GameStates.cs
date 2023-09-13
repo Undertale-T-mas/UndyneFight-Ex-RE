@@ -135,12 +135,12 @@ namespace UndyneFight_Ex
             curMode = mode;
             difficulty = dif;
             SongFightingScene.SceneParams @params = new(waveSet, songIllustration, difficulty, path, judgeState, mode);
-            lastParam = @params;
             StartSong(@params);
         }
 
         public static void StartSong(SongFightingScene.SceneParams @params)
         {
+            lastParam = @params;
             ResetScene(@params.MusicLoaded ? new SongFightingScene(@params) : new SongLoadingScene(@params));
         } 
         public static void ResetScene(Scene scene)

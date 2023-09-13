@@ -46,8 +46,8 @@ namespace UndyneFight_Ex.Server
                     if (client.BindUser == null) {
                         client.Reply("F please login first");
                         return;
-                    }
-                    ChampionshipManager.SignUp(client.BindUser, args[1], args[2]);
+                    };
+                    client.Reply(ChampionshipManager.SignUp(client.BindUser, args[1], args[2]));
                     return;
             }
 

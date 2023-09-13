@@ -130,6 +130,8 @@ namespace UndyneFight_Ex
             }
             public void Start()
             {
+                float x = Settings.SettingsManager.DataLibrary.masterVolume / 100f;
+                MediaPlayer.Volume = x * x;
                 if (position != TimeSpan.Zero)
                     MediaPlayer.Play(song, position);
                 else MediaPlayer.Play(song);
