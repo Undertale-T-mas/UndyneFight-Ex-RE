@@ -25,6 +25,23 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF == 302 * 60) EndSong();
                 EXPre();
                 EXBuildup();
+                if(InBeat(206, 232) && At0thBeat(0.3f))
+                {
+                    var dir = Posmod(GametimeF, 90);
+                    for (int i = -1; i < 2; ++i)
+                    {
+                        CreateEntity(new NormalSpear(new(0, 0), dir + i * 20, 5)
+                        {
+                            DelayTargeting = false,
+                            IsMute = true
+                        });
+                        CreateEntity(new NormalSpear(new(640, 0), dir + i * 20 + 90, 5)
+                        {
+                            DelayTargeting = false,
+                            IsMute = true
+                        });
+                    }
+                }
                 if (InBeat(72 + 128))
                 {
                     RegisterFunctionOnce("pre", () =>
@@ -32,62 +49,19 @@ namespace Rhythm_Recall.Waves
                         production1.Dispose();
                         BoxUtils.Vertexify();
                         var box = BoxUtils.VertexBoxInstance;
-
-                        //     320,200
-                        //240,280    400,280
-                        //     320,360
-                        box.SetPosition(box.Split(3, 0.5f), new(400, 280));
-                        box.SetPosition(box.Split(2, 0.5f), new(320, 200));
-                        box.SetPosition(box.Split(1, 0.5f), new(240, 280));
-                        box.SetPosition(box.Split(0, 0.5f), new(320, 360));
-                        for (int i = 360; i > 4; --i)
+                        for (int i = 0; i < 360; ++i)
                         {
-                            box.SetPosition(box.Split(i, 0.5f), GetVector2(100, i) + new Vector2(320, 240));
+                            box.SetPosition((i < 3) ? i : box.Split(i, 0.5f), GetVector2(100, i) + new Vector2(320, 240));
                         }
+                        box.SetPosition(3, GetVector2(100, 3) + new Vector2(320, 240));
+
                         //BoxUtils.Move(new(0, -40));
                         ScreenDrawing.BoxBackColor = Color.Transparent;
 
                         SetSoul(Souls.RedSoul);
                         ForBeat(28, () =>
                         {
-                            //var D = (GametimeF - BeatTime(200)) / 4;
-                            //for (int i = 0; i < 4; ++i)
-                            //{
-                            //    box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
-                            //}
-                            if (InBeat(200, 214) && At0thBeat(0.5f))
-                            {
-                                /* Unused V2
-                                var count = 18;
-                                for (int i = 0; i < count; ++i)
-                                {
-                                    for (int ii = 0; ii < 2; ++ii)
-                                    {
-                                        var ang = ii * 180;
-                                        var finang = ang + i * 360 / count + GametimeF * 5 * 40 / SingleBeat;
-                                        var spd = 3;
-                                        CreateSpear(new NormalSpear(new Vector2(320, 240 - Cos(GametimeF * 2) * 100) + GetVector2(300, ang), finang + 180, spd)
-                                        {
-                                            Rebound = true,
-                                            ReboundCount = 2,
-                                            IsMute = true,
-                                            Acceleration = -spd / 600f,
-                                            Duration = 600
-                                        });
-                                    }
-                                }*/
-                                //if (At0thBeat(1))
-                                {
-                                    for(int i = 0; i < 6; ++i)
-                                    {
-                                        CreateSpear(new CustomSpear(new(240, 320), Motions.PositionRoute.linear, Motions.RotationRoute.linear)
-                                        {
-                                            PositionRouteParam = new float[] { 5 * Cos(i * 60), 5 * Sin(i * 60)},
-                                            RotationRouteParam = new float[] { 0, i * 60 }
-                                        });
-                                    }
-                                }
-                            }
+
                         });
 
                     });
@@ -132,6 +106,68 @@ namespace Rhythm_Recall.Waves
                                 Duration = 600,
                                 Acceleration = 0.02f,
                                 WaitingTime = BeatTime(1)
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("CornerSpear", () =>
+                    {
+                        var dir = (GametimeF / BeatTime(1) - 200) * 30 + 165;
+                        CreateEntity(new NormalSpear(new(0, 0), dir, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                        CreateEntity(new NormalSpear(new(0, 0), 90 - dir, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                        CreateEntity(new NormalSpear(new(640, 0), dir + 90, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                        CreateEntity(new NormalSpear(new(640, 0), 190 - dir, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                    });
+                    RegisterFunctionOnce("RainSpear", () =>
+                    {
+                        for (int i = -10; i < 20; ++i)
+                        {
+                            CreateEntity(new NormalSpear(new(i * 32, 0), 65, 4)
+                            {
+                                DelayTargeting = false,
+                                Duration = 600,
+                                Acceleration = 0.02f,
+                                WaitingTime = BeatTime(1),
+                                IsMute = true
+                            });
+                            CreateEntity(new NormalSpear(new(i * 32, 0), 125, 4)
+                            {
+                                DelayTargeting = false,
+                                Duration = 600,
+                                Acceleration = 0.02f,
+                                WaitingTime = BeatTime(2),
+                                IsMute = true
                             });
                         }
                     });
@@ -400,7 +436,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "(pre)", "", "", "", //Red soul begin
                         //1
-                        "(BoundA)(GaussBlur)", "BounceSpear", "BounceSpear", "BounceSpear",    "BounceSpear", "", "", "",
+                        "(BoundA)(GaussBlur)(CornerSpear)", "CornerSpear", "CornerSpear", "CornerSpear",    "", "RainSpear", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",    
