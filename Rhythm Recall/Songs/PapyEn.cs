@@ -185,7 +185,7 @@ namespace Rhythm_Recall.Waves
                     { PlaySound = false });
                 });
                 #endregion
-                BarrageCreate(BeatTime(0), BeatTime(2), 5.5f, new string[]
+                CreateChart(BeatTime(0), BeatTime(2), 5.5f, new string[]
                 {
                     "mid(TRline)(txt1)","","","",    "TRline","","","",    "TRline","","","",    "","","","",
                     "","","","",    "","","","",    "","","","",    "TLline","","TLline","",
@@ -363,7 +363,7 @@ namespace Rhythm_Recall.Waves
                     v.Run(s => m.alpha = s);
                     DelayBeat(4, () => { m.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(2), 5.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(2), 5.5f, new string[]
                 {
                     "#4#$21(c5line)","(c4line)","(c3line)","(c2line)",    "(c1line)","(c2line)","(c3line)","(c4line)",
                     "(c5line)","(c4line)","(c3line)","(c2line)",    "(c1line)","(c2line)","(c3line)","(c4line)",
@@ -518,7 +518,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(new Vector2(Heart.Centre.X, Heart.Centre.Y), 25, 25);
                     ResetBarrage();
                 });
-                BarrageCreate(BeatTime(4), BeatTime(2), 5.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(2), 5.5f, new string[]
                 {
                     "Reset","","","",    "","","","",    "BoneA1","","","",    "BoneA2","","","",
                     "BoneA3","","","",    "","","","",    "BoneA1","","","",    "BoneA2","","","",
@@ -560,7 +560,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(2), 5.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(2), 5.5f, new string[]
                 {
                     "","","","",    "","","","",    "","","","",    "","","","",
                     "","","","",    "","","","",    "","","","",    "","","","",

@@ -77,7 +77,7 @@ namespace AprilExtends
                         ce.Run((s) => { InstantSetBox(s, 84, 84); InstantTP(s); });
                     });
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7, new string[]
                         {
 
                         "BoxUp","","","",   "","","","",
@@ -129,7 +129,7 @@ namespace AprilExtends
                         "($02)($22)","","","",   "($12)","","","",
                         "($02)($22)","","","",   "($12)","","","",
                         });
-                    if (playednumber == 1 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7, new string[]
+                    if (playednumber == 1 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7, new string[]
                     {
 
                         "BoxUp","","","",   "","","","",
@@ -202,7 +202,7 @@ namespace AprilExtends
                         ce.Run((s) => { InstantSetBox(s, 84, 84); InstantTP(s); });
                     });
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7, new string[]
                         {
                         "*D02","","","",   "*+002","","","",
                         "*+002","","","",   "*+002","","","",
@@ -244,7 +244,7 @@ namespace AprilExtends
                         "*+002","","","",   "($22{Up})","","","",
                         "","","","",   "($22{Up})","","($22{Up})","",
                         });
-                    if (playednumber == 1 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7, new string[]
+                    if (playednumber == 1 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7, new string[]
                     {
 
                         "R1","","","",   "","","","",
@@ -293,7 +293,7 @@ namespace AprilExtends
                 if (InBeat(79))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7, new string[]
                         {
                         "R","","","",   "D","","","",
                         "D","","","",   "D","","","",
@@ -335,7 +335,7 @@ namespace AprilExtends
                         "D","","","",   "D($02{Up})","","","",
                         "D($02{Down})","","","",   "D","","","",
                         });
-                    if (playednumber == 1 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7, new string[]
+                    if (playednumber == 1 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7, new string[]
                     {
                         "R1","","","",   "","","","",
                         "R1","","","",   "R1","","","",
@@ -382,7 +382,7 @@ namespace AprilExtends
                 if (InBeat(111))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 5.1f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 5.1f, new string[]
                         {
                         "R'0.7","","","",   "","","","",
                         "+1'0.7","","","",   "","","","",
@@ -424,7 +424,7 @@ namespace AprilExtends
                         "+1'0.7","","","",   "","","","",
                         "+1'0.7","","","",   "","","","",
                         });
-                    if (playednumber == 1 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 5.6f, new string[]
+                    if (playednumber == 1 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 5.6f, new string[]
                     {
                         "R3","","","",   "","","","",
                         "","","","",   "R3","","","",
@@ -472,7 +472,7 @@ namespace AprilExtends
                 if (InBeat(143))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(7), BeatTime(1), 7f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(7), BeatTime(1), 7f, new string[]
                         {
                         "","","","",
                         "(^R1'1.3)(^+01'1.3)","","","",   "#1#+01","","","",
@@ -516,7 +516,7 @@ namespace AprilExtends
                         "+01","","","",   "","","","",
                         //
                         });
-                    if (playednumber == 1 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 1 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                     {
                         "(^R2)(<+02)","","","",   "","","","",
                         "(^R2)(<+02)","","","",   "","","","",
@@ -581,7 +581,7 @@ namespace AprilExtends
                         }
                     });
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                         {
                         "","","","",   "","","","",
                         "(^$01'1.5)(^$21'1.5)","","","",   "","","","",
@@ -625,7 +625,7 @@ namespace AprilExtends
                         //
                        
                         });
-                    if (playednumber == 1 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 1 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -668,7 +668,7 @@ namespace AprilExtends
                         "D3","","","",   "","","","",
                         //
                     });
-                    if (playednumber == 2 || playednumber == 5) BarrageCreate(BeatTime(4), BeatTime(1), 7f, new string[]
+                    if (playednumber == 2 || playednumber == 5) CreateChart(BeatTime(4), BeatTime(1), 7f, new string[]
                     {
                         "FadeYellow","","","",   "","","","",
                         "","","","",   "","","","",
@@ -717,7 +717,7 @@ namespace AprilExtends
                         "($12)","","($12)","",   "($12)","","","",
                         //
                     });
-                    if (playednumber == 3 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 3 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                    {
                         "FadeBlue","","","",   "","","","",
                         "","","","",   "","","","",
@@ -797,7 +797,7 @@ namespace AprilExtends
                         }
                     });
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                         {
                         "R1","","","",   "","","","",
                         "","","","",   "","","","",
@@ -855,7 +855,7 @@ namespace AprilExtends
                         "($21)($21)","","","",
 
                         });
-                    if (playednumber == 1 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 1 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                     {
                         "","","","",   "D3","","","",
                         "","","","",   "","","","",
@@ -911,7 +911,7 @@ namespace AprilExtends
                         "","","","",   "","","","",
                         "(^$03)","","","",   "","","","",
                     });
-                    if (playednumber == 2 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 2 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                     {
                         "FadeYellow","","","",   "","","","",
                         "","","","",   "","","","",
@@ -967,7 +967,7 @@ namespace AprilExtends
                         "","","","",   "","","","",
                         "(^$12)","","","",   "","","","",
                     });
-                    if (playednumber == 3 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7f, new string[]
+                    if (playednumber == 3 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7f, new string[]
                    {
                         "FadeBlue","","","",   "","","","",
                         "","","","",   "","","","",

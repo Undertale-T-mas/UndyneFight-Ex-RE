@@ -408,7 +408,7 @@ namespace Rhythm_Recall.Waves
                     var Pos = MathUtil.GetVector2(140, -45) + new Vector2(320, 320);
                     NormalGB gb = new(Pos, new Vector2(320, 320), new Vector2(1.0f, 1f), 135, 30, 20);
                     CreateGB(gb);
-                    BarrageCreate(55, BeatTime(2), 6, new string[]
+                    CreateChart(55, BeatTime(2), 6, new string[]
                     {
                         "R", "/", "/",
                         "/", "/", "/",
@@ -815,7 +815,7 @@ namespace Rhythm_Recall.Waves
                     TP();
                     SetSoul(1);
                     SetGreenBox();
-                    BarrageCreate(30, BeatTime(2), 7, new string[]
+                    CreateChart(30, BeatTime(2), 7, new string[]
                     {
                         "R","/","/",
                         "/","/","/",
@@ -860,7 +860,7 @@ namespace Rhythm_Recall.Waves
                         "/","/","/",
                         "R","/","/",
                     });
-                    BarrageCreate(30, BeatTime(2), 7, new string[]
+                    CreateChart(30, BeatTime(2), 7, new string[]
                     {
                         "/","/","/",
                         "/","/","/",

@@ -3584,7 +3584,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                 });
-                BarrageCreate(BeatTime(24) + 3.5f, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(24) + 3.5f, BeatTime(8), 6.5f, new string[]
                 {
                     "$0", "/", "R", "+0", "+0", "/", "R1", "/",
                     "R", "+0", "+0", "/", "R", "/", "R1", "+01",
@@ -3623,7 +3623,7 @@ namespace Rhythm_Recall.Waves
             }
             void ExPartF2()
             {
-                BarrageCreate(BeatTime(24) + 8, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(24) + 8, BeatTime(8), 6.5f, new string[]
                 {
                 "", "","","", "", "(D)(+01)", "", "",
                 "(D)(+01)", "", "", "(D)(+01)", "", "", "(D)(+01)", "",
@@ -3646,7 +3646,7 @@ namespace Rhythm_Recall.Waves
             void ExPartF3()
             {
 
-                BarrageCreate(BeatTime(8) + 5.5f, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(8) + 5.5f, BeatTime(8), 6.5f, new string[]
                 {
                     "($01)(+01)", "+21", "+21", "+21", "+21", "+21", "/", "/",
                     "(R1)(+01)", "+21", "+21", "+21", "+21", "+21", "/", "/",
@@ -3667,7 +3667,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                 });
-                BarrageCreate(BeatTime(24) + 3.5f, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(24) + 3.5f, BeatTime(8), 6.5f, new string[]
                 {
                     "$0", "/", "R", "+0", "+0", "/", "R", "/",
                     "R", "+0", "+0", "/", "R", "/", "R", "+0",
@@ -3706,7 +3706,7 @@ namespace Rhythm_Recall.Waves
             }
             void NorPartF2()
             {
-                BarrageCreate(BeatTime(24) + 8, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(24) + 8, BeatTime(8), 6.5f, new string[]
                 {
                 "", "","","", "", "(R)(+01)", "", "",
                 "(R)(+01)", "", "", "(R)(+01)", "", "", "(R)(+01)", "",
@@ -3729,7 +3729,7 @@ namespace Rhythm_Recall.Waves
             void NorPartF3()
             {
 
-                BarrageCreate(BeatTime(8) + 5.5f, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(8) + 5.5f, BeatTime(8), 6.5f, new string[]
                 {
                     "($0)(+0)", "+2", "+2", "+2", "+2", "+2", "/", "/",
                     "(R)(+0)", "+2", "+2", "+2", "+2", "+2", "/", "/",
@@ -3750,7 +3750,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                 });
-                BarrageCreate(BeatTime(24) + 3.5f, BeatTime(8), 6f, new string[]
+                CreateChart(BeatTime(24) + 3.5f, BeatTime(8), 6f, new string[]
                 {
                     "$0", "/", "+0", "+0", "+0", "/", "+0", "/",
                     "+0", "+0", "+0", "/", "+0", "/", "+0", "+0",
@@ -3789,7 +3789,7 @@ namespace Rhythm_Recall.Waves
             }
             void NoobPartF2()
             {
-                BarrageCreate(BeatTime(24) + 8, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(24) + 8, BeatTime(8), 6.5f, new string[]
                 {
                 "", "","","", "", "(R)", "", "",
                 "(R)", "", "", "(R)", "", "", "(R)", "",
@@ -3812,7 +3812,7 @@ namespace Rhythm_Recall.Waves
             void NoobPartF3()
             {
 
-                BarrageCreate(BeatTime(8) + 5.5f, BeatTime(8), 6.5f, new string[]
+                CreateChart(BeatTime(8) + 5.5f, BeatTime(8), 6.5f, new string[]
                 {
                     "($0)", "+0", "+0", "+0", "+0", "+0", "/", "/",
                     "(R)", "+0", "+0", "+0", "+0", "+0", "/", "/",

@@ -159,7 +159,7 @@ namespace Rhythm_Recall.Waves
                         for (int a = 1; a < 8; a++) l.InsertRetention(new Line.RetentionEffect(BeatTime(2 * a)));
 
                     });
-                    BarrageCreate(0, BeatTime(1), 4, new string[]
+                    CreateChart(0, BeatTime(1), 4, new string[]
                     {
                         "($0)($01)(Line)(LineAnother)","","","",   "","","","",
                         "(R)(+01)","","","",   "","","","",
@@ -183,7 +183,7 @@ namespace Rhythm_Recall.Waves
                         //
                         
                     });
-                    BarrageCreate(BeatTime(4) * 4, BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4) * 4, BeatTime(1), 6, new string[]
                     {
                         "R","","","",   "R","","","",
                         "R","","","",   "R","","","",
@@ -226,7 +226,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         //
                     });
-                    BarrageCreate(BeatTime(4) * 4, BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4) * 4, BeatTime(1), 6, new string[]
                     {
                         "R1","","","",   "","","","",
                         "R1","","","",   "","","","",
@@ -319,7 +319,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                     });
                     RegisterFunctionOnce("WhiteOut", () => { WhiteOut(BeatTime(2f)); });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "BlueSoul(Platform1)","","","",   "","","","",
                         "","","BlueBone","",   "","","","",
@@ -448,7 +448,7 @@ namespace Rhythm_Recall.Waves
                         TP();
 
                     });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "(Box)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -599,7 +599,7 @@ namespace Rhythm_Recall.Waves
                         SetGreenBox();
                         Heart.GiveForce(0, 0);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "R","","","",   "R","","","",
                         "R","","","",   "R","","","",
@@ -682,7 +682,7 @@ namespace Rhythm_Recall.Waves
                         "(GreenSoul)","","","",   "","","","",
                         //
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "R1","","","",   "","","","",
                         "R1","","","",   "","","","",
@@ -738,7 +738,7 @@ namespace Rhythm_Recall.Waves
                             ars[x].JudgeType = Arrow.JudgementType.Tap;
                         }
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "(#1.8#R1)","","","(Tap)",
 
@@ -874,7 +874,7 @@ namespace Rhythm_Recall.Waves
                         TP(320, 240);
                         HeartAttribute.Gravity = 4f;
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "(#1.8#R)","","","(Tap)",
 
@@ -973,7 +973,7 @@ namespace Rhythm_Recall.Waves
                         }
                     });
 
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "(#1.8#R1)","","","(Tap)",
 
@@ -1236,7 +1236,7 @@ namespace Rhythm_Recall.Waves
                         Heart.GiveForce(0, 0);
                     });
 
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "","","","",   "BlueSoul","","","",
 
@@ -1300,7 +1300,7 @@ namespace Rhythm_Recall.Waves
                     {
                         Extends.DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
                         "R","","","",   "R","","","",
@@ -1624,7 +1624,7 @@ namespace Rhythm_Recall.Waves
                         ce.Run((s) => { InstantSetBox(new Vector2(320, s), 84, 84); InstantTP(320, s); });
                     });
                     SetPlayerBoxMission(main);
-                    BarrageCreate(BeatTime(3), BeatTime(1), 5, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 5, new string[]
                     {
                         "","","","",   "","Tap(Split)","","",
 
@@ -1712,7 +1712,7 @@ namespace Rhythm_Recall.Waves
                     });
                     SetPlayerBoxMission(extra);
 
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","$112","",
                         "","","","",   "","","$112","",
@@ -1775,7 +1775,7 @@ namespace Rhythm_Recall.Waves
                             ars[x].ResetColor(ars[x].ArrowColor);
                         }
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "VoidHold","","","",
 
@@ -1854,7 +1854,7 @@ namespace Rhythm_Recall.Waves
                         for (int a = 1; a < 8; a++) l.InsertRetention(new Line.RetentionEffect(BeatTime(2 * a)));
 
                     });
-                    BarrageCreate(0, BeatTime(1), 5, new string[]
+                    CreateChart(0, BeatTime(1), 5, new string[]
                     {
                         "($0)(Line)(LineAnother)","","","",   "","","","",
                         "(+0)","","","",   "","","","",
@@ -1878,7 +1878,7 @@ namespace Rhythm_Recall.Waves
                         //
 
                     });
-                    BarrageCreate(BeatTime(4) * 4, BeatTime(1), 5, new string[]
+                    CreateChart(BeatTime(4) * 4, BeatTime(1), 5, new string[]
                     {
                         "","","","",   "","","","",
                         "+0","","","",   "","","","",
@@ -1972,7 +1972,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                     });
                     RegisterFunctionOnce("WhiteOut", () => { WhiteOut(BeatTime(2f)); });
-                    BarrageCreate(0, BeatTime(1), 5, new string[]
+                    CreateChart(0, BeatTime(1), 5, new string[]
                     {
                         "BlueSoul(Platform1)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -2113,7 +2113,7 @@ namespace Rhythm_Recall.Waves
                         TP();
 
                     });
-                    BarrageCreate(0, BeatTime(1), 5, new string[]
+                    CreateChart(0, BeatTime(1), 5, new string[]
                     {
                         "(Box)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -2249,7 +2249,7 @@ namespace Rhythm_Recall.Waves
                         SetGreenBox();
                         Heart.GiveForce(0, 0);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -2332,7 +2332,7 @@ namespace Rhythm_Recall.Waves
                         "(GreenSoul)","","","",   "","","","",
                         //
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                     {
                         "R","","","",   "","","","",
                         "+0","","","",   "","","","",
@@ -2388,7 +2388,7 @@ namespace Rhythm_Recall.Waves
                             ars[x].JudgeType = Arrow.JudgementType.Tap;
                         }
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 5, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 5, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -2502,7 +2502,7 @@ namespace Rhythm_Recall.Waves
                             TP(320, 240);
                             HeartAttribute.Gravity = 4f;
                         });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 5, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 5, new string[]
                     {
                         "R","","","",   "+0","","","",
 
@@ -2601,7 +2601,7 @@ namespace Rhythm_Recall.Waves
                         }
                     });
 
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "R","","","",   "+0","","","",
 
@@ -2864,7 +2864,7 @@ namespace Rhythm_Recall.Waves
                         Heart.GiveForce(0, 0);
                     });
 
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "","","","",   "BlueSoul","","","",
 
@@ -2918,7 +2918,7 @@ namespace Rhythm_Recall.Waves
                     {
                         Extends.DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
                         "R","","","",   "+0","","","",
@@ -3113,7 +3113,7 @@ namespace Rhythm_Recall.Waves
                         ce.Run((s) => { InstantSetBox(new Vector2(320, s), 84, 84); InstantTP(320, s); });
                     });
 
-                    BarrageCreate(BeatTime(3), BeatTime(1), 5, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 5, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -3221,7 +3221,7 @@ namespace Rhythm_Recall.Waves
                             ars[x].ResetColor(ars[x].ArrowColor);
                         }
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -3311,7 +3311,7 @@ namespace Rhythm_Recall.Waves
                         for (int a = 1; a < 8; a++) l.InsertRetention(new Line.RetentionEffect(BeatTime(2 * a)));
 
                     });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "$0(Line)(LineAnother)","","","",   "","","","",
                         "R","","","",   "","","","",
@@ -3335,7 +3335,7 @@ namespace Rhythm_Recall.Waves
                         //
 
                     });
-                    BarrageCreate(BeatTime(4) * 4, BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4) * 4, BeatTime(1), 6, new string[]
                     {
                         "($0)(+01)","","","",   "","","","",
                         "(R)(+01)","","","",   "","","","",
@@ -3429,7 +3429,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(1);
                     });
                     RegisterFunctionOnce("WhiteOut", () => { WhiteOut(BeatTime(2f)); });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "BlueSoul(Platform1)","","","",   "","","","",
                         "","","","",   "DownBone1","","","",
@@ -3574,7 +3574,7 @@ namespace Rhythm_Recall.Waves
                         TP();
 
                     });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "(Box)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -3709,7 +3709,7 @@ namespace Rhythm_Recall.Waves
                         SetGreenBox();
                         Heart.GiveForce(0, 0);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -3792,7 +3792,7 @@ namespace Rhythm_Recall.Waves
                         "(GreenSoul)","","","",   "","","","",
                         //
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "(R)(+01)","","","",   "","","","",
                         "(R)(+01)","","","",   "","","","",
@@ -3848,7 +3848,7 @@ namespace Rhythm_Recall.Waves
                             ars[x].JudgeType = Arrow.JudgementType.Tap;
                         }
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -3983,7 +3983,7 @@ namespace Rhythm_Recall.Waves
                         TP(320, 240);
                         HeartAttribute.Gravity = 4f;
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -4082,7 +4082,7 @@ namespace Rhythm_Recall.Waves
                         }
                     });
 
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -4345,7 +4345,7 @@ namespace Rhythm_Recall.Waves
                         Heart.GiveForce(0, 0);
                     });
 
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "","","","",   "BlueSoul","","","",
 
@@ -4399,7 +4399,7 @@ namespace Rhythm_Recall.Waves
                     {
                         Extends.DrawingUtil.LerpScreenScale(BeatTime(4), 1, 0.05f);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
                         "R","","","",   "R","","","",
@@ -4612,7 +4612,7 @@ namespace Rhythm_Recall.Waves
                         ce.Run((s) => { InstantSetBox(new Vector2(320, s), 84, 84); InstantTP(320, s); });
                     });
 
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -4720,7 +4720,7 @@ namespace Rhythm_Recall.Waves
                             ars[x].ResetColor(ars[x].ArrowColor);
                         }
                     });
-                    BarrageCreate(BeatTime(3), BeatTime(1), 6, new string[]
+                    CreateChart(BeatTime(3), BeatTime(1), 6, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -4809,7 +4809,7 @@ namespace Rhythm_Recall.Waves
                             "Fade", "", "", "", "", "", "", "",
                             "Reset", "", "", "", "", "", "", "",
                         };
-                BarrageCreate(0, BeatTime(1), 0, rhythm);
+                CreateChart(0, BeatTime(1), 0, rhythm);
             }
             void TryGenerateAnomaly()
             {

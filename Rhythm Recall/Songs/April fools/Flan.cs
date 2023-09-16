@@ -93,7 +93,7 @@ namespace Rhythm_Recall.Waves
                 //Piano
                 if (InBeat(15))
                 {
-                    BarrageCreate(60, BeatTime(1), 5, new string[]
+                    CreateChart(60, BeatTime(1), 5, new string[]
                     {
                         "(R)(+0)", "", "","",
                         "R", "", "",
@@ -154,7 +154,7 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.CameraEffect.Convulse(14, BeatTime(3.2f), RandBool());
                         ScreenDrawing.CameraEffect.SizeShrink(7, BeatTime(3.2f));
                     });
-                    BarrageCreate(60, BeatTime(2), 6, new string[]
+                    CreateChart(60, BeatTime(2), 6, new string[]
                     {
                         "#4#R0(Shrink)", "","R1",
                         "R1", "",
@@ -205,7 +205,7 @@ namespace Rhythm_Recall.Waves
                             l1.Dispose();
                         });
                     });
-                    BarrageCreate(60, BeatTime(1), 3, new string[]
+                    CreateChart(60, BeatTime(1), 3, new string[]
                     {
                         "", "R", "line1",
                         "R", "line1","",
@@ -537,7 +537,7 @@ namespace Rhythm_Recall.Waves
                     {
                         ScreenDrawing.ScreenAngle = 0;
                     });
-                    BarrageCreate(60, BeatTime(1), 6, new string[]
+                    CreateChart(60, BeatTime(1), 6, new string[]
                     {
                         "Displace", "", "", "$3($3)",    "", "", "", "$3($3)",
                         "", "", "", "",    "", "", "R", "R",
@@ -555,7 +555,7 @@ namespace Rhythm_Recall.Waves
                         "R", "R", "R", "R",    "R", "R", "", "R(R1)(camrot)",
                         "", "R(R1)(camrot)", "", "R(R1)(camrot)",    "", "R(R1)(camrot)", "", "(camre)",
                     });
-                    BarrageCreate(60, BeatTime(1), 6, new string[]
+                    CreateChart(60, BeatTime(1), 6, new string[]
                    {
                         "$01($21)","", "","",
                         "$01($21)","", "","",
@@ -625,8 +625,8 @@ namespace Rhythm_Recall.Waves
                         "D1", "+01", "D1", "+01",
                         "D1", "+01", "D1", "+01",
                     };
-                    BarrageCreate(70, BeatTime(1.8f), 7, rway);
-                    BarrageCreate(60, BeatTime(0.5f), 7, new string[]
+                    CreateChart(70, BeatTime(1.8f), 7, rway);
+                    CreateChart(60, BeatTime(0.5f), 7, new string[]
                     {
                         "", "", "", "R",     "", "", "R", "",
                         "", "R", "", "",     "R", "", "", "R",
