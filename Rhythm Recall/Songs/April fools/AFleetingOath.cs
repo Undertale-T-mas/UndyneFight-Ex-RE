@@ -183,7 +183,7 @@ namespace Rhythm_Recall.Waves
                         v.Run((s) => { Blur.Sigma = s; });
                     });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                 {
                     "Blur","","","",    "","","","",    "LineA","","LineA","",    "LineA","","LineA","",
                     "LineA","","LineA","",    "LineA","","LineA","",    "","","","",    "","","","",
@@ -256,7 +256,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                 {
                     "(#0.9#$21)(#0.9#$0)","","","",    "","","","",    "+0","","","",    "","","","",
                     "R","","","",    "D","","","",    "(R)(+21)","","","",    "","","","",
@@ -350,7 +350,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                 {
                     "(R)(+21)","","","",    "+01","","","",    "(R1)(+2)","","","",    "+0","","","",
                     "(R)(+21)","","","",    "","","","",    "(R1)(+2)","","","",    "+2","","","",
@@ -398,7 +398,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                 {
                     "","","","",    "","","","",    "","","","",    "","","","",
                     "","","","",    "","","","",    "","","","",    "","","","",
