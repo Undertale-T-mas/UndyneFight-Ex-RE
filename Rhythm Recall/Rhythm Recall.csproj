@@ -13,10 +13,13 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
     <Compile Remove="Content\bin\**" />
     <Compile Remove="Content\obj\**" />
+    <EmbeddedResource Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
     <EmbeddedResource Remove="Content\bin\**" />
     <EmbeddedResource Remove="Content\obj\**" />
+    <None Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
     <None Remove="Content\bin\**" />
     <None Remove="Content\obj\**" />
   </ItemGroup>
