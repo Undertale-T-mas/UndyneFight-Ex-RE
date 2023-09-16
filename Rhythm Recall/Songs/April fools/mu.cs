@@ -10,6 +10,7 @@ using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using System.Net.Mail;
+using UFData;
 
 namespace Rhythm_Recall.Waves
 {
@@ -1875,16 +1876,16 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("Step", () =>
                 {
-                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(3f * 19f / 14f), 0, 0.8f, EaseState.Quad),
-                        EaseOut(BeatTime(0.5f * 19f / 14f), 0.8f, 0, EaseState.Linear)));
+                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(2.75f * 19f / 14f), 0, 0.8f, EaseState.Quad),
+                        EaseOut(BeatTime(0.75f * 19f / 14f), 0.8f, 0, EaseState.Linear)));
                 });//14*4
                 RegisterFunctionOnce("Blur", () =>
                 {
                     RunEase((s) => { Blur.Sigma = s; splitter.Intensity = s * 6.5f; },
-                        LinkEase(EaseOut(BeatTime(0.5f * 19f / 14f), 0, 0.7f, EaseState.Linear),
-                        Stable(BeatTime((4f * 14f - 0.5f) * 19f / 14f), 0.7f),
-                        EaseOut(BeatTime(2f * 19f / 14f), 0.7f, 1.5f, EaseState.Linear),
-                        Stable(0, 0)));
+                        LinkEase(EaseOut(BeatTime(0.5f * 19f / 14f), 0, 0.4f, EaseState.Linear),
+                        Stable(BeatTime((4f * 14f - 0.5f) * 19f / 14f), 0.4f),
+                        EaseOut(BeatTime(2f * 19f / 14f), 0.4f, 1.5f, EaseState.Linear),
+                        EaseOut(1, 1.5f, 0, EaseState.Linear)));
                 });
                 RegisterFunctionOnce("cl", () =>
                 {
@@ -2009,13 +2010,9 @@ namespace Rhythm_Recall.Waves
             {
                 RegisterFunctionOnce("StepFlicker", () =>
                 {
-                    ScreenDrawing.MakeFlicker(Color.White * 0.85f);
-                    RunEase(s => StepSample.Intensity = s, EaseOut(BeatTime(0.5f * 19f / 14f), 0.4f, 0, EaseState.Sine));
-                    RunEase(s => splitter.Intensity = s * 6.5f, EaseOut(BeatTime(0.5f * 19f / 14f), 1.3f, 0.7f, EaseState.Sine));
-                });
-                RegisterFunctionOnce("", () =>
-                {
-
+                    ScreenDrawing.MakeFlicker(Color.White * 0.55f);
+                    RunEase(s => StepSample.Intensity = s, EaseOut(BeatTime(0.5f * 19f / 14f), 0.2f, 0, EaseState.Sine));
+                    RunEase(s => splitter.Intensity = s * 6.5f, EaseOut(BeatTime(0.5f * 19f / 14f), 1.5f, 0.4f, EaseState.Sine));
                 });
                 RegisterFunctionOnce("lineG2R", () =>
                 {
@@ -2214,8 +2211,10 @@ namespace Rhythm_Recall.Waves
                     {
                         m.alpha += 1f / (BeatTime(12f * 19f / 14f));
                     });
-                    DelayBeat(17f * 19f / 14f, () => { m.Dispose(); });
-                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(15f * 19f / 14f), 0, 0.8f, EaseState.Linear), Stable(1, 0)));
+                    DelayBeat(16f * 19f / 14f, () => { m.Dispose(); });
+                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(12f * 19f / 14f), 0, 0.8f, EaseState.Linear), EaseOut(BeatTime(4f * 19f / 14f), 0.8f, 0, EaseState.Linear)));
+                    RunEase(s => splitter.Intensity = s, LinkEase(Stable(BeatTime(12f * 19f / 14f), splitter.Intensity), EaseOut(BeatTime(4f * 19f / 14f), splitter.Intensity, 0, EaseState.Linear)));
+                    RunEase(s => Blur.Sigma = s, LinkEase(Stable(BeatTime(12f * 19f / 14f), Blur.Sigma), EaseOut(BeatTime(4f * 19f / 14f), Blur.Sigma, 0, EaseState.Linear)));
                 });
                 BarrageCreate(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
                 {
@@ -2334,10 +2333,10 @@ namespace Rhythm_Recall.Waves
                 bool jump = false;
                 if (jump)
                 {
-                    float beat = 4f * 40;
+                    //float beat = 4f * 40;
                     //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f);
                     //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 14f * 19f / 17f;
-                    //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f;
+                    float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
