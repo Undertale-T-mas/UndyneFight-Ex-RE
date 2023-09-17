@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,17 @@ namespace UndyneFight_Ex.Remake.Network
 {
     internal static class UFSocketData
     {
+        [DllImport("winInet.dll")]
+        private static extern bool InternetGetConnectedState(
+            ref int dwFlag,
+            int dwReserved
+        );
+        public static bool IsAbleConnect()
+        {
+            int s = 0;
+            return InternetGetConnectedState(ref s, 0);
+        }
+
         public static bool _isConnected = false;
         private static Socket _socketClient = null;
         public static Socket Socket => _socketClient;
@@ -86,8 +98,11 @@ namespace UndyneFight_Ex.Remake.Network
                     ex = UFSocketData.TryConnect();
                     if (ex != null)
                     {
+                        bool t = UFSocketData.IsAbleConnect();
+                        string info = "Cannot connect to server!";
+                        if (!t) info = "Please check your connect!";
                         var scene = (GameStates.CurrentScene as GameMenuScene);
-                        if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
+                        if (scene != null) scene.InstanceCreate(new WarningShower(info));
                         _onReceive.Invoke(new(DateTime.Now.Ticks - time.Ticks, false, ex.Message, 'D'));
                         UFSocketData._isConnected = false;
                         return;

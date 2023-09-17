@@ -45,7 +45,14 @@ namespace UndyneFight_Ex.Remake.UI
                 if (string.IsNullOrEmpty(_division)) return;
                 UFSocket<ScoreObject> socket = new(
                     (t) => {
+                        if (t.Info == "please login first")
+                        {
+                            //login
+                            KeepAliver.CheckAlive();
+                            return;
+                        }
                         this.scoreboard = t.Data.Scoreboard;
+                        if (this.scoreboard == null) return;
                         this.participants = scoreboard.Members.ToArray();
                     }
                     ); ;
@@ -100,18 +107,21 @@ namespace UndyneFight_Ex.Remake.UI
                     DrawLine(new(120, y), new(960 - 120, y));
                 }
                 GLFont font = FightResources.Font.NormalFont;
-                font.CentreDraw("#rk", new(164, 456), col.White, 1.1f, 0.0f, 0.5f) ;
-                font.CentreDraw("Total", new(781, 456), col.White, 1.1f, 0.0f, 0.5f) ;
+                font.CentreDraw("#rk", new(154, 456), col.Wheat, 1.1f, 0.0f, 0.5f) ;
+                font.CentreDraw("Total", new(793, 456), col.Wheat, 1.1f, 0.0f, 0.5f) ;
 
                 float[] positions = new float[participants[0].AccuracyList.Length];
                 float delWord;
+                const float L = 370, R = 730;
+
+                float LMID = (L + 190) / 2f;
+                font.CentreDraw("Name", new(LMID, 456), col.White, 1.15f, 0.5f);
                 for(int i = 0; i < positions.Length ; i++)
-                {
-                    // l = 210, r = 710
+                { 
                     float k = (i * 1.0f) / (positions.Length );
-                    positions[i] = MathHelper.Lerp(210, 710, k);
+                    positions[i] = MathHelper.Lerp(L, R, k);
                 }
-                delWord = 500.0f * 0.5f / positions.Length;
+                delWord = (R - L) * 0.5f / positions.Length;
                 for(int i = 0; i < positions.Length; i++)
                 {
                     DrawLine(new(positions[i], 440), new(positions[i], 672));
@@ -120,13 +130,20 @@ namespace UndyneFight_Ex.Remake.UI
 
                 for(int i = indexStart, j = 0; i < participants.Length && j < 4 ; i++, j++)
                 {
+                    float y = i * 52 + 505;
                     float[] list = participants[i].AccuracyList;
                     for (int x = 0; x < positions.Length; x++)
-                        font.CentreDraw(list[x].ToString("F2"), new(positions[x] + delWord, i * 52 + 505), col.White, 1.06f, 0.5f);
+                        font.CentreDraw(list[x].ToString("F2"), new(positions[x] + delWord, y), col.White, 1.06f, 0.5f);
+                    font.CentreDraw((i + 1).ToString(), new(154, y), col.Wheat, 1.06f, 0.5f);
+                    font.CentreDraw((participants[i].Total * 100).ToString("F2"), new(793, y), col.Wheat, 1.06f, 0.5f);
+
+                    string name = participants[i].Name;
+                    if (name.Length > 8) name = name[..3] + ".." + name[^4..];
+                    font.CentreDraw(name, new(LMID, y), col.White, 1.06f, 0.5f);
                 }
 
-             //   DrawLine(new(210, 440), new(210, 672));
-                DrawLine(new(710, 440), new(710, 672));
+                DrawLine(new(190, 440), new(190, 672));
+                DrawLine(new(R, 440), new(R, 672));
             }
 
             int indexStart = 0;
