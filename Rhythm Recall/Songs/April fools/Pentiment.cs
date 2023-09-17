@@ -72,7 +72,7 @@ namespace AprilExtends
                 if (InBeat(0))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7, new string[]
                         {
 
                         });
@@ -80,7 +80,7 @@ namespace AprilExtends
                 if (InBeat(60))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 5, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 5, new string[]
                         {
                             "(D)(D1)","","","",   "(D)(D1)","","","",
                             "(D)(D1)","","","",   "(D)(D1)","","","",
@@ -158,7 +158,7 @@ namespace AprilExtends
                 if (InBeat(172))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 6.5f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 6.5f, new string[]
                         {
                             "($1)(#0.25#$1)(N21)","","","",   "($2)(#0.25#$2)(N11)","","","",
                             "(*$1)(*$2)(R1)","","","",   "(*$1)(*$2)(R1)","","","",
@@ -194,7 +194,7 @@ namespace AprilExtends
                         }
                     });
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(0, BeatTime(2), 6.5f / 2, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(0, BeatTime(2), 6.5f / 2, new string[]
                         {
                             "Void","","","",   "","","","",
                             "R","","","",   "","","","",
@@ -220,7 +220,7 @@ namespace AprilExtends
                 if (InBeat(226))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(0, BeatTime(1), 7.2f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(0, BeatTime(1), 7.2f, new string[]
                         {
                             "!!3/9","($3'0.1)($31'0.1)","($3'0.1)($31'0.1)","($3'0.1)($31'0.1)","($3'0.1)($31'0.1)",   "($3'0.1)($31'0.1)","($3'0.1)($31'0.1)",
                             "($3'0.1)($31'0.1)","($3'0.1)($31'0.1)","($3'0.1)($31'0.1)","($3'0.1)($31'0.1)","","","",
@@ -247,7 +247,7 @@ namespace AprilExtends
                 if (InBeat(252))
                 {
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7.2f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7.2f, new string[]
                         {
                             "(#7.8#R)","","","",   "","","","",
                             "(+2)","","","",   "","","","",
@@ -512,7 +512,7 @@ namespace AprilExtends
                         CreateEntity(arr);
                     });
                     int playednumber = 5;
-                    if (playednumber == 0 || playednumber == 5) BarrageCreate(BeatTime(8), BeatTime(1), 7.2f, new string[]
+                    if (playednumber == 0 || playednumber == 5) CreateChart(BeatTime(8), BeatTime(1), 7.2f, new string[]
                         {
                             "Split(Line)","","","",   "","","","",
                             "","","","",   "","","","",

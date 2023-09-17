@@ -123,16 +123,16 @@ namespace UndyneFight_Ex.Remake.UI
         private void DrawLines()
         {
             // The centre area, showing the data of player!
-            DrawLine(new(490 , 240), new(630, 240), Color.White);
-            DrawLine(new(630, 240), new(630 + 30, 240 + 30), Color.White);
-            DrawLine(new(630 + 30, 270), new(630 + 30, 460), Color.White);
+            //cool rgb
+            DrawLine(new(490 , 240), new(630, 240),             new(DrawingLab.HsvToRgb(timer,        255, 255, 255)));
+            DrawLine(new(630, 240), new(630 + 30, 240 + 30),    new(DrawingLab.HsvToRgb((timer + 10), 255, 255, 255)));
+            DrawLine(new(630 + 30, 270), new(630 + 30, 460),    new(DrawingLab.HsvToRgb((timer + 20), 255, 255, 255)));
             
-            DrawLine(new(330 - 30, 240), new(300, 430), Color.White);
-            DrawLine(new(330, 460), new(300, 430), Color.White);
-            DrawLine(new(330, 460), new(660, 460), Color.White);
-
+            DrawLine(new(330 - 30, 240), new(300, 430),         new(DrawingLab.HsvToRgb((timer + 30), 255, 255, 255)));
+            DrawLine(new(330, 460), new(300, 430),              new(DrawingLab.HsvToRgb((timer + 40), 255, 255, 255)));
+            DrawLine(new(330, 460), new(660, 460),              new(DrawingLab.HsvToRgb((timer + 50), 255, 255, 255)));
             DrawLine(new(304, 350), new(430, 350), vertexColors[0]);
-            DrawLine(new(656, 350), new(530, 350), Color.White);
+            DrawLine(new(656, 350), new(530, 350),              Color.White);
 
             // Draw the line of all selections
 
@@ -162,9 +162,11 @@ namespace UndyneFight_Ex.Remake.UI
 
         int playTimeSec;
         float playTimeHour;
+        int timer = 0;
 
         public override void Update()
         {
+            timer++;
             playTimeSec = AccountData.PlayerStatistic.PlayedTime;
             playTimeHour = playTimeSec / 3600.0f;
             base.Update();

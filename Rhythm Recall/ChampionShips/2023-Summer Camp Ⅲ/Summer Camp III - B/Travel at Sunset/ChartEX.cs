@@ -25,6 +25,23 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF == 302 * 60) EndSong();
                 EXPre();
                 EXBuildup();
+                if(InBeat(206, 232) && At0thBeat(0.3f))
+                {
+                    var dir = Posmod(GametimeF, 90);
+                    for (int i = -1; i < 2; ++i)
+                    {
+                        CreateEntity(new NormalSpear(new(0, 0), dir + i * 20, 5)
+                        {
+                            DelayTargeting = false,
+                            IsMute = true
+                        });
+                        CreateEntity(new NormalSpear(new(640, 0), dir + i * 20 + 90, 5)
+                        {
+                            DelayTargeting = false,
+                            IsMute = true
+                        });
+                    }
+                }
                 if (InBeat(72 + 128))
                 {
                     RegisterFunctionOnce("pre", () =>
@@ -32,62 +49,19 @@ namespace Rhythm_Recall.Waves
                         production1.Dispose();
                         BoxUtils.Vertexify();
                         var box = BoxUtils.VertexBoxInstance;
-
-                        //     320,200
-                        //240,280    400,280
-                        //     320,360
-                        //box.SetPosition(box.Split(3, 0.5f), new(400, 280));
-                        //box.SetPosition(box.Split(2, 0.5f), new(320, 200));
-                        //box.SetPosition(box.Split(1, 0.5f), new(240, 280));
-                        //box.SetPosition(box.Split(0, 0.5f), new(320, 360));
                         for (int i = 0; i < 360; ++i)
                         {
-                            box.SetPosition(box.Split(i, 0.5f), GetVector2(100, i) + new Vector2(320, 240));
+                            box.SetPosition((i < 3) ? i : box.Split(i, 0.5f), GetVector2(100, i) + new Vector2(320, 240));
                         }
+                        box.SetPosition(3, GetVector2(100, 3) + new Vector2(320, 240));
+
                         //BoxUtils.Move(new(0, -40));
                         ScreenDrawing.BoxBackColor = Color.Transparent;
 
                         SetSoul(Souls.RedSoul);
                         ForBeat(28, () =>
                         {
-                            //var D = (GametimeF - BeatTime(200)) / 4;
-                            //for (int i = 0; i < 4; ++i)
-                            //{
-                            //    box.SetPosition(i, GetVector2((i % 2) == 1 ? 10 + D : 320, i * 90) + new Vector2(320, 240));
-                            //}
-                            if (InBeat(200, 214) && At0thBeat(0.5f))
-                            {
-                                /* Unused V2
-                                var count = 18;
-                                for (int i = 0; i < count; ++i)
-                                {
-                                    for (int ii = 0; ii < 2; ++ii)
-                                    {
-                                        var ang = ii * 180;
-                                        var finang = ang + i * 360 / count + GametimeF * 5 * 40 / SingleBeat;
-                                        var spd = 3;
-                                        CreateSpear(new NormalSpear(new Vector2(320, 240 - Cos(GametimeF * 2) * 100) + GetVector2(300, ang), finang + 180, spd)
-                                        {
-                                            Rebound = true,
-                                            ReboundCount = 2,
-                                            IsMute = true,
-                                            Acceleration = -spd / 600f,
-                                            Duration = 600
-                                        });
-                                    }
-                                }*/
-                                //if (At0thBeat(1))
-                                {
-                                    for(int i = 0; i < 6; ++i)
-                                    {
-                                        CreateSpear(new CustomSpear(new(240, 320), Motions.PositionRoute.linear, Motions.RotationRoute.linear)
-                                        {
-                                            PositionRouteParam = new float[] { 5 * Cos(i * 60), 5 * Sin(i * 60)},
-                                            RotationRouteParam = new float[] { 0, i * 60 }
-                                        });
-                                    }
-                                }
-                            }
+
                         });
 
                     });
@@ -132,6 +106,68 @@ namespace Rhythm_Recall.Waves
                                 Duration = 600,
                                 Acceleration = 0.02f,
                                 WaitingTime = BeatTime(1)
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("CornerSpear", () =>
+                    {
+                        var dir = (GametimeF / BeatTime(1) - 200) * 30 + 165;
+                        CreateEntity(new NormalSpear(new(0, 0), dir, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                        CreateEntity(new NormalSpear(new(0, 0), 90 - dir, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                        CreateEntity(new NormalSpear(new(640, 0), dir + 90, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                        CreateEntity(new NormalSpear(new(640, 0), 190 - dir, 4)
+                        {
+                            DelayTargeting = false,
+                            Rebound = true,
+                            ReboundCount = 5,
+                            Duration = 600,
+                            Acceleration = 0.02f,
+                            WaitingTime = BeatTime(1)
+                        });
+                    });
+                    RegisterFunctionOnce("RainSpear", () =>
+                    {
+                        for (int i = -10; i < 20; ++i)
+                        {
+                            CreateEntity(new NormalSpear(new(i * 32, 0), 65, 4)
+                            {
+                                DelayTargeting = false,
+                                Duration = 600,
+                                Acceleration = 0.02f,
+                                WaitingTime = BeatTime(1),
+                                IsMute = true
+                            });
+                            CreateEntity(new NormalSpear(new(i * 32, 0), 125, 4)
+                            {
+                                DelayTargeting = false,
+                                Duration = 600,
+                                Acceleration = 0.02f,
+                                WaitingTime = BeatTime(2),
+                                IsMute = true
                             });
                         }
                     });
@@ -394,13 +430,13 @@ namespace Rhythm_Recall.Waves
                             }
                         });
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 6.5f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "(pre)", "", "", "", //Red soul begin
                         //1
-                        "(BoundA)(GaussBlur)", "BounceSpear", "BounceSpear", "BounceSpear",    "BounceSpear", "", "", "",
+                        "(BoundA)(GaussBlur)(CornerSpear)", "CornerSpear", "CornerSpear", "CornerSpear",    "", "RainSpear", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",    
@@ -579,7 +615,7 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(1), 1.04f, 1.0f, EaseState.Quint)
                         );
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7.2f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -725,7 +761,7 @@ namespace Rhythm_Recall.Waves
                         });
                         easeA.TagApply("A"); easeB.TagApply("B");
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
                         "pre", "", "", "",    "", "", "", "",
@@ -857,7 +893,7 @@ namespace Rhythm_Recall.Waves
                         l2.DelayAlphaDecrease(BeatTime(4), BeatTime(2));
                     });
 
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -912,7 +948,7 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(1.3f), new Vector2(-100, -40), EaseState.Back)
                             );
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -963,7 +999,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(2));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1026,7 +1062,7 @@ namespace Rhythm_Recall.Waves
                         EaseOut(BeatTime(12), new Vector2(120, 0), EaseState.Sine),
                         EaseIn(BeatTime(4), new Vector2(-120, 0), EaseState.Quad));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1080,7 +1116,7 @@ namespace Rhythm_Recall.Waves
                         Allocate();
                     });
                     Allocate();
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1129,7 +1165,7 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(1.3f), new Vector2(-100, -40), EaseState.Back)
                             );
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1161,7 +1197,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("heal", () => {
                         Regenerate(3); PlaySound(Sounds.heal);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1190,7 +1226,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(648))
                 {
-                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1247,7 +1283,7 @@ namespace Rhythm_Recall.Waves
                     easeA.TagApply("A"); easeB.TagApply("B");
                     AddInstance(easeA); AddInstance(easeB);
 
-                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1356,7 +1392,7 @@ namespace Rhythm_Recall.Waves
                     });
 
                     // Generate the Snakes
-                    BarrageCreate(BeatTime(4 + 2), BeatTime(1), 8, new string[] {  
+                    CreateChart(BeatTime(4 + 2), BeatTime(1), 8, new string[] {  
                         //pre
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "", 
@@ -1475,7 +1511,7 @@ namespace Rhythm_Recall.Waves
                             );
                     });
 
-                    BarrageCreate(BeatTime(4), BeatTime(2), 12, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 12, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -1568,7 +1604,7 @@ namespace Rhythm_Recall.Waves
                             );
                     });
                     RegisterFunctionOnce("Remove", () => { sans.Alpha = 0f; });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
                         "pre", "", "", "",    "", "", "", "",
@@ -1912,7 +1948,7 @@ namespace Rhythm_Recall.Waves
                         });
                     });
 
-                    BarrageCreate(BeatTime(4), BeatTime(2), 6.4f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 6.4f, new string[]
                     {   //10
                         "$0(LoadA)","+1","+1","+1",    "+1","+1","+1","+1",
                         "+11(LoadB)","+11","+11","+11",   "+11","+11","+11","+11",
@@ -2224,7 +2260,7 @@ namespace Rhythm_Recall.Waves
                             f1.Dispose();
                         });
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
                         "", "", "", "(UaD)",    "", "", "", "",
@@ -2384,7 +2420,7 @@ namespace Rhythm_Recall.Waves
                         float[] args = Arguments;
                         ;
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 6.4f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 6.4f, new string[]
                     {   //0
                         "FadeOut","","","",    "","","","",
                         "<4,5>Test(<2,3>Test)","","","",    "","","","",
@@ -2510,7 +2546,7 @@ namespace Rhythm_Recall.Waves
                         });
                     });
 
-                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -2574,7 +2610,7 @@ namespace Rhythm_Recall.Waves
                         });
                     });
 
-                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -2612,7 +2648,7 @@ namespace Rhythm_Recall.Waves
                     easeA.ApplyTime = BeatTime(4); easeB.ApplyTime = BeatTime(3);
                     easeA.TagApply("A"); easeB.TagApply("B");
                     AddInstance(easeA); AddInstance(easeB);
-                    BarrageCreate(BeatTime(4), BeatTime(4), 5.6f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(4), 5.6f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "", 
@@ -2666,7 +2702,7 @@ namespace Rhythm_Recall.Waves
                     {
                         easeX.DeltaEase(EaseOut(BeatTime(1.9f), new Vector2(0, -400), Vector2.Zero, EaseState.Elastic));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 7f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 7f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -2725,7 +2761,7 @@ namespace Rhythm_Recall.Waves
                         easeX.DeltaEase(EaseOut(BeatTime(1.6f), new Vector2(0, 400), Vector2.Zero, EaseState.Elastic));
                     });
                     Settings.GreenTap = true;
-                    BarrageCreate(BeatTime(4), BeatTime(2), 8f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 8f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -2855,7 +2891,7 @@ namespace Rhythm_Recall.Waves
 
                             );
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(2), 9f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 9f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -3397,7 +3433,7 @@ namespace Rhythm_Recall.Waves
                         Regenerate();
                     });
 
-                    BarrageCreate(0, BeatTime(2), 15.4f, new string[]
+                    CreateChart(0, BeatTime(2), 15.4f, new string[]
                     {
                         //pre 
                         "(Box)(BoneGA)(Heal)(Shader)", "", "", "",
@@ -3488,7 +3524,7 @@ namespace Rhythm_Recall.Waves
                     ArrowAllocate(2, u + 1);
                     ArrowAllocate(3, u + 2);
                     ArrowAllocate(4, u + 3);
-                    BarrageCreate(0, BeatTime(2), 7.4f, new string[]
+                    CreateChart(0, BeatTime(2), 7.4f, new string[]
                     {
                         // pre 
                         "", "", "", "",      
@@ -3711,7 +3747,7 @@ namespace Rhythm_Recall.Waves
                             );
                     });
 
-                    BarrageCreate(BeatTime(2), BeatTime(2), 7.4f, new string[]
+                    CreateChart(BeatTime(2), BeatTime(2), 7.4f, new string[]
                     {
                         // pre 
                         "", "", "", "",    "", "", "Split", "(EffL)",      
@@ -3765,7 +3801,7 @@ namespace Rhythm_Recall.Waves
                         production1?.Dispose();
                         production2?.Dispose();
                     });
-                    BarrageCreate(BeatTime(2), BeatTime(2), 7.4f, new string[] { 
+                    CreateChart(BeatTime(2), BeatTime(2), 7.4f, new string[] { 
                         // pre 
                         "", "", "", "",    "", "", "", "",      
                         // 1 
@@ -4085,7 +4121,7 @@ namespace Rhythm_Recall.Waves
                     RunEase(s => { Shaders.Fire.BlendEdge = Color.Orange * s; }, EaseOut(BeatTime(1f), 0.125f, 0, EaseState.Quad));
                     DelayBeat(2, production4.Dispose);
                 });
-                BarrageCreate(BeatTime(2), BeatTime(2), 1, new string[] {
+                CreateChart(BeatTime(2), BeatTime(2), 1, new string[] {
                     //pre
                     "", "pre", "", "",    "", "fire", "", "",   
                     //1

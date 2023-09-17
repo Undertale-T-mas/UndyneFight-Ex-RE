@@ -217,7 +217,7 @@ namespace Rhythm_Recall.Waves
                             CreateArrow(time, "R", 6.2f, 0, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "R","","","",   "","","","",
                         "R","","","",   "","","","",
@@ -284,7 +284,7 @@ namespace Rhythm_Recall.Waves
                         if (x % 8 == 0) CreateArrow(time, x / 4, 5.1f, 1, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "(^D1)","","","",   "R1","","","",
                         "R","","","",   "","","","",
@@ -387,7 +387,7 @@ namespace Rhythm_Recall.Waves
                         if (rhythm[x] == 2) CreateArrow(time, "R", 6.5f, 1, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "","","","",   "R","","","",
                         "R","","","",   "R","","","",
@@ -454,7 +454,7 @@ namespace Rhythm_Recall.Waves
                         if (rhythm[x] == 2) CreateArrow(time, "R", 6.5f, 1, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(4), 6.5f, new string[]
                     {
                         "","","","",   "R","","","",
                         "R","","","",   "R","","","",
@@ -556,7 +556,7 @@ namespace Rhythm_Recall.Waves
                             CreateArrow(time, "R", 6.2f, 0, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "R","","","",   "","","","",
                         "R","","","",   "","","","",
@@ -721,7 +721,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1424 - 12))
                 {
-                    BarrageCreate(BeatTime(4), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(4), 6.5f, new string[]
                  {
                         "","","","",   "R","","","",
                         "R","","","",   "R","","","",
@@ -807,7 +807,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1680 - 12))
                 {
-                    BarrageCreate(BeatTime(4), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(4), 6.5f, new string[]
                  {
                         "R1","","","",   "R","","","",
                         "R","","","",   "R","","","",
@@ -1004,7 +1004,7 @@ namespace Rhythm_Recall.Waves
                             CreateArrow(time, "R", 6.2f, 0, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "R","","","",   "","","","",
                         "R","","","",   "","","","",
@@ -1059,7 +1059,7 @@ namespace Rhythm_Recall.Waves
                             CreateArrow(time, "R", 6.2f, 0, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "(R)(^D1'1.3)","","","",   "R1","","","",
                         "R","","","",   "","","","",
@@ -1175,7 +1175,7 @@ namespace Rhythm_Recall.Waves
                         if (rhythm[x] == 2 || x % 4 == 0) CreateArrow(time, "R", 6.5f, 1, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "","","","",   "R1","","","",
                         "R","","","",   "R1","","","",
@@ -1241,7 +1241,7 @@ namespace Rhythm_Recall.Waves
                         if (rhythm[x] == 2 || x % 4 == 0) CreateArrow(time, "R", 6.5f, 1, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(4), 6.5f, new string[]
                     {
                         "","","","",   "R1","","","",
                         "R","","","",   "R1","","","",
@@ -1342,7 +1342,7 @@ namespace Rhythm_Recall.Waves
                             CreateArrow(time, "R", 6.2f, 0, 0);
                         time += BeatTime(1);
                     });
-                    BarrageCreate(BeatTime(8), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(4), 6.5f, new string[]
                     {
                         "R","","","",   "","","","",
                         "R","","","",   "","","","",
@@ -1504,7 +1504,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1424-12))
                 {
-                    BarrageCreate(BeatTime(4), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(4), 6.5f, new string[]
                  {
                         "","","","",   "R1","","","",
                         "R","","","",   "R1","","","",
@@ -1590,7 +1590,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1680 - 12))
                 {
-                    BarrageCreate(BeatTime(4), BeatTime(4), 6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(4), 6.5f, new string[]
                  {
                         "R1","","","",   "R1","","","",
                         "R","","","",   "R1","","","",

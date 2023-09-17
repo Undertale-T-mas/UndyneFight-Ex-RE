@@ -246,7 +246,7 @@ namespace Rhythm_Recall.Waves
                 arse1.TagApply("R");
                 AddInstance(arse1);
 
-                BarrageCreate(BeatTime(2), BeatTime(2), 7.0f, new[] { 
+                CreateChart(BeatTime(2), BeatTime(2), 7.0f, new[] { 
                     "$0@R", "", "", "",      "$0@R", "", "", "",    
                     "$0@R", "", "", "",      "$0@R", "", "", "",    
                     "$0@R", "", "", "",      "$0@R", "", "", "",    
@@ -385,7 +385,7 @@ namespace Rhythm_Recall.Waves
 
                         builder1.Run(s => ScreenDrawing.ScreenScale = s);
                     });
-                    BarrageCreate(0, BeatTime(2), 6.5f, new string[] {
+                    CreateChart(0, BeatTime(2), 6.5f, new string[] {
                         "Rise", "", "", "", "", "",
                         "", "", "", "", "", "",
                         "#7#R(Move)", "", "", "",    "R1", "", "", "",
@@ -426,7 +426,7 @@ namespace Rhythm_Recall.Waves
 
                         builder1.Run(s => ScreenDrawing.ScreenScale = s);
                     });
-                    BarrageCreate(0, BeatTime(2), 6.5f, new string[] {
+                    CreateChart(0, BeatTime(2), 6.5f, new string[] {
                         "", "", "", "", "", "",  "", "",
                         "", "", "", "", "", "",  "", "",
                         "#7#R(Move)", "", "", "",    "R1", "", "", "",
@@ -507,7 +507,7 @@ namespace Rhythm_Recall.Waves
                         });
                     });
                     RegisterFunctionOnce("Apply3D", () => { Apply3D(); ScreenDrawing.UISettings.CreateUISurface(); });
-                    BarrageCreate(0, BeatTime(2), 6.5f, new string[] {
+                    CreateChart(0, BeatTime(2), 6.5f, new string[] {
                         "", "", "", "", "", "",  "", "",
                         "", "", "", "", "", "",  "", "",
                         "(Move)(^d'1.7)(^+21'1.7)", "", "", "",    "(^d'1.7)(^+21'1.7)", "", "", "",
@@ -569,7 +569,7 @@ namespace Rhythm_Recall.Waves
                             });
                         });
                     });
-                    BarrageCreate(0, BeatTime(2), 6.5f, new string[] {
+                    CreateChart(0, BeatTime(2), 6.5f, new string[] {
                         "", "", "", "",   "",
                         "T0(CameraZL)", "T1", "T2", "T3",    "T0(CameraZL)", "T1", "T2", "T3",
                         "T0(CameraZL)", "T1", "T2", "T3",    "T0(CameraZL)", "T1", "T2", "T3",
@@ -647,7 +647,7 @@ namespace Rhythm_Recall.Waves
                             });
                         });
                     });
-                    BarrageCreate(0, BeatTime(2), 6.5f, new string[] {
+                    CreateChart(0, BeatTime(2), 6.5f, new string[] {
                         "", "", "", "",   "", "", "", "",
                         "T4(T2)(T0)", "T4V(T2V)", "T4V(T2V)", "",     "T3(T2)(T1)", "T3V(T1V)", "T3V(T1V)", "",
                         "T0(T2)", "", "T2(T4)", "T4V",     "T4V", "T4V", "T4V(T2)", "",

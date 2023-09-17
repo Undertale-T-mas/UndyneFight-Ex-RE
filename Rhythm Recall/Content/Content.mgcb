@@ -2186,6 +2186,24 @@
 /processorParam:Quality=Best
 /build:Musics/#1e86f2/song.wav
 
+#begin Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav;Musics/A Fleeting Oath/song.wav
+
+#begin Musics/A Fleeting Oath/刹那の誓い.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Musics/A Fleeting Oath/刹那の誓い.jpg;Musics/A Fleeting Oath/paint.jpg
+
 #begin Musics/a/a.ogg
 /importer:OggImporter
 /processor:SongProcessor

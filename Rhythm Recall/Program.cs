@@ -131,6 +131,7 @@ namespace Rhythm_Recall
             test.Push(typeof(RIP));
             test.Push(typeof(BrokenAltair));
             test.Push(typeof(mu));
+            test.Push(typeof(AFleetingOath));
 
 #if DEBUG
             GameStartUp.PushSongset(test);

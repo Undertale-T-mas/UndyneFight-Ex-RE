@@ -658,7 +658,7 @@ namespace UndyneFight_Ex.SongSystem
         /// <param name="Beat">拍号，如果写BeatTime(1)即为每个字符串占一个32分的长度</param>
         /// <param name="arrowspeed">普遍的箭头速度</param>
         /// <param name="Barrage">谱面内容，即字符串数组</param>
-        public void BarrageCreate(float Delay, float Beat, float arrowspeed, string[] Barrage)
+        public void CreateChart(float Delay, float Beat, float arrowspeed, string[] Barrage)
         {
             float t = Delay;
             int effectLast = 0;

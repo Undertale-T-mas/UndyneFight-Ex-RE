@@ -1964,7 +1964,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] { 
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] { 
                     //pre
                     "Move(Rotate)", "", "", "", "", "", "", "",
                     //cur
@@ -2219,7 +2219,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] {
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] {
                     //pre
                     "", "", "", "", "", "", "", "", 
                     //cur
@@ -2414,10 +2414,10 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "", "", "", "",
                     "", "", "", "", "D1(D0)", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     DelayBeat(9 + 7, () =>
                     {
-                        BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm2);
+                        CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm2);
                     });
                 }
             }
@@ -3072,7 +3072,7 @@ namespace Rhythm_Recall.Waves
                         NormalizedChart(time, 6.4f, rhythm[i]);
                         time += BeatTime(1);
                     }
-                    BarrageCreate(BeatTime(8), BeatTime(8), 6.4f, new string[]
+                    CreateChart(BeatTime(8), BeatTime(8), 6.4f, new string[]
                     {
                     "$01","","","",   "$21","","","",
                     "$01","","","",   "$21","","","",
@@ -4305,7 +4305,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] { 
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] { 
                     //pre
                     "Move(Rotate)", "", "", "", "", "", "", "",
                     //cur
@@ -4560,7 +4560,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] {
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] {
                     //pre
                     "", "", "", "", "", "", "", "", 
                     //cur
@@ -4755,10 +4755,10 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "", "", "", "",
                     "", "", "", "", "D1(D0)", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     DelayBeat(9 + 7, () =>
                     {
-                        BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm2);
+                        CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm2);
                     });
                 }
             }
@@ -6625,7 +6625,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] { 
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] { 
                     //pre
                     "Move(Rotate)", "", "", "", "", "", "", "",
                     //cur
@@ -6880,7 +6880,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] {
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] {
                     //pre
                     "", "", "", "", "", "", "", "", 
                     //cur
@@ -7075,10 +7075,10 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "", "", "", "",
                     "", "", "", "", "D1(D0)", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     DelayBeat(9 + 7, () =>
                     {
-                        BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm2);
+                        CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm2);
                     });
                 }
             }
@@ -8973,7 +8973,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] { 
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] { 
                     //pre
                     "Move(Rotate)", "", "", "", "", "", "", "",
                     //cur
@@ -9228,7 +9228,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
                     #endregion
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] {
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] {
                     //pre
                     "", "", "", "", "", "", "", "", 
                     //cur
@@ -9425,10 +9425,10 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "", "", "", "",
                     "", "", "", "", "D1", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     DelayBeat(9 + 7, () =>
                     {
-                        BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm2);
+                        CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm2);
                     });
                 }
                 if (InBeat(1536 - 8))
@@ -9531,7 +9531,7 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "Flicker1", "", "Flicker1", "Flicker1",
                     "Flicker1", "Flicker1", "Flicker1", "", "Flicker2", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     string[] rhythm2 = { 
                     //pre 
                     "", "", "", "", "", "", "", "",  
@@ -9553,7 +9553,7 @@ namespace Rhythm_Recall.Waves
                     "#7#D0(D1)", "", "", "", "", "", "", "",
                     "", "", "", "", "", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm2);
                 }
                 if (InBeat(1664 - 8))
                 {
@@ -9808,7 +9808,7 @@ namespace Rhythm_Recall.Waves
                     "LRotateLine(Split)(ConvulseR)", "(RRotateLine)Line2", "LRotateLine", "(RRotateLine)Line2", "LRotateLine2(Split)(ConvulseR)", "Line2(RRotateLine2)(Split)(ConvulseL)", "LRotateLine2(Split)(ConvulseR)", "Line2(RRotateLine2)",
                     "LRotateLine(Split)(ConvulseR)", "(RRotateLine)Line2(Split)(ConvulseL)", "LRotateLine(Split)(ConvulseR)", "(RRotateLine)Line2(Split)(ConvulseL)", "(Split(ConvulseR))",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     string[] rhythm2 = { 
                     //pre 
                     "", "", "", "", "", "", "", "",  
@@ -9831,7 +9831,7 @@ namespace Rhythm_Recall.Waves
                     "(^$20'1{A})(BlueLine)", "($21{B})(RedLine)", "(^$20'1{A})(BlueLine)", "($21{B})(RedLine)", "(^$20'1{A})(BlueLine)", "", "", "",
                     "", "", "", "", "", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
 
                     ForBeat120(1, 144, () =>
                     {
@@ -10040,7 +10040,7 @@ namespace Rhythm_Recall.Waves
                             b.Alpha = Clamp(0, 4.1f - time * 1.5f, 0.85f);
                         }
                     });
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
                 }
                 NormalFinal();
             }
@@ -10159,7 +10159,7 @@ namespace Rhythm_Recall.Waves
                     "(D)(+01)(MoveMid)(ConvulseL)", "", "", "", "(^D'1.6)(^+01'1.6)(ConvulseL)", "", "", "",
                     "(^D'1.6)(^+01'1.6)(ConvulseR)", "", "(^D'1.6)(^+01'1.6)(ConvulseR)", "", "", "", "(D)", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
                 }
                 if (InBeat(2048 - 8))
                 {
@@ -10295,7 +10295,7 @@ namespace Rhythm_Recall.Waves
                     "(<$00)(<$20)(>$01)(>$21)(ConvulseR)(Reverse)", "", "", "", "", "", "", "",
 
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
                 }
                 if (InBeat(2176 - 8))
                 {
@@ -10408,7 +10408,7 @@ namespace Rhythm_Recall.Waves
                     "(D)(+01)(SpreadN)(ShakeN)(Flicker)", "", "D1", "+01", "+21(SpreadN)(ShakeN)(Flicker)", "", "D1", "",
 
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
                 }
                 if (InBeat(2304 - 8))
                 {
@@ -10583,8 +10583,8 @@ namespace Rhythm_Recall.Waves
                     "", "D", "", "", "D1", "", "(D1)", "",
 
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
 
                     Arrow[] allX = new Arrow[0];
                     Arrow[] allY = new Arrow[0];
@@ -10734,8 +10734,8 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "SpreadN", "", "Spread", "",
                     "Zoom", "", "", "", "", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
                     Arrow[] allX = new Arrow[0];
                     Arrow[] allY = new Arrow[0];
                     DelayBeat(1, () => { allX = GetAll<Arrow>("X"); allY = GetAll<Arrow>("Y"); });
@@ -12346,10 +12346,10 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "", "", "", "",
                     "", "", "", "", "D1(D0)", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     DelayBeat(9 + 7, () =>
                     {
-                        BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm2);
+                        CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm2);
                     });
                 }
                 if (InBeat(1536 - 8))
@@ -12452,7 +12452,7 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "Flicker1", "", "Flicker1", "Flicker1",
                     "Flicker1", "Flicker1", "Flicker1", "", "Flicker2", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     string[] rhythm2 = { 
                     //pre 
                     "", "", "", "", "", "", "", "",  
@@ -12474,7 +12474,7 @@ namespace Rhythm_Recall.Waves
                     "#8#D0(D1)(D1)", "", "", "", "", "", "", "",
                     "", "", "", "", "", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm2);
                 }
                 if (InBeat(1664 - 8))
                 {
@@ -12729,7 +12729,7 @@ namespace Rhythm_Recall.Waves
                     "LRotateLine(Split)(ConvulseR)", "(RRotateLine)Line2", "LRotateLine", "(RRotateLine)Line2", "LRotateLine2(Split)(ConvulseR)", "Line2(RRotateLine2)(Split)(ConvulseL)", "LRotateLine2(Split)(ConvulseR)", "Line2(RRotateLine2)",
                     "LRotateLine(Split)(ConvulseR)", "(RRotateLine)Line2(Split)(ConvulseL)", "LRotateLine(Split)(ConvulseR)", "(RRotateLine)Line2(Split)(ConvulseL)", "(Split(ConvulseR))",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 6.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 6.0f, rhythm);
                     string[] rhythm2 = { 
                     //pre 
                     "", "", "", "", "", "", "", "",  
@@ -12752,7 +12752,7 @@ namespace Rhythm_Recall.Waves
                     "(*$00{B})(*^$20'1{A})(BlueLine)", "(*^$01'1{A})(*$21{B})(RedLine)", "(*$00{B})(*^$20'1{A})(BlueLine)", "(*^$01'1{A})(*$21{B})(RedLine)", "(*$00{B})(*^$20'1{A})(BlueLine)", "", "", "",
                     "", "", "", "", "", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
 
                     ForBeat120(1, 144, () =>
                     {
@@ -12963,7 +12963,7 @@ namespace Rhythm_Recall.Waves
                             b.Alpha = Clamp(0, 4.1f - time * 1.5f, 0.85f);
                         }
                     });
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
                 }
                 ExtremeFinal();
             }
@@ -13570,7 +13570,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
 
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] { 
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] { 
                     //pre
                     "Move(Rotate)", "", "", "", "", "", "", "",
                     //cur
@@ -13824,7 +13824,7 @@ namespace Rhythm_Recall.Waves
                     });
                     DelayEnabled = false;
 
-                    BarrageCreate(0, BeatTime(1) * 8, 8.0f, new[] {
+                    CreateChart(0, BeatTime(1) * 8, 8.0f, new[] {
                     //pre
                     "", "", "", "", "", "", "", "", 
                     //cur
@@ -14078,7 +14078,7 @@ namespace Rhythm_Recall.Waves
                     "(D)(D1)(MoveMid)(ConvulseL)(KickBR)", "", "", "", "^D'1.6(^D1'1.6)(ConvulseL)", "", "", "",
                     "(^D'1.6)(^D1'1.6)(ConvulseR)(KickBm)(KickAR)", "", "^D'1.6(^D1'1.6)(ConvulseR)(KickBm)(KickAL)", "", "", "", "(D)", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
                 }
                 if (InBeat(2048 - 8))
                 {
@@ -14280,7 +14280,7 @@ namespace Rhythm_Recall.Waves
                     "(*<$00)(*<$20)(*>$01)(*>$21)(ConvulseR)(Reverse)", "", "", "", "", "", "", "",
 
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
                 }
                 if (InBeat(2176 - 8))
                 {
@@ -14393,7 +14393,7 @@ namespace Rhythm_Recall.Waves
                     "D1(D)(SpreadN)(ShakeN)(Flicker)", "", "D1", "D", "D1(SpreadN)(ShakeN)(Flicker)", "", "D1", "",
 
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
                 }
                 if (InBeat(2304 - 8))
                 {
@@ -14568,8 +14568,8 @@ namespace Rhythm_Recall.Waves
                     "", "D", "", "", "(D)D1", "", "D(D1)", "",
 
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
 
                     Arrow[] allX = new Arrow[0];
                     Arrow[] allY = new Arrow[0];
@@ -14719,8 +14719,8 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "SpreadN", "", "Spread", "",
                     "Zoom", "", "", "", "", "", "", "",
                 };
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm);
-                    BarrageCreate(0, BeatTime(1) * 8, 7.0f, rhythm2);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm);
+                    CreateChart(0, BeatTime(1) * 8, 7.0f, rhythm2);
                     Arrow[] allX = new Arrow[0];
                     Arrow[] allY = new Arrow[0];
                     DelayBeat(1, () => { allX = GetAll<Arrow>("X"); allY = GetAll<Arrow>("Y"); });

@@ -58,6 +58,10 @@ namespace UndyneFight_Ex.Remake.UI
                         InstanceCreate(new DEBUG.IntroUI());
                     }
                 }
+                else if (CurrentSelected == _cancel)
+                {
+                    DoBack();
+                }
             }
             private void SendRegRequest()
             {
@@ -211,6 +215,11 @@ namespace UndyneFight_Ex.Remake.UI
                     this._secondaryScale = MathHelper.Lerp(_secondaryScale, 1.1f, 0.1f);
                 }
                 else _secondaryScale = MathHelper.Lerp(_secondaryScale, 1.0f, 0.1f);
+            }
+            private void DoBack()
+            {
+                this._virtualFather.FatherObject.Dispose();
+                InstanceCreate(new DEBUG.IntroUI());
             }
         }
     }

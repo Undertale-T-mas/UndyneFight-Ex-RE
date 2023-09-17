@@ -350,7 +350,7 @@ namespace AprilExtends
                 {
                     ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(1));
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5.5f, new string[]
                 {
                     "R","","","",    "R","","","",
                     "R","","","",    "R","","","",
@@ -474,7 +474,7 @@ namespace AprilExtends
                     CreateEntity(l2);
                     l2.ObliqueMirror = true;
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "(#0.75#$1)(#0.75#$31)(ScreenE5.5)","","","",    "","","","",
                     "","","","",    "(#0.75#$2)(#0.75#$01)(ScreenE7.5)","","","",
@@ -554,7 +554,7 @@ namespace AprilExtends
                     CreateEntity(l1);
                     CreateEntity(l2);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "(#0.5#$20)(ScreenRR8F)(LineEvent00)","","","",    "$31","","","",
                     "(#0.5#$01)(ScreenRL8F)(LineEvent01)","","","",    "$30","","","",
@@ -606,7 +606,7 @@ namespace AprilExtends
                         ScreenDrawing.ScreenScale = m;
                     });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "$00(ScreenE5.5F)","","$01","",    "$2(ScreenE5.5F)","","$21","",
                     "$00(ScreenE5.5F)","","$01","",    "$2(ScreenE5.5F)","","$21","",
@@ -689,7 +689,7 @@ namespace AprilExtends
                         ScreenDrawing.ScreenAngle = m;
                     });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 4, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 4, new string[]
                 {
                     "R(ScreenS)","","","",    "","","","",
                     "R","","","",    "","","","",
@@ -742,7 +742,7 @@ namespace AprilExtends
                         ScreenDrawing.ScreenAngle = m;
                     });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 4, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 4, new string[]
                 {
                     "R(ScreenS)","","","",    "","","","",
                     "R","","","",    "","","","",
@@ -798,7 +798,7 @@ namespace AprilExtends
                         ScreenDrawing.ScreenAngle = m;
                     });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
                     "$2(R1)(ScreenS)","","","",    "$2","","","",
                     "$3(R1)","","","",    "$3","","","",
@@ -876,7 +876,7 @@ namespace AprilExtends
                     });
                 });
                 
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
                     "$0(R1)(ScreenSBack)","","","",    "$0","","","",
                     "$1(R1)","","","",    "$1","","","",
@@ -901,7 +901,7 @@ namespace AprilExtends
             }
             if (InBeat(128))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
                     "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
@@ -926,7 +926,7 @@ namespace AprilExtends
             }
             if (InBeat(144))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
                     "(R02'1.1)(R1)","","","",    "R1","","","",
                     "R0{B}","","","",    "R0{B}","","","",
@@ -967,7 +967,7 @@ namespace AprilExtends
             }
             if (InBeat(160))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
                     "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
@@ -992,7 +992,7 @@ namespace AprilExtends
             }
             if (InBeat(176))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
                     "(R02'1.1)(R1)","","","",    "R1","","","",
                     "R0{B}","","","",    "R0{B}","","","",
@@ -1096,7 +1096,7 @@ namespace AprilExtends
                         EaseOut(BeatTime(12), -1, EaseState.Expo)
                     );
                 });
-                BarrageCreate(BeatTime(0), BeatTime(1), 0, new string[]
+                CreateChart(BeatTime(0), BeatTime(1), 0, new string[]
                 {
                     "ArrowShake","","","",  "","","","",
                     "","","","",    "","","","",
@@ -1164,7 +1164,7 @@ namespace AprilExtends
                 });
                 easeX.TagApply("X");
                 //easeX.RevolutionEase(Stable(1, 100));
-                BarrageCreate(BeatTime(2), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(2), BeatTime(1), 7, new string[]
                 {
                     "ArrowEffect","","","",    "","","","",
                     "","","","",    "","","","",
@@ -1314,7 +1314,7 @@ namespace AprilExtends
 
 
                 });
-                BarrageCreate(BeatTime(1), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(1), BeatTime(1), 7, new string[]
                 {
                     "($0)($21)(<$21)","","$0","",    "($0)($21)(>$21)","","$0","",
                     "($0)($21)(<$21)","","$0","",    "($0)($21)(>$21)","","$0","",
@@ -1379,7 +1379,7 @@ namespace AprilExtends
                     );
                     });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "(#0.5#$1)(Pos)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
                     "($1{Hold})($01)","","$1{Hold}","",    "$1{Hold}","","$1{Hold}","",
@@ -1406,7 +1406,7 @@ namespace AprilExtends
             }
             if (InBeat(272 + 1))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "$3","","+1","",    "+1","","+1","",
                     "$31","","-11","",    "-11","","-11","",
@@ -1432,7 +1432,7 @@ namespace AprilExtends
             }
             if (InBeat(272 + 16))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "(^$0'2)(^$21'2)","","","",    "","","","",
                     "$0","","+1","",    "+1","","-1","",
@@ -1457,7 +1457,7 @@ namespace AprilExtends
             }
             if (InBeat(272 + 32))
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 7, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "($0)($2)","","","",    "","","","",
                     "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",

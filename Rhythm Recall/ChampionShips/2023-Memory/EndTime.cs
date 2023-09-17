@@ -1791,7 +1791,7 @@ namespace Rhythm_Recall.Waves
                     Line l = new(CentreEasing.Stable(320, 480 - 84 - 42), ValueEasing.Stable(0), len.GetResult()) { Depth = 0.99f, Alpha = 0 };
                     CreateEntity(l);
                     l.AlphaIncrease(game.BeatTime(8), 1);
-                    game.BarrageCreate(0, game.BeatTime(1), 7.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 7.5f, new string[]
                     {
                         "(Polor)","","","",    "","","","",
                         "","","","",    "","","","",
@@ -1972,7 +1972,7 @@ namespace Rhythm_Recall.Waves
                     Line l2 = new(new Vector2(320 + 3 * 84, 480), new Vector2(320 + 3 * 84, -800)) { DrawingColor = ScreenDrawing.ThemeColor, Alpha = 0 };
                     CreateEntity(l2);
                     l2.AlphaIncrease(game.BeatTime(1), 0.5f);
-                    game.BarrageCreate(0, game.BeatTime(1), 8, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 8, new string[]
                     {
                         "(k3)(k4)","","k2","",   "k1","","k2","",
                         "(k3)(k4)","","k2","",   "k1","","k0","",
@@ -2098,7 +2098,7 @@ namespace Rhythm_Recall.Waves
                     {
                         game.End();
                     });
-                    game.BarrageCreate(0, game.BeatTime(1), 6.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 6.5f, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -2188,7 +2188,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         //
                     });
-                    game.BarrageCreate(0, game.BeatTime(1), 9, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 9, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -3787,7 +3787,7 @@ namespace Rhythm_Recall.Waves
                     Line l = new(CentreEasing.Stable(320, 480 - 84 - 42), ValueEasing.Stable(0), len.GetResult()) { Depth = 0.99f, Alpha = 0 };
                     CreateEntity(l);
                     l.AlphaIncrease(game.BeatTime(8), 1);
-                    game.BarrageCreate(0, game.BeatTime(1), 7.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 7.5f, new string[]
                     {
                         "(Polor)","","","",    "","","","",
                         "","","","",    "","","","",
@@ -4041,7 +4041,7 @@ namespace Rhythm_Recall.Waves
                     Line l2 = new(new Vector2(320 + 3 * 84, 480), new Vector2(320 + 3 * 84, -800)) { DrawingColor = ScreenDrawing.ThemeColor, Alpha = 0 };
                     CreateEntity(l2);
                     l2.AlphaIncrease(game.BeatTime(1), 0.5f);
-                    game.BarrageCreate(0, game.BeatTime(1), 8, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 8, new string[]
                     {
                         "(k0)","","k3","",   "k1","","k4","",
                         "(k2)","","k5","",   "k1","","k4","",
@@ -4167,7 +4167,7 @@ namespace Rhythm_Recall.Waves
                     {
                         game.End();
                     });
-                    game.BarrageCreate(0, game.BeatTime(1), 6.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 6.5f, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -4257,7 +4257,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         //
                     });
-                    game.BarrageCreate(0, game.BeatTime(1), 7.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 7.5f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -5856,7 +5856,7 @@ namespace Rhythm_Recall.Waves
                     Line l = new(CentreEasing.Stable(320, 480 - 84 - 42), ValueEasing.Stable(0), len.GetResult()) { Depth = 0.99f, Alpha = 0 };
                     CreateEntity(l);
                     l.AlphaIncrease(game.BeatTime(8), 1);
-                    game.BarrageCreate(0, game.BeatTime(1), 7.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 7.5f, new string[]
                     {
                         "(Polor)","","","",    "","","","",
                         "","","","",    "","","","",
@@ -6110,7 +6110,7 @@ namespace Rhythm_Recall.Waves
                     Line l2 = new(new Vector2(320 + 3 * 84, 480), new Vector2(320 + 3 * 84, -800)) { DrawingColor = ScreenDrawing.ThemeColor, Alpha = 0 };
                     CreateEntity(l2);
                     l2.AlphaIncrease(game.BeatTime(1), 0.5f);
-                    game.BarrageCreate(0, game.BeatTime(1), 8, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 8, new string[]
                     {
                         "(k0)","","h0","",   "k1","","h1","",
                         "(k2)","","h2","",   "k3","","h3","",
@@ -6236,7 +6236,7 @@ namespace Rhythm_Recall.Waves
                     {
                         game.End();
                     });
-                    game.BarrageCreate(0, game.BeatTime(1), 5.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 5.5f, new string[]
                     {
                         "","","","",   "","","","",
 
@@ -6326,7 +6326,7 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         //
                     });
-                    game.BarrageCreate(0, game.BeatTime(1), 6.5f, new string[]
+                    game.CreateChart(0, game.BeatTime(1), 6.5f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -6580,7 +6580,7 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "", "", "", "", "",
                     "", "", "", "", "Reset", "", "", "",
                 };
-                BarrageCreate(0, BeatTime(1), 0, rhythm);
+                CreateChart(0, BeatTime(1), 0, rhythm);
             }
             #region
 
