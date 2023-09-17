@@ -21,6 +21,19 @@ namespace UndyneFight_Ex.Server
             string arg0 = args[0];
             switch (arg0)
             {
+                case "Score":
+                    //Championship Score Name Div
+                    if(args.Length < 3) goto A;
+                    try {
+                        client.Reply(ChampionshipManager.EnquireScore(client.BindUser, args[1], args[2]));
+                    }
+                    catch (Exception e)
+                    {
+                        client.Reply("E an error occured!");
+                        UFConsole.WriteLine("\0#Red] " + e.ToString());
+                    }
+
+                    return;
                 case "Insert":
                     //Championship Insert {JsonChampionshipInfo}
                     if(args.Length < 2) goto A;

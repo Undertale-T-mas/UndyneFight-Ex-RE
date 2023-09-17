@@ -19,7 +19,7 @@ namespace UFData
                     break;
                 }
             }
-            if (p == null) Members.Add(new(user.UUID, div));
+            if (p == null) Members.Add(p = new(user.UUID, user.Name, div));
             p.Update(div.Info[data.Name].Item1, data.Result.Accuracy);
         }
     }
@@ -46,8 +46,9 @@ namespace UFData
     public record class DivisionInformation(string DivisionName, Dictionary<string, Tuple<int,  Difficulty>> Info, ChampionshipScoreboard Scoreboard);
     public class ChampionshipParticipant : IComparable<ChampionshipParticipant>
     {
-        public ChampionshipParticipant(long UUID, DivisionInformation curDivision){
+        public ChampionshipParticipant(long UUID, string name, DivisionInformation curDivision){
             this.Division = curDivision.DivisionName;
+            this.Name = name;
             this.UUID = UUID;
             this.AccuracyList = new float[curDivision.Info.Count];
         }
@@ -61,6 +62,7 @@ namespace UFData
 
         public string Division { get; set; }
         public long UUID { get; set; }
+        public string Name { get; set; }
         [JsonInclude]
         public float[] AccuracyList { get; set; }
 
@@ -83,7 +85,7 @@ namespace UFData
                 _count = true;
                 float s = 0;
                 for (int i = 0; i < this.AccuracyList.Length; i++) s += ItemTransfer(this.AccuracyList[i]);
-                return s;
+                return _total = s;
             }
         }
 

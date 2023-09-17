@@ -36,6 +36,7 @@ namespace UndyneFight_Ex.Server
         {
             FileStream stream = new("Data/User/" + Name, FileMode.OpenOrCreate, FileAccess.Write);
             byte[] bytes = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(this));
+            stream.SetLength(1);
             stream.Write(bytes, 0, bytes.Length);
             stream.Flush();
             stream.Close();
