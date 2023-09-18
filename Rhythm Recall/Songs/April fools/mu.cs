@@ -10,6 +10,7 @@ using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using System.Net.Mail;
+using UFData;
 
 namespace Rhythm_Recall.Waves
 {
@@ -189,7 +190,7 @@ namespace Rhythm_Recall.Waves
                         a.Dispose();
                     });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5.5f, new string[]
                 {  //load
                     "fake1(line1a)","","","",    "fake2(line1b)","","","",    "($3'0.6{Ro})($31'0.6{Lo})(line1c)(line2a)(line2b)","","~_+01{Lo}","",    "~_+0{Ro}","","~_+01{Lm}","",
                     "~_+0{Rm}","","~_+01{Li}","",    "~_+0{Ri}","","~_+01{Ri}","",    "~_+0{Li}","","~_+01{Rm}","",    "~_+0{Lm}","","~_+01{Ro}","",
@@ -307,7 +308,7 @@ namespace Rhythm_Recall.Waves
                     }
                     DelayBeat(2.4f, () => { a.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
                     //start
                     "(R)(+21)(line1)(convL)","","","",    "+0(line2)(convR)","","","",    "","","","",    "D1","","+11","",
@@ -376,7 +377,7 @@ namespace Rhythm_Recall.Waves
                     }
                     DelayBeat(2.4f, () => { a.Dispose(); b.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
                     "#0.8#R1(lineAr1)","","","",    "","","","",    "R1(lineAr1)","","","",    "R1","","","",
                     "R1(lineAr1)","","","",    "(R)(R1)","","","",    "R(lineAr1)","","","",    "R","","","",
@@ -418,7 +419,7 @@ namespace Rhythm_Recall.Waves
                     }
                     DelayBeat(2.4f, () => { a.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
                     "R1(lineA1)","","+21","",    "+21(lineA1)","","","",    "$201","","","",    "R(lineA2)","","R","",
                     "R(lineA2)","","","",    "$301","","","",    "R(lineA1)(lineA2)","","R","",    "R(lineA1)(lineA2)","","","",
@@ -560,7 +561,7 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
                     "(*R)(#0.7#+2)(ConvL)(Step)(LineL)","","","",    "","","*^+2(LineL)","",    "","","","",    "","","","",
                     "(*R)(#0.7#+2)","","","",    "","","*^+2","",    "","","","",    "","","","",
@@ -673,27 +674,27 @@ namespace Rhythm_Recall.Waves
                 });
                 CreateEntity(new GreenSoulGB(BeatTime(4), 1, 0, BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 1f))));
                 CreateEntity(new GreenSoulGB(BeatTime(4), 3, 1, BeatTime(4f * (190f / 185f + 19f / 18f + 190f / 175f + 1f))));
-                BarrageCreate(BeatTime(4f), BeatTime(1), 6.6f, new string[]
+                CreateChart(BeatTime(4f), BeatTime(1), 6.6f, new string[]
                 {
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                 });
-                BarrageCreate(BeatTime(4f * (2f)), BeatTime(190f / 185f), 6.6f, new string[]
+                CreateChart(BeatTime(4f * (2f)), BeatTime(190f / 185f), 6.6f, new string[]
                 {
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                 });
-                BarrageCreate(BeatTime(4f * (2f + 190f / 185f)), BeatTime(19f / 18f), 6.6f, new string[]
+                CreateChart(BeatTime(4f * (2f + 190f / 185f)), BeatTime(19f / 18f), 6.6f, new string[]
                 {
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                     "LineA","","","",    "LineA","","","",    "LineA","","","",    "LineA","","","",
                 });
-                BarrageCreate(BeatTime(4f * (2f + 190f / 185f + 19f / 18f)), BeatTime(190f / 175f), 6.6f, new string[]
+                CreateChart(BeatTime(4f * (2f + 190f / 185f + 19f / 18f)), BeatTime(190f / 175f), 6.6f, new string[]
                 {
                     "LineA","","","",    "LineA","","","",    "LineA","","","",    "LineA","","","",
                     "LineA","","","",    "LineA","","","",    "LineA","","","",    "LineA","","","",
                 });
-                BarrageCreate(BeatTime(4f * (2f + 190f / 185f + 19f / 18f + 190f / 175f)), BeatTime(19f / 17f), 6.6f, new string[]
+                CreateChart(BeatTime(4f * (2f + 190f / 185f + 19f / 18f + 190f / 175f)), BeatTime(19f / 17f), 6.6f, new string[]
                 {
                     "","","","",    "","","","",    "LineGA","","","",    "","","","",
                     "/","","","",    "","","","",    "/","","","",    "","","","",
@@ -979,7 +980,7 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 });
-                BarrageCreate(BeatTime(4f), BeatTime(19f / 17f), 6.6f, new string[]
+                CreateChart(BeatTime(4f), BeatTime(19f / 17f), 6.6f, new string[]
                 {
                     "($11)(#7.8#$3)(LineAd)(LineB)(LineC1)","","","",    "(LineC1)","","","",    "R1(LineB)(LineC1)","","","",    "D1","","","",
                     "","","","",    "R1(LineB)","","","",    "D1","","","",    "","","D1(LineB)","",
@@ -1412,7 +1413,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(2f * 19f / 17f, () => { a.Dispose(); b.Dispose(); });
                     }
                 });
-                BarrageCreate(BeatTime(4), BeatTime(19f / 17f), 6.6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(19f / 17f), 6.6f, new string[]
                 {
                     "(R1)(+2)(LineG0)(Blur)(lineGA1)","","","",    "D","","","",    "","","","",    "","","","",
                     "R(LineG0t)","","","",    "","","","",    "R","","","",    "(Blur)","","","",
@@ -1499,25 +1500,25 @@ namespace Rhythm_Recall.Waves
                     a.AlphaDecrease(BeatTime(2.4f));
                     DelayBeat(2.4f, () => { a.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(19f / 17f), 6.6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(19f / 17f), 6.6f, new string[]
                 {
                     "","","","",    "TLrd","","","",    "TLrd","","","",    "TLrd","","","",
                     "$2(TLrd)","","","",    "","","TLrd","",    "","","","",    "TLrd","","","",
                     //
                 });
-                BarrageCreate(BeatTime(4f * (1f + 19f / 17f)), BeatTime(19f / 16f), 6.3f, new string[]
+                CreateChart(BeatTime(4f * (1f + 19f / 17f)), BeatTime(19f / 16f), 6.3f, new string[]
                 {
                     "VLrd","","","",    "VLrd","","","",    "VLrd","","","",    "VLrd","","","",
                     "$3(VLrd)","","","",    "","","VLrd","",    "","","","VLrd",    "","","VLrd","",
                     //
                 });
-                BarrageCreate(BeatTime(4f * (1f + 19f / 17f + 19f / 16f)), BeatTime(19f / 15f), 6f, new string[]
+                CreateChart(BeatTime(4f * (1f + 19f / 17f + 19f / 16f)), BeatTime(19f / 15f), 6f, new string[]
                 {
                     "TLrd","","","",    "TLrd","","","",    "TLrd","","","",    "TLrd","","","",
                     "$0(TLrd)","","","",    "","","TLrd","",    "","","","TLrd",    "","","TLrd","TLrd",
                     ////
                 });
-                BarrageCreate(BeatTime(4f * (1f + 19f / 17f + 19f / 16f + 19f / 15f)), BeatTime(19f / 14f), 5.7f, new string[]
+                CreateChart(BeatTime(4f * (1f + 19f / 17f + 19f / 16f + 19f / 15f)), BeatTime(19f / 14f), 5.7f, new string[]
                 {
                     "VLrd","","","",    "VLrd","","","",    "VLrd","","","",    "VLrd","","","",
                     "($1)(fake)(VLrd)","","","",    "","","","",    "","","","",    "","","","",
@@ -1875,16 +1876,16 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("Step", () =>
                 {
-                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(3f * 19f / 14f), 0, 0.8f, EaseState.Quad),
-                        EaseOut(BeatTime(0.5f * 19f / 14f), 0.8f, 0, EaseState.Linear)));
+                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(2.75f * 19f / 14f), 0, 0.8f, EaseState.Quad),
+                        EaseOut(BeatTime(0.75f * 19f / 14f), 0.8f, 0, EaseState.Linear)));
                 });//14*4
                 RegisterFunctionOnce("Blur", () =>
                 {
                     RunEase((s) => { Blur.Sigma = s; splitter.Intensity = s * 6.5f; },
-                        LinkEase(EaseOut(BeatTime(0.5f * 19f / 14f), 0, 0.7f, EaseState.Linear),
-                        Stable(BeatTime((4f * 14f - 0.5f) * 19f / 14f), 0.7f),
-                        EaseOut(BeatTime(2f * 19f / 14f), 0.7f, 1.5f, EaseState.Linear),
-                        Stable(0, 0)));
+                        LinkEase(EaseOut(BeatTime(0.5f * 19f / 14f), 0, 0.4f, EaseState.Linear),
+                        Stable(BeatTime((4f * 14f - 0.5f) * 19f / 14f), 0.4f),
+                        EaseOut(BeatTime(2f * 19f / 14f), 0.4f, 1.5f, EaseState.Linear),
+                        EaseOut(1, 1.5f, 0, EaseState.Linear)));
                 });
                 RegisterFunctionOnce("cl", () =>
                 {
@@ -1918,7 +1919,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(0.7f * 19f / 14f, () => { l.Dispose(); });
                     }
                 });
-                BarrageCreate(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
+                CreateChart(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
                 {
                     "(change)(arrow)(cl)","","","",    "/","","","",    "/","","","",    "SideLG","","","",
                     "SideLG","","","",    "SideLG","","","",    "SideLG","","","",    "SideLG","","","",
@@ -1983,7 +1984,7 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 });
-                BarrageCreate(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
+                CreateChart(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
                 {
                     "(R1)(lineG1)","","","",    "R1","","","",    "#1.5#R","","","",    "R1","","","",
                     "R1","","","",    "","","#2#R","",    "","","","",    "R","","","",
@@ -1998,7 +1999,7 @@ namespace Rhythm_Recall.Waves
             }
             void ExPart9P()
             {
-                BarrageCreate(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
+                CreateChart(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
                 {
                     "R","","","",    "R","","","",    "#1.5#R1","","","",    "R","","","",
                     "R","","","",    "","","#2#R1","",    "","","","",    "","","","",
@@ -2009,13 +2010,9 @@ namespace Rhythm_Recall.Waves
             {
                 RegisterFunctionOnce("StepFlicker", () =>
                 {
-                    ScreenDrawing.MakeFlicker(Color.White * 0.85f);
-                    RunEase(s => StepSample.Intensity = s, EaseOut(BeatTime(0.5f * 19f / 14f), 0.4f, 0, EaseState.Sine));
-                    RunEase(s => splitter.Intensity = s * 6.5f, EaseOut(BeatTime(0.5f * 19f / 14f), 1.3f, 0.7f, EaseState.Sine));
-                });
-                RegisterFunctionOnce("", () =>
-                {
-
+                    ScreenDrawing.MakeFlicker(Color.White * 0.55f);
+                    RunEase(s => StepSample.Intensity = s, EaseOut(BeatTime(0.5f * 19f / 14f), 0.2f, 0, EaseState.Sine));
+                    RunEase(s => splitter.Intensity = s * 6.5f, EaseOut(BeatTime(0.5f * 19f / 14f), 1.5f, 0.4f, EaseState.Sine));
                 });
                 RegisterFunctionOnce("lineG2R", () =>
                 {
@@ -2214,10 +2211,12 @@ namespace Rhythm_Recall.Waves
                     {
                         m.alpha += 1f / (BeatTime(12f * 19f / 14f));
                     });
-                    DelayBeat(17f * 19f / 14f, () => { m.Dispose(); });
-                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(15f * 19f / 14f), 0, 0.8f, EaseState.Linear), Stable(1, 0)));
+                    DelayBeat(16f * 19f / 14f, () => { m.Dispose(); });
+                    RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(12f * 19f / 14f), 0, 0.8f, EaseState.Linear), EaseOut(BeatTime(4f * 19f / 14f), 0.8f, 0, EaseState.Linear)));
+                    RunEase(s => splitter.Intensity = s, LinkEase(Stable(BeatTime(12f * 19f / 14f), splitter.Intensity), EaseOut(BeatTime(4f * 19f / 14f), splitter.Intensity, 0, EaseState.Linear)));
+                    RunEase(s => Blur.Sigma = s, LinkEase(Stable(BeatTime(12f * 19f / 14f), Blur.Sigma), EaseOut(BeatTime(4f * 19f / 14f), Blur.Sigma, 0, EaseState.Linear)));
                 });
-                BarrageCreate(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
+                CreateChart(BeatTime(4), BeatTime(19f / 14f), 5.7f, new string[]
                 {
                     "R","","","",    "R","","","",    "#1.5#R1","","","",    "R","","","",
                     "R","","","",    "","","#1#R1","",    "","","","",    "R1","","","",
@@ -2334,10 +2333,10 @@ namespace Rhythm_Recall.Waves
                 bool jump = false;
                 if (jump)
                 {
-                    float beat = 4f * 40;
+                    //float beat = 4f * 40;
                     //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f);
                     //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 14f * 19f / 17f;
-                    //float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f;
+                    float beat = 4f * (190f / 185f + 19f / 18f + 190f / 175f + 19f / 17f + 41f) + 4f * 28f * 19f / 17f;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;

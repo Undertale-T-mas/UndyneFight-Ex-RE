@@ -545,7 +545,7 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 });
-                BarrageCreate(0, BeatTime(1), 6, new string[]
+                CreateChart(0, BeatTime(1), 6, new string[]
                 {
                 //
                 "star1(fireball1)(line1)","","","",   "","","","",
@@ -805,7 +805,7 @@ namespace Rhythm_Recall.Waves
                     down.Insert(BeatTime(1), ValueEasing.LerpTo(100 + 35, 0, 0.1f));
                     down.Run((m) => { ScreenDrawing.DownBoundDistance = m; });
                 });
-                BarrageCreate(0, BeatTime(1), 6, new string[]
+                CreateChart(0, BeatTime(1), 6, new string[]
                 {
                 "(Light)","","","",  "","","","",
                 "","","","",  "","","","",
@@ -1060,12 +1060,12 @@ namespace Rhythm_Recall.Waves
                     LineShadow(2.3f, 0.75f, 4, l1);
                 });
                 SetPlayerBoxMission(heart1);
-                BarrageCreate(0, BeatTime(1), 5, new string[]
+                CreateChart(0, BeatTime(1), 5, new string[]
                 {
                 "Start(CentreLine)",""
                 });
                 SetPlayerBoxMission(heart2);
-                BarrageCreate(0, BeatTime(1), 4.5f, new string[]
+                CreateChart(0, BeatTime(1), 4.5f, new string[]
                 {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -1150,7 +1150,7 @@ namespace Rhythm_Recall.Waves
                 ""
                 });
                 SetPlayerBoxMission(heart1);
-                BarrageCreate(0, BeatTime(1), 4.5f, new string[]
+                CreateChart(0, BeatTime(1), 4.5f, new string[]
                 {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -1310,7 +1310,7 @@ namespace Rhythm_Recall.Waves
                     //ve.Run((m) => { ScreenDrawing.ScreenScale = m; });
                 });
                 SetPlayerBoxMission(0);
-                BarrageCreate(BeatTime(0), BeatTime(1), 5.4f, new string[]
+                CreateChart(BeatTime(0), BeatTime(1), 5.4f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -1493,7 +1493,7 @@ namespace Rhythm_Recall.Waves
                     builder.Insert(BeatTime(0.5f), ValueEasing.EaseOutCubic(3, 0, BeatTime(0.5f)));
                     builder.Run(s => ScreenDrawing.ScreenAngle = s);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5.8f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5.8f, new string[]
                 {
                 "D(D1)","","","",   "","","","",
                 "D(D1)","","","",   "","","","",
@@ -1754,7 +1754,7 @@ namespace Rhythm_Recall.Waves
                     ve.Run((m) => { ScreenDrawing.ScreenAngle = m; });
                     DelayBeat(32, () => { ScreenDrawing.CameraEffect.RotateTo(0, BeatTime(4)); });
                 });
-                BarrageCreate(0, BeatTime(1), 5.8f, new string[]
+                CreateChart(0, BeatTime(1), 5.8f, new string[]
                 {
                 "Texture1(RGBSplit)(Fade2)","","","",   "","","","",
                 "","","","",   "","","","",
@@ -1840,7 +1840,7 @@ namespace Rhythm_Recall.Waves
             }
             void ex7()
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
 
                 "","","","",   "","","","",
@@ -2295,7 +2295,7 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 });
-                BarrageCreate(0, BeatTime(1), 6, new string[]
+                CreateChart(0, BeatTime(1), 6, new string[]
                 {
                 //
                 "star1(fireball1)(line1)","","","",   "","","","",
@@ -2554,7 +2554,7 @@ namespace Rhythm_Recall.Waves
                     down.Insert(BeatTime(1), ValueEasing.LerpTo(100 + 35, 0, 0.1f));
                     down.Run((m) => { ScreenDrawing.DownBoundDistance = m; });
                 });
-                BarrageCreate(0, BeatTime(1), 6, new string[]
+                CreateChart(0, BeatTime(1), 6, new string[]
                 {
                 "(Light)","","","",  "","","","",
                 "","","","",  "","","","",
@@ -2806,12 +2806,12 @@ namespace Rhythm_Recall.Waves
                     LineShadow(2.3f, 0.75f, 4, l1);
                 });
                 SetPlayerBoxMission(heart1);
-                BarrageCreate(0, BeatTime(1), 5, new string[]
+                CreateChart(0, BeatTime(1), 5, new string[]
                 {
                 "Start(CentreLine)",""
                 });
                 SetPlayerBoxMission(heart2);
-                BarrageCreate(0, BeatTime(1), 4.5f, new string[]
+                CreateChart(0, BeatTime(1), 4.5f, new string[]
                 {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -2896,7 +2896,7 @@ namespace Rhythm_Recall.Waves
                 ""
                 });
                 SetPlayerBoxMission(heart1);
-                BarrageCreate(0, BeatTime(1), 4.5f, new string[]
+                CreateChart(0, BeatTime(1), 4.5f, new string[]
                 {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -3056,7 +3056,7 @@ namespace Rhythm_Recall.Waves
                     //ve.Run((m) => { ScreenDrawing.ScreenScale = m; });
                 });
                 SetPlayerBoxMission(0);
-                BarrageCreate(BeatTime(0), BeatTime(1), 5.4f, new string[]
+                CreateChart(BeatTime(0), BeatTime(1), 5.4f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -3239,7 +3239,7 @@ namespace Rhythm_Recall.Waves
                     builder.Insert(BeatTime(0.5f), ValueEasing.EaseOutCubic(3, 0, BeatTime(0.5f)));
                     builder.Run(s => ScreenDrawing.ScreenAngle = s);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5.8f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5.8f, new string[]
                 {
                 "(D)","","","",   "","","","",
                 "(D)","","","",   "","","","",
@@ -3499,7 +3499,7 @@ namespace Rhythm_Recall.Waves
                     ve.Run((m) => { ScreenDrawing.ScreenAngle = m; });
                     DelayBeat(32, () => { ScreenDrawing.CameraEffect.RotateTo(0, BeatTime(4)); });
                 });
-                BarrageCreate(0, BeatTime(1), 5.8f, new string[]
+                CreateChart(0, BeatTime(1), 5.8f, new string[]
                 {
                 "Texture1(RGBSplit)(Fade2)","","","",   "","","","",
                 "","","","",   "","","","",
@@ -3585,7 +3585,7 @@ namespace Rhythm_Recall.Waves
             }
             void nb7()
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
 
                 "","","","",   "","","","",
@@ -4040,7 +4040,7 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 });
-                BarrageCreate(0, BeatTime(1), 6, new string[]
+                CreateChart(0, BeatTime(1), 6, new string[]
                 {
                 //
                 "star1(fireball1)(line1)","","","",   "","","","",
@@ -4299,7 +4299,7 @@ namespace Rhythm_Recall.Waves
                     down.Insert(BeatTime(1), ValueEasing.LerpTo(100 + 35, 0, 0.1f));
                     down.Run((m) => { ScreenDrawing.DownBoundDistance = m; });
                 });
-                BarrageCreate(0, BeatTime(1), 6, new string[]
+                CreateChart(0, BeatTime(1), 6, new string[]
                 {
                 "(Light)","","","",  "","","","",
                 "","","","",  "","","","",
@@ -4551,12 +4551,12 @@ namespace Rhythm_Recall.Waves
                     LineShadow(2.3f, 0.75f, 4, l1);
                 });
                 SetPlayerBoxMission(heart1);
-                BarrageCreate(0, BeatTime(1), 5, new string[]
+                CreateChart(0, BeatTime(1), 5, new string[]
                 {
                 "Start(CentreLine)",""
                 });
                 SetPlayerBoxMission(heart2);
-                BarrageCreate(0, BeatTime(1), 4.5f, new string[]
+                CreateChart(0, BeatTime(1), 4.5f, new string[]
                 {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -4641,7 +4641,7 @@ namespace Rhythm_Recall.Waves
                 ""
                 });
                 SetPlayerBoxMission(heart1);
-                BarrageCreate(0, BeatTime(1), 4.5f, new string[]
+                CreateChart(0, BeatTime(1), 4.5f, new string[]
                 {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -4801,7 +4801,7 @@ namespace Rhythm_Recall.Waves
                     //ve.Run((m) => { ScreenDrawing.ScreenScale = m; });
                 });
                 SetPlayerBoxMission(0);
-                BarrageCreate(BeatTime(0), BeatTime(1), 5.4f, new string[]
+                CreateChart(BeatTime(0), BeatTime(1), 5.4f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -4984,7 +4984,7 @@ namespace Rhythm_Recall.Waves
                     builder.Insert(BeatTime(0.5f), ValueEasing.EaseOutCubic(3, 0, BeatTime(0.5f)));
                     builder.Run(s => ScreenDrawing.ScreenAngle = s);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5.8f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5.8f, new string[]
                 {
                 "(D)(+01)","","","",   "","","","",
                 "(D)(+01)","","","",   "","","","",
@@ -5244,7 +5244,7 @@ namespace Rhythm_Recall.Waves
                     ve.Run((m) => { ScreenDrawing.ScreenAngle = m; });
                     DelayBeat(32, () => { ScreenDrawing.CameraEffect.RotateTo(0, BeatTime(4)); });
                 });
-                BarrageCreate(0, BeatTime(1), 5.8f, new string[]
+                CreateChart(0, BeatTime(1), 5.8f, new string[]
                 {
                 "Texture1(RGBSplit)(Fade2)","","","",   "","","","",
                 "","","","",   "","","","",
@@ -5330,7 +5330,7 @@ namespace Rhythm_Recall.Waves
             }
             void nr7()
             {
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
 
                 "","","","",   "","","","",
@@ -5516,7 +5516,7 @@ namespace Rhythm_Recall.Waves
                             "Fade", "", "", "", "", "", "", "",
                             "Reset", "", "", "", "", "", "", "",
                         };
-                BarrageCreate(0, BeatTime(1), 0, rhythm);
+                CreateChart(0, BeatTime(1), 0, rhythm);
             }
             void TryGenerateAnomaly()
             {

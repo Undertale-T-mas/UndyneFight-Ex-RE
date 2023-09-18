@@ -624,7 +624,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(232))
                 {
                     SetBox(240, 140, 140);
-                    BarrageCreate(60, BeatTime(1), 7, new string[]
+                    CreateChart(60, BeatTime(1), 7, new string[]
                     {
                         "R", "", "", "",    "", "", "","R",
                         "", "", "", "",     "", "","", "",

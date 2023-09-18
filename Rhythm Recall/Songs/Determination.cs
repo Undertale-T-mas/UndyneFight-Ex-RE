@@ -232,7 +232,7 @@ namespace Rhythm_Recall.Waves
                     //RGB.RadiusOut = 10f;
                 });
                 bool color = true;
-                if (color) BarrageCreate(0, BeatTime(1), 6.2f, new string[]
+                if (color) CreateChart(0, BeatTime(1), 6.2f, new string[]
                   {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -275,7 +275,7 @@ namespace Rhythm_Recall.Waves
                 "","","","",   "R","","R","",
                   });
                 if (!color)
-                    BarrageCreate(BeatTime(2), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(2), BeatTime(1), 6.2f, new string[]
                     {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -305,7 +305,7 @@ namespace Rhythm_Recall.Waves
             {
 
                 bool color = false;
-                if (!color) BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                if (!color) CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                 {
                 "R","","","",   "","","","",
                 "","","","",   "R","","","",
@@ -349,7 +349,7 @@ namespace Rhythm_Recall.Waves
                     //
                 });
                 if (!color)
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                 "$01","","","",   "","","","",
                 "","","","",   "","","","",

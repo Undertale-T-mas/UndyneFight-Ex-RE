@@ -191,7 +191,7 @@ namespace Rhythm_Recall.Waves
                         "SceneOut", "", "", "", "", "", "", "",
                         "", "", "", "", "", "", "", "End",
                     };
-                BarrageCreate(0, BeatTime(8), 0, rhythm);
+                CreateChart(0, BeatTime(8), 0, rhythm);
             }
             private void UpdateEvent()
             {
@@ -415,7 +415,7 @@ namespace Rhythm_Recall.Waves
                         "Out", "", "", "", "", "", "", "",
                     };
 
-                    BarrageCreate(0, BeatTime(8), 0.0f, rhythm);
+                    CreateChart(0, BeatTime(8), 0.0f, rhythm);
                 }
                 if (InBeat(13f + 128))
                 {
@@ -446,7 +446,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "", "", "", "", "",
                     };
 
-                    BarrageCreate(0, BeatTime(8), 0.0f, rhythm);
+                    CreateChart(0, BeatTime(8), 0.0f, rhythm);
                 }
                 if (InBeat(13f + 256))
                 {
@@ -474,7 +474,7 @@ namespace Rhythm_Recall.Waves
                         "End",
                     };
 
-                    BarrageCreate(0, BeatTime(8), 0.0f, rhythm);
+                    CreateChart(0, BeatTime(8), 0.0f, rhythm);
                 }
             }
             /*   public void UpdateEvent()

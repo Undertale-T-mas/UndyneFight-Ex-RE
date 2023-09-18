@@ -257,7 +257,7 @@ namespace Rhythm_Recall.Waves
                         line.Dispose();
                     });
                 });
-                BarrageCreate(0, BeatTime(4), 1, new string[]{
+                CreateChart(0, BeatTime(4), 1, new string[]{
                     "Summon(Line)", "", "Line", "Line",  "", "", "Line", "",
                     "Line", "", "Line", "Line",  "", "", "Line2", "",
                     "Blue(Zoom)", "", "", "",  "", "", "", "",
@@ -281,7 +281,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(320, 140, 140);
                     TP(350, 350);
                 });
-                BarrageCreate(0, BeatTime(2), 6, new string[]{
+                CreateChart(0, BeatTime(2), 6, new string[]{
                     "ToGreen", "", "", "",  "", "", "", "",
 
                     "D(D1)", "", "", "",   "D", "", "D", "",
@@ -436,7 +436,7 @@ namespace Rhythm_Recall.Waves
                     SetSoul(1);
                     TP();
                 });
-                BarrageCreate(0, BeatTime(2), 6, new string[]{
+                CreateChart(0, BeatTime(2), 6, new string[]{
                     "ToGreen", "", "", "",  "", "", "", "",
 
                     "D(D1)", "", "", "",  "", "", "", "",
@@ -467,7 +467,7 @@ namespace Rhythm_Recall.Waves
                     SetSoul(1);
                     TP();
                 });
-                BarrageCreate(0, BeatTime(2), 6, new string[]{
+                CreateChart(0, BeatTime(2), 6, new string[]{
                     "ToGreen", "", "", "",  "", "", "", "",
 
                     "(D)(+01)", "", "+1", "",    "(+1)(+01)", "", "+1", "",
@@ -498,7 +498,7 @@ namespace Rhythm_Recall.Waves
                     SetSoul(1);
                     TP();
                 });
-                BarrageCreate(0, BeatTime(2), 6, new string[]{
+                CreateChart(0, BeatTime(2), 6, new string[]{
                     "ToGreen", "", "", "",  "", "", "", "",
 
                     "(D)(+01)", "", "+1", "",    "(+1)(+01)", "", "+1", "",
@@ -528,7 +528,7 @@ namespace Rhythm_Recall.Waves
                     SetSoul(1);
                     TP();
                 });
-                BarrageCreate(0, BeatTime(2), 6, new string[]{
+                CreateChart(0, BeatTime(2), 6, new string[]{
                     "ToGreen", "", "", "",  "", "", "", "",
 
                     "(D)(+01)", "", "+1", "",    "(+1)(+01)", "", "+1", "",
@@ -558,7 +558,7 @@ namespace Rhythm_Recall.Waves
                     SetSoul(1);
                     TP();
                 });
-                BarrageCreate(0, BeatTime(2), 6, new string[]{
+                CreateChart(0, BeatTime(2), 6, new string[]{
                     "ToGreen", "", "", "",  "", "", "", "",
 
                 });

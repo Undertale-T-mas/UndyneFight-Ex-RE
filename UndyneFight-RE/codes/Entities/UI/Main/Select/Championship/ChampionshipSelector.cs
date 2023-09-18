@@ -148,6 +148,13 @@ namespace UndyneFight_Ex.Remake.UI
             long start = DateTime.UtcNow.Ticks;
             UFSocket<Empty> OnlineCheck = new((t) => {
                 timeChecked = true;
+                if (!t.Success)
+                {
+                    this.Dispose();
+                    GameStates.InstanceCreate(new InfoText("Check the connection!", new(480, 400)) { DrawingColor = col.Red }); ;
+                    GameStates.InstanceCreate(new SelectUI());
+                    return;
+                }
                 long result = Convert.ToInt64(t.Info) - t.DelayTick;
                 long delta = start - result;
                 if (Math.Abs(delta) < 5000000000l)

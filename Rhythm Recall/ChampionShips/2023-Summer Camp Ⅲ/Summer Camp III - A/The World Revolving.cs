@@ -83,7 +83,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(0.06f))
                 {
                     Effect1();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                             //1
                             "($0'0.85)($01'0.85)", "", "$0'0.85", "",     "($0'0.85)($01'0.85)", "", "$0'0.85", "",
@@ -114,7 +114,7 @@ namespace Rhythm_Recall.Waves
                 {
                     ArrowEase.UnitRotation("RL", EaseOut(BeatTime(4), 80, 0, EaseState.Sine));
                     ArrowEase.UnitRotation("RR", EaseOut(BeatTime(4), -80, 0, EaseState.Sine));
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5.2f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5.2f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -152,7 +152,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(64-4))
                 {
                     Effect2();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -206,7 +206,7 @@ namespace Rhythm_Recall.Waves
                     Effect4();
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -238,7 +238,7 @@ namespace Rhythm_Recall.Waves
                     Effect4();
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -268,7 +268,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(192 - 4))
                 {
                     Effect5();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -298,7 +298,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(224 - 4))
                 {
                     
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -339,7 +339,7 @@ namespace Rhythm_Recall.Waves
                     int vala = Rand(0, 3);
                     int valb = Rand(0, 3);
                     int valc = Rand(0, 3);
-                    BarrageCreate(BeatTime(0), BeatTime(2), 6.7f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 6.7f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -392,7 +392,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(0.06f))
                 {
                     Effect1();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                             //1
                             "($0'0.7)", "", "$0'0.7", "",     "($0'0.7)", "", "$0'0.7", "",
@@ -423,7 +423,7 @@ namespace Rhythm_Recall.Waves
                 {
                     ArrowEase.UnitRotation("RL", EaseOut(BeatTime(4), 80, 0, EaseState.Sine));
                     ArrowEase.UnitRotation("RR", EaseOut(BeatTime(4), -80, 0, EaseState.Sine));
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -461,7 +461,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(64 - 4))
                 {
                     Effect2();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -515,7 +515,7 @@ namespace Rhythm_Recall.Waves
                     int val2 = Rand(0, 3);
                     Effect3();
                     Effect4();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -547,7 +547,7 @@ namespace Rhythm_Recall.Waves
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
                     Effect4();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -577,7 +577,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(192 - 4))
                 {
                     Effect5();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -606,7 +606,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(224 - 4))
                 {
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -647,7 +647,7 @@ namespace Rhythm_Recall.Waves
                     int vala = Rand(0, 3);
                     int valb = Rand(0, 3);
                     int valc = Rand(0, 3);
-                    BarrageCreate(BeatTime(0), BeatTime(2), 6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 6f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -700,7 +700,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(0.06f))
                 {
                     Effect1();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                             //1
                             "($0'0.7)", "", "", "",     "($0'0.7)", "", "", "",
@@ -731,7 +731,7 @@ namespace Rhythm_Recall.Waves
                 {
                     //ArrowEase.UnitRotation("RL", EaseOut(BeatTime(4), 80, 0, EaseState.Sine));
                     //ArrowEase.UnitRotation("RR", EaseOut(BeatTime(4), -80, 0, EaseState.Sine));
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -765,7 +765,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(64 - 4))
                 {
                     Effect2();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -819,7 +819,7 @@ namespace Rhythm_Recall.Waves
                     int val2 = Rand(0, 3);
                     Effect3();
                     Effect4();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -851,7 +851,7 @@ namespace Rhythm_Recall.Waves
                     int val1 = Rand(0, 3);
                     int val2 = Rand(0, 3);
                     Effect4();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -881,7 +881,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(192 - 4))
                 {
                     Effect5();
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -910,7 +910,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(224 - 4))
                 {
-                    BarrageCreate(BeatTime(0), BeatTime(2), 5f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 5f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -951,7 +951,7 @@ namespace Rhythm_Recall.Waves
                     int vala = Rand(0, 3);
                     int valb = Rand(0, 3);
                     int valc = Rand(0, 3);
-                    BarrageCreate(BeatTime(0), BeatTime(2), 6f, new string[]
+                    CreateChart(BeatTime(0), BeatTime(2), 6f, new string[]
                     {
                         //pre   
                             "", "", "", "",       "", "", "", "",
@@ -1047,7 +1047,7 @@ namespace Rhythm_Recall.Waves
                     l.AlphaDecrease(BeatTime(1.5f));
                     CreateEntity(l);
                 });
-                BarrageCreate(BeatTime(0), BeatTime(2), 5.6f, new string[]
+                CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {
                         "<24>MoveBox1","","","",   "","","","",
                         "","","","",   "","","","",
@@ -1182,7 +1182,7 @@ namespace Rhythm_Recall.Waves
                     l4.DelayDispose(BeatTime(16f));
                 });
 
-                BarrageCreate(BeatTime(4), BeatTime(2), 5.6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(2), 5.6f, new string[]
                     {
                         "Lines1(<2,-3>Drum)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -1265,7 +1265,7 @@ namespace Rhythm_Recall.Waves
                     EaseOut(T(2), new Vector2(0, -80), EaseState.Quad)
                     );
                 });
-                BarrageCreate(BeatTime(4), BeatTime(2), 5.6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(2), 5.6f, new string[]
                     {
                         "Move1","","","",   "","","","",
                         "","","","",   "","","","",
@@ -1453,7 +1453,7 @@ namespace Rhythm_Recall.Waves
                     l3.AlphaDecrease(T(2));
                     l4.AlphaDecrease(T(2));
                 });
-                BarrageCreate(BeatTime(4), BeatTime(2), 5.6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(2), 5.6f, new string[]
                     {   
                         "Block1","","","",   "","","","",
                         "Block2","","","",   "","","","",
@@ -1514,7 +1514,7 @@ namespace Rhythm_Recall.Waves
                     l.DelayAlphaDecrease(BeatTime(1), BeatTime(0.5f));
                     l.Alpha = 0.7f - Arguments[0] / 10f;
                 });
-                BarrageCreate(BeatTime(4), BeatTime(2), 5.6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(2), 5.6f, new string[]
                     {
                         "<0>PL","<1>PL","<2>PL","<3>PL",   "<4>PL","","","",
                         "<0>PL","<1>PL","<2>PL","<3>PL",   "<4>PL","","","",

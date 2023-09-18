@@ -484,7 +484,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(note);
                     }
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6f, new string[]
                 {
             "(#3.5#$3)(<+0'0.8)(>+0'0.8)","","","",   "+2","","","",
             "+0","","","",   "+0","","","",
@@ -896,7 +896,7 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.MakeFlicker(Color.White * 0.5f);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "Change","","","",   "","","","",
             "","","","",   "","","","",
@@ -1103,7 +1103,7 @@ namespace Rhythm_Recall.Waves
                 });
                 bool another = false;
                 if (another)
-                    BarrageCreate(BeatTime(8), BeatTime(0.5f), 6, new string[]
+                    CreateChart(BeatTime(8), BeatTime(0.5f), 6, new string[]
                     {
 
             "R","","","",   "R1","","","",
@@ -1182,7 +1182,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
                     });
                 if (!another)
-                    BarrageCreate(BeatTime(4), BeatTime(1f), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1f), 6, new string[]
                     {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -1517,7 +1517,7 @@ namespace Rhythm_Recall.Waves
                     }
                     ScreenDrawing.MakeFlicker(Color.Silver);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "(^R'1.4)(^+21'1.4)","","","",   "R02{Tap}(WarnLineBlue)","","+002{Tap}(WarnLineBlue)","",
             "+002{Tap}(WarnLineBlue)","","+002{Tap}(WarnLineBlue)","",   "+002{Tap}(WarnLineBlue)","","+002{Tap}(WarnLineBlue)","",
@@ -1598,7 +1598,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
             "Blur","","","",   "","","","",
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "Scales(Line1)(Flicker)","","","",   "","","Blur2","",
             "Line2(SmallFlicker)","","","",   "","","","",
@@ -1913,7 +1913,7 @@ namespace Rhythm_Recall.Waves
                     v.Run((s) => { m.alpha = s; });
                     DelayBeat(18, () => { m.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                 {
             "","","","",   "Mask","","","",
             //空拍
@@ -2287,7 +2287,7 @@ namespace Rhythm_Recall.Waves
                 {
                     DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 7f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7f, new string[]
                 {
             "!!3","R(90)","+21","+2",   "+21","","","",
             "R1","","","",   "R1","","","",
@@ -2372,7 +2372,7 @@ namespace Rhythm_Recall.Waves
 
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
             "","","","",   "","","","",
             "","","","",   "","","","",
@@ -2716,7 +2716,7 @@ namespace Rhythm_Recall.Waves
                     }
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 7f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 7f, new string[]
                 {
             "R","","","",   "","","","",
             "R","","","",   "R","","","",
@@ -2803,7 +2803,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "Kick1","","","",
             "","","","",   "(Kick2)","","","",
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
             "","","","",   "(R12{Tap})(TapEvent)","","","",
             "","","","",   "(R12{Tap})(TapEvent)","","","",
@@ -3048,7 +3048,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 84, 84);
                     TP();
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "","","","",   "","","","",
             "","","","",   "","","","",
@@ -3525,7 +3525,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(note);
                     }
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6f, new string[]
                 {
             "(#3.5#$3)(<+0'0.8)(>+0'0.8)","","","",   "","","","",
             "","","","",   "","","","",
@@ -3925,7 +3925,7 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.MakeFlicker(Color.White * 0.5f);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "Change","","","",   "","","","",
             "","","","",   "","","","",
@@ -4132,7 +4132,7 @@ namespace Rhythm_Recall.Waves
                 });
                 bool another = false;
                 if (!another)
-                    BarrageCreate(BeatTime(7.5f), BeatTime(0.5f), 6, new string[]
+                    CreateChart(BeatTime(7.5f), BeatTime(0.5f), 6, new string[]
                     {
 
             "R","","","",   "R1","","","",
@@ -4211,7 +4211,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
                     });
                 if (!another)
-                    BarrageCreate(BeatTime(4), BeatTime(1f), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1f), 6, new string[]
                     {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -4546,7 +4546,7 @@ namespace Rhythm_Recall.Waves
                     }
                     ScreenDrawing.MakeFlicker(Color.Silver);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "(^R'1.4)(^+01'1.4)","","","",   "(WarnLineBlue)","","(WarnLineBlue)","",
             "R02{Tap}(WarnLineBlue)","","(WarnLineBlue)","",   "(WarnLineBlue)","","(WarnLineBlue)","",
@@ -4627,7 +4627,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
             "Blur","","","",   "","","","",
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "Scales(Line1)(Flicker)","","","",   "","","Blur2","",
             "Line2(SmallFlicker)","","","",   "","","","",
@@ -4942,7 +4942,7 @@ namespace Rhythm_Recall.Waves
                     v.Run((s) => { m.alpha = s; });
                     DelayBeat(18, () => { m.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                 {
             "","","","",   "Mask","","","",
             //空拍
@@ -5316,7 +5316,7 @@ namespace Rhythm_Recall.Waves
                 {
                     DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6f, new string[]
                 {
             "!!3","R(90)","+0","+0",   "+0","","","",
             "R","","","",   "R","","","",
@@ -5401,7 +5401,7 @@ namespace Rhythm_Recall.Waves
 
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6f, new string[]
                 {
             "","","","",   "","","","",
             "","","","",   "","","","",
@@ -5742,7 +5742,7 @@ namespace Rhythm_Recall.Waves
                     }
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6f, new string[]
                 {
             "R","","","",   "","","","",
             "R","","","",   "R","","","",
@@ -5829,7 +5829,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
             "","","","",   "","","","",
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
             "","","","",   "(TapEvent)","","","",
             "","","","",   "(TapEvent)","","","",
@@ -6062,7 +6062,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 84, 84);
                     TP();
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "","","","",   "","","","",
             "","","","",   "","","","",
@@ -6539,7 +6539,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(note);
                     }
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5f, new string[]
                 {
             "($3)","","","",   "($3)","","","",
             "($3)","","","",   "($3)","","","",
@@ -6907,7 +6907,7 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.MakeFlicker(Color.White * 0.5f);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
             "Change","","","",   "","","","",
             "","","","",   "","","","",
@@ -7114,7 +7114,7 @@ namespace Rhythm_Recall.Waves
                 });
                 bool another = false;
                 if (!another)
-                    BarrageCreate(BeatTime(7.5f), BeatTime(0.5f), 5, new string[]
+                    CreateChart(BeatTime(7.5f), BeatTime(0.5f), 5, new string[]
                     {
 
             "R","","","",   "+0","","","",
@@ -7193,7 +7193,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
                     });
                 if (!another)
-                    BarrageCreate(BeatTime(4), BeatTime(1f), 6, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1f), 6, new string[]
                     {
                 "","","","",   "","","","",
                 "","","","",   "","","","",
@@ -7507,7 +7507,7 @@ namespace Rhythm_Recall.Waves
                     }
                     ScreenDrawing.MakeFlicker(Color.Silver);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
             "(^R'1.4)","","","",   "(WarnLineBlue)","","(WarnLineBlue)","",
             "R(WarnLineBlue)","","(WarnLineBlue)","",   "(WarnLineBlue)","","(WarnLineBlue)","",
@@ -7588,7 +7588,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
             "Blur","","","",   "","","","",
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
             "Scales(Line1)(Flicker)","","","",   "","","Blur2","",
             "Line2(SmallFlicker)","","","",   "","","","",
@@ -7903,7 +7903,7 @@ namespace Rhythm_Recall.Waves
                     v.Run((s) => { m.alpha = s; });
                     DelayBeat(18, () => { m.Dispose(); });
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5f, new string[]
                 {
             "","","","",   "Mask","","","",
             //空拍
@@ -8277,7 +8277,7 @@ namespace Rhythm_Recall.Waves
                 {
                     DrawingUtil.LerpScreenScale(BeatTime(1), 1, 0.09f);
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5f, new string[]
                 {
             "!!3","R(90)","+0","+0",   "+0","","","",
             "R","","","",   "+0","","","",
@@ -8333,7 +8333,7 @@ namespace Rhythm_Recall.Waves
 
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5f, new string[]
                 {
             "","","","",   "","","","",
             "","","","",   "","","","",
@@ -8675,7 +8675,7 @@ namespace Rhythm_Recall.Waves
                     }
 
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5f, new string[]
                 {
             "","","","",   "","","","",
             "","","","",   "","","","",
@@ -8762,7 +8762,7 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
             "","","","",   "","","","",
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 5f, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 5f, new string[]
                 {
             "","","","",   "R(TapEvent)","","","",
             "","","","",   "R(TapEvent)","","","",
@@ -8993,7 +8993,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 84, 84);
                     TP();
                 });
-                BarrageCreate(BeatTime(4), BeatTime(1), 6, new string[]
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
             "","","","",   "","","","",
             "","","","",   "","","","",

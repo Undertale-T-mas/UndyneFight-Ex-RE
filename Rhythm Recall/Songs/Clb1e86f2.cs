@@ -65,7 +65,7 @@ namespace Rhythm_Recall.Waves
             private static class EXBarrage
             {
                 static float BeatTime(float x) => game.BeatTime(x);
-                static void BarrageCreate(float x, float y, float z, string[] w) => game.BarrageCreate(x, y, z, w);
+                static void BarrageCreate(float x, float y, float z, string[] w) => game.CreateChart(x, y, z, w);
                 static void DelayBeat(float x, Action y) => game.DelayBeat(x, y);
                 static void RegFunc1(string n, Action a) => game.RegisterFunctionOnce(n, a);
 

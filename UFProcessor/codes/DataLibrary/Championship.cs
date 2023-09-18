@@ -107,5 +107,15 @@ namespace UndyneFight_Ex.Server
             }
             return false;   
         }
+
+        internal static string EnquireScore(User? user, string championshipName, string divisionName)
+        {
+            TryLoad();
+            if (user == null) return "F please login first";
+            ChampionshipInfo? cinfo = championships.Find(s => s.Name == championshipName);
+            if (cinfo == null) return "F there is no such championship";
+            if (!cinfo.Divisions.ContainsKey(divisionName)) return "F no such division";
+            return "S " + JsonSerializer.Serialize(cinfo.Divisions[divisionName].Scoreboard);
+        }
     }
 }

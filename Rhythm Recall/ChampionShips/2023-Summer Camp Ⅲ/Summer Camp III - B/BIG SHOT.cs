@@ -205,7 +205,7 @@ namespace Rhythm_Recall.Waves
                         l.AddShadow(6, 0.66f);
                         l.AddShadow(12, 0.33f);
                     });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "Stable(Start)(ChordLine1)","","<0>Angle","",   "Mark(Block2)","","","<90>Angle",
                         "","(Mark)","(Block3)","",   "","","<180>Angle","",
@@ -257,7 +257,7 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.CameraEffect.Convulse(4, BeatTime(2), true);
                     });
 
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   "","","","",
                         "","","","",   "","","","",
@@ -545,7 +545,7 @@ namespace Rhythm_Recall.Waves
                     Vector3 rand6 = blockpos();
                     Vector3 rand7 = blockpos();
                     Vector3 rand8 = blockpos();
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   $"(Block{rand1.X})","","","",
                         "","",$"(Block{rand1.X})","",   "","","","",
@@ -614,7 +614,7 @@ namespace Rhythm_Recall.Waves
                     {
                         ScreenDrawing.ScreenAngle = Rand(-4.0f, 4.0f);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -703,7 +703,7 @@ namespace Rhythm_Recall.Waves
                     });
                     int rd1 = Rand(0, 3);
                     int rd2 = Rand(0, 3);
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         $"Mtt(#4#${rd1})","","","",   "","","","",
                         "","","","",   "","","","",
@@ -810,7 +810,7 @@ namespace Rhythm_Recall.Waves
 
                     ease4.RotationEase = LinkEase(Stable(BeatTime(1), -60), EaseOut(BeatTime(1), 60, EaseState.Elastic));
                     ease4.TagApply("ww");
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "*$3@s(Mtt)","","","",   "","","*$3@ss","",
                         "","","","",   "*$3@s","","","",
@@ -925,7 +925,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(0.8f));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul(BaseLine)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -1118,7 +1118,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(l);
                         l.DelayAlphaDecrease(BeatTime(4), BeatTime(0.5f));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                         {
                         "(<1,-5>SCR)(ArrowLine1)","","","",   "","","","",
                         "$0'0.5@X","","","",   "","","","",
@@ -1405,7 +1405,7 @@ namespace Rhythm_Recall.Waves
                     Vector3 rand6 = blockpos();
                     Vector3 rand7 = blockpos();
                     Vector3 rand8 = blockpos();
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   $"(Block{rand1.X})","","","",
                         "","",$"(Block{rand1.X})","",   "","","","",
@@ -1479,7 +1479,7 @@ namespace Rhythm_Recall.Waves
                     {
                         ScreenDrawing.CameraEffect.SizeExpand(5, BeatTime(0.5f));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 7f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 7f, new string[]
                         {
                         "$1","","","",   "(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","","(N11)(+01)","",
                         "","","(<0.5,2>Drum2)(*$0'1.5@L)(*!$1)(*$2'1.5@R)","",   "(N11)(+01)","","","",
@@ -1635,7 +1635,7 @@ namespace Rhythm_Recall.Waves
                         l.AddShadow(6, 0.66f);
                         l.AddShadow(12, 0.33f);
                     });
-                    BarrageCreate(0, BeatTime(1), 6, new string[]
+                    CreateChart(0, BeatTime(1), 6, new string[]
                     {
                         "Stable(ChordLine1)","","<180>Angle","",   "Mark","","","",
                         "","","","",   "","","","",
@@ -1690,7 +1690,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(ease = new Arrow.UnitEasing() { ApplyTime = BeatTime(2f) });
                     ease.RotationEase = LinkEase(Stable(0, 15), EaseOut(BeatTime(2f), -15, EaseState.Sine));
                     ease.TagApply("L");
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   "","","","",
                         "","","","",   "","","","",
@@ -1978,7 +1978,7 @@ namespace Rhythm_Recall.Waves
                     Vector3 rand6 = blockpos();
                     Vector3 rand7 = blockpos();
                     Vector3 rand8 = blockpos();
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   $"(Block{rand1.X})","","","",
                         "","",$"(Block{rand1.X})","",   "","","","",
@@ -2047,7 +2047,7 @@ namespace Rhythm_Recall.Waves
                     {
                         ScreenDrawing.ScreenAngle = Rand(-4.0f, 4.0f);
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "","","","",   "","","","",
                         "","","","",   "","","","",
@@ -2134,7 +2134,7 @@ namespace Rhythm_Recall.Waves
                             );
                         CreateEntity(new Bomb(20, ce2) { Depth = 0.39f });
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "(#4#R)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -2241,7 +2241,7 @@ namespace Rhythm_Recall.Waves
 
                     ease4.RotationEase = LinkEase(Stable(BeatTime(1), -60), EaseOut(BeatTime(1), 60, EaseState.Elastic));
                     //ease4.TagApply("ww");
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "$3@s","","","",   "","","$1@s","",
                         "","","","",   "$3@s","","","",
@@ -2360,7 +2360,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(ease = new Arrow.UnitEasing() { ApplyTime = BeatTime(2f) });
                     ease.RotationEase = LinkEase(Stable(0, 15), EaseOut(BeatTime(2f), -15, EaseState.Sine));
                     ease.TagApply("L"); 
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul(BaseLine)","","","",   "","","","",
                         "","","","",   "","","","",
@@ -2553,7 +2553,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(l);
                         l.DelayAlphaDecrease(BeatTime(4), BeatTime(0.5f));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                         {
                         "(<1,-5>SCR)(ArrowLine1)","","","",   "","","","",
                         "$0@X","","","",   "","","","",
@@ -2840,7 +2840,7 @@ namespace Rhythm_Recall.Waves
                     Vector3 rand6 = blockpos();
                     Vector3 rand7 = blockpos();
                     Vector3 rand8 = blockpos();
-                    BarrageCreate(BeatTime(4), BeatTime(1), 6.2f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul","","","",   $"(Block{rand1.X})","","","",
                         "","",$"(Block{rand1.X})","",   "","","","",
@@ -2914,7 +2914,7 @@ namespace Rhythm_Recall.Waves
                     {
                         ScreenDrawing.CameraEffect.SizeExpand(5, BeatTime(0.5f));
                     });
-                    BarrageCreate(BeatTime(4), BeatTime(1), 7f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 7f, new string[]
                         {
                         "$1","","","",   "(<0.5,2>Drum2)(D)(+01)","","(+0)","",
                         "","","(<0.5,2>Drum2)(D)(+01)","",   "(+0)","","","",

@@ -8374,7 +8374,7 @@ namespace Rhythm_Recall.Waves
                             "Fade", "", "", "", "", "", "", "",
                             "Reset", "", "", "", "", "", "", "",
                         };
-                BarrageCreate(0, BeatTime(8), 0, rhythm);
+                CreateChart(0, BeatTime(8), 0, rhythm);
             }
             void TryGenerateAnomaly()
             {

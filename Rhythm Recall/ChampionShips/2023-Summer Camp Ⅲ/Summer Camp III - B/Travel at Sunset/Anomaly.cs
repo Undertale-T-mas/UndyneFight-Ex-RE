@@ -154,7 +154,7 @@ namespace Rhythm_Recall.Waves
                         Extends.DrawingUtil.LerpScreenScale(BeatTime(128), 2, 0.02f);
                     });
 
-                    BarrageCreate(0, BeatTime(4), 0, new[] { 
+                    CreateChart(0, BeatTime(4), 0, new[] { 
                         //1
                         "Image1", "", "", "",     "", "", "", "",
                         "", "", "", "",     "", "", "", "",

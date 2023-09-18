@@ -110,6 +110,7 @@ namespace Rhythm_Recall
 
 
             SongSet test = new("Test");
+            test.Push(typeof(AFleetingOath));
             test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(Clb1e86f2));
             test.Push(typeof(TheFuneral));
