@@ -151,16 +151,16 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = true;
+                bool jump = false;
                 if (GameStates.difficulty == 0) jump = false;
                 if (jump)
                 {
                     float beat;
                     //beat = 897;
-                    //beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
+                    beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
                     //beat = 328;
                     //beat = 711 + 128;
-                    beat = 198;
+                    //beat = 198;
                     //beat = 711;
                     sans.Alpha = 0.0f;
                     GametimeDelta = -3.5f + BeatTime(beat);

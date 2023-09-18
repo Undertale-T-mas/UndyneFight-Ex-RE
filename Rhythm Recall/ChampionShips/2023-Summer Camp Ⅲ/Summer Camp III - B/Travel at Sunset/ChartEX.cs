@@ -22,20 +22,20 @@ namespace Rhythm_Recall.Waves
             public void ExtremePlus()
             {
                 //Manual end song
-                if (GametimeF == 302 * 60) EndSong();
+                if (GametimeF >= 310 * 60f) EndSong();
                 EXPre();
                 EXBuildup();
                 if(InBeat(206, 232) && At0thBeat(0.3f))
                 {
-                    var dir = Posmod(GametimeF, 90);
+                    var dir = Posmod(GametimeF * 1.25f, 90);
                     for (int i = -1; i < 2; ++i)
                     {
-                        CreateEntity(new NormalSpear(new(0, 0), dir + i * 20, 5)
+                        CreateEntity(new NormalSpear(new(0, 0), dir + i * 20, 6)
                         {
                             DelayTargeting = false,
                             IsMute = true
                         });
-                        CreateEntity(new NormalSpear(new(640, 0), dir + i * 20 + 90, 5)
+                        CreateEntity(new NormalSpear(new(640, 0), dir + i * 20 + 90, 6)
                         {
                             DelayTargeting = false,
                             IsMute = true
@@ -1999,7 +1999,8 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("UaD", () =>
                     {
-                        bool a = true, b = true, c = true;
+                        bool a = true, b = true, c = true, d = false;
+                        //Box
                         RunEase((s) =>
                         {
                             float u = Clamp(0, (240 - s) / 56f, 14);
@@ -2011,6 +2012,15 @@ namespace Rhythm_Recall.Waves
                         }, EaseIn(BeatTime(3), 240, -86, EaseState.Quad),
                         EaseOut(BeatTime(16), -86, 240, EaseState.Elastic),
                         Stable(0, 240));
+                        //Camera
+                        RunEase((k) =>
+                        {
+                            if (k == 3 && !d) { d = true; }
+                            ScreenDrawing.ScreenScale = k;
+                            ScreenDrawing.ScreenAngle = k * 180 * (d ? 1 : -1) + 180;
+                        },
+                        EaseIn(BeatTime(2), 1, 3, EaseState.Quad),
+                        EaseOut(BeatTime(3), 3, 1, EaseState.Sine), Stable(0, 1));
                         DelayBeat(4, () => {
                             sans.Alpha = 0.0f;
                         });
@@ -3818,98 +3828,6 @@ namespace Rhythm_Recall.Waves
                 }
             }
 
-            void To4k()
-            {
-                {
-                    BoxStates.Centre = new(270, 380);
-                    InstantTP(new(173, 380));
-
-                    SetPlayerBoxMission(0);
-                    BoxUtils.Vertexify(Heart);
-                    BoxUtils.VertexBoxInstance.Split(2,
-                        new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
-                        );
-
-                    CollideRect left = new(new Vector2(170 - 42, 380 - 42), new Vector2(84, 84));
-                    Vector2 tl, tr, bl, br;
-                    tl = left.TopLeft; tr = left.TopRight;
-                    bl = left.BottomLeft; br = left.BottomRight;
-
-                    tl += new Vector2(13, 0); bl += new Vector2(13, 0);
-
-                    BoxStates.BoxMovingScale = 0.25f;
-                    BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
-
-                    Vector2 lerp1 = Vector2.Lerp(tr, br, 0.25f);
-                    Vector2 lerp2 = Vector2.Lerp(tr, br, 0.75f);
-
-                    BoxUtils.Move(4, lerp2);
-                    BoxUtils.Move(5, br);
-                    BoxUtils.Move(6, bl);
-                    BoxUtils.Move(7, (tl + bl) / 2 + new Vector2(-20, 0));
-                    BoxUtils.Move(8, tl);
-                    BoxUtils.Move(9, tr);
-                    BoxUtils.Move(10, lerp1);
-
-                    CollideRect rect = new(new Vector2(40, 340), new Vector2(10, 10));
-                    Heart.InstantSplit(rect);
-                    Heart.InstantTP(new(270, 380));
-
-                    rect = new(new Vector2(370 - 42, 380 - 42), new Vector2(84, 84));
-                    Heart.InstantSplit(rect);
-
-                    rect = new(new Vector2(600, 340), new Vector2(10, 10));
-                    Heart.InstantSplit(rect);
-                    Heart.InstantTP(new(467, 380));
-                    CollideRect right = new(new Vector2(470 - 42, 380 - 42), new Vector2(84, 84));
-                    tl = right.TopLeft; tr = right.TopRight;
-                    bl = right.BottomLeft; br = right.BottomRight;
-
-                    tr += new Vector2(-13, 0); br += new Vector2(-13, 0);
-
-                    SetPlayerBoxMission(2);
-                    BoxUtils.Vertexify(Heart);
-                    BoxStates.CurrentBox.GreenSoulAlpha = 0.5f;
-                    BoxUtils.VertexBoxInstance.Split(0,
-                        new float[] { 0.25f, 0.25f, 0.25f, 0.25f, 0.5f, 0.75f, 0.75f, 0.75f, 0.75f }
-                        );
-
-                    lerp1 = Vector2.Lerp(tl, bl, 0.25f);
-                    lerp2 = Vector2.Lerp(tl, bl, 0.75f);
-
-                    BoxUtils.Move(2, lerp1);
-                    BoxUtils.Move(3, tl);
-                    BoxUtils.Move(4, tr);
-                    BoxUtils.Move(5, (tr + br) / 2 + new Vector2(20, 0));
-                    BoxUtils.Move(6, br);
-                    BoxUtils.Move(7, bl);
-                    BoxUtils.Move(8, lerp2);
-
-                    DelayBeat(0, () =>
-                    {
-                        SetPlayerBoxMission(0);
-                        Heart.controlLayer = Surface.Hidden;
-                        Heart.Shields.controlLayer = Surface.Hidden;
-
-                        SetPlayerBoxMission(3);
-                        Heart.controlLayer = Surface.Hidden;
-                        Heart.Shields.controlLayer = Surface.Hidden;
-                    });
-                    DelayBeat(0.125f, () =>
-                    {
-                        PlaySound(Sounds.switchScene);
-                        PlaySound(Sounds.switchScene);
-                    });
-                    SetPlayerMission(0);
-                    Heart.InstantSetRotation(180);
-                    SetPlayerMission(1);
-                    Heart.InstantSetRotation(-90);
-                    SetPlayerMission(2);
-                    Heart.InstantSetRotation(90);
-                    SetPlayerMission(3);
-                    Heart.InstantSetRotation(180);
-                }
-            }
             private void Effect01()
             {
                 Blur p1 = Blur;
@@ -4062,7 +3980,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("shake", () =>
                 {
-                    AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(3, 18, 2f, 0, 180, 0.6f));
+                    AddInstance(new ScreenShaker(3, 18, 2f, 0, 180, 0.6f));
                     RunEase(s => ScreenDrawing.ScreenAngle = s,
                         EaseOut(BeatTime(0.25f), -6.0f, 0.0f, EaseState.Cubic));
                     RunEase(s => Shaders.Seismic.Progress = s,
