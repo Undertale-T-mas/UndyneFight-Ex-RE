@@ -10,7 +10,9 @@ namespace Rhythm_Recall.Waves
     {
         internal partial class GridShader : UndyneFight_Ex.Shader
         {
-            public GridShader() : base(UndyneFight_Ex.Fight.Functions.Loader.Load<Effect>("Musics\\Traveler at Sunset\\Grid"))
+            public GridShader() : base(  
+                UndyneFight_Ex.Fight.Functions.Loader.Load<Effect>("Musics\\Traveler at Sunset\\Grid")
+                )
             {
                 this.StableEvents = (t) => {
                     Time += 0.011f * TimeElapsed;

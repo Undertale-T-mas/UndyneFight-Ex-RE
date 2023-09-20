@@ -51,6 +51,7 @@ namespace UndyneFight_Ex.UserService
             get => null;
         }
 
+        public SongManager SongManager => _songManager;
         private readonly SongManager _songManager = new();
         private bool _isVip;
         private long _password;

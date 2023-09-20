@@ -55,6 +55,7 @@ namespace Rhythm_Recall.Waves
             Sans sans;
             public void Start()
             {
+                Loader.RootDirectory = "Content";
                 shaderGrid = new();
                 if(CurrentDifficulty == Difficulty.Noob)
                 {
