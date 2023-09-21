@@ -2,7 +2,6 @@ Clean codes (i.e. Universal Collapse)
 Optimise Codes
 Finalize TAS Anomaly
 Fix Complex Diff visiblility
-Add warning lines on Underfell Undyne (Done)
 Added motion effects on TAS
 Finish Red Soul on TAS
 Nerf Spider Dance/Convert current into div 0

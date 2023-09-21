@@ -210,7 +210,12 @@ namespace UndyneFight_Ex
             "Indihome Paket Phoenix was in Extreme difficulty before upgraded to Extreme plus",
             "Freedom Dive div 1 final part has twice the blue arrows before the nerf",
             "Undyne Extreme was nerfed several times with difficulty drastically dropped",
-            "Did you notice that arrows have reduced speed between the SOUL and shields?"
+            "Did you notice that arrows have reduced speed between the SOUL and shields?",
+            "Nagareteku toki no naka de demo Kedarusa ga hora guru guru mawatte",
+            "In a desperate conflict   With a ruthless enemy",
+            "We're no strangers to love",
+            "Right after the break",
+            "Creeper...Aww man",
         };
 
         public override void Draw()
