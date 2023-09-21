@@ -40,7 +40,7 @@ namespace Rhythm_Recall.Waves
                 public override string AttributeAuthor => "T-mas ";
                 public override string PaintAuthor => "Unknown";
 
-                public override bool Hidden => Accessibility() == 0;
+          /*      public override bool Hidden => Accessibility() == 0;
                 public override HashSet<Difficulty> UnlockedDifficulties
                 {
                     get
@@ -52,7 +52,7 @@ namespace Rhythm_Recall.Waves
 
                         return result;
                     }
-                }
+                }*/
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
