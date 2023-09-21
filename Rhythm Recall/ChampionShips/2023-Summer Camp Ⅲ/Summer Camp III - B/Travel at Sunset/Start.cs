@@ -48,13 +48,11 @@ namespace Rhythm_Recall.Waves
             static Arrow.ClassicApplier easeK1, easeK2, easeK3;
 
             GridShader shaderGrid;
-
-            public void Normal()
-            {
-            }
+             
             Sans sans;
             public void Start()
             {
+                Loader.RootDirectory = "Content";
                 shaderGrid = new();
                 if(CurrentDifficulty == Difficulty.Noob)
                 {
@@ -151,7 +149,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = true;
+                bool jump = false;
                 if (GameStates.difficulty == 0) jump = false;
                 if (jump)
                 {

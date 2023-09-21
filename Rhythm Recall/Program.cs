@@ -95,7 +95,7 @@ namespace Rhythm_Recall
             GameStartUp.PushChampionShip(SpringCelebration2022.GetChampionShip);
             GameStartUp.PushChampionShip(Memory2023.GetChampionShip);
 #if DEBUG || RELEASE
-            GameStartUp.PushChampionShip(Summer_Camp_Ⅲ_A.GetChampionShip);
+          //  GameStartUp.PushChampionShip(Summer_Camp_Ⅲ_A.GetChampionShip);
             GameStartUp.PushChampionShip(Summer_Camp_Ⅲ_B.GetChampionShip);
 #endif
             SetAchievement();

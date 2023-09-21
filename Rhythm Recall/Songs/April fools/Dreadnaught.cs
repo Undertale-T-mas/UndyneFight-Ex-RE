@@ -9,6 +9,9 @@ using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static Extends.ShadowLibrary;
+using System;
+using UndyneFight_Ex.UserService;
+using System.Linq;
 
 namespace Rhythm_Recall.Waves
 {
@@ -33,9 +36,73 @@ namespace Rhythm_Recall.Waves
             {
 
             }
+            private static int AnomalyExist() {
+                if (PlayerManager.CurrentUser == null) return 0;
+                var customData = PlayerManager.CurrentUser.Custom;
+                if (!customData.Nexts.ContainsKey("TaSAnomaly"))
+                    customData.PushNext(new("TaSAnomaly:value=0"));
+                int t = customData.Nexts["TaSAnomaly"].IntValue;
+                if (t == 2) return 0; 
+                DateTime time = DateTime.UtcNow;
+                bool test = false;
+#if DEBUG
+                test = true;
+#endif
+                if (
+                    (time.Month == 10 && time.Year == 2023 && time.Day == 1) ||
+                    (time.Day == 3)
+                    || test)
+                {
+                    var songs = PlayerManager.CurrentUser.SongManager;
+                    Dictionary<string, SongData> dic = new();
+                    foreach(var v in songs.AllDatas)
+                    {
+                        dic.Add(v.SongName, v);
+                    }
+                    int res = 0;
+                    if (dic.ContainsKey("BIG SHOT") && dic.ContainsKey("Spider Dance"))
+                    {
+                        SongData bs = dic["BIG SHOT"], sd = dic["Spider Dance"];
+
+                        if (t >= 1) // div.2 finished, check div.1, not check div.2
+                        {
+                            if (
+                            bs.CurrentSongStates.ContainsKey(Difficulty.Easy) &&
+                            sd.CurrentSongStates.ContainsKey(Difficulty.Easy)
+                            )
+                            {
+                                // div.2 accessibility test
+                                if (bs.CurrentSongStates[Difficulty.Easy].Accuracy > 0.9f &&
+                                    sd.CurrentSongStates[Difficulty.Easy].Accuracy > 0.9f
+                                    )
+                                    res = 1;
+                            }
+                        }
+                        if (
+                                bs.CurrentSongStates.ContainsKey(Difficulty.Extreme) &&
+                                sd.CurrentSongStates.ContainsKey(Difficulty.Extreme)
+                                )
+                        {
+                            // div.1 accessibility test
+                            if (bs.CurrentSongStates[Difficulty.Extreme].Accuracy > 0.9f &&
+                                sd.CurrentSongStates[Difficulty.Extreme].Accuracy > 0.9f
+                                )
+                                res = 2;
+                        }
+                    }
+                    return res;
+                }
+                return 0;
+            }
             public string Music => "Dreadnaught";
 
-            public string FightName => "Dreadnaught";
+            public string FightName { get {
+                    if (PlayerManager.CurrentUser == null) return "Dreadnaught";
+                    int p = AnomalyExist();
+                    if (p >= 1) return "RHJlYWRuYXVnaHQ=";
+                    return "Dreadnaught";
+                } 
+            }
             private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
@@ -9294,6 +9361,26 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1f), b);
                     MakeLine(b);
 
+                });
+                int p = AnomalyExist();
+                var scene = CurrentScene as SongFightingScene;
+                if (scene.Mode != GameMode.None) return;
+
+                if (p == 0) return;
+                if (p == 2 && (int)CurrentDifficulty >= 4) {
+                    HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
+                    AutoEnd = false;
+                }
+                else if (p >= 1 && (int)CurrentDifficulty >= 2)
+                {
+                    HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
+                    AutoEnd = false;
+                }
+                AdvanceFunctions.Interactive.AddEndEvent(() => {
+                    SimplifiedEasing.RunEase(s => ScreenDrawing.MasterAlpha = s, SimplifiedEasing.Linear(BeatTime(4), 1, 0));
+                    DelayBeat(4, () => {
+                        GameStates.ResetScene(new Traveler_at_Sunset.Anomaly(p));
+                    });
                 });
             }
         }

@@ -192,7 +192,9 @@ namespace Rhythm_Recall.Waves
 
             bool isStarted = false;
             bool isPrepared = false;
-            public Anomaly() {
+            int dif;
+            public Anomaly(int dif = 0) {
+                this.dif = dif;
                 GameStates.ResetTime();
                 this.AddChild(project = new Project());
                 UpdateIn120 = true;

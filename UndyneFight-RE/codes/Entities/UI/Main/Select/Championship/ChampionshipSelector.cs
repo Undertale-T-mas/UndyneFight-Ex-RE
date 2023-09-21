@@ -238,9 +238,30 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     if (PlayerManager.CurrentUser == null) return;
 
-                    UFSocket<Empty> socket = new(t => {
+                    UFSocket<Empty> socket = null;
+                    socket = new(t => {
                         if (!t.Success) {
-                            PlaySound(FightResources.Sounds.die1);
+
+                            if (t.Info == "please login first")
+                            {
+                                KeepAliver.CheckAlive(afterCheck: (t) =>
+                                {
+                                    if (!t)
+                                    {
+                                        PlaySound(FightResources.Sounds.die1);
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        socket.SendRequest($"Championship\\SignUp\\{c.Title}\\{text}");
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                PlaySound(FightResources.Sounds.die1);
+                            }
+
                             return;
                         }
 
