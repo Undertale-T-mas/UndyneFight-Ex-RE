@@ -20,10 +20,12 @@ namespace Rhythm_Recall.Waves
             divisionInformation = new SaveInfo("imf{");
             divisionInformation.PushNext(new SaveInfo("dif:4"));
 
-            difficulties = new();
-            difficulties.Add("div.3", Difficulty.Noob);
-            difficulties.Add("div.2", Difficulty.Hard);
-            difficulties.Add("div.1", Difficulty.ExtremePlus);
+            difficulties = new()
+            {
+                { "div.3", Difficulty.Noob },
+                { "div.2", Difficulty.Hard },
+                { "div.1", Difficulty.ExtremePlus }
+            };
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
@@ -36,38 +38,6 @@ namespace Rhythm_Recall.Waves
 
         public class Game : WaveConstructor, IWaveSet
         {
-            private class KickCounter : Entity
-            {
-                public override void Draw()
-                {
-                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
-                    if (time > 0)
-                    {
-                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
-                    }
-                }
-
-                private int count = -1;
-                private float time = 0;
-
-                public override void Update()
-                {
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate) && time == 0)
-                    {
-                        count = 0;
-                        time += 0.001f;
-                        return;
-                    }
-                    if (time == 0) return;
-                    time++;
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate))
-                    {
-                        count++;
-                        PlaySound(Sounds.pierce);
-                    }
-                }
-            }
 
             public Game() : base(16.8725f / 4f) { }
 
@@ -1686,13 +1656,10 @@ namespace Rhythm_Recall.Waves
             }
             public void Noob()
             {
-                if (InBeat(0 - 8)) NoobBarrage.Intro0();
-                if (InBeat(32 - 8)) NoobBarrage.Intro0();
-                if (InBeat(64 - 8)) NoobBarrage.Intro0();
+                if (InBeat(2252)) EndSong();
+                for (int i = 0; i < 3; i++) if (InBeat(i * 32 - 8)) NoobBarrage.Intro0();
+                for (int i = 0; i < 3; i++) if (InBeat(128 + i * 32 - 8)) NoobBarrage.Intro0();
                 if (InBeat(96 - 8)) NoobBarrage.Intro1();
-                if (InBeat(128 - 8)) NoobBarrage.Intro0();
-                if (InBeat(160 - 8)) NoobBarrage.Intro0();
-                if (InBeat(192 - 8)) NoobBarrage.Intro0();
                 if (InBeat(224 - 8)) NoobBarrage.Intro2();
                 for (int i = 0; i < 3; i++) if (InBeat(i * 32 + 256 - 8)) NoobBarrage.IntroRotate0();
                 if (InBeat(256 + 32 - 8)) NoobBarrage.Intro3();
@@ -1732,13 +1699,10 @@ namespace Rhythm_Recall.Waves
             }
             public void Hard()
             {
-                if (InBeat(0 - 8)) HardBarrage.Intro0();
-                if (InBeat(32 - 8)) HardBarrage.Intro0();
-                if (InBeat(64 - 8)) HardBarrage.Intro0();
+                if (InBeat(2252)) EndSong();
+                for (int i = 0; i < 3; i++) if (InBeat(i * 32 - 8)) HardBarrage.Intro0();
+                for (int i = 0; i < 3; i++) if (InBeat(128 + i * 32 - 8)) HardBarrage.Intro0();
                 if (InBeat(96 - 8)) HardBarrage.Intro1();
-                if (InBeat(128 - 8)) HardBarrage.Intro0();
-                if (InBeat(160 - 8)) HardBarrage.Intro0();
-                if (InBeat(192 - 8)) HardBarrage.Intro0();
                 if (InBeat(224 - 8)) HardBarrage.Intro2();
                 for (int i = 0; i < 3; i++) if (InBeat(i * 32 + 256 - 8)) HardBarrage.IntroRotate0();
                 if (InBeat(256 + 32 - 8)) HardBarrage.Intro3();
@@ -2651,21 +2615,21 @@ namespace Rhythm_Recall.Waves
 
             public void ExtremePlus()
             {
+                for (int i = 0; i < 3; i++) if (InBeat(i * 32 - 8)) ExBarrage.Intro0();
+                for (int i = 0; i < 3; i++) if (InBeat(128 + i * 32 - 8)) ExBarrage.Intro0();
                 if (InBeat(0 - 8))
                 {
                     for (int i = 0; i < 8; i++) AddInstance(new InstantEvent(BeatTime(8 + i * 8), () =>
                     {
                         ScreenDrawing.CameraEffect.SizeExpand(3, BeatTime(1));
                     }));
-                    ExBarrage.Intro0();
                 }
-                if (InBeat(32 - 8)) ExBarrage.Intro0();
                 if (InBeat(64 - 8))
                 {
                     for (int i = 0; i < 8; i++) AddInstance(new InstantEvent(BeatTime(8 + i * 8), () =>
                     {
                         ScreenDrawing.CameraEffect.SizeShrink(3, BeatTime(1));
-                    })); ExBarrage.Intro0();
+                    }));
                 }
                 if (InBeat(96 - 8)) ExBarrage.Intro1();
                 if (InBeat(128 - 8))
@@ -2674,15 +2638,13 @@ namespace Rhythm_Recall.Waves
                     {
                         ScreenDrawing.CameraEffect.SizeExpand(3, BeatTime(1));
                     }));
-                    ExBarrage.Intro0();
                 }
-                if (InBeat(160 - 8)) ExBarrage.Intro0();
                 if (InBeat(192 - 8))
                 {
                     for (int i = 0; i < 8; i++) AddInstance(new InstantEvent(BeatTime(8 + i * 8), () =>
                     {
                         ScreenDrawing.CameraEffect.SizeShrink(3, BeatTime(1));
-                    })); ExBarrage.Intro0();
+                    }));
                 }
                 if (InBeat(224 - 8)) ExBarrage.Intro2();
                 for (int i = 0; i < 3; i++) if (InBeat(i * 32 + 256 - 8)) ExBarrage.IntroRotate0();
@@ -2931,14 +2893,6 @@ namespace Rhythm_Recall.Waves
                     ExBarrage.Area1C();
                 }
                 if (InBeat(2112)) ExBarrage.Final3A();
-                /* if (this.At0thBeat(4))
-                 {
-                     PlaySound(Sounds.arrowStuck);
-                 }
-                 if (this.At0thBeat(8))
-                 {
-                     PlaySound(Sounds.pierce);
-                 }*/
             }
 
             public void Start()
@@ -2953,10 +2907,6 @@ namespace Rhythm_Recall.Waves
                 TP();
                 SetSoul(1);
                 GametimeDelta = -16.806f / 4f * 30.7f - 0.5f;
-                // GametimeDelta = this.BeatTime(2110);
-
-                //  GametimeDetla = this.BeatTime(1532);
-                // SetSoul(0); 
             }
         }
     }

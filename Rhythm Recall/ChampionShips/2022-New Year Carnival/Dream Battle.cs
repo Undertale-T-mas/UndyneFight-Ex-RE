@@ -101,38 +101,6 @@ namespace Rhythm_Recall.Waves
                     }
                 }
             }
-            private class KickCounter : Entity
-            {
-                public override void Draw()
-                {
-                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
-                    if (time > 0)
-                    {
-                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
-                    }
-                }
-
-                private int count = -1;
-                private float time = 0;
-
-                public override void Update()
-                {
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate) && time == 0)
-                    {
-                        count = 0;
-                        time += 0.001f;
-                        return;
-                    }
-                    if (time == 0) return;
-                    time++;
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate))
-                    {
-                        count++;
-                        PlaySound(pierce);
-                    }
-                }
-            }
 
             public Game() : base(5.8623f) { }
 
@@ -178,7 +146,6 @@ namespace Rhythm_Recall.Waves
             public static Game instance;
 
             public string Music => "Dream Battle";
-            //  public string Music => "Brain Power";
 
             public string FightName => "Dream Battle";
 
@@ -1938,6 +1905,7 @@ namespace Rhythm_Recall.Waves
                     if (game.InBeat(648))
                     {
                         SetSoul(2);
+                        Heart.Speed = 3;
                         SetBox(290, 320, 175);
                         for (int i = -1; i <= 1; i += 2)
                         {

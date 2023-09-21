@@ -25,7 +25,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 310 * 60f) EndSong();
                 EXPre();
                 EXBuildup();
-                if(InBeat(206, 232) && At0thBeat(0.3f))
+                if(InBeat(206, 232) && At0thBeat(0.5f))
                 {
                     var dir = Posmod(GametimeF * 1.25f, 90);
                     for (int i = -1; i < 2; ++i)
@@ -54,15 +54,9 @@ namespace Rhythm_Recall.Waves
                             box.SetPosition((i < 3) ? i : box.Split(i, 0.5f), GetVector2(100, i) + new Vector2(320, 240));
                         }
                         box.SetPosition(3, GetVector2(100, 3) + new Vector2(320, 240));
-
-                        //BoxUtils.Move(new(0, -40));
                         ScreenDrawing.BoxBackColor = Color.Transparent;
 
                         SetSoul(Souls.RedSoul);
-                        ForBeat(28, () =>
-                        {
-
-                        });
 
                     });
                     RegisterFunctionOnce("Green", () =>
@@ -78,13 +72,6 @@ namespace Rhythm_Recall.Waves
                         {
                             ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
                         });
-                        /* Unused v2
-                        var spears = GetAll<NormalSpear>();
-                        foreach (NormalSpear sprs in spears)
-                        {
-                            sprs.Acceleration = 0.7f;
-                            sprs.Rebound = false;
-                        }*/
 
                     });
                     RegisterFunctionOnce("Box", () =>
@@ -151,7 +138,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("RainSpear", () =>
                     {
-                        for (int i = -10; i < 20; ++i)
+                        for (int i = -10; i < 30; i += 2)
                         {
                             CreateEntity(new NormalSpear(new(i * 32, 0), 65, 4)
                             {

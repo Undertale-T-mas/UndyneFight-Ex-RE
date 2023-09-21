@@ -77,6 +77,7 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.ScreenAngle = Arguments[0];                   
                 });
+                #region Easing
                 AddInstance(easeA = new Arrow.UnitEasing()
                 {
                     ApplyTime = BeatTime(2.75f),
@@ -127,7 +128,7 @@ namespace Rhythm_Recall.Waves
                 AddInstance(easeS2);
                 easeT2 = new();
                 AddInstance(easeT2);
-
+                #endregion
                 production = Blur = new Blur(0.505f);
                 production1 = new Filter(Shaders.StepSample, 0.51f);
                 splitter = new RGBSplitting(0.9f) { Disturbance = false };
@@ -168,7 +169,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ScreenScale = 1f;
                 }
                 else sans.Alpha = 1.0f;
-                sans.Visible = false;
+                //sans.Visible = false;
             }
         }
     }

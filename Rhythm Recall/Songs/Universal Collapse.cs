@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
@@ -11,7 +12,8 @@ namespace Rhythm_Recall.Waves
     internal class UniversalCollapse : WaveConstructor, IWaveSet
     {
 
-        public UniversalCollapse() : base(62.5f / (560/*bpm*/ / 60f)) { }
+        //public UniversalCollapse() : base(62.5f / (560/*bpm*/ / 60f)) { }
+        public UniversalCollapse() : base(9.375f) { }
         private class ThisInformation : SongInformation
         {
             public override string BarrageAuthor => "Tlottgodinf";
@@ -125,8 +127,20 @@ namespace Rhythm_Recall.Waves
 
             }
         }
-        public static void Effects()
+        public void Effects()
         {
+            //屏幕变灰变黑变灰变黑
+            if (GametimeF >= 0 && GametimeF <= BeatTime(43))
+            {
+                var colrgb = MathF.Abs(MathF.Sin(Gametime / BeatTime(4))) / 2;
+                ScreenDrawing.BackGroundColor = new(colrgb, colrgb, colrgb);
+            }
+
+            //扣字
+            if (InBeat(43))
+            {
+                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(160, "$It's not over yet kid!", new Vector2(150, 280), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan)));
+            }
 
             Line line1 = new(0, 0, 0, 480, 500, 0.9f),
             line2 = new(640, 0, 640, 480, 500, 0.9f),
@@ -377,51 +391,6 @@ namespace Rhythm_Recall.Waves
         public void Easy()
         {
             Effects();
-            if (GametimeF >= 0 && GametimeF <= (int)(bpm * 4))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 + 0, Gametime * 1 + 0, Gametime * 1 + 0);
-            }
-            if (GametimeF >= (int)(bpm * 4) && GametimeF <= (int)(bpm * 8))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 8) && GametimeF <= (int)(bpm * 12))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 12) && GametimeF <= (int)(bpm * 16))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 16) && GametimeF <= (int)(bpm * 20))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 20) && GametimeF <= (int)(bpm * 24))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 24) && GametimeF <= (int)(bpm * 28))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 28) && GametimeF <= (int)(bpm * 32))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 32) && GametimeF <= (int)(bpm * 36))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 36) && GametimeF <= (int)(bpm * 40))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40));
-            }
-            if (GametimeF >= (int)(bpm * 40) && GametimeF <= (int)(bpm * 48 - 5))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40));
-            }
-            //屏幕变灰变黑变灰变黑
 
             if (GametimeF == (int)(bpm * 16 * 3 - 5))
             {
@@ -958,51 +927,6 @@ namespace Rhythm_Recall.Waves
         public void Hard()
         {
             Effects();
-            if (GametimeF >= 0 && GametimeF <= (int)(bpm * 4))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 + 0, Gametime * 1 + 0, Gametime * 1 + 0);
-            }
-            if (GametimeF >= (int)(bpm * 4) && GametimeF <= (int)(bpm * 8))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 8) && GametimeF <= (int)(bpm * 12))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 12) && GametimeF <= (int)(bpm * 16))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 16) && GametimeF <= (int)(bpm * 20))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 20) && GametimeF <= (int)(bpm * 24))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 24) && GametimeF <= (int)(bpm * 28))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 28) && GametimeF <= (int)(bpm * 32))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 32) && GametimeF <= (int)(bpm * 36))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 36) && GametimeF <= (int)(bpm * 40))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40));
-            }
-            if (GametimeF >= (int)(bpm * 40) && GametimeF <= (int)(bpm * 48 - 5))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40));
-            }
-            //屏幕变灰变黑变灰变黑
 
             if (GametimeF == (int)(bpm * 16 * 3 - 5))
             {
@@ -1637,51 +1561,6 @@ namespace Rhythm_Recall.Waves
         public void Noob()
         {
             Effects();
-            if (GametimeF >= 0 && GametimeF <= (int)(bpm * 4))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 + 0, Gametime * 1 + 0, Gametime * 1 + 0);
-            }
-            if (GametimeF >= (int)(bpm * 4) && GametimeF <= (int)(bpm * 8))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 8) && GametimeF <= (int)(bpm * 12))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 12) && GametimeF <= (int)(bpm * 16))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 16) && GametimeF <= (int)(bpm * 20))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 20) && GametimeF <= (int)(bpm * 24))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 24) && GametimeF <= (int)(bpm * 28))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 28) && GametimeF <= (int)(bpm * 32))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 32) && GametimeF <= (int)(bpm * 36))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 36) && GametimeF <= (int)(bpm * 40))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40));
-            }
-            if (GametimeF >= (int)(bpm * 40) && GametimeF <= (int)(bpm * 48 - 5))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40));
-            }
-            //屏幕变灰变黑变灰变黑
 
             if (GametimeF == (int)(bpm * 16 * 3 - 5))
             {
@@ -2168,51 +2047,6 @@ namespace Rhythm_Recall.Waves
         public void Normal()
         {
             Effects();
-            if (GametimeF >= 0 && GametimeF <= (int)(bpm * 4))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 + 0, Gametime * 1 + 0, Gametime * 1 + 0);
-            }
-            if (GametimeF >= (int)(bpm * 4) && GametimeF <= (int)(bpm * 8))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 8) && GametimeF <= (int)(bpm * 12))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 12) && GametimeF <= (int)(bpm * 16))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 16) && GametimeF <= (int)(bpm * 20))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 20) && GametimeF <= (int)(bpm * 24))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 24) && GametimeF <= (int)(bpm * 28))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 28) && GametimeF <= (int)(bpm * 32))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 32) && GametimeF <= (int)(bpm * 36))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 36) && GametimeF <= (int)(bpm * 40))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40));
-            }
-            if (GametimeF >= (int)(bpm * 40) && GametimeF <= (int)(bpm * 48 - 5))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40));
-            }
-            //屏幕变灰变黑变灰变黑
 
             if (GametimeF == (int)(bpm * 16 * 3 - 5))
             {
@@ -2687,59 +2521,7 @@ namespace Rhythm_Recall.Waves
         public void Extreme()
         {
             Effects();
-            if (GametimeF >= 0 && GametimeF <= (int)(bpm * 4))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 + 0, Gametime * 1 + 0, Gametime * 1 + 0);
-            }
-            if (GametimeF >= (int)(bpm * 4) && GametimeF <= (int)(bpm * 8))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8), Gametime * -1 + (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 8) && GametimeF <= (int)(bpm * 12))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8), Gametime * 1 - (int)(bpm * 8));
-            }
-            if (GametimeF >= (int)(bpm * 12) && GametimeF <= (int)(bpm * 16))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16), Gametime * -1 + (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 16) && GametimeF <= (int)(bpm * 20))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16), Gametime * 1 - (int)(bpm * 16));
-            }
-            if (GametimeF >= (int)(bpm * 20) && GametimeF <= (int)(bpm * 24))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24), Gametime * -1 + (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 24) && GametimeF <= (int)(bpm * 28))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24), Gametime * 1 - (int)(bpm * 24));
-            }
-            if (GametimeF >= (int)(bpm * 28) && GametimeF <= (int)(bpm * 32))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32), Gametime * -1 + (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 32) && GametimeF <= (int)(bpm * 36))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32), Gametime * 1 - (int)(bpm * 32));
-            }
-            if (GametimeF >= (int)(bpm * 36) && GametimeF <= (int)(bpm * 40))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40), Gametime * -1 + (int)(bpm * 40));
-            }
-            if (GametimeF >= (int)(bpm * 40) && GametimeF <= (int)(bpm * 48 - 5))
-            {
-                ScreenDrawing.BackGroundColor = new(Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40), Gametime * 1 - (int)(bpm * 40));
-            }
-            //屏幕变灰变黑变灰变黑
 
-            if (GametimeF == (int)(bpm * 16 * 3 - 5))
-            {
-
-                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(160, "$It's not over yet kid!", new Vector2(150, 280), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan)));
-
-                //扣字
-            }
             if (GametimeF == (int)(bpm * 16 * 3))
             {
                 ScreenDrawing.BackGroundColor = new(0, 0, 0);

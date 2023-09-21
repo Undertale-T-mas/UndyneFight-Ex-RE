@@ -4,6 +4,7 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
@@ -20,9 +21,11 @@ namespace Rhythm_Recall.Waves
             divisionInformation.PushNext(new SaveInfo("date:5,2"));
             divisionInformation.PushNext(new SaveInfo("dif:2,5"));
 
-            difficulties = new();
-            difficulties.Add("div.2", Difficulty.Normal);
-            difficulties.Add("div.1", Difficulty.ExtremePlus);
+            difficulties = new()
+            {
+                { "div.2", Difficulty.Normal },
+                { "div.1", Difficulty.ExtremePlus }
+            };
         }
 
         private Dictionary<string, Difficulty> difficulties = new();
@@ -35,38 +38,6 @@ namespace Rhythm_Recall.Waves
 
         public class Game : WaveConstructor, IWaveSet
         {
-            private class KickCounter : Entity
-            {
-                public override void Draw()
-                {
-                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
-                    if (time > 0)
-                    {
-                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
-                    }
-                }
-
-                private int count = -1;
-                private float time = 0;
-
-                public override void Update()
-                {
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate) && time == 0)
-                    {
-                        count = 0;
-                        time += 0.001f;
-                        return;
-                    }
-                    if (time == 0) return;
-                    time++;
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate))
-                    {
-                        count++;
-                        PlaySound(Sounds.pierce);
-                    }
-                }
-            }
 
             public Game() : base(6.245f)
             { }
@@ -85,13 +56,13 @@ namespace Rhythm_Recall.Waves
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 12.5f),
-                            new(Difficulty.ExtremePlus, 19.6f),
+                            new(Difficulty.ExtremePlus, 19.4f),
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Normal, 12.6f),
-                            new(Difficulty.ExtremePlus, 19.0f),
+                            new(Difficulty.ExtremePlus, 19.5f),
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
@@ -908,16 +879,35 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1569 + 48 - 4, 1569 + 96 - 12) && At0thBeat(8))
                 {
+                    ScreenDrawing.BoxBackColor = Color.Transparent;
                     float time = Gametime * 3f;
                     for (int i = 0; i < 6; i++)
+                    {
                         CreateSpear(new Pike(new Vector2(210, 227 + i * 28), 0, BeatTime(4)) { IsHidden = true, IsSpawnMute = true });
+                        Line line = new(new Vector2(250, 227 + i * 28), new Vector2(390, 227 + i * 28)) { DrawingColor = Color.Red};
+                        ValueEasing.EaseBuilder builder = new();
+                        builder.Insert(BeatTime(4), ValueEasing.EaseOutSine(1f, 0.0f, BeatTime(4)));
+                        builder.Run(s => line.Alpha = s);
+                        CreateEntity(line);
+                        DelayBeat(4, () => { line.Dispose(); });
+                    }
                 }
                 if (InBeat(1569 + 48 - 4, 1569 + 96 - 12) && AtKthBeat(8, BeatTime(4)))
                 {
                     float time = Gametime * 3f;
                     for (int i = 0; i < 5; i++)
+                    {
                         CreateSpear(new Pike(new Vector2(430, 227 + 14 + i * 28), 180, BeatTime(4)) { IsHidden = true, IsSpawnMute = true });
+                        Line line = new(new Vector2(250, 241 + i * 28), new Vector2(390, 241 + i * 28)) { DrawingColor = Color.Red };
+                        ValueEasing.EaseBuilder builder = new();
+                        builder.Insert(BeatTime(4), ValueEasing.EaseOutSine(1f, 0.0f, BeatTime(4)));
+                        builder.Run(s => line.Alpha = s);
+                        CreateEntity(line);
+                        DelayBeat(4, () => { line.Dispose(); });
+                    }
                 }
+                if (InBeat(1569 + 96 - 12 + 4))
+                    ScreenDrawing.BoxBackColor = Color.Black;
             }
 
             public void Start()

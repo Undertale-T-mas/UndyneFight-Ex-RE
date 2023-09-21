@@ -25,7 +25,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF == 302 * 60) EndSong();
                 NRPre();
                 NRBuildup();
-                if (InBeat(206, 232) && At0thBeat(0.3f))
+                if (InBeat(206, 232) && At0thBeat(0.5f))
                 {
                     var dir = Posmod(GametimeF, 90);
                     for (int i = -1; i < 2; ++i)
@@ -151,7 +151,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("RainSpear", () =>
                     {
-                        for (int i = -10; i < 20; ++i)
+                        for (int i = -10; i < 30; i += 2)
                         {
                             CreateEntity(new NormalSpear(new(i * 32, 0), 65, 4)
                             {
