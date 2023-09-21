@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 
@@ -130,7 +131,7 @@ namespace Rhythm_Recall.Waves
         public void Effects()
         {
             //屏幕变灰变黑变灰变黑
-            if (GametimeF >= 0 && GametimeF <= BeatTime(43))
+            if (GametimeF >= 0 && GametimeF <= BeatTime(44))
             {
                 var colrgb = MathF.Abs(MathF.Sin(Gametime / BeatTime(4))) / 2;
                 ScreenDrawing.BackGroundColor = new(colrgb, colrgb, colrgb);
