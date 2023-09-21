@@ -110,6 +110,7 @@ namespace Rhythm_Recall
 
 
             SongSet test = new("Test");
+            test.Push(typeof(AFleetingOath));
             test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(Clb1e86f2));
             test.Push(typeof(TheFuneral));
@@ -131,7 +132,6 @@ namespace Rhythm_Recall
             test.Push(typeof(RIP));
             test.Push(typeof(BrokenAltair));
             test.Push(typeof(mu));
-            test.Push(typeof(AFleetingOath));
 
 #if DEBUG
             GameStartUp.PushSongset(test);
