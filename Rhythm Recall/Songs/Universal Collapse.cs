@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Fight;
+using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 
@@ -140,7 +140,7 @@ namespace Rhythm_Recall.Waves
             //扣字
             if (InBeat(43))
             {
-                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(160, "$It's not over yet kid!", new Vector2(150, 280), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan)));
+                CreateEntity(new TextPrinter(160, "$It's not over yet kid!", new Vector2(150, 280), new TextColorAttribute(Color.Cyan)));
             }
 
             Line line1 = new(0, 0, 0, 480, 500, 0.9f),
@@ -2531,7 +2531,7 @@ namespace Rhythm_Recall.Waves
                 PlaySound(Sounds.Ding);
                 SetBox(320 - 42, 320 + 42, 240 - 42, 240 + 42);
             }
-            if (GametimeF == (int)(bpm * 16 * 3 + bpm * 4 - 80))
+            if (GametimeF == BeatTime(52) - 80)
             {
                 CreateArrow(80, Rand(0, 3), 8, 0, 0);
                 CreateArrow(80, Rand(0, 3), 8, 1, 0);
