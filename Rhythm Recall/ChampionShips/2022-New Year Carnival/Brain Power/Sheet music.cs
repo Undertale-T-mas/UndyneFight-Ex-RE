@@ -39,7 +39,7 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw(count + 1 + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
                         Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
@@ -1037,11 +1037,11 @@ namespace Rhythm_Recall.Waves
                 }
                 else if (rhythm1[t] == 1)
                 {
-                    CreateArrow(time, (t % 2) * 2, 14, 0, 0);
+                    CreateArrow(time, t % 2 * 2, 14, 0, 0);
                 }
                 else if (rhythm1[t] == 5)
                 {
-                    CreateArrow(time, ((t + 1) % 2) * 2, 14, 0, 0);
+                    CreateArrow(time, (t + 1) % 2 * 2, 14, 0, 0);
                 }
                 else if (rhythm1[t] == 4)
                 {
@@ -1059,11 +1059,11 @@ namespace Rhythm_Recall.Waves
                 }
                 else if (rhythm2[t] == 1)
                 {
-                    CreateArrow(time, (t % 2) * 2 + 1, 14, 1, 0);
+                    CreateArrow(time, t % 2 * 2 + 1, 14, 1, 0);
                 }
                 else if (rhythm2[t] == 5)
                 {
-                    CreateArrow(time, ((t + 1) % 2) * 2 + 1, 14, 1, 0);
+                    CreateArrow(time, (t + 1) % 2 * 2 + 1, 14, 1, 0);
                 }
                 else if (rhythm2[t] == 4)
                 {

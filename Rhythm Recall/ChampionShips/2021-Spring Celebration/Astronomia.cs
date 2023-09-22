@@ -95,7 +95,7 @@ namespace Rhythm_Recall.Waves
 
             public void Normal()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (InBeat(8))
                 {
                     CreateEntity(new Boneslab(90, 30, 20, (int)BeatTime(156) - 20
@@ -383,7 +383,7 @@ namespace Rhythm_Recall.Waves
 
             public void Easy()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (InBeat(4, 160 - 4) && AtKthBeat(16, 0))
                 {
                     PlaySound(FightResources.Sounds.pierce);
@@ -557,7 +557,7 @@ namespace Rhythm_Recall.Waves
                 GametimeDelta = 2 + BeatTime(4);
                 Heart.Speed = 3.2f; SetBox(290, 160, 160);
                 SetSoul(0);
-                HeartAttribute.MaxHP = (9);
+                HeartAttribute.MaxHP = 9;
                 TP();
             }
 

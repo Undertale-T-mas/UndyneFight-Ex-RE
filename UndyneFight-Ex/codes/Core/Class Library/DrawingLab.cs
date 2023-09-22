@@ -415,7 +415,7 @@ namespace UndyneFight_Ex
             {
                 float v;
                 bool u;
-                cur += (v = sizes[i].X * scale);
+                cur += v = sizes[i].X * scale;
                 if ((u = texts[i] == '\r' || texts[i] == '\n') || cur > lineLength)
                 {
                     strings.Add(curLine);

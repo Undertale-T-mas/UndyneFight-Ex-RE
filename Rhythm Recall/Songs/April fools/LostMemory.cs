@@ -1619,7 +1619,7 @@ namespace AprilExtends
                 {
                     if (Gametime == 10072 + i * 1)
                     {
-                        CreateEntity(new Particle(Color.Lerp(Color.WhiteSmoke, Color.White, MathF.Pow(Rand(0, 90) / 15f, 2)) * MathF.Pow((Rand(2, 14) / 4f), 1.5f), new(Rand(-22, 22) / 10f, 2.4f - Rand(-15, 15) / 10f), Rand(12, 19), new(Rand(-100, 740), -15), Sprites.square)
+                        CreateEntity(new Particle(Color.Lerp(Color.WhiteSmoke, Color.White, MathF.Pow(Rand(0, 90) / 15f, 2)) * MathF.Pow(Rand(2, 14) / 4f, 1.5f), new(Rand(-22, 22) / 10f, 2.4f - Rand(-15, 15) / 10f), Rand(12, 19), new(Rand(-100, 740), -15), Sprites.square)
                         {
                             DarkingSpeed = 1.7f,
                             AutoRotate = true
@@ -2159,67 +2159,67 @@ namespace AprilExtends
                         l.x2 = 320 + Sin(t * 1.225f) * 160;
                     }));
                     #region wdnmd
-                    AddInstance(new TimeRangedEvent(12.5f, (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f, (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(22 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(22 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(16 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(16 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
@@ -2330,7 +2330,7 @@ namespace AprilExtends
                     Heart.GiveForce(-90, 4.55f);
                     CreateEntity(new Boneslab(-90, 120, (int)(10 * bpm), (int)(2 * bpm)));
                 }
-                if (GametimeF == 5342.5f - 80 - (int)(bpm))
+                if (GametimeF == 5342.5f - 80 - (int)bpm)
                 {
                     float Beat = 0;
                     string[] bAr =
@@ -2398,7 +2398,7 @@ namespace AprilExtends
                         }
                     }
                 }
-                if (GametimeF == 5342.5f - 80 - (int)(bpm))
+                if (GametimeF == 5342.5f - 80 - (int)bpm)
                 {
                     float Beat = 0;
                     string[] rAr =
@@ -2461,7 +2461,7 @@ namespace AprilExtends
                         else if (rAr[i] != "/")
                         {
                             SetPlayerMission(1);
-                            CreateArrow(75 + (int)(Beat), "R", 4.75f, 1, 0, ArrowAttribute.SpeedUp);
+                            CreateArrow(75 + (int)Beat, "R", 4.75f, 1, 0, ArrowAttribute.SpeedUp);
                             Beat += 0.5f * bpm;
                         }
                     }
@@ -2680,11 +2680,11 @@ namespace AprilExtends
                             int r = Rand(0, 1);
                             if (r == 0)
                             {
-                                CreateArrow(75 + (int)(Beat), 0, 6.85f, 0, 0);
+                                CreateArrow(75 + (int)Beat, 0, 6.85f, 0, 0);
                             }
                             else if (r == 1)
                             {
-                                CreateArrow(75 + (int)(Beat), 2, 6.85f, 0, 0);
+                                CreateArrow(75 + (int)Beat, 2, 6.85f, 0, 0);
                             }
                             Beat += 0.5f * bpm;
                         }
@@ -2756,11 +2756,11 @@ namespace AprilExtends
                             int r = Rand(0, 1);
                             if (r == 0)
                             {
-                                CreateArrow(75 + (int)(Beat), 0, 6.25f, 1, 1);
+                                CreateArrow(75 + (int)Beat, 0, 6.25f, 1, 1);
                             }
                             else if (r == 1)
                             {
-                                CreateArrow(75 + (int)(Beat), 2, 6.25f, 1, 1);
+                                CreateArrow(75 + (int)Beat, 2, 6.25f, 1, 1);
                             }
                             Beat += 0.5f * bpm;
                         }
@@ -2810,67 +2810,67 @@ namespace AprilExtends
                         l.x2 = 320 + Sin(t * 1.225f) * 160;
                     }));
                     #region wdnmd
-                    AddInstance(new TimeRangedEvent(12.5f, (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f, (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(22 * bpm), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(22 * bpm), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(6 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(9 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(10 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(12 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(16 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(16 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(18 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));
-                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm + bpm * 24), (int)(bpm), () =>
+                    AddInstance(new TimeRangedEvent(12.5f + (int)(21 * bpm + bpm * 24), (int)bpm, () =>
                     {
                         l.alpha -= 0.1f;
                     }));

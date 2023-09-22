@@ -1115,7 +1115,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF == (int)(bpm * 16 * 36 - 80 + a * 4 * bpm))
                 {
                     CreateArrow(80, 0, 8, 0, 1, ArrowAttribute.RotateR);
-                    CreateArrow(80 + (int)(bpm), 1, 8, 0, 1, ArrowAttribute.RotateR);
+                    CreateArrow(80 + (int)bpm, 1, 8, 0, 1, ArrowAttribute.RotateR);
                     CreateArrow(80 + (int)(2 * bpm), 2, 8, 0, 1, ArrowAttribute.RotateR);
                     CreateArrow(80 + (int)(3 * bpm), 3, 8, 0, 1, ArrowAttribute.RotateR);
                 }

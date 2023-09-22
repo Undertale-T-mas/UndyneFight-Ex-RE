@@ -422,7 +422,7 @@ namespace Rhythm_Recall.Waves
                     {
                         Rotate(360, BeatTime(1.8f));
                     }
-                    if ((InBeat(162, 163)) && At0thBeat(0.1f))
+                    if (InBeat(162, 163) && At0thBeat(0.1f))
                     {
                         PlaySound(pierce);
                         CreateBone(new DownBone(true, 7, 60) { ColorType = 1 });
@@ -463,7 +463,7 @@ namespace Rhythm_Recall.Waves
                         SizeExpand(25f, BeatTime(3f));
                         Convulse(95, BeatTime(3f), false);
                     }
-                    if ((InBeat(178, 179)) && At0thBeat(0.1f))
+                    if (InBeat(178, 179) && At0thBeat(0.1f))
                     {
                         PlaySound(pierce);
                         CreateBone(new UpBone(true, 7, 60 - Sin(GametimeF * 5) * 40) { ColorType = 2 });

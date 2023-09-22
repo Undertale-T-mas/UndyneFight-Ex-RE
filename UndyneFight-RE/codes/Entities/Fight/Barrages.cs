@@ -36,7 +36,7 @@ namespace UndyneFight_Ex.Remake.Entities
             Barrage father;
             public override void Start()
             {
-                father = (Barrage)(this.FatherObject);
+                father = (Barrage)this.FatherObject;
                 
             }
         }

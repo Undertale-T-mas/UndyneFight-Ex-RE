@@ -159,14 +159,14 @@ namespace UndyneFight_Ex.Entities
                 }
                 lastSelect = currentSelect;
             }
-        A: if (SelectionCount > 0 && playTick >= 2 && (GameStates.IsKeyPressed120f(InputIdentity.Confirm)))
+        A: if (SelectionCount > 0 && playTick >= 2 && GameStates.IsKeyPressed120f(InputIdentity.Confirm))
             {
                 if (AutoDispose)
                     Dispose();
-                (Selections[lastSelect]).SelectionEvent();
+                Selections[lastSelect].SelectionEvent();
                 Selected?.Invoke();
             }
-            else if (IsCancelAvailable && (GameStates.IsKeyPressed120f(InputIdentity.Cancel)))
+            else if (IsCancelAvailable && GameStates.IsKeyPressed120f(InputIdentity.Cancel))
             {
                 Back();
             }

@@ -47,11 +47,11 @@ namespace UndyneFight_Ex.Entities
                 if (distance < 0)
                 {
                     if (LateWaitingScale > 0.4f)
-                        distance *= (0.8f * MathF.Max(LateWaitingScale, 1 + distance / 200f));
+                        distance *= 0.8f * MathF.Max(LateWaitingScale, 1 + distance / 200f);
                     else
                     {
                         distanceFactor = 0.4f / LateWaitingScale;
-                        distance *= (0.8f * MathF.Max(0.4f, 1 + distance / 200f));
+                        distance *= 0.8f * MathF.Max(0.4f, 1 + distance / 200f);
                     }
                     distance *= 0.9f;
                 }

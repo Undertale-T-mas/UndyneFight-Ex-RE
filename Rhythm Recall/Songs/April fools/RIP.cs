@@ -905,10 +905,10 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(0, (int)(7 * 16 * bpm), () =>
                     {
-                        l1.alpha = Sin(t * (int)(0.05f * bpm)) * (int)(bpm) * 0.15f + 0.5f;
-                        l2.alpha = Sin(t * (int)(0.05f * bpm)) * (int)(bpm) * 0.15f + 0.5f;
-                        l3.alpha = Sin(t * (int)(0.05f * bpm)) * (int)(bpm) * 0.15f + 0.5f;
-                        l4.alpha = Sin(t * (int)(0.05f * bpm)) * (int)(bpm) * 0.15f + 0.5f;
+                        l1.alpha = Sin(t * (int)(0.05f * bpm)) * (int)bpm * 0.15f + 0.5f;
+                        l2.alpha = Sin(t * (int)(0.05f * bpm)) * (int)bpm * 0.15f + 0.5f;
+                        l3.alpha = Sin(t * (int)(0.05f * bpm)) * (int)bpm * 0.15f + 0.5f;
+                        l4.alpha = Sin(t * (int)(0.05f * bpm)) * (int)bpm * 0.15f + 0.5f;
                     })); AddInstance(new TimeRangedEvent((int)(7 * 16 * bpm), (int)(16 * bpm), () =>
                     {
                         l1.alpha -= 0.02f;
@@ -2378,9 +2378,9 @@ namespace Rhythm_Recall.Waves
                             AddInstance(new TimeRangedEvent(bpm * 16 + Beat, bpm * 16 - 2, () => { HeartRot = HeartRot * 0.97f + 320 * 0.03f; }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () =>
                             {
-                                Extends.DrawingUtil.Linerotate line1 = new(320, 240, 15, (bpm * 26), 1) { Tags = new string[] { "a" } };
-                                Extends.DrawingUtil.Linerotate line2 = new(320, 240, 11, (bpm * 26), 0.8f) { Tags = new string[] { "a" } };
-                                Extends.DrawingUtil.Linerotate line3 = new(320, 240, 19, (bpm * 26), 0.8f) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line1 = new(320, 240, 15, bpm * 26, 1) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line2 = new(320, 240, 11, bpm * 26, 0.8f) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line3 = new(320, 240, 19, bpm * 26, 0.8f) { Tags = new string[] { "a" } };
                                 CreateEntity(line1);
                                 CreateEntity(line2);
                                 CreateEntity(line3);
@@ -2440,9 +2440,9 @@ namespace Rhythm_Recall.Waves
                         else if (Arrow[i] == "EF2")
                         {
                             float sin = 0;
-                            AddInstance(new TimeRangedEvent(Beat, (int)(bpm) * 35f, () =>
+                            AddInstance(new TimeRangedEvent(Beat, (int)bpm * 35f, () =>
                             {
-                                sin += 180 / (int)(bpm) / 35f;
+                                sin += 180 / (int)bpm / 35f;
                                 ScreenDrawing.ScreenScale = 1 + Sin(sin) * 5f;
                             }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () => { SetSoul(1); HeartRot = 180; }));
@@ -3532,7 +3532,7 @@ namespace Rhythm_Recall.Waves
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(bpm * 16, 114514, () =>
                     {
-                        HeartRot = (Sin(speed) * 10);
+                        HeartRot = Sin(speed) * 10;
                         speed += 360 / bpm / 64;
                     }));
                     float beattt = 0;
@@ -4035,9 +4035,9 @@ namespace Rhythm_Recall.Waves
                             AddInstance(new TimeRangedEvent(bpm * 16 + Beat, bpm * 16 - 2, () => { HeartRot = HeartRot * 0.97f + 320 * 0.03f; }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () =>
                             {
-                                Extends.DrawingUtil.Linerotate line1 = new(320, 240, 15, (bpm * 26), 1) { Tags = new string[] { "a" } };
-                                Extends.DrawingUtil.Linerotate line2 = new(320, 240, 11, (bpm * 26), 0.8f) { Tags = new string[] { "a" } };
-                                Extends.DrawingUtil.Linerotate line3 = new(320, 240, 19, (bpm * 26), 0.8f) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line1 = new(320, 240, 15, bpm * 26, 1) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line2 = new(320, 240, 11, bpm * 26, 0.8f) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line3 = new(320, 240, 19, bpm * 26, 0.8f) { Tags = new string[] { "a" } };
                                 CreateEntity(line1);
                                 CreateEntity(line2);
                                 CreateEntity(line3);
@@ -4097,9 +4097,9 @@ namespace Rhythm_Recall.Waves
                         else if (Arrow[i] == "EF2")
                         {
                             float sin = 0;
-                            AddInstance(new TimeRangedEvent(Beat, (int)(bpm) * 35f, () =>
+                            AddInstance(new TimeRangedEvent(Beat, (int)bpm * 35f, () =>
                             {
-                                sin += 180 / (int)(bpm) / 35f;
+                                sin += 180 / (int)bpm / 35f;
                                 ScreenDrawing.ScreenScale = 1 + Sin(sin) * 5f;
                             }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () => { SetSoul(1); HeartRot = 180; }));
@@ -4689,7 +4689,7 @@ namespace Rhythm_Recall.Waves
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(bpm * 16, 114514, () =>
                     {
-                        HeartRot = (Sin(speed) * 10);
+                        HeartRot = Sin(speed) * 10;
                         speed += 360 / bpm / 64;
                     }));
                     float beattt = 0;
@@ -5172,9 +5172,9 @@ namespace Rhythm_Recall.Waves
                             AddInstance(new TimeRangedEvent(bpm * 16 + Beat, bpm * 16 - 2, () => { HeartRot = HeartRot * 0.97f + 320 * 0.03f; }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () =>
                             {
-                                Extends.DrawingUtil.Linerotate line1 = new(320, 240, 15, (bpm * 26), 1) { Tags = new string[] { "a" } };
-                                Extends.DrawingUtil.Linerotate line2 = new(320, 240, 11, (bpm * 26), 0.8f) { Tags = new string[] { "a" } };
-                                Extends.DrawingUtil.Linerotate line3 = new(320, 240, 19, (bpm * 26), 0.8f) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line1 = new(320, 240, 15, bpm * 26, 1) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line2 = new(320, 240, 11, bpm * 26, 0.8f) { Tags = new string[] { "a" } };
+                                Extends.DrawingUtil.Linerotate line3 = new(320, 240, 19, bpm * 26, 0.8f) { Tags = new string[] { "a" } };
                                 CreateEntity(line1);
                                 CreateEntity(line2);
                                 CreateEntity(line3);
@@ -5234,9 +5234,9 @@ namespace Rhythm_Recall.Waves
                         else if (Arrow[i] == "EF2")
                         {
                             float sin = 0;
-                            AddInstance(new TimeRangedEvent(Beat, (int)(bpm) * 35f, () =>
+                            AddInstance(new TimeRangedEvent(Beat, (int)bpm * 35f, () =>
                             {
-                                sin += 180 / (int)(bpm) / 35f;
+                                sin += 180 / (int)bpm / 35f;
                                 ScreenDrawing.ScreenScale = 1 + Sin(sin) * 5f;
                             }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () => { SetSoul(1); HeartRot = 180; }));
@@ -5719,7 +5719,7 @@ namespace Rhythm_Recall.Waves
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(bpm * 16, 114514, () =>
                     {
-                        HeartRot = (Sin(speed) * 10);
+                        HeartRot = Sin(speed) * 10;
                         speed += 360 / bpm / 64;
                     }));
                     float beattt = 0;
@@ -6252,13 +6252,13 @@ namespace Rhythm_Recall.Waves
                     }));
 
                 }
-                if (GametimeF == (int)(BeatTime(76 * 4 + 16)) + 51)
+                if (GametimeF == (int)BeatTime(76 * 4 + 16) + 51)
                 {
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(BeatTime(94 * 4 - 76 * 4 - 16 + 8) - 50, () =>
                     {
                         speed += 360 / bpm / 28;
-                        BarColor = new Color(225 - 60 + (int)(Sin(speed) * 60f), 115 + (int)(Sin(speed) * 110f), 115 + (int)(Sin(speed) * (110)));
+                        BarColor = new Color(225 - 60 + (int)(Sin(speed) * 60f), 115 + (int)(Sin(speed) * 110f), 115 + (int)(Sin(speed) * 110));
                     }));
                     AddInstance(new TimeRangedEvent(BeatTime(94 * 4 - 76 * 4 - 8) - 49, 3000, () =>
                     {
@@ -6710,13 +6710,13 @@ namespace Rhythm_Recall.Waves
                     }));
 
                 }
-                if (GametimeF == (int)(BeatTime(76 * 4 + 16)) + 51)
+                if (GametimeF == (int)BeatTime(76 * 4 + 16) + 51)
                 {
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(BeatTime(94 * 4 - 76 * 4 - 16 + 8) - 50, () =>
                     {
                         speed += 360 / bpm / 28;
-                        BarColor = new Color(225 - 60 + (int)(Sin(speed) * 60f), 115 + (int)(Sin(speed) * 110f), 115 + (int)(Sin(speed) * (110)));
+                        BarColor = new Color(225 - 60 + (int)(Sin(speed) * 60f), 115 + (int)(Sin(speed) * 110f), 115 + (int)(Sin(speed) * 110));
                     }));
                     AddInstance(new TimeRangedEvent(BeatTime(94 * 4 - 76 * 4 - 8) - 49, 3000, () =>
                     {
@@ -7090,13 +7090,13 @@ namespace Rhythm_Recall.Waves
                     }));
 
                 }
-                if (GametimeF == (int)(BeatTime(76 * 4 + 16)) + 51)
+                if (GametimeF == (int)BeatTime(76 * 4 + 16) + 51)
                 {
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(BeatTime(94 * 4 - 76 * 4 - 16 + 8) - 50, () =>
                     {
                         speed += 360 / bpm / 28;
-                        BarColor = new Color(225 - 60 + (int)(Sin(speed) * 60f), 115 + (int)(Sin(speed) * 110f), 115 + (int)(Sin(speed) * (110)));
+                        BarColor = new Color(225 - 60 + (int)(Sin(speed) * 60f), 115 + (int)(Sin(speed) * 110f), 115 + (int)(Sin(speed) * 110));
                     }));
                     AddInstance(new TimeRangedEvent(BeatTime(94 * 4 - 76 * 4 - 8) - 49, 3000, () =>
                     {

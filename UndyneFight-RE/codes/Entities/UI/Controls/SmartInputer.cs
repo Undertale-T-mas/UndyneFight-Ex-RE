@@ -120,7 +120,7 @@ namespace UndyneFight_Ex.Remake.UI
                             return;
                         }
                     }
-                    this._secondaryTip = origin[(result.Length)..];
+                    this._secondaryTip = origin[result.Length..];
 
                     //test if the other canon
                     for (int j = 1; j < _father._tips.Length; j++)

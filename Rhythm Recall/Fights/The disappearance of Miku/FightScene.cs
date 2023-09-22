@@ -81,9 +81,9 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.SceneRendering.InsertProduction(p2 = new ScreenDrawing.Shaders.Filter(Shaders.Cos1Ball, 0.6f));
                 AddInstance(new TimeRangedEvent(0, 10000, () =>
                 {
-                    var v = (p2.CurrentShader as GlobalResources.Effects.BallShapingShader);
+                    var v = p2.CurrentShader as GlobalResources.Effects.BallShapingShader;
                     v.Intensity = ballDegree;
-                    v.ScreenScale = 1 + (ballDegree / 2) * (ballDegree / 2) / 2;
+                    v.ScreenScale = 1 + ballDegree / 2 * (ballDegree / 2) / 2;
                 }));
                 LyricSystem.RunShow();
                 SetGreenBox();

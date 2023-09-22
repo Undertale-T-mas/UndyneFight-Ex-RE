@@ -24,7 +24,7 @@ namespace UndyneFight_Ex
             float trueX, trueY;
             if (size.X >= size.Y * Aspect) { trueX = size.Y * Aspect; trueY = size.Y; }
             else { trueY = size.X /Aspect; trueX = size.X; }
-            screenDistance = (Sqrt(trueX * trueX + trueY * trueY) / 2);
+            screenDistance = Sqrt(trueX * trueX + trueY * trueY) / 2;
             basicAngle = Atan2(-trueX, -trueY);
 
             Vector4 extending = GameStates.CurrentScene.CurrentDrawingSettings.Extending;

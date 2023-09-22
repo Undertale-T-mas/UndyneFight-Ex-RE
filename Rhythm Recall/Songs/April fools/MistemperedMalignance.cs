@@ -296,7 +296,7 @@ namespace Rhythm_Recall.Waves
                         CreateArrow((int)(bpm * 32), 2, 8, 1, 0);
                         CreateArrow((int)(bpm * 32), 3, 8, 1, 0);
                     }));
-                    AddInstance(new InstantEvent((int)(Beat2), () =>
+                    AddInstance(new InstantEvent((int)Beat2, () =>
                     {
                         CreateArrow((int)(bpm * 32), 0, 8 - 0.5f * 1, 0, 0);
                         CreateArrow((int)(bpm * 32), 2, 8 - 0.5f * 1, 0, 0);

@@ -63,7 +63,7 @@ namespace UndyneFight_Ex.Remake.UI
                                 float y = MathHelper.Lerp(this.collidingBox.Up, this.collidingBox.Down, v * 1.0f / ceilCount);
                                 if (j == 0) font.CentreDraw(args[i], new(x, y), col.White, 1.0f, 0.67f);
                                 else if(j + delta <= arr.Length) font.CentreDraw(
-                                    (i switch { 0 => arr[j + delta - 1].Item2.ToString(), 1 => arr[j + delta - 1].Item1, 2 => arr[j + delta - 1].Item3.ToString(), _ => throw new Exception() })
+                                    i switch { 0 => arr[j + delta - 1].Item2.ToString(), 1 => arr[j + delta - 1].Item1, 2 => arr[j + delta - 1].Item3.ToString(), _ => throw new Exception() }
                                     , new(x, y), col.White, 1.0f, 0.67f);
                             }
 

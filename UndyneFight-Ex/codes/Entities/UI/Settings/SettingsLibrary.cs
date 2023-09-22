@@ -259,8 +259,8 @@ namespace UndyneFight_Ex.Settings
 
                     if (memX == 0)
                     {
-                        float newAlpha = ((curX < 4 * x) ? MathF.Pow(MathF.Max(0, (curX - 3.8f * x) / x * 5f), 1.8f)
-                            : Alpha * MathF.Max(0, 1 - 1.2f * (curX - 4 * x) / x));
+                        float newAlpha = (curX < 4 * x) ? MathF.Pow(MathF.Max(0, (curX - 3.8f * x) / x * 5f), 1.8f)
+                            : Alpha * MathF.Max(0, 1 - 1.2f * (curX - 4 * x) / x);
                         GlobalResources.Font.FightFont.CentreDraw("Press Space!", delta + new Vector2(320, 420), Color.Lime * newAlpha, 1.0f, 0.0f, 0.99f);
                     }
                 }
@@ -282,7 +282,7 @@ namespace UndyneFight_Ex.Settings
                             PlaySound(Ding, MasterVolume.Value / 100f * Alpha);
                         bool keyPressed = IsKeyPressed120f(InputIdentity.Alternate);
                         float x = 640 / 6f;
-                        curX = x + (appearTime * 1f / beat) * x;
+                        curX = x + appearTime * 1f / beat * x;
                         if (keyPressed)
                         {
                             memX = curX;

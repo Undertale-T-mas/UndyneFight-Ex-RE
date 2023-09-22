@@ -117,7 +117,7 @@ namespace UndyneFight_Ex.Remake.UI
                     this.cursorPlace = pos;
                 } 
             }
-            if((_father.Focus == this || (_father.Focus != null && !_father.Focus.IsMouseOn)))
+            if(_father.Focus == this || (_father.Focus != null && !_father.Focus.IsMouseOn))
             {
                 if (IsKeyPressed120f(InputIdentity.MainLeft))
                 {

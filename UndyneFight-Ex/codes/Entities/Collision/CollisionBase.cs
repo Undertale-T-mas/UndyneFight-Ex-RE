@@ -200,7 +200,7 @@ namespace UndyneFight_Ex
         public bool IsCollideWith(Player.Heart player)
         {
             if (!IsEnable) return false;
-            if (isCollide = (Math.Abs(Distance(player)) <= 8.01f + width && GetDistance(player.Centre, Centre) <= (length / 2 + 6)))
+            if (isCollide = Math.Abs(Distance(player)) <= 8.01f + width && GetDistance(player.Centre, Centre) <= (length / 2 + 6))
             {
                 float dx = player.Centre.X - Centre.X, dy = player.Centre.Y - Centre.Y;
                 Vector2 v1 = new(dx, dy);

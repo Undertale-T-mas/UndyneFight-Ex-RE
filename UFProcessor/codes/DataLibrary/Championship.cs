@@ -99,7 +99,7 @@ namespace UndyneFight_Ex.Server
         {
             TryLoad();
             if (string.IsNullOrEmpty(info)) return false;
-            ChampionshipInfo cinfo =  (JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException());
+            ChampionshipInfo cinfo =  JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException();
             if(cinfo == null) return false;
             foreach(ChampionshipInfo obj in championships)
             {

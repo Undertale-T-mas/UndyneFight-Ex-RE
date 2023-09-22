@@ -47,7 +47,7 @@ namespace UndyneFight_Ex.Fight
                 }
                 private static void MoveSurface(Surface surface)
                 {
-                    SongFightingScene scene = (GameStates.CurrentScene as SongFightingScene);
+                    SongFightingScene scene = GameStates.CurrentScene as SongFightingScene;
                     if (scene == null) return;
                     scene.NameShow.controlLayer = surface;
                     scene.HPBar.controlLayer = surface;
@@ -120,7 +120,7 @@ namespace UndyneFight_Ex.Fight
                         {
                             float scale = tick / time;
                             float newRot = MathUtil.Sigmoid01(MathF.Pow(scale, 0.7f));
-                            float del = (newRot - progress);
+                            float del = newRot - progress;
                             progress = newRot;
                             last -= del * rotation;
                             ScreenAngle += del * rotation;
@@ -182,7 +182,7 @@ namespace UndyneFight_Ex.Fight
                         {
                             float scale = tick / time;
                             float newRot = AdvanceFunctions.Sin01(MathF.Pow(scale, 0.75f));
-                            float del = (newRot - progress);
+                            float del = newRot - progress;
                             progress = newRot;
                             last -= del * intensity;
                             ScreenAngle += del * intensity;
@@ -217,7 +217,7 @@ namespace UndyneFight_Ex.Fight
                         {
                             float scale = tick / time;
                             float newRot = AdvanceFunctions.Sin01(MathF.Pow(scale, 0.75f));
-                            float del = (newRot - progress);
+                            float del = newRot - progress;
                             progress = newRot;
                             last -= del * intensity;
                             ScreenScale += del * intensity;
@@ -251,7 +251,7 @@ namespace UndyneFight_Ex.Fight
                         {
                             float scale = tick / time;
                             float newRot = AdvanceFunctions.Sin01(MathF.Pow(scale, 0.75f));
-                            float del = (newRot - progress);
+                            float del = newRot - progress;
                             progress = newRot;
                             last -= del * intensity;
                             ScreenScale += del * intensity;
@@ -569,7 +569,7 @@ namespace UndyneFight_Ex.Fight
                     public override RenderTarget2D Draw(RenderTarget2D obj)
                     {
                         RandomDisturb = Rand(-0.2f, 0.2f);
-                        if (Shader == null && (MathF.Abs(RandomDisturb + Intensity)) * AdaptingScale < 0.8f) return obj;
+                        if (Shader == null && MathF.Abs(RandomDisturb + Intensity) * AdaptingScale < 0.8f) return obj;
                         MissionTarget = screen;
 
                         if (Disturbance)
@@ -671,8 +671,8 @@ namespace UndyneFight_Ex.Fight
                         {
                             if (MathF.Abs(RGBSplitIntensity) > 0.1f)
                             {
-                                DrawTexture(HelperTarget, (new CollideRect(all[i].Item1) + all[i].Item2 + new Vector2(-RGBSplitIntensity, 0)), all[i].Item1, Color.Red);
-                                DrawTexture(HelperTarget, (new CollideRect(all[i].Item1) + all[i].Item2 + new Vector2(RGBSplitIntensity, 0)), all[i].Item1, new Color(0, 0, 1f));
+                                DrawTexture(HelperTarget, new CollideRect(all[i].Item1) + all[i].Item2 + new Vector2(-RGBSplitIntensity, 0), all[i].Item1, Color.Red);
+                                DrawTexture(HelperTarget, new CollideRect(all[i].Item1) + all[i].Item2 + new Vector2(RGBSplitIntensity, 0), all[i].Item1, new Color(0, 0, 1f));
                             } DrawTexture(HelperTarget, (new CollideRect(all[i].Item1) + all[i].Item2).ToRectangle(), all[i].Item1, Color.White);
                         }
                         return MissionTarget;

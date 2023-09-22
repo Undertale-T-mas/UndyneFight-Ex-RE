@@ -76,7 +76,7 @@ namespace UndyneFight_Ex.Remake.UI
             }
             else
             {
-                lerp1 = Color.Lerp(ratingLevels[id], ratingLevels[id + 1], (skill % 10f) / 10f);
+                lerp1 = Color.Lerp(ratingLevels[id], ratingLevels[id + 1], skill % 10f / 10f);
             }
             vertexColors[0] = ratingLevels[id];
             vertexColors[1] = Color.Lerp(vertexColors[0], lerp1, 0.35f);
@@ -125,12 +125,12 @@ namespace UndyneFight_Ex.Remake.UI
             // The centre area, showing the data of player!
             //cool rgb
             DrawLine(new(490 , 240), new(630, 240),             new(DrawingLab.HsvToRgb(timer,        255, 255, 255)));
-            DrawLine(new(630, 240), new(630 + 30, 240 + 30),    new(DrawingLab.HsvToRgb((timer + 10), 255, 255, 255)));
-            DrawLine(new(630 + 30, 270), new(630 + 30, 460),    new(DrawingLab.HsvToRgb((timer + 20), 255, 255, 255)));
+            DrawLine(new(630, 240), new(630 + 30, 240 + 30),    new(DrawingLab.HsvToRgb(timer + 10, 255, 255, 255)));
+            DrawLine(new(630 + 30, 270), new(630 + 30, 460),    new(DrawingLab.HsvToRgb(timer + 20, 255, 255, 255)));
             
-            DrawLine(new(330 - 30, 240), new(300, 430),         new(DrawingLab.HsvToRgb((timer + 30), 255, 255, 255)));
-            DrawLine(new(330, 460), new(300, 430),              new(DrawingLab.HsvToRgb((timer + 40), 255, 255, 255)));
-            DrawLine(new(330, 460), new(660, 460),              new(DrawingLab.HsvToRgb((timer + 50), 255, 255, 255)));
+            DrawLine(new(330 - 30, 240), new(300, 430),         new(DrawingLab.HsvToRgb(timer + 30, 255, 255, 255)));
+            DrawLine(new(330, 460), new(300, 430),              new(DrawingLab.HsvToRgb(timer + 40, 255, 255, 255)));
+            DrawLine(new(330, 460), new(660, 460),              new(DrawingLab.HsvToRgb(timer + 50, 255, 255, 255)));
             DrawLine(new(304, 350), new(430, 350), vertexColors[0]);
             DrawLine(new(656, 350), new(530, 350),              Color.White);
 

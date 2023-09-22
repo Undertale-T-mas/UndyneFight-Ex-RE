@@ -268,7 +268,7 @@ namespace UndyneFight_Ex.IO
             {
                 for (int j = 0; j < strings[i].Length; j++)
                 {
-                    bytes.Add((byte)(strings[i][j]));
+                    bytes.Add((byte)strings[i][j]);
                 }
                 bytes.Add(1);
             }

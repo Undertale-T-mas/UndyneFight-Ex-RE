@@ -192,7 +192,7 @@ namespace UndyneFight_Ex.Entities
             //  if (this._challenge != null) this.TempIntro();
             if (waveset != null)
             {
-                restartTimer = (IsKeyDown(InputIdentity.Reset)) ? restartTimer + 1 : 0;
+                restartTimer = IsKeyDown(InputIdentity.Reset) ? restartTimer + 1 : 0;
                 if (restartTimer >= 60 || (IsKeyPressed120f(InputIdentity.Reset) && IsKeyDown(InputIdentity.Alternate)))
                 {
                     PlayDeath();

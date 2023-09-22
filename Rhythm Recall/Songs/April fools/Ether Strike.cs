@@ -588,7 +588,7 @@ namespace AprilExtends
                     AddInstance(new TimeRangedEvent(game.BeatTime(0), game.BeatTime(1000), () =>
                     {
                         float start = game.curHP / 10000f * game.curHP / 10000f;
-                        float f = (1 - start) + start * MathF.Abs(2 * k * t % 2 - 1);
+                        float f = 1 - start + start * MathF.Abs(2 * k * t % 2 - 1);
                         ScreenDrawing.HPBar.HPExistColor = new(255, 0, 0, f);
                         t++;
                     }));

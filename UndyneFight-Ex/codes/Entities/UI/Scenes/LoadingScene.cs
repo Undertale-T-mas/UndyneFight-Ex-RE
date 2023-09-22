@@ -8,6 +8,8 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.GlobalResources;
+using static UndyneFight_Ex.GameStates;
  
 namespace UndyneFight_Ex
 {
@@ -17,7 +19,7 @@ namespace UndyneFight_Ex
         {
             public ProgressArrow(Vector2 centre, float beginTime)
             {
-                Image = GlobalResources.Sprites.progressArrow;
+                Image = Sprites.progressArrow;
                 Centre = centre;
                 appearTime = beginTime;
             }
@@ -44,7 +46,7 @@ namespace UndyneFight_Ex
             float alpha = 0;
             public LoadingTexture()
             {
-                Image = GlobalResources.Sprites.loadingText;
+                Image = Sprites.loadingText;
                 fullBound = Image.Bounds;
             }
             public override void Draw()
@@ -90,8 +92,8 @@ namespace UndyneFight_Ex
             if (unLoad)
                 Loader.Unload();
             this.loadingFinished = loadingFinished;
-            if (GlobalResources.Sprites.loadingTexture != null)
-                InstanceCreate(new TitleShower(GlobalResources.Sprites.loadingTexture));
+            if (Sprites.loadingTexture != null)
+                InstanceCreate(new TitleShower(Sprites.loadingTexture));
             InstanceCreate(new LoadingTexture());
             for (int i = 0; i < 6; i++)
                 InstanceCreate(new ProgressArrow(new(395 + i * 20, loadingCentreY), -i * 6 - 20));
@@ -129,7 +131,7 @@ namespace UndyneFight_Ex
         }
         public override void Draw()
         {
-            GlobalResources.Font.NormalFont.CentreDraw($"Initalizing {Situation}\nPlease wait...", new(320, 120), Color.White, 0.8f, 0f);
+            Font.NormalFont.CentreDraw($"Initalizing {Situation}\nPlease wait...", new(320, 120), Color.White, 0.8f, 0f);
         }
     }
     public class SongLoadingScene : LoadingScene
@@ -160,7 +162,7 @@ namespace UndyneFight_Ex
             // loadingFinished
             GameStates.InstanceCreate(new InstantEvent(30, () =>
             {
-                GameStates.ResetScene(new SongFightingScene(songParams));
+                ResetScene(new SongFightingScene(songParams));
             }));
         }, () =>
         {
@@ -181,7 +183,7 @@ namespace UndyneFight_Ex
             // loadingFinished
             GameStates.InstanceCreate(new InstantEvent(30, () =>
             {
-                GameStates.ResetScene(new SongFightingScene(songParams, challenge, progress));
+                ResetScene(new SongFightingScene(songParams, challenge, progress));
             }));
         }, () =>
         {
@@ -230,37 +232,37 @@ namespace UndyneFight_Ex
                 var CurPos = 300;
                 if (Information.BarrageAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Barrage: " + Information.BarrageAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    Font.NormalFont.CentreDraw("Barrage: " + Information.BarrageAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                     CurPos += 30;
                 }
 
                 if (Information.SongAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Song from: " + Information.SongAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    Font.NormalFont.CentreDraw("Song from: " + Information.SongAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                     CurPos += 30;
                 }
 
                 if (Information.PaintAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Paint: " + Information.PaintAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    Font.NormalFont.CentreDraw("Paint: " + Information.PaintAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                     CurPos += 30;
                 }
 
                 if (Information.AttributeAuthor != "Unknown")
                 {
-                    GlobalResources.Font.NormalFont.CentreDraw("Effect: " + Information.AttributeAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
+                    Font.NormalFont.CentreDraw("Effect: " + Information.AttributeAuthor, new(320, CurPos), Color.White * alpha, 0.8f, 0.5f);
                 }
 
-                GlobalResources.Font.NormalFont.Draw(Information.Extra, Information.ExtraPosition, Information.ExtraColor * alpha, 0.75f, 0.5f);
+                Font.NormalFont.Draw(Information.Extra, Information.ExtraPosition, Information.ExtraColor * alpha, 0.75f, 0.5f);
             }
-            GlobalResources.Font.NormalFont.Draw("Tips: ", new(12, 437), Color.White * alpha, 0.6f, 0.5f);
-            GlobalResources.Font.NormalFont.Draw(additions[tipID], new(28, 456), Color.White * alpha, 0.48f, 0.5f);
+            Font.NormalFont.Draw("Tips: ", new(12, 437), Color.White * alpha, 0.6f, 0.5f);
+            Font.NormalFont.Draw(additions[tipID], new(28, 456), Color.White * alpha, 0.48f, 0.5f);
             base.Draw();
         }
         int tipID;
         public override void Update()
         {
-            if (GameStates.IsKeyPressed120f(InputIdentity.Alternate))
+            if (IsKeyPressed120f(InputIdentity.Alternate))
             {
                 Functions.PlaySound(FightResources.Sounds.Ding);
                 tipID = MathUtil.GetRandom(0, additions.Length - 1);
@@ -277,7 +279,7 @@ namespace UndyneFight_Ex
             FightResources.Initialize(loader);
             GameStartUp.Initialize?.Invoke(loader);
         }
-        public ResourcesLoadingScene(ContentManager loader) : base(() => GameStates.ResetScene(new GameMenuScene()), MainResourcesLoad)
+        public ResourcesLoadingScene(ContentManager loader) : base(() => ResetScene(new GameMenuScene()), MainResourcesLoad)
         {
             ResourcesLoadingScene.loader = loader;
         }

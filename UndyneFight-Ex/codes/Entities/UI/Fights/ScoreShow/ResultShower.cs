@@ -58,7 +58,7 @@ namespace UndyneFight_Ex.Entities
                 perfectCount = scoreResult.perfect;
                 maxCombo = scoreResult.maxCombo;
                 totalNote = missCount + okayCount + niceCount + perfectCount;
-                perfectPercent = (perfectCount) / (1.0f * totalNote);
+                perfectPercent = perfectCount / (1.0f * totalNote);
                 hitPercent = (okayCount + niceCount + perfectCount) / (1.0f * totalNote);
                 score = scoreResult.score;
                 collidingBox = new CollideRect(96, 140, 448, 200);
@@ -160,12 +160,12 @@ namespace UndyneFight_Ex.Entities
 
             private float GetScorePercent()
             {
-                return ((totalNote == 0) ? 0 : MathF.Min(1, score * 1.0f / (totalNote * 100)));
+                return (totalNote == 0) ? 0 : MathF.Min(1, score * 1.0f / (totalNote * 100));
             }
 
             private void GenerateMark()
             {
-                bool buffed = ((lastMode & GameMode.Buffed) == GameMode.Buffed);
+                bool buffed = (lastMode & GameMode.Buffed) == GameMode.Buffed;
                 float scorePercent = GetScorePercent();
                 if (AP && scorePercent >= 0.997f)
                 {
@@ -366,8 +366,8 @@ namespace UndyneFight_Ex.Entities
                 if (accuracy > 0)
                 {
                     GlobalResources.Font.NormalFont.Draw("perfect", new Vector2(214, 208), Color.Yellow * alpha);
-                    GlobalResources.Font.NormalFont.Draw($"{perfectCount} = {((int)(perfectPercent * 100))}." +
-                        $"{((int)(perfectPercent * 10000) - ((int)(perfectPercent * 100)) * 100)}%", new Vector2(214 + 125, 208), Color.LightGray * alpha);
+                    GlobalResources.Font.NormalFont.Draw($"{perfectCount} = {(int)(perfectPercent * 100)}." +
+                        $"{(int)(perfectPercent * 10000) - ((int)(perfectPercent * 100)) * 100}%", new Vector2(214 + 125, 208), Color.LightGray * alpha);
                     GlobalResources.Font.NormalFont.Draw("Max Combo:" + maxCombo, new Vector2(214, 251), Color.Silver * alpha);
                 }
             }
@@ -427,7 +427,7 @@ namespace UndyneFight_Ex.Entities
                 curSelection = Posmod(curSelection, 3);
                 if (lastSelection != curSelection) Fight.Functions.PlaySound(FightResources.Sounds.changeSelection);
 
-                analyzeShow.Enabled = (curSelection == 1);
+                analyzeShow.Enabled = curSelection == 1;
 
                 if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
                 {

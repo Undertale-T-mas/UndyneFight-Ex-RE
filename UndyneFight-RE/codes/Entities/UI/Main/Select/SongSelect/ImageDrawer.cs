@@ -29,7 +29,7 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     float mission = this._father.SelectedID;
                     if (this._father._currentSongList.CurrentFocus != null)
-                        onFocus = (this._father._currentSongList.CurrentFocus.IsMouseOn);
+                        onFocus = this._father._currentSongList.CurrentFocus.IsMouseOn;
                     else onFocus = false;
                     if (onFocus)
                     {

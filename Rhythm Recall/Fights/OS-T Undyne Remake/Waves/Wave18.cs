@@ -115,7 +115,7 @@ namespace Rhythm_Recall.Waves
                     }
                     else
                     {
-                        int index = (appearTime / 3) % 3;
+                        int index = appearTime / 3 % 3;
                         FormalDraw(eyeSpritesRepeat[index], Centre, Color.Aqua * alpha, 1.6f, 0, ImageCentre);
                     }
                     for (int i = 0; i <= 6; i++)

@@ -118,7 +118,7 @@ namespace UndyneFight_Ex.Remake.UI
                 font.CentreDraw("Name", new(LMID, 456), col.White, 1.15f, 0.5f);
                 for(int i = 0; i < positions.Length ; i++)
                 { 
-                    float k = (i * 1.0f) / (positions.Length );
+                    float k = i * 1.0f / positions.Length ;
                     positions[i] = MathHelper.Lerp(L, R, k);
                 }
                 delWord = (R - L) * 0.5f / positions.Length;

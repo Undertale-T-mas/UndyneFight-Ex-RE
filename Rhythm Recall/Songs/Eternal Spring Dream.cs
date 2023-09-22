@@ -1069,7 +1069,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(1024f))
             {
                 PlaySound(Sounds.heal);
-                HeartAttribute.MaxHP = (92);
+                HeartAttribute.MaxHP = 92;
                 SetBox(290, 160, 140);
                 SetSoul(2);
                 Heart.JumpSpeed = 6.7f;
@@ -1610,7 +1610,7 @@ namespace Rhythm_Recall.Waves
                 for (int i = -1; i <= 1; i += 2)
                     for (int j = -1; j <= 1; j += 2)
                     {
-                        float rotS = j * (((i + 1) / 2) * -90) + ((j + 1) / 2) * 270;
+                        float rotS = j * (i + 1) / 2 * -90 + (j + 1) / 2 * 270;
                         Vector2 loc = new(320 + i * 140, 240 + j * 140);
                         for (int t = 0; t <= 90; t += 15)
                         {

@@ -101,7 +101,7 @@ namespace UndyneFight_Ex.Remake.Network
                         bool t = UFSocketData.IsAbleConnect();
                         string info = "Cannot connect to server!";
                         if (!t) info = "Please check your connect!";
-                        var scene = (GameStates.CurrentScene as GameMenuScene);
+                        var scene = GameStates.CurrentScene as GameMenuScene;
                         if (scene != null) scene.InstanceCreate(new WarningShower(info));
                         _onReceive.Invoke(new(DateTime.Now.Ticks - time.Ticks, false, ex.Message, 'D'));
                         UFSocketData._isConnected = false;
@@ -158,7 +158,7 @@ namespace UndyneFight_Ex.Remake.Network
                     ex = UFSocketData.TryConnect();
                     if (ex != null)
                     {
-                        var scene2 = (GameStates.CurrentScene as GameMenuScene);
+                        var scene2 = GameStates.CurrentScene as GameMenuScene;
                         if (scene2 != null) scene2.InstanceCreate(new WarningShower("Cannot connect to server!"));
                         _onReceive.Invoke(new(DateTime.Now.Ticks - time.Ticks, false, ex.Message, 'D'));
                         UFSocketData._isConnected = false;
@@ -203,7 +203,7 @@ namespace UndyneFight_Ex.Remake.Network
                         UFSocketData.sending = false;
                         _onReceive.Invoke(new(DateTime.Now.Ticks - time.Ticks, false, ex3.Message, 'D'));
                         UFSocketData._isConnected = false;
-                        var scene = (GameStates.CurrentScene as GameMenuScene);
+                        var scene = GameStates.CurrentScene as GameMenuScene;
                         if (scene != null) scene.InstanceCreate(new WarningShower("Cannot connect to server!"));
                     }
                 }

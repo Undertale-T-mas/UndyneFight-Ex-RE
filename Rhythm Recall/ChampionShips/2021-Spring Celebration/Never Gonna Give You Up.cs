@@ -89,7 +89,7 @@ namespace Rhythm_Recall.Waves
 
             public void Normal()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (Gametime == 2)
                 {
                     float time = SingleBeat * 1.1f;
@@ -463,7 +463,7 @@ namespace Rhythm_Recall.Waves
 
             public void Extreme()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (Gametime == 2)
                 {
                     float time = SingleBeat * 1.1f;
@@ -878,7 +878,7 @@ namespace Rhythm_Recall.Waves
 
             public void Start()
             {
-                HeartAttribute.MaxHP = (6);
+                HeartAttribute.MaxHP = 6;
                 SetGreenBox();
                 SetSoul(1);
                 TP();

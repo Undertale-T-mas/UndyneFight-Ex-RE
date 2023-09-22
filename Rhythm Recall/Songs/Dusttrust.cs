@@ -44,7 +44,7 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "Nickolas";
                 public override string AttributeAuthor => "meow?meow?meow?";
                 public override string PaintAuthor => "SirDoesArt";
-                public override string Extra => "The barrages is not finished with bugs,\nand we won't fix it nowadays because the ChampionShip.";
+                //public override string Extra => "The barrages is not finished with bugs,\nand we won't fix it nowadays because the ChampionShip.";
                 public override Color ExtraColor => Color.Cyan;
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
@@ -561,7 +561,7 @@ namespace Rhythm_Recall.Waves
                     {
                         CreatePlatform(new Platform(0, new(320 + 25 + 400 / 2 + 25, 280 + 150 / 2 - 32), Motions.PositionRoute.linear, 0, 50)
                         {
-                            PositionRouteParam = new float[] { -(480) / 2 / bpm / 16, 0 }
+                            PositionRouteParam = new float[] { -480 / 2 / bpm / 16, 0 }
                         });
                     }));
                     //   Boneslab boneslab1 = new(0, 10, 0, (int)(bpm * 128), Motions.LengthRoute.autoFold,Motions.PositionRoute.);
@@ -587,12 +587,12 @@ namespace Rhythm_Recall.Waves
                         for (int a = 0; a < 20; a++)
                         {
                             float length = (90 + 45) / bpm * a;
-                            UpBone bone1 = new(true, 520 + (a * 3.75f) * 4.5f, 4.5f, 30 + Sin(length) * 32);
-                            DownBone bone2 = new(true, 520 + (a * 3.75f) * 4.5f, 4.5f, 150 - 30 - Sin(length) * 32 - 64);
+                            UpBone bone1 = new(true, 520 + a * 3.75f * 4.5f, 4.5f, 30 + Sin(length) * 32);
+                            DownBone bone2 = new(true, 520 + a * 3.75f * 4.5f, 4.5f, 150 - 30 - Sin(length) * 32 - 64);
                             CreateBone(bone1);
                             CreateBone(bone2);
                         }
-                        CreateBone(new DownBone(true, 520 + (26.5f * 3.75f) * 4.5f, 4.5f, 150) { ColorType = 1 });
+                        CreateBone(new DownBone(true, 520 + 26.5f * 3.75f * 4.5f, 4.5f, 150) { ColorType = 1 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 64, 1, () =>
                     {
@@ -1299,7 +1299,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 64 * a, 1, () =>
                    {
-                       for (int a = (int)(BoxStates.Left); a < BoxStates.Right; a++)
+                       for (int a = (int)BoxStates.Left; a < BoxStates.Right; a++)
                        {
                            if (a % 80 == 0)
                            {
@@ -1310,7 +1310,7 @@ namespace Rhythm_Recall.Waves
                    }));
                         AddInstance(new TimeRangedEvent(bpm * 64 * a + bpm * 32, 1, () =>
                         {
-                            for (int a = (int)(BoxStates.Left); a < BoxStates.Right; a++)
+                            for (int a = (int)BoxStates.Left; a < BoxStates.Right; a++)
                             {
                                 if ((a + 40) % 80 == 0)
                                 {
@@ -1778,7 +1778,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void fight15()
                 {
-
+                    ScreenDrawing.BoxBackColor = Color.Transparent;
                     PlaySound(Sounds.Ding);
                     PlaySound(Sounds.giga);
                     SetSoul(2);
@@ -1958,6 +1958,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + 9 * bpm * 2, 1, () =>
                     {
+                        ScreenDrawing.BoxBackColor = Color.Black;
                         for (int a = 0; a < 512; a++) CreateEntity(new Particle(Color.White,
                                                 new(Rand(-30, 30) / 10f, -Rand(3f, 6f)), Rand(10, 16), new(Rand(BoxStates.Left, BoxStates.Right), Rand(BoxStates.Up, BoxStates.Down)), Sprites.square)
                         {
@@ -1966,7 +1967,6 @@ namespace Rhythm_Recall.Waves
                         InstantSetBox(240, 645, 485);
                         MainEffects.Supershake();
                         DrawingUtil.Shock(0.5f, 1.5f, 1280);
-
                     }));
                 }
                 public static void fight17()
@@ -2686,7 +2686,7 @@ namespace Rhythm_Recall.Waves
                     {
                         CreatePlatform(new Platform(0, new(320 + 25 + 400 / 2 + 25, 280 + 150 / 2 - 32), Motions.PositionRoute.linear, 0, 50)
                         {
-                            PositionRouteParam = new float[] { -(480) / 2 / bpm / 16, 0 }
+                            PositionRouteParam = new float[] { -480 / 2 / bpm / 16, 0 }
                         });
                     }));
                     //   Boneslab boneslab1 = new(0, 10, 0, (int)(bpm * 128), Motions.LengthRoute.autoFold,Motions.PositionRoute.);
@@ -2698,10 +2698,10 @@ namespace Rhythm_Recall.Waves
                         for (int a = 0; a < 20; a++)
                         {
                             float length = (90 + 45) / bpm * a;
-                            DownBone bone2 = new(true, 520 + (a * 3.75f) * 4.5f, 4.5f, 150 - 60 - Sin(length) * 32 - 64);
+                            DownBone bone2 = new(true, 520 + a * 3.75f * 4.5f, 4.5f, 150 - 60 - Sin(length) * 32 - 64);
                             CreateBone(bone2);
                         }
-                        CreateBone(new DownBone(true, 520 + (26.5f * 3.75f) * 4.5f, 3.5f, 80) { ColorType = 1 });
+                        CreateBone(new DownBone(true, 520 + 26.5f * 3.75f * 4.5f, 3.5f, 80) { ColorType = 1 });
                     }));
                     for (int a = 1; a < 8; a++)
                     {
@@ -4409,9 +4409,9 @@ namespace Rhythm_Recall.Waves
                 {
                     Explusfight.fight16();
                 }
-                if (GametimeF >= (int)(BeatTime(1320 + 4)) && GametimeF % 2.5f == 0 && GametimeF <= (int)(BeatTime(1320 + 16 - 8 + 7 * 16)))
+                if (GametimeF >= (int)BeatTime(1320 + 4) && GametimeF % 2.5f == 0 && GametimeF <= (int)BeatTime(1320 + 16 - 8 + 7 * 16))
                 {
-                    float speed = GametimeF - (int)(BeatTime(1200 - 12 + 96 - 2 + 120 - 90));
+                    float speed = GametimeF - (int)BeatTime(1200 - 12 + 96 - 2 + 120 - 90);
                     Explusfight.WaveParticle(speed + (speed * speed * 0.036f));
                     shader.Parameters["distance"].SetValue(new Vector2(Rand(-0.006f, 0.006f), Rand(-0.006f, 0.006f)));
                 }
@@ -4665,9 +4665,9 @@ namespace Rhythm_Recall.Waves
                 {
                     Hardfight.fight16();
                 }
-                if (GametimeF >= (int)(BeatTime(1320 + 4)) && GametimeF % 3.5f == 0 && GametimeF <= (int)(BeatTime(1320 + 16 - 8 + 6 * 16 - 8)))
+                if (GametimeF >= (int)BeatTime(1320 + 4) && GametimeF % 3.5f == 0 && GametimeF <= (int)BeatTime(1320 + 16 - 8 + 6 * 16 - 8))
                 {
-                    float speed = GametimeF - (int)(BeatTime(1200 - 12 + 96 - 2 + 120 - 90));
+                    float speed = GametimeF - (int)BeatTime(1200 - 12 + 96 - 2 + 120 - 90);
                     Hardfight.WaveParticle(speed + (speed * speed * 0.036f));
                     shader.Parameters["distance"].SetValue(new Vector2(Rand(-0.006f, 0.006f), Rand(-0.006f, 0.006f)));
                 }

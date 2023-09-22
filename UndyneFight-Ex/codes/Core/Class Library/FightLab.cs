@@ -634,10 +634,10 @@ namespace UndyneFight_Ex.Fight
 
                     return colorLastArrow[color] = lastArrow = cur;
                 case '+':
-                    lastArrow += (wayTag[1] - '0');
+                    lastArrow += wayTag[1] - '0';
                     return colorLastArrow[color] = lastArrow;
                 case '-':
-                    lastArrow -= (wayTag[1] - '0');
+                    lastArrow -= wayTag[1] - '0';
                     return colorLastArrow[color] = lastArrow;
                 case '$':
                     lastArrow = wayTag[1] - '0';
@@ -958,7 +958,7 @@ namespace UndyneFight_Ex.Fight
         }
         public static int RandSignal()
         {
-            return LastRand = (GetRandom(0, 1) == 0 ? 1 : -1);
+            return LastRand = GetRandom(0, 1) == 0 ? 1 : -1;
         }
         public static bool RandBool()
         {

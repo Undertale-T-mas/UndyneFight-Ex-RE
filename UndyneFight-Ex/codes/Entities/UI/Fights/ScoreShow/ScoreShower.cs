@@ -191,7 +191,7 @@ namespace UndyneFight_Ex.Entities
         public SkillMark GenerateCurrentMark()
         {
             SkillMark mark;
-            bool buffed = ((mode & GameMode.Buffed) == GameMode.Buffed);
+            bool buffed = (mode & GameMode.Buffed) == GameMode.Buffed;
             float scorePercent = MathF.Min(1, score * 1.0f / (totalCount * 100));
             bool AC = miss == 0;
             bool AP = (miss + okay + nice) == 0;

@@ -90,7 +90,7 @@ namespace Rhythm_Recall.Waves
                 public override void Draw()
                 {
                     if (rotate % 180 != 0)
-                        DrawingLab.DrawLine(new(xCenter - (1f / Tan(rotate)) * (yCenter), -50), new(xCenter + (1f / Tan(rotate)) * (480 - yCenter), 520), width, color * alpha, depth);
+                        DrawingLab.DrawLine(new(xCenter - 1f / Tan(rotate) * yCenter, -50), new(xCenter + 1f / Tan(rotate) * (480 - yCenter), 520), width, color * alpha, depth);
                     else
                         DrawingLab.DrawLine(new(0, yCenter), new(640, yCenter), width, color * alpha, depth);
                     Depth = 0.99f;

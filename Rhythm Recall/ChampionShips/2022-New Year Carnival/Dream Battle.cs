@@ -300,7 +300,7 @@ namespace Rhythm_Recall.Waves
                         };
                     for (int i = 0; i < bway.Length; i++)
                     {
-                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 5 + (i % 2) / 3f, 0, 0);
+                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 5 + i % 2 / 3f, 0, 0);
                         curTime += game.BeatTime(1);
                     }
                 }
@@ -2336,7 +2336,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if ((InBeat(188, 313) || InBeat(1024, 1149)) && AtKthBeat(1, 0))
                 {
-                    var dir = ((GametimeF - (int)BeatTime(188)) / BeatTime(0.5f));
+                    var dir = (GametimeF - (int)BeatTime(188)) / BeatTime(0.5f);
                     CreateArrow(60, (int)MathUtil.Posmod(dir, 4), 6, 1, 0);
                 }
                 if (InBeat(104)) ExPlusBarrage.Intro0();

@@ -24,7 +24,7 @@ namespace UndyneFight_Ex.Remake.UI
                 
                 public override void Start()
                 {
-                    _efa = (this.FatherObject as Extra);
+                    _efa = this.FatherObject as Extra;
                     _vfa = (this.FatherObject as Extra)._vfa;
                     base.Start();
                 }

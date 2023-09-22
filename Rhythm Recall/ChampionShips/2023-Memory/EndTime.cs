@@ -1786,7 +1786,7 @@ namespace Rhythm_Recall.Waves
                     scale.Run(scale => { ScreenDrawing.UIColor = uic * scale; ScreenDrawing.HPBar.HPExistColor = new Color(90, 112, 125) * scale; ScreenDrawing.HPBar.HPLoseColor = Color.Gray * scale; });
                     #endregion
                     ValueEasing.EaseBuilder len = new();
-                    len.Insert(game.BeatTime(64), ValueEasing.Stable((4 * 84)));
+                    len.Insert(game.BeatTime(64), ValueEasing.Stable(4 * 84));
                     len.Insert(game.BeatTime(1), ValueEasing.EaseInSine(4 * 84, 6 * 84, game.BeatTime(1)));
                     Line l = new(CentreEasing.Stable(320, 480 - 84 - 42), ValueEasing.Stable(0), len.GetResult()) { Depth = 0.99f, Alpha = 0 };
                     CreateEntity(l);
@@ -3782,7 +3782,7 @@ namespace Rhythm_Recall.Waves
                     scale.Run(scale => { ScreenDrawing.UIColor = uic * scale; ScreenDrawing.HPBar.HPExistColor = new Color(90, 112, 125) * scale; ScreenDrawing.HPBar.HPLoseColor = Color.Gray * scale; });
                     #endregion
                     ValueEasing.EaseBuilder len = new();
-                    len.Insert(game.BeatTime(64), ValueEasing.Stable((4 * 84)));
+                    len.Insert(game.BeatTime(64), ValueEasing.Stable(4 * 84));
                     len.Insert(game.BeatTime(1), ValueEasing.EaseInSine(4 * 84, 6 * 84, game.BeatTime(1)));
                     Line l = new(CentreEasing.Stable(320, 480 - 84 - 42), ValueEasing.Stable(0), len.GetResult()) { Depth = 0.99f, Alpha = 0 };
                     CreateEntity(l);
@@ -5851,7 +5851,7 @@ namespace Rhythm_Recall.Waves
                     scale.Run(scale => { ScreenDrawing.UIColor = uic * scale; ScreenDrawing.HPBar.HPExistColor = new Color(90, 112, 125) * scale; ScreenDrawing.HPBar.HPLoseColor = Color.Gray * scale; });
                     #endregion
                     ValueEasing.EaseBuilder len = new();
-                    len.Insert(game.BeatTime(64), ValueEasing.Stable((4 * 84)));
+                    len.Insert(game.BeatTime(64), ValueEasing.Stable(4 * 84));
                     len.Insert(game.BeatTime(1), ValueEasing.EaseInSine(4 * 84, 6 * 84, game.BeatTime(1)));
                     Line l = new(CentreEasing.Stable(320, 480 - 84 - 42), ValueEasing.Stable(0), len.GetResult()) { Depth = 0.99f, Alpha = 0 };
                     CreateEntity(l);

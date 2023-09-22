@@ -50,8 +50,8 @@ namespace UndyneFight_Ex.Entities
             }
             else if (appearTime == (int)WaitingTime + 1)
             {
-                Rotation = (DelayTargeting ? (float)(Atan2(Heart.Centre.Y - Centre.Y, Heart.Centre.X - Centre.X) * 180 / Math.PI)
-                    : missionRotation);
+                Rotation = DelayTargeting ? (float)(Atan2(Heart.Centre.Y - Centre.Y, Heart.Centre.X - Centre.X) * 180 / Math.PI)
+                    : missionRotation;
 
                 if (!IsMute)
                 {
@@ -177,7 +177,7 @@ namespace UndyneFight_Ex.Entities
             {
                 if (waitingTime < 34)
                 {
-                    appearRotation *= (1 - 1.3f / waitingTime);
+                    appearRotation *= 1 - 1.3f / waitingTime;
                     appearRotation -= 5f / waitingTime;
                 }
                 appearRotation -= 0.8f;
@@ -242,7 +242,7 @@ namespace UndyneFight_Ex.Entities
             }
 
             Rotation += rotateSpeed;
-            rotateSpeed *= (1 - rotateFriction);
+            rotateSpeed *= 1 - rotateFriction;
 
             distance -= linearSpeed;
 
@@ -311,7 +311,7 @@ namespace UndyneFight_Ex.Entities
         }
         public void AlphaDecrease(float time)
         {
-            float del = (alpha) / (time * 2f);
+            float del = alpha / (time * 2f);
             AddInstance(new TimeRangedEvent(time, () =>
             {
                 alpha = Max(0, alpha - del);

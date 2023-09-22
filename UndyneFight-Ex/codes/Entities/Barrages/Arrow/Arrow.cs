@@ -103,7 +103,7 @@ namespace UndyneFight_Ex.Entities
         public override void Draw()
         {
             //Tap -> Green outline, else no outline
-            if ((JudgeType != JudgementType.Tap && !taggedArrows.ContainsKey("Tap")) && backColor == 2)
+            if (JudgeType != JudgementType.Tap && !taggedArrows.ContainsKey("Tap") && backColor == 2)
                 backColor = 0;
             if (ForceGreenBack) { backColor = 2; }
             //if (!VoidMode) Image = Sprites.arrow[ArrowColor, backColor, 0];
@@ -124,7 +124,7 @@ namespace UndyneFight_Ex.Entities
         {
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             float max = MathF.Max(MathF.Max(extend.X, extend.Y), MathF.Max(extend.Z, extend.W));
-            if ((Speed) * (shootShieldTime - GametimeF) + this.additiveDistance > 640 * (max + 1.5f)) return;
+            if (Speed * (shootShieldTime - GametimeF) + this.additiveDistance > 640 * (max + 1.5f)) return;
             PositionCalculate();
             AppearTime += 0.5f;
             if (shootShieldTime - GametimeF < 15)

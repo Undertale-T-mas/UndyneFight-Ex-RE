@@ -32,7 +32,7 @@ namespace UndyneFight_Ex.Remake.UI
                     _images = new Texture2D[this.ChildObjects.Count];
                     foreach (var obj in this.ChildObjects)
                     {
-                        this.all[i] = (obj as SelectingModule);
+                        this.all[i] = obj as SelectingModule;
                         if (all[i] is LeafSelection)
                         {
                             LeafSelection leaf = (LeafSelection)all[i];
@@ -189,7 +189,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                     float wheel = MouseSystem.CurrentState.ScrollWheelValue;
                     
-                    wheelRemain -= (wheel - wheelLast); 
+                    wheelRemain -= wheel - wheelLast; 
                     wheelLast = wheel;
 
                     if (MathF.Abs( wheelRemain ) > 0.001f)

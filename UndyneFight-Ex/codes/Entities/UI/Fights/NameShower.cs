@@ -36,13 +36,13 @@ namespace UndyneFight_Ex.Entities
                         namePos, Color.Orange * nameAlpha);
                     break;
                 default:
-                    FightFont.CentreDraw((string.IsNullOrEmpty(PlayerManager.currentPlayer)
-                        ? "guest" : PlayerManager.currentPlayer),
+                    FightFont.CentreDraw(string.IsNullOrEmpty(PlayerManager.currentPlayer)
+                        ? "guest" : PlayerManager.currentPlayer,
                         new Vector2(100, 462), new Color(DrawingLab.HsvToRgb(GameMain.gameTime, 160, 160, 255)));
                     for (int i = 0; i < 3; i++)
                     {
-                        FightFont.CentreDraw((string.IsNullOrEmpty(PlayerManager.currentPlayer)
-                            ? "guest" : PlayerManager.currentPlayer),
+                        FightFont.CentreDraw(string.IsNullOrEmpty(PlayerManager.currentPlayer)
+                            ? "guest" : PlayerManager.currentPlayer,
                             new Vector2(100, 462) + MathUtil.GetVector2(10, GameMain.gameTime / 1.5f + i * 120) * new Vector2(1.0f, 0.8f),
                             new Color(DrawingLab.HsvToRgb(GameMain.gameTime / 1.3f + i * 100 + 16, 255, 255, 255)),
                             1.0f, i / 100f + 0.01f);
@@ -50,7 +50,7 @@ namespace UndyneFight_Ex.Entities
                     break;
             }
 
-            int trueLV = (level != -1) ? (level) : (difficulty);
+            int trueLV = (level != -1) ? level : difficulty;
             FightFont.Draw("lv " + trueLV,
                 lvPos, GameMain.CurrentDrawingSettings.UIColor * nameAlpha);
         }

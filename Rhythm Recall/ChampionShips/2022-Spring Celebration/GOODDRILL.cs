@@ -1023,10 +1023,10 @@ namespace Rhythm_Recall.Waves
 
                 if (GametimeF >= 0 && GametimeF < 60)
                 {
-                    NormalLine line1 = new(0, -80, 300, 220, 200, 1 - ((Gametime - 30) * 0.03f) * ((Gametime - 30) * 0.03f));
-                    NormalLine line2 = new(940, 860, 340, 260, 200, 1 - ((Gametime - 30) * 0.03f) * ((Gametime - 30) * 0.03f));
-                    NormalLine line3 = new(940, -380, 340, 220, 200, 1 - ((Gametime - 30) * 0.03f) * ((Gametime - 30) * 0.03f));
-                    NormalLine line4 = new(-300, 860, 300, 260, 200, 1 - ((Gametime - 30) * 0.03f) * ((Gametime - 30) * 0.03f));
+                    NormalLine line1 = new(0, -80, 300, 220, 200, 1 - (Gametime - 30) * 0.03f * ((Gametime - 30) * 0.03f));
+                    NormalLine line2 = new(940, 860, 340, 260, 200, 1 - (Gametime - 30) * 0.03f * ((Gametime - 30) * 0.03f));
+                    NormalLine line3 = new(940, -380, 340, 220, 200, 1 - (Gametime - 30) * 0.03f * ((Gametime - 30) * 0.03f));
+                    NormalLine line4 = new(-300, 860, 300, 260, 200, 1 - (Gametime - 30) * 0.03f * ((Gametime - 30) * 0.03f));
                     CreateEntity(line4);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1045,10 +1045,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 0 * 12 && GametimeF < 90 + 12 * 1)
                 {
-                    NormalLine line = new(0, 220 - ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 640, 220 - ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line1 = new(0, 260 + ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 640, 260 + ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line2 = new(340 + ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 0, 340 + ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line3 = new(300 - ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 0, 300 - ((Gametime - 0 * 12) * 0.55f) * ((Gametime - 0 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line = new(0, 220 - (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 640, 220 - (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line1 = new(0, 260 + (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 640, 260 + (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line2 = new(340 + (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 0, 340 + (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line3 = new(300 - (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 0, 300 - (Gametime - 0 * 12) * 0.55f * ((Gametime - 0 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1067,10 +1067,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 1 * 12 && GametimeF < 90 + 12 * 2)
                 {
-                    NormalLine line = new(0, 220 - ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 640, 220 - ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line1 = new(0, 260 + ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 640, 260 + ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line2 = new(340 + ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 0, 340 + ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line3 = new(300 - ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 0, 300 - ((Gametime - 1 * 12) * 0.55f) * ((Gametime - 1 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line = new(0, 220 - (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 640, 220 - (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line1 = new(0, 260 + (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 640, 260 + (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line2 = new(340 + (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 0, 340 + (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line3 = new(300 - (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 0, 300 - (Gametime - 1 * 12) * 0.55f * ((Gametime - 1 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1085,10 +1085,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2 * 12 && GametimeF < 90 + 12 * 3)
                 {
-                    NormalLine line = new(0, 220 - ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 640, 220 - ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line1 = new(0, 260 + ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 640, 260 + ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line2 = new(340 + ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 0, 340 + ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line3 = new(300 - ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 0, 300 - ((Gametime - 2 * 12) * 0.55f) * ((Gametime - 2 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line = new(0, 220 - (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 640, 220 - (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line1 = new(0, 260 + (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 640, 260 + (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line2 = new(340 + (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 0, 340 + (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line3 = new(300 - (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 0, 300 - (Gametime - 2 * 12) * 0.55f * ((Gametime - 2 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1107,10 +1107,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 3 * 12 && GametimeF < 90 + 12 * 4)
                 {
-                    NormalLine line = new(0, 220 - ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 640, 220 - ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line1 = new(0, 260 + ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 640, 260 + ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line2 = new(340 + ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 0, 340 + ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line3 = new(300 - ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 0, 300 - ((Gametime - 3 * 12) * 0.55f) * ((Gametime - 3 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line = new(0, 220 - (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 640, 220 - (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line1 = new(0, 260 + (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 640, 260 + (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line2 = new(340 + (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 0, 340 + (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line3 = new(300 - (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 0, 300 - (Gametime - 3 * 12) * 0.55f * ((Gametime - 3 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1129,10 +1129,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 4 * 12 && GametimeF < 90 + 12 * 5)
                 {
-                    NormalLine line = new(0, 220 - ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 640, 220 - ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line1 = new(0, 260 + ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 640, 260 + ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line2 = new(340 + ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 0, 340 + ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
-                    NormalLine line3 = new(300 - ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 0, 300 - ((Gametime - 4 * 12) * 0.55f) * ((Gametime - 4 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line = new(0, 220 - (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 640, 220 - (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line1 = new(0, 260 + (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 640, 260 + (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line2 = new(340 + (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 0, 340 + (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
+                    NormalLine line3 = new(300 - (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 0, 300 - (Gametime - 4 * 12) * 0.55f * ((Gametime - 4 * 12) * 0.55f), 480, 150, 0.1f + Gametime * 0.0375f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1167,10 +1167,10 @@ namespace Rhythm_Recall.Waves
                 #region
                 if (GametimeF == 1490 + 60 * 0 && GametimeF < 1490 + 60 * 1)
                 {
-                    NormalLine line = new(0, 220 - 22 - ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 640, 220 - 22 - ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line1 = new(0, 260 + 22 + ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 640, 260 + 22 + ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line2 = new(340 + 22 + ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 0, 340 + 22 + ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
-                    NormalLine line3 = new(300 - 22 - ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 0, 300 - 22 - ((Gametime - 0 * 60 - 1490) * 0.55f) * ((Gametime - 0 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line = new(0, 220 - 22 - (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 640, 220 - 22 - (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line1 = new(0, 260 + 22 + (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 640, 260 + 22 + (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line2 = new(340 + 22 + (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 0, 340 + 22 + (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line3 = new(300 - 22 - (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 0, 300 - 22 - (Gametime - 0 * 60 - 1490) * 0.55f * ((Gametime - 0 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1185,10 +1185,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 1490 + 60 * 1 && GametimeF < 1490 + 60 * 2)
                 {
-                    NormalLine line = new(0, 220 - 22 - ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 640, 220 - 22 - ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line1 = new(0, 260 + 22 + ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 640, 260 + 22 + ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line2 = new(340 + 22 + ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 0, 340 + 22 + ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
-                    NormalLine line3 = new(300 - 22 - ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 0, 300 - 22 - ((Gametime - 1 * 60 - 1490) * 0.55f) * ((Gametime - 1 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line = new(0, 220 - 22 - (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 640, 220 - 22 - (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line1 = new(0, 260 + 22 + (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 640, 260 + 22 + (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line2 = new(340 + 22 + (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 0, 340 + 22 + (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line3 = new(300 - 22 - (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 0, 300 - 22 - (Gametime - 1 * 60 - 1490) * 0.55f * ((Gametime - 1 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1203,10 +1203,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 1490 + 60 * 2 && GametimeF < 1490 + 60 * 3)
                 {
-                    NormalLine line = new(0, 220 - 22 - ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 640, 220 - 22 - ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line1 = new(0, 260 + 22 + ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 640, 260 + 22 + ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line2 = new(340 + 22 + ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 0, 340 + 22 + ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
-                    NormalLine line3 = new(300 - 22 - ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 0, 300 - 22 - ((Gametime - 2 * 60 - 1490) * 0.55f) * ((Gametime - 2 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line = new(0, 220 - 22 - (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 640, 220 - 22 - (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line1 = new(0, 260 + 22 + (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 640, 260 + 22 + (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line2 = new(340 + 22 + (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 0, 340 + 22 + (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line3 = new(300 - 22 - (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 0, 300 - 22 - (Gametime - 2 * 60 - 1490) * 0.55f * ((Gametime - 2 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1221,10 +1221,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 1490 + 60 * 3 && GametimeF < 1490 + 60 * 4)
                 {
-                    NormalLine line = new(0, 220 - 22 - ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 640, 220 - 22 - ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line1 = new(0, 260 + 22 + ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 640, 260 + 22 + ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line2 = new(340 + 22 + ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 0, 340 + 22 + ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
-                    NormalLine line3 = new(300 - 22 - ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 0, 300 - 22 - ((Gametime - 3 * 60 - 1490) * 0.55f) * ((Gametime - 3 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line = new(0, 220 - 22 - (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 640, 220 - 22 - (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line1 = new(0, 260 + 22 + (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 640, 260 + 22 + (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line2 = new(340 + 22 + (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 0, 340 + 22 + (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line3 = new(300 - 22 - (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 0, 300 - 22 - (Gametime - 3 * 60 - 1490) * 0.55f * ((Gametime - 3 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1239,10 +1239,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 1490 + 60 * 4 && GametimeF < 1490 + 60 * 5)
                 {
-                    NormalLine line = new(0, 220 - 22 - ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 640, 220 - 22 - ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line1 = new(0, 260 + 22 + ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 640, 260 + 22 + ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line2 = new(340 + 22 + ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 0, 340 + 22 + ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
-                    NormalLine line3 = new(300 - 22 - ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 0, 300 - 22 - ((Gametime - 4 * 60 - 1490) * 0.55f) * ((Gametime - 4 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line = new(0, 220 - 22 - (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 640, 220 - 22 - (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line1 = new(0, 260 + 22 + (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 640, 260 + 22 + (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line2 = new(340 + 22 + (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 0, 340 + 22 + (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line3 = new(300 - 22 - (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 0, 300 - 22 - (Gametime - 4 * 60 - 1490) * 0.55f * ((Gametime - 4 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1257,10 +1257,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 1490 + 60 * 5 && GametimeF < 1490 + 60 * 6)
                 {
-                    NormalLine line = new(0, 240 - 42 - ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 640, 240 - 42 - ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line1 = new(0, 240 + 42 + ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 640, 240 + 42 + ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 360, 0.8f);
-                    NormalLine line2 = new(320 + 42 + ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 0, 320 + 42 + ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
-                    NormalLine line3 = new(320 - 42 - ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 0, 320 - 42 - ((Gametime - 5 * 60 - 1490) * 0.55f) * ((Gametime - 5 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line = new(0, 240 - 42 - (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 640, 240 - 42 - (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line1 = new(0, 240 + 42 + (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 640, 240 + 42 + (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 360, 0.8f);
+                    NormalLine line2 = new(320 + 42 + (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 0, 320 + 42 + (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
+                    NormalLine line3 = new(320 - 42 - (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 0, 320 - 42 - (Gametime - 5 * 60 - 1490) * 0.55f * ((Gametime - 5 * 60 - 1490) * 0.55f), 480, 360, 0.8f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1299,10 +1299,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2121)
                 {
-                    NormalLine line = new(0, 240 - 90 - ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 640, 240 - 90 - ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 90, 0.65f);
-                    NormalLine line1 = new(0, 240 + 90 + ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 640, 240 + 90 + ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 90, 0.65f);
-                    NormalLine line2 = new(320 + 90 + ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 0, 320 + 90 + ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 480, 90, 0.65f);
-                    NormalLine line3 = new(320 - 90 - ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 0, 320 - 90 - ((Gametime - 2120) * 0.75f) * ((Gametime - 2120) * 0.75f), 480, 90, 0.65f);
+                    NormalLine line = new(0, 240 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 640, 240 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 90, 0.65f);
+                    NormalLine line1 = new(0, 240 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 640, 240 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 90, 0.65f);
+                    NormalLine line2 = new(320 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 0, 320 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 480, 90, 0.65f);
+                    NormalLine line3 = new(320 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 0, 320 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 480, 90, 0.65f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1317,7 +1317,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2160 && GametimeF < 2190)
                 {
-                    NormalLine line = new(640 - ((Gametime - 2160) * 0.9f) * ((Gametime - 2160) * 0.9f), 0, 640 - ((Gametime - 2160) * 0.9f) * ((Gametime - 2160) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2160) * 0.9f * ((Gametime - 2160) * 0.9f), 0, 640 - (Gametime - 2160) * 0.9f * ((Gametime - 2160) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1327,7 +1327,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2185 + 0 * 42.5f && GametimeF < 2185 + 1 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2185 - 0 * 42.5f) * 0.9f) * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2185 - 0 * 42.5f) * 0.9f) * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2185 - 0 * 42.5f) * 0.9f * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 0 * 42.5f) * 0.9f * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1337,7 +1337,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2185 + 1 * 42.5f && GametimeF < 2185 + 2 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new(((Gametime - 2185 - 1 * 42.5f) * 0.9f) * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 0, ((Gametime - 2185 - 1 * 42.5f) * 0.9f) * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((Gametime - 2185 - 1 * 42.5f) * 0.9f * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 1 * 42.5f) * 0.9f * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1347,7 +1347,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2185 + 2 * 42.5f && GametimeF < 2185 + 3 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2185 - 2 * 42.5f) * 0.9f) * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2185 - 2 * 42.5f) * 0.9f) * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2185 - 2 * 42.5f) * 0.9f * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 2 * 42.5f) * 0.9f * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1357,7 +1357,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2185 + 3 * 42.5f && GametimeF < 2185 + 4 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new(((Gametime - 2185 - 3 * 42.5f) * 0.9f) * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 0, ((Gametime - 2185 - 3 * 42.5f) * 0.9f) * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((Gametime - 2185 - 3 * 42.5f) * 0.9f * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 3 * 42.5f) * 0.9f * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1367,7 +1367,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2185 + 4 * 42.5f && GametimeF < 2185 + 5 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2185 - 4 * 42.5f) * 0.9f) * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2185 - 4 * 42.5f) * 0.9f) * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2185 - 4 * 42.5f) * 0.9f * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 4 * 42.5f) * 0.9f * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1377,7 +1377,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2185 + 5 * 42.5f && GametimeF < 2185 + 6 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new(((Gametime - 2185 - 5 * 42.5f) * 0.9f) * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 0, ((Gametime - 2185 - 5 * 42.5f) * 0.9f) * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((Gametime - 2185 - 5 * 42.5f) * 0.9f * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 5 * 42.5f) * 0.9f * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1387,9 +1387,9 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2185 + 6 * 42.5f && GametimeF < 2185 + 7 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2185 - 6 * 42.5f) * 0.9f) * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2185 - 6 * 42.5f) * 0.9f) * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
-                    NormalLine line1 = new(((Gametime - 2185 - 6 * 42.5f) * 0.9f) * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, ((Gametime - 2185 - 6 * 42.5f) * 0.9f) * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line1 = new((Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line1);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1402,7 +1402,7 @@ namespace Rhythm_Recall.Waves
                 #region
                 if (GametimeF >= 2450 && GametimeF < 2460)
                 {
-                    NormalLine line = new(0, ((Gametime - 2450) * 1.2f) * ((Gametime - 2450) * 1.2f), 640, ((Gametime - 2450) * 1.2f) * ((Gametime - 2450) * 1.2f), 90, 0.75f);
+                    NormalLine line = new(0, (Gametime - 2450) * 1.2f * ((Gametime - 2450) * 1.2f), 640, (Gametime - 2450) * 1.2f * ((Gametime - 2450) * 1.2f), 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1411,7 +1411,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2460 && GametimeF < 2470)
                 {
-                    NormalLine line = new(0, 480 - ((Gametime - 2460) * 1.2f) * ((Gametime - 2460) * 1.2f), 640, 480 - ((Gametime - 2460) * 1.2f) * ((Gametime - 2460) * 1.2f), 90, 0.75f);
+                    NormalLine line = new(0, 480 - (Gametime - 2460) * 1.2f * ((Gametime - 2460) * 1.2f), 640, 480 - (Gametime - 2460) * 1.2f * ((Gametime - 2460) * 1.2f), 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1420,7 +1420,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2470 && GametimeF < 2480)
                 {
-                    NormalLine line = new(0, ((Gametime - 2470) * 1.2f) * ((Gametime - 2470) * 1.2f), 640, ((Gametime - 2470) * 1.2f) * ((Gametime - 2470) * 1.2f), 90, 0.75f);
+                    NormalLine line = new(0, (Gametime - 2470) * 1.2f * ((Gametime - 2470) * 1.2f), 640, (Gametime - 2470) * 1.2f * ((Gametime - 2470) * 1.2f), 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1429,8 +1429,8 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2480 && GametimeF < 2500)
                 {
-                    Linerotate line = new(320, 240, ((Gametime - 2480) * 1.25f) * ((Gametime - 2480) * 1.25f), 90, 1 - ((Gametime - 2480) * 0.05f) * ((Gametime - 2480) * 0.05f));
-                    Linerotate line1 = new(320, 240, 90 + ((Gametime - 2480) * 1.25f) * ((Gametime - 2480) * 1.25f), 90, 1 - ((Gametime - 2480) * 0.05f) * ((Gametime - 2480) * 0.05f));
+                    Linerotate line = new(320, 240, (Gametime - 2480) * 1.25f * ((Gametime - 2480) * 1.25f), 90, 1 - (Gametime - 2480) * 0.05f * ((Gametime - 2480) * 0.05f));
+                    Linerotate line1 = new(320, 240, 90 + (Gametime - 2480) * 1.25f * ((Gametime - 2480) * 1.25f), 90, 1 - (Gametime - 2480) * 0.05f * ((Gametime - 2480) * 0.05f));
                     CreateEntity(line);
                     CreateEntity(line1);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1445,7 +1445,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2495 && GametimeF < 2525)
                 {
-                    NormalLine line = new(((2525 - Gametime) * 0.9f) * ((2525 - Gametime) * 0.9f), 0, ((2525 - Gametime) * 0.9f) * ((2525 - Gametime) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((2525 - Gametime) * 0.9f * ((2525 - Gametime) * 0.9f), 0, (2525 - Gametime) * 0.9f * ((2525 - Gametime) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1458,7 +1458,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2520 + 0 * 42.5f && GametimeF < 2520 + 1 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(((Gametime - 2520 - 0 * 42.5f) * 0.9f) * ((Gametime - 2520 - 0 * 42.5f) * 0.9f), 0, ((Gametime - 2520 - 0 * 42.5f) * 0.9f) * ((Gametime - 2520 - 0 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((Gametime - 2520 - 0 * 42.5f) * 0.9f * ((Gametime - 2520 - 0 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 0 * 42.5f) * 0.9f * ((Gametime - 2520 - 0 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1468,7 +1468,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2520 + 1 * 42.5f && GametimeF < 2520 + 2 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2520 - 1 * 42.5f) * 0.9f) * ((Gametime - 2520 - 1 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2520 - 1 * 42.5f) * 0.9f) * ((Gametime - 2520 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2520 - 1 * 42.5f) * 0.9f * ((Gametime - 2520 - 1 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 1 * 42.5f) * 0.9f * ((Gametime - 2520 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1478,7 +1478,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2520 + 2 * 42.5f && GametimeF < 2520 + 3 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(((Gametime - 2520 - 2 * 42.5f) * 0.9f) * ((Gametime - 2520 - 2 * 42.5f) * 0.9f), 0, ((Gametime - 2520 - 2 * 42.5f) * 0.9f) * ((Gametime - 2520 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((Gametime - 2520 - 2 * 42.5f) * 0.9f * ((Gametime - 2520 - 2 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 2 * 42.5f) * 0.9f * ((Gametime - 2520 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1488,7 +1488,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2520 + 3 * 42.5f && GametimeF < 2520 + 4 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2520 - 3 * 42.5f) * 0.9f) * ((Gametime - 2520 - 3 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2520 - 3 * 42.5f) * 0.9f) * ((Gametime - 2520 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2520 - 3 * 42.5f) * 0.9f * ((Gametime - 2520 - 3 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 3 * 42.5f) * 0.9f * ((Gametime - 2520 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1498,7 +1498,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2520 + 4 * 42.5f && GametimeF < 2520 + 5 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(((Gametime - 2520 - 4 * 42.5f) * 0.9f) * ((Gametime - 2520 - 4 * 42.5f) * 0.9f), 0, ((Gametime - 2520 - 4 * 42.5f) * 0.9f) * ((Gametime - 2520 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((Gametime - 2520 - 4 * 42.5f) * 0.9f * ((Gametime - 2520 - 4 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 4 * 42.5f) * 0.9f * ((Gametime - 2520 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1508,7 +1508,7 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2520 + 5 * 42.5f && GametimeF < 2520 + 6 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2520 - 5 * 42.5f) * 0.9f) * ((Gametime - 2520 - 5 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2520 - 5 * 42.5f) * 0.9f) * ((Gametime - 2520 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2520 - 5 * 42.5f) * 0.9f * ((Gametime - 2520 - 5 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 5 * 42.5f) * 0.9f * ((Gametime - 2520 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1518,9 +1518,9 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF >= 2520 + 6 * 42.5f && GametimeF < 2520 + 7 * 42.5f)
                 {
                     ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f, 0);
-                    NormalLine line = new(640 - ((Gametime - 2520 - 6 * 42.5f) * 0.9f) * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2520 - 6 * 42.5f) * 0.9f) * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new(640 - (Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
-                    NormalLine line1 = new(((Gametime - 2520 - 6 * 42.5f) * 0.9f) * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 0, ((Gametime - 2520 - 6 * 42.5f) * 0.9f) * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line1 = new((Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line1);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1533,10 +1533,10 @@ namespace Rhythm_Recall.Waves
                 #region
                 if (GametimeF > 2850 && GametimeF < 2890)
                 {
-                    Linerotate line = new(320, 240, ((Gametime - 2850) * 1.25f) * ((Gametime - 2850) * 1.25f), 90, 1 - ((Gametime - 2850) * 0.05f) * ((Gametime - 2850) * 0.05f));
-                    Linerotate line1 = new(320, 240, 90 + ((Gametime - 2850) * 1.25f) * ((Gametime - 2850) * 1.25f), 90, 1 - ((Gametime - 2850) * 0.05f) * ((Gametime - 2850) * 0.05f));
-                    Linerotate line2 = new(320, 90, 90, 90, ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f));
-                    Linerotate line3 = new(320, 390, 90, 90, ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f));
+                    Linerotate line = new(320, 240, (Gametime - 2850) * 1.25f * ((Gametime - 2850) * 1.25f), 90, 1 - (Gametime - 2850) * 0.05f * ((Gametime - 2850) * 0.05f));
+                    Linerotate line1 = new(320, 240, 90 + (Gametime - 2850) * 1.25f * ((Gametime - 2850) * 1.25f), 90, 1 - (Gametime - 2850) * 0.05f * ((Gametime - 2850) * 0.05f));
+                    Linerotate line2 = new(320, 90, 90, 90, (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f));
+                    Linerotate line3 = new(320, 390, 90, 90, (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f));
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1548,11 +1548,11 @@ namespace Rhythm_Recall.Waves
                         line2.alpha -= 0.125f;
                         line3.alpha -= 0.125f;
                     }));
-                    SetBox((Gametime - 2790) + 240, 180 - (Gametime - 2790) * 3 / 4, 180 - (Gametime - 2790) * 3 / 4);
+                    SetBox(Gametime - 2790 + 240, 180 - (Gametime - 2790) * 3 / 4, 180 - (Gametime - 2790) * 3 / 4);
                 }
                 if (GametimeF > 2890 && GametimeF < 2920)
                 {
-                    NormalLine line = new(((Gametime - 2890) * 0.9f) * ((Gametime - 2890) * 0.9f), 0, ((Gametime - 2890) * 0.9f) * ((Gametime - 2890) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((Gametime - 2890) * 0.9f * ((Gametime - 2890) * 0.9f), 0, (Gametime - 2890) * 0.9f * ((Gametime - 2890) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1565,10 +1565,10 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF > 2890 && GametimeF < 2950)
                 {
-                    NormalLine line = new(0, 240 - 90 - ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 640, 240 - 90 - ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 90, 0.65f);
-                    NormalLine line1 = new(0, 240 + 90 + ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 640, 240 + 90 + ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 90, 0.65f);
-                    NormalLine line2 = new(320 + 90 + ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 0, 320 + 90 + ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 480, 90, 0.65f);
-                    NormalLine line3 = new(320 - 90 - ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 0, 320 - 90 - ((Gametime - 2890) * 0.75f) * ((Gametime - 2890) * 0.75f), 480, 90, 0.65f);
+                    NormalLine line = new(0, 240 - 90 - (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 640, 240 - 90 - (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 90, 0.65f);
+                    NormalLine line1 = new(0, 240 + 90 + (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 640, 240 + 90 + (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 90, 0.65f);
+                    NormalLine line2 = new(320 + 90 + (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 0, 320 + 90 + (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 480, 90, 0.65f);
+                    NormalLine line3 = new(320 - 90 - (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 0, 320 - 90 - (Gametime - 2890) * 0.75f * ((Gametime - 2890) * 0.75f), 480, 90, 0.65f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -1590,7 +1590,7 @@ namespace Rhythm_Recall.Waves
                 #region
                 if (GametimeF >= 2890 + 1 * 42.5f && GametimeF < 2890 + 2 * 42.5f)
                 {
-                    NormalLine line = new(640 - ((Gametime - 2890 - 1 * 42.5f) * 0.9f) * ((Gametime - 2890 - 1 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2890 - 1 * 42.5f) * 0.9f) * ((Gametime - 2890 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 2890 - 1 * 42.5f) * 0.05f) * ((Gametime - 2890 - 1 * 42.5f) * 0.05f));
+                    NormalLine line = new(640 - (Gametime - 2890 - 1 * 42.5f) * 0.9f * ((Gametime - 2890 - 1 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2890 - 1 * 42.5f) * 0.9f * ((Gametime - 2890 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 2890 - 1 * 42.5f) * 0.05f * ((Gametime - 2890 - 1 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1599,7 +1599,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2890 + 2 * 42.5f && GametimeF < 2890 + 3 * 42.5f)
                 {
-                    NormalLine line = new(((Gametime - 2890 - 2 * 42.5f) * 0.9f) * ((Gametime - 2890 - 2 * 42.5f) * 0.9f), 0, ((Gametime - 2890 - 2 * 42.5f) * 0.9f) * ((Gametime - 2890 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 2890 - 2 * 42.5f) * 0.05f) * ((Gametime - 2890 - 2 * 42.5f) * 0.05f));
+                    NormalLine line = new((Gametime - 2890 - 2 * 42.5f) * 0.9f * ((Gametime - 2890 - 2 * 42.5f) * 0.9f), 0, (Gametime - 2890 - 2 * 42.5f) * 0.9f * ((Gametime - 2890 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 2890 - 2 * 42.5f) * 0.05f * ((Gametime - 2890 - 2 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1608,7 +1608,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2890 + 3 * 42.5f && GametimeF < 2890 + 4 * 42.5f)
                 {
-                    NormalLine line = new(640 - ((Gametime - 2890 - 3 * 42.5f) * 0.9f) * ((Gametime - 2890 - 3 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2890 - 3 * 42.5f) * 0.9f) * ((Gametime - 2890 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 2890 - 3 * 42.5f) * 0.05f) * ((Gametime - 2890 - 3 * 42.5f) * 0.05f));
+                    NormalLine line = new(640 - (Gametime - 2890 - 3 * 42.5f) * 0.9f * ((Gametime - 2890 - 3 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2890 - 3 * 42.5f) * 0.9f * ((Gametime - 2890 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 2890 - 3 * 42.5f) * 0.05f * ((Gametime - 2890 - 3 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1617,7 +1617,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2890 + 4 * 42.5f && GametimeF < 2890 + 5 * 42.5f)
                 {
-                    NormalLine line = new(((Gametime - 2890 - 4 * 42.5f) * 0.9f) * ((Gametime - 2890 - 4 * 42.5f) * 0.9f), 0, ((Gametime - 2890 - 4 * 42.5f) * 0.9f) * ((Gametime - 2890 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 2890 - 4 * 42.5f) * 0.05f) * ((Gametime - 2890 - 4 * 42.5f) * 0.05f));
+                    NormalLine line = new((Gametime - 2890 - 4 * 42.5f) * 0.9f * ((Gametime - 2890 - 4 * 42.5f) * 0.9f), 0, (Gametime - 2890 - 4 * 42.5f) * 0.9f * ((Gametime - 2890 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 2890 - 4 * 42.5f) * 0.05f * ((Gametime - 2890 - 4 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1626,7 +1626,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2890 + 5 * 42.5f && GametimeF < 2890 + 6 * 42.5f)
                 {
-                    NormalLine line = new(640 - ((Gametime - 2890 - 5 * 42.5f) * 0.9f) * ((Gametime - 2890 - 5 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2890 - 5 * 42.5f) * 0.9f) * ((Gametime - 2890 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 2890 - 5 * 42.5f) * 0.05f) * ((Gametime - 2890 - 5 * 42.5f) * 0.05f));
+                    NormalLine line = new(640 - (Gametime - 2890 - 5 * 42.5f) * 0.9f * ((Gametime - 2890 - 5 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2890 - 5 * 42.5f) * 0.9f * ((Gametime - 2890 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 2890 - 5 * 42.5f) * 0.05f * ((Gametime - 2890 - 5 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1635,7 +1635,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2890 + 6 * 42.5f && GametimeF < 2890 + 7 * 42.5f)
                 {
-                    NormalLine line = new(((Gametime - 2890 - 6 * 42.5f) * 0.9f) * ((Gametime - 2890 - 6 * 42.5f) * 0.9f), 0, ((Gametime - 2890 - 6 * 42.5f) * 0.9f) * ((Gametime - 2890 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 2890 - 6 * 42.5f) * 0.05f) * ((Gametime - 2890 - 6 * 42.5f) * 0.05f));
+                    NormalLine line = new((Gametime - 2890 - 6 * 42.5f) * 0.9f * ((Gametime - 2890 - 6 * 42.5f) * 0.9f), 0, (Gametime - 2890 - 6 * 42.5f) * 0.9f * ((Gametime - 2890 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 2890 - 6 * 42.5f) * 0.05f * ((Gametime - 2890 - 6 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1644,7 +1644,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2890 + 7 * 42.5f && GametimeF < 2890 + 8 * 42.5f)
                 {
-                    NormalLine line = new(640 - ((Gametime - 2890 - 7 * 42.5f) * 0.9f) * ((Gametime - 2890 - 7 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 2890 - 7 * 42.5f) * 0.9f) * ((Gametime - 2890 - 7 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 2890 - 7 * 42.5f) * 0.05f) * ((Gametime - 2890 - 7 * 42.5f) * 0.05f));
+                    NormalLine line = new(640 - (Gametime - 2890 - 7 * 42.5f) * 0.9f * ((Gametime - 2890 - 7 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2890 - 7 * 42.5f) * 0.9f * ((Gametime - 2890 - 7 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 2890 - 7 * 42.5f) * 0.05f * ((Gametime - 2890 - 7 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1656,8 +1656,8 @@ namespace Rhythm_Recall.Waves
                 #region
                 if (GametimeF >= 3200 && GametimeF < 3240)
                 {
-                    Linerotate line = new(320, 240, ((Gametime - 3200) * 1.25f) * ((Gametime - 3200) * 1.25f), 90, 1 - ((Gametime - 3200) * 0.05f) * ((Gametime - 3200) * 0.05f));
-                    Linerotate line1 = new(320, 240, 90 + ((Gametime - 3200) * 1.25f) * ((Gametime - 3200) * 1.25f), 90, 1 - ((Gametime - 3200) * 0.05f) * ((Gametime - 3200) * 0.05f));
+                    Linerotate line = new(320, 240, (Gametime - 3200) * 1.25f * ((Gametime - 3200) * 1.25f), 90, 1 - (Gametime - 3200) * 0.05f * ((Gametime - 3200) * 0.05f));
+                    Linerotate line1 = new(320, 240, 90 + (Gametime - 3200) * 1.25f * ((Gametime - 3200) * 1.25f), 90, 1 - (Gametime - 3200) * 0.05f * ((Gametime - 3200) * 0.05f));
                     CreateEntity(line);
                     CreateEntity(line1);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1672,8 +1672,8 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 3240 && GametimeF < 3285)
                 {
-                    NormalLine line = new(((3240 - Gametime) * 0.9f) * ((3240 - Gametime) * 0.9f), 0, ((3240 - Gametime) * 0.9f) * ((3240 - Gametime) * 0.9f), 480, 90, 0.75f);
-                    NormalLine line1 = new(640 - ((3240 - Gametime) * 0.9f) * ((3240 - Gametime) * 0.9f), 0, 640 - ((3240 - Gametime) * 0.9f) * ((3240 - Gametime) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line = new((3240 - Gametime) * 0.9f * ((3240 - Gametime) * 0.9f), 0, (3240 - Gametime) * 0.9f * ((3240 - Gametime) * 0.9f), 480, 90, 0.75f);
+                    NormalLine line1 = new(640 - (3240 - Gametime) * 0.9f * ((3240 - Gametime) * 0.9f), 0, 640 - (3240 - Gametime) * 0.9f * ((3240 - Gametime) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1687,7 +1687,7 @@ namespace Rhythm_Recall.Waves
                 #region
                 if (GametimeF == 3190 + 1 * 42.5f && GametimeF < 3190 + 2 * 42.5f)
                 {
-                    NormalLine line = new(((Gametime - 3190 - 1 * 42.5f) * 0.9f) * ((Gametime - 3190 - 1 * 42.5f) * 0.9f), 0, ((Gametime - 3190 - 1 * 42.5f) * 0.9f) * ((Gametime - 3190 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 3190 - 1 * 42.5f) * 0.05f) * ((Gametime - 3190 - 1 * 42.5f) * 0.05f));
+                    NormalLine line = new((Gametime - 3190 - 1 * 42.5f) * 0.9f * ((Gametime - 3190 - 1 * 42.5f) * 0.9f), 0, (Gametime - 3190 - 1 * 42.5f) * 0.9f * ((Gametime - 3190 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 3190 - 1 * 42.5f) * 0.05f * ((Gametime - 3190 - 1 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1696,7 +1696,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 3190 + 2 * 42.5f && GametimeF < 3190 + 3 * 42.5f)
                 {
-                    NormalLine line = new(640 - ((Gametime - 3190 - 2 * 42.5f) * 0.9f) * ((Gametime - 3190 - 2 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 3190 - 2 * 42.5f) * 0.9f) * ((Gametime - 3190 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 3190 - 2 * 42.5f) * 0.05f) * ((Gametime - 3190 - 2 * 42.5f) * 0.05f));
+                    NormalLine line = new(640 - (Gametime - 3190 - 2 * 42.5f) * 0.9f * ((Gametime - 3190 - 2 * 42.5f) * 0.9f), 0, 640 - (Gametime - 3190 - 2 * 42.5f) * 0.9f * ((Gametime - 3190 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 3190 - 2 * 42.5f) * 0.05f * ((Gametime - 3190 - 2 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1705,7 +1705,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 3190 + 3 * 42.5f && GametimeF < 3190 + 4 * 42.5f)
                 {
-                    NormalLine line = new(((Gametime - 3190 - 3 * 42.5f) * 0.9f) * ((Gametime - 3190 - 3 * 42.5f) * 0.9f), 0, ((Gametime - 3190 - 3 * 42.5f) * 0.9f) * ((Gametime - 3190 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 3190 - 3 * 42.5f) * 0.05f) * ((Gametime - 3190 - 3 * 42.5f) * 0.05f));
+                    NormalLine line = new((Gametime - 3190 - 3 * 42.5f) * 0.9f * ((Gametime - 3190 - 3 * 42.5f) * 0.9f), 0, (Gametime - 3190 - 3 * 42.5f) * 0.9f * ((Gametime - 3190 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 3190 - 3 * 42.5f) * 0.05f * ((Gametime - 3190 - 3 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1714,7 +1714,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 3190 + 4 * 42.5f && GametimeF < 3190 + 5 * 42.5f)
                 {
-                    NormalLine line = new(640 - ((Gametime - 3190 - 4 * 42.5f) * 0.9f) * ((Gametime - 3190 - 4 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 3190 - 4 * 42.5f) * 0.9f) * ((Gametime - 3190 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 3190 - 4 * 42.5f) * 0.05f) * ((Gametime - 3190 - 4 * 42.5f) * 0.05f));
+                    NormalLine line = new(640 - (Gametime - 3190 - 4 * 42.5f) * 0.9f * ((Gametime - 3190 - 4 * 42.5f) * 0.9f), 0, 640 - (Gametime - 3190 - 4 * 42.5f) * 0.9f * ((Gametime - 3190 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 3190 - 4 * 42.5f) * 0.05f * ((Gametime - 3190 - 4 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1723,7 +1723,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 3190 + 5 * 42.5f && GametimeF < 3190 + 6 * 42.5f)
                 {
-                    NormalLine line = new(((Gametime - 3190 - 5 * 42.5f) * 0.9f) * ((Gametime - 3190 - 5 * 42.5f) * 0.9f), 0, ((Gametime - 3190 - 5 * 42.5f) * 0.9f) * ((Gametime - 3190 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 3190 - 5 * 42.5f) * 0.05f) * ((Gametime - 3190 - 5 * 42.5f) * 0.05f));
+                    NormalLine line = new((Gametime - 3190 - 5 * 42.5f) * 0.9f * ((Gametime - 3190 - 5 * 42.5f) * 0.9f), 0, (Gametime - 3190 - 5 * 42.5f) * 0.9f * ((Gametime - 3190 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 3190 - 5 * 42.5f) * 0.05f * ((Gametime - 3190 - 5 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1732,7 +1732,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 3190 + 6 * 42.5f && GametimeF < 3190 + 7 * 42.5f)
                 {
-                    NormalLine line = new(640 - ((Gametime - 3190 - 6 * 42.5f) * 0.9f) * ((Gametime - 3190 - 6 * 42.5f) * 0.9f), 0, 640 - ((Gametime - 3190 - 6 * 42.5f) * 0.9f) * ((Gametime - 3190 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 3190 - 6 * 42.5f) * 0.05f) * ((Gametime - 3190 - 6 * 42.5f) * 0.05f));
+                    NormalLine line = new(640 - (Gametime - 3190 - 6 * 42.5f) * 0.9f * ((Gametime - 3190 - 6 * 42.5f) * 0.9f), 0, 640 - (Gametime - 3190 - 6 * 42.5f) * 0.9f * ((Gametime - 3190 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 3190 - 6 * 42.5f) * 0.05f * ((Gametime - 3190 - 6 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {
@@ -1741,7 +1741,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 3190 + 7 * 42.5f && GametimeF < 3190 + 8 * 42.5f)
                 {
-                    NormalLine line = new(((Gametime - 3190 - 7 * 42.5f) * 0.9f) * ((Gametime - 3190 - 7 * 42.5f) * 0.9f), 0, ((Gametime - 3190 - 7 * 42.5f) * 0.9f) * ((Gametime - 3190 - 7 * 42.5f) * 0.9f), 480, 90, 0.75f - ((Gametime - 3190 - 7 * 42.5f) * 0.05f) * ((Gametime - 3190 - 7 * 42.5f) * 0.05f));
+                    NormalLine line = new((Gametime - 3190 - 7 * 42.5f) * 0.9f * ((Gametime - 3190 - 7 * 42.5f) * 0.9f), 0, (Gametime - 3190 - 7 * 42.5f) * 0.9f * ((Gametime - 3190 - 7 * 42.5f) * 0.9f), 480, 90, 0.75f - (Gametime - 3190 - 7 * 42.5f) * 0.05f * ((Gametime - 3190 - 7 * 42.5f) * 0.05f));
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
                     {

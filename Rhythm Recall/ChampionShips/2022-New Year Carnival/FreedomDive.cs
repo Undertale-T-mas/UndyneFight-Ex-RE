@@ -132,7 +132,7 @@ namespace Rhythm_Recall.Waves
                         (p1.CurrentShader as GlobalResources.Effects.NeonLineShader).DrawingColor = Color.White * 0.2f;
                         (p1.CurrentShader as GlobalResources.Effects.NeonLineShader).Speed = 0.4f;
                         ScreenDrawing.SceneRendering.InsertProduction(p2 = new ScreenDrawing.Shaders.Filter(Shaders.Cos1Ball, 0.6f));
-                        var v = (p2.CurrentShader as GlobalResources.Effects.BallShapingShader);
+                        var v = p2.CurrentShader as GlobalResources.Effects.BallShapingShader;
                         v.Intensity = 0.5f;
                         v.ScreenScale = 1.1f;
 
@@ -390,7 +390,7 @@ namespace Rhythm_Recall.Waves
                         Func<float, float> sin01 = AdvanceFunctions.Sin01;
                         InstantSetBox(new Vector2(320, 240) + new Vector2(sin01(cycleTick / 2.72f) * 15, sin01(cycleTick) * speedY), 84, 84);
                         InstantTP(BoxStates.Centre);
-                        CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow((Rand(2, 14) / 20f), 1.5f),
+                        CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow(Rand(2, 14) / 20f, 1.5f),
                                      new(Rand(-10, 10) / 10f, -7.4f + Rand(-15, 15) / 10f), Rand(10, 16), new(Rand(-100, 740), 495), Sprites.square)
                         {
                             DarkingSpeed = 1.7f,
@@ -597,7 +597,7 @@ namespace Rhythm_Recall.Waves
                         };
                     for (int i = 0; i < bway.Length; i++)
                     {
-                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 9.0f, 0, 0, ((i / 2) % 4) switch
+                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 9.0f, 0, 0, (i / 2 % 4) switch
                         {
                             0 => ArrowAttribute.None,
                             1 => ArrowAttribute.RotateL,
@@ -1029,7 +1029,7 @@ namespace Rhythm_Recall.Waves
                         Func<float, float> sin01 = AdvanceFunctions.Sin01;
                         InstantSetBox(new Vector2(320, 240) + new Vector2(sin01(cycleTick / 2.72f) * 15, sin01(cycleTick) * speedY), 84, 84);
                         InstantTP(BoxStates.Centre);
-                        CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow((Rand(2, 14) / 20f), 1.5f),
+                        CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow(Rand(2, 14) / 20f, 1.5f),
                                      new(Rand(-10, 10) / 10f, -7.4f + Rand(-15, 15) / 10f), Rand(10, 16), new(Rand(-100, 740), 495), Sprites.square)
                         {
                             DarkingSpeed = 1.7f,
@@ -1287,7 +1287,7 @@ namespace Rhythm_Recall.Waves
                         };
                     for (int i = 0; i < bway.Length; i++)
                     {
-                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 9.0f, 1, 0, ((i / 2) % 4) switch
+                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 9.0f, 1, 0, (i / 2 % 4) switch
                         {
                             0 => ArrowAttribute.None,
                             1 => ArrowAttribute.RotateL,
@@ -1937,7 +1937,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(game.BeatTime(61), game.BeatTime(2560), () =>
                     {
                         InstantTP(BoxStates.Centre);
-                        CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow((Rand(2, 14) / 20f), 1.5f),
+                        CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow(Rand(2, 14) / 20f, 1.5f),
                                      new(Rand(-10, 10) / 10f, -7.4f + Rand(-15, 15) / 10f), Rand(10, 16), new(Rand(-100, 740), 495), Sprites.square)
                         {
                             DarkingSpeed = 1.7f,
@@ -2196,7 +2196,7 @@ namespace Rhythm_Recall.Waves
                         };
                     for (int i = 0; i < bway.Length; i++)
                     {
-                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 9.0f, 1, 0, ((i / 2) % 4) switch
+                        if (bway[i] != "/") CreateArrow(curTime, bway[i], 9.0f, 1, 0, (i / 2 % 4) switch
                         {
                             0 => ArrowAttribute.None,
                             1 => ArrowAttribute.RotateL,

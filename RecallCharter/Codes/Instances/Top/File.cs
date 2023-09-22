@@ -59,7 +59,7 @@ namespace RecallCharter
             });
             panel.ChildObjects.ForEach(s => 
             { 
-                TextButton t = (s as TextButton); 
+                TextButton t = s as TextButton; 
                 t.OnClick += (u, v) =>
                 {
                     t.Deattach();

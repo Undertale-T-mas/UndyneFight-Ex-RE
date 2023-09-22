@@ -67,7 +67,7 @@ namespace UndyneFight_Ex.Entities
                 if (mark == 3) missionLostSpeed = missionLostSpeed * 0.965f + 0.0f * 0.035f;
                 if (mark >= 4) missionLostSpeed = missionLostSpeed < 0.05f ?
                         (missionLostSpeed * 0.95f + 0.05f * 0.1f) :
-                        (missionLostSpeed);
+                        missionLostSpeed;
             }
 
             private void DoHPLose()
@@ -154,7 +154,7 @@ namespace UndyneFight_Ex.Entities
                 {
                     float scale = 1;
                     if (!NoHIT)
-                        scale = (MathF.Min(1, (hp / maxHP * 5) * 0.8f + 0.2f));
+                        scale = MathF.Min(1, hp / maxHP * 5 * 0.8f + 0.2f);
                     float scale2 = hp.Value / maxHP;
                     float recovery = MathUtil.Clamp(0, 0.03f - scale2 * 0.03f, 0.01f);
                     float dif = BuffedLevel + (Buffed ? BuffDifficulty : 0);
