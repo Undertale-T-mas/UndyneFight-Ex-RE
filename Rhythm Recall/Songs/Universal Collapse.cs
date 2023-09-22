@@ -2494,7 +2494,6 @@ namespace Rhythm_Recall.Waves
             if (InBeat(48))
             {
                 ScreenDrawing.BackGroundColor = new(0, 0, 0);
-                //138,43,226
                 SetSoul(1);
                 PlaySound(Sounds.Ding);
                 SetBox(320 - 42, 320 + 42, 240 - 42, 240 + 42);
@@ -2537,7 +2536,7 @@ namespace Rhythm_Recall.Waves
                 }
             }
             //纵连
-            if (Gametime == (int)BeatTime(121) - 80 || GametimeF == (int)BeatTime(249) - 80)
+            if (Gametime == (int)BeatTime(121) - 80 || Gametime == (int)BeatTime(249) - 80)
             {
                 for (int a = 0; a < 3; a++)
                 {
@@ -2563,13 +2562,13 @@ namespace Rhythm_Recall.Waves
             }
             for (int a = 0; a < 32; a++)
             {
-                if (GametimeF == (int)(bpm * 16 * 20 - 80 + a * 8 * bpm))
+                if (GametimeF == (int)BeatTime(320 + 8 * a) - 80)
                 {
                     CreateArrow(80, 0, 5, 1, 1);
                     CreateArrow(80 + bpm * 4, 2, 5, 1, 1);
                 };
             }
-            if (GametimeF == (int)(bpm * 16 * 36 - 2 * bpm))
+            if (GametimeF == (int)BeatTime(574))
             {
                 SetBox(320 - 42, 320 + 42, 240 - 42, 240 + 42);
                 SetSoul(1);
@@ -2578,173 +2577,53 @@ namespace Rhythm_Recall.Waves
             }
             for (int a = 0; a < 16 * 4 - 1; a++)
             {
-                if (GametimeF == (int)(bpm * 16 * 36 - 80 + a * 4 * bpm))
+                if (GametimeF == (int)BeatTime(576 + 4 * a) - 80)
                 {
                     CreateArrow(80, 0, 8, 0, 1, ArrowAttribute.RotateL);
-                    CreateArrow(80 + (int)(bpm), 1, 8, 0, 1, ArrowAttribute.RotateL);
-                    CreateArrow(80 + (int)(2 * bpm), 2, 8, 0, 1, ArrowAttribute.RotateL);
-                    CreateArrow(80 + (int)(3 * bpm), 3, 8, 0, 1, ArrowAttribute.RotateL);
+                    CreateArrow(80 + BeatTime(1), 1, 8, 0, 1, ArrowAttribute.RotateL);
+                    CreateArrow(80 + BeatTime(2), 2, 8, 0, 1, ArrowAttribute.RotateL);
+                    CreateArrow(80 + BeatTime(3), 3, 8, 0, 1, ArrowAttribute.RotateL);
                 }
             }
-            int[] GB =
-                {
-                    zero,
-                    (int)(bpm*8),
-                    (int)(bpm*8 *2),
-                    (int)(bpm * 8*3),
-                    (int)(bpm * 8*4),
-                    (int)(bpm * 8*5),
-                    (int)(bpm * 8*6),
-                    (int)(bpm * 8*7),
-                    (int)(bpm * 8*8),
-                    (int)(bpm * 8*9),
-                    (int)(bpm * 8*10),
-                    (int)(bpm * 8*11),
-                    (int)(bpm * 8*12),
-                    (int)(bpm * 8*12+bpm*12),
-                    (int)(bpm * 8*12+bpm*14),
-                    (int)(bpm * 8*12+bpm*16),
-                    (int)(bpm * 8*16),
-                    (int)(bpm * 8*17),
-                    (int)(bpm * 8*18),
-                    (int)(bpm * 8*19),
-                    (int)(bpm * 8*20),
-                    (int)(bpm * 8*21),
-                    (int)(bpm * 8*22),
-                    (int)(bpm * 8*23),
-                    (int)(bpm * 8*24),
-
-                    (int)(bpm * 8*25),
-                    (int)(bpm * 8*26),
-                    (int)(bpm * 8*27),
-                    (int)(bpm * 8*28),
-                    (int)(bpm * 8*29),
-                    (int)(bpm * 8*30),
-                    (int)(bpm * 8*31),
-
-                };
-            for (int a = 0; a < GB.Length; a++)
+            bool Shoot = false;
+            for (int a = 0; a < 32; a++)
             {
-                if (GametimeF == (int)(bpm * 16 * 20 + GB[a]))
-                {
-                    if (Rand(0, 1) == 0)
-                    {
-                        CreateGB(new NormalGB(new Vector2(Rand(0, 640), 240 + 128), new Vector2(Rand(0, 640), 240 + 128), new Vector2(1, 0.4f), bpm * 4, bpm * 2));
-                    }
-                    else
-                    {
-                        CreateGB(new NormalGB(new Vector2(Rand(0, 640), 240 - 128), new Vector2(Rand(0, 640), 240 - 128), new Vector2(1, 0.4f), bpm * 4, bpm * 2));
-                    }
-
-                }
+                if (a is 13 or 14 or 15) continue;
+                if (GametimeF == (int)BeatTime(320 + 8 * a)) Shoot = true;
+            }
+            if (Shoot || InBeat(428) || InBeat(430) || InBeat(432))
+            {
+                var TargetY = (Rand(0, 1) == 0) ? 368 : 112;
+                CreateGB(new NormalGB(new Vector2(Rand(0, 640), TargetY), new Vector2(Rand(0, 640), TargetY), new Vector2(1, 0.4f), bpm * 4, bpm * 2));
             }
             //GB
-            if (GametimeF == (int)(bpm * 16 * 36 - 80))
+            if (GametimeF == (int)BeatTime(576) - 80)
             {
-                int Part1a = (int)(bpm * 14 + bpm * 2 + bpm * 12 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Part1b = (int)(Part1a + bpm * 4 + bpm * 3 + bpm + bpm * 4 + bpm * 4 + bpm * 7 + bpm * 0.5f + bpm * 0.5f + bpm * 4 + bpm * 2 + bpm * 2);
-                int Part1c = (int)(Part1b + bpm * 4 + bpm + bpm + bpm + bpm + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4);
-                int Part1d = (int)(Part1c + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2);
-                int Part1e = (int)(Part1d + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm * 4 + bpm * 4 + bpm * 8 + bpm * 4 + bpm * 4);
-                int Part1f = (int)(Part1e + bpm * 8 + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 4);
-                int Part1g = (int)(Part1f + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4);
-                int[] Arrow1 ={
+                float[] Arrow1 ={
+                zero, BeatTime(14), BeatTime(16), BeatTime(28),
+                BeatTime(30), BeatTime(32), BeatTime(40), BeatTime(42), BeatTime(44), BeatTime(46),
+                BeatTime(48), BeatTime(56), BeatTime(58), BeatTime(60), BeatTime(62), BeatTime(64),
 
-                zero,
-                (int)(bpm*14),
-                (int)(bpm*14 + bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2),
+                BeatTime(68), BeatTime(71), BeatTime(72), BeatTime(76), BeatTime(80),
+                BeatTime(87), BeatTime(87.5f), BeatTime(88), BeatTime(92), BeatTime(94), BeatTime(96),
 
-                (int)(Part1a+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3),
-                (int)(Part1a+bpm*4+bpm*3+bpm),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f+bpm*4+bpm*2),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f+bpm*4+bpm*2+bpm*2),
+                BeatTime(100), BeatTime(101), BeatTime(102), BeatTime(103), BeatTime(104),
+                BeatTime(108), BeatTime(112), BeatTime(116), BeatTime(120), BeatTime(124), BeatTime(128),
 
-                (int)(Part1b+bpm*4),
-                (int)(Part1b+bpm*4+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
+                BeatTime(130),
+                BeatTime(132), BeatTime(134), BeatTime(136), BeatTime(138), BeatTime(140), BeatTime(142),
+                BeatTime(144), BeatTime(150), BeatTime(152), BeatTime(156), BeatTime(158), BeatTime(160),
 
-                (int)(Part1c+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2+bpm*4),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2+bpm*4+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2+bpm*4+bpm*2+bpm*2),
+                BeatTime(161),
+                BeatTime(162), BeatTime(163), BeatTime(164), BeatTime(165), BeatTime(166), BeatTime(167),
+                BeatTime(168), BeatTime(172), BeatTime(176), BeatTime(184), BeatTime(188), BeatTime(192),
 
-                (int)(Part1d+bpm),
-                (int)(Part1d+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*8),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*8+bpm*4),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*8+bpm*4+bpm*4),
+                BeatTime(200),
+                BeatTime(201), BeatTime(202), BeatTime(203), BeatTime(204), BeatTime(205), BeatTime(206),
+                BeatTime(207), BeatTime(208), BeatTime(209), BeatTime(210), BeatTime(211), BeatTime(212),
+                BeatTime(214), BeatTime(216), BeatTime(218), BeatTime(220), BeatTime(224), BeatTime(228),
 
-                (int)(Part1e+bpm*8),
-                (int)(Part1e+bpm*8+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2+bpm*2+bpm*4),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2+bpm*2+bpm*4+bpm*4),
-
-                (int)(Part1f+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
+                BeatTime(232), BeatTime(236), BeatTime(240), BeatTime(244), BeatTime(248), BeatTime(252),
             };
                 for (int a = 0; a < Arrow1.Length; a++)
                 {
@@ -2753,105 +2632,35 @@ namespace Rhythm_Recall.Waves
             }
             //旋转红矛双押
 
-            if (GametimeF == (int)(bpm * 16 * 52 - 80))
+            if (GametimeF == (int)BeatTime(832) - 80)
             {
-                int Parta = (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Partb = (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 8);
-                int Partc = (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Partd = (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 4 + bpm * 4);
-                int Parte = (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Partf = (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 8);
-                int Partg = (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-
-                int[] Arrow =
+                float[] Arrow =
                 {
-                    zero,
-                    (int)(bpm * 6),
-                    (int)(bpm * 6 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
+                    zero, BeatTime(6),
+                    BeatTime(8), BeatTime(14), BeatTime(16), BeatTime(22), BeatTime(23),
+                    BeatTime(24), BeatTime(26), BeatTime(28), BeatTime(30), BeatTime(32),
 
-                    (int)(Parta + bpm * 4),
-                    (int)(Parta + bpm * 4 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 8),
+                    BeatTime(36), BeatTime(38), BeatTime(40), BeatTime(44), BeatTime(46),
+                    BeatTime(48), BeatTime(51), BeatTime(54), BeatTime(56), BeatTime(64),
 
-                    (int)(Partb + bpm * 3),
-                    (int)(Partb + bpm * 3 + bpm * 3),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
+                    BeatTime(67), BeatTime(70), BeatTime(72), BeatTime(78), BeatTime(80),
+                    BeatTime(88), BeatTime(90), BeatTime(92), BeatTime(94), BeatTime(96),
 
-                    (int)(Partc + bpm * 3),
-                    (int)(Partc + bpm * 3 + bpm * 3),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 4),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 4 + bpm * 4),
+                    BeatTime(99), BeatTime(102), BeatTime(104), BeatTime(106), BeatTime(108),
+                    BeatTime(110), BeatTime(112), BeatTime(120), BeatTime(124), BeatTime(128),
 
-                    (int)(Partd + bpm * 6),
-                    (int)(Partd + bpm * 6 + bpm * 2),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
+                    BeatTime(134),
+                    BeatTime(136), BeatTime(142), BeatTime(144), BeatTime(150), BeatTime(151),
+                    BeatTime(152), BeatTime(154), BeatTime(156), BeatTime(158), BeatTime(160),
 
-                    (int)(Parte + bpm * 4),
-                    (int)(Parte + bpm * 4 + bpm * 2),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 8),
+                    BeatTime(164), BeatTime(166), BeatTime(168), BeatTime(172), BeatTime(174),
+                    BeatTime(176), BeatTime(179), BeatTime(182), BeatTime(184), BeatTime(192),
 
-                    (int)(Partf + bpm * 3),
-                    (int)(Partf + bpm * 3 + bpm * 3),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
+                    BeatTime(195), BeatTime(198), BeatTime(200), BeatTime(206), BeatTime(208),
+                    BeatTime(216), BeatTime(218), BeatTime(220), BeatTime(222), BeatTime(224),
 
-                    (int)(Partg + bpm * 3),
-                    (int)(Partg + bpm * 3 + bpm * 3),
-                    (int)(Partg + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Partg + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2),
-                    (int)(Partg + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partg + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partg + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
+                    BeatTime(227), BeatTime(230),
+                    BeatTime(232), BeatTime(234), BeatTime(236), BeatTime(238), BeatTime(240),
 
                 };
                 for (int a = 0; a < Arrow.Length; a++)
@@ -2860,125 +2669,83 @@ namespace Rhythm_Recall.Waves
                 }
                 for (int a = 0; a < 256; a++)
                 {
-                    CreateArrow(80 + (int)(a * bpm), Rand(0, 3), 6, 0, 0);
+                    CreateArrow(80 + BeatTime(a), Rand(0, 3), 6, 0, 0);
                 }
                 //无脑乱蓝箭头+红矛杀
             }
-            if (Gametime == (int)(bpm * 16 * 56 - 80 - 7 * bpm))
+            if (Gametime == (int)BeatTime(889) - 80 || Gametime == (int)BeatTime(1017) - 80)
             {
                 for (int a = 0; a < 3; a++)
                 {
-                    CreateArrow(80 + a * 2 * bpm, 0, 13, 1, 0);
-                    CreateArrow(80 + bpm + a * 2 * bpm, 2, 13, 1, 0);
-                }
-            }
-            if (Gametime == (int)(bpm * 16 * 64 - 80 - 7 * bpm))
-            {
-                for (int a = 0; a < 3; a++)
-                {
-                    CreateArrow(80 + a * 2 * bpm, 0, 13, 1, 0);
-                    CreateArrow(80 + bpm + a * 2 * bpm, 2, 13, 1, 0);
+                    CreateArrow(80 + BeatTime(2 * a), 0, 13, 1, 0);
+                    CreateArrow(80 + BeatTime(2 * a + 1), 2, 13, 1, 0);
                 }
             }
             //纵连2
-            if (GametimeF == (int)(bpm * 16 * 51 + bpm * 16 * 17 - bpm * 2))
+            if (GametimeF == (int)BeatTime(1086))
             {
                 SetSoul(0);
                 SetBox(320 - 84, 320 + 84, 240 - 84, 240 + 84);
                 TP();
             }
-            if (GametimeF == (int)(bpm * 16 * 51 + bpm * 16 * 17 - bpm * 2 + 5))
+            if (GametimeF == (int)BeatTime(1086) + 5)
             {
-                CreateBone(new CentreCircleBone(300, 1, 224, bpm * 16 * 1.5f + bpm * 16 * 15 + 4 * bpm));
-                CreateBone(new CentreCircleBone(210, 1, 224, bpm * 16 * 1.5f + bpm * 16 * 15 + 4 * bpm) { ColorType = 2 });
+                CreateBone(new CentreCircleBone(300, 1, 224, BeatTime(268)));
+                CreateBone(new CentreCircleBone(210, 1, 224, BeatTime(268)) { ColorType = 2 });
             }
-            //设置状态
-            //设置状态
-
             //旋转橙骨
 
+            Shoot = false;
             for (int a = 0; a < 32; a++)
             {
-                if (GametimeF == (int)(bpm * 16 * 51 + bpm * 16 * 17 + GB[a]))
+                if (GametimeF == (int)BeatTime(1088 + 8 * a)) Shoot = true;
+            }
+            if (Shoot || InBeat(1196) || InBeat(1198) || InBeat(1200))
+            {
+                if (Rand(1, 2) == 1)
                 {
-                    if (Rand(1, 2) == 1)
+                    for (int i = 0; i < 5; ++i)
                     {
-                        CreateGB(new NormalGB(new(320 + 84, 240 - 84), new(320 + 84, 240 - 84), new(1, 0.2f), 180, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84, 240 - 84 + 42), new(320 + 84, 240 - 84 + 42), new(1, 0.2f), 180, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84, 240 - 84 + 42 * 2), new(320 + 84, 240 - 84 + 42 * 2), new(1, 0.2f), 180, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84, 240 - 84 + 42 * 3), new(320 + 84, 240 - 84 + 42 * 3), new(1, 0.2f), 180, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84, 240 - 84 + 42 * 4), new(320 + 84, 240 - 84 + 42 * 4), new(1, 0.2f), 180, 60, 15));
-
-                        CreateGB(new NormalGB(new(320 - 84, 240 - 84), new(320 - 84, 240 - 84), new(1, 0.2f), 0, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84, 240 - 84 + 42), new(320 - 84, 240 - 84 + 42), new(1, 0.2f), 0, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84, 240 - 84 + 42 * 2), new(320 - 84, 240 - 84 + 42 * 2), new(1, 0.2f), 0, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84, 240 - 84 + 42 * 3), new(320 - 84, 240 - 84 + 42 * 3), new(1, 0.2f), 0, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84, 240 - 84 + 42 * 4), new(320 - 84, 240 - 84 + 42 * 4), new(1, 0.2f), 0, 60, 15));
                         //横向gb墙
-                        CreateGB(new NormalGB(new(320 + 84, 240 - 84), new(320 + 84, 240 - 84), new(1, 0.2f), 90, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84 - 42, 240 - 84), new(320 + 84 - 42, 240 - 84), new(1, 0.2f), 90, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84 - 42 * 2, 240 - 84), new(320 + 84 - 42 * 2, 240 - 84), new(1, 0.2f), 90, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84 - 42 * 3, 240 - 84), new(320 + 84 - 42 * 3, 240 - 84), new(1, 0.2f), 90, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 84 - 42 * 4, 240 - 84), new(320 + 84 - 42 * 4, 240 - 84), new(1, 0.2f), 90, 60, 15));
-
-                        CreateGB(new NormalGB(new(320 - 84, 240 + 84), new(320 - 84, 240 + 84), new(1, 0.2f), 270, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84 + 42, 240 + 84), new(320 - 84 - 42, 240 + 84), new(1, 0.2f), 270, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84 + 42 * 2, 240 + 84), new(320 - 84 - 42 * 2, 240 + 84), new(1, 0.2f), 270, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84 + 42 * 3, 240 + 84), new(320 - 84 - 42 * 3, 240 + 84), new(1, 0.2f), 270, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 84 + 42 * 4, 240 + 84), new(320 - 84 - 42 * 4, 240 + 84), new(1, 0.2f), 270, 60, 15));
+                        CreateGB(new NormalGB(new(320 + 84, 240 - 84 + 42 * i), new(320 + 84, 240 - 84 + 42 * i), new(1, 0.2f), 180, 60, 15));
+                        CreateGB(new NormalGB(new(320 - 84, 240 - 84 + 42 * i), new(320 - 84, 240 - 84 + 42 * i), new(1, 0.2f), 0, 60, 15));
                         //纵向gb墙
+                        CreateGB(new NormalGB(new(320 + 84 - 42 * i, 240 - 84), new(320 + 84 - 42 * i, 240 - 84), new(1, 0.2f), 90, 60, 15));
+                        CreateGB(new NormalGB(new(320 - 84 + 42 * i, 240 + 84), new(320 - 84 + 42 * i, 240 + 84), new(1, 0.2f), 270, 60, 15));
                     }
-                    else
+                }
+                else
+                {
+                    for(int i = 0; i < 4; ++i)
                     {
-                        CreateGB(new NormalGB(new(320 + 21 * 3, 240 - 21 * 3), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 180, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 21 * 3, 240 - 21 * 1), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 180, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 21 * 3, 240 - 21 * -1), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 180, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 21 * 3, 240 - 21 * -3), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 180, 60, 15));
-
-                        CreateGB(new NormalGB(new(320 - 21 * 3, 240 - 21 * 3), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 0, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 21 * 3, 240 - 21 * 1), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 0, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 21 * 3, 240 - 21 * -1), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 0, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 21 * 3, 240 - 21 * -3), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 0, 60, 15));
                         //横向gb墙
-                        CreateGB(new NormalGB(new(320 - 21 * 3, 240 + 21 * 3), new(320 - 21 * 3, 240 - 21 * 3), new(1, 0.2f), 270, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 21 * 1, 240 + 21 * 3), new(320 - 21 * 1, 240 - 21 * 3), new(1, 0.2f), 270, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 21 * -1, 240 + 21 * 3), new(320 - 21 * -1, 240 - 21 * 3), new(1, 0.2f), 270, 60, 15));
-                        CreateGB(new NormalGB(new(320 - 21 * -3, 240 + 21 * 3), new(320 - 21 * -3, 240 - 21 * 3), new(1, 0.2f), 270, 60, 15));
-
-                        CreateGB(new NormalGB(new(320 + 21 * 3, 240 - 21 * 3), new(320 - 21 * 3, 240 - 21 * 3), new(1, 0.2f), 90, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 21 * 1, 240 - 21 * 3), new(320 - 21 * 1, 240 - 21 * 3), new(1, 0.2f), 90, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 21 * -1, 240 - 21 * 3), new(320 - 21 * -1, 240 - 21 * 3), new(1, 0.2f), 90, 60, 15));
-                        CreateGB(new NormalGB(new(320 + 21 * -3, 240 - 21 * 3), new(320 - 21 * -3, 240 - 21 * 3), new(1, 0.2f), 90, 60, 15));
-
+                        CreateGB(new NormalGB(new(320 + 21 * 3, 240 - 21 * 3 + 42 * i), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 180, 60, 15));
+                        CreateGB(new NormalGB(new(320 - 21 * 3, 240 - 21 * 3 + 42 * i), new(320 - 21 * 3, 240 - 21 * -3), new(1, 0.2f), 0, 60, 15));
                         //纵向gb墙
+                        CreateGB(new NormalGB(new(320 - 21 * 3 + 42 * i, 240 + 21 * 3), new(320 - 21 * 3 + 42 * i, 240 - 21 * 3), new(1, 0.2f), 270, 60, 15));
+                        CreateGB(new NormalGB(new(320 + 21 * 3 - 42 * i, 240 - 21 * 3), new(320 - 21 * 3 + 42 * i, 240 - 21 * 3), new(1, 0.2f), 90, 60, 15));
                     }
                 }
             }
             //尾杀开始
 
-            if (GametimeF == (int)(bpm * 16 * 52 + bpm * 16 * 32))
+            if (GametimeF == (int)BeatTime(1344))
             {
+                //上色
                 ScreenDrawing.BackGroundColor = new(118, 25, 111);
-            }
-            //上色
-            if (GametimeF == (int)(bpm * 16 * 52 + bpm * 16 * 32))
-            {
-                CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(10000, "$A GOD DOES NOT FEAR DEATH!!!", new Vector2(150, 280), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan)));
+                //扣字
+                CreateEntity(new TextPrinter(10000, "$A GOD DOES NOT FEAR DEATH!!!", new Vector2(150, 280), new TextColorAttribute(Color.Cyan)));
                 SetSoul(1);
                 TP();
                 SetBox(320 - 42, 320 + 42, 240 - 42, 240 + 42);
-                //扣字
             }
-            if (GametimeF == (int)(bpm * 16 * 52 + bpm * 16 * 32 - 80))
+            if (GametimeF == (int)BeatTime(1344) - 80)
             {
                 for (int a = 0; a < 256; a++)
                 {
                     CreateArrow(80 + (int)(a * bpm), Rand(0, 3), 6.5f, 0, 0);
                 }
-            }
-            //蓝矛
-            if (GametimeF == (int)(bpm * 16 * 52 + bpm * 16 * 32 - 80))
-            {
+                //蓝矛
                 int Part1a = (int)(bpm * 14 + bpm * 2 + bpm * 12 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
                 int Part1b = (int)(Part1a + bpm * 4 + bpm * 3 + bpm + bpm * 4 + bpm * 4 + bpm * 7 + bpm * 0.5f + bpm * 0.5f + bpm * 4 + bpm * 2 + bpm * 2);
                 int Part1c = (int)(Part1b + bpm * 4 + bpm + bpm + bpm + bpm + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4);
