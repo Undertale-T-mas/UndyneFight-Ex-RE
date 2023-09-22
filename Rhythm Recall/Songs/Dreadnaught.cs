@@ -9,6 +9,9 @@ using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static Extends.ShadowLibrary;
+using System;
+using UndyneFight_Ex.UserService;
+using System.Linq;
 
 namespace Rhythm_Recall.Waves
 {
@@ -17,10 +20,12 @@ namespace Rhythm_Recall.Waves
         public DreadNaught()
         {
 
-            difficulties = new();
-            difficulties.Add("div.3", Difficulty.Easy);
-            difficulties.Add("div.2", Difficulty.Normal);
-            difficulties.Add("div.1", Difficulty.Extreme);
+            difficulties = new()
+            {
+                { "div.3", Difficulty.Easy },
+                { "div.2", Difficulty.Normal },
+                { "div.1", Difficulty.Extreme }
+            };
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
@@ -29,32 +34,86 @@ namespace Rhythm_Recall.Waves
         public IWaveSet GameContent => new Game();
         public class Game : WaveConstructor, IWaveSet
         {
-            public Game() : base(62.5f / (120f / 60f))
-            {
+            public Game() : base(62.5f / (120f / 60f)) { }
+            private static int AnomalyExist() {
+                if (PlayerManager.CurrentUser == null) return 0;
+                var customData = PlayerManager.CurrentUser.Custom;
+                if (!customData.Nexts.ContainsKey("TaSAnomaly"))
+                    customData.PushNext(new("TaSAnomaly:value=0"));
+                int t = customData.Nexts["TaSAnomaly"].IntValue;
+                if (t == 2) return 0; 
+                DateTime time = DateTime.UtcNow;
+                bool test = false;
+#if DEBUG
+                test = true;
+#endif
+                if (
+                    (time.Month == 10 && time.Year == 2023 && time.Day == 1) ||
+                    (time.Day == 3)
+                    || test)
+                {
+                    var songs = PlayerManager.CurrentUser.SongManager;
+                    Dictionary<string, SongData> dic = new();
+                    foreach(var v in songs.AllDatas)
+                    {
+                        dic.Add(v.SongName, v);
+                    }
+                    int res = 0;
+                    if (dic.ContainsKey("BIG SHOT") && dic.ContainsKey("Spider Dance"))
+                    {
+                        SongData bs = dic["BIG SHOT"], sd = dic["Spider Dance"];
 
+                        if (t >= 1) // div.2 finished, check div.1, not check div.2
+                        {
+                            if (
+                            bs.CurrentSongStates.ContainsKey(Difficulty.Easy) &&
+                            sd.CurrentSongStates.ContainsKey(Difficulty.Easy)
+                            )
+                            {
+                                // div.2 accessibility test
+                                if (bs.CurrentSongStates[Difficulty.Easy].Accuracy > 0.9f &&
+                                    sd.CurrentSongStates[Difficulty.Easy].Accuracy > 0.9f
+                                    )
+                                    res = 1;
+                            }
+                        }
+                        if (
+                                bs.CurrentSongStates.ContainsKey(Difficulty.Extreme) &&
+                                sd.CurrentSongStates.ContainsKey(Difficulty.Extreme)
+                                )
+                        {
+                            // div.1 accessibility test
+                            if (bs.CurrentSongStates[Difficulty.Extreme].Accuracy > 0.9f &&
+                                sd.CurrentSongStates[Difficulty.Extreme].Accuracy > 0.9f
+                                )
+                                res = 2;
+                        }
+                    }
+                    return res;
+                }
+                return 0;
             }
             public string Music => "Dreadnaught";
-
             public string FightName => "Dreadnaught";
             private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                    new(Difficulty.Easy, 5.0f),
+                            new(Difficulty.Easy, 5.0f),
                             new(Difficulty.Normal, 12.0f),
                             new(Difficulty.Extreme, 18.3f),
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                    new(Difficulty.Easy, 5.0f),
+                            new(Difficulty.Easy, 5.0f),
                             new(Difficulty.Normal, 12.0f),
                             new(Difficulty.Extreme, 18.5f),
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                    new(Difficulty.Easy, 10.0f),
+                            new(Difficulty.Easy, 10.0f),
                             new(Difficulty.Normal, 17.9f),
                             new(Difficulty.Extreme, 21.2f),
                         }
@@ -63,6 +122,17 @@ namespace Rhythm_Recall.Waves
                 public override string AttributeAuthor => "Tlottgodinf x zKronO";
                 public override string PaintAuthor => "Sour";
                 public override string SongAuthor => "SK_kent";
+
+                public override string DisplayName
+                {
+                    get
+                    {
+                        if (PlayerManager.CurrentUser == null) return "Dreadnaught";
+                        int p = AnomalyExist();
+                        if (p >= 1) return "RHJlYWRuYXVnaHQ=";
+                        return "Dreadnaught";
+                    }
+                }
             }
             public SongInformation Attributes => new ThisInformation();
             private bool notRegistered = true;
@@ -70,9 +140,10 @@ namespace Rhythm_Recall.Waves
            
             public void ScreenScaleAdd(float scale, float time)
             {
+                time /= 2;
                 ValueEasing.EaseBuilder e1 = new();
-                e1.Insert(time / 2, ValueEasing.EaseInQuint(ScreenDrawing.ScreenScale, ScreenDrawing.ScreenScale + scale / 2, time / 2));
-                e1.Insert(time / 2, ValueEasing.EaseOutQuint(ScreenDrawing.ScreenScale + scale / 2, ScreenDrawing.ScreenScale + scale, time / 2));
+                e1.Insert(time, ValueEasing.EaseInQuint(ScreenDrawing.ScreenScale, ScreenDrawing.ScreenScale + scale / 2, time));
+                e1.Insert(time, ValueEasing.EaseOutQuint(ScreenDrawing.ScreenScale + scale / 2, ScreenDrawing.ScreenScale + scale, time));
                 e1.Insert(1, ValueEasing.Stable(0));
                 e1.Run((s) =>
                 {
@@ -9211,7 +9282,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Extreme()
             {
-
+                if (GameStates.IsKeyPressed120f(InputIdentity.Alternate)) EndSong();
                 Arrow[] ars = GetAll<Arrow>("Tap");
                 for (int a = 0; a < ars.Length; a++)
                 {
@@ -9294,6 +9365,26 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.CameraEffect.Convulse(5, BeatTime(1f), b);
                     MakeLine(b);
 
+                });
+                int p = AnomalyExist();
+                var scene = CurrentScene as SongFightingScene;
+                if (scene.Mode != GameMode.None) return;
+
+                if (p == 0) return;
+                if (p == 2 && (int)CurrentDifficulty >= 4) {
+                    HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
+                    AutoEnd = false;
+                }
+                else if (p >= 1 && (int)CurrentDifficulty >= 2)
+                {
+                    HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
+                    AutoEnd = false;
+                }
+                AdvanceFunctions.Interactive.AddEndEvent(() => {
+                    SimplifiedEasing.RunEase(s => ScreenDrawing.MasterAlpha = s, SimplifiedEasing.Linear(BeatTime(4), 1, 0));
+                    DelayBeat(4, () => {
+                        GameStates.ResetScene(new Traveler_at_Sunset.Anomaly(p));
+                    });
                 });
             }
         }

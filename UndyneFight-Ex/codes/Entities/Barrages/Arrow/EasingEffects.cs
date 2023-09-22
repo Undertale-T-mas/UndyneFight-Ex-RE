@@ -20,7 +20,9 @@ namespace UndyneFight_Ex.Entities
                 if (CurrentScene is SongFightingScene)
                     AddInstance(new InstantEvent(1.2f, () =>
                     {
-                        SetArrowSet((CurrentScene as SongFightingScene).Accuracy.TaggedArrows[tagName]);
+                        var dic = (CurrentScene as SongFightingScene).Accuracy.TaggedArrows;
+                        if (dic.ContainsKey(tagName))
+                            SetArrowSet(dic[tagName]);
                     }));
             }
 

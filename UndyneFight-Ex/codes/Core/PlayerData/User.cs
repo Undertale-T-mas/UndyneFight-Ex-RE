@@ -21,21 +21,21 @@ namespace UndyneFight_Ex.UserService
             info = new SaveInfo("StartInfo->{");
             Random rand = new();
             long uuid = rand.NextInt64();
-            info.Nexts.Add("Password", new SaveInfo("Password:" + MathUtil.StringHash(password)));
-            info.Nexts.Add("PlayerName", new SaveInfo("PlayerName:" + name));
-            info.Nexts.Add("UUID", new SaveInfo("UUID:" + uuid));
-            info.Nexts.Add("Coins", new SaveInfo("Coins:0"));
-            info.Nexts.Add("Achievements", new SaveInfo("Achievements{"));
+            info.Nexts.Add("Password",      new SaveInfo("Password:" + MathUtil.StringHash(password)));
+            info.Nexts.Add("PlayerName",    new SaveInfo("PlayerName:" + name));
+            info.Nexts.Add("UUID",          new SaveInfo("UUID:" + uuid));
+            info.Nexts.Add("Coins",         new SaveInfo("Coins:0"));
+            info.Nexts.Add("Achievements",  new SaveInfo("Achievements{"));
             info.Nexts.Add("ChampionShips", new SaveInfo("ChampionShips{"));
-            info.Nexts.Add("NormalFights", new SaveInfo("NormalFights{"));
-            info.Nexts.Add("VIP", new SaveInfo("VIP:false"));
-            info.Nexts.Add("AC", new SaveInfo("AC{"));
-            info.Nexts.Add("AP", new SaveInfo("AP{"));
-            info.Nexts.Add("Mark", new SaveInfo("Mark{"));
-            info.Nexts.Add("Skill", new SaveInfo("Skill:0"));
-            info.Nexts.Add("GameJolt", new SaveInfo("GameJolt{"));
-            info.Nexts.Add("Settings", new SaveInfo("Settings{"));
-            info.Nexts.Add("ShopData", new SaveInfo("ShopData{"));
+            info.Nexts.Add("NormalFights",  new SaveInfo("NormalFights{"));
+            info.Nexts.Add("VIP",           new SaveInfo("VIP:false"));
+            info.Nexts.Add("AC",            new SaveInfo("AC{"));
+            info.Nexts.Add("AP",            new SaveInfo("AP{"));
+            info.Nexts.Add("Mark",          new SaveInfo("Mark{"));
+            info.Nexts.Add("Skill",         new SaveInfo("Skill:0"));
+            info.Nexts.Add("GameJolt",      new SaveInfo("GameJolt{"));
+            info.Nexts.Add("Settings",      new SaveInfo("Settings{"));
+            info.Nexts.Add("ShopData",      new SaveInfo("ShopData{"));
             info.Nexts.Add("ChallengeData", new SaveInfo("ChallengeData{"));
             user.Load(info);
             return user;
@@ -51,6 +51,7 @@ namespace UndyneFight_Ex.UserService
             get => null;
         }
 
+        public SongManager SongManager => _songManager;
         private readonly SongManager _songManager = new();
         private bool _isVip;
         private long _password;

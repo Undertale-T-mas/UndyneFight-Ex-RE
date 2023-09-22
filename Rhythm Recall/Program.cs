@@ -108,7 +108,7 @@ namespace Rhythm_Recall
             //GameStartUp.PushExtra(new OSTUndyneFool());    
             //GameStartUp.PushExtra(new MikuFight());    
 
-
+            #region Test Charts
             SongSet test = new("Test");
             test.Push(typeof(AFleetingOath));
             test.Push(typeof(AprilExtends.Stasis));
@@ -132,47 +132,30 @@ namespace Rhythm_Recall
             test.Push(typeof(RIP));
             test.Push(typeof(BrokenAltair));
             test.Push(typeof(mu));
+            test.Push(typeof(Clb1e86f2));
+            test.Push(typeof(BrainPower));
+            test.Push(typeof(Weekender));
+            test.Push(typeof(PapyEn));
+            test.Push(typeof(MistemperedMalignance));
+            test.Push(typeof(Rainshower));
+            #endregion
 
 #if DEBUG
             GameStartUp.PushSongset(test);
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
-                //typeof(AprilExtends.Stasis),
-                //typeof(AprilExtends.GrievousLady),
-                //typeof(AprilExtends.Rrharil),
-                //typeof(AprilExtends.HorizonBlue),
-                //typeof(BrokenAltair),
-                //typeof(Flan),
-                //typeof(Galileo),
-                //typeof(LoveAndHate),
-                //typeof(Marisa),
-                //typeof(Igallta),
-                //typeof(Determination),
-                //typeof(AprilExtends.Pentiment),
-                //typeof(AprilExtends.BocchiTheRock),
-                //typeof(AprilExtends.Seraphim),
-                //typeof(Clb1e86f2),
-                //typeof(BrainPower),
-                //typeof(Weekender), 
-                typeof(DreadNaught),
-                //typeof(TheFuneral),
-                //typeof(PapyEn), 
+                typeof(DreadNaught), 
                 typeof(Conflict),
                 typeof(Resistance),
-
                 typeof(BadApple),
-                //typeof(ClassicalPractice),
                 typeof(ClassicFight),
                 typeof(EternalSpringDream), 
                 typeof(ULBFight),
                 typeof(UniversalCollapse),
                 typeof(Dusttrust),
                 typeof(Resurrection),
-
                 typeof(Letsgonow),
                 typeof(GOODWORLD),
-                //typeof(MistemperedMalignance),
-                //typeof(Rainshower),
                 });
 #if OSTPublish
             GameStartUp.MainSceneIntro = () => { GameStates.SelectMode(0); ClassicalGUI.CreateFightSelector(); };
