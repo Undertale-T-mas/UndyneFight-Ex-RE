@@ -2698,6 +2698,7 @@ namespace Rhythm_Recall.Waves
             Shoot = false;
             for (int a = 0; a < 32; a++)
             {
+                if (a is 13 or 14 or 15) continue;
                 if (GametimeF == (int)BeatTime(1088 + 8 * a)) Shoot = true;
             }
             if (Shoot || InBeat(1196) || InBeat(1198) || InBeat(1200))
@@ -2746,103 +2747,31 @@ namespace Rhythm_Recall.Waves
                     CreateArrow(80 + (int)(a * bpm), Rand(0, 3), 6.5f, 0, 0);
                 }
                 //蓝矛
-                int Part1a = (int)(bpm * 14 + bpm * 2 + bpm * 12 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Part1b = (int)(Part1a + bpm * 4 + bpm * 3 + bpm + bpm * 4 + bpm * 4 + bpm * 7 + bpm * 0.5f + bpm * 0.5f + bpm * 4 + bpm * 2 + bpm * 2);
-                int Part1c = (int)(Part1b + bpm * 4 + bpm + bpm + bpm + bpm + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4);
-                int Part1d = (int)(Part1c + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2);
-                int Part1e = (int)(Part1d + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm * 4 + bpm * 4 + bpm * 8 + bpm * 4 + bpm * 4);
-                int Part1f = (int)(Part1e + bpm * 8 + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 4);
-                int Part1g = (int)(Part1f + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4 + bpm * 4);
-                int[] Arrow1 ={
-                zero,
-                (int)(bpm*14),
-                (int)(bpm*14 + bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2),
-                (int)(bpm*14 + bpm*2+bpm*12+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2+bpm*8+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1a+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3),
-                (int)(Part1a+bpm*4+bpm*3+bpm),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f+bpm*4),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f+bpm*4+bpm*2),
-                (int)(Part1a+bpm*4+bpm*3+bpm+bpm*4+bpm*4+bpm*7+bpm*0.5f+bpm*0.5f+bpm*4+bpm*2+bpm*2),
-                (int)(Part1b+bpm*4),
-                (int)(Part1b+bpm*4+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1b+bpm*4+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1c+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2+bpm*4),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2+bpm*4+bpm*2),
-                (int)(Part1c+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*2+bpm*6+bpm*2+bpm*4+bpm*2+bpm*2),
-                (int)(Part1d+bpm),
-                (int)(Part1d+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*8),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*8+bpm*4),
-                (int)(Part1d+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*4+bpm*4+bpm*8+bpm*4+bpm*4),
-                (int)(Part1e+bpm*8),
-                (int)(Part1e+bpm*8+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2+bpm*2),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2+bpm*2+bpm*4),
-                (int)(Part1e+bpm*8+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm+bpm*2+bpm*2+bpm*2+bpm*2+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
-                (int)(Part1f+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4+bpm*4),
+                float[] Arrow1 ={
+                zero, BeatTime(14), BeatTime(16), BeatTime(28),
+                BeatTime(30), BeatTime(32), BeatTime(40), BeatTime(42), BeatTime(44), BeatTime(46),
+                BeatTime(48), BeatTime(56), BeatTime(58), BeatTime(60), BeatTime(62), BeatTime(64),
+
+                BeatTime(68), BeatTime(71), BeatTime(72), BeatTime(76), BeatTime(80),
+                BeatTime(87), BeatTime(87.5f), BeatTime(88), BeatTime(92), BeatTime(94), BeatTime(96),
+
+                BeatTime(100), BeatTime(101), BeatTime(102), BeatTime(103), BeatTime(104),
+                BeatTime(108), BeatTime(112), BeatTime(116), BeatTime(120), BeatTime(124), BeatTime(128),
+
+                BeatTime(130),
+                BeatTime(132), BeatTime(134), BeatTime(136), BeatTime(138), BeatTime(140), BeatTime(142),
+                BeatTime(144), BeatTime(150), BeatTime(152), BeatTime(156), BeatTime(158), BeatTime(160),
+
+                BeatTime(161),
+                BeatTime(162), BeatTime(163), BeatTime(164), BeatTime(165), BeatTime(166), BeatTime(167),
+                BeatTime(168), BeatTime(172), BeatTime(176), BeatTime(184), BeatTime(188), BeatTime(192),
+
+                BeatTime(200),
+                BeatTime(201), BeatTime(202), BeatTime(203), BeatTime(204), BeatTime(205), BeatTime(206),
+                BeatTime(207), BeatTime(208), BeatTime(209), BeatTime(210), BeatTime(211), BeatTime(212),
+                BeatTime(214), BeatTime(216), BeatTime(218), BeatTime(220), BeatTime(224), BeatTime(228),
+
+                BeatTime(232), BeatTime(236), BeatTime(240), BeatTime(244), BeatTime(248), BeatTime(252),
             };
                 for (int a = 0; a < Arrow1.Length; a++)
                 {
@@ -2850,59 +2779,25 @@ namespace Rhythm_Recall.Waves
                 }
             }
             //双押红矛
-            if (GametimeF == (int)(bpm * 16 * 52 + bpm * 16 * 48 - 80))
+            if (GametimeF == (int)BeatTime(1600) - 80)
             {
-                int Parta = (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Partb = (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 8);
-                int Partc = (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Partd = (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 4 + bpm * 4);
-                int Parte = (int)(Partd + bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int Partf = (int)(Parte + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 8);
-                int Partg = (int)(Partf + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
-                int[] Arrow =
+                int Parta = (int)BeatTime(32);
+                int Partb = (int)BeatTime(64);
+                int Partc = (int)BeatTime(96);
+                float[] Arrow =
                 {
-                    zero,
-                    (int)(bpm * 6),
-                    (int)(bpm * 6 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Parta + bpm * 4),
-                    (int)(Parta + bpm * 4 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Parta + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 4 + bpm * 2 + bpm * 2 + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 8),
-                    (int)(Partb + bpm * 3),
-                    (int)(Partb + bpm * 3 + bpm * 3),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partb + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 8 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3),
-                    (int)(Partc + bpm * 3 + bpm * 3),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 4),
-                    (int)(Partc + bpm * 3 + bpm * 3 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 8 + bpm * 4 + bpm * 4),
+                    zero, BeatTime(6),
+                    BeatTime(8), BeatTime(14), BeatTime(16), BeatTime(22), BeatTime(23),
+                    BeatTime(24), BeatTime(26), BeatTime(28), BeatTime(30), BeatTime(32),
+
+                    BeatTime(36), BeatTime(38), BeatTime(40), BeatTime(44), BeatTime(46),
+                    BeatTime(48), BeatTime(51), BeatTime(54), BeatTime(56), BeatTime(64),
+
+                    BeatTime(67), BeatTime(70), BeatTime(72), BeatTime(78), BeatTime(80),
+                    BeatTime(88), BeatTime(90), BeatTime(92), BeatTime(94), BeatTime(96),
+
+                    BeatTime(99), BeatTime(102), BeatTime(104), BeatTime(106), BeatTime(108),
+                    BeatTime(110), BeatTime(112), BeatTime(120), BeatTime(124), BeatTime(128),
                 };
                 for (int a = 0; a < Arrow.Length; a++)
                 {
@@ -2910,8 +2805,6 @@ namespace Rhythm_Recall.Waves
                     CreateArrow(Arrow[a] + 80, Rand(0, 3), 5, 1, 0);
                 }
             }
-
-
         }
         public void Start()
         {
