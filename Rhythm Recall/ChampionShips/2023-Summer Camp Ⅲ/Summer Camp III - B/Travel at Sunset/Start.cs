@@ -75,7 +75,7 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunction("SetScreenAngle", () =>
                 {
-                    ScreenDrawing.ScreenAngle = Arguments[0];                   
+                    ScreenDrawing.ScreenAngle = Arguments[0];
                 });
                 #region Easing
                 AddInstance(easeA = new Arrow.UnitEasing()
@@ -150,7 +150,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = false;
+                bool jump = true;
                 if (GameStates.difficulty == 0) jump = false;
                 if (jump)
                 {

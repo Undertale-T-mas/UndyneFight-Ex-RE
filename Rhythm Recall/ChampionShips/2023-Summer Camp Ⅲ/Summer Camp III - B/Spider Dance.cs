@@ -40,30 +40,30 @@ namespace Rhythm_Recall.Waves
             class Information : SongInformation
             {
                 public override string SongAuthor => "Toby Fox";
-                public override string BarrageAuthor => "zKronO,mentototo";
-                public override string AttributeAuthor => "ParaDOXXX,mentototo";
+                public override string BarrageAuthor => "zKronO, mentototo";
+                public override string AttributeAuthor => "ParaDOXXX, mentototo";
                 public override string PaintAuthor => "Unknown";
-                public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
-                new KeyValuePair<Difficulty, float>[]
-                {
-                    new(Difficulty.Easy,7.8f),
-                    new(Difficulty.Extreme,17.5f)
-                }
+                public override Dictionary<Difficulty, float> CompleteDifficulty => new(
+                    new KeyValuePair<Difficulty, float>[]
+                    {
+                        new(Difficulty.Easy, 7.8f),
+                        new(Difficulty.Extreme, 17.5f)
+                    }
                 );
-                public override Dictionary<Difficulty, float> ComplexDifficulty => new Dictionary<Difficulty, float>(
+                public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                    new(Difficulty.Easy,7.8f),
-                    new(Difficulty.Extreme,17.5f)
+                        new(Difficulty.Easy, 7.8f),
+                        new(Difficulty.Extreme, 17.5f)
                     }
-                    );
-                public override Dictionary<Difficulty, float> APDifficulty => new Dictionary<Difficulty, float>(
+                 );
+                public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                    new(Difficulty.Easy,12.0f),
-                    new(Difficulty.Extreme,20.4f)
+                        new(Difficulty.Easy, 12.0f),
+                        new(Difficulty.Extreme, 20.4f)
                     }
-                    );
+                );
             }
             static Arrow.UnitEasing easeA, easeB, easeC, easeD, easeE;
             static Arrow.EnsembleEasing easeY;
@@ -380,7 +380,6 @@ namespace Rhythm_Recall.Waves
                             LinkEase(Stable(0, new Vector2(106)), EaseOut(BeatTime(4.5f), new Vector2(52), EaseState.Back)),
                             LinkEase(Stable(0, new Vector2(158)), EaseOut(BeatTime(8f), new Vector2(-74), EaseState.Elastic)));
                     });
-
                     CreateChart(BeatTime(0), BeatTime(2), 6.2f, new string[]
                     { 
                         //1
@@ -937,15 +936,15 @@ namespace Rhythm_Recall.Waves
                     {
                         ApplyTime = BeatTime(3.9f),
                         AlphaEase = LinkEase(Stable(0, 1),
-                       EaseOut(BeatTime(0), 1, -1, EaseState.Linear),
-                       Stable(BeatTime(0.25f), 0))
+                        EaseOut(BeatTime(0), 1, -1, EaseState.Linear),
+                        Stable(BeatTime(0.25f), 0))
                     });
                     AddInstance(easeF = new Arrow.UnitEasing()
                     {
                         ApplyTime = BeatTime(2f),
-                        AlphaEase = LinkEase(Stable(0, 0),
-                       EaseOut(BeatTime(2f), 0, 1, EaseState.Linear),
-                       Stable(BeatTime(0.25f), 0))
+                        AlphaEase = LinkEase(Stable(0, 1),
+                        EaseOut(BeatTime(2f), 1, 0, EaseState.Linear),
+                        Stable(BeatTime(0.25f), 0))
                     });
                     easeE2.TagApply("E2");
                     easeF.TagApply("F");
@@ -1137,7 +1136,6 @@ namespace Rhythm_Recall.Waves
                     });
                     CreateChart(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     {
-                       
                         //pre
                         "", "", "", "",    "", "", "", "",
                         "", "", "Green", "",    "", "", "", "",
@@ -1190,33 +1188,27 @@ namespace Rhythm_Recall.Waves
                     easeC.TagApply("C");
                     AddInstance(easeE = new Arrow.UnitEasing()
                     {
-
                         ApplyTime = BeatTime(2f),
                         AlphaEase = LinkEase(Stable(0, 1),
-                        EaseOut(BeatTime(4), 1, -1, EaseState.Linear),
+                        EaseOut(BeatTime(4), 1, 0, EaseState.Linear),
                         Stable(BeatTime(0.25f), 0))
-
-
                     });
                     easeE.TagApply("E");
                     Arrow.UnitEasing easeF = new();
                     Arrow.UnitEasing easeE2 = new();
                     AddInstance(easeE2 = new Arrow.UnitEasing()
                     {
-
                         ApplyTime = BeatTime(3.9f),
                         AlphaEase = LinkEase(Stable(0, 1),
-                       EaseOut(BeatTime(0), 1, -1, EaseState.Linear),
-                       Stable(BeatTime(0.25f), 0))
-
-
+                        EaseOut(BeatTime(0), 1, -1, EaseState.Linear),
+                        Stable(BeatTime(0.25f), 0))
                     });
                     AddInstance(easeF = new Arrow.UnitEasing()
                     {
                         ApplyTime = BeatTime(2f),
-                        AlphaEase = LinkEase(Stable(0, 0),
-                       EaseOut(BeatTime(2f), 0, 1, EaseState.Linear),
-                       Stable(BeatTime(0.25f), 0))
+                        AlphaEase = LinkEase(Stable(0, 1),
+                        EaseOut(BeatTime(2f), 1, 0, EaseState.Linear),
+                        Stable(BeatTime(0.25f), 0))
                     });
                     easeE2.TagApply("E2");
                     easeF.TagApply("F");
@@ -1417,7 +1409,7 @@ namespace Rhythm_Recall.Waves
                             LinkEase(Stable(0, 5), EaseOut(BeatTime(4f), -5, EaseState.Elastic)));
                     });
                     CreateChart(BeatTime(4), BeatTime(2), 6.2f, new string[]
-                {
+                    {
                         //pre
                         "", "", "", "",    "", "", "", "",
                         "", "", "", "",    "LineG", "", "", "",
@@ -1461,7 +1453,7 @@ namespace Rhythm_Recall.Waves
                         "($00@S)(+21@X)", "", "", "",    "($01@X)(+21@X)", "", "", "",
                         "($2@S)(+2@S)", "", "", "",    "($21@X)(+21@X)", "", "", "",
                         "($01@X)(+21@X)($0@S)($2@S)", "", "", "",    "", "", "", "",
-                });
+                    });
                 }
                 if (InBeat(248))
                 {
@@ -5347,7 +5339,7 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenScale = 2;
                 HeartAttribute.MaxHP = 10;
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
                     //int beat = 54 + 128 + 64 + 64; 
@@ -5356,6 +5348,7 @@ namespace Rhythm_Recall.Waves
                     //int beat = 182;
                     //int beat = 248+60 ;
                     int beat = 64;
+                    beat = 120;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenScale = 1f;
