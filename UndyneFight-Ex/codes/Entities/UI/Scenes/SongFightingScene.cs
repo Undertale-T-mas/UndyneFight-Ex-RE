@@ -195,8 +195,11 @@ namespace UndyneFight_Ex.Entities
                 restartTimer = IsKeyDown(InputIdentity.Reset) ? restartTimer + 1 : 0;
                 if (restartTimer >= 60 || (IsKeyPressed120f(InputIdentity.Reset) && IsKeyDown(InputIdentity.Alternate)))
                 {
-                    PlayDeath();
-                    return;
+                    if ((mode & GameMode.RestartDeny) != GameMode.RestartDeny)
+                    {
+                        PlayDeath();
+                        return;
+                    }
                 }
             }
 

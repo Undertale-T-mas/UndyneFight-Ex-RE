@@ -226,11 +226,20 @@ namespace Rhythm_Recall.Waves
                         project.AnomalyStart();
                     }
                     project.Noob();
-                    if (GametimeF > 1175) {
+                    if (GametimeF > 1175)
+                    {
+                        int d = dif == 1 ? 2 : 5;
+                        GameStates.difficulty = d;
                         GameStates.ResetScene(new SongLoadingScene(new(
-                            Activator.CreateInstance(typeof(Project)) as IWaveSet, anomalyImage0, 5,
-                            "Content\\Musics\\Traveler at Sunset\\song", JudgementState.Strict, GameMode.PauseDeny | GameMode.RestartDeny, false
+                            Activator.CreateInstance(typeof(Project)) as IWaveSet, anomalyImage0, d,
+                            "Content\\Musics\\Traveler at Sunset\\song", JudgementState.Strict, GameMode.PauseDeny | GameMode.RestartDeny | GameMode.Practice, false
                             )));
+
+                        var customData = PlayerManager.CurrentUser.Custom;
+                        if (!customData.Nexts.ContainsKey("TaSAnomaly"))
+                            customData.PushNext(new("TasAnomaly:value=0"));
+                        customData.Nexts["TaSAnomaly"]["value"] = dif.ToString();
+                        PlayerManager.Save();
                     }
                 }
                 base.Update();
