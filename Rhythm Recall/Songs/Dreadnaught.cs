@@ -9371,19 +9371,23 @@ namespace Rhythm_Recall.Waves
                 if (scene.Mode != GameMode.None) return;
 
                 if (p == 0) return;
+                int k = 0;
                 if (p == 2 && (int)CurrentDifficulty >= 4) {
                     HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
                     AutoEnd = false;
+                    k = 2;
                 }
                 else if (p >= 1 && (int)CurrentDifficulty >= 2)
                 {
                     HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
                     AutoEnd = false;
+                    k = 1;
                 }
+                if (k == 0) return;
                 AdvanceFunctions.Interactive.AddEndEvent(() => {
                     SimplifiedEasing.RunEase(s => ScreenDrawing.MasterAlpha = s, SimplifiedEasing.Linear(BeatTime(4), 1, 0));
                     DelayBeat(4, () => {
-                        GameStates.ResetScene(new Traveler_at_Sunset.Anomaly(p));
+                        GameStates.ResetScene(new Traveler_at_Sunset.Anomaly(k));
                     });
                 });
             }
