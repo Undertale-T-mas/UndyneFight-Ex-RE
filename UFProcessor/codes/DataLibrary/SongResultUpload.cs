@@ -109,9 +109,10 @@ namespace UndyneFight_Ex.Server
             record[data.Name].Push(data);
 
             scoreboardManager.Insert(user, data);
-            ChampionshipManager.PushScore(user, data);
+            if (ChampionshipManager.PushScore(user, data))
+                client.Reply("S Song message received.");
+            else client.Reply("F Error occured!");
 
-            client.Reply("S Song message received.");
             user.Save();
         }
 

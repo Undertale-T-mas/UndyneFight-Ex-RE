@@ -8,19 +8,27 @@ namespace UFData
     {
         public SortedSet<ChampionshipParticipant> Members { get; set; } = new();
 
-        public void PushScore(User user, DivisionInformation div, SongPlayData data)
+        public bool PushScore(User user, DivisionInformation div, SongPlayData data)
         {
-            ChampionshipParticipant? p = null;
-            foreach (ChampionshipParticipant participant in Members)
-            {
-                if(participant.UUID == user.UUID)
+            try {
+                ChampionshipParticipant? p = null;
+                foreach (ChampionshipParticipant participant in Members)
                 {
-                    p = participant;
-                    break;
+                    if (participant.UUID == user.UUID)
+                    {
+                        p = participant;
+                        break;
+                    }
                 }
+                if (p == null) Members.Add(p = new(user.UUID, user.Name, div));
+                p.Update(div.Info[data.Name].Item1, data.Result.Accuracy);
             }
-            if (p == null) Members.Add(p = new(user.UUID, user.Name, div));
-            p.Update(div.Info[data.Name].Item1, data.Result.Accuracy);
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+            return true;
         }
     }
     public class ChampionshipInfo
