@@ -598,8 +598,9 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SCS", () =>
                     {
+                        SetSoul(1);
                         RunEase(s => ScreenDrawing.ScreenScale = s,
-                            EaseOut(BeatTime(1), 1.04f, 1.0f, EaseState.Quint)
+                            EaseOut(BeatTime(1), 1.12f, 1.0f, EaseState.Quint)
                         );
                     });
                     CreateChart(BeatTime(4), BeatTime(2), 7.2f, new string[]
@@ -651,6 +652,14 @@ namespace Rhythm_Recall.Waves
                     });
                 }
                 EXArea1();
+                if (InBeat(400, 416) && At0thBeat(0.5f))
+                {
+                    ScreenDrawing.ScreenAngle = Sin( (GametimeF - BeatTime(400))  * 2) * 10;
+                }
+                if (InBeat(432, 448) && At0thBeat(0.75f))
+                {
+                    Extends.DrawingUtil.BlackScreen(BeatTime(0.2f), BeatTime(0.1f), BeatTime(0.2f));
+                }
                 if (InBeat(392))
                 {
                     RegisterFunctionOnce("heal", () => {
@@ -755,10 +764,10 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "heal", "", "", "",  
                           
                         //1
-                        "!!3", "$1(BugLine)(<0.5,1>Drum)", "$11", "$3",    "!!3", "d1(<0.5,1>Drum)", "d", "d1",
-                        "!!3", "d(<0.5,1>Drum)", "d1", "d",    "!!3", "d1(<0.5,1>Drum)", "d", "d1",
-                        "!!3", "d(<0.5,1>Drum)", "d1", "d",    "!!3", "d1(<0.5,1>Drum)", "d", "d1",
-                        "!!3", "d(<0.5,1>Drum)", "d1", "d",    "!!3", "d1(<0.5,1>Drum)", "+0", "+0", 
+                        "!!3", "$1(BugLine)", "$11", "$3",    "!!3", "d1", "d", "d1",
+                        "!!3", "d", "d1", "d",    "!!3", "d1", "d", "d1",
+                        "!!3", "d", "d1", "d",    "!!3", "d1", "d", "d1",
+                        "!!3", "d", "d1", "d",    "!!3", "d1", "+0", "+0", 
 
                         //2
                         "!!3", "D1(<0.5,-1>Drum)", "*+002@A", "*+002@B",    "!!3", "d1(<0.5,-1>Drum)", "*+002@A", "*+002@B",
@@ -879,7 +888,20 @@ namespace Rhythm_Recall.Waves
                         l.DelayAlphaDecrease(BeatTime(4), BeatTime(2));
                         l2.DelayAlphaDecrease(BeatTime(4), BeatTime(2));
                     });
-
+                    RegisterFunctionOnce("Zoom", () =>
+                    {
+                        RunEase(s => { ScreenDrawing.ScreenScale = s; },
+                            LinkEase(false, 
+                                EaseOut(BeatTime(1), 0.8f, 1.05f, EaseState.Quad),
+                                EaseOut(BeatTime(1), 0.95f, 1.2f, EaseState.Quad),
+                                EaseOut(BeatTime(1), 1.1f, 1.35f, EaseState.Quad),
+                                EaseOut(BeatTime(1), 1.3f, 1.55f, EaseState.Quad),
+                                EaseOut(BeatTime(1), 1.5f, 1.75f, EaseState.Quad),
+                                Stable(BeatTime(1), 1.75f),
+                                EaseInOut(BeatTime(2), 1.9f, 1f, EaseState.Sine)
+                                )
+                            );
+                    });
                     CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
                         //pre
@@ -905,7 +927,7 @@ namespace Rhythm_Recall.Waves
                         "d1(<0>SetScreenAngle)", "", "", "",    "d1", "", "", "",
 
                         //4
-                        "^d'1.6(^d1'1.6)(QuickKick)(<0.4,-1>Drum)", "", "", "",    "^d'1.6(^d1'1.6)(<0.4,1>Drum)", "", "", "",
+                        "^d'1.6(^d1'1.6)(QuickKick)(<0.4,-1>Drum)(Zoom)", "", "", "",    "^d'1.6(^d1'1.6)(<0.4,1>Drum)", "", "", "",
                         "^d'1.6(^d1'1.6)(<0.4,-1>Drum)", "", "", "",    "^d'1.6(^d1'1.6)(<0.4,1>Drum)", "", "", "",
                         "^d'1.6(^d1'1.6)(<1.9,-5>Drum)", "", "", "",    "", "", "", "",
                         "(<0>SetScreenAngle)", "", "", "",    "", "", "", "",
@@ -2010,6 +2032,7 @@ namespace Rhythm_Recall.Waves
                         EaseOut(BeatTime(3), 3, 1, EaseState.Sine), Stable(0, 1));
                         DelayBeat(4, () => {
                             sans.Alpha = 0.0f;
+                            ScreenDrawing.ScreenAngle = 0;
                         });
                     });
                     RegisterFunctionOnce("DownLine", () =>
@@ -2227,9 +2250,15 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("Rotate", () =>
                     {
                         RunEase((s) => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(2), 5f, EaseState.Cubic),
-                            EaseOut(BeatTime(2), -10f, EaseState.Cubic),
-                            EaseOut(BeatTime(2), 5f, EaseState.Cubic)
+                            EaseOut(BeatTime(0.5f), 5f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.5f), -10f, EaseState.Cubic),
+                            EaseOut(BeatTime(1f), 10f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.5f), -10f, EaseState.Cubic),
+                            EaseOut(BeatTime(1f), 10f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.5f), -10f, EaseState.Cubic),
+                            EaseOut(BeatTime(1f), 10f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.5f), -10f, EaseState.Cubic),
+                            EaseOut(BeatTime(0.5f), 5f, EaseState.Cubic)
                             );
                     });
                     RegisterFunctionOnce("Eff1", () =>
@@ -2256,6 +2285,21 @@ namespace Rhythm_Recall.Waves
                         {
                             f1.Dispose();
                         });
+                    });
+                    RegisterFunctionOnce("Kick", () =>
+                    {
+                        RunEase(s => ScreenDrawing.ScreenAngle = s,
+                            Alternate(1.0f,
+                                EaseOut(BeatTime(1.2f), 5, 0, EaseState.Circ),
+                                EaseOut(BeatTime(1.2f), -5, 0, EaseState.Circ)
+                            )
+                        );
+                        RunEase(s => ScreenDrawing.ScreenScale = s,
+                            LinkEase(
+                                EaseOut(BeatTime(0.6f), 1f, 1.05f, EaseState.Expo),
+                                EaseOut(BeatTime(0.6f), 1.05f, 1, EaseState.Expo)
+                            )
+                        );
                     });
                     CreateChart(BeatTime(4), BeatTime(2), 7, new string[]
                     {
@@ -2284,14 +2328,14 @@ namespace Rhythm_Recall.Waves
                         "d1", "", "d", "",    "d", "", "d", "",    
                         //5
                         "d(d1)(BoundB)(LineGA)(Eff1)", "", "", "",    "d", "", "", "",
-                        "d(d1)(LineGA)", "", "", "",    "d", "", "", "",
-                        "d(d1)(LineGA)", "", "", "",    "d", "", "", "",
-                        "d(d1)(LineGA)", "", "", "",    "d", "", "", "",
+                        "d(d1)(LineGA)(Kick)", "", "", "",    "d", "", "", "",
+                        "d(d1)(LineGA)(Kick)", "", "", "",    "d", "", "", "",
+                        "d(d1)(LineGA)(Kick)", "", "", "",    "d", "", "", "",
                         //6
-                        "d(d1)(LineGA)", "", "", "",    "d1", "", "", "",
-                        "d(d1)(LineGA)", "", "", "",    "d", "", "", "",
-                        "d(d1)(LineGA)", "", "", "",    "d1", "", "", "",
-                        "d(d1)(LineGA)", "", "", "",    "d", "", "", "",
+                        "d(d1)(LineGA)(Kick)", "", "", "",    "d1", "", "", "",
+                        "d(d1)(LineGA)(Kick)", "", "", "",    "d", "", "", "",
+                        "d(d1)(LineGA)(Kick)", "", "", "",    "d1", "", "", "",
+                        "d(d1)(LineGA)(Kick)", "", "", "",    "d", "", "", "",
                         //7
                         "(d1)(d)(LineGB1)(LineGA2)(Eff1)", "", "+1", "",    "+1", "", "+1", "",
                         "-1", "", "-1", "",    "-1", "", "-1", "",
@@ -3824,6 +3868,11 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.MakeFlicker(Color.Red * 0.75f);
 
                     float bdis = ScreenDrawing.UpBoundDistance;
+                    RunEase(s => { ScreenDrawing.ScreenScale = s; },
+                        LinkEase(
+                            EaseOut(BeatTime(0.7f), 4, EaseState.Quad),
+                            EaseOut(BeatTime(0.7f), -3f, EaseState.Circ)
+                    ));
                     RunEase(s =>
                     {
                         ScreenDrawing.UpBoundDistance = ScreenDrawing.DownBoundDistance =
@@ -3889,6 +3938,7 @@ namespace Rhythm_Recall.Waves
 
                     RunEase(s =>
                     {
+                        ScreenDrawing.ScreenScale = s / 2 + 1;
                         ScreenDrawing.UpBoundDistance = ScreenDrawing.DownBoundDistance =
                             MathHelper.Lerp(210, 0, s);
                         ScreenDrawing.BackGroundColor = Color.Lerp(Color.DarkRed * 0.12f, Color.Aqua * 0.04f, s);
@@ -3941,6 +3991,7 @@ namespace Rhythm_Recall.Waves
                     );
                     RunEase(s =>
                     {
+                        ScreenDrawing.ScreenScale = 1 + s / 2;
                         ScreenDrawing.UpBoundDistance = ScreenDrawing.DownBoundDistance =
                             MathHelper.Lerp(210, 0, s);
                         ScreenDrawing.BackGroundColor = Color.Lerp(Color.DarkRed * 0.12f, Color.Aqua * 0.04f, s);
@@ -3949,13 +4000,13 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunctionOnce("shakeL", () =>
                 {
-                    AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(3, 18, 2f, 180, 180, 0.6f));
+                    AddInstance(new ScreenShaker(3, 18, 2f, 180, 180, 0.6f));
                     RunEase(s => ScreenDrawing.ScreenAngle = s,
                         EaseOut(BeatTime(0.25f), 6.0f, 0.0f, EaseState.Cubic));
                 });
                 RegisterFunctionOnce("shakeR", () =>
                 {
-                    AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(3, 18, 2f, 0, 180, 0.6f));
+                    AddInstance(new ScreenShaker(3, 18, 2f, 0, 180, 0.6f));
                     RunEase(s => ScreenDrawing.ScreenAngle = s,
                         EaseOut(BeatTime(0.25f), -6.0f, 0.0f, EaseState.Cubic));
                 });
