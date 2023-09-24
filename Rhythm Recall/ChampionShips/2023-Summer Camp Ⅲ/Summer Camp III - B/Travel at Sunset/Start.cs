@@ -77,6 +77,10 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.ScreenAngle = Arguments[0];
                 });
+                RegisterFunction("SetScreenScale", () =>
+                {
+                    ScreenDrawing.ScreenScale = Arguments[0];
+                });
                 #region Easing
                 AddInstance(easeA = new Arrow.UnitEasing()
                 {
@@ -159,14 +163,15 @@ namespace Rhythm_Recall.Waves
                     //beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
                     //beat = 328;
                     //beat = 711 + 128;
-                    beat = 198;
-                    beat = 711 + 128 + 32;
+                    beat = 840;
+                    //beat = 711;
                     sans.Alpha = 0.0f;
                     GametimeDelta = -3.5f + BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
+                    Settings.GreenTap = true;
                 }
                 else sans.Alpha = 1.0f;
                 //sans.Visible = false;

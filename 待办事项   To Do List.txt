@@ -1,6 +1,4 @@
 Optimise Codes
 Finalize TAS Anomaly
 Fix Complex Diff visiblility
-Added motion effects on TAS
-Finish Red Soul on TAS
-Nerf Spider Dance/Convert current into div 0
+Added motion effects on TAS   2:16用扩大，1:30转换的时候不要那个屏幕缓动
