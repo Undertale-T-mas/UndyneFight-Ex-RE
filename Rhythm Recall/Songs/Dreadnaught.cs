@@ -44,7 +44,7 @@ namespace Rhythm_Recall.Waves
                 if (t == 2) return 0; 
                 DateTime time = DateTime.UtcNow;
                 bool test = false;
-#if DEBUG
+#if DEBUG || RELEASE
                 test = true;
 #endif
                 if (

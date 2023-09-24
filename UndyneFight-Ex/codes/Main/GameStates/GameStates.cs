@@ -141,6 +141,7 @@ namespace UndyneFight_Ex
         public static void StartSong(SongFightingScene.SceneParams @params)
         {
             lastParam = @params;
+            Fight.Functions.Loader.RootDirectory = "Content";
             ResetScene(@params.MusicLoaded ? new SongFightingScene(@params) : new SongLoadingScene(@params));
         } 
         public static void ResetScene(Scene scene)

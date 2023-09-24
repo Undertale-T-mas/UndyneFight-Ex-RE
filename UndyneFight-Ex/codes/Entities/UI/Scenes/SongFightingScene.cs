@@ -113,12 +113,26 @@ namespace UndyneFight_Ex.Entities
             {
                 string temp = Loader.RootDirectory;
                 Loader.RootDirectory = "";
+                if (musicPath[..7] != "Content")
+                    Loader.RootDirectory = "Content";
                 if (!MusicOptimized)
                     musicIns = new(musicPath, Loader);
                 else musicIns = new(musicPath + ".ogg", Loader);
                 if (SongIllustration != null && SongIllustration.IsDisposed)
                 {
+                    bool t2;
+                    string name = SongIllustration.Name;
+                    string tmp2 = string.Empty;
+                    if (t2 = (name[..7] != "Content"))
+                    {
+                        tmp2 = Loader.RootDirectory;
+                        Loader.RootDirectory = "Content";
+                    }
                     SongIllustration = Loader.Load<Texture2D>(SongIllustration.Name);
+                    if (t2)
+                    {
+                        Loader.RootDirectory = tmp2;
+                    }
                 }
                 Loader.RootDirectory = temp;
                 musicDuration = (float)musicIns.SongDuration.TotalSeconds * 62.5f;

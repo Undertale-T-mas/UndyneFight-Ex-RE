@@ -19,7 +19,8 @@ namespace UndyneFight_Ex.Remake.UI
                 var list = FightSystem.ChampionShips;
                 foreach(var obj in list)
                 {
-                    if(obj.CheckTime.Invoke() != ChampionShip.ChampionShipStates.End)
+                    var state = obj.CheckTime.Invoke();
+                    if (state != ChampionShip.ChampionShipStates.End)
                     {
                         // championship that can be shown
 
@@ -29,7 +30,8 @@ namespace UndyneFight_Ex.Remake.UI
 
                         _currentChampionshipNAME = obj.Title.Replace("Ⅲ", "III");
 
-                        break;
+                        if (state != ChampionShip.ChampionShipStates.NotAvailable)
+                            break;
                     }
                 }
 

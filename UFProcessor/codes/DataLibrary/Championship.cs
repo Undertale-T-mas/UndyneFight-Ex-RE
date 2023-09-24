@@ -53,7 +53,7 @@ namespace UndyneFight_Ex.Server
             ChampionshipInfo? championship = championships.Find(s => s.Name == championshipName);
             if(championship == null) { return "F championship not exist"; }
             if (!championship.Divisions.ContainsKey(divName)) return "F division not exist";
-            if (championship.Participants.ContainsKey(user.UUID)) return "E already signed up";
+            if (championship.Participants.ContainsKey(user.UUID)) return "F already signed up-" + championship.Participants[user.UUID];
             championship.Participants.Add(user.UUID, divName);
             return "S successfully signed up";
         }

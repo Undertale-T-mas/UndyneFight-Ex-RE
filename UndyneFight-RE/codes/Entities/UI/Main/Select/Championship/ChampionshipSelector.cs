@@ -284,6 +284,11 @@ namespace UndyneFight_Ex.Remake.UI
                                     }
                                 });
                             }
+                            else if (t.Info[0..7] == "already") {
+                                string k = t.Info.Split('-')[1];
+                                text = k;
+                                goto A;
+                            }
                             else
                             {
                                 PlaySound(FightResources.Sounds.die1);
@@ -291,7 +296,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                             return;
                         }
-
+                        A:
                         PlaySound(FightResources.Sounds.Ding);
                         PlayerManager.CurrentUser.ChampionshipData.SignUp(c.Title, text);
                         PlayerManager.Save();

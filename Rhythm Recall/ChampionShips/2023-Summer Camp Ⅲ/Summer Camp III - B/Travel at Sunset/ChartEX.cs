@@ -1423,7 +1423,7 @@ namespace Rhythm_Recall.Waves
 
                         "$1", "~_!$1", "~_!$1", "!!24/6",
                         "~_!$1@X", "~_!$1@Y", "~_!$1@Z", "~_!$1@U", "~_!$1@V", "~_$1@W",
-                        "$2", "~_!$2", "~_!$2", "",
+                        "$2", "~_!$2", "~_!$2", "", 
                         //2
                         "$21", "~_!$21", "~_!$21", "~_!$21",    "~_!$21", "~_!$21", "~_!$21", "!!24/6",
                         "~_!$21@X", "~_!$21@Y", "~_!$21@Z", "~_!$21@U", "~_!$21@V", "~_$21@W",
@@ -1538,7 +1538,7 @@ namespace Rhythm_Recall.Waves
                         "(*$00@G)(*$20@G)(HandL)", "", "", "",    "(*$00@G)(*$20@G)(HandU)", "", "", "",
                         "(*$00@G)(*$20@G)(WindSlow)(HandL)", "", "", "(*$00)(*$20)",    "MoveBack", "", "", "",     
                         //3
-                        "''7",
+                        "''5",
                         "n01", "~_!+01", "~_!+01", "~_!+01",    "~_+01", "~_!+01", "~_+01", "",
                         "d", "~_!+0", "~_+0", "",    "d1", "~_!+01", "~_+01", "",
                         "d", "~_!+0", "~_+0", "",    "d1", "~_!+01", "~_+01", "",
@@ -1632,6 +1632,7 @@ namespace Rhythm_Recall.Waves
                         "(*<$11@K1C)(_>$11@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)(HandB)", "", "", "",    "(HandB)(*$11@K1C)(_$11@K1D)(*>$0)(*<$2)(~_$0'2.2)(~_$2'2.2)", "", "(*<$11@K1C)(_>$11@K1D)", "",
                         "(*$11@K1C)(_$11@K1D)(*<$0)(*>$2)(~_$0'2.2)(~_$2'2.2)(WindSlow)(HandB)", "", "", "(*<$11@K1C)(_>$11@K1D)",    "MoveBack(*$11@K1C)(_$11@K1D)", "", "(*<$11@K1C)(_>$11@K1D)", "",
                         //3 
+                        "''5",
                         "n0", "~_!+0", "~_!+0", "~_!+0",    "~_+0", "~_!+0", "~_+0", "",
                         "d1", "~_!+01", "~_+01", "",    "d", "~_!+0", "~_+0", "",
                         "!!3","$21", "$31", "$01",    "!!3","$11", "$21", "$11",
@@ -3954,7 +3955,7 @@ namespace Rhythm_Recall.Waves
                         RunEase(s =>
                         {
                             lighter.AmbientColor = Color.White * s;
-                        }, Linear(BeatTime(1.7f), 1.0f, 0.42f));
+                        }, Linear(BeatTime(1.7f), 1.0f, 0.52f));
                         lighter.Lights.Add(light = new()
                         {
                             position = new(320, 240),
@@ -3968,7 +3969,7 @@ namespace Rhythm_Recall.Waves
                     RunEase(s =>
                     {
                         lighter.AmbientColor = Color.White * s;
-                    }, Linear(BeatTime(2f), 0.35f, 1.0f));
+                    }, Linear(BeatTime(2f), 0.45f, 1.0f));
                     DelayBeat(2, () =>
                     {
                         lighter.Dispose();
@@ -4034,7 +4035,7 @@ namespace Rhythm_Recall.Waves
                     RunEase(s => light.size = s,
                         EaseOut(BeatTime(0.6f), 490f, 350f, EaseState.Quad));
                     RunEase(s => lighter.AmbientColor = Color.White * s,
-                        EaseOut(BeatTime(0.6f), 1.0f, 0.7f, EaseState.Quad));
+                        EaseOut(BeatTime(0.6f), 1.0f, 0.79f, EaseState.Quad));
                     ScreenDrawing.MakeFlicker(Color.White * 0.41f);
                     RunEase(s => splitter.Intensity = s, EaseOut(BeatTime(0.25f), 7f, 0.5f, EaseState.Quad));
                 });
