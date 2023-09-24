@@ -658,7 +658,8 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(432, 448) && At0thBeat(1f))
                 {
-                    Extends.DrawingUtil.BlackScreen(BeatTime(0.2f), BeatTime(0.1f), BeatTime(0.2f));
+                    ScreenDrawing.MasterAlpha = 0.1f;
+                    DelayBeat(0.1f, () => ScreenDrawing.MasterAlpha = 1f);
                 }
                 if (InBeat(392))
                 {
