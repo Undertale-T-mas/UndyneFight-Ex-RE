@@ -6,12 +6,14 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
+using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
+using Microsoft.Xna.Framework.Input;
 
 namespace Rhythm_Recall.Waves
 {
@@ -2756,23 +2758,23 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "", 
                          
                         //1 
-                        "#3#d0(<1.4,3>Scale)(<15,3,7>Angle)", "", "", "",    "+20@A", "", "", "",
-                        "#3#d1(<1.2,3>Scale)(<-10,3,7>Angle)", "", "", "",    "+21@B", "", "", "",
+                        "#3#d0(<1.4,3>Scale)(<15,3,6>Angle)", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1(<1.2,3>Scale)(<-10,3,6>Angle)", "", "", "",    "+21@B", "", "", "",
                         //2
-                        "#3#d0(<1.5,3>Scale)(<10,3,7>Angle)", "", "", "",    "+20@A", "", "", "",
-                        "#3#d1(<1,3>Scale)(<0,3,7>Angle)", "", "", "",    "+21@B", "", "", "",
+                        "#3#d0(<1.5,3>Scale)(<10,3,6>Angle)", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1(<1,3>Scale)(<0,3,6>Angle)", "", "", "",    "+21@B", "", "", "",
                         //3 
-                        "#7#d0(<1.5,6>Scale)(<15,1,3>Angle)", "", "", "",    "+20@A(<-15,1,3>Angle)", "", "", "",
-                        "+00@B(<10,1,3>Angle)", "", "", "",    "+00@A(<-5,1,3>Angle)", "", "", "",
+                        "#7#d0(<1.5,6>Scale)(<15,4,8>Angle)", "", "", "",    "+20@A", "", "", "",
+                        "+00@B", "", "", "",    "+00@A", "", "", "",
                         //4
-                        "#7#d1(<1,6>Scale)(<25,1,5>Angle)", "", "", "",    "+21@B(<-5,1,5>Angle)", "", "", "",
-                        "+01@A(<10,0.75,5>Angle)", "", "", "+01@B(<-10,0.25,5>Angle)",    "+01@A(<0,1,5>Angle)", "", "", "",
+                        "#7#d1(<1,6>Scale)(<-25,4,8>Angle)", "", "", "",    "+21@B", "", "", "",
+                        "+01@A", "", "", "+01@B",    "+01@A", "", "", "",
                         //5
-                        "#3#d0(<0.8,3>Scale)(<10,1,3>Angle)", "", "", "",    "+20@A(<-10,1,3>Angle)", "", "", "",
-                        "#3#d1(<1.2,3>Scale)(<0,1,3>Angle)", "", "", "",    "+21@B(<10,1,3>Angle)", "", "", "",
+                        "#3#d0(<1.4,3>Scale)(<20,1,6>Angle)", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1(<1.2,3>Scale)(<0,1,6>Angle)", "", "", "",    "+21@B", "", "", "",
                         //6
-                        "#3#d0(<1.4,3>Scale)(<-25,1,3>Angle)", "", "", "",    "+20@A(<5,1,3>Angle)", "", "", "",
-                        "#3#d1(<1.1,3>Scale)(<20,1,3>Angle)", "", "", "",    "+21@B(<0,1,3>Angle)", "", "", "",
+                        "#3#d0(<1.4,3>Scale)(<-25,1,6>Angle)", "", "", "",    "+20@A", "", "", "",
+                        "#3#d1(<1.1,3>Scale)(<0,1,6>Angle)", "", "", "",    "+21@B", "", "", "",
                         //7
                         "#7#d0(<1.5,7>Scale)", "", "", "",    "+20@A", "", "", "",
                         "+00@B", "", "", "",    "+00@A", "", "", "",
@@ -2782,12 +2784,10 @@ namespace Rhythm_Recall.Waves
 
                     });
                 }
-                if(InBeat(852, 860))
+                if (InBeat(848, 863) && At0thBeat(1))
                 {
-                    //increase intensity
-                    ScreenDrawing.ScreenAngle = Sin((GametimeF - BeatTime(852)) * 30) * (GametimeF - BeatTime(852)) / BeatTime(1f);
+                    AddInstance(new ScreenShaker(10, (GametimeF - BeatTime(848)) / BeatTime(1), BeatTime(0.1f)));
                 }
-                  
                 if (InBeat(840))
                 {
                     DelayBeat(12, () =>
@@ -2837,7 +2837,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",
                         "DoX", "", "", "",    "", "", "", "",
                         //3 
-                        "(^$01'1.8@X)(^$21'1.8@X)", "", "", "",    "", "", "$2@A", "$0@B",
+                        "(^$01'1.8@X)(^$21'1.8@X)(<1,1>Scale)", "", "", "",    "", "", "$2@A", "$0@B",
                         "$2@A", "", "", "",    "", "", "", "",
                         "d", "", "", "",    "d", "", "", "",
                         "d", "", "", "",    "d", "", "", "",
@@ -2848,7 +2848,8 @@ namespace Rhythm_Recall.Waves
                         "!!6", "$11@A", "$11@B", "$3@A", "$3@B", "$31@A", "$31@B",    "$1", "", "$2@A", "$0@B", "$2@A"
                     });
                 }
-
+                if (InBeat(862, 908) && At0thBeat(4))
+                    SetSoul(1);
                 if (InBeat(872))
                 {
                     RegisterFunctionOnce("pre", () =>
@@ -2908,7 +2909,10 @@ namespace Rhythm_Recall.Waves
 
                     });
                 }
-
+                if (InBeat(920, 926) && At0thBeat(0.5f))
+                {
+                    SetSoul(1);
+                }
                 if (InBeat(904))
                 {
                     RegisterFunctionOnce("pre", () =>
@@ -2946,20 +2950,22 @@ namespace Rhythm_Recall.Waves
                         );
                     });
                     RegisterFunctionOnce("Shake", () => {
-                        AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(2, 24, 2f, 180, 180, 0.6f));
+                        AddInstance(new ScreenShaker(2, 28, 2f, 180, 180, 0.6f));
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(0.45f), 8.0f, 0.0f, EaseState.Cubic));
+                            EaseOut(BeatTime(0.45f), 12.0f, 0.0f, EaseState.Cubic));
                         RunEase(s => ScreenDrawing.ScreenScale = s,
-                            EaseOut(BeatTime(0.45f), 1.17f, 1.0f, EaseState.Cubic));
+                            EaseOut(BeatTime(0.45f), 1.34f, 1.0f, EaseState.Cubic));
                     });
                     RegisterFunctionOnce("ShakeR", () => {
-                        AddInstance(new UndyneFight_Ex.Entities.Advanced.ScreenShaker(2, 24, 2f, 0, 180, 0.6f));
+                        AddInstance(new ScreenShaker(2, 28, 2f, 0, 180, 0.6f));
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
-                            EaseOut(BeatTime(0.45f), -8.0f, 0.0f, EaseState.Cubic));
+                            EaseOut(BeatTime(0.45f), -12.0f, 0.0f, EaseState.Cubic));
                         RunEase(s => ScreenDrawing.ScreenScale = s,
-                            EaseOut(BeatTime(0.45f), 1.17f, 1.0f, EaseState.Cubic));
+                            EaseOut(BeatTime(0.45f), 1.34f, 1.0f, EaseState.Cubic));
                     });
-                    RegisterFunctionOnce("ShakeLong", () => { 
+                    RegisterFunctionOnce("ShakeLong", () => {
+                        production3.Dispose();
+                        production3 = null;
                         RunEase(s => ScreenDrawing.ScreenAngle = s, false,
                             EaseOut(BeatTime(0.25f), 3.0f, 0.0f, EaseState.Cubic),
                             EaseOut(BeatTime(0.25f), -3.0f, 0.0f, EaseState.Cubic),
@@ -3006,8 +3012,15 @@ namespace Rhythm_Recall.Waves
                             Linear(BeatTime(0.5f), 0.3f, 1.0f),
                             EaseOut(BeatTime(1f), 0.1f, 1.0f,EaseState.Cubic),
                             Stable(1.0f, 1f)
-
                             );
+                    });
+                    RegisterFunctionOnce("Seismic", () =>
+                    {
+                        production3 ??= ScreenDrawing.ActivateShader(Shaders.Seismic, 0.80101f);
+                        RunEase(s => Shaders.Seismic.Progress = s,
+                            Linear(BeatTime(1), 0, 1));
+                        RunEase(s => Shaders.Seismic.Radius = s,
+                            EaseOut(BeatTime(1), 30, 420, EaseState.Quint));
                     });
                     CreateChart(BeatTime(4), BeatTime(2), 9f, new string[]
                     {
@@ -3016,11 +3029,11 @@ namespace Rhythm_Recall.Waves
                         "pre", "", "", "(XEase)",    "", "", "", "",
                          
                         //1 
-                        "(^$00'1.8@X1)(^$20'1.8@X1)(Shake)", "(XEase)", "$10", "",    "$30", "",
-                        "(^$01'1.8@X1)(^$21'1.8@X1)(ShakeR)", "(XEase)", "$11", "",    "$31", "",
-                        "(^$00'1.8@X1)(^$20'1.8@X1)(Shake)", "(XEase)", "$10", "",    "$30", "",
-                        "(^$01'1.8@X1)(^$21'1.8@X1)(ShakeR)", "(XEase)", "$11", "",    "$31", "",
-                        "(^$00'1.8@X1)(^$20'1.8@X1)(Shake)", "", "", "",    "", "", "", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)(Shake)(Seismic)", "(XEase)", "$10", "",    "$30", "",
+                        "(^$01'1.8@X1)(^$21'1.8@X1)(ShakeR)(Seismic)", "(XEase)", "$11", "",    "$31", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)(Shake)(Seismic)", "(XEase)", "$10", "",    "$30", "",
+                        "(^$01'1.8@X1)(^$21'1.8@X1)(ShakeR)(Seismic)", "(XEase)", "$11", "",    "$31", "",
+                        "(^$00'1.8@X1)(^$20'1.8@X1)(Shake)(Seismic)", "", "", "",    "", "", "", "",
                         //2 
                         "*$30@C(Box)(ShakeLong)", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
                         "*$30@C", "*$31@D", "*$30@C", "*$31@D",    "*$30@C", "*$31@D", "*$30@C", "*$31@D",
@@ -3264,16 +3277,20 @@ namespace Rhythm_Recall.Waves
                     {
                         for (int i = 0; i < 5; i += 2)
                         {
-                            LeftBone b = new(false, i * (-16), 18.0f, 194);
-                            b.ColorType = 2;
-                            b.LengthLerpScale = 0.1637f;
+                            LeftBone b = new(false, i * (-16), 18.0f, 194)
+                            {
+                                ColorType = 2,
+                                LengthLerpScale = 0.1637f
+                            };
                             CreateBone(b);
                         }
                         for (int i = 1; i < 5; i += 2)
                         {
-                            RightBone b = new(false, i * (-16), 18.0f, 194);
-                            b.ColorType = 2;
-                            b.LengthLerpScale = 0.1637f;
+                            RightBone b = new(false, i * (-16), 18.0f, 194)
+                            {
+                                ColorType = 2,
+                                LengthLerpScale = 0.1637f
+                            };
                             CreateBone(b);
                         }
                     });
@@ -3281,16 +3298,20 @@ namespace Rhythm_Recall.Waves
                     {
                         for (int i = 0; i < 5; i += 2)
                         {
-                            LeftBone b = new(false, i * (-16), 8.0f, 194);
-                            b.ColorType = 1;
-                            b.LengthLerpScale = 0.1137f;
+                            LeftBone b = new(false, i * (-16), 8.0f, 194)
+                            {
+                                ColorType = 1,
+                                LengthLerpScale = 0.1137f
+                            };
                             CreateBone(b);
                         }
                         for (int i = 1; i < 5; i += 2)
                         {
-                            RightBone b = new(false, i * (-16), 8.0f, 194);
-                            b.ColorType = 1;
-                            b.LengthLerpScale = 0.1137f;
+                            RightBone b = new(false, i * (-16), 8.0f, 194)
+                            {
+                                ColorType = 1,
+                                LengthLerpScale = 0.1137f
+                            };
                             CreateBone(b);
                         }
                     });
@@ -3354,7 +3375,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                 ),
                                 InfLinear(Vector2.Zero, new(0, 8)));
-                            float rot = 70;
+                            float rot = Rand(60, 80);
                             CustomBone b = new(new Vector2(270 - 42, i * -16), ease.Easing, -rot, 165);
                             CreateBone(b);
                         }
@@ -3367,7 +3388,7 @@ namespace Rhythm_Recall.Waves
                                     Stable(BeatTime(1), Vector2.Zero)
                                 ),
                                 InfLinear(Vector2.Zero, new(0, 8)));
-                            float rot = 70;
+                            float rot = Rand(60, 80);
                             CustomBone b = new(new Vector2(370 + 42, i * -16), ease.Easing, rot, 165);
                             CreateBone(b);
                         }
@@ -3380,7 +3401,6 @@ namespace Rhythm_Recall.Waves
                     {
                         PlaySound(Sounds.pierce);
                     });
-
                     List<SideBone> rbones = new(), lbones = new();
                     RegisterFunctionOnce("MoreBone", () =>
                     {
@@ -3389,7 +3409,7 @@ namespace Rhythm_Recall.Waves
                             RightBone bone = new(false, -15 - i * 16, 7.8f, 50f);
                             if (i % 16 < 2 && i > 15 && i < 60)
                                 rbones.Add(bone);
-                            bone.Length = 50f;
+                            bone.Length = 40f;
                             bone.LengthLerpScale = 0.2f;
                             AddInstance(bone);
                             if (i < 30)
@@ -3412,7 +3432,7 @@ namespace Rhythm_Recall.Waves
                             if (i % 16 >= 8 && i % 16 < 10 && i > 15 && i < 60)
                                 lbones.Add(bone);
                             bone.LengthLerpScale = 0.2f;
-                            bone.Length = 50f;
+                            bone.Length = 40f;
                             AddInstance(bone);
                             if (i < 30)
                             {
@@ -3434,7 +3454,6 @@ namespace Rhythm_Recall.Waves
                             rbones.ForEach(s => { s.MissionLength = 95f; s.MarkScore = false; });
                         });
                     });
-
                     RegisterFunctionOnce("Move", () =>
                     {
                         ForBeat(4, () =>
@@ -3475,7 +3494,6 @@ namespace Rhythm_Recall.Waves
                         lbones.ForEach(s => s.Length = 65f);
                         rbones.ForEach(s => s.Length = 65f);
                     });
-
                     RegisterFunctionOnce("ShrinkL", () =>
                     {
                         lbones.ForEach(s => s.Length = 75f);
@@ -3545,12 +3563,52 @@ namespace Rhythm_Recall.Waves
                             CreateBone(b);
                         }
                     });
-
                     RegisterFunctionOnce("Heal", () => {
                         PlaySound(Sounds.heal);
                         Regenerate();
                     });
-
+                    RegisterFunctionOnce("IndicateR", () =>
+                    {
+                        PlaySound(Sounds.Ding);
+                        TextPrinter text = new(-1, "$$$>>>", new Vector2(200, 200), new TextAttribute[]
+                        {
+                            new TextFadeoutAttribute(0, BeatTime(4)),
+                            new TextColorAttribute(Color.Red),
+                            new TextSizeAttribute(6f),
+                        })
+                        {
+                            Depth = 0.99f
+                        };
+                        CreateEntity(text);
+                    });
+                    RegisterFunctionOnce("IndicateL", () =>
+                    {
+                        PlaySound(Sounds.Ding);
+                        TextPrinter text = new(-1, "$$$<<<", new Vector2(200, 200), new TextAttribute[]
+                        {
+                            new TextFadeoutAttribute(0, BeatTime(2)),
+                            new TextColorAttribute(Color.Red),
+                            new TextSizeAttribute(6f),
+                        })
+                        {
+                            Depth = 0.99f
+                        };
+                        CreateEntity(text);
+                    });
+                    RegisterFunctionOnce("IndicateM", () =>
+                    {
+                        PlaySound(Sounds.Ding);
+                        TextPrinter text = new(-1, "$$$>  <", new Vector2(150, 150), new TextAttribute[]
+                        {
+                            new TextFadeoutAttribute(0, BeatTime(4)),
+                            new TextColorAttribute(Color.Red),
+                            new TextSizeAttribute(6f),
+                        })
+                        {
+                            Depth = 0.99f
+                        };
+                        CreateEntity(text);
+                    });
                     CreateChart(0, BeatTime(2), 15.4f, new string[]
                     {
                         //pre 
@@ -3564,18 +3622,24 @@ namespace Rhythm_Recall.Waves
                         "BoneWall2(s)", "", "", "",    "CrossR(s)", "", "", "",
                         "BoneWall1(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
                         "BoneWall0Bl(s)", "", "", "(MoreBone)",    "BoneWall1(s)", "", "", "",
-                        "CrossL(s)", "", "", "",    "(s)", "", "", "",
+                        "CrossL(s)", "", "", "",    "(s)(IndicateR)", "", "", "",
                         //3  
                         "Move(s)", "", "", "",    "BoneWall3(s)(Shrink)", "", "", "",
                         "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)", "", "BoneHorizon2(s)(ShrinkR)", "",
                         "", "", "", "",    "BoneWall3(s)(Shrink)", "", "", "",
-                        "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)", "", "BoneHorizon2(s)(ShrinkR)", "",
+                        "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)(IndicateL)", "", "BoneHorizon2(s)(ShrinkR)", "",
                         //4 
-                        "(s)(MoveL)(DeMove)(BoneMid)", "", "", "",    "(s)BoneWallX", "", "", "",
-                        "(s)(MoveL)(BoneMid)", "", "", "",    "(s)(MoveR)(BoneWallX)", "", "", "",
+                        "(s)(MoveL)(DeMove)(BoneMid)", "", "", "",    "(s)(IndicateL)BoneWallX", "", "", "",
+                        "(s)(MoveL)(BoneMid)(IndicateM)", "", "", "",    "(s)(MoveR)(BoneWallX)", "", "", "",
                         "(s)(BoneMid)", "", "(s)(BoneMid)", "",    "(s)(BoneMid)", "", "", "",
                         "(s)BoneWallX", "", "(s)(BoneLeft)", "(s)(BoneLeft)",    "(s)BoneWallX", "", "(s)BoneRight", "",
                     });//zKronO's version 
+                }
+                if (InBeat(927, 959) && At0thBeat(4))
+                {
+                    RunEase(s => { ScreenDrawing.ScreenScale = s; },
+                    EaseOut(BeatTime(0.5f), 1, 1.2f, EaseState.Circ),
+                    EaseOut(BeatTime(0.5f), 1.2f, 1, EaseState.Circ));
                 }
                 if (InBeat(959))
                 {
@@ -3660,7 +3724,7 @@ namespace Rhythm_Recall.Waves
                         "A4@LN1", "", "", "",     "(*A2)(*A3)(*A4)", "", "(*A2)(*A3)(*A4)", "",
                     });
                 }
-                if (InBeat(956 + 16))
+                if (InBeat(972))
                 {
                     RegisterFunctionOnce("EffL", () => {
                         shaderGrid.GlowIntensity = 0.38f;
@@ -3870,10 +3934,10 @@ namespace Rhythm_Recall.Waves
                         // pre 
                         "", "", "", "",    "", "", "Split", "(EffL)",      
                         // 1 
-                        s + "Eff1(ShakeL)", "", s1, s2,    s1, "", s, "",
-                        s2, s1, s2, "(EffL2)",    s + "(Move1)" + "(Eff0)(ShakeL)", s11, s21, s11 + "(EffL)",
+                        s + "Eff1(ShakeL)", "", s1, s1,    s1, "", s, "",
+                        s2, s2, s2, "(EffL2)",    s + "(Move1)" + "(Eff0)(ShakeL)", s11, s11, s11 + "(EffL)",
                         s+ "Eff1(ShakeR)", "", "", "",    "", "", s, "",
-                        s2, s1, s2, "(EffL2)",    s + "(Converge)" + "(Eff0)(ShakeR)", "", "(EffL3)", "",
+                        s2, s2, s2, "(EffL2)",    s + "(Converge)" + "(Eff0)(ShakeR)", "", "(EffL3)", "",
                         
                         // 2 
                         "(<!>Reset)(#3#$0(#3#$21))(Eff2)(Scale2)", "", "", "",    "", "", "", "",
@@ -3882,8 +3946,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "", "(#6#$2(#6#$01))",
                     });
                 }
-
-                if (InBeat(956 + 32))
+                if (InBeat(988))
                 {
                     RegisterFunctionOnce("Alpha", () =>
                     {
@@ -3932,6 +3995,13 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "", "", "", "",
                         "Change", "", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "Dispose",
+                    });
+                }
+                if (InBeat(1016))
+                {
+                    CreateChart(BeatTime(4), BeatTime(2), 6, new string[]
+                    {
+                        "R"
                     });
                 }
             }

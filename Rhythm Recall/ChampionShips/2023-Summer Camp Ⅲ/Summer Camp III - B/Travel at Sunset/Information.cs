@@ -26,6 +26,9 @@ namespace Rhythm_Recall.Waves
             {
                 private static int Accessibility()
                 {
+#if DEBUG
+                    return 2;
+#endif
                     if (PlayerManager.CurrentUser == null) return 0;
                     var customData = PlayerManager.CurrentUser.Custom;
                     if (!customData.Nexts.ContainsKey("TaSAnomaly"))
