@@ -3934,10 +3934,10 @@ namespace Rhythm_Recall.Waves
                         // pre 
                         "", "", "", "",    "", "", "Split", "(EffL)",      
                         // 1 
-                        s + "Eff1(ShakeL)", "", s1, s1,    s1, "", s, "",
-                        s2, s2, s2, "(EffL2)",    s + "(Move1)" + "(Eff0)(ShakeL)", s11, s11, s11 + "(EffL)",
+                        s + "Eff1(ShakeL)", "", s1, s2,    s1, "", s, "",
+                        s2, s1, s2, "(EffL2)",    s + "(Move1)" + "(Eff0)(ShakeL)", s11, s21, s11 + "(EffL)",
                         s+ "Eff1(ShakeR)", "", "", "",    "", "", s, "",
-                        s2, s2, s2, "(EffL2)",    s + "(Converge)" + "(Eff0)(ShakeR)", "", "(EffL3)", "",
+                        s2, s1, s2, "(EffL2)",    s + "(Converge)" + "(Eff0)(ShakeR)", "", "(EffL3)", "",
                         
                         // 2 
                         "(<!>Reset)(#3#$0(#3#$21))(Eff2)(Scale2)", "", "", "",    "", "", "", "",
