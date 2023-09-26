@@ -82,6 +82,7 @@ namespace Rhythm_Recall.Waves
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string PaintAuthor => "OtokP";
+                public override string SongAuthor => "Hige Driver";
                 public override string DisplayName => "Maware setsugetsuka";
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
