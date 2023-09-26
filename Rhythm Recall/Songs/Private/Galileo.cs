@@ -673,10 +673,10 @@ namespace Rhythm_Recall.Waves
                 SetSoul(1);
                 TP();
                 SetGreenBox();
-                //GametimeDelta = 0;
+                GametimeDelta = 0;
                 //GametimeDelta = BeatTime(80);
                 //GametimeDelta = BeatTime(144);
-                GametimeDelta = BeatTime(231);
+                //GametimeDelta = BeatTime(231);
                 PlayOffset = GametimeDelta;
             }
             #region Functions
