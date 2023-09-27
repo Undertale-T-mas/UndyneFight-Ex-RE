@@ -4,6 +4,7 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
+using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
@@ -929,7 +930,6 @@ namespace Rhythm_Recall.Waves
 
                     });
                 }
-
                 if (InBeat(456))
                 {
                     RegisterFunctionOnce("KickR", () =>
@@ -1036,7 +1036,6 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(520))
                 {
-
                     Arrow.UnitEasing arse = new();
                     arse.ApplyTime = BeatTime(3);
                     arse.RotationEase = EaseOut(BeatTime(3), -40, 0, EaseState.Sine);
@@ -1678,7 +1677,6 @@ namespace Rhythm_Recall.Waves
                     });
                 }
             }
-
             private void NRBuildup()
             {
                 if (InBeat(72))
@@ -2323,7 +2321,6 @@ namespace Rhythm_Recall.Waves
                     });
                 }
             }
-
             private void NRPre()
             {
                 if (InBeat(0))
@@ -2488,7 +2485,6 @@ namespace Rhythm_Recall.Waves
                     });
                 }
             }
-
             private void NRRest1()
             {
                 if (InBeat(712))
@@ -3066,26 +3062,13 @@ namespace Rhythm_Recall.Waves
                         });*/
                 }
             }
-
             private void NRFinal()
             {
                 if (InBeat(926f)) { ScreenDrawing.WhiteOut(BeatTime(1.5f)); }
                 if (InBeat(927.5f))
                 {
-
                     RunEase((s) => { ScreenDrawing.ScreenScale = s; }, LinkEase(Stable(0, 2f), EaseOut(BeatTime(4f), -1f, EaseState.Cubic)));
                     RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, LinkEase(Stable(0, 0f), EaseOut(BeatTime(4f), 360f, EaseState.Cubic)));
-                    for (int i = 0; i < 6400; i++)
-                    {
-                        DelayBeat(i * 0.01f, () =>
-                        {
-                            float x = Rand(-3, 3);
-                            float x2 = Rand(-3, 3);
-                            ScreenDrawing.ScreenPositionDetla = new Vector2(x, x2);
-                            Shaders.StepSample.CentreX = x + 320;
-                            Shaders.StepSample.CentreY = x2 + 240;
-                        });
-                    }
                     DelayBeat(64, () =>
                     {
                         float rand = 5;
@@ -3094,20 +3077,15 @@ namespace Rhythm_Recall.Waves
                             DelayBeat(i * 0.01f, () =>
                             {
                                 rand -= 5f / 1600;
-                                float x = Rand(rand * -1, rand);
-                                float x2 = Rand(rand * -1, rand);
-                                ScreenDrawing.ScreenPositionDetla = new Vector2(x, x2);
+                                float x = Rand(-rand, rand);
+                                float y = Rand(-rand, rand);
+                                ScreenDrawing.ScreenPositionDetla = new Vector2(x, y);
+
                                 Shaders.StepSample.CentreX = x + 320;
-                                Shaders.StepSample.CentreY = x2 + 240;
+                                Shaders.StepSample.CentreY = y + 240;
                             });
                         }
                     });
-                    FightResources.Shaders.DislocationX.Intensity = 5;
-                    FightResources.Shaders.DislocationX.RGBSplitEnabled = true;
-                    FightResources.Shaders.DislocationX.ChunkHeight = 30;
-                    FightResources.Shaders.DislocationX.Speed = 200;
-                    FightResources.Shaders.DislocationX.Time = 1;
-                    ScreenDrawing.ActivateShader(FightResources.Shaders.DislocationX, 0.999f);
                     const int COUNT = 4;
                     ScreenDrawing.BoxBackColor = Color.Black * 0.5f;
                     RegisterFunctionOnce("Shader", () =>
@@ -3320,7 +3298,6 @@ namespace Rhythm_Recall.Waves
                     {
                         PlaySound(Sounds.pierce);
                     });
-
                     List<SideBone> rbones = new(), lbones = new();
                     RegisterFunctionOnce("MoreBone", () =>
                     {
@@ -3374,7 +3351,6 @@ namespace Rhythm_Recall.Waves
                             rbones.ForEach(s => { s.MissionLength = 60f; s.MarkScore = false; });
                         });
                     });
-
                     RegisterFunctionOnce("Move", () =>
                     {
                         ForBeat(4, () =>
@@ -3415,7 +3391,6 @@ namespace Rhythm_Recall.Waves
                         lbones.ForEach(s => s.Length = 65f);
                         rbones.ForEach(s => s.Length = 65f);
                     });
-
                     RegisterFunctionOnce("ShrinkL", () =>
                     {
                         lbones.ForEach(s => s.Length = 45f);
@@ -3504,11 +3479,51 @@ namespace Rhythm_Recall.Waves
                             CreateBone(b);
                         }
                     });
-
                     RegisterFunctionOnce("Heal", () =>
                     {
-
                         Regenerate();
+                    });
+                    RegisterFunctionOnce("IndicateR", () =>
+                    {
+                        PlaySound(Sounds.Ding);
+                        TextPrinter text = new(-1, "$$$>>>", new Vector2(200, 200), new TextAttribute[]
+                        {
+                            new TextFadeoutAttribute(0, BeatTime(4)),
+                            new TextColorAttribute(Color.Red),
+                            new TextSizeAttribute(6f),
+                        })
+                        {
+                            Depth = 0.99f
+                        };
+                        CreateEntity(text);
+                    });
+                    RegisterFunctionOnce("IndicateL", () =>
+                    {
+                        PlaySound(Sounds.Ding);
+                        TextPrinter text = new(-1, "$$$<<<", new Vector2(200, 200), new TextAttribute[]
+                        {
+                            new TextFadeoutAttribute(0, BeatTime(2)),
+                            new TextColorAttribute(Color.Red),
+                            new TextSizeAttribute(6f),
+                        })
+                        {
+                            Depth = 0.99f
+                        };
+                        CreateEntity(text);
+                    });
+                    RegisterFunctionOnce("IndicateM", () =>
+                    {
+                        PlaySound(Sounds.Ding);
+                        TextPrinter text = new(-1, "$$$>  <", new Vector2(150, 150), new TextAttribute[]
+                        {
+                            new TextFadeoutAttribute(0, BeatTime(4)),
+                            new TextColorAttribute(Color.Red),
+                            new TextSizeAttribute(6f),
+                        })
+                        {
+                            Depth = 0.99f
+                        };
+                        CreateEntity(text);
                     });
 
                     CreateChart(0, BeatTime(2), 15.4f, new string[]
@@ -3524,15 +3539,15 @@ namespace Rhythm_Recall.Waves
                         "BoneWall2(s)", "", "", "",    "CrossR(s)", "", "", "",
                         "BoneWall1(s)", "", "", "",    "BoneWall0Bl(s)", "", "BoneWall0Br(s)", "",
                         "BoneWall0Bl(s)", "", "", "(MoreBone)",    "BoneWall1(s)", "", "", "",
-                        "CrossL(s)", "", "", "",    "(s)", "", "", "",
+                        "CrossL(s)", "", "", "",    "(s)(IndicateR)", "", "", "",
                         //3  
                         "Move(s)", "", "", "",    "BoneWall3(s)(Shrink)", "", "", "",
                         "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)", "", "BoneHorizon2(s)(ShrinkR)", "",
                         "", "", "", "",    "BoneWall3(s)(Shrink)", "", "", "",
-                        "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)", "", "BoneHorizon2(s)(ShrinkR)", "",
+                        "(GB)(BoneHorizon1)(s)", "", "", "",    "BoneHorizon1(s)(ShrinkL)(IndicateL)", "", "BoneHorizon2(s)(ShrinkR)", "",
                         //4 
-                        "(s)(MoveL)(DeMove)(BoneMid)", "", "", "",    "(s)BoneWallX", "", "", "",
-                        "(s)(MoveL)(BoneMid2)", "", "", "",    "(s)(MoveR)(BoneWallX)", "", "", "",
+                        "(s)(MoveL)(DeMove)(BoneMid)", "", "", "",    "(s)(IndicateL)BoneWallX", "", "", "",
+                        "(s)(MoveL)(BoneMid2)(IndicateM)", "", "", "",    "(s)(MoveR)(BoneWallX)", "", "", "",
                         "(s)(BoneMid)", "", "(s)(BoneMid)", "",    "(s)(BoneMid)", "", "", "",
                         "(s)BoneWallX", "", "(s)(BoneLeft)", "(s)(BoneLeft)",    "(s)BoneWallX", "", "(s)BoneRight", "",
                     });//zKronO's version 
@@ -3595,7 +3610,6 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(956 + 16))
                 {
-
                     RegisterFunctionOnce("EffL", () =>
                     {
                         shaderGrid.GlowIntensity = 0.38f;
@@ -3622,7 +3636,6 @@ namespace Rhythm_Recall.Waves
                     Heart.Alpha = 0.0f;
                     RegisterFunctionOnce("Split", () =>
                     {
-                        FightResources.Shaders.DislocationX.Intensity = 0;
                         Regenerate(2); PlaySound(Sounds.heal);
                         DelayBeat(0.1f, () =>
                         {

@@ -40,7 +40,7 @@ namespace Rhythm_Recall.Waves
                 public Information() { this.MusicOptimized = true; }
                 public override string SongAuthor => "SK_kent";
                 public override string BarrageAuthor => "M.T.T";
-                public override string AttributeAuthor => "T-mas ";
+                public override string AttributeAuthor => "T-mas + " + ((GameStates.difficulty == 2) ? "mentototo" : "TK");
                 public override string PaintAuthor => "Unknown";
                 public override string Extra => "t-Mas Tlott Tk";
 

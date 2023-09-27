@@ -5339,7 +5339,7 @@ namespace Rhythm_Recall.Waves
                 InstantTP(320, 240);
                 ScreenScale = 2;
                 HeartAttribute.MaxHP = 10;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //int beat = 54 + 128 + 64 + 64; 

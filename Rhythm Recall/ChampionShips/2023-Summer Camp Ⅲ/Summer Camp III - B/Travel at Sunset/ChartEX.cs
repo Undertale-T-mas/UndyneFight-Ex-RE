@@ -3136,6 +3136,23 @@ namespace Rhythm_Recall.Waves
 
                 if (InBeat(927))
                 {
+                    DelayBeat(64, () =>
+                    {
+                        float rand = 5;
+                        for (int i = 0; i < 1600; i++)
+                        {
+                            DelayBeat(i * 0.01f, () =>
+                            {
+                                rand -= 5f / 1600;
+                                float x = Rand(-rand, rand);
+                                float y = Rand(-rand, rand);
+                                ScreenDrawing.ScreenPositionDetla = new Vector2(x, y);
+
+                                Shaders.StepSample.CentreX = x + 320;
+                                Shaders.StepSample.CentreY = y + 240;
+                            });
+                        }
+                    });
                     RegisterFunctionOnce("Save", () =>
                     {
                         SetBox(240, 480, 360);
@@ -3665,7 +3682,6 @@ namespace Rhythm_Recall.Waves
                         TP();
                         SetSoul(1);
                     });
-
                     float curTime = GametimeF + UndyneFight_Ex.Settings.SettingsManager.DataLibrary.ArrowDelay / 16;
                     ArrowApply("ANC", (s) => s.MissionCentre = new(320, 240));
                     ArrowApply("LN1", (s) =>
@@ -3696,7 +3712,6 @@ namespace Rhythm_Recall.Waves
                             CreateArrow(s.BlockTime + BeatTime(0.125f * i) - curTime, s.Way, s.Speed, s.ArrowColor, s.RotateType, ArrowAttribute.Void | ArrowAttribute.Hold | ArrowAttribute.NoScore | ArrowAttribute.NoGoldTag); ;
                         }
                     });
-
                     RegisterFunctionOnce("Eff", () => {
                         RunEase(s => shaderGrid.GlowDistance = s,
                             EaseOut(BeatTime(4), -0.3f, 1.0f, EaseState.Sine));
