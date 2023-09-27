@@ -196,12 +196,13 @@ namespace UndyneFight_Ex.Remake.UI
                     i++;
                 }
 
-                i = 0;
-                SongPack[] championshipPack = new SongPack[FightSystem.ChampionShips.Count];
+                List<SongPack> championshipPack = new();
                 foreach(ChampionShip championShip in FightSystem.ChampionShips)
                 {
-                    championshipPack[i] = new SongPack(championShip.Fights);
-                    i++;
+                    if (championShip.CheckTime.Invoke() == ChampionShip.ChampionShipStates.End)
+                    {
+                        championshipPack.Add(new SongPack(championShip.Fights));
+                    }
                 }
                 List<SongPack> result = new();
                 result.Add(mainPack);

@@ -27,7 +27,7 @@ namespace UndyneFight_Ex.Remake.UI
                             LeafSelection selection;
                             string fullName = waveSet.Music + waveSet.FightName;
                             string DisplayName = waveSet.FightName;
-                            if (waveSet.Attributes != null && waveSet.Attributes.DisplayName != "") DisplayName = waveSet.Attributes.DisplayName;
+                            if (!string.IsNullOrEmpty(waveSet.Attributes?.DisplayName)) DisplayName = waveSet.Attributes.DisplayName;
                             this.AddChild(selection = new LeafSelection(root, curPosition + new Vector2(12, 0), DisplayName)
                             {
                                 DefaultScale = 1.1f,

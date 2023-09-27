@@ -17,8 +17,8 @@ namespace Rhythm_Recall.Waves
                 fightSet.Push(typeof(Asgore));
                 fightSet.Push(typeof(The_World_Revolving)); 
 
-              //  DateTime s = new(2023, 10, 1, 9 - 8, 0, 0, 0), e = new(2023, 10, 1, 12 - 8, 0, 0); 
-                DateTime s = new(2023, 9, 24, 8 - 8, 10, 0, 0), e = new(2023, 9, 24, 8 - 8, 20, 0); 
+                DateTime s = new(2023, 10, 1, 9 - 8, 0, 0, 0), e = new(2023, 10, 1, 12 - 8, 0, 0); 
+             //   DateTime s = new(2023, 9, 24, 8 - 8, 10, 0, 0), e = new(2023, 9, 24, 8 - 8, 20, 0); 
                 return new ChampionShip(fightSet)
                 {
                     DivisionExist = new() { "div.1", "div.2", "Div.1", "Div.2" },
@@ -56,9 +56,9 @@ namespace Rhythm_Recall.Waves
                 fightSet.Push(typeof(Spider_Dance));
                 fightSet.Push(typeof(Traveler_at_Sunset));
 
-                //  DateTime s = new(2023, 10, 1, 13 - 8, 30, 0, 0), e = new(2023, 10, 1, 17 - 8, 0, 0);
+                  DateTime s = new(2023, 10, 1, 13 - 8, 30, 0, 0), e = new(2023, 10, 1, 17 - 8, 0, 0);
 
-                DateTime s = new(2023, 9, 24, 8 - 8, 32, 0, 0), e = new(2023, 9, 24, 9 - 8, 52, 0);
+           //     DateTime s = new(2023, 9, 24, 8 - 8, 32, 0, 0), e = new(2023, 9, 24, 9 - 8, 52, 0);
                 return new ChampionShip(fightSet)
                 {
                     DivisionExist = new() { "div.1", "div.2", "Div.1", "Div.2" },

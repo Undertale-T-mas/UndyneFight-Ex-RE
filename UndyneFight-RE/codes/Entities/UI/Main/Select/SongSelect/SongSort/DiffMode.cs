@@ -47,7 +47,7 @@ namespace UndyneFight_Ex.Remake.UI
                     // Re-generate the pack
                     Difficulty cur = difSelected;
 
-                    foreach (Type type in FightSystem.AllSongs.Values)
+                    foreach (Type type in FightSystem.GetAllAvailables())
                     {
                         IWaveSet waveSet;
                         object obj = Activator.CreateInstance(type);
@@ -132,7 +132,7 @@ namespace UndyneFight_Ex.Remake.UI
                     // Re-generate the pack
                     Difficulty cur = difSelected;
 
-                    foreach (Type type in FightSystem.AllSongs.Values)
+                    foreach (Type type in FightSystem.GetAllAvailables())
                     {
                         IWaveSet waveSet;
                         object obj = Activator.CreateInstance(type);
@@ -211,7 +211,7 @@ namespace UndyneFight_Ex.Remake.UI
                             LeafSelection selection;
                             string fullName = waveSet.Music + waveSet.FightName;
                             string DisplayName = waveSet.FightName;
-                            if (waveSet.Attributes != null && waveSet.Attributes.DisplayName != "") DisplayName = waveSet.Attributes.DisplayName;
+                            if (!string.IsNullOrEmpty(waveSet.Attributes.DisplayName)) DisplayName = waveSet.Attributes.DisplayName;
                             this.AddChild(selection = new LeafSelection(root, curPosition + new Vector2(12, 0), DisplayName)
                             {
                                 DefaultScale = 1.1f,
