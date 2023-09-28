@@ -635,6 +635,7 @@ namespace UndyneFight_Ex.SongSystem
         public static float CurrentTime { get; private set; } = 0;
         public static bool DelayEnabled { private get; set; } = true;
 
+        public static float[] Temps { get; private set; } = new float[100];
         public static float[] Arguments { get; private set; } 
         /// <summary>
         /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>
