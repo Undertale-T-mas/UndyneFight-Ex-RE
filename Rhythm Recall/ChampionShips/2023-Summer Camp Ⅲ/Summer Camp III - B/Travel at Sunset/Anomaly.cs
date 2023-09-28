@@ -36,7 +36,6 @@ namespace Rhythm_Recall.Waves
             {  
                 if (InBeat(0))
                 {
-                    CreateEntity(new TASSongInfo());
                     int index = -1;
                     float v = GametimeF;
                     RegisterFunctionOnce("Image1", () => {
@@ -181,7 +180,6 @@ namespace Rhythm_Recall.Waves
             public void AnomalyStart()
             {
                 GametimeDelta = -0.5f;
-
             }
         }
         public class Anomaly : Scene
@@ -193,7 +191,8 @@ namespace Rhythm_Recall.Waves
             bool isStarted = false;
             bool isPrepared = false;
             int dif;
-            public Anomaly(int dif = 0) {
+            public Anomaly(int dif = 0)
+            {
                 this.dif = dif;
                 GameStates.ResetTime();
                 this.AddChild(project = new Project());
@@ -212,18 +211,24 @@ namespace Rhythm_Recall.Waves
             }
 
             public override void Update()
-            { 
+            {
+#if DEBUG
                 if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
                 {
                     player.Stop();
                     GameStates.ResetScene(new GameMenuScene()); ;
                 }
+#endif
                 if (isPrepared)
                 {
                     if(!isStarted)
                     {
                         isStarted = true;
                         project.AnomalyStart();
+                        CreateEntity(new TASSongInfo()
+                        {
+                            difficulty = dif
+                        });
                     }
                     project.Noob();
                     if (GametimeF > 1175)
@@ -247,29 +252,44 @@ namespace Rhythm_Recall.Waves
         }
         public class TASSongInfo : Entity
         {
+            public int difficulty { get; set; } = 0;
             private float NameX = 0;
-            private float DescX = 640;
+            private Color MainCol;
             public override void Update()
             {
-                if(NameX == 0)
+                MainCol = difficulty == 1 ? col.LightBlue : col.Red;
+                if (NameX == 0)
                 {
                     Text text = TextUtils.DrawText(4, "$Traveller $At $Sunset", new vec2(10, 45), true,
-                        new TextColorEffect(Color.Red, 1),
-                        new TextColorEffect(Color.Red, 1),
-                        new TextColorEffect(Color.Red, 1)
+                        new TextColorEffect(MainCol, 1),
+                        new TextColorEffect(MainCol, 1),
+                        new TextColorEffect(MainCol, 1)
                         );
                     AddInstance(text);
                 }
                 if (NameX < 340)
                     NameX = MathHelper.Lerp(NameX, 340, MathF.Min(GametimeF / 240, 1));
-                if (DescX > 440)
-                    DescX = MathHelper.Lerp(DescX, 440, MathF.Min(GametimeF / 360, 1));
             }
             public override void Draw()
             {
-                DrawingLab.DrawLine(new(0, 60), new(NameX, 60), 50, col.Lerp(col.Green, col.Yellow, AdvanceFunctions.Sin01(GametimeF / 90)), 0);
-                DrawingLab.DrawLine(new(640, 450), new(DescX, 450), 50, col.White, 0);
-                Font.NormalFont.LimitDraw("div 1 : 19.X", new(DescX + 5, 430), col.Red, DescX - 5, 999999, 1, 0);
+                col nameBoxColor = col.Lerp(col.Green, col.Yellow, AdvanceFunctions.Sin01(GametimeF / 90));
+                //Name
+                SpriteBatch.DrawVertex(0, new[] {
+                    new VertexPositionColor(new(0, 35, 0), nameBoxColor),
+                    new VertexPositionColor(new(NameX, 35, 0), nameBoxColor),
+                    new VertexPositionColor(new(NameX + 30, 60, 0), nameBoxColor),
+                    new VertexPositionColor(new(NameX, 85, 0), nameBoxColor),
+                    new VertexPositionColor(new(0, 85, 0), nameBoxColor),
+                });
+                //Desc
+                SpriteBatch.DrawVertex(0, new[] {
+                    new VertexPositionColor(new(0, 115, 0), col.White),
+                    new VertexPositionColor(new(NameX - 60, 115, 0), col.White),
+                    new VertexPositionColor(new(NameX - 45, 85, 0), col.White),
+                    new VertexPositionColor(new(0, 85, 0), col.White),
+                });
+                var text = difficulty == 1 ? "div 2 : 12.0" : "div 1 : 20.6";
+                Font.NormalFont.LimitDraw(text, new(10, 85), MainCol, NameX - 15, 999999, 1, 0);
             }
         }
     }

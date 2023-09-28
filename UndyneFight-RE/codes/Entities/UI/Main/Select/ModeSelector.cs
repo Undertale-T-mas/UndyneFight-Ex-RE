@@ -11,7 +11,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             private class StartButton : Button
             {
-                public StartButton(ISelectChunk father, Vector2 centre) : base(father, centre, "Start!")
+                public StartButton(ISelectChunk father, Vector2 centre) : base(father, centre, "< Start! >")
                 {
                     UpdateIn120 = true;
                 }
@@ -19,7 +19,7 @@ namespace UndyneFight_Ex.Remake.UI
                 int cur = 0;
                 public int Type => cur;
 
-                string[] modes = { "Start!", "Championship", "Challenges" };
+                string[] modes = { "< Start! >", "< Championship >", "< Challenges >" };
                 float[] scales = { 1.7f, 1.56f, 1.56f };
 
                 public override void Update()

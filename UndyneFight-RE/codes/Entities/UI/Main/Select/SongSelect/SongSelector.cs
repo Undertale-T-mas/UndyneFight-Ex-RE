@@ -204,8 +204,10 @@ namespace UndyneFight_Ex.Remake.UI
                         championshipPack.Add(new SongPack(championShip.Fights));
                     }
                 }
-                List<SongPack> result = new();
-                result.Add(mainPack);
+                List<SongPack> result = new()
+                {
+                    mainPack
+                };
                 result.AddRange(extraPacks);
                 result.AddRange(championshipPack);
 

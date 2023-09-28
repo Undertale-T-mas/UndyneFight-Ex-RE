@@ -49,21 +49,23 @@ namespace Rhythm_Recall.Waves
                       {
                           get
                           {
-                              HashSet<Difficulty> result = new HashSet<Difficulty>();
-                              int t = Accessibility();
-                              if (t >= 1) result.Add(Difficulty.Normal);
-                              if (t >= 2) result.Add(Difficulty.ExtremePlus);
-
-                              return result;
+                                HashSet<Difficulty> result = new();
+                                int t = Accessibility();
+                                if (t >= 1) result.Add(Difficulty.Normal);
+                                if (t >= 2) result.Add(Difficulty.ExtremePlus);
+#if DEBUG
+                        result.Add(Difficulty.Noob);
+#endif
+                        return result;
                           }
                       }
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
-                new KeyValuePair<Difficulty, float>[]
-                {
-                    new(Difficulty.Normal, 12.0f),
-                    new(Difficulty.ExtremePlus, 20.0f)
-                }
+                    new KeyValuePair<Difficulty, float>[]
+                    {
+                        new(Difficulty.Normal, 12.0f),
+                        new(Difficulty.ExtremePlus, 20.0f)
+                    }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
