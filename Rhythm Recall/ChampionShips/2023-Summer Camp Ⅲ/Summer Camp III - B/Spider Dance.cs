@@ -40,7 +40,7 @@ namespace Rhythm_Recall.Waves
             class Information : SongInformation
             {
                 public override string SongAuthor => "Toby Fox";
-                public override string BarrageAuthor => "zKronO, mentototo";
+                public override string BarrageAuthor => "Dance of zKronO and mentototo";
                 public override string AttributeAuthor => "ParaDOXXX, mentototo";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(

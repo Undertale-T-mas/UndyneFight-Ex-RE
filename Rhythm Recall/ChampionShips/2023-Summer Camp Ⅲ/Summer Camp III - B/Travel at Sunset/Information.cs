@@ -42,7 +42,7 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "M.T.T";
                 public override string AttributeAuthor => "T-mas + " + ((GameStates.difficulty == 2) ? "mentototo" : "TK");
                 public override string PaintAuthor => "Unknown";
-                public override string Extra => "t-Mas Tlott Tk";
+                public override string Extra => "tMas Tlott Tk";
 
                       public override bool Hidden => Accessibility() == 0;
                       public override HashSet<Difficulty> UnlockedDifficulties

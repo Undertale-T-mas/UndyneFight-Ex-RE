@@ -38,8 +38,8 @@ namespace Rhythm_Recall.Waves
             class Information : SongInformation
             {
                 public override string SongAuthor => "Toby Fox";
-                public override string BarrageAuthor => "Tlottgodinf";
-                public override string AttributeAuthor => "Unknown";
+                public override string BarrageAuthor => "Woem";
+                public override string AttributeAuthor => "Woem";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
