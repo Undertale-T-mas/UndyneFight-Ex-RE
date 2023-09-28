@@ -3069,14 +3069,14 @@ namespace Rhythm_Recall.Waves
                 {
                     RunEase((s) => { ScreenDrawing.ScreenScale = s; }, LinkEase(Stable(0, 2f), EaseOut(BeatTime(4f), -1f, EaseState.Cubic)));
                     RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, LinkEase(Stable(0, 0f), EaseOut(BeatTime(4f), 360f, EaseState.Cubic)));
-                    DelayBeat(64, () =>
+                    DelayBeat(65, () =>
                     {
-                        float rand = 5;
-                        for (int i = 0; i < 1600; i++)
+                        float rand = 7;
+                        for (int i = 0; i < 1500; i++)
                         {
                             DelayBeat(i * 0.01f, () =>
                             {
-                                rand -= 5f / 1600;
+                                rand -= 7f / 1500;
                                 float x = Rand(-rand, rand);
                                 float y = Rand(-rand, rand);
                                 ScreenDrawing.ScreenPositionDetla = new Vector2(x, y);

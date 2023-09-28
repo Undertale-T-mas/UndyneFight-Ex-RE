@@ -3136,14 +3136,14 @@ namespace Rhythm_Recall.Waves
 
                 if (InBeat(927))
                 {
-                    DelayBeat(64, () =>
+                    DelayBeat(65, () =>
                     {
-                        float rand = 5;
-                        for (int i = 0; i < 1600; i++)
+                        float rand = 7;
+                        for (int i = 0; i < 1500; i++)
                         {
                             DelayBeat(i * 0.01f, () =>
                             {
-                                rand -= 5f / 1600;
+                                rand -= 7f / 1500;
                                 float x = Rand(-rand, rand);
                                 float y = Rand(-rand, rand);
                                 ScreenDrawing.ScreenPositionDetla = new Vector2(x, y);
