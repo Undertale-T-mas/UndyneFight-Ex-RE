@@ -1424,6 +1424,15 @@ namespace Rhythm_Recall.Waves
                     });
 
                     // Generate the effects
+                    DelayBeat(2, () =>
+                    {
+                        RunEase(s => { ScreenDrawing.ScreenScale = s; },
+                        LinkEase(
+                            EaseOut(BeatTime(0.5f), 4, EaseState.Quad),
+                            Stable(BeatTime(0.4f), 0),
+                            EaseOut(BeatTime(0.5f), -3f, EaseState.Circ)
+                    ));
+                    });
                     DelayBeat(4, () =>
                     {
                         Effect01();
@@ -4026,10 +4035,65 @@ namespace Rhythm_Recall.Waves
                         "R", "", "", "",    "R", "", "", "R",
                         "", "", "", "",    "R", "", "", "",
                         "", "", "", "",    "", "", "", "",
+                        "R", "", "", "",   "", "", "R", "",
+                        "", "", "", "R",    "", "", "", "",
+                        "", "R", "", "",    "", "", "", "",
                         "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
-                        "", "", "", "",    "", "", "", "",
+                        "R", "", "", "",    "", "", "R", "",
+                        "", "", "", "R",    "", "", "", "",
+                        "", "R", "", "",    "", "", "", "",
                     });
+                }
+                if (InBeat(1052))
+                {
+                    CreateChart(BeatTime(4), BeatTime(2), 6, new string[]
+                    {
+                        "R", "", "", "",    "", "", "", "",
+                        "", "", "R", "",    "", "R", "", "R",
+                        "", "", "", "",    "R", "", "", "",
+                        "", "", "R", "",    "", "", "", "",
+                        "R", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "R", "", "", "",    "", "", "", "",
+                        "R", "", "", "",    "", "", "", "",
+                        "R", "", "", "",    "", "", "", "",
+                        "", "", "R", "",    "", "R", "", "R",
+                        "", "", "", "",    "", "R", "", "",
+                        "", "", "", "R",    "", "", "", "",
+                        "R", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "R", "", "R", "",
+                        "", "", "", "",    "", "", "", ""
+                    });
+                }
+                if (InBeat(1084))
+                {
+                    Settings.VoidArrowVolume = 0.7f;
+                    CreateChart(BeatTime(4), BeatTime(2), 6, new string[]
+                    {
+                        "R", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "R", "", "", "",
+                        "R", "", "", "R",    "", "", "R", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "R", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "R", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "", "", "", "",    "", "", "", "",
+                        "R", "~_+0", "~_+0", "~_+0",    "~_+0", "~_+0", "~_+0", "~_+0",
+                        "~_+0", "~_+0", "~_+0", "~_+0",    "~_+0", "~_+0", "~_+0", "~_+0",
+                        "~_+0", "~_+0", "~_+0", "~_+0",    "~_+0", "~_+0", "~_+0", "~_+0",
+                    });
+                }
+                if (InBeat(1112, 1118) && (GametimeF % 2) <= 2)
+                {
+                    var ce = LinkEase(InfLinear(new Vector2(320, 240) + GetVector2(GametimeF - BeatTime(1112), GametimeF - BeatTime(1112)), GetVector2(4, GametimeF))).Easing;
+                    Line l = new(ce, Stable(0, 45 + GametimeF * 2).Easing) { Alpha = 0.75f, ObliqueMirror = true, TransverseMirror = true, VerticalMirror = true };
+                    l.AlphaDecrease(BeatTime(4));
+                    l.InsertRetention(new(0, 0.75f));
+                    CreateEntity(l);
                 }
             }
 
@@ -4042,11 +4106,6 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.MakeFlicker(Color.Red * 0.75f);
 
                     float bdis = ScreenDrawing.UpBoundDistance;
-                    RunEase(s => { ScreenDrawing.ScreenScale = s; },
-                        LinkEase(
-                            EaseOut(BeatTime(0.7f), 4, EaseState.Quad),
-                            EaseOut(BeatTime(0.7f), -3f, EaseState.Circ)
-                    ));
                     RunEase(s =>
                     {
                         ScreenDrawing.UpBoundDistance = ScreenDrawing.DownBoundDistance =
