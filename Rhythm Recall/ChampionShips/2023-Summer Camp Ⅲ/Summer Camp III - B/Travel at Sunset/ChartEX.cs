@@ -1424,13 +1424,13 @@ namespace Rhythm_Recall.Waves
                     });
 
                     // Generate the effects
-                    DelayBeat(2, () =>
+                    DelayBeat(5, () =>
                     {
                         RunEase(s => { ScreenDrawing.ScreenScale = s; },
                         LinkEase(
-                            EaseOut(BeatTime(0.5f), 4, EaseState.Quad),
-                            Stable(BeatTime(0.4f), 0),
-                            EaseOut(BeatTime(0.5f), -3f, EaseState.Circ)
+                            EaseOut(BeatTime(1f), 4, EaseState.Quad),
+                            Stable(BeatTime(1.4f), 0),
+                            EaseOut(BeatTime(1f), -3f, EaseState.Circ)
                     ));
                     });
                     DelayBeat(4, () =>
