@@ -252,24 +252,23 @@ namespace Rhythm_Recall.Waves
         }
         public class TASSongInfo : Entity
         {
-            public int difficulty { get; set; }
+            public int difficulty { get; set; } = 0;
             private float NameX = 0;
-            private float DescX = 640;
+            private Color MainCol;
             public override void Update()
             {
-                if(NameX == 0)
+                MainCol = difficulty == 1 ? col.LightBlue : col.Red;
+                if (NameX == 0)
                 {
                     Text text = TextUtils.DrawText(4, "$Traveller $At $Sunset", new vec2(10, 45), true,
-                        new TextColorEffect(Color.Red, 1),
-                        new TextColorEffect(Color.Red, 1),
-                        new TextColorEffect(Color.Red, 1)
+                        new TextColorEffect(MainCol, 1),
+                        new TextColorEffect(MainCol, 1),
+                        new TextColorEffect(MainCol, 1)
                         );
                     AddInstance(text);
                 }
                 if (NameX < 340)
                     NameX = MathHelper.Lerp(NameX, 340, MathF.Min(GametimeF / 240, 1));
-                if (DescX > 440)
-                    DescX = MathHelper.Lerp(DescX, 440, MathF.Min(GametimeF / 360, 1));
             }
             public override void Draw()
             {
@@ -285,13 +284,12 @@ namespace Rhythm_Recall.Waves
                 //Desc
                 SpriteBatch.DrawVertex(0, new[] {
                     new VertexPositionColor(new(0, 115, 0), col.White),
-                    new VertexPositionColor(new(NameX - 30, 115, 0), col.White),
-                    new VertexPositionColor(new(NameX - 15, 85, 0), col.White),
+                    new VertexPositionColor(new(NameX - 60, 115, 0), col.White),
+                    new VertexPositionColor(new(NameX - 45, 85, 0), col.White),
                     new VertexPositionColor(new(0, 85, 0), col.White),
                 });
-                DrawingLab.DrawLine(new(640, 450), new(DescX, 450), 50, col.White, 0);
                 var text = difficulty == 1 ? "div 2 : 12.0" : "div 1 : 20.6";
-                Font.NormalFont.LimitDraw(text, new(DescX + 5, 430), difficulty == 1 ? col.LightBlue : col.Red, DescX - 5, 999999, 1, 0);
+                Font.NormalFont.LimitDraw(text, new(10, 85), MainCol, NameX - 15, 999999, 1, 0);
             }
         }
     }

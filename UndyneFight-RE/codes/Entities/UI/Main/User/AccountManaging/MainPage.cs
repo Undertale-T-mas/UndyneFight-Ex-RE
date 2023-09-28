@@ -124,7 +124,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             // The centre area, showing the data of player!
             //cool rgb
-            DrawLine(new(490 , 240), new(630, 240),             new(DrawingLab.HsvToRgb(timer,        255, 255, 255)));
+            DrawLine(new(490 , 240), new(630, 240),             new(DrawingLab.HsvToRgb(timer     , 255, 255, 255)));
             DrawLine(new(630, 240), new(630 + 30, 240 + 30),    new(DrawingLab.HsvToRgb(timer + 10, 255, 255, 255)));
             DrawLine(new(630 + 30, 270), new(630 + 30, 460),    new(DrawingLab.HsvToRgb(timer + 20, 255, 255, 255)));
             
