@@ -3133,9 +3133,11 @@ namespace Rhythm_Recall.Waves
                         "C0(C1)(j)", "", "C0(C3)(j)", "C1(C2)(j)",       "C0(C3)(j)", "", "C2(C3)(j)", "", 
                     });
                 }*/
-
+                if (InBeat(926f)) { ScreenDrawing.WhiteOut(BeatTime(1)); }
                 if (InBeat(927))
                 {
+                    RunEase((s) => { ScreenDrawing.ScreenScale = s; }, LinkEase(Stable(0, 2f), EaseOut(BeatTime(4f), -1f, EaseState.Cubic)));
+                    RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, LinkEase(Stable(0, 0f), EaseOut(BeatTime(4f), 360f, EaseState.Cubic)));
                     DelayBeat(65, () =>
                     {
                         float rand = 7;

@@ -1,5 +1,5 @@
 Optimise Codes
 Finalize TAS Anomaly
-Fix Complex Diff visiblility
 Added motion effects on TAS   1:30转换的时候不要那个屏幕缓动 -> Longer ease
 Final rest barrage + line dance in TAS
+FInish Death by Glamour (Also nerf it)

@@ -49,12 +49,14 @@ namespace Rhythm_Recall.Waves
                       {
                           get
                           {
-                              HashSet<Difficulty> result = new HashSet<Difficulty>();
-                              int t = Accessibility();
-                              if (t >= 1) result.Add(Difficulty.Normal);
-                              if (t >= 2) result.Add(Difficulty.ExtremePlus);
-
-                              return result;
+                                HashSet<Difficulty> result = new();
+                                int t = Accessibility();
+                                if (t >= 1) result.Add(Difficulty.Normal);
+                                if (t >= 2) result.Add(Difficulty.ExtremePlus);
+#if DEBUG
+                        result.Add(Difficulty.Noob);
+#endif
+                        return result;
                           }
                       }
 
