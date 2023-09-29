@@ -69,7 +69,7 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     // show the empty championship string.
 
-                    font.CentreDraw("There is no ongoing championship", new vec2(480, 215) + delta, col.Red, 1.5f, 5, 0.26f);
+                    font.CentreDraw("There is no ongoing championship", new vec2(480, 215) + delta, col.Red, 1.5f, 5f/MathF.PI*4, 0.26f);
                 }
                 else
                 {

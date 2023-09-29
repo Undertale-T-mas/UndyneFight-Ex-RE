@@ -842,7 +842,7 @@ namespace Rhythm_Recall.Waves
                         float rot = Rand(10, 80);
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(BoxStates.Left - 40, BoxStates.Up - 40));
-                        ce.Insert(BeatTime(4), CentreEasing.Linear(MathUtil.GetVector2(8, rot)));
+                        ce.Insert(BeatTime(4), CentreEasing.Linear(MathUtil.GetVector2(6.5f, rot)));
                         CustomBone cb = new(new(0, 0), ce.GetResult(), rot + 90, 35);
                         CreateBone(cb);
                     }
@@ -2495,35 +2495,35 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
             "","","","",   "","","","",
             //
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "(^R02'1.3{Tap})(^D12'1.3{Tap})","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "(*R0{Tap})(*D1{Tap})","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
                 });
             }//Tlott's turn!
 
@@ -2876,55 +2876,55 @@ namespace Rhythm_Recall.Waves
                 });
                 CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "(^R02'1.3{Tap})(^D12'1.3{Tap})","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "(*R0{Tap})(*D1{Tap})","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
             //
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "(R02{Tap})(D12{Tap})","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "(*R0{Tap})(D1{Tap})","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "($11)(TapEvent)","","","",
-            "","","","",   "($31)(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*$1)(TapEvent)","","","",
+            "","","","",   "(*$3)(TapEvent)","","","",
                 });
             }
             void Part8()
@@ -3064,7 +3064,7 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
                     ve.Insert(BeatTime(5), ValueEasing.Linear(2));
-                    ve.Insert(BeatTime(4), ValueEasing.Linear(-3.5f));
+                    ve.Insert(BeatTime(4), ValueEasing.Linear(-3f));
                     ve.Run((s) => { rot = s; });
                     ForBeat(13, () =>
                     {
@@ -9334,7 +9334,7 @@ namespace Rhythm_Recall.Waves
                 RenderProduction production3 = Blur = new ScreenDrawing.Shaders.Blur(0.8f);
                 splitter = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
                 Polar = Shaders.Polar;
-
+                Settings.GreenTap = true;
                 Polar.Intensity = 0f;
                 splitter.Intensity = 0.0f;
                 Blur.Sigma = 0f;

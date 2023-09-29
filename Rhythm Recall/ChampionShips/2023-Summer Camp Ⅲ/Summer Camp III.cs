@@ -62,11 +62,15 @@ namespace Rhythm_Recall.Waves
                 fightSet.Push(typeof(Traveler_at_Sunset));
 
                 DateTime s, e;
-                s = new(2023, 10, 1, 13 - 8, 30, 0, 0);
-                e = new(2023, 10, 1, 17 - 8, 0, 0);
+                s = new(2023, 9, 29, 8 - 8, 32, 0, 0);
+                e = new(2023, 9, 29, 9 - 8, 52, 0);
+                //s = new(2023, 10, 1, 13 - 8, 30, 0, 0);
+                //e = new(2023, 10, 1, 17 - 8, 0, 0);
 #if DEBUG
-                s = new(2023, 9, 24, 8 - 8, 32, 0, 0);
-                e = new(2023, 9, 24, 9 - 8, 52, 0);
+                /*s = new(2023, 9, 24, 8 - 8, 32, 0, 0);
+                e = new(2023, 9, 24, 9 - 8, 52, 0);*/
+                //s = new(2023, 9, 29, 8 - 8, 32, 0, 0);
+                //e = new(2023, 9, 29, 9 - 8, 52, 0);
 #endif
                 return new ChampionShip(fightSet)
                 {
