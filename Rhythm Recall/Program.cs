@@ -144,6 +144,7 @@ namespace Rhythm_Recall
             GameStartUp.PushSongset(test);
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
+                typeof(Song_That_Might_Play_When_You_Fight_Sans),
                 typeof(DreadNaught),
                 typeof(Conflict),
                 typeof(Resistance),
