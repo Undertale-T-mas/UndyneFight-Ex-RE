@@ -4087,12 +4087,78 @@ namespace Rhythm_Recall.Waves
                         "~_+0", "~_+0", "~_+0", "~_+0",    "~_+0", "~_+0", "~_+0", "~_+0",
                     });
                 }
-                if (InBeat(1112, 1118) && (GametimeF % 2) <= 2)
+                //Lines
+                if (InBeat(1024))
+                {
+                    var ce = LinkEase(InfLinear(new Vector2(0, 240), GetVector2(8, 0))).Easing;
+                    Line l = new(ce, Stable(0, 90).Easing) { Alpha = 0.9f, TransverseMirror = true };
+                    l.AlphaDecrease(BeatTime(4));
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        l.InsertRetention(new(i * BeatTime(0.2f), 0.5f));
+                    }
+                    CreateEntity(l);
+
+                    ce = LinkEase(InfLinear(new Vector2(320, 0), GetVector2(0, 90))).Easing;
+                    l = new(ce, InfLinear(0, 0.95f).Easing) { Alpha = 0.9f, ObliqueMirror = true, VerticalMirror = true, TransverseMirror = true };
+                    l.AlphaDecrease(BeatTime(6));
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        l.InsertRetention(new(i * BeatTime(0.2f), 0.5f));
+                    }
+                    CreateEntity(l);
+                }
+                if (InBeat(1032))
+                {
+                    var ce = LinkEase(InfLinear(new Vector2(320, 0), GetVector2(8, 90))).Easing;
+                    Line l = new(ce, Stable(0, 0).Easing) { Alpha = 0.9f, VerticalMirror = true };
+                    l.AlphaDecrease(BeatTime(4));
+                    l.InsertRetention(new(0, 0.5f));
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        l.InsertRetention(new(i * BeatTime(0.2f), 0.5f));
+                    }
+                    CreateEntity(l);
+
+                    ce = LinkEase(InfLinear(new Vector2(320, 240), GetVector2(0, 90))).Easing;
+                    l = new(ce, InfLinear(45, 0.95f).Easing) { Alpha = 0.9f, ObliqueMirror = true, VerticalMirror = true, TransverseMirror = true };
+                    l.AlphaDecrease(BeatTime(6));
+                    l.InsertRetention(new(0, 0.5f));
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        l.InsertRetention(new(i * BeatTime(0.2f), 0.5f));
+                    }
+                    CreateEntity(l);
+                }
+                if (InBeat(1056))
+                {
+                    var ce = LinkEase(Linear(BeatTime(4), new Vector2(0, 240), new Vector2(640, 240))).Easing;
+                    Line l = new(ce, InfLinear(90 + GametimeF - BeatTime(1056), 160 / BeatTime(4)).Easing) { Alpha = 0.9f, TransverseMirror = true };
+                    l.AlphaDecrease(BeatTime(4));
+                    l.InsertRetention(new(0.1f, 0.75f));
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        l.InsertRetention(new(i * BeatTime(0.2f), 0.5f));
+                    }
+                    CreateEntity(l);
+                }
+                if (InBeat(1088))
+                {
+                    var ce = LinkEase(InfLinear(new Vector2(0, 0), GetVector2(8, 45))).Easing;
+                    Line l = new(ce, Stable(0, -45).Easing) { Alpha = 0.9f, TransverseMirror = true };
+                    l.AlphaDecrease(BeatTime(4));
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        l.InsertRetention(new(i * BeatTime(0.2f), 0.5f));
+                    }
+                    CreateEntity(l);
+                }
+                if (InBeat(1112, 1118))
                 {
                     var ce = LinkEase(InfLinear(new Vector2(320, 240) + GetVector2(GametimeF - BeatTime(1112), GametimeF - BeatTime(1112)), GetVector2(4, GametimeF))).Easing;
                     Line l = new(ce, Stable(0, 45 + GametimeF * 2).Easing) { Alpha = 0.75f, ObliqueMirror = true, TransverseMirror = true, VerticalMirror = true };
                     l.AlphaDecrease(BeatTime(4));
-                    l.InsertRetention(new(0, 0.75f));
+                    l.InsertRetention(new(0.5f, 0.75f));
                     CreateEntity(l);
                 }
             }
