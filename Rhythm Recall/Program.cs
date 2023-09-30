@@ -144,6 +144,7 @@ namespace Rhythm_Recall
             GameStartUp.PushSongset(test);
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
+                typeof(Galileo),
                 typeof(DreadNaught),
                 typeof(Conflict),
                 typeof(Resistance),
@@ -164,7 +165,7 @@ namespace Rhythm_Recall
             try
             {
 #endif
-            UndyneFight_Ex.Remake.Initialize.MainInitialize();
+            //UndyneFight_Ex.Remake.Initialize.MainInitialize();
             GameStartUp.StartGame();
 #if ThrowError
             }
@@ -310,7 +311,6 @@ namespace Rhythm_Recall
             }
             );
         }
-
         private static void SetChallenge()
         {
             GameStartUp.PushChallenge(new("Sprites\\Challenges\\Classic Challenge", "Classic Challenge", new[] {
