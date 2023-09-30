@@ -3977,6 +3977,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("Alpha", () =>
                     {
+                        ScreenDrawing.BoxBackColor = Color.Black;
                         RunEase(s => ScreenDrawing.MasterAlpha = s,
                             EaseInOut(BeatTime(12), 1.0f, 0.0f, EaseState.Quad),
                             Linear(BeatTime(12), 0.0f, 1.0f)
@@ -4156,7 +4157,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1108))
                 {
-                    RunEase(s => sans.Alpha = s, Linear(BeatTime(4), 1, 0));
+                    RunEase(s => sans.Alpha = s, Linear(BeatTime(4), sans.Alpha, 0));
                 }
                 if (InBeat(1112))
                 {
