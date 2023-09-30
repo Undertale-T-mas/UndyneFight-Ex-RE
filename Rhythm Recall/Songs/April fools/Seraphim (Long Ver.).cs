@@ -463,7 +463,7 @@ namespace AprilExtends
                         AddInstance(new TimeRangedEvent(game.BeatTime(12), game.BeatTime(2560), () =>
                         {
                             InstantTP(BoxStates.Centre);
-                            CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow((Rand(2, 14) / 20f), 1.5f),
+                            CreateEntity(new Particle(Color.Lerp(Color.Aqua, Color.White, MathF.Pow(Rand(0, 90) / 100f, 2)) * MathF.Pow(Rand(2, 14) / 20f, 1.5f),
                                          new(Rand(-10, 10) / 10f, -7.4f + Rand(-15, 15) / 10f), Rand(10, 16), new(Rand(-100, 740), 495), Sprites.square)
                             {
                                 DarkingSpeed = 1.7f,

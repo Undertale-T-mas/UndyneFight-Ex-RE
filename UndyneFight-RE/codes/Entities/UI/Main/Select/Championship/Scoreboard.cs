@@ -16,12 +16,12 @@ namespace UndyneFight_Ex.Remake.UI
         private class Scoreboard : Entity
         {
             private static vec2[] vertexs = {
-                new(70, 80 + 340),
-                new(890 - 35, 80 + 340),
-                new(890, 115 + 340),
-                new(890, 340 + 340),
-                new(70 + 35, 340 + 340),
-                new(70, 340 - 35 + 340)
+                new(70, 80 + 345),
+                new(890 - 35, 80 + 345),
+                new(890, 115 + 345),
+                new(890, 340 + 345),
+                new(70 + 35, 340 + 345),
+                new(70, 340 - 35 + 345)
             };
             string? _division;
             public Scoreboard( string? division ) {  
@@ -118,7 +118,7 @@ namespace UndyneFight_Ex.Remake.UI
                 font.CentreDraw("Name", new(LMID, 456), col.White, 1.15f, 0.5f);
                 for(int i = 0; i < positions.Length ; i++)
                 { 
-                    float k = (i * 1.0f) / (positions.Length );
+                    float k = i * 1.0f / positions.Length ;
                     positions[i] = MathHelper.Lerp(L, R, k);
                 }
                 delWord = (R - L) * 0.5f / positions.Length;
@@ -130,7 +130,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                 for(int i = indexStart, j = 0; i < participants.Length && j < 4 ; i++, j++)
                 {
-                    float y = i * 52 + 505;
+                    float y = j * 52 + 505;
                     float[] list = participants[i].AccuracyList;
                     for (int x = 0; x < positions.Length; x++)
                         font.CentreDraw(list[x].ToString("F2"), new(positions[x] + delWord, y), col.White, 1.06f, 0.5f);
@@ -157,6 +157,17 @@ namespace UndyneFight_Ex.Remake.UI
                     appearTime = 0;
                     Fetch();
                 }
+            }
+
+            internal void PageLeft()
+            {
+                if (indexStart >= 4) indexStart -= 4;
+            }
+
+            internal void PageRight()
+            {
+                if (participants == null || participants.Length == 0) return;
+                if(indexStart + 4 < participants.Length) indexStart += 4;
             }
         }
     }

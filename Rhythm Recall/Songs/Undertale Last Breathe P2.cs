@@ -2049,7 +2049,7 @@ namespace Rhythm_Recall.Waves
         public void Start()
         {
             //ScreenDrawing.UISettings.CreateUISurface();
-            HeartAttribute.MaxHP = (7);
+            HeartAttribute.MaxHP = 7;
             TP(320, 360);
             InstantSetBox(270f, 200f, 200f);
             HeartAttribute.Gravity = 6;

@@ -51,7 +51,7 @@ namespace UndyneFight_Ex.Remake.UI
                 new SongSelector _father;
                 public override void Update()
                 {
-                    bool temp = this.Visible = (_father._virtualFather.SongSelected == null) ;
+                    bool temp = this.Visible = _father._virtualFather.SongSelected == null ;
                     if (temp)
                         base.Update();
                 }

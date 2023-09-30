@@ -345,7 +345,7 @@ namespace Rhythm_Recall.Waves
                 SaveInfo custom = user.Custom;
                 if (!custom.Nexts.ContainsKey("reTranscendence")) return Difficulty.ExtremePlus;
 
-                return (Difficulty)(custom.Nexts["reTranscendence"].Nexts["info"]).IntValue;
+                return (Difficulty)custom.Nexts["reTranscendence"].Nexts["info"].IntValue;
             }
         }
 

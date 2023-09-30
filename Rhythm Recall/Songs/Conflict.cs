@@ -245,7 +245,7 @@ namespace Rhythm_Recall.Waves
                 public override void Draw()
                 {
                     if (rotate % 180 != 0)
-                        DrawingLab.DrawLine(new(xCenter - (1f / Tan(rotate)) * yCenter, 0), new(xCenter + (1f / Tan(rotate)) * (480 - yCenter), 480), width, color * alpha, depth);
+                        DrawingLab.DrawLine(new(xCenter - 1f / Tan(rotate) * yCenter, 0), new(xCenter + 1f / Tan(rotate) * (480 - yCenter), 480), width, color * alpha, depth);
                     else
                         DrawingLab.DrawLine(new(0, yCenter), new(640, yCenter), width, color * alpha, depth);
                     Depth = depth;
@@ -1373,7 +1373,7 @@ namespace Rhythm_Recall.Waves
                             {
                                 foreach (SideBone bone in bones)
                                 {
-                                    bone.Speed *= (0.7f + t * 0.029f);
+                                    bone.Speed *= 0.7f + t * 0.029f;
                                 }
                             });
                             game.DelayBeat(8, () =>
@@ -2447,7 +2447,7 @@ namespace Rhythm_Recall.Waves
                             {
                                 foreach (SideBone bone in bones)
                                 {
-                                    bone.Speed *= (0.7f + t * 0.029f);
+                                    bone.Speed *= 0.7f + t * 0.029f;
                                 }
                             });
                             game.DelayBeat(8, () =>
@@ -3514,7 +3514,7 @@ namespace Rhythm_Recall.Waves
                             {
                                 foreach (SideBone bone in bones)
                                 {
-                                    bone.Speed *= (0.7f + t * 0.029f);
+                                    bone.Speed *= 0.7f + t * 0.029f;
                                 }
                             });
                             game.DelayBeat(8, () =>

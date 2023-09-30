@@ -1131,13 +1131,13 @@ namespace UndyneFight_Ex.Entities
                 (s) =>
                 {
                     float scale = s.AppearTime / time;
-                    return Vector2.Lerp(v1, v2, 1 - MathF.Cos((scale * MathF.PI) / 2));
+                    return Vector2.Lerp(v1, v2, 1 - MathF.Cos(scale * MathF.PI / 2));
                 };
             public static Func<ICustomMotion, Vector2> EaseOutSine(Vector2 v1, Vector2 v2, float time) =>
                 (s) =>
                 {
                     float scale = s.AppearTime / time;
-                    return Vector2.Lerp(v1, v2, MathF.Sin((scale * MathF.PI) / 2));
+                    return Vector2.Lerp(v1, v2, MathF.Sin(scale * MathF.PI / 2));
                 };
             public static Func<ICustomMotion, Vector2> EaseInQuad(Vector2 v1, Vector2 v2, float time) =>
                 (s) =>
@@ -1250,7 +1250,7 @@ namespace UndyneFight_Ex.Entities
                 {
                     float x = s.AppearTime / time;
 
-                    float c4 = (2 * MathF.PI) / 3;
+                    float c4 = 2 * MathF.PI / 3;
 
                     float value = x == 0 ? 0 : (x == 1 ? 1 :
                         -MathF.Pow(2, 10 * x - 10) * MathF.Sin((x * 10 - 10.75f) * c4)
@@ -1263,7 +1263,7 @@ namespace UndyneFight_Ex.Entities
                 {
                     float x = 1 - s.AppearTime / time;
 
-                    float c4 = (2 * MathF.PI) / 3;
+                    float c4 = 2 * MathF.PI / 3;
 
                     float value = x == 0 ? 0 : (x == 1 ? 1 :
                         -MathF.Pow(2, 10 * x - 10) * MathF.Sin((x * 10 - 10.75f) * c4)
@@ -1586,13 +1586,13 @@ namespace UndyneFight_Ex.Entities
                 (s) =>
                 {
                     float scale = s.AppearTime / time;
-                    return MathHelper.Lerp(v1, v2, 1 - MathF.Cos((scale * MathF.PI) / 2));
+                    return MathHelper.Lerp(v1, v2, 1 - MathF.Cos(scale * MathF.PI / 2));
                 };
             public static Func<ICustomMotion, float> EaseOutSine(float v1, float v2, float time) =>
                 (s) =>
                 {
                     float scale = s.AppearTime / time;
-                    return MathHelper.Lerp(v1, v2, MathF.Sin((scale * MathF.PI) / 2));
+                    return MathHelper.Lerp(v1, v2, MathF.Sin(scale * MathF.PI / 2));
                 };
             public static Func<ICustomMotion, float> EaseInQuad(float v1, float v2, float time) =>
                 (s) =>
@@ -1689,7 +1689,7 @@ namespace UndyneFight_Ex.Entities
                 {
                     float x = s.AppearTime / time;
 
-                    float c4 = (2 * MathF.PI) / 3;
+                    float c4 = 2 * MathF.PI / 3;
 
                     float value = x == 0 ? 0 : (x == 1 ? 1 :
                         -MathF.Pow(2, 10 * x - 10) * MathF.Sin((x * 10 - 10.75f) * c4)
@@ -1702,7 +1702,7 @@ namespace UndyneFight_Ex.Entities
                 {
                     float x = 1 - s.AppearTime / time;
 
-                    float c4 = (2 * MathF.PI) / 3;
+                    float c4 = 2 * MathF.PI / 3;
 
                     float value = x == 0 ? 0 : (x == 1 ? 1 :
                         -MathF.Pow(2, 10 * x - 10) * MathF.Sin((x * 10 - 10.75f) * c4)

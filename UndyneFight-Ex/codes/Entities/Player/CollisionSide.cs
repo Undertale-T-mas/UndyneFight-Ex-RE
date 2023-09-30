@@ -61,7 +61,7 @@
                     }
                     public void ArrowBlock(int direction)
                     {
-                        blockedArrow[direction] = (father.Way == direction);
+                        blockedArrow[direction] = father.Way == direction;
                         timeDelayed[direction] = blockedArrow[direction] ? 0 : FarTime;
                         tapTime[direction] = FarTime;
                     }

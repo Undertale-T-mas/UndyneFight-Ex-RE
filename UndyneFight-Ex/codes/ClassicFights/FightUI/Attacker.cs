@@ -26,7 +26,7 @@ namespace UndyneFight_Ex.Fight
         {
             if (moving)
                 Centre = new Vector2(Centre.X + movingSpeed, Centre.Y);
-            if ((GameStates.IsKeyPressed(InputIdentity.Confirm)) && moving)
+            if (GameStates.IsKeyPressed(InputIdentity.Confirm) && moving)
             {
                 if (ClassicFight.InterActive.AttackAnimation != null)
                     GameStates.InstanceCreate(Activator.CreateInstance(ClassicFight.InterActive.AttackAnimation) as AttackAnimation);

@@ -306,10 +306,10 @@ namespace UndyneFight_Ex.Entities
                   dist2 = r / cosV - 3;
 
             if (appearTime > duration)
-                dist1 += (float)Math.Pow((appearTime - duration), 2) / 3f;
+                dist1 += (float)Math.Pow(appearTime - duration, 2) / 3f;
             float dist = (dist1 + dist2) / 2;
 
-            Length = (dist2 - dist1);
+            Length = dist2 - dist1;
             if (Length < -50)
                 Dispose();
 
@@ -346,7 +346,7 @@ namespace UndyneFight_Ex.Entities
             }
             else Length = Length * 0.86f + missionLength * 0.14f;
 
-            float trueVal = ((appearTime + startTime) / roundTime * 360) % 360;
+            float trueVal = (appearTime + startTime) / roundTime * 360 % 360;
             float X = Cos(trueVal) * (controlingBox.CollidingBox.Width - 2) / 2;
             float heightDetla = controlingBox.CollidingBox.Height - Length - 2;
             float res1 = Math.Abs(Sin(trueVal));

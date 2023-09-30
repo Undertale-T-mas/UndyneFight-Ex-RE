@@ -115,7 +115,7 @@ namespace UndyneFight_Ex.ChampionShips
             string res = "Licences";
             string[] files = Directory.GetFiles(res + "\\Input");
             string newpos;
-            Directory.CreateDirectory(newpos = (res + "\\Result"));
+            Directory.CreateDirectory(newpos = res + "\\Result");
             foreach (string v in files)
             {
                 string resName = IOProcess.Divider(IOProcess.Divider(v, '\\')[^1], '.')[0];

@@ -98,7 +98,7 @@ namespace Rhythm_Recall.Waves
 
             public void Noob()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (InBeat(0))
                 {
                     float time = BeatTime(4f);
@@ -126,7 +126,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(320, 448 - 16) && At0thBeat(2))
                 {
-                    CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
+                    CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), Gametime * 2 + 180, 40, 20));
                 }
                 if (InBeat(446))
                 {
@@ -289,7 +289,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Hard()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (InBeat(0))
                 {
                     float time = BeatTime(4f);
@@ -354,7 +354,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(320, 448 - 16) && At0thBeat(1))
                 {
-                    CreateGB(new NormalGB(GetVector2(150, Gametime * 4) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 4 + 180), 40, 20));
+                    CreateGB(new NormalGB(GetVector2(150, Gametime * 4) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), Gametime * 4 + 180, 40, 20));
                 }
                 if (InBeat(446))
                 {
@@ -539,7 +539,7 @@ namespace Rhythm_Recall.Waves
                 Heart.Speed = 3.0f;
                 SetGreenBox();
                 SetSoul(1);
-                HeartAttribute.MaxHP = (9);
+                HeartAttribute.MaxHP = 9;
                 TP();
             }
 

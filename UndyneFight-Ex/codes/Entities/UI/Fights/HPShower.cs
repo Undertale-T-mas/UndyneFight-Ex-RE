@@ -130,7 +130,7 @@ namespace UndyneFight_Ex.Entities
                 collidingBox.Width = HeartAttribute.HP * fullarea.Width / HeartAttribute.MaxHP;
             }
 
-            float KRSize = (Min(PlayerInstance.hpControl.KRHP, HeartAttribute.HP)) * 100.0f / HeartAttribute.MaxHP;
+            float KRSize = Min(PlayerInstance.hpControl.KRHP, HeartAttribute.HP) * 100.0f / HeartAttribute.MaxHP;
             if (!Vertical)
             {
                 KRRect.X = Math.Max(collidingBox.X + 1, collidingBox.Right - KRSize);

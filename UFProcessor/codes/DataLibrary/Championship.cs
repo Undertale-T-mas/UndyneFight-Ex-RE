@@ -17,7 +17,7 @@ namespace UndyneFight_Ex.Server
         private static bool _loaded = false;
         private static void TryLoad()
         {
-            championships.RemoveAll(s=>s.EndTime < DateTime.UtcNow);
+        //    championships.RemoveAll(s=>s.EndTime < DateTime.UtcNow);
             if(_loaded) return; 
             _loaded = true;
 
@@ -53,11 +53,11 @@ namespace UndyneFight_Ex.Server
             ChampionshipInfo? championship = championships.Find(s => s.Name == championshipName);
             if(championship == null) { return "F championship not exist"; }
             if (!championship.Divisions.ContainsKey(divName)) return "F division not exist";
-            if (championship.Participants.ContainsKey(user.UUID)) return "E already signed up";
+            if (championship.Participants.ContainsKey(user.UUID)) return "F already signed up-" + championship.Participants[user.UUID];
             championship.Participants.Add(user.UUID, divName);
             return "S successfully signed up";
         }
-        public static void PushScore(User user, SongPlayData data)
+        public static bool PushScore(User user, SongPlayData data)
         {
             TryLoad();
             string songName = data.Name;
@@ -68,13 +68,13 @@ namespace UndyneFight_Ex.Server
                 }
                 return false;
             });
-            if (championShip == null) return;
+            if (championShip == null) return true;
             DivisionInformation? curDiv = null;
             foreach (var v in championShip.Divisions.Values)
                 if (v.Info[songName].Item2 == data.Difficulty) { curDiv = v; break; }
-            if (curDiv == null) return;
+            if (curDiv == null) return true;
             UFConsole.WriteLine($"Find championship {championShip.Name}, user {user.Name} in {curDiv} has updated score.");
-            curDiv.Scoreboard.PushScore(user, curDiv, data);
+            return  curDiv.Scoreboard.PushScore(user, curDiv, data);
         }
         internal static string EnquireInfo()
         {
@@ -99,7 +99,7 @@ namespace UndyneFight_Ex.Server
         {
             TryLoad();
             if (string.IsNullOrEmpty(info)) return false;
-            ChampionshipInfo cinfo =  (JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException());
+            ChampionshipInfo cinfo =  JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException();
             if(cinfo == null) return false;
             foreach(ChampionshipInfo obj in championships)
             {

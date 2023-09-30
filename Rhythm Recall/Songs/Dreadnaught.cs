@@ -44,11 +44,12 @@ namespace Rhythm_Recall.Waves
                 if (t == 2) return 0; 
                 DateTime time = DateTime.UtcNow;
                 bool test = false;
-#if DEBUG
+#if DEBUG || RELEASE
                 test = true;
 #endif
                 if (
                     (time.Month == 10 && time.Year == 2023 && time.Day == 1) ||
+                    (time.Month == 9 && time.Year == 2023 && time.Day == 30) ||
                     (time.Day == 3)
                     || test)
                 {
@@ -63,7 +64,7 @@ namespace Rhythm_Recall.Waves
                     {
                         SongData bs = dic["BIG SHOT"], sd = dic["Spider Dance"];
 
-                        if (t >= 1) // div.2 finished, check div.1, not check div.2
+                        if (t < 1) // div.2 finished, check div.1, not check div.2
                         {
                             if (
                             bs.CurrentSongStates.ContainsKey(Difficulty.Easy) &&
@@ -842,7 +843,7 @@ namespace Rhythm_Recall.Waves
                         float rot = Rand(10, 80);
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(BoxStates.Left - 40, BoxStates.Up - 40));
-                        ce.Insert(BeatTime(4), CentreEasing.Linear(MathUtil.GetVector2(8, rot)));
+                        ce.Insert(BeatTime(4), CentreEasing.Linear(MathUtil.GetVector2(6.5f, rot)));
                         CustomBone cb = new(new(0, 0), ce.GetResult(), rot + 90, 35);
                         CreateBone(cb);
                     }
@@ -2495,35 +2496,35 @@ namespace Rhythm_Recall.Waves
             "","","","",   "","","","",
             "","","","",   "","","","",
             //
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "(^R02'1.3{Tap})(^D12'1.3{Tap})","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "(*R0{Tap})(*D1{Tap})","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
                 });
             }//Tlott's turn!
 
@@ -2876,55 +2877,55 @@ namespace Rhythm_Recall.Waves
                 });
                 CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                 {
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "(^R02'1.3{Tap})(^D12'1.3{Tap})","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "(*R0{Tap})(*D1{Tap})","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
             //
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "(R02{Tap})(D12{Tap})","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "(*R0{Tap})(D1{Tap})","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
 
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "(R12{Tap})(TapEvent)","","","",
-            "","","","",   "($11)(TapEvent)","","","",
-            "","","","",   "($31)(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*R1{Tap})(TapEvent)","","","",
+            "","","","",   "(*$1)(TapEvent)","","","",
+            "","","","",   "(*$3)(TapEvent)","","","",
                 });
             }
             void Part8()
@@ -3064,7 +3065,7 @@ namespace Rhythm_Recall.Waves
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
                     ve.Insert(BeatTime(5), ValueEasing.Linear(2));
-                    ve.Insert(BeatTime(4), ValueEasing.Linear(-3.5f));
+                    ve.Insert(BeatTime(4), ValueEasing.Linear(-3f));
                     ve.Run((s) => { rot = s; });
                     ForBeat(13, () =>
                     {
@@ -9282,7 +9283,6 @@ namespace Rhythm_Recall.Waves
             }
             public void Extreme()
             {
-                if (GameStates.IsKeyPressed120f(InputIdentity.Alternate)) EndSong();
                 Arrow[] ars = GetAll<Arrow>("Tap");
                 for (int a = 0; a < ars.Length; a++)
                 {
@@ -9334,7 +9334,7 @@ namespace Rhythm_Recall.Waves
                 RenderProduction production3 = Blur = new ScreenDrawing.Shaders.Blur(0.8f);
                 splitter = new ScreenDrawing.Shaders.RGBSplitting(0.9f) { Disturbance = false };
                 Polar = Shaders.Polar;
-
+                Settings.GreenTap = true;
                 Polar.Intensity = 0f;
                 splitter.Intensity = 0.0f;
                 Blur.Sigma = 0f;
@@ -9371,19 +9371,23 @@ namespace Rhythm_Recall.Waves
                 if (scene.Mode != GameMode.None) return;
 
                 if (p == 0) return;
+                int k = 0;
                 if (p == 2 && (int)CurrentDifficulty >= 4) {
                     HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
                     AutoEnd = false;
+                    k = 2;
                 }
                 else if (p >= 1 && (int)CurrentDifficulty >= 2)
                 {
                     HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
                     AutoEnd = false;
+                    k = 1;
                 }
+                if (k == 0) return;
                 AdvanceFunctions.Interactive.AddEndEvent(() => {
                     SimplifiedEasing.RunEase(s => ScreenDrawing.MasterAlpha = s, SimplifiedEasing.Linear(BeatTime(4), 1, 0));
                     DelayBeat(4, () => {
-                        GameStates.ResetScene(new Traveler_at_Sunset.Anomaly(p));
+                        GameStates.ResetScene(new Traveler_at_Sunset.Anomaly(k));
                     });
                 });
             }

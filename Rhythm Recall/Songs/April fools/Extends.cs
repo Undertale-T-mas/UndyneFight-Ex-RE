@@ -545,7 +545,7 @@ namespace Extends
             {
                 if (rhythm[i].Length >= 2)
                 {
-                    if (rhythm[i][1] == '<') b += (beat * 8) / (rhythm[i][0] - '0');
+                    if (rhythm[i][1] == '<') b += beat * 8 / (rhythm[i][0] - '0');
                 }
                 if (rhythm[i] == "/" || rhythm[i] == "") b += beat;
                 else if (rhythm[i][0] is '+' or 'R' or '$' or '(' or '-' or 'D' or '0'
@@ -556,7 +556,7 @@ namespace Extends
                         if (rhythm[i][1] == '<')
                         {
                             a.CreateArrows(b, arrowspeed, rhythm[i].Replace(rhythm[i][0].ToString() + rhythm[i][1].ToString(), ""));
-                            b += (beat * 8) / (rhythm[i][0] - '0');
+                            b += beat * 8 / (rhythm[i][0] - '0');
                         }
                         else
                         {
@@ -602,7 +602,7 @@ namespace Extends
                 }
                 if (rhythm[i].Length >= 2)
                 {
-                    if (rhythm[i][1] == '<') b += (beat * 8) / (rhythm[i][0] - '0');
+                    if (rhythm[i][1] == '<') b += beat * 8 / (rhythm[i][0] - '0');
                 }
                 if (rhythm[i] == "/" || rhythm[i] == "") b += beat;
                 else if (rhythm[i][0] is '+' or 'R' or '$' or '(' or '-' or 'D' or '0'
@@ -613,7 +613,7 @@ namespace Extends
                         if (rhythm[i][1] == '<')
                         {
                             a.CreateArrows(b, arrowspeed, rhythm[i].Replace(rhythm[i][0].ToString() + rhythm[i][1].ToString(), ""));
-                            b += (beat * 8) / (rhythm[i][0] - '0');
+                            b += beat * 8 / (rhythm[i][0] - '0');
                         }
                         else
                         {
@@ -700,7 +700,7 @@ namespace Extends
                         if (rhythm[i][1] == '<')
                         {
                             a.CreateArrows(b, arrowspeed, rhythm[i].Replace(rhythm[i][0].ToString() + rhythm[i][1].ToString(), ""));
-                            b += (beat * 8) / (rhythm[i][0] - '0');
+                            b += beat * 8 / (rhythm[i][0] - '0');
                         }
                         else
                         {
@@ -1231,7 +1231,7 @@ namespace Extends
                 {
                     PositionRouteParam = new float[] { speed.X, speed.Y },
                     LengthRouteParam = new float[] { length, 114514 },
-                    RotationRouteParam = new float[] { 4, (180 / num) * i },
+                    RotationRouteParam = new float[] { 4, 180 / num * i },
                 });
             }
         }
@@ -1251,7 +1251,7 @@ namespace Extends
                 {
                     PositionRouteParam = new float[] { speed.X, speed.Y },
                     LengthRouteParam = new float[] { length, 114514 },
-                    RotationRouteParam = new float[] { 4, (180 / num) * i },
+                    RotationRouteParam = new float[] { 4, 180 / num * i },
                     ColorType = color
                 });
             }
@@ -1264,7 +1264,7 @@ namespace Extends
                 {
                     PositionRouteParam = new float[] { speed.X, speed.Y },
                     LengthRouteParam = new float[] { length, 114514 },
-                    RotationRouteParam = new float[] { RotSpeed, (180 / num) * i },
+                    RotationRouteParam = new float[] { RotSpeed, 180 / num * i },
                     ColorType = color
                 });
             }
@@ -1754,7 +1754,7 @@ namespace Extends
             public override void Draw()
             {
                 if (rotate % 180 != 0)
-                    DrawingLab.DrawLine(new(xCenter - (1f / Tan(rotate)) * yCenter, 0), new(xCenter + (1f / Tan(rotate)) * (480 - yCenter), 480), width, color * alpha, depth);
+                    DrawingLab.DrawLine(new(xCenter - 1f / Tan(rotate) * yCenter, 0), new(xCenter + 1f / Tan(rotate) * (480 - yCenter), 480), width, color * alpha, depth);
                 else
                     DrawingLab.DrawLine(new(0, yCenter), new(640, yCenter), width, color * alpha, depth);
                 Depth = 0.2f;
@@ -1974,7 +1974,7 @@ namespace Extends
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.alpha = startrange + Sin(sin) * range;
-                sin += frequency / (duration);
+                sin += frequency / duration;
             }));
         }
         /// <summary>
@@ -1986,7 +1986,7 @@ namespace Extends
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.alpha = Sin(sin) * 1;
-                sin += 360 / (duration);
+                sin += 360 / duration;
             }));
         }
         public static void AlphaSin(NormalLine Line, float duration)
@@ -1995,7 +1995,7 @@ namespace Extends
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.alpha = Sin(sin) * 1;
-                sin += 360 / (duration);
+                sin += 360 / duration;
             }));
         }
         /// <summary>
@@ -2155,7 +2155,7 @@ namespace Extends
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].alpha = Sin(sin) * 1;
-                    sin += 360 / (duration);
+                    sin += 360 / duration;
                 }));
             }
             float sin1 = 0;
@@ -2165,7 +2165,7 @@ namespace Extends
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     L[x].alpha = Sin(sin1) * 1;
-                    sin1 += 360 / (duration);
+                    sin1 += 360 / duration;
                 }));
             }
         }
@@ -2304,8 +2304,8 @@ namespace Extends
                 int x = a;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
-                    Line[x].xCenter = Line[x].xCenter * (1 - count) + lerpto.X * (count);
-                    Line[x].yCenter = Line[x].yCenter * (1 - count) + lerpto.Y * (count);
+                    Line[x].xCenter = Line[x].xCenter * (1 - count) + lerpto.X * count;
+                    Line[x].yCenter = Line[x].yCenter * (1 - count) + lerpto.Y * count;
                 }));
             }
         }
@@ -2317,8 +2317,8 @@ namespace Extends
                 int x = a;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
-                    Line[x].xCenter = Line[x].xCenter * (1 - count) + lerpto.X * (count);
-                    Line[x].yCenter = Line[x].yCenter * (1 - count) + lerpto.Y * (count);
+                    Line[x].xCenter = Line[x].xCenter * (1 - count) + lerpto.X * count;
+                    Line[x].yCenter = Line[x].yCenter * (1 - count) + lerpto.Y * count;
                 }));
             }
         }

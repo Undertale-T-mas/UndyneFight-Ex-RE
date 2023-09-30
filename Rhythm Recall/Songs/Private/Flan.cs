@@ -300,13 +300,13 @@ namespace Rhythm_Recall.Waves
                         };
                     for (int i = 0; i < 3; i++)
                     {
-                        appear[i] = ((time % 10) == 0);
+                        appear[i] = (time % 10) == 0;
                     }
                     for (int i = 0; i < 4; i++)
                     {
                         SetBoxMission(i);
                         if (appear[0] == true)
-                            CreateBone(new DownBone((i < 2), 7, 70));
+                            CreateBone(new DownBone(i < 2, 7, 70));
                         if (appear[1] == true)
                             CreateBone(new LeftBone((i % 2) == 1, 7, 55));
                         if (appear[2] == true)
@@ -319,7 +319,7 @@ namespace Rhythm_Recall.Waves
                     for (int i = 0; i < 4; i++)
                     {
                         SetBoxMission(i);
-                        CreateBone(new UpBone((i < 2), 7, 55));
+                        CreateBone(new UpBone(i < 2, 7, 55));
                     }
                 }
                 if (time is 2585 or 2605)
@@ -346,7 +346,7 @@ namespace Rhythm_Recall.Waves
                     for (int i = 0; i < 4; i++)
                     {
                         SetBoxMission(i);
-                        CreateBone(new UpBone((i < 2), 7, 65));
+                        CreateBone(new UpBone(i < 2, 7, 65));
                     }
                 }
                 if (time is 2635)
@@ -355,7 +355,7 @@ namespace Rhythm_Recall.Waves
                     for (int i = 0; i < 4; i++)
                     {
                         SetBoxMission(i);
-                        CreateBone(new DownBone((i < 2), 7, 65));
+                        CreateBone(new DownBone(i < 2, 7, 65));
                     }
                 }
                 if (time == 2660)
@@ -681,7 +681,7 @@ namespace Rhythm_Recall.Waves
                         break;
                 }
                 SetPlayerBoxMission(target);
-                CreateArrow(60f + (62.5f / (82f / 60f)) * BeatCount / 8f, Direction, Speed, Color, Mode);
+                CreateArrow(60f + 62.5f / (82f / 60f) * BeatCount / 8f, Direction, Speed, Color, Mode);
             }
             #endregion
 

@@ -343,7 +343,7 @@ namespace UndyneFight_Ex
         private bool NotInScene(Texture2D tex, Vector2 centre, Vector2 drawingScale, float rotation, Vector2 rotateCentre)
         {
             if (!DrawOptimize) return false;
-            float scale = (1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale)) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.212f;
+            float scale = 1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.212f;
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             float scrWidth = CurrentScene.CurrentDrawingSettings.defaultWidth;
             float scrHeight = scrWidth / GameStates.Aspect;

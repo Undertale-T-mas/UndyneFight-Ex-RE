@@ -34,13 +34,13 @@ namespace UndyneFight_Ex.Entities
             if (isRightEnabled) rightCollideY = missionCentre.Y + (rect.Right - missionCentre.X) * Tan(rotation);
             if (isLeftEnabled) leftCollideY = missionCentre.Y + (rect.Left - missionCentre.X) * Tan(rotation);
 
-            if (isDownEnabled && (downCollideX >= rect.Left && downCollideX <= rect.Right))
+            if (isDownEnabled && downCollideX >= rect.Left && downCollideX <= rect.Right)
                 distance = (new Vector2(downCollideX, rect.Down) - missionCentre).Length();
-            else if (isUpEnabled && (upCollideX >= rect.Left && upCollideX <= rect.Right))
+            else if (isUpEnabled && upCollideX >= rect.Left && upCollideX <= rect.Right)
                 distance = (new Vector2(upCollideX, rect.Up) - missionCentre).Length();
-            else if (isLeftEnabled && (leftCollideY >= rect.Up && leftCollideY <= rect.Down))
+            else if (isLeftEnabled && leftCollideY >= rect.Up && leftCollideY <= rect.Down)
                 distance = (new Vector2(rect.Left, leftCollideY) - missionCentre).Length();
-            else if (isRightEnabled && (rightCollideY >= rect.Up && leftCollideY <= rect.Down))
+            else if (isRightEnabled && rightCollideY >= rect.Up && leftCollideY <= rect.Down)
                 distance = (new Vector2(rect.Right, rightCollideY) - missionCentre).Length();
             distance += 20;
             //this.distance = Math.Min();

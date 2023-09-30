@@ -99,14 +99,14 @@ namespace UndyneFight_Ex.SongSystem
         /// </summary>
         /// <param name="beatCount">给定的beatCount</param>
         /// <returns></returns>
-        public bool At0thBeat(float beatCount) => (int)((GametimeF % BeatTime(beatCount)) * 2) == 0;
+        public bool At0thBeat(float beatCount) => (int)(GametimeF % BeatTime(beatCount) * 2) == 0;
         /// <summary>
         /// 以beatCount拍为一个时长单位，判定当前帧数是否是在这个时长单位的第K+1帧(通常用来实现每隔几拍执行一次任务)
         /// </summary>
         /// <param name="beatCount">给定的beatCount</param>
         /// <param name="K">给定的K</param>
         /// <returns></returns>
-        public bool AtKthBeat(float beatCount, float K) => (int)((GametimeF % BeatTime(beatCount)) * 2) == (int)K * 2;
+        public bool AtKthBeat(float beatCount, float K) => (int)(GametimeF % BeatTime(beatCount) * 2) == (int)K * 2;
         /// <summary>
         /// 判断当前是否在第left拍到第right拍之间的时间
         /// </summary>
@@ -635,6 +635,7 @@ namespace UndyneFight_Ex.SongSystem
         public static float CurrentTime { get; private set; } = 0;
         public static bool DelayEnabled { private get; set; } = true;
 
+        public static float[] Temps { get; private set; } = new float[100];
         public static float[] Arguments { get; private set; } 
         /// <summary>
         /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>

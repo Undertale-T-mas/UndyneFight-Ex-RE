@@ -75,7 +75,11 @@ namespace Rhythm_Recall.Waves
                 });
                 RegisterFunction("SetScreenAngle", () =>
                 {
-                    ScreenDrawing.ScreenAngle = Arguments[0];                   
+                    ScreenDrawing.ScreenAngle = Arguments[0];
+                });
+                RegisterFunction("SetScreenScale", () =>
+                {
+                    ScreenDrawing.ScreenScale = Arguments[0];
                 });
                 #region Easing
                 AddInstance(easeA = new Arrow.UnitEasing()
@@ -159,17 +163,20 @@ namespace Rhythm_Recall.Waves
                     //beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
                     //beat = 328;
                     //beat = 711 + 128;
-                    beat = 198;
+                    beat = 1088;
                     //beat = 711;
                     sans.Alpha = 0.0f;
-                    GametimeDelta = -3.5f + BeatTime(beat);
+                    sans.Alpha = 1.0f;
+                    GametimeDelta += BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.MasterAlpha = 1f;
                     ScreenDrawing.ScreenScale = 1f;
+                    Settings.GreenTap = true;
                 }
                 else sans.Alpha = 1.0f;
-                //sans.Visible = false;
+                if (GameStates.difficulty == 2)
+                    sans.Visible = false;
             }
         }
     }

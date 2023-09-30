@@ -30,7 +30,7 @@ namespace UndyneFight_Ex.Entities
                     {
                         mission.purpleLineLength = _curBox.CollidingBox.Width;
 
-                        mission.Centre += (_curBox.Centre - mission.lastBoxCentre);
+                        mission.Centre += _curBox.Centre - mission.lastBoxCentre;
                     }
 
                     Vector2 moving = Vector2.Zero;
@@ -224,25 +224,25 @@ namespace UndyneFight_Ex.Entities
                     bool res = false;
                     if (mission.collidingBox.X < _curBox.Left)
                     {
-                        res = (mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.029f);
+                        res = mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.029f;
                         mission.collidingBox.X = _curBox.Left;
                         oldCentre.X = mission.Centre.X;
                     }
                     else if (mission.collidingBox.Right > _curBox.Right)
                     {
-                        res = (mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.029f);
+                        res = mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.029f;
                         mission.collidingBox.X = _curBox.Right - 16;
                         oldCentre.X = mission.Centre.X;
                     }
                     if (mission.collidingBox.Y < _curBox.Up)
                     {
-                        res = (mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.029f);
+                        res = mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.029f;
                         mission.collidingBox.Y = _curBox.Up;
                         oldCentre.Y = mission.Centre.Y;
                     }
                     else if (mission.collidingBox.Down > _curBox.Down)
                     {
-                        res = (mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.029f);
+                        res = mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.029f;
                         mission.collidingBox.Y = _curBox.Down - 16;
                         oldCentre.Y = mission.Centre.Y;
                     }
@@ -265,7 +265,7 @@ namespace UndyneFight_Ex.Entities
                         if (v.IsCollideWith(mission) && mission.gravitySpeed >= 0f)
                         {
                             float rot;
-                            rot = (v.Rotation / PI * 180) % 180.01f;
+                            rot = v.Rotation / PI * 180 % 180.01f;
 
                             final = rot;
                             res = true;
@@ -384,25 +384,25 @@ namespace UndyneFight_Ex.Entities
                     bool res = false;
                     if (mission.collidingBox.X < _curBox.Left)
                     {
-                        res = (mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.9f);
+                        res = mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.9f;
 
                         mission.collidingBox.X = _curBox.Left;
                     }
                     else if (mission.collidingBox.Right > _curBox.Right)
                     {
-                        res = (mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.9f);
+                        res = mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.9f;
 
                         mission.collidingBox.X = _curBox.Right - 16;
                     }
                     if (mission.collidingBox.Y < _curBox.Up)
                     {
-                        res = (mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.9f);
+                        res = mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.9f;
 
                         mission.collidingBox.Y = _curBox.Up;
                     }
                     else if (mission.collidingBox.Down > _curBox.Down)
                     {
-                        res = (mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.9f);
+                        res = mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.9f;
 
                         mission.collidingBox.Y = _curBox.Down - 16;
                     }
@@ -472,25 +472,25 @@ namespace UndyneFight_Ex.Entities
                     bool res = false;
                     if (mission.collidingBox.X < _curBox.Left)
                     {
-                        res = (mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.009f);
+                        res = mission.YFacing == 2 && mission.collidingBox.X < _curBox.Left - 0.009f;
                         mission.collidingBox.X = _curBox.Left;
                         oldCentre.X = mission.Centre.X;
                     }
                     else if (mission.collidingBox.Right > _curBox.Right)
                     {
-                        res = (mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.009f);
+                        res = mission.YFacing == 0 && mission.collidingBox.Right > _curBox.CollidingBox.Right + 0.009f;
                         mission.collidingBox.X = _curBox.Right - 16;
                         oldCentre.X = mission.Centre.X;
                     }
                     if (mission.collidingBox.Y < _curBox.Up)
                     {
-                        res = (mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.009f);
+                        res = mission.YFacing == 3 && mission.collidingBox.Up < _curBox.CollidingBox.Up - 0.009f;
                         mission.collidingBox.Y = _curBox.Up;
                         oldCentre.Y = mission.Centre.Y;
                     }
                     else if (mission.collidingBox.Down > _curBox.Down)
                     {
-                        res = (mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.009f);
+                        res = mission.YFacing == 1 && mission.collidingBox.Down > _curBox.CollidingBox.Down + 0.009f;
                         mission.collidingBox.Y = _curBox.Down - 16;
                         oldCentre.Y = mission.Centre.Y;
                     }

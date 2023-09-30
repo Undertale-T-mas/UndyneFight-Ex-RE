@@ -11,7 +11,7 @@ namespace UndyneFight_Ex
     public abstract class RenderProduction : IComparable<RenderProduction>
     {
         private static bool HighQuality => Settings.SettingsManager.DataLibrary.drawingQuality == Settings.SettingsManager.DataLibrary.DrawingQuality.High;
-        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / (480f * GameMain.Aspect * GameStates.SurfaceScale), ScreenSize.Y / (480f)) : 1;
+        protected static float AdaptingScale => HighQuality ? MathF.Min(ScreenSize.X / (480f * GameMain.Aspect * GameStates.SurfaceScale), ScreenSize.Y / 480f) : 1;
         protected static Vector2 ScreenSize => HighQuality ? GameMain.ScreenSize : new Vector2(480f * GameMain.Aspect, 480) * GameStates.SurfaceScale;
 
         protected static GraphicsDevice WindowDevice => GameMain.Graphics.GraphicsDevice;

@@ -643,11 +643,11 @@ namespace Rhythm_Recall.Waves
             }
             else if (rhythm1[t] == 1)
             {
-                CreateArrow(time, (t % 2) * 2, 14, 0, 0);
+                CreateArrow(time, t % 2 * 2, 14, 0, 0);
             }
             else if (rhythm1[t] == 5)
             {
-                CreateArrow(time, ((t + 1) % 2) * 2, 14, 0, 0);
+                CreateArrow(time, (t + 1) % 2 * 2, 14, 0, 0);
             }
             else if (rhythm1[t] == 4)
             {
@@ -665,11 +665,11 @@ namespace Rhythm_Recall.Waves
             }
             else if (rhythm2[t] == 1)
             {
-                CreateArrow(time, (t % 2) * 2 + 1, 14, 1, 0);
+                CreateArrow(time, t % 2 * 2 + 1, 14, 1, 0);
             }
             else if (rhythm2[t] == 5)
             {
-                CreateArrow(time, ((t + 1) % 2) * 2 + 1, 14, 1, 0);
+                CreateArrow(time, (t + 1) % 2 * 2 + 1, 14, 1, 0);
             }
             else if (rhythm2[t] == 4)
             {
@@ -686,7 +686,7 @@ namespace Rhythm_Recall.Waves
         {
             SetGreenBox();
             TP();
-            HeartAttribute.MaxHP = (7);
+            HeartAttribute.MaxHP = 7;
             SetSoul(1);
         }
 

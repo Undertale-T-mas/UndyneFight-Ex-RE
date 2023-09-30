@@ -130,18 +130,18 @@ namespace UndyneFight_Ex.Entities
             }
 
             float trueTime = rotatingType != 2
-                ? (mission.Shields.GetCollideChecker(ArrowColor)).TimeOf(Way)
-                : (mission.Shields.GetCollideChecker(ArrowColor)).TimeOf(Way);
+                ? mission.Shields.GetCollideChecker(ArrowColor).TimeOf(Way)
+                : mission.Shields.GetCollideChecker(ArrowColor).TimeOf(Way);
             bool sameDir = mission.Shields.InSameDir(ArrowColor, way);
             if (JudgeType == JudgementType.Tap)
             {
                 sameDir = false;
-                trueTime = (mission.Shields.GetCollideChecker(ArrowColor)).TapTimeOf(Way);
+                trueTime = mission.Shields.GetCollideChecker(ArrowColor).TapTimeOf(Way);
             }
             else if (JudgeType == JudgementType.Hold)
             {
                 sameDir = true;
-                trueTime = (mission.Shields.GetCollideChecker(ArrowColor)).HoldTimeOf(Way);
+                trueTime = mission.Shields.GetCollideChecker(ArrowColor).HoldTimeOf(Way);
             }
 
             if (auto) trueTime = 0;

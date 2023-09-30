@@ -410,7 +410,7 @@ namespace UndyneFight_Ex.Entities
             TextSelectionEx.Reset();
             SelectChanger += () =>
             {
-                RectPosChange = (109f / (songNum - 1));
+                RectPosChange = 109f / (songNum - 1);
                 if (IsKeyPressed120f(InputIdentity.MainUp) || IsKeyPressed120f(InputIdentity.MainLeft))
                 {
                     currentSelect--;
@@ -524,7 +524,7 @@ namespace UndyneFight_Ex.Entities
                         if (res1)
                             SelectedChampionShip = tem as IChampionShip;
                         IsRaceSong = res1;
-                        isRecord &= (!res1);
+                        isRecord &= !res1;
                         InstanceCreate(new DifficultySelector(songImage, wave, filePath, mode));
                     }
                 };
@@ -910,7 +910,7 @@ namespace UndyneFight_Ex.Entities
                     }
                 }
                 var f = GlobalResources.Font.NormalFont;
-                var Percentage = (acc > 0 ? (acc.ToString() + "%") : "N/A");
+                var Percentage = acc > 0 ? (acc.ToString() + "%") : "N/A";
                 string extraacctxt = $"({Percentage})";
                 f.CentreDraw($"Max score: {score + extraacctxt}", new Vector2(320, 381), Color.White * alpha);
                 f.CentreDraw("Select difficulty", new Vector2(320, 45), Color.White * alpha);

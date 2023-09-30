@@ -40,7 +40,7 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw(count + 1 + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
                         Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
@@ -82,6 +82,7 @@ namespace Rhythm_Recall.Waves
             {
                 public override string BarrageAuthor => "T-mas";
                 public override string PaintAuthor => "OtokP";
+                public override string SongAuthor => "Hige Driver";
                 public override string DisplayName => "Maware setsugetsuka";
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
@@ -470,7 +471,7 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         a.OnDispose += () =>
                         {
                             ScreenDrawing.ScreenAngle = (s * 2 - 1) * 36f;
@@ -530,7 +531,7 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         a.OnDispose += () =>
                         {
                             ScreenDrawing.ScreenAngle = (s * 2 - 1) * 36f;
@@ -847,11 +848,11 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);
@@ -908,11 +909,11 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);
@@ -1019,7 +1020,7 @@ namespace Rhythm_Recall.Waves
                         (s) =>
                         {
                             float alpha = (s as CustomBone).Rotation;
-                            float res = (1 / Cos(((alpha + 45) % 90) - 45)) * 110f;
+                            float res = 1 / Cos(((alpha + 45) % 90) - 45) * 110f;
                             return res;
                         },
                         (s) =>
@@ -1032,7 +1033,7 @@ namespace Rhythm_Recall.Waves
                         (s) =>
                         {
                             float alpha = (s as CustomBone).Rotation;
-                            float res = (1 / Cos(((alpha + 45) % 90) - 45)) * 110f;
+                            float res = 1 / Cos(((alpha + 45) % 90) - 45) * 110f;
                             return res;
                         },
                         (s) =>
@@ -1193,7 +1194,7 @@ namespace Rhythm_Recall.Waves
                             {
                                 var v = MakeArrow(time, way, 7, arr[x] == 3 ? 1 : 0, 0);
                                 CreateEntity(v);
-                                if (i == 1 && arr[x] == 3) v.OnDispose += () => { ScreenDrawing.ScreenScale = 1.25f; ScreenDrawing.ScreenAngle = ((x % 2) * 2 - 1) * 40; };
+                                if (i == 1 && arr[x] == 3) v.OnDispose += () => { ScreenDrawing.ScreenScale = 1.25f; ScreenDrawing.ScreenAngle = (x % 2 * 2 - 1) * 40; };
                             }
                             time += BeatTime(2);
                         });
@@ -1350,11 +1351,11 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);
@@ -1411,11 +1412,11 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);
@@ -1994,7 +1995,7 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 9.2f, 0, 1);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0) CreateGB(new GreenSoulGB(time, s * 2 + 1, 1, BeatTime(1f)));
                         a.OnDispose += () =>
                         {
@@ -2055,7 +2056,7 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 1);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0) CreateGB(new GreenSoulGB(time, s * 2 + 1, 1, BeatTime(1f)));
                         a.OnDispose += () =>
                         {
@@ -2438,12 +2439,12 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0) CreateGB(new GreenSoulGB(time, s * 2 + 1, 1, BeatTime(1f)));
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);
@@ -2500,12 +2501,12 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0) CreateGB(new GreenSoulGB(time, s * 2 + 1, 1, BeatTime(1f)));
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);
@@ -2677,7 +2678,7 @@ namespace Rhythm_Recall.Waves
                             (s) =>
                             {
                                 float alpha = (s as CustomBone).Rotation;
-                                float res = (1 / Cos(((alpha + 45) % 90) - 45)) * 84f;
+                                float res = 1 / Cos(((alpha + 45) % 90) - 45) * 84f;
                                 return res;
                             },
                             (s) =>
@@ -2690,7 +2691,7 @@ namespace Rhythm_Recall.Waves
                             (s) =>
                             {
                                 float alpha = (s as CustomBone).Rotation;
-                                float res = (1 / Cos(((alpha + 45) % 90) - 45)) * 84f;
+                                float res = 1 / Cos(((alpha + 45) % 90) - 45) * 84f;
                                 return res;
                             },
                             (s) =>
@@ -2812,7 +2813,7 @@ namespace Rhythm_Recall.Waves
                             {
                                 var v = MakeArrow(time, way, 7, arr[x] == 3 ? 1 : 0, 0);
                                 CreateEntity(v);
-                                if (i == 1 && arr[x] == 3) v.OnDispose += () => { ScreenDrawing.ScreenScale = 1.25f; ScreenDrawing.ScreenAngle = ((x % 2) * 2 - 1) * 40; };
+                                if (i == 1 && arr[x] == 3) v.OnDispose += () => { ScreenDrawing.ScreenScale = 1.25f; ScreenDrawing.ScreenAngle = (x % 2 * 2 - 1) * 40; };
                             }
                             time += BeatTime(2);
                         });
@@ -2969,12 +2970,12 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0) CreateGB(new GreenSoulGB(time, s * 2 + 1, 1, BeatTime(1f)));
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);
@@ -3031,12 +3032,12 @@ namespace Rhythm_Recall.Waves
                     {
                         int v = x % 2;
                         Arrow a = MakeArrow(time, v * 2, 8.2f, 0, 0);
-                        int s = (x % 4) / 2;
+                        int s = x % 4 / 2;
                         if (v == 0) CreateGB(new GreenSoulGB(time, s * 2 + 1, 1, BeatTime(1f)));
                         if (v == 0)
                             a.OnDispose += () =>
                             {
-                                ScreenDrawing.ScreenAngle = ((x + 2) / 2) * 45;
+                                ScreenDrawing.ScreenAngle = (x + 2) / 2 * 45;
                             };
                         time += BeatTime(1.5f);
                         CreateEntity(a);

@@ -56,11 +56,11 @@ namespace UndyneFight_Ex.Remake
                 {
                     _curTime = 0;
                     plungeBuffer.Normalize();
-                    plungeBuffer *= (0.5f * PlungeSpeed);
+                    plungeBuffer *= 0.5f * PlungeSpeed;
                 }
                 this._plungeSpeed += plungeBuffer;
                 if (_curTime <= COOLDOWN) _curTime += 0.5f;
-                this._plungeSpeed *= (1 - PlungeDecay);
+                this._plungeSpeed *= 1 - PlungeDecay;
                 delta += _plungeSpeed;
 
                 Vector2 nexCentre = curCentre + delta;

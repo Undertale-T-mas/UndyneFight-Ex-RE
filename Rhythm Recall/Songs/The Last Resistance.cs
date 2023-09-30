@@ -78,7 +78,7 @@ namespace Rhythm_Recall.Waves
             SetSoul(1);
             InstantTP(320, 240);
             HeartAttribute.Speed = 3;
-            HeartAttribute.KRDamage = 5.5f;
+            HeartAttribute.KRDamage = 4f;
             HeartAttribute.MaxHP = 96;
             HeartAttribute.KR = true;
 

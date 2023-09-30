@@ -366,7 +366,7 @@ namespace UndyneFight_Ex.Fight
             if (currentProgress < textPrinters.Length)
                 textPrinters[currentProgress].Update();
             if (GameStates.IsKeyPressed(InputIdentity.Cancel)) textPrinters[currentProgress].InstantEnd();
-            if (textPrinters[currentProgress].AllShowed && (GameStates.IsKeyPressed(InputIdentity.Confirm)))
+            if (textPrinters[currentProgress].AllShowed && GameStates.IsKeyPressed(InputIdentity.Confirm))
                 currentProgress++;
             else if (textPrinters[currentProgress].AllShowed && textPrinters[currentProgress].ForceTime != -1) currentProgress++;
             if (currentProgress >= textPrinters.Length) Dispose();
@@ -404,7 +404,7 @@ namespace UndyneFight_Ex.Fight
         {
             textPrinters[currentProgress].Update();
             if (GameStates.IsKeyPressed(InputIdentity.Cancel)) textPrinters[currentProgress].InstantEnd();
-            if (textPrinters[currentProgress].AllShowed && (GameStates.IsKeyPressed(InputIdentity.Confirm)))
+            if (textPrinters[currentProgress].AllShowed && GameStates.IsKeyPressed(InputIdentity.Confirm))
                 currentProgress++;
             if (currentProgress == textPrinters.Length) Dispose();
         }

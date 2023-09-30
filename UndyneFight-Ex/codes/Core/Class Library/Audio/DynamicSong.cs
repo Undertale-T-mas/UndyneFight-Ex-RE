@@ -70,7 +70,7 @@ namespace UndyneFight_Ex
         private static int AlignTo8Bytes(int unalignedBytes)
         {
             int result = unalignedBytes + 4;
-            result -= (result % 8);
+            result -= result % 8;
             return result;
         }
 
@@ -130,7 +130,7 @@ namespace UndyneFight_Ex
                 {
                     if (loopEndSamples == 0)
                     {
-                        loopEndSamples = ((Int64)duration * (Int64)sampleRate) / 1000;
+                        loopEndSamples = (Int64)duration * (Int64)sampleRate / 1000;
                     }
 
                     if (loopLengthSamples == 0)
@@ -145,7 +145,7 @@ namespace UndyneFight_Ex
         {
             byte[] allBytes = File.ReadAllBytes(absolutePath);
             int byterate = BitConverter.ToInt32(new[] { allBytes[28], allBytes[29], allBytes[30], allBytes[31] }, 0);
-            duration = (int)Math.Floor(((float)(allBytes.Length - 8) / (float)(byterate)) * 1000);
+            duration = (int)Math.Floor((float)(allBytes.Length - 8) / (float)byterate * 1000);
 
             Stream waveFileStream = TitleContainer.OpenStream(path);
             BinaryReader reader = new(waveFileStream);
@@ -265,7 +265,7 @@ namespace UndyneFight_Ex
 
                 if (loopEndSamples == 0)
                 {
-                    loopEndSamples = ((Int64)duration * (Int64)sampleRate) / 1000;
+                    loopEndSamples = (Int64)duration * (Int64)sampleRate / 1000;
                 }
 
                 if (loopLengthSamples == 0)

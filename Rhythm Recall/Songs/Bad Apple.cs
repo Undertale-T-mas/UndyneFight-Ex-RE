@@ -484,7 +484,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.3f) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2.3f + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.3f) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), Gametime * 2.3f + 180, 40, 20));
             }
             if (InBeat(1290))
             {
@@ -841,7 +841,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(648, 652))
             {
                 int rd = (int)Rand(-BeatTime(2), BeatTime(6));
-                float time = (Gametime - BeatTime(648));
+                float time = Gametime - BeatTime(648);
                 ScreenDrawing.BackGroundColor = rd < time ? Color.White : Color.Gray;
             }
             if (InBeat(652f))
@@ -1524,7 +1524,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), Gametime * 2 + 180, 40, 20));
             }
             if (InBeat(1290))
             {
@@ -1738,7 +1738,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), (Gametime * 2 + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 0.5f), Gametime * 2 + 180, 40, 20));
             }
             if (InBeat(1290))
             {
@@ -1992,7 +1992,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162 + 4, 1290 - 12) && At0thBeat(2))
             {
-                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.8f) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 1.0f), (Gametime * 2.8f + 180), 40, 20));
+                CreateGB(new NormalGB(GetVector2(150, Gametime * 2.8f) + FightBox.instance.Centre, FightBox.instance.Centre, new Vector2(1.0f, 1.0f), Gametime * 2.8f + 180, 40, 20));
             }
             if (InBeat(1290))
             {

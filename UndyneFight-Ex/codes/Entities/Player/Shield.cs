@@ -30,7 +30,7 @@ namespace UndyneFight_Ex.Entities
                     public ShieldShadow(Shield shield, float missionRotation)
                     {
                         Rotation = shield.Rotation;
-                        rotateWay = ((missionRotation - Rotation + 360) % 360 < (360 - missionRotation + Rotation) % 360);
+                        rotateWay = (missionRotation - Rotation + 360) % 360 < (360 - missionRotation + Rotation) % 360;
                         rotateStartTime = 1;
                         user = shield.user;
                         this.missionRotation = missionRotation;

@@ -93,7 +93,7 @@ namespace UndyneFight_Ex.Entities
                 this._currentMoveState = state;
                 lastChangeTime = 0;
                 SoulType = -1;
-                Player manager = (FatherObject as Player);
+                Player manager = FatherObject as Player;
                 manager.GameAnalyzer.PushData(new SoulChangeData(-1, ID, Fight.Functions.GametimeF));
                 CreateShinyEffect(_currentMoveState.StateColor);
             }

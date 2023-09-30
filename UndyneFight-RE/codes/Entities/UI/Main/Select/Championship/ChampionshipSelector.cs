@@ -109,9 +109,19 @@ namespace UndyneFight_Ex.Remake.UI
             }
             else
             {
-                // clicking a division button
-                this.Dispose();
-                GameStates.InstanceCreate(new SelectUI());
+                if (CurrentSelected.Extras is int && (int)CurrentSelected.Extras == -1)
+                {
+                    // clicking a scoreboard page button
+
+                }
+                else
+                {
+
+                    // clicking a division button
+
+                    this.Dispose();
+                    GameStates.InstanceCreate(new SelectUI());
+                }
             }
         }
 
@@ -124,7 +134,7 @@ namespace UndyneFight_Ex.Remake.UI
             ChampionShip c;
             this.AddChild(cis = new ChampionshipInfoShower());
             currentChampionship = c = cis.Championship;
-            this.AddChild(new Scoreboard(PlayerManager.CurrentUser?.ChampionshipData?.ChampionshipDivision(_currentChampionshipNAME)));
+            this.AddChild(scoreboard= new Scoreboard(PlayerManager.CurrentUser?.ChampionshipData?.ChampionshipDivision(_currentChampionshipNAME)));
             this.AddChild(new MouseCursor());
             DivisionSelector ds = new DivisionSelector(cis.Info);
             this.AddChild(ds);
@@ -137,9 +147,26 @@ namespace UndyneFight_Ex.Remake.UI
             // push division selections
             MakeDivisionButton(c, ds);
 
+            // push scoreboard page selections
+            MakePageButton();
+
         A:
             this.AddChild(new ParticleGenerater());
             base.Start();
+        }
+
+        Scoreboard scoreboard;
+
+        private void MakePageButton()
+        {
+            Button left, right;
+            this.AddChild(left = new Button(this, new(96, 555), "<"));
+            this.AddChild(right = new Button(this, new(967 - 96, 555), ">"));
+            left.LeftClick += () => scoreboard.PageLeft();
+            right.LeftClick += () => scoreboard.PageRight();
+            left.Extras = -1;
+            right.Extras = -1;
+            left.NeverEnable = true; right.NeverEnable = true;
         }
 
         bool timeChecked = false;
@@ -257,6 +284,11 @@ namespace UndyneFight_Ex.Remake.UI
                                     }
                                 });
                             }
+                            else if (t.Info[0..7] == "already") {
+                                string k = t.Info.Split('-')[1];
+                                text = k;
+                                goto A;
+                            }
                             else
                             {
                                 PlaySound(FightResources.Sounds.die1);
@@ -264,7 +296,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                             return;
                         }
-
+                        A:
                         PlaySound(FightResources.Sounds.Ding);
                         PlayerManager.CurrentUser.ChampionshipData.SignUp(c.Title, text);
                         PlayerManager.Save();

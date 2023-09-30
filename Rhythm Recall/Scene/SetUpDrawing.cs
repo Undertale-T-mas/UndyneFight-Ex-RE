@@ -34,7 +34,7 @@ namespace Rhythm_Recall
             float width = 0;
             for (int i = 0; i < str.Length; i++)
             {
-                width += (charTextures[str[i]].Width + 5);
+                width += charTextures[str[i]].Width + 5;
             }
             float curX = centre.X - width / 2f * scale;
             this.Depth = 0.5f;

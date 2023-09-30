@@ -26,6 +26,9 @@ namespace Rhythm_Recall.Waves
             {
                 private static int Accessibility()
                 {
+#if DEBUG
+                    return 2;
+#endif
                     if (PlayerManager.CurrentUser == null) return 0;
                     var customData = PlayerManager.CurrentUser.Custom;
                     if (!customData.Nexts.ContainsKey("TaSAnomaly"))
@@ -37,35 +40,37 @@ namespace Rhythm_Recall.Waves
                 public Information() { this.MusicOptimized = true; }
                 public override string SongAuthor => "SK_kent";
                 public override string BarrageAuthor => "M.T.T";
-                public override string AttributeAuthor => "T-mas ";
+                public override string AttributeAuthor => "T-mas + " + ((GameStates.difficulty == 2) ? "mentototo" : "TK");
                 public override string PaintAuthor => "Unknown";
-                public override string Extra => "t-Mas Tlott Tk";
+                public override string Extra => "tMas Tlott Tk";
 
-                /*      public override bool Hidden => Accessibility() == 0;
+                      public override bool Hidden => Accessibility() == 0;
                       public override HashSet<Difficulty> UnlockedDifficulties
                       {
                           get
                           {
-                              HashSet<Difficulty> result = new HashSet<Difficulty>();
-                              int t = Accessibility();
-                              if (t >= 1) result.Add(Difficulty.Normal);
-                              if (t >= 2) result.Add(Difficulty.ExtremePlus);
-
-                              return result;
+                                HashSet<Difficulty> result = new();
+                                int t = Accessibility();
+                                if (t >= 1) result.Add(Difficulty.Normal);
+                                if (t >= 2) result.Add(Difficulty.ExtremePlus);
+#if DEBUG
+                        result.Add(Difficulty.Noob);
+#endif
+                        return result;
                           }
-                      }*/
+                      }
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
-                new KeyValuePair<Difficulty, float>[]
-                {
-                    new(Difficulty.Normal, 12.0f),
-                    new(Difficulty.ExtremePlus, 20.0f)
-                }
+                    new KeyValuePair<Difficulty, float>[]
+                    {
+                        new(Difficulty.Normal, 13.5f),
+                        new(Difficulty.ExtremePlus, 20.0f)
+                    }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                        new(Difficulty.Normal, 12.0f),
+                        new(Difficulty.Normal, 13.5f),
                         new(Difficulty.ExtremePlus, 20.6f)
                     }
                     );

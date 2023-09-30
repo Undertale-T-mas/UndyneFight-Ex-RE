@@ -86,7 +86,7 @@ namespace Rhythm_Recall.Waves
 
             public void Normal()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (Gametime >= BeatTime(11) && Gametime <= BeatTime(134) && Gametime % BeatTime(4) == BeatTime(3.3f))
                 {
                     PlaySound(FightResources.Sounds.pierce);
@@ -426,7 +426,7 @@ namespace Rhythm_Recall.Waves
 
             public void ExtremePlus()
             {
-                if ((int)(GametimeF * 2) != (int)(GametimeF) * 2) return;
+                if ((int)(GametimeF * 2) != (int)GametimeF * 2) return;
                 if (Gametime >= BeatTime(11) && Gametime <= BeatTime(134) && Gametime % BeatTime(4) == BeatTime(3.3f))
                 {
                     //SetBox(290, 320, 160);
@@ -845,7 +845,7 @@ namespace Rhythm_Recall.Waves
 
             public void Start()
             {
-                HeartAttribute.MaxHP = (10);
+                HeartAttribute.MaxHP = 10;
                 SetBox(290, 320, 160);
                 SetSoul(2);
                 Heart.Speed = 3.2f;

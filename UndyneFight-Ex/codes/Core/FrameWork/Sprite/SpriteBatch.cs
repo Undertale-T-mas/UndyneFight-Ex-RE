@@ -460,8 +460,8 @@ namespace UndyneFight_Ex
             float num2 = 0f;
             if (rotation == 0f)
             {
-                matrix.M11 = (flag2 ? (0f - scale.X) : scale.X);
-                matrix.M22 = (flag ? (0f - scale.Y) : scale.Y);
+                matrix.M11 = flag2 ? (0f - scale.X) : scale.X;
+                matrix.M22 = flag ? (0f - scale.Y) : scale.Y;
                 matrix.M41 = (zero.X - origin.X) * matrix.M11 + position.X;
                 matrix.M42 = (zero.Y - origin.Y) * matrix.M22 + position.Y;
             }

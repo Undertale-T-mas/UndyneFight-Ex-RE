@@ -24,7 +24,7 @@ namespace UndyneFight_Ex.Remake.UI
                 
                 public override void Start()
                 {
-                    _efa = (this.FatherObject as Extra);
+                    _efa = this.FatherObject as Extra;
                     _vfa = (this.FatherObject as Extra)._vfa;
                     base.Start();
                 }
@@ -36,7 +36,7 @@ namespace UndyneFight_Ex.Remake.UI
                     float y = this.Centre.Y + 30;
                     var father = _vfa.SongSelected;
                     string FinalText = father.Attributes.DisplayName;
-                    font.Draw(FinalText == "" ? father.FightName : father.Attributes.DisplayName, new vec2(184, y + 22), col.White * alpha, 1.21f, 0.6f);
+                    font.Draw(string.IsNullOrEmpty(FinalText) ? father.FightName : father.Attributes.DisplayName, new vec2(184, y + 22), col.White * alpha, 1.21f, 0.6f);
                     string s = _vfa.CurrentDifficulty.ToString();
                     font.Draw(s, new vec2(752 - font.SFX.MeasureString(s).X, y + 22), _vfa.CurrentDifficulty switch
                     {

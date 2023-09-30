@@ -38,8 +38,8 @@ namespace Rhythm_Recall.Waves
             class Information : SongInformation
             {
                 public override string SongAuthor => "Toby Fox";
-                public override string BarrageAuthor => "Tlottgodinf";
-                public override string AttributeAuthor => "Unknown";
+                public override string BarrageAuthor => "Woem";
+                public override string AttributeAuthor => "Woem";
                 public override string PaintAuthor => "Unknown";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                 new KeyValuePair<Difficulty, float>[]
@@ -989,7 +989,7 @@ namespace Rhythm_Recall.Waves
                             int i = a;
                             var ce = LinkEase(
                                 Stable(0, new Vector2(BoxStates.Right + dist, BoxStates.Down -dist*i)),
-                                Linear(BeatTime(6.2f) - (i)*BeatTime(0.4f), new Vector2(-440, 0))
+                                Linear(BeatTime(6.2f) - i*BeatTime(0.4f), new Vector2(-440, 0))
                                 );
                             FireBall f = new(ce) { Scale = 1.5f,Hidden=true };
                             CreateEntity(f);
@@ -1003,7 +1003,7 @@ namespace Rhythm_Recall.Waves
                             int i = a;
                             var ce = LinkEase(
                                 Stable(0, new Vector2(BoxStates.Right + dist, BoxStates.Up + dist * i)),
-                                Linear(BeatTime(6.2f) - (i) * BeatTime(0.4f), new Vector2(-440, 0))
+                                Linear(BeatTime(6.2f) - i * BeatTime(0.4f), new Vector2(-440, 0))
                                 );
                             FireBall f = new(ce) { Scale = 1.5f, Hidden = true };
                             CreateEntity(f);
@@ -1413,7 +1413,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Conv", () =>
                     {
-                        ScreenDrawing.CameraEffect.Convulse(5, BeatTime(Arguments[0]), Judge0or1((int)(Arguments[1])));
+                        ScreenDrawing.CameraEffect.Convulse(5, BeatTime(Arguments[0]), Judge0or1((int)Arguments[1]));
                     });
                     RegisterFunctionOnce("Expand", () =>
                     {
@@ -3388,7 +3388,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Conv", () =>
                     {
-                        ScreenDrawing.CameraEffect.Convulse(5, BeatTime(Arguments[0]), Judge0or1((int)(Arguments[1])));
+                        ScreenDrawing.CameraEffect.Convulse(5, BeatTime(Arguments[0]), Judge0or1((int)Arguments[1]));
                     });
                     RegisterFunctionOnce("Expand", () =>
                     {

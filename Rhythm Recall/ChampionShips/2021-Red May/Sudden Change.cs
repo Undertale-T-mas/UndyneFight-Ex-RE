@@ -41,7 +41,7 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw(count + 1 + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
                         Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
@@ -272,7 +272,7 @@ namespace Rhythm_Recall.Waves
                     {
                         stableID = Rand(1, 3);
                     }
-                    float mod = (GametimeF / BeatTime(1)) % 16f;
+                    float mod = GametimeF / BeatTime(1) % 16f;
                     curHeight = mod >= 14 ? AdvanceFunctions.Sin01((mod - 14) / 2f) * -20f : mod <= 6 ? AdvanceFunctions.Sin01(mod / 6f) * 60f : 0;
                     ;
                 }
@@ -579,7 +579,7 @@ namespace Rhythm_Recall.Waves
                     {
                         stableID = Rand(1, 3);
                     }
-                    float mod = (GametimeF / BeatTime(1)) % 16f;
+                    float mod = GametimeF / BeatTime(1) % 16f;
                     curHeight = mod >= 14 ? AdvanceFunctions.Sin01((mod - 14) / 2f) * -20f : mod <= 6 ? AdvanceFunctions.Sin01(mod / 6f) * 60f : 0;
                 }
                 if (InBeat(1056))

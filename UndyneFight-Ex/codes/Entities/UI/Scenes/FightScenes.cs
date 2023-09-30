@@ -85,7 +85,7 @@ namespace UndyneFight_Ex.Entities
             appearTime++;
             base.Update();
 
-            restartTimer = (IsKeyDown(InputIdentity.Reset)) ? restartTimer + 1 : 0;
+            restartTimer = IsKeyDown(InputIdentity.Reset) ? restartTimer + 1 : 0;
             if (restartTimer >= 45)
             {
                 ResetFightState(true);

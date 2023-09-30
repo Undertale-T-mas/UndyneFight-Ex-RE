@@ -19,7 +19,8 @@ namespace UndyneFight_Ex.Remake.UI
                 var list = FightSystem.ChampionShips;
                 foreach(var obj in list)
                 {
-                    if(obj.CheckTime.Invoke() != ChampionShip.ChampionShipStates.End)
+                    var state = obj.CheckTime.Invoke();
+                    if (state != ChampionShip.ChampionShipStates.End)
                     {
                         // championship that can be shown
 
@@ -29,7 +30,8 @@ namespace UndyneFight_Ex.Remake.UI
 
                         _currentChampionshipNAME = obj.Title.Replace("Ⅲ", "III");
 
-                        break;
+                        if (state != ChampionShip.ChampionShipStates.NotAvailable)
+                            break;
                     }
                 }
 
@@ -67,7 +69,7 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     // show the empty championship string.
 
-                    font.CentreDraw("There is no ongoing championship", new vec2(480, 215) + delta, col.Red, 1.5f, 5, 0.26f);
+                    font.CentreDraw("There is no ongoing championship", new vec2(480, 215) + delta, col.Red, 1.5f, 5f/MathF.PI*4, 0.26f);
                 }
                 else
                 {

@@ -468,7 +468,7 @@ namespace UndyneFight_Ex.Entities
         {
             if (appearTime <= waitingTime + duration + 2)
             {
-                if ((appearTime < waitingTime - 2) || (heart.SoulType == 1 || alpha <= 0.8f))
+                if ((appearTime < waitingTime - 2) || heart.SoulType == 1 || alpha <= 0.8f)
                     return;
 
 

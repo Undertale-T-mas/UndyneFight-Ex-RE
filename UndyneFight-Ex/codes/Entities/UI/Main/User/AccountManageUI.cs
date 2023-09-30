@@ -140,7 +140,7 @@ namespace UndyneFight_Ex.Entities
 
                                 var last = Last;
                                 System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
-                                object tem = asm.CreateInstance((last.GetType()).FullName);
+                                object tem = asm.CreateInstance(last.GetType().FullName);
 
                                 InstanceCreate(tem as Entity);
 

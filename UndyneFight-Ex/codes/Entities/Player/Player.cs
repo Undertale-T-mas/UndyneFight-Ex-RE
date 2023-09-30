@@ -358,14 +358,14 @@ namespace UndyneFight_Ex.Entities
                 AddChild(Shields = new ShieldManager());
                 GameStates.InstanceCreate(controlingBox);
 
-                Player manager = (FatherObject as Player);
+                Player manager = FatherObject as Player;
                 manager.GameAnalyzer.PushData(new SoulListData(ID, true, GametimeF));
 
                 manager.GameAnalyzer.PushData(new SoulChangeData(SoulType, ID, GametimeF));
             }
             public override void Dispose()
             {
-                Player manager = (FatherObject as Player);
+                Player manager = FatherObject as Player;
                 manager.GameAnalyzer.PushData(new SoulListData(ID, false, GametimeF));
                 controlingBox.Dispose();
                 base.Dispose();
@@ -569,7 +569,7 @@ namespace UndyneFight_Ex.Entities
                 };
                 SoulType = type;
                 CreateShinyEffect(_currentMoveState.StateColor);
-                Player manager = (FatherObject as Player);
+                Player manager = FatherObject as Player;
                 manager.GameAnalyzer.PushData(new SoulChangeData(SoulType, ID, GametimeF));
             }
 

@@ -43,7 +43,7 @@ namespace Rhythm_Recall.Waves
             {
                 public override void Draw()
                 {
-                    Font.NormalFont.CentreDraw((count + 1) + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
+                    Font.NormalFont.CentreDraw(count + 1 + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
                     if (time > 0)
                     {
                         Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
@@ -83,7 +83,7 @@ namespace Rhythm_Recall.Waves
             class ThisInformation : SongInformation
             {
                 public override string BarrageAuthor => GameStates.difficulty == 4 ? "T-mas, modded by TK" : "T-mas";
-                public override string SongAuthor => "Touhou";
+                public override string SongAuthor => "BeatMario";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.Noob, 1.5f),

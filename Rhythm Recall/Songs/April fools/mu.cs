@@ -679,7 +679,7 @@ namespace Rhythm_Recall.Waves
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                 });
-                CreateChart(BeatTime(4f * (2f)), BeatTime(190f / 185f), 6.6f, new string[]
+                CreateChart(BeatTime(4f * 2f), BeatTime(190f / 185f), 6.6f, new string[]
                 {
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
                     "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",    "LineA","","LineA","",
@@ -2209,7 +2209,7 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(m);
                     ForBeat(12f * 19f / 14f, () =>
                     {
-                        m.alpha += 1f / (BeatTime(12f * 19f / 14f));
+                        m.alpha += 1f / BeatTime(12f * 19f / 14f);
                     });
                     DelayBeat(16f * 19f / 14f, () => { m.Dispose(); });
                     RunEase(s => StepSample.Intensity = s, LinkEase(EaseOut(BeatTime(12f * 19f / 14f), 0, 0.8f, EaseState.Linear), EaseOut(BeatTime(4f * 19f / 14f), 0.8f, 0, EaseState.Linear)));

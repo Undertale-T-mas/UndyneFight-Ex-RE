@@ -524,7 +524,7 @@ namespace Rhythm_Recall.Waves
             if (Gametime >= 5230 && Gametime <= 5880 && ((int)(Gametime % 12.5) == 1))
             {
                 CreateSpear(new NormalSpear(Heart.Centre + GetVector2(160, Rand(0, 359))) { Acceleration = 0.06f });
-                if ((Gametime % 25 == 1))
+                if (Gametime % 25 == 1)
                     CreateSpear(new NormalSpear(Heart.Centre + GetVector2(160, Rand(0, 359))) { Acceleration = 0.03f });
             }
 

@@ -47,7 +47,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
-            controlLayer = (IsHidden ? Surface.Hidden : Surface.Normal);
+            controlLayer = IsHidden ? Surface.Hidden : Surface.Normal;
             if (autoDispose)
             {
                 bool ins = screen.Contain(Centre);
