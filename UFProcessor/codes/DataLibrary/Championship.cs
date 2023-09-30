@@ -17,7 +17,7 @@ namespace UndyneFight_Ex.Server
         private static bool _loaded = false;
         private static void TryLoad()
         {
-            championships.RemoveAll(s=>s.EndTime < DateTime.UtcNow);
+        //    championships.RemoveAll(s=>s.EndTime < DateTime.UtcNow);
             if(_loaded) return; 
             _loaded = true;
 
