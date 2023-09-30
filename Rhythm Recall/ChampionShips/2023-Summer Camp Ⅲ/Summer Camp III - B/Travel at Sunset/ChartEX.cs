@@ -11,8 +11,6 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Fight.AdvanceFunctions;
-using Microsoft.Xna.Framework.Input;
 
 namespace Rhythm_Recall.Waves
 {
