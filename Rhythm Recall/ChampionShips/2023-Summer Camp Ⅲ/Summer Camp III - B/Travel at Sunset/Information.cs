@@ -9,7 +9,7 @@ namespace Rhythm_Recall.Waves
         Dictionary<string, Difficulty> dif = new();
         public Traveler_at_Sunset()
         {
-            dif.Add("Anomoly", Difficulty.Noob);
+            dif.Add("Anomaly", Difficulty.Noob);
             dif.Add("Div.2", Difficulty.Normal);
             dif.Add("Div.1", Difficulty.ExtremePlus);
         }
@@ -39,10 +39,10 @@ namespace Rhythm_Recall.Waves
 
                 public Information() { this.MusicOptimized = true; }
                 public override string SongAuthor => "SK_kent";
-                public override string BarrageAuthor => "M.T.T";
+                public override string BarrageAuthor => "M.T.T.";
                 public override string AttributeAuthor => "T-mas + " + ((GameStates.difficulty == 2) ? "mentototo" : "TK");
                 public override string PaintAuthor => "Unknown";
-                public override string Extra => "tMas Tlott Tk";
+                public override string Extra => "Murder Time Trio (x\ntMas Tlott Tk";
 
                       public override bool Hidden => Accessibility() == 0;
                       public override HashSet<Difficulty> UnlockedDifficulties

@@ -1,8 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.IO;
+using System.Text;
+using System.Threading;
 using UndyneFight_Ex.Entities;
+using static UndyneFight_Ex.Entities.Player;
 
 namespace UndyneFight_Ex
 {
@@ -37,44 +42,87 @@ namespace UndyneFight_Ex
                 return identity != InputIdentity.None && _identityCheckers[identity].IsKeyPressed();
             }
             Dictionary<InputIdentity, IdentityChecker> _identityCheckers = new();
+
+            public static Keys[] StringToKey(string text)
+            {
+                TypeConverter converter = TypeDescriptor.GetConverter(typeof(Keys));
+                string[] keyValueTemp = text?.Split(',');
+                var Length = keyValueTemp.Length;
+                Keys[] keys = new Keys[Length];
+                for (int i = 0; i < Length; i++)
+                {
+                    keys[i] = (Keys)converter.ConvertFromString(keyValueTemp[i]);
+                }
+                return keys;
+            }
+
             static KeyChecker()
             {
-                defaultInput.Add(InputIdentity.Confirm, new() { Keys.Enter, Keys.Z });
-                defaultInput.Add(InputIdentity.Cancel, new() { Keys.LeftShift, Keys.X });
-                defaultInput.Add(InputIdentity.Alternate, new() { Keys.Space });
-                defaultInput.Add(InputIdentity.Special, new() { Keys.C });
-                defaultInput.Add(InputIdentity.MainRight, new() { Keys.Right, Keys.OemSemicolon });
-                defaultInput.Add(InputIdentity.MainDown, new() { Keys.Down, Keys.L });
-                defaultInput.Add(InputIdentity.MainLeft, new() { Keys.Left, Keys.K });
-                defaultInput.Add(InputIdentity.MainUp, new() { Keys.Up, Keys.O });
-                defaultInput.Add(InputIdentity.SecondRight, new() { Keys.D });
-                defaultInput.Add(InputIdentity.SecondDown, new() { Keys.S });
-                defaultInput.Add(InputIdentity.SecondLeft, new() { Keys.A });
-                defaultInput.Add(InputIdentity.SecondUp, new() { Keys.W });
-                defaultInput.Add(InputIdentity.ThirdRight, new() { Keys.B });
-                defaultInput.Add(InputIdentity.ThirdDown, new() { Keys.V });
-                defaultInput.Add(InputIdentity.ThirdLeft, new() { Keys.C });
-                defaultInput.Add(InputIdentity.ThirdUp, new() { Keys.F });
-                defaultInput.Add(InputIdentity.FourthRight, new() { Keys.OemComma });
-                defaultInput.Add(InputIdentity.FourthDown, new() { Keys.M });
-                defaultInput.Add(InputIdentity.FourthLeft, new() { Keys.N });
-                defaultInput.Add(InputIdentity.FourthUp, new() { Keys.J });
-                defaultInput.Add(InputIdentity.FullScreen, new() { Keys.F4 });
-                defaultInput.Add(InputIdentity.ScreenShot, new() { Keys.F2 });
-                defaultInput.Add(InputIdentity.Number1, new() { Keys.D1 });
-                defaultInput.Add(InputIdentity.Number2, new() { Keys.D2 });
-                defaultInput.Add(InputIdentity.Number3, new() { Keys.D3 });
-                defaultInput.Add(InputIdentity.Number4, new() { Keys.D4 });
-                defaultInput.Add(InputIdentity.Number5, new() { Keys.D5 });
-                defaultInput.Add(InputIdentity.Number6, new() { Keys.D6 });
-                defaultInput.Add(InputIdentity.Number7, new() { Keys.D7 });
-                defaultInput.Add(InputIdentity.Number8, new() { Keys.D8 });
-                defaultInput.Add(InputIdentity.Number9, new() { Keys.D9 });
-                defaultInput.Add(InputIdentity.Number0, new() { Keys.D0 });
-                defaultInput.Add(InputIdentity.Backspace, new() { Keys.Back });
-                defaultInput.Add(InputIdentity.Reset, new() { Keys.R });
-                defaultInput.Add(InputIdentity.Heal, new() { Keys.H });
-                defaultInput.Add(InputIdentity.Tab, new() { Keys.Tab });
+                //if (File.Exists("Keybinds.txt"))
+                if (false)
+                {
+                    //Load keybinds
+                    string[] texts = File.ReadAllLines("Keybinds.txt");
+
+                    for (int i = 0; i < texts.Length; i++)
+                    {
+                        string cur = texts[i];
+                        if (string.IsNullOrEmpty(texts[i])) continue;
+                        switch (i)
+                        {
+                            case 0:
+                                cur = cur[10..];
+                                break;
+                            case 1:
+                                cur = cur[9..];
+                                break;
+                            case 2:
+                                cur = cur[11..];
+                                break;
+                            
+                        }
+                        defaultInput.Add((InputIdentity)i, new(StringToKey(cur)));
+                    }
+                }
+                else
+                {
+                    defaultInput.Add(InputIdentity.Confirm, new() { Keys.Enter, Keys.Z });
+                    defaultInput.Add(InputIdentity.Cancel, new() { Keys.LeftShift, Keys.X });
+                    defaultInput.Add(InputIdentity.Alternate, new() { Keys.Space });
+                    defaultInput.Add(InputIdentity.Special, new() { Keys.C });
+                    defaultInput.Add(InputIdentity.MainRight, new() { Keys.Right, Keys.OemSemicolon });
+                    defaultInput.Add(InputIdentity.MainDown, new() { Keys.Down, Keys.L });
+                    defaultInput.Add(InputIdentity.MainLeft, new() { Keys.Left, Keys.K });
+                    defaultInput.Add(InputIdentity.MainUp, new() { Keys.Up, Keys.O });
+                    defaultInput.Add(InputIdentity.SecondRight, new() { Keys.D });
+                    defaultInput.Add(InputIdentity.SecondDown, new() { Keys.S });
+                    defaultInput.Add(InputIdentity.SecondLeft, new() { Keys.A });
+                    defaultInput.Add(InputIdentity.SecondUp, new() { Keys.W });
+                    defaultInput.Add(InputIdentity.ThirdRight, new() { Keys.B });
+                    defaultInput.Add(InputIdentity.ThirdDown, new() { Keys.V });
+                    defaultInput.Add(InputIdentity.ThirdLeft, new() { Keys.C });
+                    defaultInput.Add(InputIdentity.ThirdUp, new() { Keys.F });
+                    defaultInput.Add(InputIdentity.FourthRight, new() { Keys.OemComma });
+                    defaultInput.Add(InputIdentity.FourthDown, new() { Keys.M });
+                    defaultInput.Add(InputIdentity.FourthLeft, new() { Keys.N });
+                    defaultInput.Add(InputIdentity.FourthUp, new() { Keys.J });
+                    defaultInput.Add(InputIdentity.FullScreen, new() { Keys.F4 });
+                    defaultInput.Add(InputIdentity.ScreenShot, new() { Keys.F2 });
+                    defaultInput.Add(InputIdentity.Number1, new() { Keys.D1 });
+                    defaultInput.Add(InputIdentity.Number2, new() { Keys.D2 });
+                    defaultInput.Add(InputIdentity.Number3, new() { Keys.D3 });
+                    defaultInput.Add(InputIdentity.Number4, new() { Keys.D4 });
+                    defaultInput.Add(InputIdentity.Number5, new() { Keys.D5 });
+                    defaultInput.Add(InputIdentity.Number6, new() { Keys.D6 });
+                    defaultInput.Add(InputIdentity.Number7, new() { Keys.D7 });
+                    defaultInput.Add(InputIdentity.Number8, new() { Keys.D8 });
+                    defaultInput.Add(InputIdentity.Number9, new() { Keys.D9 });
+                    defaultInput.Add(InputIdentity.Number0, new() { Keys.D0 });
+                    defaultInput.Add(InputIdentity.Backspace, new() { Keys.Back });
+                    defaultInput.Add(InputIdentity.Reset, new() { Keys.R });
+                    defaultInput.Add(InputIdentity.Heal, new() { Keys.H });
+                    defaultInput.Add(InputIdentity.Tab, new() { Keys.Tab });
+                }
             }
             private static List<KeyChecker> allCheckers = new();
             private static Dictionary<InputIdentity, List<Keys>> defaultInput = new();

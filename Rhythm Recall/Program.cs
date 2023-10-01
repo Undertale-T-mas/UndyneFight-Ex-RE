@@ -71,6 +71,17 @@ namespace Rhythm_Recall
 
             }
 
+            //Custom Keybind
+            if (!File.Exists("Keybinds.txt"))
+            {
+                var DefaultKeybinds = "Confirm: Z\nFullscreen: F4";
+                FileStream stream = new("Keybinds.txt", FileMode.OpenOrCreate);
+                TextWriter textWriter = new StreamWriter(stream);
+                textWriter.Write(DefaultKeybinds);
+                textWriter.Flush();
+                stream.Close();
+            }
+
             GameStartUp.LoadingSettings.TitleTextureRoot = "FontTexture\\Title";
             GameStartUp.LoadingSettings.TitleCentrePosition = new(320, 200);
             GameStartUp.SetUpShower = typeof(SetUpDrawing);
@@ -170,11 +181,11 @@ namespace Rhythm_Recall
             }
             catch (Exception e)
             { 
-                FileStream stream = new("bug data.txt", FileMode.OpenOrCreate);
+                FileStream stream = new($"Error Log {DateTime.UtcNow.ToFileTimeUtc()}.txt", FileMode.OpenOrCreate);
                 TextWriter textWriter = new StreamWriter(stream);
                 textWriter.Write(e);
                 textWriter.Flush();
-                stream.Close(); 
+                stream.Close();
             }
 #endif
 
