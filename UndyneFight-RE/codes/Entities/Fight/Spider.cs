@@ -104,7 +104,7 @@ namespace UndyneFight_Ex.Remake.Entities
             public LineSpider2(float X, bool IsUpOrDown, float Speed)
             {
                 collidingBox.Y = IsUpOrDown ? BoxStates.Centre.Y - BoxStates.Height / 2f - 50 : BoxStates.Centre.Y + BoxStates.Height / 2f + 50;
-                Rotation = IsUpOrDown ? 90 : 180;
+                Rotation = IsUpOrDown ? 90 : 270;
                 this.speed = Speed;
                 movingWay = IsUpOrDown;
                 count = X;
