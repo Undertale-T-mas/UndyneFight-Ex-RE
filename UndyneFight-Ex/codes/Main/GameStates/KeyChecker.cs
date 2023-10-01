@@ -45,42 +45,35 @@ namespace UndyneFight_Ex
 
             public static Keys[] StringToKey(string text)
             {
+                Keys[] keys = new Keys[1];
+                if (string.IsNullOrEmpty(text))
+                {
+                    keys[0] = Keys.None;
+                    return keys;
+                }
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(Keys));
                 string[] keyValueTemp = text?.Split(',');
                 var Length = keyValueTemp.Length;
-                Keys[] keys = new Keys[Length];
                 for (int i = 0; i < Length; i++)
                 {
                     keys[i] = (Keys)converter.ConvertFromString(keyValueTemp[i]);
                 }
+                
                 return keys;
             }
 
             static KeyChecker()
             {
                 //if (File.Exists("Keybinds.txt"))
-                if (false)
+                if (true)
                 {
                     //Load keybinds
                     string[] texts = File.ReadAllLines("Keybinds.txt");
 
-                    for (int i = 0; i < texts.Length; i++)
+                    for (int i = 0; i < 36; i++)
                     {
                         string cur = texts[i];
-                        if (string.IsNullOrEmpty(texts[i])) continue;
-                        switch (i)
-                        {
-                            case 0:
-                                cur = cur[10..];
-                                break;
-                            case 1:
-                                cur = cur[9..];
-                                break;
-                            case 2:
-                                cur = cur[11..];
-                                break;
-                            
-                        }
+                        cur = cur[(cur.IndexOf(": ") + 1)..];
                         defaultInput.Add((InputIdentity)i, new(StringToKey(cur)));
                     }
                 }
