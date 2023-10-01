@@ -9283,6 +9283,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Extreme()
             { 
+
                 Arrow[] ars = GetAll<Arrow>("Tap");
                 for (int a = 0; a < ars.Length; a++)
                 {

@@ -310,7 +310,6 @@ namespace Rhythm_Recall
             }
             );
         }
-
         private static void SetChallenge()
         {
             GameStartUp.PushChallenge(new("Sprites\\Challenges\\Classic Challenge", "Classic Challenge", new[] {

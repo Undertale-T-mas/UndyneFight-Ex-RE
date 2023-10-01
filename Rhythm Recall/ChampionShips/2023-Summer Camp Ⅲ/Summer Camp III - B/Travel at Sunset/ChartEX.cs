@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
@@ -12,8 +11,6 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Fight.AdvanceFunctions;
-using Microsoft.Xna.Framework.Input;
 
 namespace Rhythm_Recall.Waves
 {
@@ -661,7 +658,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(432, 448) && At0thBeat(1f))
                 {
                     ScreenDrawing.MasterAlpha = 0.1f;
-                    DelayBeat(0.1f, () => ScreenDrawing.MasterAlpha = 1f);
+                    DelayBeat(0.2f, () => ScreenDrawing.MasterAlpha = 1f);
                 }
                 if (InBeat(392))
                 {
@@ -1426,11 +1423,15 @@ namespace Rhythm_Recall.Waves
                     // Generate the effects
                     DelayBeat(5, () =>
                     {
+                        DelayBeat(1, () =>
+                        {
+                            AddInstance(new ScreenShaker(6, 7, BeatTime(1.4f / 6)));
+                        });
                         RunEase(s => { ScreenDrawing.ScreenScale = s; },
-                        LinkEase(
-                            EaseOut(BeatTime(1f), 4, EaseState.Quad),
-                            Stable(BeatTime(1.4f), 0),
-                            EaseOut(BeatTime(1f), -3f, EaseState.Circ)
+                        LinkEase(false,
+                            EaseOut(BeatTime(1f), 1, 4, EaseState.Quad),
+                            Stable(BeatTime(1.4f), 4),
+                            EaseOut(BeatTime(1f), 4, 1, EaseState.Circ)
                     ));
                     });
                     DelayBeat(4, () =>
@@ -3976,6 +3977,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("Alpha", () =>
                     {
+                        ScreenDrawing.BoxBackColor = Color.Black;
                         RunEase(s => ScreenDrawing.MasterAlpha = s,
                             EaseInOut(BeatTime(12), 1.0f, 0.0f, EaseState.Quad),
                             Linear(BeatTime(12), 0.0f, 1.0f)
@@ -4153,12 +4155,24 @@ namespace Rhythm_Recall.Waves
                     }
                     CreateEntity(l);
                 }
+                if (InBeat(1108))
+                {
+                    RunEase(s => sans.Alpha = s, Linear(BeatTime(4), sans.Alpha, 0));
+                }
+                if (InBeat(1112))
+                {
+                    RunEase(s =>
+                    {
+                        Heart.Alpha = s;
+                        
+                    }, Linear(BeatTime(4), 1, 0));
+                }
                 if (InBeat(1112, 1118))
                 {
                     var ce = LinkEase(InfLinear(new Vector2(320, 240) + GetVector2(GametimeF - BeatTime(1112), GametimeF - BeatTime(1112)), GetVector2(4, GametimeF))).Easing;
                     Line l = new(ce, Stable(0, 45 + GametimeF * 2).Easing) { Alpha = 0.75f, ObliqueMirror = true, TransverseMirror = true, VerticalMirror = true };
                     l.AlphaDecrease(BeatTime(4));
-                    l.InsertRetention(new(0.5f, 0.75f));
+                    l.InsertRetention(new(BeatTime(2), 0.25f));
                     CreateEntity(l);
                 }
             }

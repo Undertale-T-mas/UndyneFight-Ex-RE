@@ -163,9 +163,10 @@ namespace Rhythm_Recall.Waves
                     //beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
                     //beat = 328;
                     //beat = 711 + 128;
-                    beat = 1020;
+                    beat = 1088;
                     //beat = 711;
                     sans.Alpha = 0.0f;
+                    sans.Alpha = 1.0f;
                     GametimeDelta += BeatTime(beat);
 
                     PlayOffset = BeatTime(beat);

@@ -656,7 +656,13 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",    "R", "", "","",
                         "", "", "", "",    "", "", "","",
                         "", "", "", "",    "", "", "","",
-                        "", "", "", "",    "", "", "","",
+                        "(R)(+2)", "", "", "",    "(R)(+2)", "", "","",
+                        "(R)(+2)", "", "", "",    "(R)(+2)", "", "","",
+                        "(R)(+2)", "", "", "",    "(R)(+2)", "", "","",
+                        "(R)(+2)", "", "", "",    "(R)(+2)", "", "","",
+                        "(R)(+2)", "", "", "",    "(R)(+2)", "", "","",
+                        "(R)(+2)", "", "", "",    "(R)(+2)", "", "","",
+                        "(R)(+2)", "", "", "",    "(R)(+2)", "", "","",
                         "", "", "", "",    "", "", "","",
                     });
                 }
@@ -676,7 +682,7 @@ namespace Rhythm_Recall.Waves
                 GametimeDelta = 0;
                 //GametimeDelta = BeatTime(80);
                 //GametimeDelta = BeatTime(144);
-                //GametimeDelta = BeatTime(231);
+                GametimeDelta = BeatTime(231);
                 PlayOffset = GametimeDelta;
             }
             #region Functions
