@@ -74,7 +74,9 @@ namespace Rhythm_Recall
             //Custom Keybind
             if (!File.Exists("Keybinds.txt"))
             {
-                var DefaultKeybinds = "Confirm: Z\nFullscreen: F4";
+                var DefaultKeybinds = @"Confirm: Z
+Cancel: LeftShift,X
+Alternate: Space";
                 FileStream stream = new("Keybinds.txt", FileMode.OpenOrCreate);
                 TextWriter textWriter = new StreamWriter(stream);
                 textWriter.Write(DefaultKeybinds);
