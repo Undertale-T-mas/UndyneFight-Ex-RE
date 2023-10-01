@@ -9282,8 +9282,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(108 * 4)) NorPart8();
             }
             public void Extreme()
-            {
-                if (GameStates.IsKeyPressed120f(InputIdentity.Alternate)) EndSong();
+            { 
                 Arrow[] ars = GetAll<Arrow>("Tap");
                 for (int a = 0; a < ars.Length; a++)
                 {
