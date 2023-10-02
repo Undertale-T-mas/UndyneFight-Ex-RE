@@ -2990,6 +2990,12 @@
 /processorParam:Quality=Best
 /build:Musics/Seraphim (Long Ver.)/song.mp3
 
+#begin Musics/Song That Might Play When You Fight Sans.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Song That Might Play When You Fight Sans.mp3
+
 #begin Musics/SpaceDrift/sd logo00001.png
 /importer:TextureImporter
 /processor:TextureProcessor
