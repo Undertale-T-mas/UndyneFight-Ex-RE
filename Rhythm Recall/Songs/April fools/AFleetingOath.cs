@@ -359,7 +359,7 @@ namespace Rhythm_Recall.Waves
 
                 GametimeDelta =BeatTime(-0.65f);
                 PlayOffset = BeatTime(0);
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     float beat = 4f * 40;

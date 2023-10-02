@@ -2037,9 +2037,9 @@ namespace Rhythm_Recall.Waves
                         "(KickA)(ConvR)(SplitterR)(d)(+0)(+01)","","","",    "d","","","",
                         "d","","","",    "d","","","",
                         //18
-                        "(Step)(KickB2)(#7.75#$0)(*+2)(SoulR)(<1.3>SetScreenScale)(<-30>SetScreenAngle)","","","",    "","","","",
+                        "(Step)(KickB2)(#7.75#$0)(*+2)(SoulR)(ConvL)","","","",    "","","","",
                         "(Step)","","","",    "","","","",
-                        "(KickA)(SplitterL)(#3.75#$21)(*+21)(SoulL)(<1.6>SetScreenScale)(<60>SetScreenAngle)","","","",    "","","","",
+                        "(KickA)(SplitterL)(#3.75#$21)(*+21)(SoulL)(ConvR)","","","",    "","","","",
                         "","","","",    "","","","",
                     });
                 }
@@ -2066,22 +2066,9 @@ namespace Rhythm_Recall.Waves
                             ScreenDrawing.ScreenScale = k;
                         },
                         LinkEase(
-                            EaseIn(BeatTime(2), 1, 3, EaseState.Quad),
-                            EaseOut(BeatTime(3), 3, 1, EaseState.Sine))
+                            EaseIn(BeatTime(2), 1, 2.61f, EaseState.Quart),
+                            EaseOut(BeatTime(3), 2.61f, 1, EaseState.Cubic))
                         );
-                        RunEase(k =>
-                        {
-                            ScreenDrawing.ScreenAngle = k;
-                        },
-                        LinkEase(
-                            EaseIn(BeatTime(2), 60, -180, EaseState.Quad),
-                            EaseOut(BeatTime(3), -180, -360, EaseState.Sine)),
-                            Stable(0, 0)
-                        );
-                        DelayBeat(4, () => {
-                            sans.Alpha = 0.0f;
-                            ScreenDrawing.ScreenAngle = 0;
-                        });
                     });
                     RegisterFunctionOnce("DownLine", () =>
                     {

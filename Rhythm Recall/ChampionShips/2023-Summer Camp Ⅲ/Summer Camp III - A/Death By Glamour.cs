@@ -26,7 +26,7 @@ namespace Rhythm_Recall.Waves
             public SongInformation Attributes => new Information();
             class Information : SongInformation
             {
-                public override string SongAuthor => "Unknown";
+                public override string SongAuthor => "Toby Fox";
                 public override string BarrageAuthor => "Awll";
                 public override string AttributeAuthor => "Unknown";
                 public override string PaintAuthor => "Unknown";
