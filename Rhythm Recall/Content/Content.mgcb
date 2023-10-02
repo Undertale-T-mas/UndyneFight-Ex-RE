@@ -2188,7 +2188,7 @@
 
 #begin Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav;Musics/A Fleeting Oath/song.wav
 
