@@ -3128,7 +3128,7 @@
 /processorParam:Quality=Best
 /build:Musics/Transcendence/anomaly.wav
 
-#begin Musics/Transcendence/paint.jpg
+#begin Musics/Transcendence/paint.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -3138,7 +3138,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Musics/Transcendence/paint.jpg
+/build:Musics/Transcendence/paint.png
 
 #begin Musics/Transcendence/song.wav
 /importer:WavImporter

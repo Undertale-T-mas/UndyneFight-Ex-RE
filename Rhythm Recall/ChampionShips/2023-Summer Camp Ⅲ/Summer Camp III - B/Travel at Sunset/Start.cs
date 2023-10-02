@@ -45,7 +45,7 @@ namespace Rhythm_Recall.Waves
             Winder r = new(), s = null;
             static Arrow.UnitEasing easeA = null, easeB = null, easeC = null, easeD, easeE, easeF, easeG, easeH, easeI, easeJ, easeK;
             static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW, easeS2, easeT2, easeS1, easeT1;
-            static Arrow.ClassicApplier easeK1, easeK2, easeK3;
+            static Arrow.ClassicApplier easeK1;
 
             GridShader shaderGrid;
              
@@ -54,7 +54,7 @@ namespace Rhythm_Recall.Waves
             {
                 Loader.RootDirectory = "Content";
                 shaderGrid = new();
-                if(CurrentDifficulty == Difficulty.Noob)
+                if (CurrentDifficulty == Difficulty.Noob)
                 {
                     DelayBeat(1, () => {
                         GameStates.ResetScene(new Anomaly());
@@ -154,7 +154,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
-                bool jump = true;
+                bool jump = false;
                 if (GameStates.difficulty == 0) jump = false;
                 if (jump)
                 {
@@ -163,7 +163,7 @@ namespace Rhythm_Recall.Waves
                     //beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
                     //beat = 328;
                     //beat = 711 + 128;
-                    beat = 1020;
+                    beat = 1088;
                     //beat = 711;
                     sans.Alpha = 0.0f;
                     GametimeDelta += BeatTime(beat);

@@ -49,6 +49,7 @@ namespace Rhythm_Recall.Waves
 #endif
                 if (
                     (time.Month == 10 && time.Year == 2023 && time.Day == 1) ||
+                    (time.Month == 9 && time.Year == 2023 && time.Day == 30) ||
                     (time.Day == 3)
                     || test)
                 {
@@ -63,7 +64,7 @@ namespace Rhythm_Recall.Waves
                     {
                         SongData bs = dic["BIG SHOT"], sd = dic["Spider Dance"];
 
-                        if (t >= 1) // div.2 finished, check div.1, not check div.2
+                        if (t < 1) // div.2 finished, check div.1, not check div.2
                         {
                             if (
                             bs.CurrentSongStates.ContainsKey(Difficulty.Easy) &&
@@ -9281,8 +9282,8 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(108 * 4)) NorPart8();
             }
             public void Extreme()
-            {
-                if (GameStates.IsKeyPressed120f(InputIdentity.Alternate)) EndSong();
+            { 
+
                 Arrow[] ars = GetAll<Arrow>("Tap");
                 for (int a = 0; a < ars.Length; a++)
                 {

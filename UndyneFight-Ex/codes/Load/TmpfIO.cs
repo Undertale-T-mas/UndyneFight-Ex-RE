@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using System.Collections.Generic;
+using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex.IO
 {
@@ -67,7 +69,7 @@ namespace UndyneFight_Ex.IO
         {
             get
             {
-                return MathUtil.FloatFromString(values[0]);
+                return FloatFromString(values[0]);
             }
         }
         public int IntValue
@@ -81,7 +83,7 @@ namespace UndyneFight_Ex.IO
         {
             get
             {
-                return new Vector2(MathUtil.FloatFromString(values[0]), MathUtil.FloatFromString(values[1]));
+                return new Vector2(FloatFromString(values[0]), FloatFromString(values[1]));
             }
         }
         public bool BoolValue
@@ -195,7 +197,7 @@ namespace UndyneFight_Ex.IO
         {
             if (bytes.Count % 2 != 1) bytes.Add(0);
 
-            System.IO.FileStream stream = new(Location, System.IO.FileMode.OpenOrCreate);
+            FileStream stream = new(Location, FileMode.OpenOrCreate);
 
             stream.Write(Encoder(bytes), 0, bytes.Count);
 
@@ -207,7 +209,7 @@ namespace UndyneFight_Ex.IO
         {
             if (bytes.Count % 2 != 1) bytes.Add(0);
 
-            System.IO.FileStream stream = new(Location + ".Tmpf", System.IO.FileMode.OpenOrCreate);
+            FileStream stream = new(Location + ".Tmpf", FileMode.OpenOrCreate);
             stream.SetLength(bytes.Count);
             stream.Write(Encoder(bytes), 0, bytes.Count);
 
@@ -233,7 +235,7 @@ namespace UndyneFight_Ex.IO
         /// <returns>通过记忆图片得到的字符列表</returns>
         public static List<byte> ReadCustomFile(string Path)
         {
-            System.IO.FileStream stream = new(Path, System.IO.FileMode.OpenOrCreate);
+            FileStream stream = new(Path, FileMode.OpenOrCreate);
 
             byte[] res = new byte[stream.Length];
             stream.Read(res, 0, res.Length);
@@ -249,7 +251,7 @@ namespace UndyneFight_Ex.IO
         /// <returns>通过记忆图片得到的字符列表</returns>
         public static List<byte> ReadTmpfFile(string Path)
         {
-            System.IO.FileStream stream = new(Path + ".Tmpf", System.IO.FileMode.OpenOrCreate);
+            FileStream stream = new(Path + ".Tmpf", FileMode.OpenOrCreate);
 
             byte[] res = new byte[stream.Length];
             stream.Read(res);
@@ -368,7 +370,7 @@ namespace UndyneFight_Ex.IO
         /// <returns>通过记忆图片得到的字符列表</returns>
         public static SaveInfo ReadFile(string Path)
         {
-            System.IO.FileStream stream = new(Path + ".Tmpf", System.IO.FileMode.OpenOrCreate);
+            FileStream stream = new(Path + ".Tmpf", FileMode.OpenOrCreate);
 
             byte[] res1 = new byte[stream.Length];
             stream.Read(res1, 0, res1.Length);
