@@ -9,6 +9,10 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using static Extends.DrawingUtil;
+using static UndyneFight_Ex.MathUtil;
+using static UndyneFight_Ex.Fight.Functions.ScreenDrawing;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace Rhythm_Recall.Waves
 {
@@ -280,27 +284,27 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(4 * 15))
                 {
-                    CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                    CreateChart(BeatTime(5), BeatTime(1), 6.5f, new string[]
                     {
                         "","","","",    "","","","",    "","","","",    "","","","",
-                        "d","","","",    "d","","","",    "d","","","",    "d","","","",
+                        "d","","","",    "+2","","","",    "+2","","","",    "+2","","","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+2","","","",    "+2","","","",    "+2","","","",    "","","-1","",
+                        "+01","","+0","",    "","","+21","",    "","","","",    "+21","","","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+21","","+11","",    "-11","","","",    "+21","","","",    "","","","",
+                        "$2","","$1","",    "$0","","$1","",    "$2","","","",    "+2","","","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+2","","","",    "+2","","","",    "+2","","","",    "","","+1","",
+                        "$01","","+11","",    "+11","","","",    "+21","","","",    "+21","","","",
                         ////
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+21","","","",    "+21","","","",    "+21","","","",    "","","","",
+                        "d1","","+11","",    "-11","","+11","",    "-11","","","",    "d","","-1","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+1","","-1","",    "+1","","","",    "d1","","-11","",    "+11","","-11","",
+                        "+11","","","",    "d","","+1","",    "-1","","+1","",    "-1","","","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "*$3","","*$31","",    "*$3","","*$31","",    "","","","",    "","","","",
                         "","","","",    "","","","",    "","","","",    "","","","",
                         //
                         "","","","",    "","","","",    "","","","",    "","","","",
@@ -337,9 +341,9 @@ namespace Rhythm_Recall.Waves
             {
                 game = this;
                 production = Blur = new Blur(0.505f);
-                production1 = new Filter(Shaders.StepSample, 0.51f);
+                production1 = new Filter(FightResources.Shaders.StepSample, 0.51f);
                 splitter = new RGBSplitting(0.9f) { Disturbance = false };
-                StepSample = Shaders.StepSample;
+                StepSample = FightResources.Shaders.StepSample;
                 Blur.Sigma = 0f;
                 StepSample.Intensity = 0.0f;
                 StepSample.CentreX = 320f;
@@ -358,11 +362,10 @@ namespace Rhythm_Recall.Waves
                 Settings.GreenTap = true;
 
                 GametimeDelta =BeatTime(-0.65f);
-                PlayOffset = BeatTime(0);
                 bool jump = false;
                 if (jump)
                 {
-                    float beat = 4f * 40;
+                    int beat = 4 * 40;
                     GametimeDelta =BeatTime(-0.65f + beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
