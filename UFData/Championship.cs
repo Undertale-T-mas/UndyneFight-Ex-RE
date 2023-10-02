@@ -62,6 +62,10 @@ namespace UFData
         }
         public ChampionshipParticipant() { }
 
+        public void Update()
+        {
+            this._count = false;
+        }
         public void Update(int index, float acc)
         {
             this.AccuracyList[index] = MathF.Max(acc, this.AccuracyList[index]);
