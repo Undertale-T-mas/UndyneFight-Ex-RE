@@ -65,7 +65,7 @@ namespace UndyneFight_Ex
             static KeyChecker()
             {
                 //if (File.Exists("Keybinds.txt"))
-                if (true)
+                if (false)
                 {
                     //Load keybinds
                     string[] texts = File.ReadAllLines("Keybinds.txt");
