@@ -43,20 +43,20 @@ namespace UndyneFight_Ex
             }
             Dictionary<InputIdentity, IdentityChecker> _identityCheckers = new();
 
-            public static Keys[] StringToKey(string text)
+            public static List<Keys> StringToKey(string text)
             {
-                Keys[] keys = new Keys[1];
+                List<Keys> keys = new();
                 if (string.IsNullOrEmpty(text))
                 {
-                    keys[0] = Keys.None;
-                    return keys;
+                    return new() { Keys.None };
                 }
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(Keys));
-                string[] keyValueTemp = text?.Split(',');
+                string[] keyValueTemp = text.Split(',');
                 var Length = keyValueTemp.Length;
                 for (int i = 0; i < Length; i++)
                 {
                     keys[i] = (Keys)converter.ConvertFromString(keyValueTemp[i]);
+                    keys[i] = keys[i];
                 }
                 
                 return keys;
@@ -65,7 +65,7 @@ namespace UndyneFight_Ex
             static KeyChecker()
             {
                 //if (File.Exists("Keybinds.txt"))
-                if (true)
+                if (false)
                 {
                     //Load keybinds
                     string[] texts = File.ReadAllLines("Keybinds.txt");
@@ -73,8 +73,9 @@ namespace UndyneFight_Ex
                     for (int i = 0; i < 36; i++)
                     {
                         string cur = texts[i];
-                        cur = cur[(cur.IndexOf(": ") + 1)..];
-                        defaultInput.Add((InputIdentity)i, new(StringToKey(cur)));
+                        cur = cur[(cur.IndexOf(": ") + 2)..];
+                        List<Keys> tmp = StringToKey(cur);
+                        defaultInput.Add((InputIdentity)i, new(tmp));
                     }
                 }
                 else
