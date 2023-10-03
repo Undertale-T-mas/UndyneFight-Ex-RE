@@ -46,6 +46,7 @@
     <ProjectReference Include="..\UndyneFight-RE\UndyneFight_RE.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\" />
     <Folder Include="Content\Shop\Souvenir\" />
   </ItemGroup>
   <ItemGroup>

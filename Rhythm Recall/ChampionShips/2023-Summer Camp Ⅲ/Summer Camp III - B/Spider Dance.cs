@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Extends;
 using System;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
@@ -11,7 +12,6 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using Extends;
 using static Extends.DrawingUtil;
 using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing;

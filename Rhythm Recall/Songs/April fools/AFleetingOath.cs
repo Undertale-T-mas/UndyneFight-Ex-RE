@@ -9,6 +9,10 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using static Extends.DrawingUtil;
+using static UndyneFight_Ex.MathUtil;
+using static UndyneFight_Ex.Fight.Functions.ScreenDrawing;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace Rhythm_Recall.Waves
 {
@@ -58,9 +62,9 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "Neko Hacker feat. Tsukasa";
             }
             public SongInformation Attributes => new ThisInformation();
-            private bool notRegistered = true;
             public static Game game;
             GlobalResources.Effects.StepSampleShader StepSample;
+            private bool notRegistered = true;
             ScreenDrawing.Shaders.Blur Blur;
             RenderProduction production, production1, production2;
             ScreenDrawing.Shaders.RGBSplitting splitter = new();
@@ -94,6 +98,16 @@ namespace Rhythm_Recall.Waves
             {
                 if (InBeat(0))
                 {
+                    Arrow.UnitEasing easeRl = new();
+                    Arrow.UnitEasing easeRr = new();
+                    AddInstance(easeRr);
+                    AddInstance(easeRl);
+                    easeRr.ApplyTime = BeatTime(2);
+                    easeRr.RotationEase = LinkEase(EaseOut(BeatTime(1), 0, 10, EaseState.Quad), EaseIn(BeatTime(1), 10, 0, EaseState.Quad));
+                    easeRl.ApplyTime = BeatTime(2);
+                    easeRl.RotationEase = LinkEase(EaseOut(BeatTime(1), 0, -10, EaseState.Quad), EaseIn(BeatTime(1), -10, 0, EaseState.Quad));
+                    easeRl.TagApply("L");
+                    easeRr.TagApply("R");
                     #region easeA
                     Arrow.UnitEasing easeA1 = new();
                     Arrow.UnitEasing easeA2 = new();
@@ -220,12 +234,80 @@ namespace Rhythm_Recall.Waves
                     easeC7.TagApply("C7");
                     easeC8.TagApply("C8");
                     #endregion
+                    RegisterFunctionOnce("LineA", () =>
+                    {
+                        Line a = new(LinkEase(EaseOut(BeatTime(1.25f), new Vector2(640, 420), new Vector2(180, 420), EaseState.Quad),
+                            EaseIn(BeatTime(0.75f), new Vector2(180, 420), new Vector2(320, 420), EaseState.Quad),
+                            EaseOut(BeatTime(2), new Vector2(320, 420), new Vector2(360, 420), EaseState.Sine)),
+                            LinkEase(Stable(BeatTime(2), 90),
+                            EaseOut(BeatTime(2), 90, 100, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        CreateEntity(a);
+                        DelayBeat(2, () => { a.AlphaDecrease(BeatTime(2)); });
+                        DelayBeat(4, () => { a.Dispose(); });
+                        DelayBeat(1, () =>
+                        {
+                            Line a = new(LinkEase(EaseOut(BeatTime(0.5f), new Vector2(640, 420), new Vector2(280, 420), EaseState.Quad),
+                                EaseIn(BeatTime(0.5f), new Vector2(280, 420), new Vector2(320, 420), EaseState.Quad),
+                                EaseOut(BeatTime(2), new Vector2(320, 420), new Vector2(420, 420), EaseState.Sine)),
+                                LinkEase(Stable(BeatTime(1), 90),
+                                EaseOut(BeatTime(2), 90, 115, EaseState.Sine)))
+                            { Alpha = 0.6f };
+                            CreateEntity(a);
+                            DelayBeat(1, () => { a.AlphaDecrease(BeatTime(2)); });
+                            DelayBeat(3, () => { a.Dispose(); });
+                        });
+                        DelayBeat(2, () =>
+                        {
+                            ScreenDrawing.CameraEffect.Convulse(0.3f, BeatTime(2), false);
+                            Line a = new(EaseOut(BeatTime(2), new Vector2(320, 420), new Vector2(500, 420), EaseState.Sine),
+                                EaseOut(BeatTime(2), 90, 130, EaseState.Sine))
+                            { Alpha = 0.5f };
+                            CreateEntity(a);
+                            a.AlphaDecrease(BeatTime(2));
+                            DelayBeat(2, () => { a.Dispose(); });
+                        });
+                    });
+                    RegisterFunctionOnce("LineB", () =>
+                    {
+                        Line a = new(LinkEase(EaseOut(BeatTime(1.25f), new Vector2(0, 420), new Vector2(640 - 180, 420), EaseState.Quad),
+                            EaseIn(BeatTime(0.75f), new Vector2(640 - 180, 420), new Vector2(320, 420), EaseState.Quad),
+                            EaseOut(BeatTime(2), new Vector2(320, 420), new Vector2(640 - 360, 420), EaseState.Sine)),
+                            LinkEase(Stable(BeatTime(2), 90),
+                            EaseOut(BeatTime(2), 90, 80, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        CreateEntity(a);
+                        DelayBeat(2, () => { a.AlphaDecrease(BeatTime(2)); });
+                        DelayBeat(4, () => { a.Dispose(); });
+                        DelayBeat(1, () =>
+                        {
+                            Line a = new(LinkEase(EaseOut(BeatTime(0.5f), new Vector2(0, 420), new Vector2(640 - 280, 420), EaseState.Quad),
+                                EaseIn(BeatTime(0.5f), new Vector2(640 - 280, 420), new Vector2(320, 420), EaseState.Quad),
+                                EaseOut(BeatTime(2), new Vector2(320, 420), new Vector2(640 - 420, 420), EaseState.Sine)),
+                                LinkEase(Stable(BeatTime(1), 90),
+                                EaseOut(BeatTime(2), 90, 65, EaseState.Sine)))
+                            { Alpha = 0.6f };
+                            CreateEntity(a);
+                            DelayBeat(1, () => { a.AlphaDecrease(BeatTime(2)); });
+                            DelayBeat(3, () => { a.Dispose(); });
+                        });
+                        DelayBeat(2, () =>
+                        {
+                            ScreenDrawing.CameraEffect.Convulse(0.3f, BeatTime(2), true);
+                            Line a = new(EaseOut(BeatTime(2), new Vector2(320, 420), new Vector2(640 - 500, 420), EaseState.Sine),
+                                EaseOut(BeatTime(2), 90, 50, EaseState.Sine))
+                            { Alpha = 0.5f };
+                            CreateEntity(a);
+                            a.AlphaDecrease(BeatTime(2));
+                            DelayBeat(2, () => { a.Dispose(); });
+                        });
+                    });
                     CreateChart(BeatTime(1), BeatTime(1), 6.5f, new string[]
                     {
-                        "d","","~_!+0","",    "~_+0","","~_!+0","",    "+0","","","",    "","","","",
+                        "(LineA)d@L","","~_!+0@L","",    "~_+0@L","","~_!+0@L","",    "+0@L","","","",    "","","","",
                         "*d","","","",    "","","","",    "","","","",    "","","","",
                         //
-                        "d","","~_!+0","",    "~_+0","","~_!+0","",    "+0","","","",    "","","","",
+                        "(LineB)d@R","","~_!+0@R","",    "~_+0@R","","~_!+0@R","",    "+0@R","","","",    "","","","",
                         "*d","","","",    "","","","",    "","","","",    "","","","",
                         //
                         "d","","","",    "","","","",    "d","","","",    "","","","",
@@ -234,10 +316,10 @@ namespace Rhythm_Recall.Waves
                         "d","","","",    "","","","",    "d","","","",    "","","","",
                         "d","","","",    "","","","",    "","","","",    "","","","",
                         ////
-                        "d1","","~_!+01","",    "~_+01","","~_!+01","",    "+01","","","",    "","","","",
+                        "(LineB)d1@R","","~_!+01@R","",    "~_+01@R","","~_!+01@R","",    "+01@R","","","",    "","","","",
                         "*d1","","","",    "","","","",    "","","","",    "","","","",
                         //
-                        "d1","","~_!+01","",    "~_+01","","~_!+01","",    "+01","","","",    "","","","",
+                        "(LineA)d1@L","","~_!+01@L","",    "~_+01@L","","~_!+01@L","",    "+01@L","","","",    "","","","",
                         "*d1","","","",    "","","","",    "","","","",    "","","","",
                         //
                         "d1","","","",    "","","","",    "d1","","","",    "","","","",
@@ -280,19 +362,62 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(4 * 15))
                 {
-                    CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
+                    Arrow.UnitEasing easeL = new();
+                    Arrow.UnitEasing easeR = new();
+                    AddInstance(easeL);
+                    AddInstance(easeR);
+                    easeL.ApplyTime = BeatTime(5);
+                    easeR.ApplyTime = BeatTime(5);
+                    easeL.PositionEase = Stable(BeatTime(5), new Vector2(-16, 0));
+                    easeR.PositionEase = Stable(BeatTime(5), new Vector2(16, 0));
+                    easeL.TagApply("L");
+                    easeR.TagApply("R");
+                    Arrow.UnitEasing easeL1 = new();
+                    Arrow.UnitEasing easeR1 = new();
+                    AddInstance(easeL1);
+                    AddInstance(easeR1);
+                    easeL1.ApplyTime = BeatTime(5);
+                    easeR1.ApplyTime = BeatTime(5);
+                    easeL1.PositionEase = Stable(BeatTime(5), new Vector2(-16, 0));
+                    easeR1.PositionEase = Stable(BeatTime(5), new Vector2(16, 0));
+                    easeR1.RotationEase = Linear(BeatTime(5), -90, -30);
+                    easeL1.RotationEase = Linear(BeatTime(5), 90, 30);
+                    easeL1.TagApply("L1");
+                    easeR1.TagApply("R1");
+                    RegisterFunctionOnce("Step", () =>
+                    {
+                        RunEase(s => StepSample.Intensity = s,
+                            EaseOut(BeatTime(1.2f), 0, 0.4f, EaseState.Quad),
+                            EaseIn(BeatTime(0.8f), 0.4f, 0, EaseState.Quad));
+                    });
+                    CreateChart(BeatTime(5), BeatTime(1), 6.5f, new string[]
                     {
                         "","","","",    "","","","",    "","","","",    "","","","",
-                        "d","","","",    "d","","","",    "d","","","",    "d","","","",
+                        "$2","","","",    "+2","","","",    "+2","","","",    "+2","","","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+2","","","",    "+2","","","",    "+2","","","",    "","","-1@R","",
+                        "+01@L","","+0@R","",    "","","+21","",    "","","","",    "+21","","","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+21","","+11","",    "-11","","","",    "+21","","","",    "","","","",
+                        "$2","","$1","",    "$0","","$1","",    "$2","","","",    "+2","","","",
                         //
-                        "","","","",    "","","","",    "","","","",    "","","","",
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                        "+2","","","",    "+2","","","",    "+2","","","",    "","","+1","",
+                        "$01","","+11","",    "+11","","","",    "+21","","","",    "+21","","","",
+                        ////
+                        "+21","","","",    "+21","","","",    "+21","","","",    "","","","",
+                        "d1","","+11","",    "-11","","+11","",    "-11","","","",    "d","","-1","",
+                        //
+                        "+1","","-1","",    "+1","","","",    "d1","","-11","",    "+11","","-11","",
+                        "+11","","","",    "d","","+1","",    "-1","","+1","",    "-1","","","",
+                        //
+                        "*$3@R","","*$31@L","",    "*$3@R","","*$31@L","",    "*$3@R","~_$3@R'4.2","(~_$3@R)(~_$3@R'4.2)","~_$3@R'4.2",    "(~_$3@R'4.2)","~_$3@R'4.2","","",
+                        "($0'1.2)($31'1.2)","","","",    "+11'1.2","","","",    "($2'1.2)($31'1.2)","","","",    "-11'1.2","","","",
+                        //
+                        "($01'1.2)($1'1.2)","","","",    "+1'1.2","","","",    "($21'1.2)($1'1.2)","","","",    "-1'1.2","","","",
+                        "(*$2'1.4)(*$11'1.4)","","","",    "(*$2'1.4)(*$31'1.4)","","","",    "(*$01'1.4)(*$1'1.4)","","","",    "(*$01'1.4)(*$3'1.4)","","","",
+                        ////
+                        "*$21'1.6","","*$0'1.6","",    "*$21'1.6","","*$0'1.6","",    "*$1'1.6@R1","","*$11'1.6@L1","",    "*$1'1.6@R1","","*$11'1.6@L1","",
+                        "(Step)(#1.7#$2)(#1.7#$01)","","","",    "","","","",    "","","","",    "","","","",
                         ////
                         "","","","",    "","","","",    "","","","",    "","","","",
                         "","","","",    "","","","",    "","","","",    "","","","",
@@ -306,7 +431,13 @@ namespace Rhythm_Recall.Waves
                         "","","","",    "","","","",    "","","","",    "","","","",
                         "","","","",    "","","","",    "","","","",    "","","","",
                         ////
-                        "","","","",    "","","","",    "","","","",    "","","","",
+                    });
+                }
+                if (InBeat(4 * 24))
+                {
+                    CreateChart(BeatTime(5), BeatTime(1), 6.5f, new string[]
+                    {
+                        "$0","","$3","",    "$21","","$31","",    "($2)($01)","","","",    "","","","",
                         "","","","",    "","","","",    "","","","",    "","","","",
                         //
                         "","","","",    "","","","",    "","","","",    "","","","",
@@ -337,9 +468,9 @@ namespace Rhythm_Recall.Waves
             {
                 game = this;
                 production = Blur = new Blur(0.505f);
-                production1 = new Filter(Shaders.StepSample, 0.51f);
+                production1 = new Filter(FightResources.Shaders.StepSample, 0.51f);
                 splitter = new RGBSplitting(0.9f) { Disturbance = false };
-                StepSample = Shaders.StepSample;
+                StepSample = FightResources.Shaders.StepSample;
                 Blur.Sigma = 0f;
                 StepSample.Intensity = 0.0f;
                 StepSample.CentreX = 320f;
@@ -356,13 +487,14 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.HPBar.HPLoseColor = Color.DarkRed;
                 ScreenDrawing.HPBar.HPExistColor = Color.Blue * 0.7f;
                 Settings.GreenTap = true;
+                HeartAttribute.ArrowFixed = true;
 
                 GametimeDelta =BeatTime(-0.65f);
-                PlayOffset = BeatTime(0);
-                bool jump = false;
+                bool jump = true;
                 if (jump)
                 {
-                    float beat = 4f * 40;
+                    int beat = 0;
+                    //int beat = 4 * 15;
                     GametimeDelta =BeatTime(-0.65f + beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;

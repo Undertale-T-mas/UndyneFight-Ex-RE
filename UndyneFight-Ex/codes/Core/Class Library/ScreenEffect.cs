@@ -160,7 +160,7 @@ namespace UndyneFight_Ex.Fight
                 /// </summary>
                 /// <param name="intensity">抽动强度</param>
                 /// <param name="time">抽动持续时间</param>
-                /// <param name="direction">抽动方向，false为先左后右，否则为先右后左</param>
+                /// <param name="direction">抽动方向，false为先右后左，否则为先左后右</param>
                 public static void Convulse(float intensity, float time, bool direction)
                 {
                     if (intensity <= 0)

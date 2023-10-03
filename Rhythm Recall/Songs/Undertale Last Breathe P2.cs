@@ -67,6 +67,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 147)
             {
+                PlaySound(FightResources.Sounds.pierce);
                 CreateBone(new DownBone(true, 3.6f, 30));
                 CreateBone(new DownBone(false, 3.6f, 30));
             }

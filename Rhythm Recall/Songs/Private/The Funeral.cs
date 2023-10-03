@@ -167,7 +167,7 @@ namespace Rhythm_Recall.Waves
                 Blur.Glittering = true;
                 Blur.GlitterScale = 0.8f;
 
-                Text text = DrawText(BeatTime(0.25f), "$YES! $no! $&#*(& 嶄猟 晩云のひらがなとカタカナのテスト", new Vector2(60, 150), false,
+                /*Text text = DrawText(BeatTime(0.25f), "$YES! $no! $&#*(& 嶄猟 晩云のひらがなとカタカナのテスト", new Vector2(60, 150), false,
                     new TextColorEffect(Color.Aqua, 3),
                     new TextColorEffect(Color.Red, 2),
                     new TextMotionEffect(SineWave(new Vector2(0, 20), BeatTime(2)), 6)
@@ -186,7 +186,7 @@ namespace Rhythm_Recall.Waves
                 Shaders.DislocationX.Intensity = 7;
                 Shaders.DislocationX.Speed = 5;
                 Shaders.DislocationX.RGBSplitEnabled = true;
-                Shaders.DislocationX.ChunkHeight = 2; 
+                Shaders.DislocationX.ChunkHeight = 2; */
                 /*
                 ScreenDrawing.ActivateShaderBack(Shaders.Aurora, 0.612f);
                 Shaders.Aurora.ThemeColor = Color.Yellow;
