@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {

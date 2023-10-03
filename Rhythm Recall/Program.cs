@@ -123,6 +123,7 @@ Alternate: Space";
 
             #region Test Charts
             SongSet test = new("Test");
+            test.Push(typeof(AprilExtends.BocchiTheRock));
             test.Push(typeof(AFleetingOath));
             test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(Clb1e86f2));

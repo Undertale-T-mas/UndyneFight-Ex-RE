@@ -11,6 +11,7 @@ using UndyneFight_Ex.Remake.Effects;
 using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex.UserService;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -102,13 +103,10 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Draw()
         {
             var font = FightResources.Font.NormalFont;
-            font.CentreDraw("Rhythm Recall Team", new(480, 56), Color.White, 1.5f, 0.1f);
-            font.Draw("Art by:", new(80, 116 + 80 * 0), Color.White, 1.4f, 0.1f);
-            font.Draw("Music by:", new(80, 116 + 80 * 1), Color.White, 1.4f, 0.1f);
-            font.Draw("Chart by:", new(80, 116 + 80 * 2), Color.White, 1.4f, 0.1f);
-            font.Draw("Effect by:", new(80, 116 + 80 * 3), Color.White, 1.4f, 0.1f);
-            font.Draw("UF-Ex Engine by", new(80, 116 + 80 * 4), Color.White, 1.4f, 0.1f);
-             
+            font.CentreDraw("Rhythm Recall Arcade Team", new(480, 56), Color.White, 1.5f, 0.1f);
+            for (int i = 0; i < TextList.Length; i++)
+                font.Draw(TextList[i], new(80, 116 + 80 * i), Color.White, 1.4f, 0.1f);
         }
+        string[] TextList = { "Art by:", "Music by:", "Chart by:", "Effect by:", "UF-Ex Engine by:"};
     }
 }

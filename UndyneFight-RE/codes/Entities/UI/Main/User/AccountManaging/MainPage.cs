@@ -115,6 +115,14 @@ namespace UndyneFight_Ex.Remake.UI
             }
             font.CentreDraw("Death count:" + AccountData.PlayerStatistic.DeathCount, new(492, 427), Color.White, 1.23f, 0.1f);
             font.CentreDraw("Abs.Rating:" + MathUtil.FloatToString(AccountData.AbsoluteSkill, 2), new(480, 385), Color.White, 1.2f, 0.1f);
+
+            //Rating List
+            DrawingLab.DrawLine(new(480, BoxYTop + 2.5f), new(480, 721), 952.5f, Color.Black, 0.2f);
+            DrawingLab.DrawLine(new(0, BoxYTop), new(960, BoxYTop), 5, Color.White, 0.4f);
+            DrawingLab.DrawLine(new(2.5f, BoxYTop), new(2.5f, BoxYTop + 600), 5, Color.White, 0.4f);
+            DrawingLab.DrawLine(new(957.5f, BoxYTop), new(957.5f, BoxYTop + 600), 5, Color.White, 0.4f);
+
+            font.CentreDraw("Rating Data", new(480, BoxYTop + 40), Color.White, 1.5f, 0.1f);
         }
 
         private static readonly Color[] ratingLevels = { Color.Green, Color.Lime, Color.LawnGreen, Color.Blue,
@@ -164,6 +172,10 @@ namespace UndyneFight_Ex.Remake.UI
         float playTimeHour;
         int timer = 0;
 
+        bool active = false;
+        int RatingTimer = 0;
+        float BoxYTop = 480;
+
         public override void Update()
         {
             timer++;
@@ -176,6 +188,22 @@ namespace UndyneFight_Ex.Remake.UI
                 this.Dispose();
                 GameStates.InstanceCreate(new DEBUG.IntroUI());
             }
+
+
+            if (active)
+            {
+                if (RatingTimer < 60) RatingTimer++;
+            }
+            else
+            {
+                if (RatingTimer > 0) RatingTimer--;
+            }
+
+            if (GameStates.IsKeyPressed120f(InputIdentity.Alternate))
+            {
+                active = !active;
+            }
+            BoxYTop = TKValueEasing.EaseInOutCirc(RatingTimer, 720, -420, 60);
         }
     }
 }

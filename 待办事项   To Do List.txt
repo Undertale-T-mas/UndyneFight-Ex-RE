@@ -1,3 +1,4 @@
 Optimise Codes
 Text file for Input Identity reading (KeyChecker.cs)
 Account merge
+Rating List
