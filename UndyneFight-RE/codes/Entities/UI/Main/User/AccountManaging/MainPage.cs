@@ -25,8 +25,11 @@ namespace UndyneFight_Ex.Remake.UI
         } 
 
         User AccountData;
+        RatingCalculater.RatingList.SingleSong[] data = new RatingCalculater.RatingList.SingleSong[9];
+        RatingCalculater.RatingList list;
         public AccountManager() {
             AccountData = PlayerManager.CurrentUser;
+            list = PlayerManager.CurrentUser.GenerateList();
         }
 
         public override void Start()
@@ -36,6 +39,17 @@ namespace UndyneFight_Ex.Remake.UI
             // Do initializes
             this.InitializeColor();
             this.InitializeMedal();
+
+            data[0] = list.APDonor;
+            data[1] = list.FCDonor;
+            data[2] = list.CompleteDonor;
+            for (int i = 0; i < 7; i++)
+            {
+                if (list.StrictDonors.Count == 0)
+                    list.StrictDonors.Add(new("NULL", Difficulty.Noob, 0, 0, 0, 0));
+                data[2 + i] = list.StrictDonors.Max;
+                list.StrictDonors.Remove(list.StrictDonors.Max);
+            }
         }
         Color[] vertexColors;
 
@@ -88,6 +102,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Draw()
         {
+            #region User UI
             DrawLines();
 
             // show the basic statistic of account
@@ -115,14 +130,27 @@ namespace UndyneFight_Ex.Remake.UI
             }
             font.CentreDraw("Death count:" + AccountData.PlayerStatistic.DeathCount, new(492, 427), Color.White, 1.23f, 0.1f);
             font.CentreDraw("Abs.Rating:" + MathUtil.FloatToString(AccountData.AbsoluteSkill, 2), new(480, 385), Color.White, 1.2f, 0.1f);
+            #endregion
 
-            //Rating List
-            DrawingLab.DrawLine(new(480, BoxYTop + 2.5f), new(480, 721), 952.5f, Color.Black, 0.2f);
-            DrawingLab.DrawLine(new(0, BoxYTop), new(960, BoxYTop), 5, Color.White, 0.4f);
-            DrawingLab.DrawLine(new(2.5f, BoxYTop), new(2.5f, BoxYTop + 600), 5, Color.White, 0.4f);
-            DrawingLab.DrawLine(new(957.5f, BoxYTop), new(957.5f, BoxYTop + 600), 5, Color.White, 0.4f);
+            #region Rating List
+            //Box
+            float BoxDepth = 1f;
+            DrawingLab.DrawLine(new(480, BoxYTop + 2.5f), new(480, 721), 952.5f, Color.Black, BoxDepth - 0.1f);
+            DrawingLab.DrawLine(new(0, BoxYTop), new(960, BoxYTop), 5, Color.White, BoxDepth);
+            DrawingLab.DrawLine(new(2.5f, BoxYTop), new(2.5f, BoxYTop + 600), 5, Color.White, BoxDepth);
+            DrawingLab.DrawLine(new(957.5f, BoxYTop), new(957.5f, BoxYTop + 600), 5, Color.White, BoxDepth);
 
-            font.CentreDraw("Rating Data", new(480, BoxYTop + 40), Color.White, 1.5f, 0.1f);
+            DrawingLab.DrawLine(new(451, BoxYTop + ArrowY), new(481, BoxYTop - 80), 5, Color.White, BoxDepth);
+            DrawingLab.DrawLine(new(509, BoxYTop + ArrowY), new(479, BoxYTop - 80), 5, Color.White, BoxDepth);
+
+            font.CentreDraw("Rating Data", new(480, BoxYTop + 40), Color.White, 1.5f, BoxDepth);
+
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                FightResources.Font.FightFont.Draw(data[i].name, new(50, BoxYTop + 60 + i * 50), Color.White);
+            }
+            #endregion
         }
 
         private static readonly Color[] ratingLevels = { Color.Green, Color.Lime, Color.LawnGreen, Color.Blue,
@@ -175,7 +203,7 @@ namespace UndyneFight_Ex.Remake.UI
         bool active = false;
         int RatingTimer = 0;
         float BoxYTop = 480;
-
+        float ArrowY = -50;
         public override void Update()
         {
             timer++;
@@ -204,6 +232,7 @@ namespace UndyneFight_Ex.Remake.UI
                 active = !active;
             }
             BoxYTop = TKValueEasing.EaseInOutCirc(RatingTimer, 720, -420, 60);
+            ArrowY = TKValueEasing.EaseInOutCirc(RatingTimer, -50, -60, 60);
         }
     }
 }
