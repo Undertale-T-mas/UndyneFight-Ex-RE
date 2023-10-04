@@ -13,7 +13,9 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.UserService;
-using UndyneFight_Ex.Remake.Texts; 
+using UndyneFight_Ex.Remake.Texts;
+using static UndyneFight_Ex.UserService.RatingCalculater.RatingList;
+using static UndyneFight_Ex.FightResources.Font;
 
 namespace UndyneFight_Ex.Remake.UI
 { 
@@ -25,7 +27,7 @@ namespace UndyneFight_Ex.Remake.UI
         } 
 
         User AccountData;
-        RatingCalculater.RatingList.SingleSong[] data = new RatingCalculater.RatingList.SingleSong[9];
+        SingleSong[] data = new SingleSong[9];
         RatingCalculater.RatingList list;
         public AccountManager() {
             AccountData = PlayerManager.CurrentUser;
@@ -45,8 +47,7 @@ namespace UndyneFight_Ex.Remake.UI
             data[2] = list.CompleteDonor;
             for (int i = 0; i < 7; i++)
             {
-                if (list.StrictDonors.Count == 0)
-                    list.StrictDonors.Add(new("NULL", Difficulty.Noob, 0, 0, 0, 0));
+                if (list.StrictDonors.Count == 0) break;
                 data[2 + i] = list.StrictDonors.Max;
                 list.StrictDonors.Remove(list.StrictDonors.Max);
             }
@@ -106,7 +107,7 @@ namespace UndyneFight_Ex.Remake.UI
             DrawLines();
 
             // show the basic statistic of account
-            GLFont font = FightResources.Font.NormalFont;
+            GLFont font = NormalFont;
             font.CentreDraw(AccountData.PlayerName, new(480, 268), Color.White, 1.5f, 0.21f);
 
             float alp = 0.3f;
@@ -145,11 +146,37 @@ namespace UndyneFight_Ex.Remake.UI
 
             font.CentreDraw("Rating Data", new(480, BoxYTop + 40), Color.White, 1.5f, BoxDepth);
 
-
+            Color TextColor;
+            string RatingText, DifficultyText, SongName;
             for (int i = 0; i < data.Length; i++)
             {
-                FightResources.Font.FightFont.Draw(data[i].name, new(50, BoxYTop + 60 + i * 50), Color.White);
+                TextColor = i switch
+                {
+                    0 => Color.Gold,
+                    1 => Color.Orange,
+                    2 => Color.Lime,
+                    _ => Color.White,
+                };
+                DifficultyText = (int)data[i].difficulty switch
+                {
+                    0 => "NB",
+                    1 => "EZ",
+                    2 => "NR",
+                    3 => "HD",
+                    4 => "EX",
+                    5 => "EX+",
+                    _ => ""
+                };
+                SongName = data[i].name.Length > 16 ? data[i].name[0..7] + "..." + data[i].name[(data[i].name.Length - 7)..] : data[i].name;
+                RatingText = $"{SongName} ({ DifficultyText}, LV.{data[i].threshold})";
+                NormalFont.Draw(RatingText, new(50, BoxYTop + 60 + i * 30), TextColor, 1, BoxDepth);
+                NormalFont.Draw($"ACC = { (data[i].accuracy * 100):F2}%", new(570, BoxYTop + 60 + i * 30), TextColor, 1, BoxDepth);
+                NormalFont.Draw($"{data[i].scoreResult:F2}", new(790, BoxYTop + 60 + i * 30), TextColor, 1, BoxDepth);
             }
+            DrawingLab.DrawLine(new(0, BoxYTop + 350), new(960, BoxYTop + 350), 5, Color.White, BoxDepth);
+            NormalFont.Draw("Song Name", new(50, BoxYTop + 360), Color.White, 1.3f, BoxDepth);
+            NormalFont.Draw("Accuracy", new(570, BoxYTop + 360), Color.White, 1.3f, BoxDepth);
+            NormalFont.Draw("Rating", new(790, BoxYTop + 360), Color.White, 1.3f, BoxDepth);
             #endregion
         }
 
@@ -232,7 +259,7 @@ namespace UndyneFight_Ex.Remake.UI
                 active = !active;
             }
             BoxYTop = TKValueEasing.EaseInOutCirc(RatingTimer, 720, -420, 60);
-            ArrowY = TKValueEasing.EaseInOutCirc(RatingTimer, -50, -60, 60);
+            ArrowY = TKValueEasing.EaseInOutBack(RatingTimer, -50, -60, 60);
         }
     }
 }
