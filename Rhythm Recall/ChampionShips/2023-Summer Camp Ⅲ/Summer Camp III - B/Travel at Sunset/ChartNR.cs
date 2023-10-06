@@ -24,7 +24,7 @@ namespace Rhythm_Recall.Waves
             {
 
                 //Manual end song
-                if (GametimeF == 302 * 60) EndSong();
+                if (GametimeF == 310 * 60) EndSong();
                 NRPre();
                 NRBuildup();
                 if (InBeat(206, 232) && At0thBeat(1f))
