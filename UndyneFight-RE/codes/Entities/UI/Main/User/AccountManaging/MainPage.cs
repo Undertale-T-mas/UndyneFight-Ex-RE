@@ -27,7 +27,7 @@ namespace UndyneFight_Ex.Remake.UI
         } 
 
         User AccountData;
-        SingleSong[] data = new SingleSong[9];
+        SingleSong[] data = new SingleSong[10];
         RatingCalculater.RatingList list;
         public AccountManager() {
             AccountData = PlayerManager.CurrentUser;
@@ -45,7 +45,7 @@ namespace UndyneFight_Ex.Remake.UI
             data[0] = list.APDonor;
             data[1] = list.FCDonor;
             data[2] = list.CompleteDonor;
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i <= 7; i++)
             {
                 if (list.StrictDonors.Count == 0) break;
                 data[2 + i] = list.StrictDonors.Max;
@@ -167,7 +167,8 @@ namespace UndyneFight_Ex.Remake.UI
                     5 => "EX+",
                     _ => ""
                 };
-                SongName = data[i].name.Length > 16 ? data[i].name[0..7] + "..." + data[i].name[(data[i].name.Length - 7)..] : data[i].name;
+                string RealSongName = data[i].name;
+                SongName = RealSongName.Length > 16 ? RealSongName[0..7] + "..." + RealSongName[(RealSongName.Length - 7)..] : RealSongName;
                 RatingText = $"{SongName} ({ DifficultyText}, LV.{data[i].threshold})";
                 NormalFont.Draw(RatingText, new(50, BoxYTop + 60 + i * 30), TextColor, 1, BoxDepth);
                 NormalFont.Draw($"ACC = { (data[i].accuracy * 100):F2}%", new(570, BoxYTop + 60 + i * 30), TextColor, 1, BoxDepth);

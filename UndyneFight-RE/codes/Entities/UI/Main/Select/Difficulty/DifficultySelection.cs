@@ -34,7 +34,7 @@ namespace UndyneFight_Ex.Remake.UI
                     if (attribute != null)
                     {
                         var map = attribute.ComplexDifficulty;
-                        if (map.ContainsKey(difficulty)) this._difText = ((int)map[difficulty]).ToString();
+                        if (map.ContainsKey(difficulty)) this._difText = ((float)map[difficulty]).ToString("F1");
                         else this._difText = "?";
                     }
                     else {
@@ -84,7 +84,7 @@ namespace UndyneFight_Ex.Remake.UI
                     var normalFont = FightResources.Font.NormalFont;
                     var fightFont = FightResources.Font.FightFont;
                     fightFont.CentreDraw(_text, Centre - new Vector2(-1, 12 + _move), Color.Lerp(_color, _drawingColor, _scale));
-                    normalFont.CentreDraw(_difText, Centre + new Vector2(1, 12 - _move), Color.Lerp(_color, _drawingColor, _scale), 1.1f, 0.1f);
+                    normalFont.CentreDraw(_difText, Centre + new Vector2(1, 12 - _move), Color.Lerp(_color, _drawingColor, _scale), 0.7f, 0.1f);
 
                     if(this._move > 0.1f)
                     {

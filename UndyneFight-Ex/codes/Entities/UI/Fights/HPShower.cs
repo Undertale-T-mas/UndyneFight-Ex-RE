@@ -68,10 +68,10 @@ namespace UndyneFight_Ex.Entities
             else
             {
                 if (((CurrentScene as FightScene).Mode & GameMode.Buffed) == 0 && HeartAttribute.BuffedLevel == 0)
-                    hpString = CeilHP + " / " + Ceiling(HeartAttribute.MaxHP);
+                    hpString = $"{CeilHP} / {Ceiling(HeartAttribute.MaxHP)}";
                 else if (HeartAttribute.BuffedLevel != 0)
                 {
-                    hpString = string.Format("{0:N2}", RoundHP + " / " + Ceiling(HeartAttribute.MaxHP));
+                    hpString = $"{RoundHP:F2} / {Ceiling(HeartAttribute.MaxHP)}";
                 }
                 else
                 {
@@ -80,6 +80,10 @@ namespace UndyneFight_Ex.Entities
                     string hptext = string.Format("{0:N2}", hp * scale);
                     if (hptext.Length == 1) hptext += "0";
                     hpString = hptext + " / 20.00";
+                }
+                if (Heart.Shields.Circle.Consumption > 1)
+                {
+                    hpString += $"/ {(Heart.Shields.Circle.Consumption * 8 - 8) :F2}";
                 }
             }
             if (!Vertical)

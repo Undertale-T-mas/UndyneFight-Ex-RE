@@ -4151,7 +4151,7 @@ namespace Rhythm_Recall.Waves
                     RunEase(s =>
                     {
                         Heart.Alpha = s;
-                        
+                        FightBox.boxs[0].GreenSoulAlpha = Heart.Alpha;
                     }, Linear(BeatTime(4), 1, 0));
                 }
                 if (InBeat(1112, 1118))

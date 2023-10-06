@@ -588,7 +588,7 @@ namespace UndyneFight_Ex.Entities
                            _ => throw new ArgumentOutOfRangeException()
                        };
                 }
-                public float Consumption { private get; set; } = 0.0f;
+                public float Consumption { get; set; } = 0.0f;
 
                 private float drawConsumption = 0.0f;
 
