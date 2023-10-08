@@ -20,7 +20,7 @@ namespace UndyneFight_Ex.Remake.UI
                     { DefaultValue = masterVolume });
                     this.AddChild(_spearVolume = new ScrollBar(new CollideRect(510 - 80, 180, 80 * 2, 60), "Spear Volume", 0, 100, this)
                     { DefaultValue = SpearBlockingVolume });
-                    AddChild(_spearBlockSound = new AlternateButton(this, new(510, 130), "Arrow Sound", "Classic", "New")
+                    AddChild(_spearBlockSound = new AlternateButton(this, new(510, 320), "Arrow Sound", "New", "Classic")
                     {
                         DefaultValue = SpearBlockSound.ToString()
                     });
@@ -46,8 +46,8 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     SpearBlockSound = _spearBlockSound.Result switch
                     {
-                        "Classic" => 1,
-                        "New" => 0,
+                        "New" => 1,
+                        "Classic" => 0,
                         _ => throw new Exception()
                     };
                     masterVolume = (int)MathF.Round(_masterVolume.GetValue(), 0);
