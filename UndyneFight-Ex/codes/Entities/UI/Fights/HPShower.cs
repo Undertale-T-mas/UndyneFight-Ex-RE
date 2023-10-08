@@ -58,13 +58,16 @@ namespace UndyneFight_Ex.Entities
             FormalDraw(hpBar, collidingBox.ToRectangle(), hpExistCurrent);
             Depth = 0.0f;
             FormalDraw(hpBar, FullRect.ToRectangle(), hpLoseCurrent);
+            if (HeartAttribute.BuffedLevel > 0)
+            {
+                //FightFont.Draw($"B.LV. {HeartAttribute.BuffedLevel:F2}", new Vector2(FullRect.Left, collidingBox.Y - 10), Color.White, 0.5f, 0);
+            }
 
             string hpString;
             HeartAttribute.HP = Max(0, HeartAttribute.HP);
             var RoundHP = Round(HeartAttribute.HP, 2);
             var CeilHP = Ceiling(HeartAttribute.HP);
-            if (((CurrentScene as FightScene).Mode & GameMode.Practice) != 0)
-                hpString = "inf";
+            if (((CurrentScene as FightScene).Mode & GameMode.Practice) != 0) hpString = "inf";
             else
             {
                 if (((CurrentScene as FightScene).Mode & GameMode.Buffed) == 0 && HeartAttribute.BuffedLevel == 0)
@@ -81,7 +84,7 @@ namespace UndyneFight_Ex.Entities
                     if (hptext.Length == 1) hptext += "0";
                     hpString = hptext + " / 20.00";
                 }
-                if (Heart.Shields.Circle.Consumption > 1)
+                if (Heart.Shields != null && Heart.Shields.Circle.Consumption > 1)
                 {
                     hpString += $"/ {(Heart.Shields.Circle.Consumption * 8 - 8) :F2}";
                 }

@@ -11,7 +11,7 @@ namespace Rhythm_Recall.Waves
 {
     public class ULBFight : IWaveSet
     {
-        public string FightName => "The Slaughter Continues";
+        public string FightName => "ULB sans Phase 2";
 
         public string Music => "ulb theme";
 
