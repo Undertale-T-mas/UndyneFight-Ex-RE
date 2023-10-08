@@ -1,15 +1,12 @@
 ﻿using static UndyneFight_Ex.FightResources.Font;
 using Microsoft.Xna.Framework;
-using System.Xml;
-using System;
 using System.Linq;
 using UndyneFight_Ex.Remake.Data;
 using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.Remake.FileData;
 using UndyneFight_Ex.Remake.Network;
-using System.Security.Cryptography;
-using System.Security.Principal;
+using static UndyneFight_Ex.PlayerManager;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -17,7 +14,7 @@ namespace UndyneFight_Ex.Remake.UI
     {
         public static void AutoAuthentic(string rememberedUser, string pswd)
         {
-            PlayerManager.Login(rememberedUser);
+            Login(rememberedUser);
             string password = pswd;
             string newPassword = "";
             bool keyPeriod = true;
@@ -43,8 +40,8 @@ namespace UndyneFight_Ex.Remake.UI
                     else if (s.Info == "success login")
                     {
                         KeepAliver.TryCreate();
-                        PlayerManager.CurrentUser.OnlineAsync = true;
-                        PlayerManager.CurrentUser.PasswordMemory = pswd;
+                        CurrentUser.OnlineAsync = true;
+                        CurrentUser.PasswordMemory = pswd;
                     }
                 }
             });
@@ -97,7 +94,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             private void DoConfirm()
             {
-                string result = PlayerManager.TryLogin(_account.Result, _password.Result);
+                string result = TryLogin(_account.Result, _password.Result);
                 if (result == "Success!")
                 {
                     GlobalMemory.AutoAuthentic.Value = _autoAuthentic.Ticked;
@@ -111,7 +108,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     SaveGlobal();
                     this.FatherObject?.FatherObject?.Dispose();
-                    PlayerManager.Login(_account.Result);
+                    Login(_account.Result);
                     DEBUG.IntroUI introUI;
                     InstanceCreate(introUI = new DEBUG.IntroUI());
                     SendLoginRequest();
@@ -147,7 +144,7 @@ namespace UndyneFight_Ex.Remake.UI
                         else if(s.Info == "success login")
                         {
                             KeepAliver.TryCreate();
-                            PlayerManager.CurrentUser.OnlineAsync = true;
+                            CurrentUser.OnlineAsync = true;
                         }
                     }
                 });
@@ -157,7 +154,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             private void NameInitialize()
             {
-                allNames = PlayerManager.playerInfos.Keys.ToArray();
+                allNames = playerInfos.Keys.ToArray();
             }
 
             // 0
@@ -228,7 +225,7 @@ namespace UndyneFight_Ex.Remake.UI
                 ChildObjects.Add(_confirm = new Button(this, new Vector2(543, 315), "Confirm") { NeverEnable = true });
                 ChildObjects.Add(_cancel = new Button(this, new Vector2(800, 315), "Cancel") { NeverEnable = true });
                  
-                if (PlayerManager.CurrentUser != null)
+                if (CurrentUser != null)
                 {
                     InstanceCreate(new InstantEvent(2, () => {
                         this.FatherObject?.FatherObject?.Dispose();

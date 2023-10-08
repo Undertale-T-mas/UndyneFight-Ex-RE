@@ -1,11 +1,7 @@
 ﻿using static UndyneFight_Ex.FightResources.Font;
 using Microsoft.Xna.Framework;
-using System.Xml;
-using System;
-using System.Linq;
-using UndyneFight_Ex.Remake.Data;
-using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Remake.Network;
+using UndyneFight_Ex.Remake.UI.DEBUG;
 using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -55,7 +51,7 @@ namespace UndyneFight_Ex.Remake.UI
                         PlayerManager.AddNewUser(_account.Result, this._password2.Result);
                         this._virtualFather.FatherObject.Dispose();
                         SendRegRequest();
-                        InstanceCreate(new DEBUG.IntroUI());
+                        InstanceCreate(new IntroUI());
                     }
                 }
                 else if (CurrentSelected == _cancel)
@@ -219,7 +215,7 @@ namespace UndyneFight_Ex.Remake.UI
             private void DoBack()
             {
                 this._virtualFather.FatherObject.Dispose();
-                InstanceCreate(new DEBUG.IntroUI());
+                InstanceCreate(new IntroUI());
             }
         }
     }

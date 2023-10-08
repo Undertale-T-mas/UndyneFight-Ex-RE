@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using System.Globalization;
-using UndyneFight_Ex.Remake.UI;
-using System.Threading;
+﻿using Microsoft.Xna.Framework;
 
 namespace UndyneFight_Ex.Remake
-{ 
+{
     public abstract class TextRenderer : TextEffect
     {
         public TextRenderer() { }

@@ -71,7 +71,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         ExhibitButton exhibit;
 
         static SmartMusicPlayer music;
-        BackGenerater _backGenerater;
+        BackGenerator _backGenerater;
 
         private static TipUI _tipUI = null;
         public static void PendingTip(TipUI tipUI)
@@ -92,7 +92,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             GameStates.InstanceCreate(new InstantEvent(2, () => {
                 var render = GameStates.CurrentScene.BackgroundRendering;
                 GameStates.CurrentScene.CurrentDrawingSettings.backGroundColor = Color.White;
-                render.InsertProduction(_backGenerater = new BackGenerater(0.6f));
+                render.InsertProduction(_backGenerater = new BackGenerator(0.6f));
             }));
 
             this.Activate();

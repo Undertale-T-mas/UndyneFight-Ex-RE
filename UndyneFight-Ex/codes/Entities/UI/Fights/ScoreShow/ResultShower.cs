@@ -58,6 +58,8 @@ namespace UndyneFight_Ex.Entities
                 okayCount = scoreResult.okay;
                 niceCount = scoreResult.nice;
                 perfectCount = scoreResult.perfect;
+                perfectECount = scoreResult.perfectE;
+                perfectLCount = scoreResult.perfectL;
                 maxCombo = scoreResult.maxCombo;
                 totalNote = missCount + okayCount + niceCount + perfectCount;
                 perfectPercent = perfectCount / (1.0f * totalNote);
@@ -222,7 +224,7 @@ namespace UndyneFight_Ex.Entities
             private bool plus;
             private JudgementState judgeState;
 
-            private readonly int missCount, okayCount, niceCount, perfectCount, score, maxCombo;
+            private readonly int missCount, okayCount, niceCount, perfectCount, perfectECount, perfectLCount, score, maxCombo;
             private readonly float perfectPercent, hitPercent;
 
             private readonly string topText;
@@ -370,6 +372,7 @@ namespace UndyneFight_Ex.Entities
                     NormalFont.Draw("perfect", new Vector2(214, 208), Color.Yellow * alpha);
                     NormalFont.Draw($"{perfectCount} = {(int)(perfectPercent * 100)}." +
                         $"{(int)(perfectPercent * 10000) - ((int)(perfectPercent * 100)) * 100}%", new Vector2(214 + 125, 208), Color.LightGray * alpha);
+                    NormalFont.Draw($"Early:{perfectECount} Late:{perfectLCount}", new(214, 238), Color.Orange * alpha, 0.7f, 0);
                     NormalFont.Draw("Max Combo:" + maxCombo, new Vector2(214, 251), Color.Silver * alpha);
                 }
             }

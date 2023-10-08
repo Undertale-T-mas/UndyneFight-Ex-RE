@@ -402,7 +402,7 @@ namespace UndyneFight_Ex
         {
             MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, anchor, scale, SpriteEffects.None, depth);
         }
-        public void LimitDraw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float lineLength, float lineDistance, float scale, float depth)
+        public void LimitDraw(string texts, Vector2 location, Color color, float lineLength, float lineDistance, float scale, float depth)
         {
             Vector2[] sizes = new Vector2[texts.Length];
             for (int i = 0; i < texts.Length; i++)
@@ -432,7 +432,7 @@ namespace UndyneFight_Ex
                 location.Y += lineDistance;
             }
         }
-        public void Draw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float rotation, float scale, float depth)
+        public void Draw(string texts, Vector2 location, Color color, float rotation, float scale, float depth)
         {
             MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, Vector2.Zero, scale, SpriteEffects.None, depth);
         }

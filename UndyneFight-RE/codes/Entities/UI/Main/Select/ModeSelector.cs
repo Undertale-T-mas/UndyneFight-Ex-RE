@@ -19,7 +19,9 @@ namespace UndyneFight_Ex.Remake.UI
                 int cur = 0;
                 public int Type => cur;
 
-                string[] modes = { "< Start! >", "< Championship >", "< Challenges >" };
+                //Don't uncomment until Challenges are avalible
+                //string[] modes = { "< Start! >", "< Championship >", "< Challenges >" };
+                string[] modes = { "< Start! >", "< Championship >"};
                 float[] scales = { 1.7f, 1.56f, 1.56f };
 
                 public override void Update()

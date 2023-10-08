@@ -22,7 +22,8 @@ namespace UndyneFight_Ex.Remake.UI
                         float x = 960 / 6f;
                         float s = 1 - Alpha;
                         Vector2 delta = new(0, 141 * MathF.Pow(s, 3.3f) + 240);
-                        DrawingLab.DrawLine(new Vector2(x, 427) + delta, new Vector2(x, 480) + delta, 3, Color.Silver * Alpha, 0.96f);
+                        DrawingLab.DrawLine(new Vector2(x, 427) + delta, new Vector2(800, 427) + delta, 3, Color.White * Alpha, 0.96f);
+                        DrawingLab.DrawLine(new Vector2(x, 427) + delta, new Vector2(x, 480) + delta, 3, Color.Red * Alpha, 0.96f);
                         DrawingLab.DrawLine(new Vector2(x * 2, 427) + delta, new Vector2(x * 2, 480) + delta, 3, Color.Silver * Alpha, 0.96f);
                         DrawingLab.DrawLine(new Vector2(x * 3, 427) + delta, new Vector2(x * 3, 480) + delta, 3, Color.Silver * Alpha, 0.96f);
                         DrawingLab.DrawLine(new Vector2(x * 4, 427) + delta, new Vector2(x * 4, 480) + delta, 3, Color.Gold * Alpha, 0.96f);
@@ -31,7 +32,7 @@ namespace UndyneFight_Ex.Remake.UI
                         DrawingLab.DrawLine(new Vector2(memX, 427) + delta, new Vector2(memX, 480) + delta, 3, Color.Goldenrod * Alpha, 0.971f);
                         Depth = 0.92f;
                         FormalDraw(FightResources.Sprites.pixUnit, new CollideRect(new Vector2(x, 427) + delta, new(x * 4, 53)).ToRectangle(), Color.Black);
-                        FightResources.Font.FightFont.CentreDraw(this.delta.ToString("F1"), delta + new Vector2(480, 450), Color.Silver * Alpha, 1.0f, 0.0f, 0.99f);
+                        FightResources.Font.FightFont.CentreDraw(this.delta.ToString("F1"), delta + new Vector2(480, 410), Color.Silver * Alpha, 1.0f, 0.0f, 0.99f);
 
                         if (memX == 0)
                         {
@@ -41,7 +42,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                     int appearTime = 0;
-                    float delta = 0, curX = 0, memX = 0;
+                    float delta = 0, curX = -10, memX = -10;
                     public float Delta => delta;
                     public override void Update()
                     {
