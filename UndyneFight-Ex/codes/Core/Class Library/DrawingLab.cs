@@ -294,7 +294,7 @@ namespace UndyneFight_Ex
         /// <param name="cl">线条颜色</param>
         public static void DrawLine(Vector2 Centre, float angle, float length, float width, Color cl, float depth, Texture2D texture = null)
         {
-            if (texture == null) texture = FightResources.Sprites.pixUnit; 
+            texture ??= FightResources.Sprites.pixUnit; 
             angle = GetAngle(angle);
             Vector2 v1 = GetVector2(length / 2f, angle);
             Vector2 v2 = -v1;

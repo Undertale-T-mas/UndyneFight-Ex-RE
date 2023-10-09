@@ -108,10 +108,12 @@ namespace UndyneFight_Ex.Server
                 if (File.Exists("Data/User/" + name)) return new("F the name already exists", null);
                 _onRegister = true;
 
-                User user = new();
-                user.Name = name;
-                user.PasswordHash = SHA512Encode(password);
-                user.UUID = userData.UserCount + 1;
+                User user = new()
+                {
+                    Name = name,
+                    PasswordHash = SHA512Encode(password),
+                    UUID = userData.UserCount + 1
+                };
 
                 string result = JsonSerializer.Serialize(user);
                 byte[] bytes = Encoding.ASCII.GetBytes(result);

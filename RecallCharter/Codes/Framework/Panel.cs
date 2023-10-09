@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
 using UndyneFight_Ex;
-using UndyneFight_Ex.Remake;
 
 namespace RecallCharter
 {
@@ -13,8 +10,7 @@ namespace RecallCharter
         public Color BorderColor { protected get; set; }
         public override void Draw()
         {
-            if (!Father.IsEnabled)
-                return;
+            if (!Father.IsEnabled) return;
             this.Image = FightResources.Sprites.pixUnit;
             this.FormalDraw(Image, this.CollidingBox.ToRectangle(), this.BackgroundColor);
             DrawingLab.DrawRectangle(this.CollidingBox, this.BorderColor, 2.0f, this.Depth + 0.01f);
