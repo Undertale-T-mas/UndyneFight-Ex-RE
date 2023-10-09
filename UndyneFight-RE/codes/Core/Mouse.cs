@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -21,7 +16,7 @@ namespace UndyneFight_Ex.Remake
         public static CursorState CursorState { internal get; set; }
         internal static void Initialize()
         {
-            ScreenSize = GameStates.CurrentWindow.ClientBounds.Size.ToVector2();
+            ScreenSize = CurrentWindow.ClientBounds.Size.ToVector2();
         }
 
         internal static void Update()
@@ -34,14 +29,14 @@ namespace UndyneFight_Ex.Remake
 
             Vector2 real = CurrentState.Position.ToVector2();
 
-            Vector2 centre = new Vector2(240 * GameStates.Aspect, 240) * GameStates.SurfaceScale;
+            Vector2 centre = new Vector2(240 * Aspect, 240) * SurfaceScale;
             Vector2 delta = real - ScreenSize / 2f; 
 
             delta /= MathF.Min(
-                ScreenSize.X / (480f * GameStates.Aspect * GameStates.SurfaceScale), ScreenSize.Y / (480f * GameStates.SurfaceScale));
+                ScreenSize.X / (480f * Aspect * SurfaceScale), ScreenSize.Y / (480f * SurfaceScale));
 
             Vector2 result = centre + delta;
-            if (GameStates.GameOnFocus)
+            if (GameOnFocus)
                 TransferredPosition = result;
         }
         private static MouseState currentState, lastState;
@@ -58,17 +53,17 @@ namespace UndyneFight_Ex.Remake
 
         public static bool IsLeftClick()
         {
-            if (!GameStates.GameOnFocus) return false;
+            if (!GameOnFocus) return false;
             return (lastState.LeftButton == ButtonState.Released) && (currentState.LeftButton == ButtonState.Pressed);
         }
         public static bool IsLeftDown()
         {
-            if (!GameStates.GameOnFocus) return false;
+            if (!GameOnFocus) return false;
             return currentState.LeftButton == ButtonState.Pressed;
         }
         public static bool IsLeftReleaseing()
         {
-            if (!GameStates.GameOnFocus) return false;
+            if (!GameOnFocus) return false;
             return (currentState.LeftButton == ButtonState.Released) && (lastState.LeftButton == ButtonState.Pressed);
         }
     }

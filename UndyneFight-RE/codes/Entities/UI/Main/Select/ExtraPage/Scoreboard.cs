@@ -2,17 +2,13 @@
 using UndyneFight_Ex.SongSystem;
 
 using vec2 = Microsoft.Xna.Framework.Vector2;
-using rect = UndyneFight_Ex.CollideRect;
 using col = Microsoft.Xna.Framework.Color;
-using VPCT = Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture;
-using VPC = Microsoft.Xna.Framework.Graphics.VertexPositionColor;
 using UndyneFight_Ex.Remake.Network;
-using System.Net.Sockets;
-using UndyneFight_Ex.Entities;
 using System.Collections.Generic;
 using System.Text.Json;
 using Microsoft.Xna.Framework;
 using System.Linq;
+using static Microsoft.Xna.Framework.MathHelper;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -42,7 +38,7 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         for (int i = 0; i <= ceilCount; i++)
                         {
-                            float y = MathHelper.Lerp(this.collidingBox.Up, this.collidingBox.Down, i * 1.0f / ceilCount);
+                            float y = Lerp(this.collidingBox.Up, this.collidingBox.Down, i * 1.0f / ceilCount);
                             DrawingLab.DrawLine(new vec2(this.collidingBox.Left, y), new vec2(this.collidingBox.Right, y),
                                 3, col.Silver, 0.67f);
                         }
@@ -50,17 +46,16 @@ namespace UndyneFight_Ex.Remake.UI
                         float cur = 0, next;
                         for(int i = 0; i <= args.Length; i++)
                         {
-                            float x = MathHelper.Lerp(this.collidingBox.Left, this.collidingBox.Right, cur);
+                            float x = Lerp(this.collidingBox.Left, this.collidingBox.Right, cur);
                             DrawingLab.DrawLine(new vec2(x, this.collidingBox.Up), new vec2(x, this.collidingBox.Down),
                                 3, col.Silver, 0.67f);
                             if (i >= args.Length) break;
                             next = cur + argWeight[i];
 
-                            x = MathHelper.Lerp(this.collidingBox.Left, this.collidingBox.Right, (cur + next) / 2f);
+                            x = Lerp(this.collidingBox.Left, this.collidingBox.Right, (cur + next) / 2f);
                             for(int j = 0; j < ceilCount; j++)
                             {
-                                float v = j + 0.5f;
-                                float y = MathHelper.Lerp(this.collidingBox.Up, this.collidingBox.Down, v * 1.0f / ceilCount);
+                                float v = j + 0.5f, y = Lerp(this.collidingBox.Up, this.collidingBox.Down, v * 1.0f / ceilCount);
                                 if (j == 0) font.CentreDraw(args[i], new(x, y), col.White, 1.0f, 0.67f);
                                 else if(j + delta <= arr.Length) font.CentreDraw(
                                     i switch { 0 => arr[j + delta - 1].Item2.ToString(), 1 => arr[j + delta - 1].Item1, 2 => arr[j + delta - 1].Item3.ToString(), _ => throw new Exception() }

@@ -110,16 +110,15 @@ namespace UndyneFight_Ex.Remake.Components
             if (_audio.OnPlay)
                 PlayTime += 0.5f;
 
-            bool timeAccessible;
             if (!_audio.IsEnd)
             {
-                float trueTime = _audio.TryGetPosition(out timeAccessible);
+                float trueTime = _audio.TryGetPosition(out bool timeAccessible);
                 if (timeAccessible)
                 {
                     TruePlayTime = trueTime;
                 }
             }
-            if(FadeIn && PlayTime < IntroTime)
+            if (FadeIn && PlayTime < IntroTime)
             {
                 this._audio.Volume = MathHelper.Lerp(IntroVolume, 1, PlayTime / IntroTime);
             }

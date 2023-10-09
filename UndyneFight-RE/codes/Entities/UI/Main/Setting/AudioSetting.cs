@@ -1,9 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System;
-using UndyneFight_Ex.Settings;
-using static UndyneFight_Ex.Settings.SettingsManager;
+using static System.MathF;
 using static UndyneFight_Ex.Settings.SettingsManager.DataLibrary;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -50,10 +48,10 @@ namespace UndyneFight_Ex.Remake.UI
                         "Classic" => 0,
                         _ => throw new Exception()
                     };
-                    masterVolume = (int)MathF.Round(_masterVolume.GetValue(), 0);
-                    SpearBlockingVolume = (int)MathF.Round(_spearVolume.GetValue(), 0);
+                    masterVolume = (int)Round(_masterVolume.GetValue(), 0);
+                    SpearBlockingVolume = (int)Round(_spearVolume.GetValue(), 0);
 
-                    MediaPlayer.Volume = SoundEffect.MasterVolume = MathF.Pow(masterVolume / 100f, 2);
+                    MediaPlayer.Volume = SoundEffect.MasterVolume = Pow(masterVolume / 100f, 2);
                 }
                 public override void Update()
                 { 

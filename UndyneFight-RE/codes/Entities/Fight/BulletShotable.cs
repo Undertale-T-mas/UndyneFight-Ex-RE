@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.GameInterface;
-using UndyneFight_Ex.Entities;
 
 
 namespace UndyneFight_Ex.Remake.Entities
@@ -66,8 +61,8 @@ namespace UndyneFight_Ex.Remake.Entities
                         if (b.AbleLink) 
                         {
                             b.Explode();
+                        }
                     }
-                }
                 }
             }
         }

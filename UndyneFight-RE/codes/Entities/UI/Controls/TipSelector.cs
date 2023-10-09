@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using vec2 = Microsoft.Xna.Framework.Vector2;
-using rect = UndyneFight_Ex.CollideRect;
 using col = Microsoft.Xna.Framework.Color;
-using VPCT = Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture;
 using VPC = Microsoft.Xna.Framework.Graphics.VertexPositionColor;
-using System.Security.Principal;
-using UndyneFight_Ex.Remake.Network;
 using System;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -19,8 +15,8 @@ namespace UndyneFight_Ex.Remake.UI
             this._title = title;
             this._message = message;
             this.KeyEvent = KeyEventFull;
-            this.AddChild(confirm = new(this, new(350, -30), "confirm"));
-            this.AddChild(cancel = new(this, new(960 - 350, -30), "cancel"));
+            this.AddChild(confirm = new(this, new(350, -30), "Confirm"));
+            this.AddChild(cancel = new(this, new(960 - 350, -30), "Cancel"));
             confirm.Depth = 0.6977f;
             cancel.Depth = 0.6977f;
             confirm.DefaultScale = 1.55f;
@@ -75,10 +71,8 @@ namespace UndyneFight_Ex.Remake.UI
 
             GLFont font = FightResources.Font.NormalFont;
             font.CentreDraw(_title, new vec2(480, -105) + del, col.Gold, 1.6f, 0.69f);
-            font.Draw(_message[0], new vec2(251, -60) + del, col.White, 1.123f, 0.69f);
-            font.Draw(_message[1], new vec2(251, -20) + del, col.White, 1.123f, 0.69f);
-            font.Draw(_message[2], new vec2(251, 20) + del, col.White, 1.123f, 0.69f);
-            font.Draw(_message[3], new vec2(251, 60) + del, col.White, 1.123f, 0.69f);
+            for(int i = 0; i < _message.Length; i++)
+                font.Draw(_message[i], new vec2(251, -60 + i * 40) + del, col.White, 1.123f, 0.69f);
 
         }
         public override void Update()

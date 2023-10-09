@@ -1,12 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks; 
 using static UndyneFight_Ex.FightResources.Font;
 using static UndyneFight_Ex.FightResources;
-using UndyneFight_Ex.Fight;
+using static UndyneFight_Ex.Fight.Functions;
+using static Microsoft.Xna.Framework.MathHelper;
 using Microsoft.Xna.Framework.Audio;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -21,7 +18,7 @@ namespace UndyneFight_Ex.Remake.UI
             this._areaL = areaL; this._areaR = areaR;
             this.NeverEnable = true;
             this.MouseOn += () => {
-                Functions.PlaySound(Sounds.changeSelection, Volume);
+                PlaySound(Sounds.changeSelection, Volume);
             };
         }
         public float DefaultValue { init { this.SetValue(value); } }
@@ -45,7 +42,7 @@ namespace UndyneFight_Ex.Remake.UI
         }
         public float GetValue()
         {
-            return MathHelper.Lerp(this._areaL, _areaR, this._selectingScale);
+            return Lerp(this._areaL, _areaR, this._selectingScale);
         }
         public override void Draw()
         {
@@ -59,12 +56,12 @@ namespace UndyneFight_Ex.Remake.UI
             FightFont.CentreDraw(this._areaR.ToString("f1"), r + new Vector2(7, -16), _drawingColor);
             FightFont.CentreDraw(this._currentValue.ToString("f" + Digit), this.Centre + new Vector2(0, -2), _secondaryColor * _valueAlpha);
             this.Image = Resources.UI.ScrollArrow;
-            this.FormalDraw(Image, new Vector2(MathHelper.Lerp(l.X, r.X, _selectingScale), this.collidingBox.Down - ImageCentre.Y - 5),
+            this.FormalDraw(Image, new Vector2(Lerp(l.X, r.X, _selectingScale), this.collidingBox.Down - ImageCentre.Y - 5),
                 Color.White, 0, ImageCentre);
 
             if(IsMouseOn && !MouseSystem.IsLeftDown())
             {
-                this.FormalDraw(Image, new Vector2(MathHelper.Lerp(l.X, r.X, _focusScale), this.collidingBox.Down - ImageCentre.Y - 5),
+                this.FormalDraw(Image, new Vector2(Lerp(l.X, r.X, _focusScale), this.collidingBox.Down - ImageCentre.Y - 5),
                     Color.Silver * 0.7f * _focusAlpha, 0, ImageCentre);
             }
         }
@@ -96,7 +93,7 @@ namespace UndyneFight_Ex.Remake.UI
                     _selectingScale = MathF.Max(0, _selectingScale);
                     _focusScale = _selectingScale;
                     OnChange?.Invoke();
-                    Functions.PlaySound(ChangeSound, Volume);
+                    PlaySound(ChangeSound, Volume);
                     this._secondaryColor = Color.MediumPurple;
                 }
                 else if (GameStates.IsKeyPressed120f(InputIdentity.MainRight) && _selectingScale < 1)
@@ -105,11 +102,11 @@ namespace UndyneFight_Ex.Remake.UI
                     _selectingScale = MathF.Min(1, _selectingScale);
                     _focusScale = _selectingScale;
                     OnChange?.Invoke();
-                    Functions.PlaySound(ChangeSound, Volume);
+                    PlaySound(ChangeSound, Volume);
                     this._secondaryColor = Color.MediumPurple;
                 }
             }
-            _currentValue = MathHelper.Lerp(_areaL, _areaR, _selectingScale);
+            _currentValue = Lerp(_areaL, _areaR, _selectingScale);
             if (!IsMouseOn && lastOnTimer > 4) {
                 _secondaryColor = Color.Lerp(_secondaryColor, Color.White, 0.1f);
                 this._focusScale = this._selectingScale; this._valueAlpha = 1f; 
@@ -131,11 +128,11 @@ namespace UndyneFight_Ex.Remake.UI
             if (MouseSystem.IsLeftReleaseing() && _parentTimer > 15)
             {
                 OnChange?.Invoke();
-                Functions.PlaySound(ChangeSound, Volume);
+                PlaySound(ChangeSound, Volume);
             }
             this._focusAlpha = MathF.Min(1.0f, MathF.Abs(_focusScale - _selectingScale) * 20);
 
-            _currentValue = MathHelper.Lerp(_areaL, _areaR, _focusScale);
+            _currentValue = Lerp(_areaL, _areaR, _focusScale);
             this._valueAlpha = MathF.Max(0.6f, 1 - MathF.Abs(_focusScale - _selectingScale) * 5);
         }
     }

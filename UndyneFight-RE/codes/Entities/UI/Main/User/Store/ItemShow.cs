@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Input;
-using System.Net.Sockets;
-using UndyneFight_Ex.SongSystem;
-using System.ComponentModel.Design.Serialization;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.Entities;
+﻿using Microsoft.Xna.Framework;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -19,7 +9,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
 
             this.KeyEvent = () => {
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                if (IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = FocusID;
                     if (id + 1 < all.Length)
@@ -28,7 +18,7 @@ namespace UndyneFight_Ex.Remake.UI
                         all[id + 1].OnFocus();
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                else if (IsKeyPressed120f(InputIdentity.MainUp))
                 {
                     int id = FocusID;
                     if (id > 1)
@@ -37,7 +27,7 @@ namespace UndyneFight_Ex.Remake.UI
                         all[id - 1].OnFocus();
                     }
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus?.ConfirmKeyDown();
                 }

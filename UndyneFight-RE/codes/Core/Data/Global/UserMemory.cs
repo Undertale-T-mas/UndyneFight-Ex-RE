@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using UndyneFight_Ex.IO;
-using UndyneFight_Ex.UserService;
-
-namespace UndyneFight_Ex.Remake.Data
+﻿namespace UndyneFight_Ex.Remake.Data
 {
     public partial class GlobalDataRoot : DataBranch
     {
@@ -15,9 +9,9 @@ namespace UndyneFight_Ex.Remake.Data
             public DatumBool AutoAuthentic { get; init; }
 
             public UserMemory() : base("UserMemory") {
-                this.Children.Add(RememberUser = new("user") { InitialText = ":null" });
-                this.Children.Add(PasswordMem = new("pc") { InitialText = ":null" });
-                this.Children.Add(AutoAuthentic = new("auto") { InitialText = ":false" });
+                Children.Add(RememberUser = new("user") { InitialText = ":null" });
+                Children.Add(PasswordMem = new("pc") { InitialText = ":null" });
+                Children.Add(AutoAuthentic = new("auto") { InitialText = ":false" });
             } 
         }
     }

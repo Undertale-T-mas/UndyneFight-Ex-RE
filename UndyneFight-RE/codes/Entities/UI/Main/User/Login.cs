@@ -1,12 +1,13 @@
-﻿using static UndyneFight_Ex.FightResources.Font;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Linq;
 using UndyneFight_Ex.Remake.Data;
 using UndyneFight_Ex.Entities;
-using static UndyneFight_Ex.GameStates;
-using static UndyneFight_Ex.Remake.FileData;
 using UndyneFight_Ex.Remake.Network;
+using UndyneFight_Ex.Remake.UI.DEBUG;
 using static UndyneFight_Ex.PlayerManager;
+using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.FightResources.Font;
+using static UndyneFight_Ex.Remake.FileData;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -15,8 +16,7 @@ namespace UndyneFight_Ex.Remake.UI
         public static void AutoAuthentic(string rememberedUser, string pswd)
         {
             Login(rememberedUser);
-            string password = pswd;
-            string newPassword = "";
+            string password = pswd, newPassword = "";
             bool keyPeriod = true;
             UFSocket<Empty> login = null;
             login = new((s) =>
@@ -26,7 +26,7 @@ namespace UndyneFight_Ex.Remake.UI
                     if (s.Info[0..4] == "<RSA")
                     {
                         newPassword = MathUtil.Encrypt(password, s.Info);
-                        login.SendRequest("Log\\in\\" + rememberedUser + "\\" + newPassword);
+                        login.SendRequest($"Log\\in\\{rememberedUser}\\{newPassword}");
                         keyPeriod = false;
                     }
                 }
@@ -35,7 +35,7 @@ namespace UndyneFight_Ex.Remake.UI
                     if (s.Info == "user not exist")
                     {
                         var v = new PageTips.OnlineRegisterUI(rememberedUser, newPassword);
-                        DEBUG.IntroUI.PendingTip(v);
+                        IntroUI.PendingTip(v);
                     }
                     else if (s.Info == "success login")
                     {
@@ -130,7 +130,7 @@ namespace UndyneFight_Ex.Remake.UI
                         if (s.Info[0..4] == "<RSA")
                         {
                             newPassword = MathUtil.Encrypt(password, s.Info);
-                            login.SendRequest("Log\\in\\" + _account.Result + "\\" + newPassword);
+                            login.SendRequest($"Log\\in\\{_account.Result}\\{newPassword}");
                             keyPeriod = false;
                         } 
                     }
@@ -139,7 +139,7 @@ namespace UndyneFight_Ex.Remake.UI
                         if (s.Info == "user not exist")
                         {
                             var v = new PageTips.OnlineRegisterUI(_account.Result, newPassword);
-                            DEBUG.IntroUI.PendingTip(v); 
+                            IntroUI.PendingTip(v); 
                         }
                         else if(s.Info == "success login")
                         {
@@ -149,7 +149,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                 });
                 login.SendRequest($"Log\\key\\none");
-           //     login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
+                //login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
             }
 
             private void NameInitialize()
@@ -167,8 +167,8 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 if (IsKeyPressed120f(InputIdentity.MainRight) && currentFocus is not TextInputer)
                 {
-                    int id = FocusID;
-                    for (int i = id + 1; i < all.Length; i++)
+                    int i = FocusID + 1;
+                    while (i < all.Length)
                     {
                         if (all[i].ModuleEnabled)
                         {
@@ -176,12 +176,13 @@ namespace UndyneFight_Ex.Remake.UI
                             all[i].OnFocus();
                             break;
                         }
+                        i++;
                     }
                 }
                 else if (IsKeyPressed120f(InputIdentity.MainLeft) && currentFocus is not TextInputer)
                 {
-                    int id = FocusID;
-                    for (int i = id - 1; i >= 0; i--)
+                    int i = FocusID - 1;
+                    while (i >= 0)
                     {
                         if (all[i].ModuleEnabled)
                         {
@@ -189,6 +190,7 @@ namespace UndyneFight_Ex.Remake.UI
                             all[i].OnFocus();
                             break;
                         }
+                        i--;
                     }
                 }
 
@@ -241,18 +243,19 @@ namespace UndyneFight_Ex.Remake.UI
 
             public override void Draw()
             {
-                NormalFont.CentreDraw("Login", this.Centre, DrawingColor, 1.8f * _secondaryScale, 0.1f);
+                var F = NormalFont;
+                F.CentreDraw("Login", this.Centre, DrawingColor, 1.8f * _secondaryScale, 0.1f);
 
                 if (!Activated) return;
-                NormalFont.CentreDraw("Account", new Vector2(480, 65), Color.White, 1.3f, 0.1f);
-                NormalFont.CentreDraw("Name", new Vector2(480, 100), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Account", new Vector2(480, 65), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Name", new Vector2(480, 100), Color.White, 1.3f, 0.1f);
 
                 //float l2 = 390, r2 = 900;
                 DrawLine(new(390, 105), new(410, 125), Color.White);
                 DrawLine(new(410, 125), new(550, 125), Color.White);
 
-                NormalFont.CentreDraw("Pass", new Vector2(480, 155), Color.White, 1.3f, 0.1f);
-                NormalFont.CentreDraw("code", new Vector2(480, 190), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Pass", new Vector2(480, 155), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("code", new Vector2(480, 190), Color.White, 1.3f, 0.1f);
 
                 //float l2 = 390, r2 = 900;
                 DrawLine(new(390, 195), new(410, 215), Color.White);
@@ -264,11 +267,8 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 this.Centre = new Vector2(204, 84);
                 base.Update();
-                if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
-                {
-                    this._secondaryScale = MathHelper.Lerp(_secondaryScale, 1.1f, 0.1f);
-                }
-                else _secondaryScale = MathHelper.Lerp(_secondaryScale, 1.0f, 0.1f);
+                var scale = collidingBox.Contain(MouseSystem.TransferredPosition) ? 1.1f : 1.0f;
+                _secondaryScale = MathHelper.Lerp(_secondaryScale, scale, 0.1f);
             }
         }
     }

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
-
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using UndyneFight_Ex.Entities;
+using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -25,11 +24,11 @@ namespace UndyneFight_Ex.Remake
             Vector2 curCentre = curPos.GetCentre();
 
             float speed = s.Speed;
-            if (GameStates.IsKeyDown(InputIdentity.Cancel)) { speed *= 0.5f; }
+            if (IsKeyDown(InputIdentity.Cancel)) { speed *= 0.5f; }
             Vector2 delta = Vector2.Zero;
             for (int i = 0; i < 4; i++)
             {
-                if (GameStates.IsKeyDown(s.movingKey[i])) delta += MathUtil.GetVector2(speed * 0.5f, i * 90);
+                if (IsKeyDown(s.movingKey[i])) delta += GetVector2(speed * 0.5f, i * 90);
             }
 
             Vector2 nexCentre = curCentre + delta;
@@ -49,13 +48,10 @@ namespace UndyneFight_Ex.Remake
             Vector2[] normals = new Vector2[vertexs.Length];
             for (int i = 0; i < vertexs.Length; i++)
             {
-                Vector2 a = vertexs[i].CurrentPosition, b = vertexs[(i + 1) % vertexs.Length].CurrentPosition;
-                Vector2 normal = MathUtil.Rotate(b - a, 90);
-                Vector2 centre = (a + b) / 2;
-                Vector2 along = (b - a) / 2;
-
-                Vector2 del1 = curCentre - centre;
-                Vector2 del2 = nexCentre - centre;
+                Vector2 a = vertexs[i].CurrentPosition, b = vertexs[(i + 1) % vertexs.Length].CurrentPosition,
+                normal = Rotate(b - a, 90), centre = (a + b) / 2, along = -centre,
+                del1 = curCentre - centre,
+                del2 = nexCentre - centre;
 
                 float distance = along.Length();
                 normal.Normalize();
@@ -76,7 +72,6 @@ namespace UndyneFight_Ex.Remake
                     nexCentre = centre + along * dirDelta2 + dis2 * normal;
                 }
             }
-
             return nexCentre;
         }
     }

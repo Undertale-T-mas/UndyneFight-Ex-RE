@@ -2,6 +2,9 @@
 using System;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
+using static Microsoft.Xna.Framework.MathHelper;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources.Sounds;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -23,11 +26,11 @@ namespace UndyneFight_Ex.Remake.UI
 
                     LeftClick += () => {
                         if (!this.ModuleSelected) _father._virtualFather.SelectDiff(Difficulty.NotSelected);
-                        Functions.PlaySound(FightResources.Sounds.select);
+                        PlaySound(select);
                     };
                     MouseOn += () =>
                     {
-                        Functions.PlaySound(FightResources.Sounds.changeSelection);
+                        PlaySound(changeSelection);
                     };
 
                     var attribute = father._virtualFather.SongSelected.Attributes;
@@ -106,18 +109,14 @@ namespace UndyneFight_Ex.Remake.UI
                     if (ModuleSelected)
                     {
                         _lastClickTimer++;
-                        this._scale = MathHelper.Lerp(_scale, 1, 0.1f);
+                        this._scale = Lerp(_scale, 1, 0.1f);
                     }
                     else
                     {
-                        this._scale = MathHelper.Lerp(_scale, 0, 0.1f);
+                        this._scale = Lerp(_scale, 0, 0.1f);
                         _lastClickTimer = 0;
                     }
-                    if (_mouseOn)
-                    {
-                        this._move = MathHelper.Lerp(_move, 2.5f, 0.1f);
-                    }
-                    else this._move = MathHelper.Lerp(_move, 0, 0.1f);
+                    this._move = Lerp(_move, _mouseOn ? 2.5f : 0, 0.1f);
 
                     base.Update();
                 }

@@ -2,11 +2,11 @@
 using System;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources.Sounds;
 
 using vec2 = Microsoft.Xna.Framework.Vector2;
-using rect = UndyneFight_Ex.CollideRect;
 using col = Microsoft.Xna.Framework.Color;
-using VPCT = Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture;
 using VPC = Microsoft.Xna.Framework.Graphics.VertexPositionColor;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -42,7 +42,7 @@ namespace UndyneFight_Ex.Remake.UI
             private void Extra_OnActivated()
             {
                 coolTime = 3f;
-                Functions.PlaySound(FightResources.Sounds.select);
+                PlaySound(select);
             }
 
             Entity current;
@@ -63,7 +63,7 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         this.Deactivate();
                         this.State = SelectState.MouseOn;
-                        Functions.PlaySound(FightResources.Sounds.select);
+                        PlaySound(select);
                     }
                 }
                 this.alpha = MathHelper.Lerp(alpha, (this.State == SelectState.Selected) ? 1.0f : (MouseOn ? 0.5f : 0.35f), 0.12f);

@@ -2,6 +2,7 @@
 using System;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -29,8 +30,8 @@ namespace UndyneFight_Ex.Remake.UI
                     base.Update();
                     if (this._father.Focus != this) return;
                     int last = cur;
-                    if (GameStates.IsKeyPressed120f(InputIdentity.MainLeft)) cur--;
-                    else if (GameStates.IsKeyPressed120f(InputIdentity.MainRight)) cur++;
+                    if (IsKeyPressed120f(InputIdentity.MainLeft)) cur--;
+                    else if (IsKeyPressed120f(InputIdentity.MainRight)) cur++;
                     if(cur < 0) cur = modes.Length - 1;
                     else if(cur >= modes.Length) cur = 0;
                     if(last != cur)
@@ -123,7 +124,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                 if(!this.Activated) return;
 
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                if (IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = FocusID;
                     for(int i = id + 1; i < all.Length; i++)
@@ -136,7 +137,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                else if (IsKeyPressed120f(InputIdentity.MainUp))
                 {
                     int id = FocusID;
                     for (int i = id - 1; i >= 0; i--)
@@ -149,7 +150,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus.ConfirmKeyDown();
                 } 
@@ -211,12 +212,12 @@ namespace UndyneFight_Ex.Remake.UI
 
                 this.AddChild(currentFocus = startButton = new StartButton(this, new(440, 100)) { DefaultScale = 1.7f, NeverEnable = true });
                 currentFocus.OnFocus();
-                this.AddChild(noHitButton = new Button(this, new(440, 210), "No Hit") ); 
-                this.AddChild(apButton = new Button(this, new(440, 285), "Perfect Only") ); 
-                this.AddChild(buffButton = new Button(this, new(440, 360), "Buffed") ); 
-                this.AddChild(practiceButton = new Button(this, new(440, 435), "Practice") ); 
-                this.AddChild(ngsButton = new Button(this, new(440, 510), "No Greensoul") );
-                this.AddChild(autoButton = new Button(this, new(440, 585), "Autoplay") );
+                this.AddChild(noHitButton       = new Button(this, new(440, 210), "No Hit") ); 
+                this.AddChild(apButton          = new Button(this, new(440, 285), "Perfect Only") ); 
+                this.AddChild(buffButton        = new Button(this, new(440, 360), "Buffed") ); 
+                this.AddChild(practiceButton    = new Button(this, new(440, 435), "Practice") ); 
+                this.AddChild(ngsButton         = new Button(this, new(440, 510), "No Greensoul") );
+                this.AddChild(autoButton        = new Button(this, new(440, 585), "Autoplay") );
 
                 startButton.LeftClick += () => {
                     if (startButton.Type == 0)
@@ -227,7 +228,7 @@ namespace UndyneFight_Ex.Remake.UI
                         this.Dispose();
                         this._virtualFather.Dispose();
                         this._virtualFather.FatherObject?.Dispose();
-                        GameStates.InstanceCreate(new ChampionshipSelector());
+                        InstanceCreate(new ChampionshipSelector());
                     }
                 };
                 noHitButton.LeftClick += () => practiceButton.State = noHitButton.ModuleSelected ? SelectState.Disabled : SelectState.False;
