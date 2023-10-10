@@ -2,11 +2,13 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System;
+using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
 using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Fight.ClassicFight;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.GameStates;
 
 namespace Rhythm_Recall.Waves
 {
@@ -226,20 +228,20 @@ namespace Rhythm_Recall.Waves
                 currentWaveUpdate?.Invoke();
             }
 
-            if (UndyneFight_Ex.GameStates.IsKeyPressed(UndyneFight_Ex.InputIdentity.Alternate) && slowDownTime >= 0 && wave != 18)
+            if (IsKeyPressed(UndyneFight_Ex.InputIdentity.Alternate) && slowDownTime >= 0 && wave != 18)
             {
                 slowDownTime--;
-                UndyneFight_Ex.Entities.Advanced.ZaWarudo v;
+                ZaWarudo v;
                 MediaPlayer.Volume *= 0.5f;
-                AddInstance(v = new UndyneFight_Ex.Entities.Advanced.ZaWarudo(70, 0.2f, Color.LightBlue) { });
+                AddInstance(v = new ZaWarudo(70, 0.2f, Color.LightBlue) { });
                 v.OnDispose += () => { MediaPlayer.Volume *= 2f; };
             }
             if (RoundType && Heart.SoulType == 0 && Gametime % 24 == 0 && undyne.HP >= 3200)
             {
                 Vector2 pos = new(Rand(140, 500), Rand(60, 120));
-                CreateSpear(new UndyneFight_Ex.Entities.NormalSpear(pos) { Speed = 7f });
+                CreateSpear(new NormalSpear(pos) { Speed = 7f });
                 pos = new Vector2(Rand(140, 500), Rand(60, 120));
-                CreateSpear(new UndyneFight_Ex.Entities.NormalSpear(pos) { Speed = 11f, IsMute = true });
+                CreateSpear(new NormalSpear(pos) { Speed = 11f, IsMute = true });
             }
         }
 

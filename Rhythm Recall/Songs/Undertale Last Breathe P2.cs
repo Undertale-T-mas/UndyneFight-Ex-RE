@@ -6,6 +6,7 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.MathUtil;
+using static UndyneFight_Ex.FightResources.Sounds;
 
 namespace Rhythm_Recall.Waves
 {
@@ -67,13 +68,13 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 147)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.6f, 30));
                 CreateBone(new DownBone(false, 3.6f, 30));
             }
             if (Gametime >= 190 && Gametime <= 350 && Gametime % 25 == 19)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 3.2f, 50));
                 CreateBone(new DownBone(true, 2.7f, 24));
             }
@@ -91,7 +92,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 454)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 3.6f, 55));
                 CreateBone(new DownBone(true, 3.6f, 55));
                 CreateBone(new DownBone(false, 320, 3.6f, 55));
@@ -99,7 +100,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 539)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 4.0f, 132));
                 CreateBone(new UpBone(true, 4.0f, 132));
             }
@@ -138,7 +139,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 20));
                 CreateBone(new DownBone(false, 3.9f, 20));
                 CreateBone(new UpBone(true, 3.9f, 105));
@@ -146,7 +147,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0 + 50)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 105));
                 CreateBone(new DownBone(false, 3.9f, 105));
                 CreateBone(new UpBone(true, 3.9f, 20));
@@ -208,7 +209,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 1995 && Gametime <= 2700 && Gametime % 100 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 float pos1 = Rand(0, 149);
                 float pos2 = Rand(-60, 60);
                 for (int i = -2; i < 3; i++)
@@ -241,7 +242,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 3600 && Gametime <= 4300 && Gametime % 50 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 bool way = Rand(0, 1) == 0;
                 int height = Rand(20, 60);
                 CreateBone(new UpBone(way, 3.4f, 120 - height));
@@ -341,7 +342,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 7695)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 SetBox(310, 180, 180);
                 for (int i = 0; i < 4; i++)
                     CreateBone(new SideCircleBone(i * 90, 2f, 75, 750));
@@ -374,7 +375,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 9300 && Gametime <= 10070 && Gametime % 25 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 2.7f, 50));
             }
             if (Gametime >= 9300 && Gametime <= 10000 && Gametime % 200 == 0)
@@ -422,13 +423,13 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 75)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 5.0f, 95));
                 CreateBone(new DownBone(true, 5.0f, 95));
             }
             if (Gametime == 100)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(true, 5.0f, 95));
                 CreateBone(new DownBone(false, 5.0f, 95));
             }
@@ -441,11 +442,11 @@ namespace Rhythm_Recall.Waves
             {
                 CreateBone(new DownBone(false, 4.6f, 40));
                 CreateBone(new UpBone(true, 4.6f, 160));
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
             }
             if (Gametime >= 190 && Gametime <= 350 && Gametime % 25 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 3.2f, 54));
                 CreateBone(new DownBone(true, 3.2f, 34));
                 if (Gametime % 25 == 0)
@@ -453,7 +454,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 400)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 4.0f, 92));
                 CreateBone(new UpBone(true, 4.0f, 92));
 
@@ -470,7 +471,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 425)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 3.6f, 15));
                 CreateBone(new UpBone(true, 3.6f, 15));
                 CreateBone(new UpBone(false, 320, 3.6f, 15));
@@ -478,7 +479,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 450)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 3.6f, 55));
                 CreateBone(new DownBone(true, 3.6f, 55));
                 CreateBone(new DownBone(false, 320, 3.6f, 55));
@@ -486,7 +487,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 500)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4.0f, 87));
                 CreateBone(new DownBone(true, 4.0f, 87));
                 CreateBone(new UpBone(false, 4.0f, 72));
@@ -495,7 +496,7 @@ namespace Rhythm_Recall.Waves
             if (Gametime == 550)
             {
                 CreateGB(new NormalGB(new Vector2(Heart.Centre.X, 100), Heart.Centre, new Vector2(1.0F, 0.5F), 25, 6));
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 5.0f, 122));
                 CreateBone(new UpBone(true, 5.0f, 122));
                 CreateBone(new DownBone(false, 5.0f, 22));
@@ -504,7 +505,7 @@ namespace Rhythm_Recall.Waves
             if (Gametime == 575)
             {
                 CreateGB(new NormalGB(new Vector2(100, Heart.Centre.Y), Heart.Centre, new Vector2(1.0F, 0.5F), 25, 6));
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
             }
             if (Gametime == 620)
             {
@@ -545,7 +546,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 430, 3.9f, 20));
                 CreateBone(new DownBone(false, 210, 3.9f, 20));
                 CreateBone(new UpBone(true, 430, 3.9f, 108));
@@ -553,7 +554,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0 + 50)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 430, 3.9f, 108));
                 CreateBone(new DownBone(false, 210, 3.9f, 108));
                 CreateBone(new UpBone(true, 430, 3.9f, 20));
@@ -627,7 +628,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 1995 && Gametime <= 2700 && Gametime % 50 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 float pos1 = Rand(0, 149);
                 float pos2 = Rand(-60, 60);
                 for (int i = -2; i < 3; i++)
@@ -671,7 +672,7 @@ namespace Rhythm_Recall.Waves
                     : Gametime <= 4348 ? (float)(Math.Pow(0.9, Gametime - 4279) * 180) : 0;
                 if (Gametime % 50 == 0)
                 {
-                    PlaySound(FightResources.Sounds.pierce);
+                    PlaySound(pierce);
                     bool way = Rand(0, 1) == 0;
                     float spd = way ? -3.4f : 3.4f;
                     float plc = way ? 475 : 165;
@@ -821,7 +822,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 7695)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 SetBox(310, 180, 180);
                 for (int i = 0; i < 4; i++)
                     CreateBone(new SideCircleBone(i * 90, 2f, 75, 750));
@@ -857,7 +858,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 9300 && Gametime <= 10070 && (int)(Gametime % 25f) == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 3.5f, 32));
             }
             if (Gametime >= 9300 && Gametime <= 10070 && (int)(Gametime % 25f) == 12)
@@ -926,11 +927,11 @@ namespace Rhythm_Recall.Waves
             {
                 CreateBone(new DownBone(true, 3.6f, 40));
                 CreateBone(new DownBone(false, 3.6f, 40));
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
             }
             if (Gametime >= 190 && Gametime <= 350 && Gametime % 25 == 19)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 3.2f, 54));
                 CreateBone(new DownBone(true, 3.2f, 34));
                 if (Gametime % 50 == 19)
@@ -950,7 +951,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 454)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 3.6f, 55));
                 CreateBone(new DownBone(true, 3.6f, 55));
                 CreateBone(new DownBone(false, 320, 3.6f, 55));
@@ -965,7 +966,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 550)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 4.0f, 122));
                 CreateBone(new UpBone(true, 4.0f, 122));
             }
@@ -1007,7 +1008,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 20));
                 CreateBone(new DownBone(false, 3.9f, 20));
                 CreateBone(new UpBone(true, 3.9f, 111));
@@ -1015,7 +1016,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0 + 50)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 111));
                 CreateBone(new DownBone(false, 3.9f, 111));
                 CreateBone(new UpBone(true, 3.9f, 20));
@@ -1079,7 +1080,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 1995 && Gametime <= 2700 && Gametime % 50 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 float pos1 = Rand(0, 149);
                 float pos2 = Rand(-60, 60);
                 for (int i = -2; i < 3; i++)
@@ -1114,7 +1115,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 3600 && Gametime <= 4300 && Gametime % 50 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 bool way = Rand(0, 1) == 0;
                 float spd = way ? -3.4f : 3.4f;
                 float plc = way ? 475 : 165;
@@ -1253,7 +1254,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 7695)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 SetBox(310, 180, 180);
                 for (int i = 0; i < 4; i++)
                     CreateBone(new SideCircleBone(i * 90, 2f, 75, 750));
@@ -1289,7 +1290,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 9300 && Gametime <= 10070 && (int)(Gametime % 25f) == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 3.5f, 32));
             }
             if (Gametime >= 9300 && Gametime <= 10070 && (int)(Gametime % 25f) == 12)
@@ -1348,11 +1349,11 @@ namespace Rhythm_Recall.Waves
             {
                 CreateBone(new DownBone(true, 3.6f, 30));
                 CreateBone(new DownBone(false, 3.6f, 30));
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
             }
             if (Gametime >= 190 && Gametime <= 350 && Gametime % 25 == 19)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 3.2f, 50));
                 CreateBone(new DownBone(true, 2.7f, 24));
             }
@@ -1370,7 +1371,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 454)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 3.6f, 55));
                 CreateBone(new DownBone(true, 3.6f, 55));
                 CreateBone(new DownBone(false, 320, 3.6f, 55));
@@ -1378,7 +1379,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 539)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 4.0f, 132));
                 CreateBone(new UpBone(true, 4.0f, 132));
             }
@@ -1417,7 +1418,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 20));
                 CreateBone(new DownBone(false, 3.9f, 20));
                 CreateBone(new UpBone(true, 3.9f, 100));
@@ -1425,7 +1426,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0 + 50)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 100));
                 CreateBone(new DownBone(false, 3.9f, 100));
                 CreateBone(new UpBone(true, 3.9f, 20));
@@ -1487,7 +1488,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 1995 && Gametime <= 2700 && Gametime % 100 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 float pos1 = Rand(0, 149);
                 for (int i = -1; i < 2; i++)
                     CreateBone(new CustomBone(new Vector2(465, 310 + i * 83), Motions.PositionRoute.XAxisSin, 0, 40)
@@ -1515,7 +1516,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 3600 && Gametime <= 4300 && Gametime % 50 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 bool way = Rand(0, 1) == 0;
                 int height = Rand(15, 60);
                 CreateBone(new UpBone(way, 3.4f, 116 - height));
@@ -1610,7 +1611,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 7695)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 SetBox(310, 180, 180);
                 for (int i = 0; i < 4; i++)
                     CreateBone(new SideCircleBone(i * 90, 2f, 75, 750));
@@ -1642,7 +1643,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 9300 && Gametime <= 10070 && Gametime % 25 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 2.7f, 30));
             }
             if (Gametime >= 9300 && Gametime <= 10000 && Gametime % 200 == 0)
@@ -1692,11 +1693,11 @@ namespace Rhythm_Recall.Waves
             {
                 CreateBone(new DownBone(true, 3.6f, 40));
                 CreateBone(new DownBone(false, 3.6f, 40));
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
             }
             if (Gametime >= 190 && Gametime <= 350 && Gametime % 25 == 19)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 3.2f, 54));
                 CreateBone(new DownBone(true, 3.2f, 34));
             }
@@ -1714,7 +1715,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 454)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 3.6f, 55));
                 CreateBone(new DownBone(true, 3.6f, 55));
                 CreateBone(new DownBone(false, 320, 3.6f, 55));
@@ -1729,7 +1730,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 550)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 4.0f, 122));
                 CreateBone(new UpBone(true, 4.0f, 122));
             }
@@ -1768,7 +1769,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 20));
                 CreateBone(new DownBone(false, 3.9f, 20));
                 CreateBone(new UpBone(true, 3.9f, 108));
@@ -1776,7 +1777,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 795 && Gametime <= 1195 && Gametime % 100 == 0 + 50)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3.9f, 108));
                 CreateBone(new DownBone(false, 3.9f, 108));
                 CreateBone(new UpBone(true, 3.9f, 20));
@@ -1838,7 +1839,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 1995 && Gametime <= 2700 && Gametime % 50 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 float pos1 = Rand(0, 149);
                 float pos2 = Rand(-60, 60);
                 for (int i = -2; i < 3; i++)
@@ -1873,7 +1874,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 3600 && Gametime <= 4300 && Gametime % 50 == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 bool way = Rand(0, 1) == 0;
                 int height = Rand(20, 60);
                 CreateBone(new UpBone(way, 3.4f, 120 - height));
@@ -1980,7 +1981,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime == 7695)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 SetBox(310, 180, 180);
                 for (int i = 0; i < 4; i++)
                     CreateBone(new SideCircleBone(i * 90, 2f, 75, 750));
@@ -2014,7 +2015,7 @@ namespace Rhythm_Recall.Waves
             }
             if (Gametime >= 9300 && Gametime <= 10070 && (int)(Gametime % 12.5f) == 0)
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4.5f, 25));
             }
             if (Gametime >= 9300 && Gametime <= 10000 && Gametime % 200 == 0)

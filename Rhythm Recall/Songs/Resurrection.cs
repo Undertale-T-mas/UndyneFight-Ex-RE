@@ -87,39 +87,24 @@ namespace Rhythm_Recall.Waves
                     this.way = way;
                     this.colortype = colortype;
                 }
-                public override void Draw()
-                {
-
-                }
+                public override void Draw() { }
                 float time = 0;
                 public bool marcksore;
                 private int appearTime;
                 public string[] tags = { "noany" };
                 public override void Update()
                 {
-                    appearTime += 1;
+                    appearTime++;
                     if (appearTime == 1)
                     {
-                        if (way)
-                            for (int a = 0; a < quantity; a++)
-                            {
-                                float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                                CreateBone(bone1);
-                            }
-                        if (!way)
-                            for (int a = 0; a < quantity; a++)
-                            {
-                                float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                                CreateBone(bone1);
-
-                            }
+                        for (int a = 0; a < quantity; a++)
+                        {
+                            float b = (a + 0.5f) * distance * speed;
+                            DownBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                            CreateBone(bone1);
+                        }
                     }
-                    if (time >= duration)
-                    {
-                        Dispose();
-                    }
+                    if (time >= duration) Dispose();
                     time++;
                 }
             }
@@ -151,147 +136,87 @@ namespace Rhythm_Recall.Waves
                     this.way = way;
                     this.colortype = colortype;
                 }
-                public override void Draw()
-                {
-
-                }
+                public override void Draw() { }
                 int appearTime;
                 float time = 0;
                 public bool marcksore;
                 public string[] tags = { "noany" };
                 public override void Update()
                 {
-                    appearTime += 1;
+                    appearTime++;
                     if (appearTime == 1)
                     {
-                        if (way)
-                            for (int a = 0; a < quantity; a++)
-                            {
-                                float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                                CreateBone(bone1);
-                            }
-                        if (!way)
-                            for (int a = 0; a < quantity; a++)
-                            {
-                                float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                                CreateBone(bone1);
-
-                            }
+                        for (int a = 0; a < quantity; a++)
+                        {
+                            float b = (a + 0.5f) * distance * speed;
+                            UpBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                            CreateBone(bone1);
+                        }
                     }
-                    if (time >= duration)
-                    {
-                        Dispose();
-                    }
+                    if (time >= duration) Dispose();
                     time++;
                 }
-            }
-            public static void SpecialKnife(Vector2 center, float rotate, bool trafic, float trafictime, bool value)
-            {
-                DrawingUtil.Linerotate head = new(center.X, center.Y, rotate + 180, trafictime, 1, Color.Red);
-                head.width = 1.5f;
-                CreateEntity(head);
-                AddInstance(new TimeRangedEvent(trafictime, 1, () =>
-                {
-                    head.Dispose();
-                }));
-                float sin = 90;
-                float rot = 0;
-                AddInstance(new TimeRangedEvent(0, trafictime - 2, () =>
-                {
-                    sin += 90 / (trafictime - 2);
-                    head.rotate = rot;
-                    rot = rotate;
-                }));
-                if (!trafic)
-                {
-                    PlaySound(Sounds.Warning);
-                }
-                AddInstance(new TimeRangedEvent(trafictime + 1, 1, () =>
-                {
-                    if (!value) PlaySound(Sounds.largeKnife, 0.7f);
-                    DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red);
-                    Line.width = 0;
-                    CreateEntity(Line);
-                    Shock(1.2f, 1.3f, 3);
-                    AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
-                    {
-                        Line.width = Line.width * 0.7f + 25 * 0.3f;
-                        Line.alpha -= 1 / bpm / 4;
-                    }));
-                    for (int a = 0; a < 2; a++)
-                    {
-                        CreateSpear(new Pike(center + new Vector2(Cos(rot + 180) * (128 + a * 66), Sin(rot + 180) * (128 + a * 66)), rot, 15 + a * 1.2f, 1) { IsShootMute = true, IsSpawnMute = true, DrawingColor = new(0, 0, 0, 0) });
-                        CreateSpear(new Pike(center + new Vector2(Cos(rot) * (128 + a * 66), Sin(rot) * (128 + a * 66)), rot + 180, 15 + a * 1.2f, 1) { IsShootMute = true, IsSpawnMute = true, DrawingColor = new(0, 0, 0, 0) });
-                    }
-                }));
-
             }
             public static void ReturnJumpBone1(int org)
             {
                 PlaySound(Sounds.pierce);
-                if (org == 0)
+                switch (org)
                 {
-
-                    CreateBone(new DownBone(false, 4.4f, 26));
-                    CreateBone(new DownBone(true, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new UpBone(true, 4.4f, 26));
-                    CreateBone(new UpBone(false, 4.4f, BoxStates.Height - 26 - 48));
-                }
-                if (org == 1)
-                {
-                    CreateBone(new RightBone(false, 4.4f, 26));
-                    CreateBone(new RightBone(true, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new LeftBone(true, 4.4f, 26));
-                    CreateBone(new LeftBone(false, 4.4f, BoxStates.Height - 26 - 48));
-                }
-                if (org == 2)
-                {
-                    CreateBone(new UpBone(false, 4.4f, 26));
-                    CreateBone(new UpBone(true, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new DownBone(true, 4.4f, 26));
-                    CreateBone(new DownBone(false, 4.4f, BoxStates.Height - 26 - 48));
-                }
-                if (org == 3)
-                {
-                    CreateBone(new LeftBone(false, 4.4f, 26));
-                    CreateBone(new LeftBone(true, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new RightBone(true, 4.4f, 26));
-                    CreateBone(new RightBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                    case 0:
+                        CreateBone(new DownBone(false, 4.4f, 26));
+                        CreateBone(new DownBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new UpBone(true, 4.4f, 26));
+                        CreateBone(new UpBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
+                    case 1:
+                        CreateBone(new RightBone(false, 4.4f, 26));
+                        CreateBone(new RightBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new LeftBone(true, 4.4f, 26));
+                        CreateBone(new LeftBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
+                    case 2:
+                        CreateBone(new UpBone(false, 4.4f, 26));
+                        CreateBone(new UpBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new DownBone(true, 4.4f, 26));
+                        CreateBone(new DownBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
+                    case 3:
+                        CreateBone(new LeftBone(false, 4.4f, 26));
+                        CreateBone(new LeftBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new RightBone(true, 4.4f, 26));
+                        CreateBone(new RightBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
                 }
             }
             public static void ReturnJumpBone2(int org)
             {
                 PlaySound(Sounds.pierce);
-                if (org == 0)
+                switch (org)
                 {
-
-                    CreateBone(new DownBone(true, 4.4f, 26));
-                    CreateBone(new DownBone(false, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new UpBone(false, 4.4f, 26));
-                    CreateBone(new UpBone(true, 4.4f, BoxStates.Height - 26 - 48));
-                }
-                if (org == 1)
-                {
-                    CreateBone(new RightBone(true, 4.4f, 26));
-                    CreateBone(new RightBone(false, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new LeftBone(false, 4.4f, 26));
-                    CreateBone(new LeftBone(true, 4.4f, BoxStates.Height - 26 - 48));
-                }
-                if (org == 2)
-                {
-                    CreateBone(new UpBone(true, 4.4f, 26));
-                    CreateBone(new UpBone(false, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new DownBone(false, 4.4f, 26));
-                    CreateBone(new DownBone(true, 4.4f, BoxStates.Height - 26 - 48));
-                }
-                if (org == 3)
-                {
-                    CreateBone(new LeftBone(true, 4.4f, 26));
-                    CreateBone(new LeftBone(false, 4.4f, BoxStates.Height - 26 - 48));
-                    CreateBone(new RightBone(false, 4.4f, 26));
-                    CreateBone(new RightBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                    case 0:
+                        CreateBone(new DownBone(true, 4.4f, 26));
+                        CreateBone(new DownBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new UpBone(false, 4.4f, 26));
+                        CreateBone(new UpBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
+                    case 1:
+                        CreateBone(new RightBone(true, 4.4f, 26));
+                        CreateBone(new RightBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new LeftBone(false, 4.4f, 26));
+                        CreateBone(new LeftBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
+                    case 2:
+                        CreateBone(new UpBone(true, 4.4f, 26));
+                        CreateBone(new UpBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new DownBone(false, 4.4f, 26));
+                        CreateBone(new DownBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
+                    case 3:
+                        CreateBone(new LeftBone(true, 4.4f, 26));
+                        CreateBone(new LeftBone(false, 4.4f, BoxStates.Height - 26 - 48));
+                        CreateBone(new RightBone(false, 4.4f, 26));
+                        CreateBone(new RightBone(true, 4.4f, BoxStates.Height - 26 - 48));
+                        break;
                 }
             }
             public static void SinBone1(float start)
@@ -405,29 +330,27 @@ namespace Rhythm_Recall.Waves
             public static void Intro0()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "$0($0)","/","+0","/",    "+0","/","/","/",
-                "+0","/","/","/",    "+2","/","/","/",
-                "R1","/","/","/",    "+21","/","/","/",
-                "R1","/","/","/",    "+21","/","/","/",
+                string[] arrow = {
+                    "$0($0)","/","+0","/",    "+0","/","/","/",
+                    "+0","/","/","/",    "+2","/","/","/",
+                    "R1","/","/","/",    "+21","/","/","/",
+                    "R1","/","/","/",    "+21","/","/","/",
 
-                "R","/","+1","/",    "-1","/","/","/",
-                "R","/","/","/",    "R1","/","/","/",
-                "$0","/","$1","/",    "$2","/","$3","/",
-                "R1","/","/","/",    "R1","/","/","/",
+                    "R","/","+1","/",    "-1","/","/","/",
+                    "R","/","/","/",    "R1","/","/","/",
+                    "$0","/","$1","/",    "$2","/","$3","/",
+                    "R1","/","/","/",    "R1","/","/","/",
 
-                "R","/","+1","/",    "-1","/","/","/",
-                "R","/","/","/",    "R1","/","/","/",
-                "$0","/","$1","/",    "$2","/","$3","/",
-                "R1","/","/","/",    "R1","/","/","/",
+                    "R","/","+1","/",    "-1","/","/","/",
+                    "R","/","/","/",    "R1","/","/","/",
+                    "$0","/","$1","/",    "$2","/","$3","/",
+                    "R1","/","/","/",    "R1","/","/","/",
 
-                "R","/","+1","/",    "-1","/","/","/",
-                "R","/","/","/",    "+2","/","/","/",
-                "R1","/","/","/",    "+21","/","/","/",
-                "R1","/","/","/",    "+21","/","/","/",
-
-            };
+                    "R","/","+1","/",    "-1","/","/","/",
+                    "R","/","/","/",    "+2","/","/","/",
+                    "R1","/","/","/",    "+21","/","/","/",
+                    "R1","/","/","/",    "+21","/","/","/",
+                };
                 for (int i = 0; i < arrow.Length; i++)
                 {
                     if (arrow[i] == "/") beat += bpm * 0.5f;
@@ -441,29 +364,27 @@ namespace Rhythm_Recall.Waves
             public static void Intro1()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "$01($01)","/","+11","/",    "-11","/","/","/",
-                "R1","/","/","/",    "+21","/","/","/",
-                "R","/","/","/",    "+2","/","/","/",
-                "R","/","/","/",    "+2","/","/","/",
+                string[] arrow = {
+                    "$01($01)","/","+11","/",    "-11","/","/","/",
+                    "R1","/","/","/",    "+21","/","/","/",
+                    "R","/","/","/",    "+2","/","/","/",
+                    "R","/","/","/",    "+2","/","/","/",
 
-                "R1","/","+11","/",    "-11","/","/","/",
-                "R1","/","/","/",    "R","/","/","/",
-                "$01","/","$11","/",    "$21","/","$31","/",
-                "R","/","/","/",    "R","/","/","/",
+                    "R1","/","+11","/",    "-11","/","/","/",
+                    "R1","/","/","/",    "R","/","/","/",
+                    "$01","/","$11","/",    "$21","/","$31","/",
+                    "R","/","/","/",    "R","/","/","/",
 
-                "R1","/","+11","/",    "-11","/","/","/",
-                "R1","/","/","/",    "R0","/","/","/",
-                "$01","/","$11","/",    "$21","/","$31","/",
-                "R0","/","/","/",    "R0","/","/","/",
+                    "R1","/","+11","/",    "-11","/","/","/",
+                    "R1","/","/","/",    "R0","/","/","/",
+                    "$01","/","$11","/",    "$21","/","$31","/",
+                    "R0","/","/","/",    "R0","/","/","/",
 
-                "R1","/","+11","/",    "-11","/","/","/",
-                "R1","/","/","/",    "+21","/","/","/",
-                "R","/","/","/",    "+2","/","/","/",
-                "R","/","/","/",    "+2","/","/","/",
-
-            };
+                    "R1","/","+11","/",    "-11","/","/","/",
+                    "R1","/","/","/",    "+21","/","/","/",
+                    "R","/","/","/",    "+2","/","/","/",
+                    "R","/","/","/",    "+2","/","/","/",
+                };
                 for (int i = 0; i < arrow.Length; i++)
                 {
                     if (arrow[i] == "/") beat += bpm * 0.5f;
@@ -477,28 +398,27 @@ namespace Rhythm_Recall.Waves
             public static void Intro2()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "$0($0)($21)($21)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
+                string[] arrow = {
+                    "$0($0)($21)($21)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-            };
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                };
                 for (int i = 0; i < arrow.Length; i++)
                 {
                     if (arrow[i] == "/") beat += bpm * 0.5f;
@@ -512,28 +432,27 @@ namespace Rhythm_Recall.Waves
             public static void Intro3()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "$01($01)($2)($2)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
+                string[] arrow = {
+                    "$01($01)($2)($2)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "R(R1)","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "R(R1)","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-            };
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                };
                 for (int i = 0; i < arrow.Length; i++)
                 {
                     if (arrow[i] == "/") beat += bpm * 0.5f;
@@ -547,28 +466,27 @@ namespace Rhythm_Recall.Waves
             public static void Intro4()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "G12","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
-                "G12","/","/","/", "/","/","/","/",
+                string[] arrow = {
+                    "G12","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
+                    "G12","/","/","/", "/","/","/","/",
 
-                "G02","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
+                    "G02","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
 
-                "G12","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
+                    "G12","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
 
-                "G02","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
-            };
+                    "G02","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                };
                 float greencount = bpm * 4;
                 for (int i = 0; i < arrow.Length; i++)
                 {
@@ -591,28 +509,27 @@ namespace Rhythm_Recall.Waves
             public static void Intro5()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "G12","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
-                "G12","/","/","/", "/","/","/","/",
+                string[] arrow = {
+                    "G12","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
+                    "G12","/","/","/", "/","/","/","/",
 
-                "G02","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
+                    "G02","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
 
-                "G12","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
+                    "G12","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
 
-                "G02","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-            };
+                    "G02","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                };
                 float greencount = bpm * 4;
                 for (int i = 0; i < arrow.Length; i++)
                 {
@@ -703,7 +620,6 @@ namespace Rhythm_Recall.Waves
             }
             public static void Intro7()
             {
-
                 SetSoul(0);
                 SetBox(280, 280, 128);
                 Heart.GiveForce(0, 0);
@@ -712,13 +628,6 @@ namespace Rhythm_Recall.Waves
                 {
                     x += 3.2f;
                 }));
-                /*for(int a=0;a<8;a++)
-                {
-                    AddInstance(new InstantEvent(bpm * 16*a, () =>
-                    {
-                        SpecialKnife(Heart.Centre, 0, false, bpm * 8, false);
-                    }));
-                }*/
                 CreateEntity(new DownBonesea(58, bpm * 4, 64, false, 2.8f, bpm * 64) { tags = new string[] { "a" } });
                 CreateEntity(new UpBonesea(58, bpm * 4, 64, true, 2.8f, bpm * 64) { tags = new string[] { "a" } });
                 CreateEntity(new sDownBonesea(58, bpm * 4, 64, false, 2.8f, bpm * 64, 2) { tags = new string[] { "a" } });
@@ -784,14 +693,12 @@ namespace Rhythm_Recall.Waves
             public static void Intro9()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "$0","/","/","/", "/","/","/","/",
-                "$2","/","/","/", "/","/","/","/",
-                "$0","/","/","/", "$2","/","/","/",
-                "$0","/","/","/", "$2","/","/","/",
-
-            };
+                string[] arrow = {
+                    "$0","/","/","/", "/","/","/","/",
+                    "$2","/","/","/", "/","/","/","/",
+                    "$0","/","/","/", "$2","/","/","/",
+                    "$0","/","/","/", "$2","/","/","/",
+                };
                 float greencount = bpm * 4;
                 for (int i = 0; i < arrow.Length; i++)
                 {
@@ -814,85 +721,84 @@ namespace Rhythm_Recall.Waves
             public static void Intro10()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "/","/","/","/", "/","/","/","/",
-                "/","/","/","/", "R","/","/","/",
-                "R","/","/","/", "R","/","/","/",
-                "R","/","/","/", "R","/","/","/",
+                string[] arrow = {
+                    "/","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "R","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
 
-                "G11","/","/","/", "/","/","/","/",
-                "R","/","/","/", "R","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
 
-                "G11","/","/","/", "/","/","/","/",
-                "/","/","/","/", "R","/","/","/",
-                "R1","/","/","/", "+11","/","/","/",
-                "+11","/","/","/", "+11","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "R","/","/","/",
+                    "R1","/","/","/", "+11","/","/","/",
+                    "+11","/","/","/", "+11","/","/","/",
 
-                "R","/","/","/", "R","/","/","/",
-                "R","/","/","/", "R","/","/","/",
-                "R","/","+11","/", "-1","/","+11","/",
-                "R","/","+11","/", "-1","/","+11","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","+11","/", "-1","/","+11","/",
+                    "R","/","+11","/", "-1","/","+11","/",
 
-                "G01","/","/","/", "/","/","/","/",
-                "/","/","/","/", "R1","/","/","/",
-                "R1","/","/","/", "R1","/","/","/",
-                "R1","/","/","/", "R1","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "R1","/","/","/",
+                    "R1","/","/","/", "R1","/","/","/",
+                    "R1","/","/","/", "R1","/","/","/",
 
-                "G01","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "R1","/","/","/",
-                "G01","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "R1","/","/","/",
+                    "G01","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
 
-                "R0","/","/","/", "+1","/","/","/",
-                "+1","/","/","/", "+1","/","/","/",
-                "R1","/","/","/", "+11","/","/","/",
-                "+11","/","/","/", "+11","/","/","/",
+                    "R0","/","/","/", "+1","/","/","/",
+                    "+1","/","/","/", "+1","/","/","/",
+                    "R1","/","/","/", "+11","/","/","/",
+                    "+11","/","/","/", "+11","/","/","/",
 
-                "G03","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "G11","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
+                    "G03","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "G11","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "+0","/","/","/",
-                "R","/","/","/", "+0","/","/","/",
-                "R(R1)","/","/","/", "+01","/","/","/",
-                "R1","/","/","/", "+01","/","/","/",
+                    "R(R1)","/","/","/", "+0","/","/","/",
+                    "R","/","/","/", "+0","/","/","/",
+                    "R(R1)","/","/","/", "+01","/","/","/",
+                    "R1","/","/","/", "+01","/","/","/",
 
-                "R","/","+1","/", "-11","/","+01","/",
-                "R(R1)","/","/","/", "R(R1)","/","/","/",
-                "R1","/","+11","/", "-1","/","+0","/",
-                "R(R1)","/","/","/", "R(R1)","/","/","/",
+                    "R","/","+1","/", "-11","/","+01","/",
+                    "R(R1)","/","/","/", "R(R1)","/","/","/",
+                    "R1","/","+11","/", "-1","/","+0","/",
+                    "R(R1)","/","/","/", "R(R1)","/","/","/",
 
-                "R","/","/","/", "R","/","/","/",
-                "R","/","/","/", "R","/","/","/",
-                "R","/","+01","/", "R","/","+01","/",
-                "R","/","+01","/", "R","/","+01","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","+01","/", "R","/","+01","/",
+                    "R","/","+01","/", "R","/","+01","/",
 
-                "R","/","/","/", "R","/","/","/",
-                "R","/","+01","/", "R","/","+01","/",
-                "R(R1)","/","/","/", "/","/","/","/",
-                "R(R1)","/","/","/", "/","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","+01","/", "R","/","+01","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
+                    "R(R1)","/","/","/", "/","/","/","/",
 
-                "R(R1)","/","/","/", "R","/","/","/",
-                "R","/","/","/", "R","/","/","/",
-                "R","/","+01","/", "R","/","+01","/",
-                "R","/","+01","/", "R","/","+01","/",
+                    "R(R1)","/","/","/", "R","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","+01","/", "R","/","+01","/",
+                    "R","/","+01","/", "R","/","+01","/",
 
-                "R(R1)","/","/","/", "R","/","/","/",
-                "R","/","/","/", "R","/","/","/",
-                "R","/","+01","/", "R","/","+01","/",
-                "R","/","+01","/", "R","/","+01","/",
+                    "R(R1)","/","/","/", "R","/","/","/",
+                    "R","/","/","/", "R","/","/","/",
+                    "R","/","+01","/", "R","/","+01","/",
+                    "R","/","+01","/", "R","/","+01","/",
 
-                "T01","/","/","/", "/","/","/","/",
-                "/","/","/","/", "T01","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R(+21)","/","/","/", "/","/","/","/",
+                    "T01","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "T01","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R(+21)","/","/","/", "/","/","/","/",
 
-                "R(+21)"
-            };
+                    "R(+21)"
+                };
                 float greencount = bpm * 4 - 5;
                 for (int i = 0; i < arrow.Length; i++)
                 {
@@ -934,88 +840,6 @@ namespace Rhythm_Recall.Waves
                     CreateBone(new CentreCircleBone(90, -2, 60 + 15, bpm * 16 * 8 - bpm * 8) { ColorType = 1 });
                     CreateBone(new CentreCircleBone(180, -2, 60 + 15, bpm * 16 * 8 - bpm * 8) { ColorType = 2 });
                 }));
-                /*AddInstance(new InstantEvent(bpm * 16 * 8, () =>
-                {
-                    SetSoul(0);
-                    float beat = 0;
-                    string[] arrow =
-                        {
-            "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-            "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-             "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-            "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-             "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-            "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-             "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-            "$0","/","/","/", "/","/","/","/",
-            "/","/","$0","/", "/","/","/","/",
-            "/","/","/","/", "$0","/","/","/",
-            "/","/","$0","/", "/","/","$0","/",
-
-            "$0","/","/","/", "/","/","/","/",
-            "$0","/","/","/", "/","/","/","/",
-            "$0","/","/","/", "$0","/","$0","/",
-            "$0","/","/","/", "/","/","/","/",
-        };
-                    float greencount = bpm * 4 - 5;
-                    for (int i = 0; i < arrow.Length; i++)
-                    {
-                        int x = i;
-                        if (arrow[i] == "/")
-                        {
-                            beat += bpm * 0.5f;
-                        }
-                        else if (arrow[i][0] == 'T')
-                        {
-                            beat += bpm * 4f;
-                            instance.CreateArrows(beat + bpm * 16, 5.5f, "$0");
-                            instance.CreateArrows(beat + bpm * 16 + bpm * 1.333f, 5.5f, "$0");
-                            instance.CreateArrows(beat + bpm * 16 + bpm * 2.666f, 5.5f, "$0");
-                        }
-                        else if (arrow[i][0] == 'G')
-                        {
-                            beat += bpm * 0.5f;
-                            CreateGB(new GreenSoulGB(beat + bpm * 16, "R", arrow[i][1] - '0', (arrow[i][2] - '0') * greencount));
-                        }
-                        else if (arrow[i] != "/")
-                        {
-                            AddInstance(new InstantEvent(beat, () =>
-                            {
-                                PlaySound(Sounds.pierce, 0.75f);
-                                CreateEntity(new RotBone(System.MathF.Sqrt(160 * 160 * 2) / 2 - 5, 2.8f, Rand(40, 50), true, Rand(0, 3)));
-                                beat += bpm * 0.5f;
-                            }));
-                        }
-                    }
-                }));测试卡点*/
             }
             public static void Intro12()
             {
@@ -1027,13 +851,6 @@ namespace Rhythm_Recall.Waves
                 {
                     x += 3.2f;
                 }));
-                /*for(int a=0;a<8;a++)
-                {
-                    AddInstance(new InstantEvent(bpm * 16*a, () =>
-                    {
-                        SpecialKnife(Heart.Centre, 0, false, bpm * 8, false);
-                    }));
-                }*/
                 CreateEntity(new DownBonesea(58, bpm * 4, 64, false, 2.8f, bpm * 64) { tags = new string[] { "a" } });
                 CreateEntity(new UpBonesea(58, bpm * 4, 64, true, 2.8f, bpm * 64) { tags = new string[] { "a" } });
                 CreateEntity(new sDownBonesea(58, bpm * 4, 64, false, 2.8f, bpm * 64, 2) { tags = new string[] { "a" } });
@@ -1093,88 +910,87 @@ namespace Rhythm_Recall.Waves
             public static void Intro13()
             {
                 float beat = 0;
-                string[] arrow =
-                    {
-                "$0","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                string[] arrow = {
+                    "$0","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
 
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-                "R","/","+0","/", "+0","/","+0","/",
-                "R","/","+0","/", "R","/","+0","/",
-            };
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                    "R","/","+0","/", "+0","/","+0","/",
+                    "R","/","+0","/", "R","/","+0","/",
+                };
 
                 float greencount = bpm * 4 - 5;
                 for (int i = 0; i < arrow.Length; i++)
@@ -1201,90 +1017,89 @@ namespace Rhythm_Recall.Waves
                     }
                 }
                 float beat1 = 0;
-                string[] arrow1 =
-                    {
-                "$01","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                string[] arrow1 = {
+                    "$01","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "R1","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "R1","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "R1","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "R1","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "R1","/","/","/", "/","/","/","/",
-                "/","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
-                "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "/","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
+                    "R1","/","/","/", "/","/","/","/",
 
-                "$0($0)($21)($21)"
-            };
+                    "$0($0)($21)($21)"
+                };
                 for (int i = 0; i < arrow1.Length; i++)
                 {
                     if (arrow1[i] == "/") beat1 += bpm * 0.5f;
@@ -6098,12 +5913,6 @@ namespace Rhythm_Recall.Waves
         public void Start()
         {
             UISettings.CreateUISurface();
-            //TP(160, 280); 
-            //GametimeDelta = (int)(this.BeatTime(1200 - 12 + 96 - 3));
-            //SetBox(240, 160, 160);
-            //TP(320, 240);
-            //SetSoul(0);
-            //GametimeDelta = (int)(this.BeatTime(768 + 256));
             Heart.Speed = 3.25f;
             Heart.SoftFalling = true;
             SetBox(240, 84, 84);
@@ -6114,7 +5923,6 @@ namespace Rhythm_Recall.Waves
             HeartAttribute.KRDamage = 5.5f;
             HeartAttribute.MaxHP = 96;
             HeartAttribute.KR = true;
-
         }
     }
 }

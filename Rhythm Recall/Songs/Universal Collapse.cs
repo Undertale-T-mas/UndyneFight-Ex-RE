@@ -553,9 +553,6 @@ namespace Rhythm_Recall.Waves
                 CreateArrow(80, Rand(0, 3), 8, 0, 0);
                 CreateArrow(80, LastRand + 2, 8, 1, 0);
             }
-
-
-
             if (GametimeF == (int)(bpm * 16 * 4 - 80))
             {
                 int Parta = (int)(bpm * 6 + bpm * 2 + bpm * 6 + bpm * 2 + bpm * 6 + bpm + bpm + bpm * 2 + bpm * 2 + bpm * 2 + bpm * 2);
@@ -666,9 +663,6 @@ namespace Rhythm_Recall.Waves
                     CreateArrow(Arrow[a] + 80, Rand(0, 3), 5, 1, 0);
                 }
             }
-
-
-
             if (Gametime == (int)(bpm * 16 * 8 - 80 - 7 * bpm))
             {
                 for (int a = 0; a < 3; a++)
@@ -677,6 +671,7 @@ namespace Rhythm_Recall.Waves
                     CreateArrow(80 + BeatTime(2 * a + 1), 2, 11, 0, 0);
                 }
             }
+            //纵连
             if (Gametime == (int)(bpm * 16 * 16 - 80 - 7 * bpm))
             {
                 for (int a = 0; a < 3; a++)
@@ -685,10 +680,6 @@ namespace Rhythm_Recall.Waves
                     CreateArrow(80 + BeatTime(2 * a + 1), 2, 11, 0, 0);
                 }
             }
-            //纵连
-
-
-
             if (GametimeF == (int)(bpm * 16 * 20))
             {
                 SetBox(0, 641, 240 - 42, 240 + 42);
@@ -905,7 +896,6 @@ namespace Rhythm_Recall.Waves
                 CreateBone(new CentreCircleBone(300, -3.5f, 224, bpm * 16 * 1.5f + bpm * 16 * 15 + 4 * bpm) { ColorType = 2 });
             }
             //旋转橙骨
-
             for (int a = 0; a < 32; a++)
             {
                 if (GametimeF == (int)(bpm * 16 * 51 + bpm * 16 * 17 + GB[a]))

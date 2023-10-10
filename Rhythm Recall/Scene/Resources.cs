@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.UserService;
+using static Rhythm_Recall.Resources.Championships;
+using static UndyneFight_Ex.GameInterface.GameStartUp;
 
 namespace Rhythm_Recall
 {
@@ -15,7 +17,7 @@ namespace Rhythm_Recall
             //   UndyneFight_Ex.ChampionShips.LicenseMaker.GetScore(Waves.Memory2022.GetChampionShip);
             foreach (char ch in _loads)
             {
-                charTextures[ch] = cm.Load<Texture2D>("FontTexture\\" + ch + "\\" + ch);
+                charTextures[ch] = cm.Load<Texture2D>($"FontTexture\\{ch}\\{ch}");
             }
 
             block = cm.Load<Texture2D>("Sprites\\Blocks\\block");
@@ -24,13 +26,13 @@ namespace Rhythm_Recall
             blockTail = cm.Load<Texture2D>("Sprites\\Blocks\\blockMini");
             BackGround = cm.Load<Texture2D>("FontTexture\\BackGround");
 
-            Championships.Memory2022.Flash0 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash0");
-            Championships.Memory2022.Flash1 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash1");
-            Championships.Memory2022.Flash2 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash2");
-            Championships.Memory2022.Flash3 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash3");
-            Championships.Memory2022.Flash4 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash4");
-            Championships.Memory2022.Flash5 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash5");
-            //  Championships.Memory2022.Flash1 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash1");
+            Memory2022.Flash0 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash0");
+            Memory2022.Flash1 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash1");
+            Memory2022.Flash2 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash2");
+            Memory2022.Flash3 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash3");
+            Memory2022.Flash4 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash4");
+            Memory2022.Flash5 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash5");
+            //Memory2022.Flash1 = cm.Load<Texture2D>("ChampionShips\\Memory2022\\Flash1");
 
             TKSpecial.AprilFools2023.FlanHand = cm.Load<Texture2D>("TK2023\\FlanHand");
 
@@ -42,17 +44,17 @@ namespace Rhythm_Recall
         private static void SouvenirLoad(ContentManager cm)
         {
             cm.RootDirectory = "Content\\Shop";
-            GameStartUp.PushStoreItem(
+            PushStoreItem(
                 new Souvenir("Gold Trophy", "2023MEMTroGol", "The gold trophy of Memory-2023. It symbolizes your strength.", ItemRarity.Legendary)
                 {
                     Image = cm.Load<Texture2D>("Souvenir\\MemoryGold")
                 }); ;
-            GameStartUp.PushStoreItem(
+            PushStoreItem(
                 new Souvenir("Silver Trophy", "2023MEMTroSil", "The silver trophy of Memory-2023. It symbolizes your strength.", ItemRarity.Epic)
                 {
                     Image = cm.Load<Texture2D>("Souvenir\\MemorySilver")
                 }); ;
-            GameStartUp.PushStoreItem(
+            PushStoreItem(
                 new Souvenir("Bronze Trophy", "2023MEMTroBrz", "The bronze trophy of Memory-2023. It symbolizes your strength.", ItemRarity.Epic)
                 {
                     Image = cm.Load<Texture2D>("Souvenir\\MemoryBronze")

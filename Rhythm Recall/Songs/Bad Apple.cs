@@ -5,8 +5,9 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static Extends.DrawingUtil;
-using static Extends.LineMoveLibrary;
 using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.DrawingLab;
 using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using System;
@@ -39,7 +40,7 @@ namespace Rhythm_Recall.Waves
 
             public override void Draw()
             {
-                DrawingLab.DrawRectangle(collidingBox, Color.Gold * (alpha + Sin(Gametime / game.BeatTime(16) * 360) * 0.5f * MathHelper.Min(1, appearTime / 100f)), 4, 0.2f);
+                DrawRectangle(collidingBox, Color.Gold * (alpha + Sin(Gametime / game.BeatTime(16) * 360) * 0.5f * MathHelper.Min(1, appearTime / 100f)), 4, 0.2f);
             }
 
             public override void Update()
@@ -104,7 +105,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CreateBone(new FireWorkBone(Centre, speed, add + per * i) { ColorType = colorType });
                 }
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 base.Dispose();
             }
 
@@ -112,7 +113,7 @@ namespace Rhythm_Recall.Waves
             {
                 for (int i = 0; i < count; i++)
                 {
-                    FormalDraw(FightResources.Sprites.lightBall, Centre + GetVector2(speeds[i]
+                    FormalDraw(Sprites.lightBall, Centre + GetVector2(speeds[i]
                         * timeLeft, rotations[i]), drawingColor * MathHelper.Min(0.7f, appearTime / (duration / 1.3f)), sizes[i], 0, new Vector2(10, 10));
                 }
             }
@@ -195,7 +196,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CreateBone(new FireWorkBone(Centre, speed, add + per * i + Rand(-3, 3)) { ColorType = colorType });
                 }
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 base.Dispose();
             }
 
@@ -203,7 +204,7 @@ namespace Rhythm_Recall.Waves
             {
                 for (int i = 0; i < count; i++)
                 {
-                    FormalDraw(FightResources.Sprites.lightBall, Centre + GetVector2(speeds[i]
+                    FormalDraw(Sprites.lightBall, Centre + GetVector2(speeds[i]
                         * timeLeft, rotations[i]), drawingColor * MathHelper.Min(0.7f, appearTime / (duration / 1.3f)), sizes[i], 0, new Vector2(10, 10));
                 }
             }
@@ -241,7 +242,7 @@ namespace Rhythm_Recall.Waves
                 w = Rand(-10, 10) / 100f;
                 Centre = centre;
                 Rotation = 0;
-                Image = FightResources.Sprites.boxPiece;
+                Image = Sprites.boxPiece;
                 speed = new Vector2(Rand(-20, 20) / 10f, Rand(-30, 20) / 10f);
             }
 
@@ -358,7 +359,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(266 + 4, 394 - 16) && At0thBeat(6))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(320, 180), Motions.PositionRoute.linear, 0, 20)
                 {
                     PositionRouteParam = new float[] { 0, 1.8f }
@@ -393,13 +394,13 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(2)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new DownBone(false, 3.0f, 30));
                 CreateBone(new UpBone(false, 3.0f, 80));
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(10)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 3.0f, 30));
                 CreateBone(new DownBone(false, 3.0f, 80));
             }
@@ -493,7 +494,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1290 + 4, 1418 - 12) && At0thBeat(4))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(170, 290), Motions.PositionRoute.XAxisSin, 0, 26)
                 {
                     PositionRouteParam = new float[] { 4, 65, BeatTime(16), Rand(0, (int)BeatTime(16)) }
@@ -506,7 +507,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1418 + 4, 1546 - 4) && At0thBeat(6))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 3f, 80));
                 CreateBone(new DownBone(true, 3f, 80));
             }
@@ -594,12 +595,12 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(138 - 24))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new DownBone(true, 5, 50));
             }
             if (InBeat(138 - 20))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(true, 5, 50));
             }
             if (InBeat(138 - 32, 138))
@@ -666,7 +667,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(138.4f, 138 + 128 - 16) && At0thBeat(8))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 float height = Rand(1, 5) * 20;
                 CreateBone(new UpBone(false, 2.5f, height - 32));
                 CreateBone(new DownBone(false, 2.5f, 120 - height - 32));
@@ -684,7 +685,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(138.4f, 138 + 128 - 16) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 float height = Rand(1, 5) * 20;
                 CreateBone(new UpBone(true, 2.5f, height - 32));
                 CreateBone(new DownBone(true, 2.5f, 120 - height - 32));
@@ -717,7 +718,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(266, 394 - 4) && At0thBeat(3.8f))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 ScreenDrawing.CameraEffect.Convulse(10, BeatTime(2.9f), At0thBeat(7.6f));
                 /*AddInstance(new TimeRangedEvent(1, () =>
                 {
@@ -805,7 +806,7 @@ namespace Rhythm_Recall.Waves
                     {
                         line.Dispose();
                     });
-                    PlaySound(FightResources.Sounds.pierce);
+                    PlaySound(Sounds.pierce);
                     if (InBeat(526, 624))
                     {
                         float rand = Rand(0, (int)BeatTime(32));
@@ -819,7 +820,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(644))
             {
-                PlaySound(FightResources.Sounds.heal);
+                PlaySound(Sounds.heal);
                 HeartAttribute.MaxHP = 92;
                 SetBox(-200, 100, 100);
                 SetSoul(2);
@@ -867,12 +868,12 @@ namespace Rhythm_Recall.Waves
                 {
                     if (AtKthBeat(16, BeatTime(4)))
                     {
-                        PlaySound(FightResources.Sounds.pierce);
+                        PlaySound(Sounds.pierce);
                         CreateBone(new UpBone(false, 5, 154) { ColorType = 1 });
                     }
                     if (AtKthBeat(16, BeatTime(12)))
                     {
-                        PlaySound(FightResources.Sounds.pierce);
+                        PlaySound(Sounds.pierce);
                         CreateBone(new UpBone(false, 5, 154) { ColorType = 2 });
                     }
                 }
@@ -900,7 +901,7 @@ namespace Rhythm_Recall.Waves
             {
                 if (AtKthBeat(8, 0))
                 {
-                    PlaySound(FightResources.Sounds.pierce);
+                    PlaySound(Sounds.pierce);
                     CreateBone(new CustomBone(new Vector2(80, 350), Motions.PositionRoute.XAxisSin, 0, 14)
                     {
                         PositionRouteParam = new float[] { 1.5f, 53, BeatTime(32), Rand(0, (int)BeatTime(32)) }
@@ -908,7 +909,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (AtKthBeat(8, BeatTime(4)))
                 {
-                    PlaySound(FightResources.Sounds.pierce);
+                    PlaySound(Sounds.pierce);
                     CreateBone(new CustomBone(new Vector2(560, 350), Motions.PositionRoute.XAxisSin, 0, 14)
                     {
                         PositionRouteParam = new float[] { -1.5f, 53, BeatTime(32), Rand(0, (int)BeatTime(32)) }
@@ -1005,7 +1006,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1034))
             {
-                PlaySound(FightResources.Sounds.heal);
+                PlaySound(Sounds.heal);
                 HeartAttribute.MaxHP = 92;
                 Player.heartInstance = Player.hearts[0];
                 SetSoul(0);
@@ -1016,14 +1017,14 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1034 + 4, 1034 + 128 - 16) && AtKthBeat(8, 0))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 FightBox.instance = FightBox.boxs[0];
                 CreateBone(new DownBone(false, 3, 66));
                 CreateBone(new UpBone(false, 3, 32));
             }
             if (InBeat(1034 + 4, 1034 + 128 - 16) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 FightBox.instance = FightBox.boxs[1];
                 CreateBone(new DownBone(true, 3, 66));
                 CreateBone(new UpBone(true, 3, 32));
@@ -1195,7 +1196,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1418))
             {
-                PlaySound(FightResources.Sounds.heal);
+                PlaySound(Sounds.heal);
                 HeartAttribute.MaxHP = 92;
                 for (int i = 0; i < 8; i++)
                 {
@@ -1319,10 +1320,10 @@ namespace Rhythm_Recall.Waves
                 //EffectName = "TranColorDrawing";
                 InstantSetBox(320, 1000, 1000);
 
-                PlaySound(FightResources.Sounds.die1);
-                PlaySound(FightResources.Sounds.die1);
-                PlaySound(FightResources.Sounds.die2);
-                PlaySound(FightResources.Sounds.die2);
+                PlaySound(Sounds.die1);
+                PlaySound(Sounds.die1);
+                PlaySound(Sounds.die2);
+                PlaySound(Sounds.die2);
                 CreateEntity(new BoxPiece(new Vector2(250, 290)));
                 CreateEntity(new BoxPiece(new Vector2(390, 290)));
             }
@@ -1410,7 +1411,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(266 + 4, 394 - 16) && At0thBeat(6))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(320, 180), Motions.PositionRoute.linear, 0, 20)
                 {
                     PositionRouteParam = new float[] { 0, 2.1f }
@@ -1444,13 +1445,13 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(2)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new DownBone(false, 3.0f, 30));
                 CreateBone(new UpBone(false, 3.0f, 70));
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(10)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 3.0f, 30));
                 CreateBone(new DownBone(false, 3.0f, 70));
             }
@@ -1532,7 +1533,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1290 + 4, 1418 - 12) && At0thBeat(4))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(170, 290), Motions.PositionRoute.XAxisSin, 0, 20)
                 {
                     PositionRouteParam = new float[] { 4, 65, BeatTime(32), Rand(0, (int)BeatTime(32)) }
@@ -1544,7 +1545,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1418 + 4, 1546 - 4) && At0thBeat(8))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 2.5f, 77));
                 CreateBone(new DownBone(true, 2.5f, 77));
             }
@@ -1623,7 +1624,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(266 + 4, 394 - 16) && At0thBeat(6))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(320, 180), Motions.PositionRoute.linear, 0, 20)
                 {
                     PositionRouteParam = new float[] { 0, 2.1f }
@@ -1657,13 +1658,13 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(2)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new DownBone(false, 3.0f, 30));
                 CreateBone(new UpBone(false, 3.0f, 70));
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(10)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 3.0f, 30));
                 CreateBone(new DownBone(false, 3.0f, 70));
             }
@@ -1747,7 +1748,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1290 + 4, 1418 - 12) && At0thBeat(4))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(170, 290), Motions.PositionRoute.XAxisSin, 0, 20)
                 {
                     PositionRouteParam = new float[] { 4, 65, BeatTime(32), Rand(0, (int)BeatTime(32)) }
@@ -1760,7 +1761,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1418 + 4, 1546 - 4) && At0thBeat(8))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 2.5f, 80));
                 CreateBone(new DownBone(true, 2.5f, 80));
             }
@@ -1857,7 +1858,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(266 + 4, 394 - 16) && At0thBeat(4))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(320, 180), Motions.PositionRoute.linear, 0, 16)
                 {
                     PositionRouteParam = new float[] { 0, 2f }
@@ -1892,13 +1893,13 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(2)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new DownBone(false, 3.0f, 30));
                 CreateBone(new UpBone(false, 3.0f, 86));
             }
             if (InBeat(522 + 4, 650 - 4) && AtKthBeat(16, BeatTime(10)))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 3.0f, 30));
                 CreateBone(new DownBone(false, 3.0f, 86));
             }
@@ -1984,7 +1985,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1162))
             {
-                PlaySound(FightResources.Sounds.heal);
+                PlaySound(Sounds.heal);
                 Regenerate(2);
                 Heart.PurpleLineCount = 7;
                 SetBox(290, 150, 150);
@@ -2001,7 +2002,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1290 + 4, 1418 - 12) && At0thBeat(4))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new CustomBone(new Vector2(170, 290), Motions.PositionRoute.XAxisSin, 0, 26)
                 {
                     PositionRouteParam = new float[] { 3, 65, BeatTime(32), Rand(0, (int)BeatTime(32)) }
@@ -2018,7 +2019,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1418 + 4, 1546 - 4) && At0thBeat(4))
             {
-                PlaySound(FightResources.Sounds.pierce);
+                PlaySound(Sounds.pierce);
                 CreateBone(new UpBone(false, 3f, 80));
                 CreateBone(new DownBone(true, 3f, 80));
             }

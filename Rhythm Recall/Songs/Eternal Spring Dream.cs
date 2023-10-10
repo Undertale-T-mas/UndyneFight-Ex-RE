@@ -6,15 +6,17 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.FightResources.Sprites;
+using static UndyneFight_Ex.FightResources.Sounds;
+using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.MathUtil;
+using static UndyneFight_Ex.Fight.AdvanceFunctions;
 
 namespace Rhythm_Recall.Waves
 {
     public class EternalSpringDream : WaveConstructor, IWaveSet
     {
         public static EternalSpringDream instance;
-
         private class ExplodeTrigger2 : Entity, ICollideAble
         {
             private class Explode : Entity, ICollideAble
@@ -28,7 +30,7 @@ namespace Rhythm_Recall.Waves
                     Depth = 0.5f;
                     Centre = centre;
                     appearTime = 0;
-                    Image = Sprites.explodes[0];
+                    Image = explodes[0];
                     alpha = 1;
                 }
 
@@ -46,7 +48,7 @@ namespace Rhythm_Recall.Waves
                     float dist = GetDistance(player.Centre, Centre);
                     float res = dist - range - 5;
 
-                    if (res < 0) { if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true; }
+                    if (res < 0) { if (!hasHit) PushScore(0); LoseHP(player); hasHit = true; }
                     else if (res <= 2)
                     {
                         if (score >= 2) { score = 1; player.CreateCollideEffect2(Color.LawnGreen, 3f); }
@@ -57,13 +59,13 @@ namespace Rhythm_Recall.Waves
                     }
                     if (score != 3 && ((CurrentScene as FightScene).Mode & GameMode.PerfectOnly) != 0)
                     {
-                        if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true;
+                        if (!hasHit) PushScore(0); LoseHP(player); hasHit = true;
                     }
                 }
 
                 public override void Update()
                 {
-                    Image = Sprites.explodes[textureSort[appearTime / 3] - 1];
+                    Image = explodes[textureSort[appearTime / 3] - 1];
                     alpha = alphaSort[appearTime / 3];
                     appearTime++;
                     if (appearTime == 30) Dispose();
@@ -115,25 +117,24 @@ namespace Rhythm_Recall.Waves
                 Centre = start;
                 Rotation = MathF.Atan2(speed.Y, speed.X);
                 this.waitingTime = waitingTime;
-                Image = Sprites.explodeTrigger;
+                Image = explodeTrigger;
             }
 
             public override void Draw()
             {
                 FormalDraw(Image, Centre, Color.White, 0, ImageCentre);
-                FormalDraw(Sprites.arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + PI, new Vector2(10.5f, 6.5f));
+                FormalDraw(arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + PI, new Vector2(10.5f, 6.5f));
             }
 
             public override void Update()
             {
                 Centre += speed;
-                waitingTime -= 1f;
+                waitingTime--;
 
                 if (waitingTime <= 0)
                 {
-                    if (!soundPlayed)
-                        PlaySound(Sounds.explode, 0.4f);
-                    GameStates.InstanceCreate(new Explode(Centre));
+                    if (!soundPlayed) PlaySound(explode, 0.4f);
+                    InstanceCreate(new Explode(Centre));
                     Dispose();
                 }
             }
@@ -144,7 +145,7 @@ namespace Rhythm_Recall.Waves
 
                 float res = dist - 7;
 
-                if (res < 0) { if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true; }
+                if (res < 0) { if (!hasHit) PushScore(0); LoseHP(player); hasHit = true; }
                 else if (res <= 2)
                 {
                     if (score >= 2) { score = 1; player.CreateCollideEffect2(Color.LawnGreen, 3f); }
@@ -155,7 +156,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (score != 3 && ((CurrentScene as FightScene).Mode & GameMode.PerfectOnly) != 0)
                 {
-                    if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true;
+                    if (!hasHit) PushScore(0); LoseHP(player); hasHit = true;
                 }
             }
         }
@@ -172,7 +173,7 @@ namespace Rhythm_Recall.Waves
                     Depth = 0.95f;
                     Centre = centre;
                     appearTime = 0;
-                    Image = Sprites.explodes[0];
+                    Image = explodes[0];
                     alpha = 1;
                 }
 
@@ -190,7 +191,7 @@ namespace Rhythm_Recall.Waves
                     float dist = GetDistance(player.Centre, Centre);
                     float res = dist - range - 5;
 
-                    if (res < 0) { if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true; }
+                    if (res < 0) { if (!hasHit) PushScore(0); LoseHP(player); hasHit = true; }
                     else if (res <= 2)
                     {
                         if (score >= 2) { score = 1; player.CreateCollideEffect2(Color.LawnGreen, 3f); }
@@ -201,13 +202,12 @@ namespace Rhythm_Recall.Waves
                     }
                     if (score != 3 && ((CurrentScene as FightScene).Mode & GameMode.PerfectOnly) != 0)
                     {
-                        if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true;
+                        if (!hasHit) PushScore(0); LoseHP(player); hasHit = true;
                     }
                 }
-
                 public override void Update()
                 {
-                    Image = Sprites.explodes[textureSort[appearTime / 3] - 1];
+                    Image = explodes[textureSort[appearTime / 3] - 1];
                     alpha = alphaSort[appearTime / 3];
                     appearTime++;
                     if (appearTime == 30) Dispose();
@@ -229,25 +229,23 @@ namespace Rhythm_Recall.Waves
                 Centre = start;
                 Rotation = MathF.Atan2(speed.Y, speed.X);
                 this.waitingTime = waitingTime;
-                Image = Sprites.explodeTrigger;
+                Image = explodeTrigger;
             }
 
             public override void Draw()
             {
                 FormalDraw(Image, Centre, Color.White, 0, ImageCentre);
-                FormalDraw(Sprites.arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + PI, new Vector2(10.5f, 6.5f));
+                FormalDraw(arrow[0, 3, 0], Centre, Color.White * 0.2f, Rotation + PI, new Vector2(10.5f, 6.5f));
             }
-
             public override void Update()
             {
                 Centre += speed;
-                waitingTime -= 1f;
+                waitingTime--;
 
                 if (waitingTime <= 0)
                 {
-                    if (!soundPlayed)
-                        PlaySound(Sounds.explode, 0.4f);
-                    GameStates.InstanceCreate(new Explode(Centre));
+                    if (!soundPlayed) PlaySound(explode, 0.4f);
+                    InstanceCreate(new Explode(Centre));
                     Dispose();
                 }
             }
@@ -258,7 +256,7 @@ namespace Rhythm_Recall.Waves
 
                 float res = dist - 7;
 
-                if (res < 0) { if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true; }
+                if (res < 0) { if (!hasHit) PushScore(0); LoseHP(player); hasHit = true; }
                 else if (res <= 2)
                 {
                     if (score >= 2) { score = 1; player.CreateCollideEffect2(Color.LawnGreen, 3f); }
@@ -269,7 +267,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (score != 3 && ((CurrentScene as FightScene).Mode & GameMode.PerfectOnly) != 0)
                 {
-                    if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(player); hasHit = true;
+                    if (!hasHit) PushScore(0); LoseHP(player); hasHit = true;
                 }
             }
         }
@@ -317,17 +315,15 @@ namespace Rhythm_Recall.Waves
 
         public void Start()
         {
-            // GametimeDetla = BeatTime(1536 - 3 + 255);
             SetBox(290, 140, 140);
             SetSoul(0);
-            if (GameStates.difficulty >= 3)
+            if (difficulty >= 3)
             {
                 HeartAttribute.MaxHP = 92;
                 HeartAttribute.KR = true;
                 HeartAttribute.KRDamage = 7f;
                 Heart.Speed = 3;
             }
-            //ScreenDrawing.UISettings.CreateUISurface();
         }
 
         public void Noob()
@@ -386,7 +382,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && At0thBeat(8))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -448,12 +444,12 @@ namespace Rhythm_Recall.Waves
 
             if (InBeat(1152.2f + 4, 1280 - 4f) && AtKthBeat(8, 0))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 2, 67));
             }
             if (InBeat(1152.2f + 4, 1280 - 8f) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4, 67));
             }
             if (InBeat(1268))
@@ -517,12 +513,12 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1792 + 4, 1920f - 4) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4, 68));
             }
             if (InBeat(1792 + 4, 1920f - 4) && AtKthBeat(8, BeatTime(0)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(true, 3, 68));
             }
             if (InBeat(1920)) SetBox(290, 190, 190);
@@ -589,7 +585,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && At0thBeat(8))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -651,12 +647,12 @@ namespace Rhythm_Recall.Waves
 
             if (InBeat(1152.2f + 4, 1280 - 4f) && AtKthBeat(8, 0))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 2, 67));
             }
             if (InBeat(1152.2f + 4, 1280 - 8f) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4, 67));
             }
             if (InBeat(1268))
@@ -720,12 +716,12 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1792 + 4, 1920f - 4) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4, 68));
             }
             if (InBeat(1792 + 4, 1920f - 4) && AtKthBeat(8, BeatTime(0)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(true, 3, 68));
             }
             if (InBeat(1920)) SetBox(290, 190, 190);
@@ -792,7 +788,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && At0thBeat(8))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -854,12 +850,12 @@ namespace Rhythm_Recall.Waves
 
             if (InBeat(1152.2f + 4, 1280 - 4f) && AtKthBeat(8, 0))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(false, 2, 67));
             }
             if (InBeat(1152.2f + 4, 1280 - 8f) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4, 67));
             }
             if (InBeat(1268))
@@ -923,12 +919,12 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1792 + 4, 1920f - 4) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(false, 4, 68));
             }
             if (InBeat(1792 + 4, 1920f - 4) && AtKthBeat(8, BeatTime(0)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new UpBone(true, 3, 68));
             }
             if (InBeat(1920)) SetBox(290, 190, 190);
@@ -1007,7 +1003,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && AtKthBeat(8, BeatTime(0)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -1020,7 +1016,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 4) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(390, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -1068,7 +1064,7 @@ namespace Rhythm_Recall.Waves
 
             if (InBeat(1024f))
             {
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
                 SetBox(290, 160, 140);
                 SetSoul(2);
@@ -1296,7 +1292,7 @@ namespace Rhythm_Recall.Waves
                 }
             if (InBeat(2, 118) && At0thBeat(8))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new CustomBone(new Vector2(250 - 140, 370), Motions.PositionRoute.linear, 135, 80)
                 {
                     PositionRouteParam = new float[] { 4.5f, 0 }
@@ -1354,12 +1350,12 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512))
             {
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
             }
             if (InBeat(258, 500) && At0thBeat(8))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 for (int i = 0; i < 2; i++)
                 {
                     CreateBone(new CustomBone(new Vector2(150, 310), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
@@ -1403,7 +1399,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(256))
             {
                 SetSoul(2);
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
                 SetBox(310f, 320f, 210f);
                 CreatePlatform(new Platform(1, new Vector2(320, 380), Motions.PositionRoute.YAxisSin, 0, 49, BeatTime(252))
@@ -1476,7 +1472,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 14) && AtKthBeat(8, BeatTime(0)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(250, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -1489,7 +1485,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(512.2f + 4, 768 - 14) && AtKthBeat(8, BeatTime(4)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 float height = Rand(40, 100);
                 CreateBone(new CustomBone(new Vector2(390, 220), Motions.PositionRoute.XAccAxisSin, 0, (height - 19) * 2)
                 {
@@ -1506,7 +1502,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(768))
             {
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
                 Heart.Speed = 3.3f;
                 SetSoul(2);
@@ -1543,7 +1539,7 @@ namespace Rhythm_Recall.Waves
 
             if (InBeat(1024))
             {
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
                 SetSoul(2);
                 SetBox(290, 160, 180);
@@ -1551,7 +1547,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1024 + 12, 1152 - 12) && At0thBeat(8))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 CreateBone(new DownBone(true, 3, 38));
             }
             if (InBeat(1024, 1152 - 12) && At0thBeat(4))
@@ -1606,7 +1602,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1152 + 2, 1280 - 10 - 16) && AtKthBeat(32, BeatTime(8)))
             {
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 for (int i = -1; i <= 1; i += 2)
                     for (int j = -1; j <= 1; j += 2)
                     {
@@ -1639,7 +1635,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.UmbrellaSpeed = 0.8f;
                 SetBox(290, 380, 240);
                 SetSoul(2);
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
                 Heart.movingKey = new InputIdentity[] { InputIdentity.MainRight, InputIdentity.MainDown, InputIdentity.MainLeft, InputIdentity.MainUp };
             }
@@ -1672,7 +1668,7 @@ namespace Rhythm_Recall.Waves
                     });
                     py += 70;
                 }
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
             }
             if (InBeat(1280 + 6, 1536 - 16) && AtKthBeat(16, BeatTime(8)))
             {
@@ -1685,7 +1681,7 @@ namespace Rhythm_Recall.Waves
                     });
                     py += 70;
                 }
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
             }
             if (InBeat(1280 + 6, 1536 - 16) && At0thBeat(8))
             {
@@ -1693,7 +1689,7 @@ namespace Rhythm_Recall.Waves
                 {
                     PositionRouteParam = new float[] { 2.7f, 66, BeatTime(32), -Gametime + BeatTime(4) }
                 });
-                PlaySound(Sounds.pierce);
+                PlaySound(pierce);
                 for (int i = 0; i < 2; i++)
                 {
                     CreateBone(new CustomBone(new Vector2(110, 245), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
@@ -1715,7 +1711,7 @@ namespace Rhythm_Recall.Waves
 
             if (InBeat(1536))
             {
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
                 for (int i = 0; i < 4; i++)
                     CreateEntity(new Boneslab(i * 90, 10, 40, (int)BeatTime(120 + 128)));
@@ -1760,7 +1756,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1792))
             {
-                PlaySound(Sounds.heal);
+                PlaySound(heal);
                 HeartAttribute.MaxHP = 92;
                 HeartAttribute.KRDamage = 5;
                 InstantSetBox(240, 1644, 1484);
@@ -1781,7 +1777,6 @@ namespace Rhythm_Recall.Waves
                     }
 
             }
-            //throw new System.NotImplementedException();
         }
 
         public void ExtremePlus()

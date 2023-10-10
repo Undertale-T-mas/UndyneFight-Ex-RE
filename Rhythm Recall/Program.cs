@@ -171,7 +171,7 @@ Alternate: Space";
                 typeof(Resurrection),
                 typeof(Letsgonow),
                 typeof(GOODWORLD),
-                });
+            });
 #if OSTPublish
             GameStartUp.MainSceneIntro = () => { GameStates.SelectMode(0); ClassicalGUI.CreateFightSelector(); };
 #endif

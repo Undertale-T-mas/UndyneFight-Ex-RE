@@ -8,6 +8,9 @@ using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.FightResources.Sprites;
+using static UndyneFight_Ex.Entities.EasingUtil;
+using static Extends.DrawingUtil;
 
 namespace Rhythm_Recall.Waves
 {
@@ -16,10 +19,12 @@ namespace Rhythm_Recall.Waves
         public Conflict()
         {
 
-            difficulties = new();
-            difficulties.Add("div.3", Difficulty.Noob);
-            difficulties.Add("div.2", Difficulty.Normal);
-            difficulties.Add("div.1", Difficulty.Extreme);
+            difficulties = new()
+            {
+                { "div.3", Difficulty.Noob },
+                { "div.2", Difficulty.Normal },
+                { "div.1", Difficulty.Extreme }
+            };
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
@@ -30,7 +35,7 @@ namespace Rhythm_Recall.Waves
         {
             public void ExtremePlus()
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             private class ThisInformation : SongInformation
@@ -67,13 +72,12 @@ namespace Rhythm_Recall.Waves
             public static Game instance;
 
             public string Music => "Conflict";
-            //  public string Music => "Brain Power";
             public string FightName => "Conflict";
 
             private static Game game;
             private static void MakeLine(int t, bool dir)
             {
-                DrawingUtil.NormalLine line = dir
+                NormalLine line = dir
                     ? new(240 - t * 40, 0, 240 - t * 40, 640, (int)game.BeatTime(10.5f + t * 2), 0)
                     : new(400 + t * 40, 0, 400 + t * 40, 640, (int)game.BeatTime(10.5f + t * 2), 0);
                 Color col = line.color = Color.Lerp(Color.White, Color.Magenta, 0.4f);
@@ -96,7 +100,7 @@ namespace Rhythm_Recall.Waves
                         float speed = i * 1.7f;
                         float time = game.BeatTime(2.5f - MathF.Abs(i) * 0.3f);
                         float alpha = 0.6f - MathF.Abs(i) * 0.1f;
-                        Extends.DrawingUtil.NormalLine line1 = new(line.x1, line.y1, line.x2, line.y2, (int)time, alpha);
+                        NormalLine line1 = new(line.x1, line.y1, line.x2, line.y2, (int)time, alpha);
                         line1.color = Color.Lerp(Color.White, Color.Magenta, 0.3f);
                         AddInstance(new TimeRangedEvent(time, () =>
                         {
@@ -110,7 +114,7 @@ namespace Rhythm_Recall.Waves
             }
             public static void UpForwardLine()
             {
-                Extends.DrawingUtil.Linerotatelong UFL1 = new(Rand(320 - 120, 320 + 120), 525f, 90f, 600, Rand(0.15f, 0.85f), Rand(25, 75), Color.White);
+                Linerotatelong UFL1 = new(Rand(320 - 120, 320 + 120), 525f, 90f, 600, Rand(0.15f, 0.85f), Rand(25, 75), Color.White);
                 UFL1.width = 2f;
                 if (Rand(1, 3) == 1)
                 {
@@ -159,7 +163,7 @@ namespace Rhythm_Recall.Waves
                 public float speed = 1;
                 public override void Draw()
                 {
-                    FormalDraw(Sprites.pixUnit, new CollideRect(LeftUpX, LeftUpY, width, height).ToRectangle(), color * alpha);
+                    FormalDraw(pixUnit, new CollideRect(LeftUpX, LeftUpY, width, height).ToRectangle(), color * alpha);
                     Depth = 0.98f;
                 }
                 public override void Update()
@@ -191,7 +195,7 @@ namespace Rhythm_Recall.Waves
                         PlaySound(Sounds.slam);
                         for (int i = 0; i < 1 + (width / 10); i++)
                         {
-                            CustomBone b = new(new(LeftUpX + i * 10, LeftUpY), EasingUtil.CentreEasing.FromUp(640, game.BeatTime(1)), 0, height * 2, duration) { PositionRouteParam = new float[] { 0, 0 }, LengthRouteParam = new float[] { height * 2, 10 } };
+                            CustomBone b = new(new(LeftUpX + i * 10, LeftUpY), CentreEasing.FromUp(640, game.BeatTime(1)), 0, height * 2, duration) { PositionRouteParam = new float[] { 0, 0 }, LengthRouteParam = new float[] { height * 2, 10 } };
                             CreateBone(b);
                         }
                     }));
@@ -213,7 +217,7 @@ namespace Rhythm_Recall.Waves
                         PlaySound(Sounds.slam);
                         for (int i = 0; i < 1 + (width / 10); i++)
                         {
-                            CustomBone b = new(new(LeftUpX + i * 10, LeftUpY), EasingUtil.CentreEasing.FromDown(640, game.BeatTime(1)), 0, height * 2, duration) { PositionRouteParam = new float[] { 0, 0 }, LengthRouteParam = new float[] { height * 2, 10 } };
+                            CustomBone b = new(new(LeftUpX + i * 10, LeftUpY), CentreEasing.FromDown(640, game.BeatTime(1)), 0, height * 2, duration) { PositionRouteParam = new float[] { 0, 0 }, LengthRouteParam = new float[] { height * 2, 10 } };
                             CreateBone(b);
                         }
                     }));
@@ -549,19 +553,19 @@ namespace Rhythm_Recall.Waves
                     bool[] seq = { RandBool(), RandBool(), RandBool(), RandBool() };
 
                     float del = 30;
-                    DrawingUtil.NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine[] lines = { line1, line2, line3, line4 };
-                    foreach (DrawingUtil.NormalLine line in lines)
+                    NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine[] lines = { line1, line2, line3, line4 };
+                    foreach (NormalLine line in lines)
                     {
                         line.alpha = 0;
                         line.width = 4f;
                     }
-                    game.DelayBeat(36, () => { foreach (DrawingUtil.NormalLine line in lines) CreateEntity(line); });
-                    game.ForBeat(40 - 4, 4, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha += 0.03f; });
-                    game.ForBeat(54, 8, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha -= 0.05f; });
+                    game.DelayBeat(36, () => { foreach (NormalLine line in lines) CreateEntity(line); });
+                    game.ForBeat(40 - 4, 4, () => { foreach (NormalLine line in lines) line.alpha += 0.03f; });
+                    game.ForBeat(54, 8, () => { foreach (NormalLine line in lines) line.alpha -= 0.05f; });
 
                     AddInstance(new InstantEvent(game.BeatTime(40 - 0.5f), () => { SetSoul(0); }));
                     for (int i = 0; i < 4; i++)
@@ -588,7 +592,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -608,7 +612,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -687,19 +691,19 @@ namespace Rhythm_Recall.Waves
                     bool[] seq = { RandBool(), RandBool(), RandBool(), RandBool() };
 
                     float del = 30;
-                    DrawingUtil.NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine[] lines = { line1, line2, line3, line4 };
-                    foreach (DrawingUtil.NormalLine line in lines)
+                    NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine[] lines = { line1, line2, line3, line4 };
+                    foreach (NormalLine line in lines)
                     {
                         line.alpha = 0;
                         line.width = 4f;
                     }
-                    game.DelayBeat(36, () => { foreach (DrawingUtil.NormalLine line in lines) CreateEntity(line); });
-                    game.ForBeat(40 - 4, 4, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha += 0.03f; });
-                    game.ForBeat(54, 8, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha -= 0.05f; });
+                    game.DelayBeat(36, () => { foreach (NormalLine line in lines) CreateEntity(line); });
+                    game.ForBeat(40 - 4, 4, () => { foreach (NormalLine line in lines) line.alpha += 0.03f; });
+                    game.ForBeat(54, 8, () => { foreach (NormalLine line in lines) line.alpha -= 0.05f; });
 
                     AddInstance(new InstantEvent(game.BeatTime(40 - 0.5f), () => { SetSoul(0); }));
                     for (int i = 0; i < 4; i++)
@@ -726,7 +730,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -746,7 +750,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -1164,7 +1168,7 @@ namespace Rhythm_Recall.Waves
                     for (int i = -1; i <= 1; i++)
                     {
                         float delta = 320;
-                        DrawingUtil.NormalLine line = new(320 + i * 12, -150, 320 + i * 12, BoxStates.Up - 320, (int)game.BeatTime(8), 1.0f)
+                        NormalLine line = new(320 + i * 12, -150, 320 + i * 12, BoxStates.Up - 320, (int)game.BeatTime(8), 1.0f)
                         {
                             color = Color.Silver * 0.7f,
                         };
@@ -1290,7 +1294,7 @@ namespace Rhythm_Recall.Waves
                     });
                     game.DelayBeat(5, () =>
                     {
-                        DrawingUtil.BlackScreen(game.BeatTime(4), 1, game.BeatTime(2));
+                        BlackScreen(game.BeatTime(4), 1, game.BeatTime(2));
                     });
                 }
                 public static void Rest0B()
@@ -1420,7 +1424,7 @@ namespace Rhythm_Recall.Waves
                         SetBox(310, 180, 120);
                         CreateGB(new NormalGB(new(100, 285), new(320, 0), new(1, 1), 0, game.BeatTime(8), game.BeatTime(8)));
                         CreateGB(new NormalGB(new(540, 285), new(320, 0), new(1, 1), 180, game.BeatTime(8), game.BeatTime(8)));
-                        CreatePlatform(new Platform(0, new(Heart.Centre.X, 310), EasingUtil.CentreEasing.FromDown(64, game.BeatTime(4)), 0, 40, game.BeatTime(12)));
+                        CreatePlatform(new Platform(0, new(Heart.Centre.X, 310), CentreEasing.FromDown(64, game.BeatTime(4)), 0, 40, game.BeatTime(12)));
                         game.DelayBeat(8, () =>
                         {
                             for (int i = 0; i < 6; i++) game.DelayBeat(i * 0.667f, () => ScreenDrawing.CameraEffect.Convulse(11 - i, 5, i % 2 == 0));
@@ -1623,19 +1627,19 @@ namespace Rhythm_Recall.Waves
                     bool[] seq = { RandBool(), RandBool(), RandBool(), RandBool() };
 
                     float del = 30;
-                    DrawingUtil.NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine[] lines = { line1, line2, line3, line4 };
-                    foreach (DrawingUtil.NormalLine line in lines)
+                    NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine[] lines = { line1, line2, line3, line4 };
+                    foreach (NormalLine line in lines)
                     {
                         line.alpha = 0;
                         line.width = 4f;
                     }
-                    game.DelayBeat(36, () => { foreach (DrawingUtil.NormalLine line in lines) CreateEntity(line); });
-                    game.ForBeat(40 - 4, 4, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha += 0.03f; });
-                    game.ForBeat(54, 8, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha -= 0.05f; });
+                    game.DelayBeat(36, () => { foreach (NormalLine line in lines) CreateEntity(line); });
+                    game.ForBeat(40 - 4, 4, () => { foreach (NormalLine line in lines) line.alpha += 0.03f; });
+                    game.ForBeat(54, 8, () => { foreach (NormalLine line in lines) line.alpha -= 0.05f; });
 
                     AddInstance(new InstantEvent(game.BeatTime(40 - 0.5f), () => { SetSoul(0); }));
                     for (int i = 0; i < 2; i++)
@@ -1662,7 +1666,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -1682,7 +1686,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -1761,19 +1765,19 @@ namespace Rhythm_Recall.Waves
                     bool[] seq = { RandBool(), RandBool(), RandBool(), RandBool() };
 
                     float del = 30;
-                    DrawingUtil.NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine[] lines = { line1, line2, line3, line4 };
-                    foreach (DrawingUtil.NormalLine line in lines)
+                    NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine[] lines = { line1, line2, line3, line4 };
+                    foreach (NormalLine line in lines)
                     {
                         line.alpha = 0;
                         line.width = 4f;
                     }
-                    game.DelayBeat(36, () => { foreach (DrawingUtil.NormalLine line in lines) CreateEntity(line); });
-                    game.ForBeat(40 - 4, 4, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha += 0.03f; });
-                    game.ForBeat(54, 8, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha -= 0.05f; });
+                    game.DelayBeat(36, () => { foreach (NormalLine line in lines) CreateEntity(line); });
+                    game.ForBeat(40 - 4, 4, () => { foreach (NormalLine line in lines) line.alpha += 0.03f; });
+                    game.ForBeat(54, 8, () => { foreach (NormalLine line in lines) line.alpha -= 0.05f; });
 
                     AddInstance(new InstantEvent(game.BeatTime(40 - 0.5f), () => { SetSoul(0); }));
                     for (int i = 0; i < 2; i++)
@@ -1800,7 +1804,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -1820,7 +1824,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -2238,7 +2242,7 @@ namespace Rhythm_Recall.Waves
                     for (int i = -1; i <= 1; i++)
                     {
                         float delta = 320;
-                        DrawingUtil.NormalLine line = new(320 + i * 12, -150, 320 + i * 12, BoxStates.Up - 320, (int)game.BeatTime(8), 1.0f)
+                        NormalLine line = new(320 + i * 12, -150, 320 + i * 12, BoxStates.Up - 320, (int)game.BeatTime(8), 1.0f)
                         {
                             color = Color.Silver * 0.7f,
                         };
@@ -2364,7 +2368,7 @@ namespace Rhythm_Recall.Waves
                     });
                     game.DelayBeat(5, () =>
                     {
-                        DrawingUtil.BlackScreen(game.BeatTime(4), 1, game.BeatTime(2));
+                        BlackScreen(game.BeatTime(4), 1, game.BeatTime(2));
                     });
                 }
                 public static void Rest0B()
@@ -2494,7 +2498,7 @@ namespace Rhythm_Recall.Waves
                         SetBox(310, 180, 120);
                         CreateGB(new NormalGB(new(100, 285), new(320, 0), new(1, 1), 0, game.BeatTime(8), game.BeatTime(8)));
                         CreateGB(new NormalGB(new(540, 285), new(320, 0), new(1, 1), 180, game.BeatTime(8), game.BeatTime(8)));
-                        CreatePlatform(new Platform(0, new(Heart.Centre.X, 310), EasingUtil.CentreEasing.FromDown(64, game.BeatTime(4)), 0, 40, game.BeatTime(12)));
+                        CreatePlatform(new Platform(0, new(Heart.Centre.X, 310), CentreEasing.FromDown(64, game.BeatTime(4)), 0, 40, game.BeatTime(12)));
                         game.DelayBeat(8, () =>
                         {
                             for (int i = 0; i < 6; i++) game.DelayBeat(i * 0.667f, () => ScreenDrawing.CameraEffect.Convulse(11 - i, 5, i % 2 == 0));
@@ -2697,19 +2701,19 @@ namespace Rhythm_Recall.Waves
                     bool[] seq = { RandBool(), RandBool(), RandBool(), RandBool() };
 
                     float del = 30;
-                    DrawingUtil.NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine[] lines = { line1, line2, line3, line4 };
-                    foreach (DrawingUtil.NormalLine line in lines)
+                    NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine[] lines = { line1, line2, line3, line4 };
+                    foreach (NormalLine line in lines)
                     {
                         line.alpha = 0;
                         line.width = 4f;
                     }
-                    game.DelayBeat(36, () => { foreach (DrawingUtil.NormalLine line in lines) CreateEntity(line); });
-                    game.ForBeat(40 - 4, 4, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha += 0.03f; });
-                    game.ForBeat(54, 8, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha -= 0.05f; });
+                    game.DelayBeat(36, () => { foreach (NormalLine line in lines) CreateEntity(line); });
+                    game.ForBeat(40 - 4, 4, () => { foreach (NormalLine line in lines) line.alpha += 0.03f; });
+                    game.ForBeat(54, 8, () => { foreach (NormalLine line in lines) line.alpha -= 0.05f; });
 
                     AddInstance(new InstantEvent(game.BeatTime(40 - 0.5f), () => { SetSoul(0); }));
                     for (int i = 0; i < 1; i++)
@@ -2736,7 +2740,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -2756,7 +2760,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -2835,19 +2839,19 @@ namespace Rhythm_Recall.Waves
                     bool[] seq = { RandBool(), RandBool(), RandBool(), RandBool() };
 
                     float del = 30;
-                    DrawingUtil.NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
-                    DrawingUtil.NormalLine[] lines = { line1, line2, line3, line4 };
-                    foreach (DrawingUtil.NormalLine line in lines)
+                    NormalLine line1 = new(0, 130, 640, 130 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line2 = new(0, 142, 640, 142 + del, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line3 = new(0, 130 + del, 640, 130, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine line4 = new(0, 142 + del, 640, 139, (int)game.BeatTime(58), 0.5f) { color = Color.AliceBlue * 0.89f };
+                    NormalLine[] lines = { line1, line2, line3, line4 };
+                    foreach (NormalLine line in lines)
                     {
                         line.alpha = 0;
                         line.width = 4f;
                     }
-                    game.DelayBeat(36, () => { foreach (DrawingUtil.NormalLine line in lines) CreateEntity(line); });
-                    game.ForBeat(40 - 4, 4, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha += 0.03f; });
-                    game.ForBeat(54, 8, () => { foreach (DrawingUtil.NormalLine line in lines) line.alpha -= 0.05f; });
+                    game.DelayBeat(36, () => { foreach (NormalLine line in lines) CreateEntity(line); });
+                    game.ForBeat(40 - 4, 4, () => { foreach (NormalLine line in lines) line.alpha += 0.03f; });
+                    game.ForBeat(54, 8, () => { foreach (NormalLine line in lines) line.alpha -= 0.05f; });
 
                     AddInstance(new InstantEvent(game.BeatTime(40 - 0.5f), () => { SetSoul(0); }));
                     for (int i = 0; i < 1; i++)
@@ -2874,7 +2878,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -2894,7 +2898,7 @@ namespace Rhythm_Recall.Waves
                                     {
                                         for (int i = 0; i < lines.Length; i++)
                                         {
-                                            DrawingUtil.NormalLine line = lines[i];
+                                            NormalLine line = lines[i];
                                             if (i < 2)
                                             {
                                                 line.y1 += speed; line.y2 += speed * 0.12f;
@@ -3311,7 +3315,7 @@ namespace Rhythm_Recall.Waves
                     for (int i = -1; i <= 1; i++)
                     {
                         float delta = 320;
-                        DrawingUtil.NormalLine line = new(320 + i * 12, -150, 320 + i * 12, BoxStates.Up - 320, (int)game.BeatTime(8), 1.0f)
+                        NormalLine line = new(320 + i * 12, -150, 320 + i * 12, BoxStates.Up - 320, (int)game.BeatTime(8), 1.0f)
                         {
                             color = Color.Silver * 0.7f,
                         };
@@ -3437,7 +3441,7 @@ namespace Rhythm_Recall.Waves
                     });
                     game.DelayBeat(5, () =>
                     {
-                        DrawingUtil.BlackScreen(game.BeatTime(4), 1, game.BeatTime(2));
+                        BlackScreen(game.BeatTime(4), 1, game.BeatTime(2));
                     });
                 }
                 public static void Rest0B()
