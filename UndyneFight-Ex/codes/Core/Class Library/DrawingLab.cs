@@ -294,7 +294,7 @@ namespace UndyneFight_Ex
         /// <param name="cl">线条颜色</param>
         public static void DrawLine(Vector2 Centre, float angle, float length, float width, Color cl, float depth, Texture2D texture = null)
         {
-            if (texture == null) texture = FightResources.Sprites.pixUnit; 
+            texture ??= FightResources.Sprites.pixUnit; 
             angle = GetAngle(angle);
             Vector2 v1 = GetVector2(length / 2f, angle);
             Vector2 v2 = -v1;
@@ -402,7 +402,7 @@ namespace UndyneFight_Ex
         {
             MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, anchor, scale, SpriteEffects.None, depth);
         }
-        public void LimitDraw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float lineLength, float lineDistance, float scale, float depth)
+        public void LimitDraw(string texts, Vector2 location, Color color, float lineLength, float lineDistance, float scale, float depth)
         {
             Vector2[] sizes = new Vector2[texts.Length];
             for (int i = 0; i < texts.Length; i++)
@@ -432,7 +432,7 @@ namespace UndyneFight_Ex
                 location.Y += lineDistance;
             }
         }
-        public void Draw(string texts, Vector2 location, Microsoft.Xna.Framework.Color color, float rotation, float scale, float depth)
+        public void Draw(string texts, Vector2 location, Color color, float rotation, float scale, float depth)
         {
             MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, Vector2.Zero, scale, SpriteEffects.None, depth);
         }

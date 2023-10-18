@@ -1,13 +1,11 @@
-﻿using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using UndyneFight_Ex.ChampionShips;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -122,7 +120,7 @@ namespace UndyneFight_Ex.Remake.UI
                 _timer++;
                 if (_timer < 3) return;
 
-                if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
+                if (IsKeyPressed120f(InputIdentity.Cancel))
                 {
                     this._virtualFather.ModeSelect.Activate();
                     this.Deactivate();
@@ -149,9 +147,7 @@ namespace UndyneFight_Ex.Remake.UI
                 public HashSet<string> Availables { get; init; } = new();
                 public Dictionary<IWaveSet, IChampionShip> ChampionshipMap { get; init; } = new();
                 
-                public SongPack(SongSet songSet) : this(songSet, songSet.SongSetName)
-                { 
-                }
+                public SongPack(SongSet songSet) : this(songSet, songSet.SongSetName) { }
                 public SongPack(SongSet songSet, string name)
                 {
                     this.Title = name;

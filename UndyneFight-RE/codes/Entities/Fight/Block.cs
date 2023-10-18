@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Fight;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.Remake.Resources;
 
 namespace UndyneFight_Ex.Remake.Entities
-{ 
+{
     public class ShotableBlock : BulletShotable
     {
         public ShotableBlock(EaseUnit<Vector2> centreEasing) : this() {
@@ -28,7 +25,7 @@ namespace UndyneFight_Ex.Remake.Entities
         }
         public ShotableBlock() {
             this.AngleMode = true;
-            this.Image = Resources.FightSprites.MettBlockA;
+            this.Image = FightSprites.MettBlockA;
             this.Alpha = 1.0f;
             this.Depth = 0.45f;
             this.HitRadius = 7f;
@@ -43,8 +40,8 @@ namespace UndyneFight_Ex.Remake.Entities
         protected override void OnShot(SoulBullet bullet)
         {
             bullet.Dispose();
-            Functions.PlaySound(Resources.Sounds.TargetBurst);
-            GameStates.InstanceCreate(new Shattered(this));
+            PlaySound(Sounds.TargetBurst);
+            InstanceCreate(new Shattered(this));
             this.Dispose();
         }
     }
@@ -72,7 +69,7 @@ namespace UndyneFight_Ex.Remake.Entities
         public ToughBlock()
         {
             this.AngleMode = true;
-            this.Image = Resources.FightSprites.MettBlockB;
+            this.Image = FightSprites.MettBlockB;
             this.Alpha = 1.0f;
             this.Depth = 0.45f;
             this.HitRadius = 6.5f;
@@ -87,7 +84,7 @@ namespace UndyneFight_Ex.Remake.Entities
         protected override void OnShot(SoulBullet bullet)
         {
             bullet.Dispose();
-            Functions.PlaySound(FightResources.Sounds.Ding); 
+            PlaySound(FightResources.Sounds.Ding); 
         }
     }
 }

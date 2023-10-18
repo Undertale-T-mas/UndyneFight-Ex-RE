@@ -5,7 +5,6 @@ using UndyneFight_Ex.Remake.Network;
 using VPC = Microsoft.Xna.Framework.Graphics.VertexPositionColor;
 using vec2 = Microsoft.Xna.Framework.Vector2;
 using col = Microsoft.Xna.Framework.Color;
-using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
@@ -24,7 +23,8 @@ namespace UndyneFight_Ex.Remake.UI
                 new(70, 340 - 35 + 345)
             };
             string? _division;
-            public Scoreboard( string? division ) {  
+            public Scoreboard(string? division)
+            {
                 this._division = division;
                 Fetch();
             }
@@ -33,7 +33,7 @@ namespace UndyneFight_Ex.Remake.UI
                 ChampionshipScoreboard result;
                 public ChampionshipScoreboard Scoreboard => result;
                 public void Analysis(string message)
-                { 
+                {
                     this.result = JsonSerializer.Deserialize<ChampionshipScoreboard>(message);
                 }
             }
@@ -44,7 +44,8 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 if (string.IsNullOrEmpty(_division)) return;
                 UFSocket<ScoreObject> socket = new(
-                    (t) => {
+                    (t) =>
+                    {
                         if (t.Info == "please login first")
                         {
                             //login
@@ -63,35 +64,29 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 this.SpriteBatch.DrawSortedVertex(0.15f,
                     new VPC[] {
-                        new(new(vertexs[0]  , 0), col.Lerp(col.Transparent, col.Magenta, 0.31f)),
-                        new(new(vertexs[1]  , 0), col.Lerp(col.Transparent, col.Magenta, 0.3f)),
-                        new(new(vertexs[2]  , 0), col.Lerp(col.Transparent, col.Magenta, 0.35f)),
-                        new(new(vertexs[3]  , 0), col.Lerp(col.Transparent, col.Magenta, 0.543f)),
-                        new(new(vertexs[4]  , 0), col.Lerp(col.Transparent, col.Magenta, 0.543f)),
-                        new(new(vertexs[5]  , 0), col.Lerp(col.Transparent, col.Magenta, 0.35f)),
+                        new(new(vertexs[0], 0), col.Lerp(col.Transparent, col.Magenta, 0.31f)),
+                        new(new(vertexs[1], 0), col.Lerp(col.Transparent, col.Magenta, 0.3f)),
+                        new(new(vertexs[2], 0), col.Lerp(col.Transparent, col.Magenta, 0.35f)),
+                        new(new(vertexs[3], 0), col.Lerp(col.Transparent, col.Magenta, 0.543f)),
+                        new(new(vertexs[4], 0), col.Lerp(col.Transparent, col.Magenta, 0.543f)),
+                        new(new(vertexs[5], 0), col.Lerp(col.Transparent, col.Magenta, 0.35f)),
                     }
                     );
                 for (int i = 0; i < vertexs.Length; i++)
                 {
                     int next = i + 1;
                     next %= vertexs.Length;
-                    DrawingLab.DrawLine(vertexs[i]  , vertexs[next]  , 3.0f, col.White, 0.22f);
+                    DrawingLab.DrawLine(vertexs[i], vertexs[next], 3.0f, col.White, 0.22f);
                 }
                 GLFont font = FightResources.Font.NormalFont;
                 if (scoreboard == null || participants == null || participants.Length <= 0)
                 {
                     // show that there is no score result
-
                     font.CentreDraw("Empty Scoreboard", new vec2(480, 555), col.Red, 2.515f, MathUtil.GetRadian(8.5f), 0.26f);
-
-
                 }
-
                 else
                 {
-
                     DrawInfo();
-
                 }
             }
 
@@ -101,14 +96,14 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     DrawingLab.DrawLine(a, b, 3.0f, col.Silver, 0.5f);
                 }
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     float y = i * 52 + 475;
                     DrawLine(new(120, y), new(960 - 120, y));
                 }
                 GLFont font = FightResources.Font.NormalFont;
-                font.CentreDraw("#rk", new(154, 456), col.Wheat, 1.1f, 0.0f, 0.5f) ;
-                font.CentreDraw("Total", new(793, 456), col.Wheat, 1.1f, 0.0f, 0.5f) ;
+                font.CentreDraw("#rk", new(154, 456), col.Wheat, 1.1f, 0.0f, 0.5f);
+                font.CentreDraw("Total", new(793, 456), col.Wheat, 1.1f, 0.0f, 0.5f);
 
                 float[] positions = new float[participants[0].AccuracyList.Length];
                 float delWord;
@@ -116,19 +111,19 @@ namespace UndyneFight_Ex.Remake.UI
 
                 float LMID = (L + 190) / 2f;
                 font.CentreDraw("Name", new(LMID, 456), col.White, 1.15f, 0.5f);
-                for(int i = 0; i < positions.Length ; i++)
-                { 
-                    float k = i * 1.0f / positions.Length ;
+                for (int i = 0; i < positions.Length; i++)
+                {
+                    float k = i * 1.0f / positions.Length;
                     positions[i] = MathHelper.Lerp(L, R, k);
                 }
                 delWord = (R - L) * 0.5f / positions.Length;
-                for(int i = 0; i < positions.Length; i++)
+                for (int i = 0; i < positions.Length; i++)
                 {
                     DrawLine(new(positions[i], 440), new(positions[i], 672));
                     font.CentreDraw(((char)('A' + i)).ToString(), new(positions[i] + delWord, 456), col.White, 1.1f, 0.0f, 0.5f);
                 }
 
-                for(int i = indexStart, j = 0; i < participants.Length && j < 4 ; i++, j++)
+                for (int i = indexStart, j = 0; i < participants.Length && j < 4; i++, j++)
                 {
                     float y = j * 52 + 505;
                     float[] list = participants[i].AccuracyList;
@@ -152,7 +147,7 @@ namespace UndyneFight_Ex.Remake.UI
             public override void Update()
             {
                 appearTime += 1f;
-                if(appearTime > 650)
+                if (appearTime > 650)
                 {
                     appearTime = 0;
                     Fetch();
@@ -167,7 +162,7 @@ namespace UndyneFight_Ex.Remake.UI
             internal void PageRight()
             {
                 if (participants == null || participants.Length == 0) return;
-                if(indexStart + 4 < participants.Length) indexStart += 4;
+                if (indexStart + 4 < participants.Length) indexStart += 4;
             }
         }
     }

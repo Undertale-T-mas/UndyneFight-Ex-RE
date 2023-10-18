@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.UserService;
@@ -21,52 +20,50 @@ namespace UndyneFight_Ex.Remake.Data
         public abstract SaveInfo Save();
     }
     public abstract class Datum<T> : Datum
-    { 
+    {
         public Datum(string name) : base(name)
-        {  }
+        { }
         public T Value { get; set; }
 
-        public override SaveInfo Save() 
+        public override SaveInfo Save()
         {
-            return new SaveInfo(Name + ":" + "value=" + Value.ToString());
+            return new SaveInfo($"{Name}:value={Value}");
         }
-        public static implicit operator T(Datum<T> origin) { return origin.Value; } 
+        public static implicit operator T(Datum<T> origin) { return origin.Value; }
     }
 
     public class DatumInt : Datum<int>
     {
-        public DatumInt(string name) : base(name) {  
-        } 
+        public DatumInt(string name) : base(name) { }
 
         public override void Load(SaveInfo info)
         {
             this.Value = info.IntValue;
-        } 
+        }
     }
     public class DatumFloat : Datum<float>
     {
-        public DatumFloat(string name) : base(name) {
-        } 
+        public DatumFloat(string name) : base(name)
+        {
+        }
 
         public override void Load(SaveInfo info)
         {
             this.Value = info.FloatValue;
-        } 
-    }    
+        }
+    }
     public class DatumString : Datum<string>
     {
-        public DatumString(string name) : base(name) {  
-        } 
+        public DatumString(string name) : base(name) { }
 
         public override void Load(SaveInfo info)
         {
             this.Value = info.StringValue;
-        } 
+        }
     }
     public class DatumBool : Datum<bool>
     {
-        public DatumBool(string name) : base(name) {  
-        } 
+        public DatumBool(string name) : base(name) { }
 
         public override void Load(SaveInfo info)
         {
@@ -75,13 +72,12 @@ namespace UndyneFight_Ex.Remake.Data
 
         public override SaveInfo Save()
         {
-            return new SaveInfo(Name + ":" + "value=" + (Value ? "True" : "False"));
+            return new SaveInfo($"{Name}:value={(Value ? "True" : "False")}");
         }
     }
     public class DatumVector2 : Datum<Vector2>
     {
-        public DatumVector2(string name) : base(name) {  
-        } 
+        public DatumVector2(string name) : base(name) { }
 
         public override void Load(SaveInfo info)
         {
@@ -90,30 +86,29 @@ namespace UndyneFight_Ex.Remake.Data
 
         public override SaveInfo Save()
         {
-            return new SaveInfo(Name + ":" + "x=" + Value.X + ",y=" + Value.Y);
+            return new SaveInfo($"{Name}:x={Value.X},y={Value.Y}");
         }
     }
     public class DatumDictionary : Datum<Dictionary<string, string>>
     {
-        public DatumDictionary(string name) : base(name) {  
-        } 
+        public DatumDictionary(string name) : base(name) { }
 
         public override void Load(SaveInfo info)
         {
             this.Value = new();
             var v = info.keysForIndexs;
-            foreach ( var key in v ) { this.Value.Add(key.Key, info[key.Value]); }
+            foreach (var key in v) { this.Value.Add(key.Key, info[key.Value]); }
         }
 
         public override SaveInfo Save()
         {
             string str = Name + ":";
             int i = 0;
-            foreach(var kvp in this.Value)
+            foreach (var kvp in this.Value)
             {
                 str += kvp.Key + "=" + kvp.Value;
                 i++;
-                if(i != this.Value.Count) str += ",";
+                if (i != this.Value.Count) str += ",";
             }
             SaveInfo result = new(str);
             return result;
@@ -127,7 +122,7 @@ namespace UndyneFight_Ex.Remake.Data
         public DataBranch(string name) : base(name)
         {
             this.InitialText = "{";
-        } 
+        }
 
         public override SaveInfo Save()
         {
@@ -137,10 +132,10 @@ namespace UndyneFight_Ex.Remake.Data
         }
         public override void Load(SaveInfo info)
         {
-            /*
-            if (!info.Nexts.ContainsKey("UserMemory")) info.PushNext(new("UserMemory{")); 
+            /* if (!info.Nexts.ContainsKey("UserMemory")) info.PushNext(new("UserMemory{")); 
             this.Memory.Load(info.Nexts["UserMemory"]);*/
-            this.Children.ForEach(s => {
+            this.Children.ForEach(s =>
+            {
                 if (!info.Nexts.ContainsKey(s.Name)) info.PushNext(new(s.Name + s.InitialText));
                 s.Load(info.Nexts[s.Name]);
             });

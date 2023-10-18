@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic; 
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Remake;
 
@@ -17,7 +13,7 @@ namespace RecallCharter
         public override void Update()
         {
             base.Update();
-            if(this.MouseOn && MouseSystem.IsLeftClick())
+            if (this.MouseOn && MouseSystem.IsLeftClick())
             {
                 this.OnClick?.Invoke(this, EventArgs.Empty);
             }
@@ -27,7 +23,6 @@ namespace RecallCharter
         public override void Draw()
         {
             if (!Father.IsEnabled) return;
-
             Color _backColor = this.MouseOn ? MouseOnColor : BackgroundColor;
             float depthTemp = this.Depth;
             float depth2 = MathF.Max(0, this.Depth - 0.01f);
@@ -35,15 +30,10 @@ namespace RecallCharter
             this.Image = FightResources.Sprites.pixUnit;
             this.Depth = depth2;
             this.FormalDraw(this.Image, this.CollidingBox.ToRectangle(), _backColor * 0.5f);
-            if(this.MouseOn)
-            {
-                DrawingLab.DrawRectangle(this.collidingBox, MouseOnColor, 3.0f, depth2);
-            }
+            if (this.MouseOn) DrawingLab.DrawRectangle(this.collidingBox, MouseOnColor, 3.0f, depth2);
             this.Image = temp;
             this.Depth = depthTemp;
-
-            if (this.Image != null)
-                this.FormalDraw(this.Image, this.Centre, Color.White, 0, ImageCentre);
+            if (this.Image != null) this.FormalDraw(this.Image, this.Centre, Color.White, 0, ImageCentre);
             base.Draw();
         }
     }

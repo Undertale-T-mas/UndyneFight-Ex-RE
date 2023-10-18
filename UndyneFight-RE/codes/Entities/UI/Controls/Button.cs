@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Fight;
-using static System.Net.Mime.MediaTypeNames;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -23,9 +23,9 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Draw()
         {
             if (CentreDraw)
-                FightResources.Font.NormalFont.CentreDraw(_text, Centre, Color.LimeGreen * alpha, Scale, Depth);
+                Font.NormalFont.CentreDraw(_text, Centre, Color.LimeGreen * alpha, Scale, Depth);
             else
-                FightResources.Font.NormalFont.Draw(_text, Centre, Color.LimeGreen * alpha, Scale, Depth);
+                Font.NormalFont.Draw(_text, Centre, Color.LimeGreen * alpha, Scale, Depth);
         }
 
         public override void Update()
@@ -89,8 +89,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             base.Update();
 
-            if (_mouseOn) this.sizeScale = MathHelper.Lerp(sizeScale, SelectedScale, 0.1f);
-            else this.sizeScale = MathHelper.Lerp(sizeScale, 1.0f, 0.1f);
+            sizeScale = MathHelper.Lerp(sizeScale, _mouseOn ? SelectedScale : 1, 0.1f);
              
             this.collidingBox.Size = fontSize;
             this._realLocation = _centre + PositionDelta;
@@ -102,13 +101,13 @@ namespace UndyneFight_Ex.Remake.UI
 
         private void MouseClick()
         {
-            Functions.PlaySound(FightResources.Sounds.select);
+            PlaySound(Sounds.select);
             GameStates.InstanceCreate(new Shade(this._realLocation, sizeScale * this.DefaultScale, _text) { CentreDraw = this.CentreDraw, Depth = this.Depth + 0.01f });
         }
 
         private void MouseOnEvent()
         {
-            Functions.PlaySound(FightResources.Sounds.changeSelection);
+            PlaySound(Sounds.changeSelection);
         }
     }
 }

@@ -28,9 +28,8 @@ namespace UndyneFight_Ex.Remake.UI
                 public override void Update()
                 {
                     float mission = this._father.SelectedID;
-                    if (this._father._currentSongList.CurrentFocus != null)
-                        onFocus = this._father._currentSongList.CurrentFocus.IsMouseOn;
-                    else onFocus = false;
+                    var curFocus = _father._currentSongList.CurrentFocus;
+                    onFocus = curFocus != null && curFocus.IsMouseOn;
                     if (onFocus)
                     {
                         float mission2 = this._father._currentSongList.FocusID;
@@ -59,11 +58,9 @@ namespace UndyneFight_Ex.Remake.UI
                     size = mainRect.Size = new(280, 210);
                     mainRect.SetCentre(787, 251 - posDelta * size.Y);
 
-                    if (onFocus || noFocus) alpha = MathHelper.Lerp(alpha, 0.6f, 0.12f);
-                    else alpha = MathHelper.Lerp(alpha, 1.0f, 0.12f);
+                    alpha = MathHelper.Lerp(alpha, onFocus || noFocus ? 0.6f : 1, 0.12f);
 
-                    nextRect = new CollideRect();
-                    nextRect.Size = size;
+                    nextRect = new CollideRect { Size = size};
                     nextRect.SetCentre(mainRect.GetCentre() + new Vector2(0, size.Y));
 
                     float bottom = nextRect.Y + nextRect.Height;
@@ -73,8 +70,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     scaleNext = nextRect.Height / size.Y;
 
-                    lastRect = new CollideRect();
-                    lastRect.Size = size;
+                    lastRect = new CollideRect { Size = size};
                     lastRect.SetCentre(mainRect.GetCentre() - new Vector2(0, size.Y));
 
                     float top = lastRect.Y;

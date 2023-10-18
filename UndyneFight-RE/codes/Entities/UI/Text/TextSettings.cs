@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using System.Globalization;
-using UndyneFight_Ex.Remake.UI;
-using System.Threading;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using static Microsoft.Xna.Framework.Graphics.SpriteFont;
 using UndyneFight_Ex.Remake.Texts;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace UndyneFight_Ex.Remake
-{ 
+{
     public struct TextVertex
     {
         public Vector2 TextureCoordinate { get; set; }

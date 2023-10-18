@@ -1,13 +1,7 @@
-﻿using System.IO;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using UndyneFight_Ex.SongSystem;
-using UndyneFight_Ex.UserService;
 using UFData;
-using UndyneFight_Ex.ChampionShips;
 
 namespace UndyneFight_Ex.Server
 {
@@ -17,14 +11,15 @@ namespace UndyneFight_Ex.Server
         private static bool _loaded = false;
         private static void TryLoad()
         {
-        //    championships.RemoveAll(s=>s.EndTime < DateTime.UtcNow);
-            if(_loaded) return; 
+            //championships.RemoveAll(s=>s.EndTime < DateTime.UtcNow);
+            if (_loaded) return;
             _loaded = true;
 
             FileStream stream = new("Data/Championship/data.txt", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader sr = new(stream);
             string str = sr.ReadToEnd();
-            if (string.IsNullOrEmpty(str)) {
+            if (string.IsNullOrEmpty(str))
+            {
                 sr.Dispose();
                 stream.Dispose();
                 return;
@@ -44,14 +39,14 @@ namespace UndyneFight_Ex.Server
         public static void Insert(string? info)
         {
             TryLoad();
-            if(string.IsNullOrEmpty(info)) return;
+            if (string.IsNullOrEmpty(info)) return;
             championships.Add(JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException());
         }
         public static string SignUp(User user, string championshipName, string divName)
         {
-            TryLoad(); 
+            TryLoad();
             ChampionshipInfo? championship = championships.Find(s => s.Name == championshipName);
-            if(championship == null) { return "F championship not exist"; }
+            if (championship == null) { return "F championship not exist"; }
             if (!championship.Divisions.ContainsKey(divName)) return "F division not exist";
             if (championship.Participants.ContainsKey(user.UUID)) return "F already signed up-" + championship.Participants[user.UUID];
             championship.Participants.Add(user.UUID, divName);
@@ -61,10 +56,11 @@ namespace UndyneFight_Ex.Server
         {
             TryLoad();
             string songName = data.Name;
-            ChampionshipInfo? championShip = championships.Find(s => {
-                foreach(var v in s.Divisions.Values)
+            ChampionshipInfo? championShip = championships.Find(s =>
+            {
+                foreach (var v in s.Divisions.Values)
                 {
-                    if(v.Info.ContainsKey(songName)) return true;
+                    if (v.Info.ContainsKey(songName)) return true;
                 }
                 return false;
             });
@@ -74,13 +70,13 @@ namespace UndyneFight_Ex.Server
                 if (v.Info[songName].Item2 == data.Difficulty) { curDiv = v; break; }
             if (curDiv == null) return true;
             UFConsole.WriteLine($"Find championship {championShip.Name}, user {user.Name} in {curDiv} has updated score.");
-            return  curDiv.Scoreboard.PushScore(user, curDiv, data);
+            return curDiv.Scoreboard.PushScore(user, curDiv, data);
         }
         internal static string EnquireInfo()
         {
             TryLoad();
             if (championships.Count == 0) return "F there is no championship";
-            else return "S " + JsonSerializer.Serialize (championships);
+            else return "S " + JsonSerializer.Serialize(championships);
         }
         internal static string Enquire(User? bindUser, string arg)
         {
@@ -99,13 +95,13 @@ namespace UndyneFight_Ex.Server
         {
             TryLoad();
             if (string.IsNullOrEmpty(info)) return false;
-            ChampionshipInfo cinfo =  JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException();
-            if(cinfo == null) return false;
-            foreach(ChampionshipInfo obj in championships)
+            ChampionshipInfo cinfo = JsonSerializer.Deserialize<ChampionshipInfo>(info) ?? throw new ArgumentException();
+            if (cinfo == null) return false;
+            foreach (ChampionshipInfo obj in championships)
             {
-                if(obj.Name == cinfo.Name) return true;
+                if (obj.Name == cinfo.Name) return true;
             }
-            return false;   
+            return false;
         }
 
         internal static string EnquireScore(User? user, string championshipName, string divisionName)

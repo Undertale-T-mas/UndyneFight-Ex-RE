@@ -3,6 +3,7 @@ using System;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
 using UndyneFight_Ex.UserService;
+using static UndyneFight_Ex.GlobalResources.Sprites;
 
 using static UndyneFight_Ex.FightResources.Font;
 
@@ -36,29 +37,20 @@ namespace UndyneFight_Ex.Remake.UI
                 DrawLine(new Vector2(133, 460), new(140, 450), Color.Silver);
                 DrawLine(new Vector2(223, 480), new(140, 480), Color.Silver);
 
-                this.Image = GlobalResources.Sprites.medal;
+                this.Image = medal;
                 this.Depth = 0.24f;
 
-                if ( _user.Skill > 60)
+                if (_user.Skill > 60)
                 {
-                    if (_user.Skill > 90)
-                        this.FormalDraw(GlobalResources.Sprites.starMedal, new Vector2(157, 444), Color.White, 0, ImageCentre);
-                    else
-                        this.FormalDraw(Image, new Vector2(157, 444), Color.White, 0, ImageCentre);
+                    this.FormalDraw(_user.Skill > 90 ? starMedal : Image, new Vector2(157, 444), Color.White, 0, ImageCentre);
                 }
-                if ( _user.Skill > 70)
+                if (_user.Skill > 70)
                 {
-                    if (_user.Skill > 92.5f)
-                        this.FormalDraw(GlobalResources.Sprites.starMedal, new Vector2(182, 444), Color.White, 0, ImageCentre);
-                    else
-                        this.FormalDraw(Image, new Vector2(182, 444), Color.White, 0, ImageCentre);
+                    this.FormalDraw(_user.Skill > 92.5f ? starMedal : Image, new Vector2(182, 444), Color.White, 0, ImageCentre);
                 }
-                if ( _user.Skill > 80)
+                if (_user.Skill > 80)
                 {
-                    if (_user.Skill > 95)
-                        this.FormalDraw(GlobalResources.Sprites.starMedal, new Vector2(207, 444), Color.White, 0, ImageCentre);
-                    else
-                        this.FormalDraw(Image, new Vector2(207, 444), Color.White, 0, ImageCentre);
+                    this.FormalDraw(_user.Skill > 95 ? starMedal : Image, new Vector2(207, 444), Color.White, 0, ImageCentre);
                 }
                 FightFont.CentreDraw(_infoA, new Vector2(30, 480), Color.Aqua * _infoAlpha);
                 FightFont.CentreDraw("-", new Vector2(52, 480), Color.Aqua * _infoAlpha);
@@ -74,16 +66,13 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     FightFont.CentreDraw("score", new(56, 507), Color.White * _infoAlpha, 1.0f, 0.2f);
                     NormalFont.CentreDraw(_drawingInfo, new(159, 503), Color.White * _infoAlpha, 1.2f, 0.2f);
-                    if (_accuracy > 0.75f)
-                        NormalFont.CentreDraw(_accuracy.ToString("P2"), new(168, 564), _markColor * _infoAlpha, 1.05f, 0.2f);
-                    else
-                        NormalFont.CentreDraw("Failed", new(168, 564), _markColor * _infoAlpha, 1.05f, 0.2f);
+                    NormalFont.CentreDraw(_accuracy > 0.75f ? _accuracy.ToString("P2") : "Failed", new(168, 564), _markColor * _infoAlpha, 1.05f, 0.2f);
 
                     if (this._AP)
                     {
                         FightFont.CentreDraw("ALL PERFECT", new(126, 537), Color.Gold * _infoAlpha, 1.00f, 0.2f);
                     }
-                    else if(this._NoHit)
+                    else if (this._NoHit)
                     {
                         FightFont.CentreDraw("NO HIT", new(123, 537), Color.Orange * _infoAlpha, 1.05f, 0.2f);
                     }
@@ -109,12 +98,11 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 DrawingLab.DrawLine(start, end, size, color, 0.45f);
             }
-            Color _skillColor;
+            Color _skillColor, _markColor;
             float _infoAlpha = 1.0f;
             string _drawingInfo = "";
             string _infoA = "", _infoB = "", _infoC = "";
             SkillMark _skillMark;
-            Color _markColor;
             private bool _NoHit, _AP;
             private float _accuracy;
 
@@ -143,7 +131,6 @@ namespace UndyneFight_Ex.Remake.UI
                 }
                 else this._infoAlpha = 1.0f;
 
-                string res;
                 _drawingInfo = "NO DATA";
                 if (_virtualFather.SongSelected != null)
                 {
@@ -168,7 +155,7 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         string GetFull(float dif)
                         {
-                            string s = ((int)dif).ToString(); 
+                            string s = ((int)dif).ToString();
                             return s;
                         }
                         infoA = attribute.CompleteDifficulty.ContainsKey(_drawingDifficulty) ?
@@ -181,7 +168,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     else _infoA = _infoB = _infoC = "?";
                 }
-                else _infoA = _infoB = _infoC = "?"; 
+                else _infoA = _infoB = _infoC = "?";
             }
 
         }

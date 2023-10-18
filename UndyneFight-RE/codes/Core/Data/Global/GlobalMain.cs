@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using UndyneFight_Ex.IO;
-using UndyneFight_Ex.UserService;
+﻿using UndyneFight_Ex.IO;
 
 namespace UndyneFight_Ex.Remake.Data
 {
@@ -16,9 +12,8 @@ namespace UndyneFight_Ex.Remake.Data
 
         public override void Load(SaveInfo info)
         {
-            if(info == null) { info = new("UFEx_RE_ROOT{"); }
+            info ??= new("UFEx_RE_ROOT{");
             if (info.Title == "StartInfo->") info = info.Nexts["UFEx_RE_ROOT"];
-
             base.Load(info);
         }
     }

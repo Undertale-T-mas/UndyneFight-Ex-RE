@@ -13,6 +13,7 @@ using UndyneFight_Ex.Remake.Components;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Remake.Effects;
 using System.Collections;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -82,8 +83,8 @@ namespace UndyneFight_Ex.Remake.UI
 
                 GameStates.Broadcast(new(null, "MusicFadeOut"));
                 int dif = (int)CurrentDifficulty;
-                GameStates.InstanceCreate(new InstantEvent(2, () => {
-                    GameStates.StartSong(SongSelected, SongSelect.Illustration, dir, dif, CurrentJudgementState, ModeSelect.ModeSelected);
+                InstanceCreate(new InstantEvent(2, () => {
+                    StartSong(SongSelected, SongSelect.Illustration, dir, dif, CurrentJudgementState, ModeSelect.ModeSelected);
                 }));
             }
 
@@ -138,7 +139,9 @@ namespace UndyneFight_Ex.Remake.UI
                     IChampionShip championShip;
                     this.SongSelected = (championShip = result as IChampionShip).GameContent;
                     foreach (Difficulty difficulty in championShip.DifficultyPanel.Values) {
-                        if (championShip.GameContent.Attributes != null && championShip.GameContent.Attributes.UnlockedDifficulties.Contains(difficulty))
+                        var Attributes = championShip.GameContent.Attributes;
+                        if (Attributes == null) break;
+                        if (Attributes.UnlockedDifficulties.Contains(difficulty))
                             DifficultyPanel.Add(difficulty); 
                     }
                 }
@@ -162,7 +165,7 @@ namespace UndyneFight_Ex.Remake.UI
                 if (CurrentDifficulty == difficulty) return;
                 CurrentDifficulty = difficulty;
                 if (difficulty != Difficulty.NotSelected)
-                    GameStates.InstanceCreate(new InstantEvent(1, () =>
+                    InstanceCreate(new InstantEvent(1, () =>
                     {
                         this.SongSelect.DifficultyChanged(difficulty);
                     }));
@@ -199,10 +202,10 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Update()
         {
-            if (this._vFather.CurrentActivate == _vFather.ModeSelect && GameStates.IsKeyPressed120f(InputIdentity.Cancel))
+            if (this._vFather.CurrentActivate == _vFather.ModeSelect && IsKeyPressed120f(InputIdentity.Cancel))
             {
                 this.Dispose();
-                GameStates.InstanceCreate(new DEBUG.IntroUI());
+                InstanceCreate(new DEBUG.IntroUI());
             }
             _vFather.UpdateEnabled = !_extra.Activated;
         }

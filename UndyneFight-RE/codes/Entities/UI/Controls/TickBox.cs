@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Security.Cryptography;
-using UndyneFight_Ex.Fight;
-using static System.Net.Mime.MediaTypeNames;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources.Font;
+using static Microsoft.Xna.Framework.MathHelper;
 
 namespace UndyneFight_Ex.Remake.UI
 { 
@@ -20,14 +19,14 @@ namespace UndyneFight_Ex.Remake.UI
         }
         public override void Start()
         {
-            fontSize = FightResources.Font.NormalFont.SFX.MeasureString(_text) * DefaultScale + new Vector2(22, 0);
+            fontSize = NormalFont.SFX.MeasureString(_text) * DefaultScale + new Vector2(22, 0);
             base.Start();
         }
         string _text;
         protected void ChangeText(string text)
         {
             _text = text;
-            fontSize = FightResources.Font.NormalFont.SFX.MeasureString(_text) * DefaultScale + new Vector2(22, 0);
+            fontSize = NormalFont.SFX.MeasureString(_text) * DefaultScale + new Vector2(22, 0);
         }
          
         protected Vector2 fontSize, _centre;
@@ -41,7 +40,7 @@ namespace UndyneFight_Ex.Remake.UI
         public override void Draw()
         {
             if (!this._father.DrawEnabled) return;
-            FightResources.Font.NormalFont.CentreDraw(_text, _realLocation - new Vector2(35, 0), _drawingColor, DefaultScale, 0.4f);
+            NormalFont.CentreDraw(_text, _realLocation - new Vector2(35, 0), _drawingColor, DefaultScale, 0.4f);
             Vector2 pos2 = _realLocation + new Vector2(fontSize.X * 0.5f - 18, 0);
             CollideRect rect2 = new();
             rect2.Size = new(26, 26);
@@ -59,16 +58,14 @@ namespace UndyneFight_Ex.Remake.UI
         {
             base.Update();
 
-            if (_mouseOn) this._colorScale = MathHelper.Lerp(_colorScale, 1.0f, 0.1f);
-            else this._colorScale = MathHelper.Lerp(_colorScale, 0.0f, 0.1f);
+            _colorScale = Lerp(_colorScale, _mouseOn ? 1 : 0, 0.1f);
 
             if (!this._father.Activated) return;
             this.collidingBox.Size = fontSize;
             this._realLocation = _centre + PositionDelta; 
             this.Centre = _realLocation;
 
-            if (_ticked) this._alphaScale = MathHelper.Lerp(_alphaScale, 1.0f, 0.14f);
-            else this._alphaScale = MathHelper.Lerp(_alphaScale, 0.0f, 0.14f);
+            _alphaScale = Lerp(_alphaScale, _ticked ? 1 : 0, 0.14f);
         }
         Vector2 _realLocation;
 
@@ -76,13 +73,13 @@ namespace UndyneFight_Ex.Remake.UI
 
         private void MouseClick()
         {
-            Functions.PlaySound(FightResources.Sounds.select); 
+            PlaySound(FightResources.Sounds.select); 
             this._ticked = !this._ticked;
         }
 
         private void MouseOnEvent()
         {
-            Functions.PlaySound(FightResources.Sounds.changeSelection);
+            PlaySound(FightResources.Sounds.changeSelection);
         }
 
         internal void Tick()

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.FightResources.Font;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -65,8 +67,7 @@ namespace UndyneFight_Ex.Remake.UI
                 for(int i = 0; i < count; i++)
                 {
                     float pos = MathHelper.Lerp(l, r, count == 1 ? 0.5f : i * 1.0f / (count - 1));
-                    CollideRect area = new();
-                    area.Size = new Vector2(40, 60);
+                    CollideRect area = new() { Size = new Vector2(40, 60)};
                     area.SetCentre(new Vector2(pos, 640));
                     
                     this.AddChild(new DifficultySelection(this, difficulties[i], area));
@@ -158,8 +159,8 @@ namespace UndyneFight_Ex.Remake.UI
                 Color color = _drawingColor;
                 DrawingLab.DrawLine(new(48, 127 + 190), new(208, 127 + 190), 3.0f, color, 0.5f);
 
-                FightResources.Font.NormalFont.CentreDraw("Diff", new(128, 60 + 190), color, 1.3f, 0.4f);
-                FightResources.Font.NormalFont.CentreDraw("Select", new(128, 98 + 190), color, 1.3f, 0.4f);
+                NormalFont.CentreDraw("Diff", new(128, 60 + 190), color, 1.3f, 0.4f);
+                NormalFont.CentreDraw("Select", new(128, 98 + 190), color, 1.3f, 0.4f);
 
                 if (!Activated) return;
             }
@@ -184,7 +185,7 @@ namespace UndyneFight_Ex.Remake.UI
                             this.Activate();
                         }
                     }
-                    else if (_state == SelectState.MouseOn || _state == SelectState.Disabled) { _state = SelectState.False; }
+                    else if (_state is SelectState.MouseOn or SelectState.Disabled) { _state = SelectState.False; }
                 }
                 Color mission = _state switch
                 {
@@ -201,14 +202,14 @@ namespace UndyneFight_Ex.Remake.UI
                 _timer++;
                 if (_timer < 3) return;
 
-                if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
+                if (IsKeyPressed120f(InputIdentity.Cancel))
                 {
                     this._virtualFather.SongSelect.Activate();
                     this.Deactivate();
                 }
 
 
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown) || GameStates.IsKeyPressed120f(InputIdentity.MainRight))
+                if (IsKeyPressed120f(InputIdentity.MainDown) || IsKeyPressed120f(InputIdentity.MainRight))
                 {
                     int id = FocusID;
                     for (int i = id + 1; i < all.Length; i++)
@@ -221,7 +222,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp) || GameStates.IsKeyPressed120f(InputIdentity.MainLeft))
+                else if (IsKeyPressed120f(InputIdentity.MainUp) || IsKeyPressed120f(InputIdentity.MainLeft))
                 {
                     int id = FocusID;
                     for (int i = id - 1; i >= 0; i--)
@@ -234,7 +235,7 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     _currentFocus.ConfirmKeyDown();
                 }

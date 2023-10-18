@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Principal;
+using static UndyneFight_Ex.PlayerManager;
 
 namespace UndyneFight_Ex.Remake.Network
 {
@@ -45,8 +46,8 @@ namespace UndyneFight_Ex.Remake.Network
                     }
                     if (s.Info[0..4] == "<RSA")
                     {
-                        string newPassword = MathUtil.Encrypt(PlayerManager.CurrentUser.PasswordMemory, s.Info);
-                        socket.SendRequest("Log\\in\\" + PlayerManager.currentPlayer + "\\" + newPassword);
+                        string newPassword = MathUtil.Encrypt(CurrentUser.PasswordMemory, s.Info);
+                        socket.SendRequest("Log\\in\\" + currentPlayer + "\\" + newPassword);
                     }
                     else
                     {
@@ -65,7 +66,7 @@ namespace UndyneFight_Ex.Remake.Network
                     }
 
                     if (s.Info == "none") {
-                        if (PlayerManager.UserLogin && PlayerManager.CurrentUser.OnlineAsync)
+                        if (UserLogin && CurrentUser.OnlineAsync)
                         {
                             type = true;
                             socket.SendRequest($"Log\\key\\none");

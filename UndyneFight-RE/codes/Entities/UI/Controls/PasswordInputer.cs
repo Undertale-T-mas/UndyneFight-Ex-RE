@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using UndyneFight_Ex.Entities;
@@ -27,10 +26,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             int len = this.drawingString.Length;
             string a = "";
-            for (int i = 0; i < len; i++)
-            {
-                a += '*';
-            }
+            for (int i = 0; i < len; i++) a += '*';
 
             return a;
         }
@@ -41,8 +37,7 @@ namespace UndyneFight_Ex.Remake.UI
             if (!this.ModuleSelected) return;
             if (IsKeyPressed120f(InputIdentity.Tab))
             {
-                if (_inProtected) this.drawingString = Result;
-                else this.drawingString = GenerateProtect();
+                drawingString = _inProtected ? Result : GenerateProtect();
                 _inProtected = !_inProtected;
             }
         }

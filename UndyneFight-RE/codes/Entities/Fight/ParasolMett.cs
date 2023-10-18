@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex.Fight;
+using static UndyneFight_Ex.Entities.EasingUtil;
+using static UndyneFight_Ex.Remake.Resources;
 
 namespace UndyneFight_Ex.Remake.Entities
 {
@@ -18,16 +16,17 @@ namespace UndyneFight_Ex.Remake.Entities
 
         private class MettBullet : Barrage
         {
-            public MettBullet(Vector2 pos, float waveTime) {
-                this.Image = Resources.FightSprites.MettBullet;
+            public MettBullet(Vector2 pos, float waveTime)
+            {
+                this.Image = FightSprites.MettBullet;
                 this.Centre = pos;
                 this.AngleMode = true;
                 this.HitRadius = 6.5f;
 
-                this.PositionRoute = EasingUtil.CentreEasing.Combine(EasingUtil.CentreEasing.Linear(
+                this.PositionRoute = CentreEasing.Combine(CentreEasing.Linear(
                     MathUtil.GetVector2(4.0f, MathUtil.Direction(this.Centre, PlayerMission.Centre))
                 ), this.Centre);
-                this.RotationRoute = EasingUtil.ValueEasing.SinWave(10f, waveTime * 2, 0.0f);
+                this.RotationRoute = ValueEasing.SinWave(10f, waveTime * 2, 0.0f);
             }
             public override void Update()
             {
@@ -39,8 +38,9 @@ namespace UndyneFight_Ex.Remake.Entities
                 return Vector2.Distance(heart.Centre, this.Centre);
             }
         }
-        ParasolMett() {
-            images = Resources.FightSprites.ParasolMett;
+        ParasolMett()
+        {
+            images = FightSprites.ParasolMett;
             this.Image = images[0];
             shootQueue = new();
             this.Alpha = 1.0f;
@@ -79,15 +79,15 @@ namespace UndyneFight_Ex.Remake.Entities
         }
         public void InsertShot(params float[] times)
         {
-            for(int a=0;a<times.Length; a++)
+            for (int a = 0; a < times.Length; a++)
             {
                 InsertShot(times[a]);
             }
         }
-        public void InsertShot(int val,float time)
+        public void InsertShot(int val, float time)
         {
-            for(int a=0;a<val;a++)
-            shootQueue.Enqueue(time*a);
+            for (int a = 0; a < val; a++)
+                shootQueue.Enqueue(time * a);
         }
         protected override float GetDistance(Player.Heart heart)
         {
@@ -95,10 +95,10 @@ namespace UndyneFight_Ex.Remake.Entities
         }
 
         protected override void OnShot(SoulBullet bullet)
-        { 
+        {
             bullet.Dispose();
             this.Dispose();
-            Functions.PlaySound(Resources.Sounds.TargetBurst);
+            Functions.PlaySound(Sounds.TargetBurst);
         }
 
         private void MakeShoot()
@@ -126,7 +126,7 @@ namespace UndyneFight_Ex.Remake.Entities
                     index = -1;
                 }
             }
-            if(index != -1)
+            if (index != -1)
             {
                 this.Image = images[index];
             }

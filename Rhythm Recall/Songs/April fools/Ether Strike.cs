@@ -1269,10 +1269,6 @@ namespace AprilExtends
             public void Extreme()
             {
                 BarrageRedSoul();
-                // if (At0thBeat(2)) PlaySound(Sounds.switchScene);
-                // if (At0thBeat(1)) PlaySound(Sounds.arrowStuck);
-                // if (this.InBeat(0)) ExBarrage.Intro0();
-                // if (this.InBeat(8)) ExBarrage.Intro1();
                 if (InBeat(0))
                 {
                     ScreenDrawing.HPBar.HPExistColor = new(0, 161, 255);

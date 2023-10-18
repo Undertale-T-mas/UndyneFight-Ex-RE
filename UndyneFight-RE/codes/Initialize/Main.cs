@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
 using UndyneFight_Ex.GameInterface;
-using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Remake.Network;
+using UndyneFight_Ex.Remake.UI;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -21,20 +18,20 @@ namespace UndyneFight_Ex.Remake
             }
             isLateInitialized = true;
 
-            GameStates.ResetFightState(true);
+            ResetFightState(true);
 
-            GameStates.CurrentWindow.ClientSizeChanged += WindowSizeChanged;
+            CurrentWindow.ClientSizeChanged += WindowSizeChanged;
 
             Data.GlobalDataRoot.UserMemory m = FileData.GlobalData.Memory;
             if (m.AutoAuthentic)
-                UI.UserUI.AutoAuthentic(m.RememberUser, m.PasswordMem);
+                UserUI.AutoAuthentic(m.RememberUser, m.PasswordMem);
         }
         public static void MainInitialize()
         { 
             FileData.Initialize();  
             
-            GameStartUp.MainSceneIntro = () => { 
-                GameStates.InstanceCreate(new UI.DEBUG.IntroUI()); LateInitialize(); 
+            GameStartUp.MainSceneIntro = () => {
+                InstanceCreate(new UI.DEBUG.IntroUI()); LateInitialize(); 
             };
             // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.UserUI()); LateInitialize(); };
             // GameStartUp.MainSceneIntro = () => { GameStates.InstanceCreate(new UI.SettingUI()); LateInitialize(); };
@@ -47,7 +44,7 @@ namespace UndyneFight_Ex.Remake
 
         private static void WindowSizeChanged(object sender, EventArgs e)
         {
-            Vector2 currentSize = GameStates.CurrentWindow.ClientBounds.Size.ToVector2();
+            Vector2 currentSize = CurrentWindow.ClientBounds.Size.ToVector2();
             MouseSystem.ScreenSize = currentSize;
         }
     }

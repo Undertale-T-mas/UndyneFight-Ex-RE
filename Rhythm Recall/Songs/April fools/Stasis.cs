@@ -18,6 +18,8 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 using UndyneFight_Ex.Remake;
 using System.Security.Cryptography.X509Certificates;
 using Extends;
+using System.Reflection;
+using static UndyneFight_Ex.Entities.Player;
 
 namespace AprilExtends
 {
@@ -36,7 +38,7 @@ namespace AprilExtends
             public override void Draw()
             {
                 for (int a = 0; a < 6; a++)
-                    DrawingLab.DrawLine(Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + a * 60), Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + 60 + a * 60), 4.2f, Color.White * 0.5f, 0.99f);
+                    DrawingLab.DrawLine( Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + a * 60), Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + 60 + a * 60), 4.2f, Color.White * 0.5f, 0.99f);
             }
             int time = 0;
             public override void Update()
@@ -69,7 +71,7 @@ namespace AprilExtends
 
                 }
                 for (int a = 0; a < side; a++)
-                    DrawingLab.DrawLine(Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 180 / side + r + a * 360 / side), Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 180 / side + r + 360 / side + a * 360 / side), 4.2f, Color.White * 0.5f, 0.99f);
+                    DrawingLab.DrawLine(Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 180 / side + r + a * 360 / side), Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 180 / side + r + 360 / side + a * 360 / side), 4.2f, Color.White * 0.5f, 0.99f);
             }
             int time = 0;
             public override void Update()
@@ -83,21 +85,20 @@ namespace AprilExtends
         }
         private void WhiteScreen(float duration, float alpha)
         {//BeatTime(x) = duration//alpha -= 1 / duration (alpha >= 0 ,alpha <= 1)
-            
             DrawingUtil.MaskSquare square = new(0, 0, 640, 480, duration, Color.White, alpha);
             CreateEntity(square);
             AddInstance(new TimeRangedEvent(duration + 1, () =>
             {
                 if (alpha >= 0)
                 {
-                        alpha -= 1 / duration;
+                    alpha -= 1 / duration;
                 }
-                    square.alpha = alpha;
-                if(square.alpha <= 0)
+                square.alpha = alpha;
+                if (square.alpha <= 0)
                 {
                     square.Dispose();
                 }
-            }));  
+            }));
         }
 
         public Stasis() : base(62.5f / (180 / 60)) { }
@@ -111,8 +112,8 @@ namespace AprilExtends
         {
             public override string SongAuthor => "Maozon";
             public override string PaintAuthor => "From Lanota";
-            public override string BarrageAuthor => "Uranusqwq";
-            public override string AttributeAuthor => "Uranusqwq";
+            public override string BarrageAuthor => "Me";
+            public override string AttributeAuthor => "Me";
             public override string Extra => "The song is unauthorized, and \nif that infringe a copyright, \ncall T-mas by email:480642510@qq.com, \nwe will delete this song immediately";
         }
 
@@ -585,7 +586,7 @@ namespace AprilExtends
                     Rot.Insert(BeatTime(4), ValueEasing.EaseOutQuart(0, 720, BeatTime(4)));
                     Rot.Run((m) =>
                     {
-                        Heart.InstantSetRotation(m);
+                        Functions.Heart.InstantSetRotation(m);
                     });
                 });
                 RegisterFunctionOnce("ScreenS", () =>
@@ -1055,7 +1056,7 @@ namespace AprilExtends
                     RunEase((s) =>
                     {
                         BoxStates.Centre = new Vector2(320 + s, 240);
-                        Heart.Centre = BoxStates.Centre;
+                        Functions.Heart.Centre = BoxStates.Centre;
                     },
                         Scale(
                         LinkEase(
@@ -1224,7 +1225,7 @@ namespace AprilExtends
                     //SetBox(320 - 42, 320 + 42, 240 - 42, 240 + 42);
                     SetBox(new Vector2(320, 240), 250, 250);
                     RunEase(r =>
-                        CreateEntity(new DrawingUtil.SpecialBox(1, r, Heart) { alpha = 0.5f })
+                        CreateEntity(new DrawingUtil.SpecialBox(1, r, Functions.Heart) { alpha = 0.5f })
                     ,
                         EaseIn(BeatTime(4), 0, 720, EaseState.Cubic),
                         EaseOut(BeatTime(2), 0, 10, EaseState.Elastic),
@@ -1290,7 +1291,7 @@ namespace AprilExtends
                         EaseIn(BeatTime(9), 0, 1800, EaseState.Cubic)
                     );
                     
-                    Heart.controlingBox.GreenSoulAlpha = 0.01f;
+                    Functions.Heart.controlingBox.GreenSoulAlpha = 0.01f;
                     //DelayBeat(16 + 8, () =>
                     //{
                     //    Heart.controlingBox.GreenSoulAlpha = 0.5f;
@@ -1368,6 +1369,7 @@ namespace AprilExtends
                     {
                         RunEase(p =>
                         {
+                            ScreenDrawing.ScreenPositionDetla = new(0 - 0.5f * p, 0);
                             //BoxStates.Centre = p;
                             InstantTP(320 + p, 240);
                             //InstantSetBox(240 + p, 100, 100);
@@ -1472,7 +1474,7 @@ namespace AprilExtends
                     "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
                     "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
                     "($0)($21)","","($01)($2)","",    "($0)($21)","","($01)($2)","",
-                    "(#0.25#$0)(#0.25#$21)","","","",    "","","","",
+                    "","","","",    "","","","",
                 });
             }
             if (InBeat(272 + 32 + 16))
@@ -1491,7 +1493,7 @@ namespace AprilExtends
                     side = s;
                 }
                 ,
-                    EaseOut(BeatTime(1.5f), 4, 5, EaseState.Circ),
+                    EaseOut(BeatTime(1.5f), 4, 5, EaseState.Expo),
                     EaseOut(BeatTime(1.5f), 5, 6, EaseState.Cubic)
                 );
                 RunEase((r) =>
@@ -1499,18 +1501,88 @@ namespace AprilExtends
                     rot = r;
                 }
                 ,
-                    EaseOut(BeatTime(1.5f), 0, 90, EaseState.Circ),
-                    EaseOut(BeatTime(1.5f), 0, -90, EaseState.Circ)
+                    EaseOut(BeatTime(1.5f), 0, 180, EaseState.Circ),
+                    EaseOut(BeatTime(2.5f), 0, -180, EaseState.Cubic)
                 );
-                RegularPolygon polygon = new(Heart, 4, 0, 1);
+                RegularPolygon polygon = new(Functions.Heart, 4, 0, 1);
                 AddInstance(new TimeRangedEvent(BeatTime(16), () =>
                 {
-                    CreateEntity(new RegularPolygon(Heart, side, rot, 2));
+                    CreateEntity(new RegularPolygon(Functions.Heart, side, rot, 2));
                 }));
+                //Player.Heart mission = FatherObject as Player.Heart;
+                //Player.Heart.Shield shield1 = new(1, mission) { UpdateKeys = new InputIdentity[] { InputIdentity.MainRight, InputIdentity.MainDown, InputIdentity.MainLeft, InputIdentity.MainUp } };
+                //Player.Heart.Shield shield2 = new(1, mission) { UpdateKeys = new InputIdentity[] { InputIdentity.SecondRight, InputIdentity.SecondUp, InputIdentity.Q, InputIdentity.None } };
+                //Shields.AddShield(shield1);
+                //AddChild(shield1);
+                //AddChild(shield2);
+                //CShield();
+                //Player.Heart.ShieldManager shields = new();
 
+
+                //var shield = new Heart.Shield.Modify();
+                //shield.RotateAngle(60);
+                //var shield = new Heart.Shield.Modify();
+                //shield.SetRotateAngle(90);
+                //shield.SetKeys(InputIdentity.)
+                //for (int i = 0; i < 720; i++)
+                //{
+                //    SetBox(new Vector2(Sin(i * 2), Cos(i)), 84, 84);
+                //}
+                //AddInstance(new InstantEvent(0, () =>
+                //{
+                //    shields.AddShield(shield1);
+                //}));
+        ////        public class Modify
+        ////  {
+        ////    public static int Type { get; set; } = 1;
+        ////    public static int Angle { get; set; } = 90;
+        ////    public static int way { get; set; } = 360 / Angle;
+        ////    public static InputIdentity[] Keys { get; set; } = new InputIdentity[way];
+        ////    /// <summary>
+        ////    /// 设置每个方向的角度
+        ////    /// 设置的角度应可被360°整除！
+        ////    /// </summary>
+        ////    /// <param name="angle">你想要的角度</param>
+        ////    public void SetRotateAngle(int angle)
+        ////    {
+        ////        Angle = angle;
+        ////    }
+        ////    /// <summary>
+        ////    /// 设置按键
+        //    /// 设置的按键个数应与方向个数相同！
+        //    /// </summary>
+        //    /// <param name="keys">你想选择的按键</param>
+        //    public void SetKeys(InputIdentity[] keys)
+        //      {
+        //        Keys = keys;
+        //      }
+        //    public void SetType(int type)
+        //      {
+        //        Type = type;
+        //      }
+        //  }
+        //public float Angle { get; set; } = Modify.Angle;
+        //public InputIdentity[] Keys { get; set; } = Modify.Keys;
+        //public int Type = Modify.Type;
+        CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
+                {
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                });
             }
         }
-
         public void ExtremePlus()
         {
             throw new NotImplementedException();

@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using static UndyneFight_Ex.FightResources.Font;
-using static UndyneFight_Ex.FightResources;
-using UndyneFight_Ex.Fight;
-using Microsoft.Xna.Framework.Input;
-using System;
+using static UndyneFight_Ex.FightResources.Sounds;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.GameStates;
 using System.Collections.Generic;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -22,8 +21,8 @@ namespace UndyneFight_Ex.Remake.UI
                     UpdateIn120 = true;
                     this.collidingBox.Size = NormalFont.SFX.MeasureString(name) * 1.05f;
                     this.Centre = new Vector2(210, centreY);
-                    this.OnActivated += () => { _virtualFather?.Select(this); 
-                        Functions.PlaySound(Sounds.select);
+                    this.OnActivated += () => { _virtualFather?.Select(this);
+                        PlaySound(select);
                         if (all != null)
                         {
                             if (currentFocus != all[0] && currentFocus.IsMouseOn)
@@ -39,7 +38,7 @@ namespace UndyneFight_Ex.Remake.UI
                     this._name = name;
                     this.KeyEvent = () => {
                         if (_virtualFather._keyEnabled) return;
-                        if (GameStates.IsKeyPressed120f(InputIdentity.MainLeft))
+                        if (IsKeyPressed120f(InputIdentity.MainLeft))
                         {
                             if (bottomButton.ContainsKey(currentFocus))
                             {
@@ -49,7 +48,7 @@ namespace UndyneFight_Ex.Remake.UI
                                 all[value].OnFocus();
                             }
                         }
-                        if (GameStates.IsKeyPressed120f(InputIdentity.MainRight))
+                        if (IsKeyPressed120f(InputIdentity.MainRight))
                         {
                             if (bottomButton.ContainsKey(currentFocus))
                             {
@@ -60,7 +59,7 @@ namespace UndyneFight_Ex.Remake.UI
                                 all[value].OnFocus();
                             }
                         }
-                        if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                        if (IsKeyPressed120f(InputIdentity.MainDown))
                         {
                             int id = FocusID;
                             float x = all[id].Centre.X;
@@ -78,7 +77,7 @@ namespace UndyneFight_Ex.Remake.UI
                                 }
                             }
                         }
-                        else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                        else if (IsKeyPressed120f(InputIdentity.MainUp))
                         {
                             int id = FocusID;
                             float x = all[id].Centre.X;
@@ -97,7 +96,7 @@ namespace UndyneFight_Ex.Remake.UI
                                 }
                             }
                         }
-                        if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                        if (IsKeyPressed120f(InputIdentity.Confirm))
                         {
                             currentFocus?.ConfirmKeyDown();
                         }
@@ -150,16 +149,13 @@ namespace UndyneFight_Ex.Remake.UI
                 public override void Update()
                 {
                     base.Update();
-                    if(_mouseOn)
-                        this._secondaryScale = MathHelper.Lerp(this._secondaryScale, SecondaryScale, 0.1f);
-                    else
-                        this._secondaryScale = MathHelper.Lerp(this._secondaryScale, 1.0f, 0.1f);
+                    _secondaryScale = MathHelper.Lerp(_secondaryScale, _mouseOn ? SecondaryScale : 1, 0.1f);
                     if (!MouseSystem.Moved) { return; }
                     if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
                     {
                         if (!_mouseOn)
                         {
-                            Functions.PlaySound(Sounds.changeSelection, 1.0f);
+                            PlaySound(changeSelection, 1.0f);
                             this._virtualFather.OnFocus(this);
                         }
                         _mouseOn = true;

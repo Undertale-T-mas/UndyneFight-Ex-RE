@@ -38,10 +38,7 @@ namespace UndyneFight_Ex.Remake.UI
                         this.PositionDelta = _father._positionDelta + new Vector2(0, sumLast);
                         base.Update();
 
-                        if (State == SelectState.Selected || State == SelectState.Disabled)
-                            currentHeight = MathHelper.Lerp(currentHeight, maxHeight, lerpRate);
-                        else
-                            currentHeight = MathHelper.Lerp(currentHeight, 0f, lerpRate);
+                        currentHeight = MathHelper.Lerp(currentHeight, State is SelectState.Selected or SelectState.Disabled ? maxHeight : 0, lerpRate);
                         lerpRate = MathHelper.Lerp(lerpRate, 0.19f, 0.06f);
                         if(currentHeight > 2 && currentHeight < maxHeight - 2)
                         {
