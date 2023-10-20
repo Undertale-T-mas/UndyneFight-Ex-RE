@@ -192,7 +192,7 @@ namespace Rhythm_Recall.Waves
             }
             for (int a = 0; a < 6; a++)
             {
-                InBeat(249 + a)
+                if( InBeat(249 + a) )
                 {
                     CreateEntity(line2);
                     int beattime = 0;
