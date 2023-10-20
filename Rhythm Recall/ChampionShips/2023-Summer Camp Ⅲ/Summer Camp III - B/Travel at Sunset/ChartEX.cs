@@ -69,7 +69,7 @@ namespace Rhythm_Recall.Waves
                         TP();
                         DelayBeat(1, () =>
                         {
-                            ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
+                            ScreenDrawing.BoxBackColor = Color.Black;
                         });
 
                     });
@@ -2069,6 +2069,7 @@ namespace Rhythm_Recall.Waves
                             EaseIn(BeatTime(2), 1, 2.61f, EaseState.Quart),
                             EaseOut(BeatTime(3), 2.61f, 1, EaseState.Cubic))
                         );
+                        DelayBeat(2, () => sans.Alpha = 0);
                     });
                     RegisterFunctionOnce("DownLine", () =>
                     {

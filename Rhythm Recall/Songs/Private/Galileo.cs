@@ -32,10 +32,7 @@ namespace Rhythm_Recall.Waves
         public IWaveSet GameContent => new Game();
         public class Game : WaveConstructor, IWaveSet
         {
-            public Game() : base(62.5f / (172f / 60f))
-            {
-
-            }
+            public Game() : base(62.5f / (172 / 60f)) { }
             public string Music => "Galileo";
 
             public string FightName => "Galileo";

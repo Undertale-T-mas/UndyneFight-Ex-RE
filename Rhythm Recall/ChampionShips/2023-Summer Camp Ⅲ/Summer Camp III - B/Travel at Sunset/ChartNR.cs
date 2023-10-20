@@ -80,7 +80,7 @@ namespace Rhythm_Recall.Waves
                         TP();
                         DelayBeat(1, () =>
                         {
-                            ScreenDrawing.BoxBackColor = Color.Black * 0.8f;
+                            ScreenDrawing.BoxBackColor = Color.Black;
                         });
                         /* Unused v2
                         var spears = GetAll<NormalSpear>();

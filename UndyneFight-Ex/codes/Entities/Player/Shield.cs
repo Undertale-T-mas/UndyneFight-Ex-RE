@@ -530,6 +530,19 @@ namespace UndyneFight_Ex.Entities
                     ChildObjects.Remove(shield);
                     shields.Remove(shield.ColorType);
                 }
+                public void MakeShieldParticle(Color col, float ang)
+                {
+                    Heart mission = FatherObject as Heart;
+                    Vector2 createCentre = mission.Centre + MathUtil.GetVector2(33, ang - 180 + Functions.Heart.Rotation);
+                    for (int i = 0; i < Rand(5, 20); i++)
+                    {
+                        float rotation1 = ang + 90 + Rand(0, 1) * 180;
+                        float rdelta = Rand(0, 1f) * Rand(0, 1f) * Rand(0, 1f) * RandSignal();
+                        rotation1 += rdelta * 90;
+                        GameStates.InstanceCreate(new Particle(col * Rand(0.67f, 0.85f), MathUtil.GetVector2(Rand(5f, 9f), rotation1), Rand(4, 8), createCentre, FightResources.Sprites.square)
+                        { DarkingSpeed = Rand(12f, 16f), SlowLerp = 0.25f });
+                    }
+                }
 
                 public override void Draw()
                 {

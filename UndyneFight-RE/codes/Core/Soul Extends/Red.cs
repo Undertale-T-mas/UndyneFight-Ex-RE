@@ -49,9 +49,8 @@ namespace UndyneFight_Ex.Remake
             for (int i = 0; i < vertexs.Length; i++)
             {
                 Vector2 a = vertexs[i].CurrentPosition, b = vertexs[(i + 1) % vertexs.Length].CurrentPosition,
-                normal = Rotate(b - a, 90), centre = (a + b) / 2, along = -centre,
-                del1 = curCentre - centre,
-                del2 = nexCentre - centre;
+                normal = Rotate(b - a, 90), centre = (a + b) / 2, along = (b - a) / 2,
+                del1 = curCentre - centre, del2 = nexCentre - centre;
 
                 float distance = along.Length();
                 normal.Normalize();
