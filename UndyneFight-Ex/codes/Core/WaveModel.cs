@@ -648,6 +648,7 @@ namespace UndyneFight_Ex.SongSystem
         /// 组合：(R)(+0)才是两个叠在一起，R(+0)会无效<br/>
         /// GB：#xx#yz<br/>
         /// #xx#表示停留节拍，y表示方向（用法和箭头相同），z表示颜色<br/>
+        /// 使用 ''x 重置arrowspeed; 使用 << >> 调节 节拍时间</x><br/>
         /// 事件用RegisterFunction()或RegisterFunctionOnce()然后放进字符里面<br/>
         /// 比如RegisterFunctionOnce("func", ()=> {});<br/>
         /// "(func)(R)"，即会发动事件和做一根随机蓝矛<br/>
@@ -701,6 +702,12 @@ namespace UndyneFight_Ex.SongSystem
                     {
                         float p = MathUtil.FloatFromString(cur[2..]);
                         t -= BeatTime(p);
+                        continue;
+                    }
+                    else if (cur[0..2] == ">>")
+                    {
+                        float p = MathUtil.FloatFromString(cur[2..]);
+                        t += BeatTime(p);
                         continue;
                     }
                 }
