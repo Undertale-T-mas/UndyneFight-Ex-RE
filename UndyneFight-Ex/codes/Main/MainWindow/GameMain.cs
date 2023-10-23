@@ -163,7 +163,9 @@ namespace UndyneFight_Ex
 #endif
 
             InitializeRendering(); 
-            PlayerManager.Initialize(); 
+            PlayerManager.Initialize();
+
+            InstanceCodeAfter();
         }
 
         /// <summary>

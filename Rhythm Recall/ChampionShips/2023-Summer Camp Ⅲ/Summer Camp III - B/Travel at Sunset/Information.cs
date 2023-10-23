@@ -32,7 +32,7 @@ namespace Rhythm_Recall.Waves
                     if (PlayerManager.CurrentUser == null) return 0;
                     var customData = PlayerManager.CurrentUser.Custom;
                     if (!customData.Nexts.ContainsKey("TaSAnomaly"))
-                        customData.PushNext(new("TasAnomaly:value=0"));
+                        customData.PushNext(new("TaSAnomaly:value=0"));
                     int t = customData.Nexts["TaSAnomaly"].IntValue;
                     return t;
                 }
