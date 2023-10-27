@@ -320,7 +320,7 @@ namespace UndyneFight_Ex
             {
                 Graphics.PreferredBackBufferWidth = (int)(480 * Aspect);
                 Graphics.PreferredBackBufferHeight = 480;
-                Window.AllowUserResizing = true;
+                Window.AllowUserResizing = false;
                 CilentBoundChanged();
                 Graphics.ToggleFullScreen();
                 Graphics.ApplyChanges();
@@ -331,7 +331,7 @@ namespace UndyneFight_Ex
                 lastSize = screenSize;
                 Graphics.PreferredBackBufferWidth = adapter.CurrentDisplayMode.Width;
                 Graphics.PreferredBackBufferHeight = adapter.CurrentDisplayMode.Height;
-                Window.AllowUserResizing = false;
+                Window.AllowUserResizing = true;
                 Graphics.ApplyChanges();
                 Graphics.ToggleFullScreen();
             }
