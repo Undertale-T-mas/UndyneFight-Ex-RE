@@ -315,13 +315,15 @@ namespace UndyneFight_Ex
 
         public void ToggleFullScreen()
         {
-            Graphics.ToggleFullScreen();
+
             if (_isFullScreen)
             {
                 Graphics.PreferredBackBufferWidth = (int)(480 * Aspect);
                 Graphics.PreferredBackBufferHeight = 480;
                 Window.AllowUserResizing = true;
                 CilentBoundChanged();
+                Graphics.ToggleFullScreen();
+                Graphics.ApplyChanges();
             }
             else
             {
@@ -330,9 +332,11 @@ namespace UndyneFight_Ex
                 Graphics.PreferredBackBufferWidth = adapter.CurrentDisplayMode.Width;
                 Graphics.PreferredBackBufferHeight = adapter.CurrentDisplayMode.Height;
                 Window.AllowUserResizing = false;
+                Graphics.ApplyChanges();
+                Graphics.ToggleFullScreen();
             }
             _isFullScreen = !_isFullScreen;
-            Graphics.ApplyChanges();
+
         }
 
         private static void CreateDebugWindow()
