@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.Remake;
+using static UndyneFight_Ex.Remake.Resources.Font;
 
 namespace RecallCharter
 {
@@ -16,12 +11,12 @@ namespace RecallCharter
         public override void Draw()
         {
             if (!Father.IsEnabled) return;
-            UndyneFight_Ex.Remake.Resources.Font.Normal.CentreDraw(Text, this.Centre, FontColor, Scale, Depth);
+            Normal.CentreDraw(Text, this.Centre, FontColor, Scale, Depth);
             base.Draw();
         }
         public override void Update()
         {
-            this.collidingBox.Size = UndyneFight_Ex.Remake.Resources.Font.Normal.SFX.MeasureString(Text);
+            this.collidingBox.Size = Normal.SFX.MeasureString(Text);
             base.Update();
         }
     }

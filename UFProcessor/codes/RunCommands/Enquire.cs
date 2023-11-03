@@ -1,24 +1,16 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using UndyneFight_Ex.SongSystem;
+﻿using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Server
 {
     public class Enquire : Command
     {
-        public Enquire( ) : base("Enquire")
-        {
-        }
+        public Enquire() : base("Enquire") { }
 
         public override void Processor(string[] args, Client? client)
         {
-            if (client == null)
-            {
-                return;
-            }
-            if (args.Length < 1) goto A; 
-            string arg0 = args[0]; 
+            if (client == null) return;
+            if (args.Length < 1) goto A;
+            string arg0 = args[0];
             switch (arg0)
             {
                 case "Scoreboard":
@@ -26,18 +18,18 @@ namespace UndyneFight_Ex.Server
                         goto A;
                     string arg1 = args[1];
                     bool success = int.TryParse(args[2], out int argInt);
-                    if(!success) goto A;
+                    if (!success) goto A;
                     client.Reply(SongResultUpload.Enquire(client.BindUser, arg1, (Difficulty)argInt));
                     return;
                 case "Championship":
-                    if(args.Length < 2) goto A;
+                    if (args.Length < 2) goto A;
                     client.Reply(ChampionshipManager.Enquire(client.BindUser, args[1]));
                     return;
                 case "ChampionshipInfo":
                     client.Reply(ChampionshipManager.EnquireInfo());
                     return;
                 case "Self":
-                    if(client.BindUser == null)
+                    if (client.BindUser == null)
                     {
                         client.Reply("F Please login first!");
                         return;
@@ -49,14 +41,11 @@ namespace UndyneFight_Ex.Server
                         return;
                     }
                     client.Reply("S " + res);
-
                     return;
-
                 default:
                     client.Reply("E cannot enquire inexistent object");
                     break;
             }
-
         A:
             client.Reply("E argument wrong");
         }

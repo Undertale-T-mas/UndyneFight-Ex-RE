@@ -28,7 +28,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         public virtual void ConfirmKeyDown()
         {
-            if (this.State == SelectState.MouseOn || this.State == SelectState.False)
+            if (this.State is SelectState.MouseOn or SelectState.False)
             {
                 if (!NeverEnable)
                     this.State = SelectState.Selected;
@@ -213,7 +213,7 @@ namespace UndyneFight_Ex.Remake.UI
             CurrentSelected = module;
             this.OnSelected?.Invoke();
         }
-         protected SelectingModule CurrentSelected { get; private set; }
+        protected SelectingModule CurrentSelected { get; private set; }
         protected event Action OnSelected;
         
         protected bool OneSelectionOnly { private get; set; }

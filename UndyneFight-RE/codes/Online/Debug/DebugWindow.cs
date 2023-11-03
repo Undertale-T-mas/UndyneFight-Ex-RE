@@ -1,22 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using UndyneFight_Ex.Entities;
-using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Remake.Components;
-using UndyneFight_Ex.Remake.Effects;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.UserService;
-using vec2 = Microsoft.Xna.Framework.Vector2;
-using col = Microsoft.Xna.Framework.Color;
-using Microsoft.Xna.Framework.Input;
-using UndyneFight_Ex.Remake.Network;
-using System.Security.Principal;
+﻿using UndyneFight_Ex.Remake.Network;
 using UndyneFight_Ex.Remake.UI.DEBUG;
-using System.Xml.Linq;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -91,7 +74,7 @@ namespace UndyneFight_Ex.Remake.UI
         private void Back_LeftClick()
         {
             this.Dispose();
-            GameStates.InstanceCreate(new DEBUG.IntroUI());
+            GameStates.InstanceCreate(new IntroUI());
         }
 
         private void Connect_LeftClick()

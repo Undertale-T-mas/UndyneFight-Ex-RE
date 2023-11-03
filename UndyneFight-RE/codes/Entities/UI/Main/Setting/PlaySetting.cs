@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Media;
-using System;
-using UndyneFight_Ex.Settings;
-using static UndyneFight_Ex.Settings.SettingsManager;
+﻿using static UndyneFight_Ex.Settings.SettingsManager.DataLibrary;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -16,33 +12,33 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     SecondaryScale = 1.07f;
                     this.AddChild(_arrowScale = new(new CollideRect(510 - 80, 80, 80 * 2, 60), "Arrow Size", 1.0f, 1.25f, this) { 
-                        DefaultValue = DataLibrary.ArrowScale,
+                        DefaultValue = ArrowScale,
                         Digit = 2
                     });
                     this.AddChild(_arrowSpeed = new(new CollideRect(510 - 80, 180, 80 * 2, 60), "Arrow Speed", 1.0f, 1.5f, this)
                     {
-                        DefaultValue = DataLibrary.ArrowSpeed,
+                        DefaultValue = ArrowSpeed,
                         Digit = 2
                     });
                     this.AddChild(_mirror = new(this, new(520, 280), "Mirror")
                     {
                         DefaultScale = 1.3f,
-                        DefaultValue = DataLibrary.Mirror
+                        DefaultValue = Mirror
                     });
                     this.AddChild(_perciseWarn = new(this, new(516, 350), "Precise\n Warns") { 
                         DefaultScale = 1.2f,
-                        DefaultValue = DataLibrary.perciseWarning
+                        DefaultValue = perciseWarning
                     });
                     this.AddChild(_pauseCheat = new(this, new(764, 100), "Pausing is\n cheating") { 
                         DefaultScale = 1.2f,
-                        DefaultValue = DataLibrary.PauseCheating
+                        DefaultValue = PauseCheating
                     });
                     this.OnActivated += () => {
-                        _arrowScale.SetValue(DataLibrary.ArrowScale);
-                        _arrowSpeed.SetValue(DataLibrary.ArrowSpeed);
-                        _mirror.DefaultValue = DataLibrary.Mirror;
-                        _perciseWarn.DefaultValue = DataLibrary.perciseWarning;
-                        _pauseCheat.DefaultValue = DataLibrary.PauseCheating;
+                        _arrowScale.SetValue(ArrowScale);
+                        _arrowSpeed.SetValue(ArrowSpeed);
+                        _mirror.DefaultValue = Mirror;
+                        _perciseWarn.DefaultValue = perciseWarning;
+                        _pauseCheat.DefaultValue = PauseCheating;
                     };
 
                 }
@@ -51,11 +47,11 @@ namespace UndyneFight_Ex.Remake.UI
 
                 public override void Apply()
                 {
-                    DataLibrary.ArrowScale = _arrowScale.GetValue();
-                    DataLibrary.ArrowSpeed = _arrowSpeed.GetValue();
-                    DataLibrary.Mirror = _mirror.Ticked;
-                    DataLibrary.perciseWarning = _perciseWarn.Ticked;
-                    DataLibrary.PauseCheating = _pauseCheat.Ticked;
+                    ArrowScale = _arrowScale.GetValue();
+                    ArrowSpeed = _arrowSpeed.GetValue();
+                    Mirror = _mirror.Ticked;
+                    perciseWarning = _perciseWarn.Ticked;
+                    PauseCheating = _pauseCheat.Ticked;
                 }
             }
         }

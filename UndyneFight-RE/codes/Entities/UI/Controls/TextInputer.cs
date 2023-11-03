@@ -1,8 +1,5 @@
-﻿
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
+﻿using Microsoft.Xna.Framework;
 using System;
-using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.FightResources.Font;
 using static UndyneFight_Ex.GameStates;
 

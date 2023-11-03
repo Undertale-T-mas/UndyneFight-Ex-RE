@@ -1,14 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
 using V = Microsoft.Xna.Framework.Vector2;
 
 namespace Rhythm_Recall.Waves
@@ -38,30 +33,30 @@ namespace Rhythm_Recall.Waves
                 public override string BarrageAuthor => "Tlott!Sans";
                 public override string AttributeAuthor => "Papyrus's SOUL";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
-                new KeyValuePair<Difficulty, float>[]
-                {
-                    new(Difficulty.Hard,14f),
-                    new(Difficulty.Normal,14f),
-                    new(Difficulty.Easy,6f),
-                    new(Difficulty.Noob,6f),
-                }
+                    new KeyValuePair<Difficulty, float>[]
+                    {
+                        new(Difficulty.Hard, 14f),
+                        new(Difficulty.Normal, 14f),
+                        new(Difficulty.Easy, 6f),
+                        new(Difficulty.Noob, 6f),
+                    }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                        new(Difficulty.Hard,14.5f),
-                        new(Difficulty.Normal,12f),
-                        new(Difficulty.Easy,7f),
-                    new(Difficulty.Noob,5f),
+                        new(Difficulty.Hard, 14.5f),
+                        new(Difficulty.Normal, 12f),
+                        new(Difficulty.Easy, 7f),
+                        new(Difficulty.Noob, 5f),
                     }
-                    );
+                );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
-                        new(Difficulty.Hard,16.5f),
-                    new(Difficulty.Normal,14f),
-                    new(Difficulty.Easy,10f),
-                    new(Difficulty.Noob,6f),
+                        new(Difficulty.Hard, 16.5f),
+                        new(Difficulty.Normal, 14f),
+                        new(Difficulty.Easy, 10f),
+                        new(Difficulty.Noob, 6f),
                     }
                     );
                 public Information() { this.MusicOptimized = true; }
@@ -76,7 +71,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.MaxHP = 5;
                 RegisterFunction("Con", () =>
                 {
-                    ScreenDrawing.CameraEffect.Convulse(Arguments[0], T(Arguments[1]), Arguments[2] == 0 ? true : false);
+                    ScreenDrawing.CameraEffect.Convulse(Arguments[0], T(Arguments[1]), Arguments[2] == 0);
                 });
                 InstantSetBox(240, 650, 490);
                 GametimeDelta = -0.5f;
@@ -101,7 +96,7 @@ namespace Rhythm_Recall.Waves
                     Arrow.UnitEasing l = new();
                     l.ApplyTime = T(4.75f);
                     l.RotationEase = LinkEase(Stable(T(4), 45), EaseOut(T(0.75f), -45, EaseState.Cubic));
-                    
+
                     AddInstance(l);
                     RegisterFunctionOnce("Start", () =>
                     {
@@ -169,7 +164,6 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                     });
-                    
                 }
                 if (InBeat(16))
                 {
@@ -370,7 +364,6 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                     });
-                    
                 }
                 if (InBeat(48))
                 {
@@ -578,13 +571,9 @@ namespace Rhythm_Recall.Waves
                         "","","","",   "","","","",
                         "","","","",   "","","","",
                     });
-
-
-                    
                 }
                 if (InBeat(116))
                 {
-
                     var r = LinkEase(
                         Stable(0, 0),
                         EaseIn(T(4f), 0, 720, EaseState.Cubic));
@@ -599,8 +588,6 @@ namespace Rhythm_Recall.Waves
                     {
                         InstantSetBox(240, s.X, s.Y);
                     }, r1);
-
-
                 }
             }
 
@@ -616,28 +603,28 @@ namespace Rhythm_Recall.Waves
 
             public void Hard()
             {
-                if(InBeat(0))
+                if (InBeat(0))
                 {
                     Arrow.UnitEasing l = new();
                     l.ApplyTime = T(4.75f);
-                    l.RotationEase = LinkEase(Stable(T(4),45),EaseOut(T(0.75f),-45,EaseState.Cubic));
+                    l.RotationEase = LinkEase(Stable(T(4), 45), EaseOut(T(0.75f), -45, EaseState.Cubic));
                     l.TagApply("L");
                     AddInstance(l);
                     RegisterFunctionOnce("Start", () =>
                     {
                         var r = LinkEase(
                             Stable(0, 180),
-                            EaseInOut(T(3.5f),180, 180 + 720-180, EaseState.Cubic));
+                            EaseInOut(T(3.5f), 180, 180 + 720 - 180, EaseState.Cubic));
                         RunEase((s) =>
                         {
                             ScreenDrawing.ScreenAngle = s;
-                        },r);
+                        }, r);
                         var r1 = LinkEase(
-                            Stable(0, new V(650,490)),
+                            Stable(0, new V(650, 490)),
                             EaseInOut(T(3.5f), new V(650, 490), new V(84, 84), EaseState.Quad));
                         RunEase((s) =>
                         {
-                            InstantSetBox(240,s.X,s.Y);
+                            InstantSetBox(240, s.X, s.Y);
                         }, r1);
                     });
                     RegisterFunctionOnce("Drum", () =>
@@ -645,7 +632,7 @@ namespace Rhythm_Recall.Waves
                         RunEase((s) =>
                         {
                             ScreenDrawing.ScreenPositionDetla = s;
-                        }, LinkEase(EaseOut(T(0.75f), new V(Arguments[0],0), EaseState.Quad), EaseOut(T(0.75f), new V(-2*Arguments[0], 0), EaseState.Quad), EaseOut(T(0.75f), new V(Arguments[0], 0), EaseState.Quad)));
+                        }, LinkEase(EaseOut(T(0.75f), new V(Arguments[0], 0), EaseState.Quad), EaseOut(T(0.75f), new V(-2 * Arguments[0], 0), EaseState.Quad), EaseOut(T(0.75f), new V(Arguments[0], 0), EaseState.Quad)));
                     });
                     CreateChart(0, T(1), 6.5f, new string[]
                     {
@@ -737,7 +724,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("SL1", () =>
                     {
                         var l = LinkEase(Stable(0, 0, 0));
-                        var c = LinkEase(Stable(0, 0), Linear(T(2), 0, 90+30));
+                        var c = LinkEase(Stable(0, 0), Linear(T(2), 0, 90 + 30));
                         Line r = new(l, c);
                         CreateEntity(r);
                         RunEase((s) => { r.Alpha = s; }, Stable(0, 1), Linear(T(1.5f), -1.2f));
@@ -745,7 +732,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("SL2", () =>
                     {
                         var l = LinkEase(Stable(0, 640, 0));
-                        var c = LinkEase(Stable(0, 90), Linear(T(2), 90, 180+30));
+                        var c = LinkEase(Stable(0, 90), Linear(T(2), 90, 180 + 30));
                         Line r = new(l, c);
                         CreateEntity(r);
                         RunEase((s) => { r.Alpha = s; }, Stable(0, 1), Linear(T(1.5f), -1.2f));
@@ -753,7 +740,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("SL3", () =>
                     {
                         var l = LinkEase(Stable(0, 640, 480));
-                        var c = LinkEase(Stable(0, 180), Linear(T(2), 180, 270+30));
+                        var c = LinkEase(Stable(0, 180), Linear(T(2), 180, 270 + 30));
                         Line r = new(l, c);
                         CreateEntity(r);
                         RunEase((s) => { r.Alpha = s; }, Stable(0, 1), Linear(T(1.5f), -1.2f));
@@ -761,7 +748,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("SL4", () =>
                     {
                         var l = LinkEase(Stable(0, 0, 480));
-                        var c = LinkEase(Stable(0, 270), Linear(T(2), 270, 360+30));
+                        var c = LinkEase(Stable(0, 270), Linear(T(2), 270, 360 + 30));
                         Line r = new(l, c);
                         CreateEntity(r);
                         RunEase((s) => { r.Alpha = s; }, Stable(0, 1), Linear(T(1.5f), -1.2f));
@@ -769,26 +756,26 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("CL", () =>
                     {
                         var c = LinkEase(
-                            Stable(0, 640, 480), 
+                            Stable(0, 640, 480),
                             Combine(
-                                LinkEase(Stable(0,640),
-                                EaseOut(T(6), 640,320, EaseState.Quad)),
-                                LinkEase(Stable(0,480),
-                                EaseOut(T(1),480,280,EaseState.Quad),
-                                EaseIn(T(1),280,480,EaseState.Quad),
-                                EaseOut(T(1),480,480+280,EaseState.Quad)
+                                LinkEase(Stable(0, 640),
+                                EaseOut(T(6), 640, 320, EaseState.Quad)),
+                                LinkEase(Stable(0, 480),
+                                EaseOut(T(1), 480, 280, EaseState.Quad),
+                                EaseIn(T(1), 280, 480, EaseState.Quad),
+                                EaseOut(T(1), 480, 480 + 280, EaseState.Quad)
                                 )));
-                        var r1 = LinkEase(Stable(0, 0), EaseOut(T(3), 0,45,EaseState.Sine));
-                        var r2 = LinkEase(Stable(0, 90), EaseOut(T(3), 90,90+45, EaseState.Sine));
+                        var r1 = LinkEase(Stable(0, 0), EaseOut(T(3), 0, 45, EaseState.Sine));
+                        var r2 = LinkEase(Stable(0, 90), EaseOut(T(3), 90, 90 + 45, EaseState.Sine));
                         Line l = new(c, r1);
                         Line l2 = new(c, r2);
                         CreateEntity(l, l2);
-                        RunEase((s) => { l.Alpha = s; l2.Alpha = s; }, Stable(0,1),EaseIn(T(3), -1.1f, EaseState.Sine));
-                        DelayBeat(8, () => { l.Dispose();l2.Dispose();});
+                        RunEase((s) => { l.Alpha = s; l2.Alpha = s; }, Stable(0, 1), EaseIn(T(3), -1.1f, EaseState.Sine));
+                        DelayBeat(8, () => { l.Dispose(); l2.Dispose(); });
                     });
                     Arrow.UnitEasing l = new();
                     l.ApplyTime = T(5);
-                    l.RotationEase = LinkEase(Stable(T(4), -15),EaseOut(T(1),-15,15,EaseState.Sine));
+                    l.RotationEase = LinkEase(Stable(T(4), -15), EaseOut(T(1), -15, 15, EaseState.Sine));
                     l.TagApply("L");
                     Arrow.UnitEasing l2 = new();
                     l2.ApplyTime = T(5);
@@ -807,12 +794,12 @@ namespace Rhythm_Recall.Waves
                         "(*N3)","","*N3","",   "*N3","","*N3","",
                         "(*N3)","","*N3","",   "","","*N3","",
                         "(*N3)","","","",   "","","","",
-                         
+
                         "(*N11)","","*N11","",   "*N11","","","",
                         "(*N11)","","*N11","",   "*N11","","*N11","",
                         "(*N11)","","*N11","",   "","","*N11","",
                         "(*N11)","","","",   "","","","",
-                         
+
                         "(*N3)","","*N3","",   "*N3","","","",
                         "(*N3)","","*N3","",   "*N3","","*N3","",
                         "(*N3)","","*N3","",   "","","*N3","",
@@ -1153,7 +1140,7 @@ namespace Rhythm_Recall.Waves
                         "(+01)(+01)","","","",   "","","","",
                         "(*R1)(~_+01)(<0.1>SCS)","~_+01","~_+01","~_+01",   "~_+01","~_+01","~_+01","~_+01",
                         "(+01)(+01)","","","",   "","","","",
-                        
+
                         "R","","R1","",   "R","","R1","",
                         "R","","R1","",   "R","","R1","",
                         "R","","","",   "","","","",
@@ -1215,31 +1202,24 @@ namespace Rhythm_Recall.Waves
                         "D","","","",   "D","","","",
                         "D","","","",   "D","","","",
                         "D","","","",   "D","","","",
-                        //
-                        //
-
-
                     });
                 }
                 if (InBeat(116))
                 {
-
-                        var r = LinkEase(
-                            Stable(0, 0),
-                            EaseIn(T(4f), 0, 720,  EaseState.Cubic));
-                        RunEase((s) =>
-                        {
-                            ScreenDrawing.ScreenAngle = s;
-                        }, r);
-                        var r1 = LinkEase(
-                            Stable(0, new V(84, 84)),
-                            EaseIn(T(4f), new V(84, 84), new V(650, 490),EaseState.Quad));
-                        RunEase((s) =>
-                        {
-                            InstantSetBox(240, s.X, s.Y);
-                        }, r1);
-                    
-
+                    var r = LinkEase(
+                        Stable(0, 0),
+                        EaseIn(T(4f), 0, 720, EaseState.Cubic));
+                    RunEase((s) =>
+                    {
+                        ScreenDrawing.ScreenAngle = s;
+                    }, r);
+                    var r1 = LinkEase(
+                        Stable(0, new V(84, 84)),
+                        EaseIn(T(4f), new V(84, 84), new V(650, 490), EaseState.Quad));
+                    RunEase((s) =>
+                    {
+                        InstantSetBox(240, s.X, s.Y);
+                    }, r1);
                 }
             }
 
@@ -1863,7 +1843,7 @@ namespace Rhythm_Recall.Waves
 
                 }
             }
-            
+
         }
     }
 }

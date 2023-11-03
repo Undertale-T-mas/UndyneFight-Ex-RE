@@ -42,6 +42,7 @@ namespace UndyneFight_Ex.Remake.UI
                 DrawLine(new(l2 + 30, 145 + 212), new(r2, 145 + 212), Color.White);
                  
                 DrawLine(new(l2, 465), new(r2, 465), Color.White);
+                //DrawLine(new(l2, 560), new(r2, 560), Color.White);
 
                 DrawLine(new(l2 + 30, 605), new(l2, 575), Color.White);
                 DrawLine(new(l2 + 30, 605), new(r2, 605), Color.White);

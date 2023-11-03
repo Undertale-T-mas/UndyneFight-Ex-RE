@@ -1,43 +1,41 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using System.Runtime.CompilerServices;
+﻿using Microsoft.Xna.Framework;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Fight;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake
 {
     public static class BoxUtils
     {
         public static VertexBox VertexBoxInstance => FightBox.instance as VertexBox;
-        public static bool IsVertexEnabled => Functions.BoxStates.CurrentBox is VertexBox;
+        public static bool IsVertexEnabled => BoxStates.CurrentBox is VertexBox;
 
         public static void Vertexify()
         {
-            Player.Heart curHeart = Functions.BoxStates.CurrentBox.Detect;
+            Player.Heart curHeart = BoxStates.CurrentBox.Detect;
             curHeart.controlingBox.Dispose();
             FightBox.boxs.Remove(curHeart.controlingBox);
-            VertexBox box = new(curHeart, Functions.BoxStates.CurrentBox as RectangleBox);
-            curHeart.controlingBox = box; 
-            GameStates.InstanceCreate(box);
+            VertexBox box = new(curHeart, BoxStates.CurrentBox as RectangleBox);
+            curHeart.controlingBox = box;
+            InstanceCreate(box);
         }
         public static void Vertexify(Player.Heart heart)
         {
             Player.Heart curHeart = heart;
             curHeart.controlingBox.Dispose();
             FightBox.boxs.Remove(curHeart.controlingBox);
-            VertexBox box = new(curHeart, Functions.BoxStates.CurrentBox as RectangleBox);
-            curHeart.controlingBox = box; 
-            GameStates.InstanceCreate(box);
+            VertexBox box = new(curHeart, BoxStates.CurrentBox as RectangleBox);
+            curHeart.controlingBox = box;
+            InstanceCreate(box);
         }
         public static void DeVertexify(CollideRect area)
         {
-            Player.Heart curHeart = Functions.BoxStates.CurrentBox.Detect;
+            Player.Heart curHeart = BoxStates.CurrentBox.Detect;
             curHeart.controlingBox.Dispose();
             FightBox.boxs.Remove(curHeart.controlingBox);
             RectangleBox box = new(curHeart, area);
-            curHeart.controlingBox = box; 
-            GameStates.InstanceCreate(box);
+            curHeart.controlingBox = box;
+            InstanceCreate(box);
         }
 
         public static void Move(int index, Vector2 value)

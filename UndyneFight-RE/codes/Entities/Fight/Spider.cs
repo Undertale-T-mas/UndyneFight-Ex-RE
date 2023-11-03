@@ -1,23 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Entities;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Fight.Functions;
-using System.Runtime.ExceptionServices;
-using System.Net.Http;
-using UndyneFight_Ex;
-using System.Diagnostics;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.FightResources;
-using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex.Remake.Entities
 {

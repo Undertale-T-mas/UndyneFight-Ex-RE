@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Entities;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.Fight;
-using System.Runtime.ExceptionServices;
 
 namespace UndyneFight_Ex.Remake.Entities
 {

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using System.Globalization;
-using UndyneFight_Ex.Remake.UI;
-using System.Threading;
-using System.ComponentModel;
-using Microsoft.Xna.Framework.Graphics; 
+﻿using Microsoft.Xna.Framework;
 
 namespace UndyneFight_Ex.Remake.Texts
-{ 
+{
     public class TextColorEffect : TextEffect
     {
         public TextColorEffect(Color color) : base(1) { cur = color; }

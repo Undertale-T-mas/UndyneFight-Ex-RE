@@ -67,12 +67,7 @@ namespace Rhythm_Recall.Waves
         #endregion
         public void Start()
         {
-            //ScreenDrawing.UISettings.CreateUISurface();
-            //TP(160, 280); 
-            //SetBox(240, 160, 160);
-            //TP(320, 240);
-            //SetSoul(0);
-            GametimeDelta = -9.5f;//+ (int)(this.BeatTime(20 * 4));
+            GametimeDelta = -9.5f;
             Heart.SoftFalling = true;
             InstantSetBox(240, 84, 84);
             SetSoul(1);
@@ -81,13 +76,11 @@ namespace Rhythm_Recall.Waves
             HeartAttribute.KRDamage = 4f;
             HeartAttribute.MaxHP = 96;
             HeartAttribute.KR = true;
-
         }
 
         public void Noob()
         {
             if (InBeat(0)) HeartAttribute.JumpTimeLimit = 1;
-            //CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(1, "$$Entities:" + "$" + (GetAll<Entity>().Length - 9).ToString(), new(0, 240), new UndyneFight_Ex.Fight.TextAttribute[] { new UndyneFight_Ex.Fight.TextSpeedAttribute(114), new UndyneFight_Ex.Fight.TextSizeAttribute(0.7f), new UndyneFight_Ex.Fight.TextColorAttribute(Color.Cyan) }) { sound = false });
             if (InBeat(0)) SpecialRhythmCreate(BeatTime(0.125f), 6.4f, 0,
              new string[]
             {

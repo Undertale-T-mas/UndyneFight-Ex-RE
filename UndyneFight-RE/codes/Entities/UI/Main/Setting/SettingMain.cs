@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Input;
-using System.Net.Sockets;
-using UndyneFight_Ex.SongSystem;
-using System.ComponentModel.Design.Serialization;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Fight;
+﻿using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources.Sounds;
+
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -80,7 +71,7 @@ namespace UndyneFight_Ex.Remake.UI
             {
                 if (_keyEnabled)
                 {
-                    if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                    if (IsKeyPressed120f(InputIdentity.MainDown))
                     {
                         int id = FocusID;
                         id++;
@@ -88,10 +79,10 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             _focusID = id;
                             all[_focusID].KeyOn();
-                            Functions.PlaySound(FightResources.Sounds.changeSelection);
+                            PlaySound(changeSelection);
                         }
                     }
-                    else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                    else if (IsKeyPressed120f(InputIdentity.MainUp))
                     {
                         int id = FocusID;
                         id--;
@@ -99,10 +90,10 @@ namespace UndyneFight_Ex.Remake.UI
                         {
                             _focusID = id;
                             all[_focusID].KeyOn();
-                            Functions.PlaySound(FightResources.Sounds.changeSelection);
+                            PlaySound(changeSelection);
                         };
                     }
-                    if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                    if (IsKeyPressed120f(InputIdentity.Confirm))
                     {
                         all[FocusID].Activate();
                         Select(all[FocusID]);
@@ -128,10 +119,10 @@ namespace UndyneFight_Ex.Remake.UI
 
         public override void Update()
         {
-            if (GameStates.IsKeyPressed(InputIdentity.Cancel))
+            if (IsKeyPressed(InputIdentity.Cancel))
             {
                 this.Dispose();
-                GameStates.InstanceCreate(new DEBUG.IntroUI());
+                InstanceCreate(new DEBUG.IntroUI());
             }
         }
     }

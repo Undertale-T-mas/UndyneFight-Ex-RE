@@ -1,10 +1,8 @@
-﻿using System.Net;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
-using UndyneFight_Ex.UserService;
 
 namespace UndyneFight_Ex.Server
-{ 
+{
     public class Client
     {  
         public Client(string v, Socket socket)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using UndyneFight_Ex;
-using UndyneFight_Ex.Entities;
 using static Rhythm_Recall.Resources;
 
 namespace Rhythm_Recall

@@ -11,6 +11,8 @@ using UndyneFight_Ex.SongSystem;
 using static Extends.FightUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
+using static UndyneFight_Ex.FightResources.Sounds;
+using static UndyneFight_Ex.GameStates;
 
 namespace Rhythm_Recall.Waves
 {
@@ -22,9 +24,11 @@ namespace Rhythm_Recall.Waves
             divisionInformation = new SaveInfo("imf{");
             divisionInformation.PushNext(new SaveInfo("dif:4"));
 
-            difficulties = new();
-            difficulties.Add("div.2", Difficulty.Hard);
-            difficulties.Add("div.1", Difficulty.ExtremePlus);
+            difficulties = new()
+            {
+                { "div.2", Difficulty.Hard },
+                { "div.1", Difficulty.ExtremePlus }
+            };
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
@@ -50,14 +54,12 @@ namespace Rhythm_Recall.Waves
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.1f),
                             new(Difficulty.Hard, 14.0f),
-
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
                             new(Difficulty.ExtremePlus, 19.0f),
                             new(Difficulty.Hard, 14.0f),
-
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
@@ -148,12 +150,12 @@ namespace Rhythm_Recall.Waves
                     NormalGB gb2 = new(new(320 + 160 + 40, 240 - 60), new(320 + 160 + 40, -45), new(1, 1), 90, 10000, 1);
                     NormalGB gb3 = new(new(320 - 80, 240 - 120), new(320 - 80, -45), new(1, 1), 90, 10000, 1);
                     NormalGB gb4 = new(new(320 + 80, 240 - 120), new(320 + 80, -45), new(1, 1), 90, 10000, 1);
-                    PlaySound(Sounds.GBSpawn);
+                    PlaySound(GBSpawn);
                     CreateGB(gb1);
                     CreateGB(gb2);
                     AddInstance(new TimeRangedEvent(bpm * 32, 1, () =>
                     {
-                        for (int a = 0; a < 2; a++) PlaySound(Sounds.GBSpawn);
+                        for (int a = 0; a < 2; a++) PlaySound(GBSpawn);
                         CreateGB(gb3);
                         CreateGB(gb4);
                     }));
@@ -283,7 +285,7 @@ namespace Rhythm_Recall.Waves
                 {
 
                     Heart.Gravity = 0;
-                    PlaySound(Sounds.switchScene);
+                    PlaySound(switchScene);
                     SetSoul(2);
                     Heart.GiveForce(270, 0);
                     float speed = 0;
@@ -339,13 +341,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     if (!trafic)
                     {
-                        PlaySound(Sounds.Warning);
+                        PlaySound(Warning);
                     }
 
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
                     {
                         DrawingUtil.Shock(1.2f, 1.3f, 3);
-                        PlaySound(Sounds.largeKnife, 0.7f);
+                        PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
                         CreateEntity(Line);
@@ -378,11 +380,11 @@ namespace Rhythm_Recall.Waves
                     }));
                     if (!trafic)
                     {
-                        PlaySound(Sounds.Warning);
+                        PlaySound(Warning);
                     }
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
                     {
-                        if (!value) PlaySound(Sounds.largeKnife, 0.7f);
+                        if (!value) PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
                         CreateEntity(Line);
@@ -420,11 +422,11 @@ namespace Rhythm_Recall.Waves
                     }));
                     if (!trafic)
                     {
-                        PlaySound(Sounds.Warning);
+                        PlaySound(Warning);
                     }
                     AddInstance(new TimeRangedEvent(trafictime + 1, 1, () =>
                     {
-                        if (!value) PlaySound(Sounds.largeKnife, 0.7f);
+                        if (!value) PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red * 0.75f);
                         Line.width = 0;
                         CreateEntity(Line);
@@ -497,7 +499,7 @@ namespace Rhythm_Recall.Waves
                             });
                             tex1.Depth = 0.99f;
                             CreateEntity(tex1);
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                         }));
                         AddInstance(new TimeRangedEvent(a * bpm * 16 + bpm * 4, 1, () =>
                         {
@@ -600,7 +602,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 64 + 5, 1, () =>
                     {
-                        PlaySound(Sounds.slam);
+                        PlaySound(slam);
                     }));
                     for (int a = 0; a < 3; a++)
                     {
@@ -714,7 +716,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 16 * (a + 1) + bpm * 2, 1, () =>
                         {
-                            PlaySound(Sounds.spearAppear);
+                            PlaySound(spearAppear);
                             CreateSpear(new Pike(Heart.Centre + new Vector2(150, 0), 180, 6, bpm * 2) { DrawingColor = new(189, 44, 153) });
                             CreateSpear(new Pike(Heart.Centre - new Vector2(150, 0), 0, 6, bpm * 2) { DrawingColor = new(189, 44, 153) });
                             CreateSpear(new Pike(Heart.Centre + new Vector2(0, 150), 270, 6, bpm * 2) { DrawingColor = new(189, 44, 153) });
@@ -766,7 +768,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 8, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             float count = 90;
                             DownBone bone1 = new(false, 0, 258) { ColorType = 1 };
                             CreateBone(bone1);
@@ -781,7 +783,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 16 * (a + 1), 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             float count = 90;
                             DownBone bone1 = new(true, 0, 258) { ColorType = 1 };
                             CreateBone(bone1);
@@ -823,7 +825,7 @@ namespace Rhythm_Recall.Waves
                     Knife(new(410, 280), 90, true, bpm * 4, true);//IIIII
                     AddInstance(new InstantEvent(bpm * 8, () =>
                     {
-                        for (int a = 0; a < 2; a++) PlaySound(Sounds.pierce);
+                        for (int a = 0; a < 2; a++) PlaySound(pierce);
                         CreateBone(new DownBone(false, 410 - 75, 8, 148) { ColorType = 1 });
                         CreateBone(new DownBone(false, 410 - 75 - 9, 8, 148) { ColorType = 1 });
                         CreateBone(new DownBone(false, 410 - 75 - 18, 8, 148) { ColorType = 1 });
@@ -843,7 +845,7 @@ namespace Rhythm_Recall.Waves
                     CreateGB(new NormalGB(Heart.Centre + new Vector2(-200, 0), Heart.Centre + new Vector2(200, 0), new Vector2(1, 1), 0, bpm * 8, bpm * 7));
                     CreateGB(new NormalGB(Heart.Centre + new Vector2(0, 200), Heart.Centre + new Vector2(200, 0), new Vector2(1, 1), 270, bpm * 8, bpm * 7));
                     CreateGB(new NormalGB(Heart.Centre + new Vector2(0, -200), Heart.Centre + new Vector2(200, 0), new Vector2(1, 1), 90, bpm * 8, bpm * 7));
-                    for (int a = 0; a < 2; a++) PlaySound(Sounds.pierce);
+                    for (int a = 0; a < 2; a++) PlaySound(pierce);
                     CreateBone(new DownBone(false, 5, 130 / 2 - 14));
                     CreateBone(new LeftBone(false, 5, 130 / 2 - 14));
                     CreateBone(new UpBone(true, 5, 130 / 2 - 14));
@@ -858,19 +860,19 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(new Boneslab(270, 7, 1, bpm * 15));
                     AddInstance(new TimeRangedEvent(bpm * 12, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 20f, 150) { ColorType = 1 });
                         CreateBone(new DownBone(false, 20f, 150) { ColorType = 1 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 13, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 20f, 150) { ColorType = 1 });
                         CreateBone(new DownBone(false, 20f, 150) { ColorType = 1 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 5f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5f, 150) { ColorType = 2 });
                     }));
@@ -883,14 +885,14 @@ namespace Rhythm_Recall.Waves
                     InstantSetBox(new Vector2(320, 320), 130, 130);
                     InstantTP(320, 320 + 65 - 8);
 
-                    PlaySound(Sounds.pierce);
+                    PlaySound(pierce);
                     CreateBone(new DownBone(true, 5f, 20));
                     CreateBone(new DownBone(false, 5f, 20));
                     CreateBone(new UpBone(true, 5f, 70));
                     CreateBone(new UpBone(false, 5f, 70));
                     AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 5f, 75 - 30));
                         CreateBone(new DownBone(false, 5f, 75 - 30));
                         CreateBone(new UpBone(true, 5f, 75 - 30));
@@ -898,7 +900,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 5f, 70));
                         CreateBone(new DownBone(false, 5f, 70));
                         CreateBone(new UpBone(true, 5f, 20));
@@ -944,7 +946,7 @@ namespace Rhythm_Recall.Waves
                         for (int b = 0; b < 3; b++) { int rotate = Rand(180 + 45, 270 + 10); CreateSpear(new Pike(new(Heart.Centre.X + Cos(rotate) * 200, Heart.Centre.Y + Sin(rotate) * 200), rotate + 180, 12, bpm * 14 - bpm * a) { DrawingColor = new(189, 44, 153) }); }
                         AddInstance(new TimeRangedEvent(bpm * 14 - bpm * a, 1, () =>
                         {
-                            PlaySound(Sounds.spearShoot);
+                            PlaySound(spearShoot);
                         }));
                     }
                     for (int a = 0; a < 12; a++)
@@ -985,7 +987,7 @@ namespace Rhythm_Recall.Waves
                         SetPlayerMission(1);
                         TP(Heart.Centre);
                     }));
-                    PlaySound(Sounds.pierce);
+                    PlaySound(pierce);
                     CreateGB(new NormalGB(new Vector2(405 + 43.5f, 230 + 100), new Vector2(405 + 43.5f, 230 - 200), new(1, 0.6f), 90, bpm * 8, bpm * 4));
                     CreateGB(new NormalGB(new Vector2(405 + 43.5f, 230 + 100), new Vector2(405 + 43.5f, 230 + 200), new(1, 0.6f), 270, bpm * 8, bpm * 4));
                     Knife(new Vector2(405 + 43.5f, 230), 90, true, 0);
@@ -995,7 +997,7 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(new Boneslab(270, 65 / 2 - 4, 2, bpm * 1 - 1));
                     AddInstance(new InstantEvent(bpm * 2, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         Knife(new Vector2(405 + 43.5f, 230), 0, true, 0, false);
                         Knife(new Vector2(405 + 43.5f, 230), 180, true, 0, true);
                         SetBoxMission(0);
@@ -1005,7 +1007,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new InstantEvent(bpm * 4, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         Knife(new Vector2(405 + 43.5f, 230), 90, true, 0);
                         SetBoxMission(0);
                         CreateEntity(new Boneslab(90, 65 / 2 - 4, 1, bpm * 1));
@@ -1200,7 +1202,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 18 * a + bpm * 16, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                             DownBone[] bone = GetAll<DownBone>();
                             UpBone[] bone1 = GetAll<UpBone>();
                             for (int b = 0; b < bone.Length; b++)
@@ -1280,12 +1282,12 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 64 * a + bpm * 32, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                             Heart.GiveForce(180, 0);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 64 * (a + 1), 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                             Heart.GiveForce(0, 0);
                         }));
                     }
@@ -1314,142 +1316,6 @@ namespace Rhythm_Recall.Waves
                             }
                         }));
                     }
-                    /*for (int a = 0; a < 22; a++)
-                    {
-                        float cur1 = 0, mission1 = 0;
-                        float cur2 = 0, mission2 = 0;
-                        AddInstance(new TimeRangedEvent(bpm * 8 * a, 1, () =>
-                        {
-                            AddInstance(new TimeRangedEvent(bpm * 12, 1, () =>
-                            {
-                                mission1 = 180;
-                                mission2 = 180;
-                            }));
-                            AddInstance(new TimeRangedEvent(bpm * 24, 1, () =>
-                            {
-                                mission2 = 180;
-                                mission1 = 180;
-                            }));//改变misson
-                            Platform[] rotd = GetAll<Platform>("down");
-                            CustomBone[] rotbb = GetAll<CustomBone>("upb");
-                            CustomBone[] rotbd = GetAll<CustomBone>("downb");
-                            Platform[] rotu = GetAll<Platform>("up");
-                            CreatePlatform(new Platform(0, new(BoxStates.Right, BoxStates.Down - 180 - 40), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, (s) =>
-                            {
-                                cur1 = cur1 * 0.92f + mission1 * 0.08f; return cur1 + 180;
-                            })
-                            {
-                                PositionRouteParam = new float[] { -3, 0.3f },
-                                LengthRouteParam = new float[] { 56, bpm * 22 },
-                                Tags = new string[] { "up" }
-                            }); ;
-                            CreateBone(new CustomBone(new(BoxStates.Right, BoxStates.Down - 180 - 40 - 4), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, (s) =>
-                            {
-                                cur1 = cur1 * 0.92f + mission1 * 0.08f; return cur1 + 90;
-                            })
-                            {
-                                PositionRouteParam = new float[] { -3, 0.3f },
-                                LengthRouteParam = new float[] { 52, bpm * 22 },
-                                Tags = new string[] { "upb" }
-                            });
-                            CreatePlatform(new Platform(0, new(BoxStates.Left - 48 + 22, BoxStates.Up + 180 + 40), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, (s) =>
-                            {
-                                cur2 = cur2 * 0.92f + mission2 * 0.08f; return cur2;
-                            })
-                            {
-                                PositionRouteParam = new float[] { 3, -0.3f },
-                                LengthRouteParam = new float[] { 56, bpm * 22 },
-                                Tags = new string[] { "down" }
-                            });
-                            CreateBone(new CustomBone(new(BoxStates.Left - 4 - 22, BoxStates.Up + 180 + 40 + 4), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, (s) =>
-                            {
-                                cur2 = cur2 * 0.92f + mission2 * 0.08f; return cur2 + 90;
-                            })
-                            {
-                                PositionRouteParam = new float[] { 3, -0.3f },
-                                LengthRouteParam = new float[] { 52, bpm * 22 },
-                                Tags = new string[] { "downb" }
-                            });
-                        }));
-                    }
-                    for (int a = 0; a < 3; a++)
-                    {
-                        AddInstance(new TimeRangedEvent(bpm * 48 * a + bpm * 24, 1, () =>
-                        {
-                            PlaySound(Sounds.arrowStuck);
-                            Heart.GiveForce(180, 0);
-                        }));
-                        AddInstance(new TimeRangedEvent(bpm * 48 * (a + 1), 1, () =>
-                        {
-                            PlaySound(Sounds.arrowStuck);
-                            Heart.GiveForce(0, 0);
-                        }));
-                    }
-                    for (int a = 0; a < 512 + 32; a++)
-                    {
-                        AddInstance(new TimeRangedEvent(2f * a, 1, () =>
-                        {
-                            DownBone bone1 = new(false, 6f, 1) { MarkScore = false };
-                            CreateBone(bone1);
-                            AddInstance(new TimeRangedEvent(0, bpm * 12, () =>
-                            {
-                                bone1.MissionLength += 0.75f;
-                            }));
-                            UpBone bone2 = new(true, 6f, 1) { MarkScore = false };
-                            CreateBone(bone2);
-                            AddInstance(new TimeRangedEvent(0, bpm * 12, () =>
-                            {
-                                bone2.MissionLength += 0.75f;
-                            }));
-                        }));
-                    }
-                    for (int a = 0; a < 6; a++)
-                    {
-                        AddInstance(new TimeRangedEvent(bpm * 32 * a, 1, () =>
-                        {
-                            CreateGB(new NormalGB(new(BoxStates.Left - 20, BoxStates.Up - 10), new(BoxStates.Left - 20, BoxStates.Up - 10), new Vector2(0.9f, 0.45f), bpm * 16, bpm * 2));
-                            CreateGB(new NormalGB(new(BoxStates.Left - 20, BoxStates.Up + 240 + 10), new(BoxStates.Left - 20, BoxStates.Up + 240 + 10), new Vector2(0.9f, 0.45f), bpm * 16, bpm * 2));
-                            CreateGB(new NormalGB(new(BoxStates.Right + 20, BoxStates.Down - 10), new(BoxStates.Right + 20, BoxStates.Down - 10), new Vector2(0.9f, 0.45f), bpm * 16, bpm * 2));
-                            CreateGB(new NormalGB(new(BoxStates.Right + 20, BoxStates.Down - 240 - 10), new(BoxStates.Right + 20, BoxStates.Down - 240 - 10), new Vector2(0.9f, 0.45f), bpm * 16, bpm * 2));
-                        }));
-                    }
-                    for (int a = 0; a < 5; a++)
-                    {
-                        AddInstance(new TimeRangedEvent(bpm * 32 * a + bpm * 16, 1, () =>
-                        {
-                            CreateBone(new CustomBone(new(BoxStates.Left - 20, Heart.Centre.Y), Motions.PositionRoute.YAxisSin, Motions.LengthRoute.autoFold, Motions.RotationRoute.sin)
-                            {
-                                PositionRouteParam = new float[] { 0, 300, bpm * 32, 0 },
-                                LengthRouteParam = new float[] { 30, bpm * 24 },
-                                RotationRouteParam = new float[] { 360, bpm * 16, 0, 0 },
-                                ColorType = 1
-                                /// <summary>
-                                /// 沿着y轴以参数0速度匀速运动，沿着x轴按照正弦轨迹运动，其振幅波长和初相为参数1和2和3。
-                                /// </summary>
-                            });
-                            CreateBone(new CustomBone(new(BoxStates.Left - 20, Heart.Centre.Y), Motions.PositionRoute.YAxisSin, Motions.LengthRoute.autoFold, special)
-                            {
-                                PositionRouteParam = new float[] { 0, 300, bpm * 32, 0 },
-                                LengthRouteParam = new float[] { 30, bpm * 24 },
-                                RotationRouteParam = new float[] { 360, bpm * 16, 0, 0 },
-                                ColorType = 1
-                            });
-                            CreateBone(new CustomBone(new(BoxStates.Right + 20, Heart.Centre.Y), Motions.PositionRoute.YAxisSin, Motions.LengthRoute.autoFold, Motions.RotationRoute.sin)
-                            {
-                                PositionRouteParam = new float[] { 0, -300, bpm * 32, 0 },
-                                LengthRouteParam = new float[] { 30, bpm * 24 },
-                                RotationRouteParam = new float[] { -360, bpm * 16, 00, 0 },
-                                ColorType = 2
-                            });
-                            CreateBone(new CustomBone(new(BoxStates.Right + 20, Heart.Centre.Y), Motions.PositionRoute.YAxisSin, Motions.LengthRoute.autoFold, special)
-                            {
-                                PositionRouteParam = new float[] { 0, -300, bpm * 32, 0 },
-                                LengthRouteParam = new float[] { 30, bpm * 24 },
-                                RotationRouteParam = new float[] { -360, bpm * 16, 0, 0 },
-                                ColorType = 2
-                            });
-                        }));
-                    }*/
                 }
                 public static void fight13()
                 {
@@ -1487,7 +1353,7 @@ namespace Rhythm_Recall.Waves
                         {
                             AddInstance(new TimeRangedEvent(bpm * 24f * a, 1, () =>
                             {
-                                PlaySound(Sounds.pierce);
+                                PlaySound(pierce);
                                 // DownBone blue = new(true, 0, 84 * 1.5f / 2) { ColorType = 1 };
                                 UpBone orange = new(true, 0, 84 * 1.5f) { ColorType = 2 };
                                 // CreateBone(blue);
@@ -1501,7 +1367,7 @@ namespace Rhythm_Recall.Waves
                             }));
                             AddInstance(new TimeRangedEvent(bpm * 24f * a + bpm * 12, 1, () =>
                             {
-                                PlaySound(Sounds.pierce);
+                                PlaySound(pierce);
                                 DownBone blue = new(true, 0, 84 * 1.5f) { ColorType = 2 };
                                 //UpBone orange = new(true, 0, 84 * 1.5f / 2) { ColorType = 1 };
                                 CreateBone(blue);
@@ -1525,7 +1391,7 @@ namespace Rhythm_Recall.Waves
                                 float length = 84 * 1.5f / 3 * 1 - 10 + 4;
                                 DownBone bone1 = new(true, 7, length);
                                 UpBone bone2 = new(true, 7, 84 * 1.5f - length - 32);
-                                PlaySound(Sounds.pierce);
+                                PlaySound(pierce);
                                 CreateBone(bone1);
                                 CreateBone(bone2);
                                 bool p = true;
@@ -1533,7 +1399,7 @@ namespace Rhythm_Recall.Waves
                                 {
                                     if (p)
                                     {
-                                        PlaySound(Sounds.Ding);
+                                        PlaySound(Ding);
                                         bone1.ColorType = 1;
                                         bone2.ColorType = 1;
                                         AddInstance(new TimeRangedEvent(3, 1, () =>
@@ -1554,7 +1420,7 @@ namespace Rhythm_Recall.Waves
                                 float length = 84 * 1.5f / 4 * 2 + 4;
                                 DownBone bone1 = new(true, 7, length);
                                 UpBone bone2 = new(true, 7, 84 * 1.5f - length - 32);
-                                PlaySound(Sounds.pierce);
+                                PlaySound(pierce);
                                 CreateBone(bone1);
                                 CreateBone(bone2);
                                 bool p = true;
@@ -1562,7 +1428,7 @@ namespace Rhythm_Recall.Waves
                                 {
                                     if (p)
                                     {
-                                        PlaySound(Sounds.Ding);
+                                        PlaySound(Ding);
                                         bone1.ColorType = 1;
                                         bone2.ColorType = 1;
                                         AddInstance(new TimeRangedEvent(3, 1, () =>
@@ -1701,43 +1567,43 @@ namespace Rhythm_Recall.Waves
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 8, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             InstantSetBox(BoxStates.Centre + new Vector2(5, 0), 650, 84 * 1.5f);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r1) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 8.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r2) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 9f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r3) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 9.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r4) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 10f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r5) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 10.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r6) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 11f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r7) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 11.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r8) });
                         }));
                         /*for (int a = 1; a < 9; a++)
@@ -1773,8 +1639,8 @@ namespace Rhythm_Recall.Waves
                 public static void fight15()
                 {
                     ScreenDrawing.BoxBackColor = Color.Transparent;
-                    PlaySound(Sounds.Ding);
-                    PlaySound(Sounds.giga);
+                    PlaySound(Ding);
+                    PlaySound(giga);
                     SetSoul(2);
                     SpecialKnife(Heart.Centre, Rand(0, 360), false, bpm * 8, false);
                     SpecialKnife(Heart.Centre, Rand(0, 360), true, bpm * 8, true);
@@ -1783,8 +1649,8 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
 
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
                         ScreenDrawing.ScreenScale = 2f;
                         Knife(Heart.Centre, 0, false, bpm * 8, false);
                         SetBox(BoxStates.Left - 20, BoxStates.Right + 20, BoxStates.Up - 10, BoxStates.Down + 10);
@@ -1793,8 +1659,8 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 32, 1, () =>
                     {
 
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
                         ScreenDrawing.ScreenScale = 1.5f;
                         Knife(Heart.Centre, 90, true, bpm * 8, true);
                         Knife(Heart.Centre, 60, true, bpm * 8, true);
@@ -1805,9 +1671,9 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 48, 1, () =>
                     {
                         Vector2 vec = Heart.Centre;
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
-                        for (int a = 0; a < 2; a++) PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
+                        for (int a = 0; a < 2; a++) PlaySound(giga);
                         ScreenDrawing.ScreenScale = 1.25f;
                         SpecialKnife(vec + new Vector2(Cos(360 / 8 * 1) * 240, Sin(360 / 8 * 1) * 240), 60, true, bpm * 8, true);
                         SpecialKnife(vec + new Vector2(Cos(360 / 8 * 2) * 240, Sin(360 / 8 * 2) * 240), 60 + 360 / 8, true, bpm * 8, true);
@@ -1823,9 +1689,9 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 64, 1, () =>
                     {
                         Vector2 vec = Heart.Centre;
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
-                        for (int a = 0; a < 2; a++) PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
+                        for (int a = 0; a < 2; a++) PlaySound(giga);
                         ScreenDrawing.ScreenScale = 1f;
                         SpecialKnife(vec + new Vector2(Cos(360 / 8 * 1) * 240, Sin(360 / 8 * 1) * 240), 60, true, bpm * 8, true);
                         SpecialKnife(vec + new Vector2(Cos(360 / 8 * 2) * 240, Sin(360 / 8 * 2) * 240), 60 + 360 / 8, true, bpm * 8, true);
@@ -1842,9 +1708,9 @@ namespace Rhythm_Recall.Waves
                     {
                         Vector2 vec = Heart.Centre;
                         Vector2 vec2 = new(Rand(20, 620), Rand(20, 460));
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
-                        for (int a = 0; a < 3; a++) PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
+                        for (int a = 0; a < 3; a++) PlaySound(giga);
                         SpecialKnife(vec + new Vector2(Cos(360 / 8 * 1) * 240, Sin(360 / 8 * 1) * 240), 60, true, bpm * 8, true);
                         SpecialKnife(vec + new Vector2(Cos(360 / 8 * 2) * 240, Sin(360 / 8 * 2) * 240), 60 + 360 / 8, true, bpm * 8, true);
                         SpecialKnife(vec + new Vector2(Cos(360 / 8 * 3) * 240, Sin(360 / 8 * 3) * 240), 60 + 360 / 8 * 2, true, bpm * 8, true);
@@ -1859,7 +1725,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void fight16()
                 {
-                    for (int a = 0; a < 2; a++) PlaySound(Sounds.Ding);
+                    for (int a = 0; a < 2; a++) PlaySound(Ding);
                     SetSoul(0);
                     Heart.GiveForce(0, 0);
                     Knife(Heart.Centre + new Vector2(Cos(360 / 8 * 1) * 240, Sin(360 / 8 * 1) * 240), 30, true, bpm * 2, true);
@@ -1939,13 +1805,13 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
                         ScreenDrawing.ScreenScale = 1;
-                        for (int b = 0; b < 2; b++) PlaySound(Sounds.Warning);
+                        for (int b = 0; b < 2; b++) PlaySound(Warning);
                         for (int times = 1; times < 9; times++)
                         {
                             for (int a = 0; a < 8; a++) SpecialKnife(new(320, 240), MathF.Atan2(Heart.Centre.Y, 320), true, 0.5f, true);
                             AddInstance(new TimeRangedEvent(bpm * 2 * times, 1, () =>
                             {
-                                for (int b = 0; b < 1; b++) PlaySound(Sounds.largeKnife);
+                                for (int b = 0; b < 1; b++) PlaySound(largeKnife);
                                 ScreenDrawing.ScreenAngle = times * 360 / 9;
                             }));
                         }
@@ -1970,22 +1836,22 @@ namespace Rhythm_Recall.Waves
                         AddInstance(new TimeRangedEvent(bpm * 16 * a, 1, () =>
                         {
                             WaveParticle(45, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 1.2f, 1, () =>
                         {
                             WaveParticle(90, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 2.4f, 1, () =>
                         {
                             WaveParticle(135, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 3.6f, 1, () =>
                         {
                             WaveParticle(180, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                     }
                     AddInstance(new TimeRangedEvent(bpm * 5 * 16, 1, () =>
@@ -2030,7 +1896,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 6 * 16 + a * bpm * 4 + bpm * 4, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             for (int a = 0; a < 120; a++)
                             {
                                 CreateBone(new CustomBone(new(-24, 480 / 48 * a), Motions.PositionRoute.linear, 90, 48) { PositionRouteParam = new float[] { 15f, 0 }, ColorType = 1 });
@@ -2038,7 +1904,7 @@ namespace Rhythm_Recall.Waves
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 6 * 16 + a * bpm * 4 + bpm * 6, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             for (int a = 0; a < 120; a++)
                             {
                                 CreateBone(new CustomBone(new(664, 480 / 48 * a), Motions.PositionRoute.linear, 90, 48) { PositionRouteParam = new float[] { -15f, 0 }, ColorType = 1 });
@@ -2056,20 +1922,20 @@ namespace Rhythm_Recall.Waves
                     ResetBarrage();
 
                     Heart.GiveForce(270, 6);
-                    PlaySound(Sounds.Ding);
-                    PlaySound(Sounds.pierce);
+                    PlaySound(Ding);
+                    PlaySound(pierce);
                     CreateEntity(new Boneslab(270, 150 / 2 - 15, bpm * 4, bpm * 12));
                     AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         CreateEntity(new Boneslab(0, 150 / 2 - 15, bpm * 4, bpm * 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 8, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(90, 6);
                         CreateEntity(new Boneslab(90, 150 / 2 - 15, bpm * 4, bpm * 4));
                     }));
@@ -2085,7 +1951,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateEntity(new RotBone(84, 6, 45, true, 0));
                         CreateEntity(new RotBone(84, 6, 45, true, 1));
                         CreateEntity(new RotBone(84, 6, 45, true, 2));
@@ -2093,7 +1959,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
                             CreateBone(new CentreCircleBone(25, 3, 60, bpm * 5));
@@ -2105,13 +1971,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(false, 4.5f, 75 - 8));
                         CreateBone(new UpBone(true, 4.5f, 75 - 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 6, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 4.5f, 75 - 8));
                         CreateBone(new UpBone(false, 4.5f, 75 - 8));
                         CreateGB(new NormalGB(new Vector2(320 - 160, 240 - 43f), new Vector2(0, 240 - 43f), new Vector2(0.8f, 0.8f), 0, bpm * 6, bpm * 1));
@@ -2142,10 +2008,10 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 32, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         SetSoul(2);
                         Heart.GiveForce(rand * 180 + 90, 6);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                     }));
                 }
                 public static void fight19()
@@ -2168,13 +2034,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 10, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(Ding);
+                            PlaySound(pierce);
                         }));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
@@ -2201,16 +2067,16 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 22, 1, () =>
                     {
                         SetSoul(0);
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         CreateBone(new CentreCircleBone(75, 4.3f, 150, bpm * 6));
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () => { for (int a = 0; a < 12; a++) CreateBone(new SideCircleBone(34 + 360 / 12 * a, 6.3f, 16, bpm * 6)); }));
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 3.8f, 75 - 2) { ColorType = 2 });
                         CreateBone(new RightBone(true, 3.8f, 75 - 2) { ColorType = 2 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 26, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -2218,7 +2084,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 28, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -2234,20 +2100,20 @@ namespace Rhythm_Recall.Waves
                     ResetBarrage();
 
                     Heart.GiveForce(270, 6);
-                    PlaySound(Sounds.Ding);
-                    PlaySound(Sounds.pierce);
+                    PlaySound(Ding);
+                    PlaySound(pierce);
                     CreateEntity(new Boneslab(270, 150 / 2 - 15, bpm * 4, bpm * 12));
                     AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         CreateEntity(new Boneslab(0, 150 / 2 - 15, bpm * 4, bpm * 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 8, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(90, 6);
                         CreateEntity(new Boneslab(90, 150 / 2 - 15, bpm * 4, bpm * 4));
                     }));
@@ -2263,7 +2129,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateEntity(new RotBone(84, 6, 45, true, 0));
                         CreateEntity(new RotBone(84, 6, 45, true, 1));
                         CreateEntity(new RotBone(84, 6, 45, true, 2));
@@ -2271,7 +2137,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
                             CreateBone(new CentreCircleBone(25, 3, 60, bpm * 5));
@@ -2283,13 +2149,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(false, 4.5f, 75 - 8));
                         CreateBone(new UpBone(true, 4.5f, 75 - 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 6, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 4.5f, 75 - 8));
                         CreateBone(new UpBone(false, 4.5f, 75 - 8));
                         CreateGB(new NormalGB(new Vector2(320 - 160, 240 - 43f), new Vector2(0, 240 - 43f), new Vector2(0.8f, 0.8f), 0, bpm * 6, bpm * 1));
@@ -2322,10 +2188,10 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 32, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         SetSoul(2);
                         Heart.GiveForce(rand * 180 + 90, 6);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                     }));
                 }
                 public static void fight19_1()
@@ -2348,13 +2214,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 10, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(Ding);
+                            PlaySound(pierce);
                         }));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
@@ -2381,16 +2247,16 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 22, 1, () =>
                     {
                         SetSoul(0);
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         CreateBone(new CentreCircleBone(75, 4.3f, 150, bpm * 6));
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () => { for (int a = 0; a < 12; a++) CreateBone(new SideCircleBone(34 + 360 / 12 * a, 6.3f, 16, bpm * 6)); }));
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 3.8f, 75 - 2) { ColorType = 2 });
                         CreateBone(new RightBone(true, 3.8f, 75 - 2) { ColorType = 2 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 26, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -2398,7 +2264,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 28, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -2412,25 +2278,25 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * a * 8, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 6, 40));
                         CreateBone(new UpBone(true, 6, 40));
                     }));
                         AddInstance(new TimeRangedEvent(bpm * a * 8 + bpm * 2, 1, () =>
                         {
                             Knife(Heart.Centre, 270, false, bpm * 4);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(true, 7, 200) { ColorType = 1 });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * a * 8 + bpm * 4, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new CustomBone(new(BoxStates.Right, BoxStates.Centre.Y), Motions.PositionRoute.linear, 0, 60) { PositionRouteParam = new float[] { -6, 0 } });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * a * 8 + bpm * 6, 1, () =>
                         {
                             Knife(Heart.Centre, 270, false, bpm * 4);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 8, 200) { ColorType = 2 });
                         }));
                     }
@@ -2462,13 +2328,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     if (!trafic)
                     {
-                        PlaySound(Sounds.Warning);
+                        PlaySound(Warning);
                     }
 
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
                     {
                         DrawingUtil.Shock(1.2f, 1.3f, 3);
-                        PlaySound(Sounds.largeKnife, 0.7f);
+                        PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
                         CreateEntity(Line);
@@ -2501,11 +2367,11 @@ namespace Rhythm_Recall.Waves
                     }));
                     if (!trafic)
                     {
-                        PlaySound(Sounds.Warning);
+                        PlaySound(Warning);
                     }
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
                     {
-                        if (!value) PlaySound(Sounds.largeKnife, 0.7f);
+                        if (!value) PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotatelong Line = new(center.X + Cos(rotate) * 640 * 1.25f, center.Y + Sin(rotate) * 640 * 1.25f, rotate + 180, bpm * 32, 1, 640 * 2.5f, new(189, 44, 153));
                         Line.width = 0;
                         CreateEntity(Line);
@@ -2543,11 +2409,11 @@ namespace Rhythm_Recall.Waves
                     }));
                     if (!trafic)
                     {
-                        PlaySound(Sounds.Warning);
+                        PlaySound(Warning);
                     }
                     AddInstance(new TimeRangedEvent(trafictime + 1, 1, () =>
                     {
-                        if (!value) PlaySound(Sounds.largeKnife, 0.7f);
+                        if (!value) PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red * 0.75f);
                         Line.width = 0;
                         CreateEntity(Line);
@@ -2620,7 +2486,7 @@ namespace Rhythm_Recall.Waves
                             });
                             tex1.Depth = 0.99f;
                             CreateEntity(tex1);
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                         }));
                         AddInstance(new TimeRangedEvent(a * bpm * 16 + bpm * 4, 1, () =>
                         {
@@ -2802,7 +2668,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 8, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             float count = 90;
                             DownBone bone1 = new(false, 0, 258) { ColorType = 2 };
                             CreateBone(bone1);
@@ -2817,7 +2683,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 16 * (a + 1), 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             float count = 90;
                             DownBone bone1 = new(true, 0, 258) { ColorType = 2 };
                             CreateBone(bone1);
@@ -2844,7 +2710,7 @@ namespace Rhythm_Recall.Waves
                     Knife(new(410, 280), 90, true, bpm * 8, true);
                     AddInstance(new InstantEvent(bpm * 8, () =>
                     {
-                        for (int a = 0; a < 2; a++) PlaySound(Sounds.pierce);
+                        for (int a = 0; a < 2; a++) PlaySound(pierce);
                         CreateBone(new DownBone(false, 410 - 75, 8, 148) { ColorType = 1 });
                         CreateBone(new DownBone(false, 410 - 75 - 9, 8, 148) { ColorType = 1 });
                         CreateBone(new DownBone(true, 410 + 75, 8, 148) { ColorType = 1 });
@@ -2862,7 +2728,7 @@ namespace Rhythm_Recall.Waves
                     CreateGB(new NormalGB(Heart.Centre + new Vector2(-200, 0), Heart.Centre + new Vector2(200, 0), new Vector2(1, 1), 0, bpm * 8, bpm * 7));
                     CreateGB(new NormalGB(Heart.Centre + new Vector2(0, 200), Heart.Centre + new Vector2(200, 0), new Vector2(1, 1), 270, bpm * 8, bpm * 7));
                     CreateGB(new NormalGB(Heart.Centre + new Vector2(0, -200), Heart.Centre + new Vector2(200, 0), new Vector2(1, 1), 90, bpm * 8, bpm * 7));
-                    for (int a = 0; a < 2; a++) PlaySound(Sounds.pierce);
+                    for (int a = 0; a < 2; a++) PlaySound(pierce);
                     CreateBone(new DownBone(false, 5, 130 / 2 - 18));
                     CreateBone(new LeftBone(false, 5, 130 / 2 - 18));
                     CreateBone(new UpBone(true, 5, 130 / 2 - 18));
@@ -2877,19 +2743,19 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(new Boneslab(270, 7, 1, bpm * 15));
                     AddInstance(new TimeRangedEvent(bpm * 12, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 20f, 150) { ColorType = 1 });
                         CreateBone(new DownBone(false, 20f, 150) { ColorType = 1 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 13, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 20f, 150) { ColorType = 1 });
                         CreateBone(new DownBone(false, 20f, 150) { ColorType = 1 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 5f, 150) { ColorType = 1 });
                         CreateBone(new DownBone(false, 5f, 150) { ColorType = 1 });
                     }));
@@ -2902,18 +2768,18 @@ namespace Rhythm_Recall.Waves
                     InstantSetBox(new Vector2(320, 320), 130, 130);
                     InstantTP(320, 320 + 65 - 8);
 
-                    PlaySound(Sounds.pierce);
+                    PlaySound(pierce);
                     CreateBone(new UpBone(true, 5f, 90));
                     CreateBone(new UpBone(false, 5f, 90));
                     AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new UpBone(true, 5f, 90));
                         CreateBone(new UpBone(false, 5f, 90));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 5f, 40));
                         CreateBone(new DownBone(false, 5f, 40));
                     }));
@@ -2942,7 +2808,7 @@ namespace Rhythm_Recall.Waves
                         for (int b = 0; b < 3; b++) { int rotate = Rand(180 + 45, 270 + 10); CreateSpear(new Pike(new(Heart.Centre.X + Cos(rotate) * 200, Heart.Centre.Y + Sin(rotate) * 200), rotate + 180, 12, bpm * 14 - bpm * a) { DrawingColor = new(189, 44, 153) }); }
                         AddInstance(new TimeRangedEvent(bpm * 14 - bpm * a, 1, () =>
                         {
-                            PlaySound(Sounds.spearShoot);
+                            PlaySound(spearShoot);
                         }));
                     }
                     for (int a = 0; a < 12; a++)
@@ -2980,14 +2846,14 @@ namespace Rhythm_Recall.Waves
                         SetPlayerMission(1);
                         TP(Heart.Centre);
                     }));
-                    PlaySound(Sounds.pierce);
+                    PlaySound(pierce);
                     SetBoxMission(0);
                     CreateEntity(new Boneslab(90, 65 / 2 - 4, 2, bpm * 1 - 1));
                     SetBoxMission(1);
                     CreateEntity(new Boneslab(270, 65 / 2 - 4, 2, bpm * 1 - 1));
                     AddInstance(new InstantEvent(bpm * 2, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         Knife(new Vector2(405 + 43.5f, 230), 0, true, 0, false);
                         Knife(new Vector2(405 + 43.5f, 230), 180, true, 0, true);
                         SetBoxMission(0);
@@ -2997,7 +2863,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new InstantEvent(bpm * 4, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         Knife(new Vector2(405 + 43.5f, 230), 90, true, 0);
                         SetBoxMission(0);
                         CreateEntity(new Boneslab(90, 65 / 2 - 4, 2, bpm * 1 - 1));
@@ -3035,27 +2901,27 @@ namespace Rhythm_Recall.Waves
                     ResetBarrage();
                     AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 9, BoxStates.Width) { ColorType = 2 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 6, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(true, 9, BoxStates.Width) { ColorType = 1 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 8, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 9, BoxStates.Width) { ColorType = 2 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 11, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(true, 9, BoxStates.Width) { ColorType = 1 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 9, BoxStates.Width) { ColorType = 2 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
@@ -3157,7 +3023,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 18 * a + bpm * 16, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                             DownBone[] bone = GetAll<DownBone>();
                             UpBone[] bone1 = GetAll<UpBone>();
                             for (int b = 0; b < bone.Length; b++)
@@ -3242,12 +3108,12 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 48 * a + bpm * 24, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                             Heart.GiveForce(180, 0);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 48 * (a + 1), 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
+                            PlaySound(Ding);
                             Heart.GiveForce(0, 0);
                         }));
                     }
@@ -3353,7 +3219,7 @@ namespace Rhythm_Recall.Waves
                                 float length = 84 * 1.5f / 3 * 1 - 10;
                                 DownBone bone1 = new(true, 7, length);
                                 UpBone bone2 = new(true, 7, 84 * 1.5f - length - 36);
-                                PlaySound(Sounds.pierce);
+                                PlaySound(pierce);
                                 CreateBone(bone1);
                                 CreateBone(bone2);
                                 bool p = true;
@@ -3361,7 +3227,7 @@ namespace Rhythm_Recall.Waves
                                 {
                                     if (p)
                                     {
-                                        PlaySound(Sounds.Ding);
+                                        PlaySound(Ding);
                                         bone1.ColorType = 1;
                                         bone2.ColorType = 1;
                                         AddInstance(new TimeRangedEvent(3, 1, () =>
@@ -3381,7 +3247,7 @@ namespace Rhythm_Recall.Waves
                                 float length = 84 * 1.5f / 4 * 2;
                                 DownBone bone1 = new(true, 7, length);
                                 UpBone bone2 = new(true, 7, 84 * 1.5f - length - 36);
-                                PlaySound(Sounds.pierce);
+                                PlaySound(pierce);
                                 CreateBone(bone1);
                                 CreateBone(bone2);
                                 bool p = true;
@@ -3389,7 +3255,7 @@ namespace Rhythm_Recall.Waves
                                 {
                                     if (p)
                                     {
-                                        PlaySound(Sounds.Ding);
+                                        PlaySound(Ding);
                                         bone1.ColorType = 1;
                                         bone2.ColorType = 1;
                                         AddInstance(new TimeRangedEvent(3, 1, () =>
@@ -3521,43 +3387,43 @@ namespace Rhythm_Recall.Waves
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 8, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             InstantSetBox(BoxStates.Centre + new Vector2(5, 0), 650, 84 * 1.5f);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r1) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 8.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r2) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 9f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r3) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 9.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r4) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 10f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r5) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 10.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r6) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 11f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r7) });
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 8 * 11.5f, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             CreateBone(new DownBone(false, 9, 84 * 1.5f) { ColorType = ColorReturn(r8) });
                         }));
                         /*for (int a = 1; a < 9; a++)
@@ -3593,16 +3459,16 @@ namespace Rhythm_Recall.Waves
                 public static void fight15()
                 {
 
-                    PlaySound(Sounds.Ding);
-                    PlaySound(Sounds.giga);
+                    PlaySound(Ding);
+                    PlaySound(giga);
                     SetSoul(0);
                     Knife(Heart.Centre, 90, false, bpm * 8, false);
                     SetBox(BoxStates.Left - 10, BoxStates.Right, BoxStates.Up, BoxStates.Down);
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
 
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
                         ScreenDrawing.ScreenScale = 2f;
                         Knife(Heart.Centre, 90, false, bpm * 8, false);
                         SetBox(BoxStates.Left - 10, BoxStates.Right + 20, BoxStates.Up - 20, BoxStates.Down + 20);
@@ -3611,8 +3477,8 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 32, 1, () =>
                     {
 
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
                         ScreenDrawing.ScreenScale = 1.5f;
                         Knife(Heart.Centre, 90, false, bpm * 8, false);
                         Knife(Heart.Centre, 0, false, bpm * 8, false);
@@ -3622,9 +3488,9 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 48, 1, () =>
                     {
                         Vector2 vec = Heart.Centre;
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
-                        for (int a = 0; a < 2; a++) PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
+                        for (int a = 0; a < 2; a++) PlaySound(giga);
                         ScreenDrawing.ScreenScale = 1.25f;
                         SpecialKnife(Heart.Centre, 90, false, bpm * 8, false);
                         SpecialKnife(Heart.Centre, 0, false, bpm * 8, false);
@@ -3636,9 +3502,9 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 64, 1, () =>
                     {
                         Vector2 vec = Heart.Centre;
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
-                        for (int a = 0; a < 2; a++) PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
+                        for (int a = 0; a < 2; a++) PlaySound(giga);
                         ScreenDrawing.ScreenScale = 1f;
                         SpecialKnife(Heart.Centre, 90, false, bpm * 8, false);
                         SpecialKnife(Heart.Centre, 0, false, bpm * 8, false);
@@ -3651,9 +3517,9 @@ namespace Rhythm_Recall.Waves
                     {
                         Vector2 vec = Heart.Centre;
                         Vector2 vec2 = new(Rand(20, 620), Rand(20, 460));
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.giga);
-                        for (int a = 0; a < 3; a++) PlaySound(Sounds.giga);
+                        PlaySound(Ding);
+                        PlaySound(giga);
+                        for (int a = 0; a < 3; a++) PlaySound(giga);
                         SpecialKnife(Heart.Centre, 90, false, bpm * 8, false);
                         SpecialKnife(Heart.Centre, 0, false, bpm * 8, false);
                         SpecialKnife(Heart.Centre, 45, true, bpm * 8, true);
@@ -3664,7 +3530,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void fight16()
                 {
-                    for (int a = 0; a < 2; a++) PlaySound(Sounds.Ding);
+                    for (int a = 0; a < 2; a++) PlaySound(Ding);
                     SetSoul(0);
 
                     Knife(Heart.Centre + new Vector2(Cos(360 / 8 * 1) * 240, Sin(360 / 8 * 1) * 240), 30, true, bpm * 2, true);
@@ -3744,13 +3610,13 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
                         ScreenDrawing.ScreenScale = 1;
-                        for (int b = 0; b < 2; b++) PlaySound(Sounds.Warning);
+                        for (int b = 0; b < 2; b++) PlaySound(Warning);
                         for (int times = 1; times < 9; times++)
                         {
                             for (int a = 0; a < 8; a++) SpecialKnife(new(320, 240), MathF.Atan2(Heart.Centre.Y, 320), true, 0.5f, true);
                             AddInstance(new TimeRangedEvent(bpm * 2 * times, 1, () =>
                             {
-                                for (int b = 0; b < 1; b++) PlaySound(Sounds.largeKnife);
+                                for (int b = 0; b < 1; b++) PlaySound(largeKnife);
                                 ScreenDrawing.ScreenAngle = times * 360 / 9;
                             }));
                         }
@@ -3775,22 +3641,22 @@ namespace Rhythm_Recall.Waves
                         AddInstance(new TimeRangedEvent(bpm * 16 * a, 1, () =>
                         {
                             WaveParticle(45, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 1.2f, 1, () =>
                         {
                             WaveParticle(90, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 2.4f, 1, () =>
                         {
                             WaveParticle(135, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 16 * a + bpm * 3.6f, 1, () =>
                         {
                             WaveParticle(180, Rand(0, 2), 11);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                         }));
                     }
                     AddInstance(new TimeRangedEvent(bpm * 5 * 16, 1, () =>
@@ -3835,7 +3701,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(bpm * 6 * 16 + a * bpm * 4 + bpm * 4, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             for (int a = 0; a < 120; a++)
                             {
                                 CreateBone(new CustomBone(new(-24, 480 / 48 * a), Motions.PositionRoute.linear, 90, 48) { PositionRouteParam = new float[] { 15f, 0 }, ColorType = 1 });
@@ -3843,7 +3709,7 @@ namespace Rhythm_Recall.Waves
                         }));
                         AddInstance(new TimeRangedEvent(bpm * 6 * 16 + a * bpm * 4 + bpm * 6, 1, () =>
                         {
-                            PlaySound(Sounds.pierce);
+                            PlaySound(pierce);
                             for (int a = 0; a < 120; a++)
                             {
                                 CreateBone(new CustomBone(new(664, 480 / 48 * a), Motions.PositionRoute.linear, 90, 48) { PositionRouteParam = new float[] { -15f, 0 }, ColorType = 1 });
@@ -3861,20 +3727,20 @@ namespace Rhythm_Recall.Waves
                     ResetBarrage();
 
                     Heart.GiveForce(270, 6);
-                    PlaySound(Sounds.Ding);
-                    PlaySound(Sounds.pierce);
+                    PlaySound(Ding);
+                    PlaySound(pierce);
                     CreateEntity(new Boneslab(270, 150 / 2 - 15, bpm * 4, bpm * 12));
                     AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         CreateEntity(new Boneslab(0, 150 / 2 - 15, bpm * 4, bpm * 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 8, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(90, 6);
                         CreateEntity(new Boneslab(90, 150 / 2 - 15, bpm * 4, bpm * 4));
                     }));
@@ -3890,7 +3756,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateEntity(new RotBone(84, 6, 45, true, 0));
                         CreateEntity(new RotBone(84, 6, 45, true, 1));
                         CreateEntity(new RotBone(84, 6, 45, true, 2));
@@ -3898,7 +3764,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
                             CreateBone(new CentreCircleBone(25, 3, 60, bpm * 5));
@@ -3910,13 +3776,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(false, 4.5f, 75 - 8));
                         CreateBone(new UpBone(true, 4.5f, 75 - 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 6, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 4.5f, 75 - 8));
                         CreateBone(new UpBone(false, 4.5f, 75 - 8));
                         CreateGB(new NormalGB(new Vector2(320 - 160, 240 - 43f), new Vector2(0, 240 - 43f), new Vector2(0.8f, 0.8f), 0, bpm * 6, bpm * 1));
@@ -3947,10 +3813,10 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 32, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         SetSoul(2);
                         Heart.GiveForce(rand * 180 + 90, 6);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                     }));
                 }
                 public static void fight19()
@@ -3973,13 +3839,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 10, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(Ding);
+                            PlaySound(pierce);
                         }));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
@@ -4006,16 +3872,16 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 22, 1, () =>
                     {
                         SetSoul(0);
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         CreateBone(new CentreCircleBone(75, 4.3f, 150, bpm * 6));
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () => { for (int a = 0; a < 12; a++) CreateBone(new SideCircleBone(34 + 360 / 12 * a, 6.3f, 16, bpm * 6)); }));
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 3.8f, 75 - 2) { ColorType = 2 });
                         CreateBone(new RightBone(true, 3.8f, 75 - 2) { ColorType = 2 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 26, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -4023,7 +3889,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 28, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -4039,20 +3905,20 @@ namespace Rhythm_Recall.Waves
                     ResetBarrage();
 
                     Heart.GiveForce(270, 6);
-                    PlaySound(Sounds.Ding);
-                    PlaySound(Sounds.pierce);
+                    PlaySound(Ding);
+                    PlaySound(pierce);
                     CreateEntity(new Boneslab(270, 150 / 2 - 15, bpm * 4, bpm * 12));
                     AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         CreateEntity(new Boneslab(0, 150 / 2 - 15, bpm * 4, bpm * 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 8, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(90, 6);
                         CreateEntity(new Boneslab(90, 150 / 2 - 15, bpm * 4, bpm * 4));
                     }));
@@ -4068,7 +3934,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateEntity(new RotBone(84, 6, 45, true, 0));
                         CreateEntity(new RotBone(84, 6, 45, true, 1));
                         CreateEntity(new RotBone(84, 6, 45, true, 2));
@@ -4076,7 +3942,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
                             CreateBone(new CentreCircleBone(25, 3, 60, bpm * 5));
@@ -4088,13 +3954,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 4, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(false, 4.5f, 75 - 8));
                         CreateBone(new UpBone(true, 4.5f, 75 - 8));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 6, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 4.5f, 75 - 8));
                         CreateBone(new UpBone(false, 4.5f, 75 - 8));
                         CreateGB(new NormalGB(new Vector2(320 - 160, 240 - 43f), new Vector2(0, 240 - 43f), new Vector2(0.8f, 0.8f), 0, bpm * 6, bpm * 1));
@@ -4127,10 +3993,10 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 32, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         SetSoul(2);
                         Heart.GiveForce(rand * 180 + 90, 6);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                     }));
                 }
                 public static void fight19_1()
@@ -4153,13 +4019,13 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 10, 1, () =>
                     {
-                        PlaySound(Sounds.Ding);
-                        PlaySound(Sounds.pierce);
+                        PlaySound(Ding);
+                        PlaySound(pierce);
                         Heart.GiveForce(0, 6);
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                         {
-                            PlaySound(Sounds.Ding);
-                            PlaySound(Sounds.pierce);
+                            PlaySound(Ding);
+                            PlaySound(pierce);
                         }));
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 14, 1, () =>
@@ -4186,16 +4052,16 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(bpm * 22, 1, () =>
                     {
                         SetSoul(0);
-                        PlaySound(Sounds.Ding);
+                        PlaySound(Ding);
                         CreateBone(new CentreCircleBone(75, 4.3f, 150, bpm * 6));
                         AddInstance(new TimeRangedEvent(bpm * 2, 1, () => { for (int a = 0; a < 12; a++) CreateBone(new SideCircleBone(34 + 360 / 12 * a, 6.3f, 16, bpm * 6)); }));
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 3.8f, 75 - 2) { ColorType = 2 });
                         CreateBone(new RightBone(true, 3.8f, 75 - 2) { ColorType = 2 });
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 26, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -4203,7 +4069,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 28, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new LeftBone(false, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new RightBone(true, 5.8f, 150) { ColorType = 2 });
                         CreateBone(new DownBone(false, 5.8f, 150) { ColorType = 2 });
@@ -4212,10 +4078,10 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void fight20()
                 {
-                    PlaySound(Sounds.giga);
+                    PlaySound(giga);
                     for (int a = 0; a < 256; a++) AddInstance(new TimeRangedEvent(bpm * a * 2, 1, () =>
                     {
-                        PlaySound(Sounds.pierce);
+                        PlaySound(pierce);
                         CreateBone(new DownBone(true, 6, 70));
                     }));
                 }
@@ -4280,10 +4146,10 @@ namespace Rhythm_Recall.Waves
                     DrawingUtil.Shock(1.25f, 1.5f, bpm * 24);
                     MainEffects.RGB();
                 }
-                if (InBeat(128 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Sounds.Ding); }
-                if (InBeat(132 - 0.4f)) { SetSoul(0); MainEffects.RGB(); PlaySound(Sounds.Ding); }
-                if (InBeat(136 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Sounds.Ding); }
-                if (InBeat(140 - 0.4f)) { SetSoul(2); MainEffects.RGB(); PlaySound(Sounds.Ding); }
+                if (InBeat(128 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Ding); }
+                if (InBeat(132 - 0.4f)) { SetSoul(0); MainEffects.RGB(); PlaySound(Ding); }
+                if (InBeat(136 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Ding); }
+                if (InBeat(140 - 0.4f)) { SetSoul(2); MainEffects.RGB(); PlaySound(Ding); }
                 if (InBeat(143.875f))
                 {
                     ScreenDrawing.WhiteOut(bpm * 0.5f);
@@ -4303,7 +4169,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0);
                     ScreenDrawing.ScreenScale = 1;
                     for (int b = 0; b < 4; b++)
-                        PlaySound(Sounds.switchScene);
+                        PlaySound(switchScene);
                     Explusfight.fight1();
                     Explusfight.fight1_1();
                     AddInstance(new TimeRangedEvent(0, 114514, () =>
@@ -4356,12 +4222,12 @@ namespace Rhythm_Recall.Waves
                     Regenerate();
                     SetSoul(0);
                     Regenerate();
-                    PlaySound(Sounds.switchScene); ;
+                    PlaySound(switchScene); ;
                     Explusfight.fight11();
                 }
                 if (InBeat(496 + 32 + 8 * 16 + 9 * 16))
                 {
-                    for (int a = 0; a < 2; a++) { PlaySound(Sounds.switchScene); }
+                    for (int a = 0; a < 2; a++) { PlaySound(switchScene); }
                     ScreenDrawing.WhiteOut(5);
                     SetSoul(2);
                     InstantSetBox(270, 420, 240);
@@ -4377,7 +4243,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1172 - 4 - 20))
                 {
-                    PlaySound(Sounds.destroy);
+                    PlaySound(destroy);
                     DrawingUtil.BlackScreen(5, bpm * 24 - 5, bpm * 80);
                 }
                 if (InBeat(1172 - 4 - 18))
@@ -4443,11 +4309,11 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128))
                 {
-                    GameStates.ChangeSpeedScale(1);
+                    ChangeSpeedScale(1);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 8 * 16, 1320 + 16 - 8 + 7 * 16 + 3 + 128 + 20 * 16))
                 {
-                    GameStates.ChangeSpeedScale(
+                    ChangeSpeedScale(
                         1f
                         + 2f /
                         (12 * 16 * bpm) / (GametimeF -
@@ -4458,7 +4324,7 @@ namespace Rhythm_Recall.Waves
                 {
                     ResetBarrage();
                     DrawingUtil.BetterBlackScreen(15, bpm * 4, bpm * 14, Color.White);
-                    AddInstance(new TimeRangedEvent(15, 1, () => { GameStates.ChangeSpeedScale(1); }));
+                    AddInstance(new TimeRangedEvent(15, 1, () => { ChangeSpeedScale(1); }));
                 }
                 /*if (GameStates.IsKeyPressed120f(Microsoft.Xna.Framework.Input.Keys.Space))
                 {
@@ -4530,10 +4396,10 @@ namespace Rhythm_Recall.Waves
                     DrawingUtil.Shock(1.25f, 1.5f, bpm * 24);
                     MainEffects.RGB();
                 }
-                if (InBeat(128 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Sounds.Ding); }
-                if (InBeat(132 - 0.4f)) { SetSoul(0); MainEffects.RGB(); PlaySound(Sounds.Ding); }
-                if (InBeat(136 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Sounds.Ding); }
-                if (InBeat(140 - 0.4f)) { SetSoul(2); MainEffects.RGB(); PlaySound(Sounds.Ding); }
+                if (InBeat(128 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Ding); }
+                if (InBeat(132 - 0.4f)) { SetSoul(0); MainEffects.RGB(); PlaySound(Ding); }
+                if (InBeat(136 - 0.4f)) { SetSoul(1); MainEffects.RGB(); PlaySound(Ding); }
+                if (InBeat(140 - 0.4f)) { SetSoul(2); MainEffects.RGB(); PlaySound(Ding); }
                 if (InBeat(143.875f))
                 {
                     ScreenDrawing.WhiteOut(BeatTime(0.5f));
@@ -4553,7 +4419,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0);
                     ScreenDrawing.ScreenScale = 1;
                     for (int b = 0; b < 4; b++)
-                        PlaySound(Sounds.switchScene);
+                        PlaySound(switchScene);
                     Hardfight.fight1();
                     Hardfight.fight1_1();
                     AddInstance(new TimeRangedEvent(0, 114514, () =>
@@ -4606,12 +4472,12 @@ namespace Rhythm_Recall.Waves
                     Regenerate();
                     SetSoul(0);
                     Regenerate();
-                    PlaySound(Sounds.switchScene); ;
+                    PlaySound(switchScene); ;
                     Hardfight.fight11();
                 }
                 if (InBeat(496 + 32 + 8 * 16 + 9 * 16))
                 {
-                    for (int a = 0; a < 2; a++) { PlaySound(Sounds.switchScene); }
+                    for (int a = 0; a < 2; a++) { PlaySound(switchScene); }
                     ScreenDrawing.WhiteOut(5);
                     SetSoul(2);
                     InstantSetBox(270, 420, 240);
@@ -4627,7 +4493,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1172 - 4 - 20))
                 {
-                    PlaySound(Sounds.destroy);
+                    PlaySound(destroy);
                     DrawingUtil.BlackScreen(5, bpm * 24 - 5, bpm * 80);
                 }
                 if (InBeat(1172 - 4 - 18))
@@ -4699,66 +4565,48 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128))
                 {
-                    GameStates.ChangeSpeedScale(1);
+                    ChangeSpeedScale(1);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 6 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 1 / 8);
+                    ChangeSpeedScale(1 + 1 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 7 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 2 / 8);
+                    ChangeSpeedScale(1 + 2 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 8 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 3 / 8);
+                    ChangeSpeedScale(1 + 3 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 9 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 4 / 8);
+                    ChangeSpeedScale(1 + 4 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 10 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 5 / 8);
+                    ChangeSpeedScale(1 + 5 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 11 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 6 / 8);
+                    ChangeSpeedScale(1 + 6 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 12 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 7 / 8);
+                    ChangeSpeedScale(1 + 7 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 13 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1 + 8 / 8);
+                    ChangeSpeedScale(1 + 8 / 8);
                 }
                 if (InBeat(1320 + 16 - 8 + 7 * 16 + 3 + 128 + 15 * 16))
                 {
-                    GameStates.ChangeSpeedScale(1);
+                    ChangeSpeedScale(1);
                 }
-                /*if (GameStates.IsKeyPressed120f(Microsoft.Xna.Framework.Input.Keys.Space))
-                {
-                    Timevet.Y +=12.5f;
-                    CreateEntity(new UndyneFight_Ex.Fight.TextPrinter(11451,
-                        "$"+GametimeF.ToString(),
-                        Timevet,
-                        new UndyneFight_Ex.Fight.TextSizeAttribute(0.5f)));
-                    if (Timevet.Y == 450-25)
-                    { 
-                        Timevet.X += 60;
-                        Timevet.Y = 100;
-                    }
-
-                }*/
-
             }
 
             public void Start()
             {
-                //TP(160, 280); 
-                //GametimeDelta = (int)(this.BeatTime(1320 + 16 - 8 + 7 * 16-10));
-                //GametimeDelta = (int)(this.BeatTime(600));
                 Heart.SoftFalling = true;
                 SetBox(240 + 80, 84, 84);
                 SetSoul(1);
@@ -4777,7 +4625,6 @@ namespace Rhythm_Recall.Waves
                 shader.Parameters["range2"].SetValue(0f);
                 shader.Parameters["time"].SetValue(0f);
                 shader.Parameters["time2"].SetValue(0f);
-                //black.Parameters["acc"].SetValue(0f);
             }
         }
     }

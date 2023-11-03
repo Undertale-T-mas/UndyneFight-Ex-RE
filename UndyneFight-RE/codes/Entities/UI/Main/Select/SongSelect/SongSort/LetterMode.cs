@@ -36,14 +36,8 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         IWaveSet waveSet;
                         object obj = Activator.CreateInstance(type);
-                        if (obj is IWaveSet)
-                        {
-                            waveSet = obj as IWaveSet;
-                        }
-                        else
-                        {
-                            waveSet = (obj as IChampionShip).GameContent;
-                        }
+                        if (obj is IWaveSet) waveSet = obj as IWaveSet;
+                        else waveSet = (obj as IChampionShip).GameContent;
                         if (waveSet.Attributes == null || waveSet.Attributes.Hidden) continue;
                         var letter = waveSet.FightName[0];
 
@@ -78,11 +72,12 @@ namespace UndyneFight_Ex.Remake.UI
                         root.DefaultScale = 1.3f;
                         foreach (IWaveSet waveSet in pack.AllSongs)
                         {
-                            if (waveSet.Attributes != null && waveSet.Attributes.Hidden) continue;
+                            var Attributes = waveSet.Attributes;
+                            if (Attributes != null && Attributes.Hidden) continue;
                             LeafSelection selection;
                             string fullName = waveSet.Music + waveSet.FightName;
                             string DisplayName = waveSet.FightName;
-                            if (!string.IsNullOrEmpty(waveSet.Attributes.DisplayName)) DisplayName = waveSet.Attributes.DisplayName;
+                            if (!string.IsNullOrEmpty(Attributes.DisplayName)) DisplayName = Attributes.DisplayName;
                             this.AddChild(selection = new LeafSelection(root, curPosition + new Vector2(12, 0), DisplayName)
                             {
                                 DefaultScale = 1.1f,

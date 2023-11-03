@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using UndyneFight_Ex.Entities;
-using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Remake.Components;
-using UndyneFight_Ex.Remake.Effects;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.UserService;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Win32;
-using System.Diagnostics;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -35,7 +24,7 @@ namespace UndyneFight_Ex.Remake.UI
             back.LeftClick += Back;
 
             this.KeyEvent = () => {
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                if (IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = FocusID;
                     if (id + 1 < all.Length)
@@ -44,7 +33,7 @@ namespace UndyneFight_Ex.Remake.UI
                         all[id + 1].OnFocus();
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                else if (IsKeyPressed120f(InputIdentity.MainUp))
                 {
                     int id = FocusID;
                     if (id > 1)
@@ -53,7 +42,7 @@ namespace UndyneFight_Ex.Remake.UI
                         all[id - 1].OnFocus();
                     }
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus?.ConfirmKeyDown();
                 }
@@ -88,7 +77,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             base.Update();
 
-            if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
+            if (IsKeyPressed120f(InputIdentity.Cancel))
             {
                 Back();
             }
@@ -97,7 +86,7 @@ namespace UndyneFight_Ex.Remake.UI
         private void Back()
         {
             this.Dispose();
-            GameStates.InstanceCreate(new DEBUG.IntroUI());
+            InstanceCreate(new DEBUG.IntroUI());
         }
 
         public override void Draw()

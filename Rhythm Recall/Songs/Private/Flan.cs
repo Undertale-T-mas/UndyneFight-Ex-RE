@@ -28,10 +28,7 @@ namespace Rhythm_Recall.Waves
         public IWaveSet GameContent => new Game();
         public class Game : WaveConstructor, IWaveSet
         {
-            public Game() : base(62.5f / (82f / 60f))
-            {
-
-            }
+            public Game() : base(62.5f / (112 / 60f)) { }
             public string Music => "Flan";
 
             public string FightName => "Flandre";
@@ -95,16 +92,11 @@ namespace Rhythm_Recall.Waves
                 {
                     CreateChart(60, BeatTime(1), 5, new string[]
                     {
-                        "(R)(+0)", "", "","",
-                        "R", "", "",
-                        "R", "", "","",
-                        "R", "", "R","",
-                        "R", "", "","R",
-                        "", "R", "","R",
-                        "", "R", "","R",
-
-                        "","*^R12","","*>+012",
-                        "","","","","",
+                        "(R)(+0)", "", "","",       "R", "", "", "R",
+                        "", "","", "R",             "", "R","",
+                        "R", "", "","R",            "", "R", "","R",
+                        "", "R", "","R",            "","","*^R12","",
+                        "*>+012","","","","",
 
                         "R", "",
                         "R", "",

@@ -28,11 +28,7 @@ namespace UndyneFight_Ex.Remake.UI
                         this.Root = rootSelection;
 
                         this.LeftClick += () => {
-                            if (this.State == SelectState.Selected)
-                            {
-                                this.Root.State = SelectState.Disabled;
-                            }
-                            else this.Root.State = SelectState.Selected;
+                            Root.State = State == SelectState.Selected ? SelectState.Disabled : SelectState.Selected;
                         };
                     }
 
@@ -52,9 +48,7 @@ namespace UndyneFight_Ex.Remake.UI
                     {
                         base.Update();
 
-                        if (_mouseOn)
-                            this._lineScale = MathHelper.Lerp(_lineScale, 1.0f, 0.1f);
-                        else this._lineScale = MathHelper.Lerp(_lineScale, 0.0f, 0.1f);
+                        this._lineScale = MathHelper.Lerp(_lineScale, _mouseOn ? 1 : 0, 0.1f);
 
                         this.PositionDelta = Root.PositionDelta;
                     }

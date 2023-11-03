@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using UFData;
 using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Server
-{ 
+{
     public class SongScoreBoard : AliveData
     {
         public SongScoreBoard() { this.SongName = string.Empty; }
@@ -28,7 +26,7 @@ namespace UndyneFight_Ex.Server
 
         public int RankOf(long uuid)
         {
-            if (ScoreUnits == null) ScoreUnits = new();
+            ScoreUnits ??= new();
             if (!_updated) { _updated = true; Update(); }
             if (!_temp.ContainsKey(uuid)) return -1;
             return ScoreUnits.IndexOf(_temp[uuid]);
@@ -37,7 +35,7 @@ namespace UndyneFight_Ex.Server
         private bool _updated = false;
         private void Update()
         {
-            if (ScoreUnits == null) ScoreUnits = new();
+            ScoreUnits ??= new();
             int index = -1;
             foreach (ScoreUnit scoreUnit in ScoreUnits)
             {
@@ -45,7 +43,7 @@ namespace UndyneFight_Ex.Server
                 _temp.Add(scoreUnit.PlayerID, scoreUnit);
             }
             return;
-      /*      int pos = 0;
+            /*int pos = 0;
             var enumerator = ScoreUnits.GetEnumerator();
 
             List<ScoreUnit> errors = new();
@@ -62,7 +60,7 @@ namespace UndyneFight_Ex.Server
 
         internal void InsertData(long playerID, SongPlayData playData)
         {
-            if (ScoreUnits == null) ScoreUnits = new();
+            ScoreUnits ??= new();
             if (!_updated) { _updated = true; Update(); }
             if (_temp.ContainsKey(playerID))
             {   // If the player already exist in the scoreboard, remove the record is necessary

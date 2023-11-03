@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using UndyneFight_Ex.IO;
-using UndyneFight_Ex.Remake.Data;
+﻿using UndyneFight_Ex.Remake.Data;
 
 namespace UndyneFight_Ex.Remake.ChartRead
 {

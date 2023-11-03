@@ -1,11 +1,9 @@
-﻿using static UndyneFight_Ex.Fight.Functions;
+﻿using Microsoft.Xna.Framework;
+using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources.Sounds;
-using System.Net.NetworkInformation;
-using System;
+using static System.MathF;
 using static UndyneFight_Ex.Settings.SettingsManager;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System.Runtime.InteropServices;
+using static UndyneFight_Ex.FightResources;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -19,10 +17,10 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     public override void Draw()
                     {
-                        float x = 960 / 6f;
-                        float s = 1 - Alpha;
-                        Vector2 delta = new(0, 141 * MathF.Pow(s, 3.3f) + 240);
-                        DrawingLab.DrawLine(new Vector2(x, 427) + delta, new Vector2(x, 480) + delta, 3, Color.Silver * Alpha, 0.96f);
+                        float x = 960 / 6f, s = 1 - Alpha;
+                        Vector2 delta = new(0, 141 * Pow(s, 3.3f) + 240);
+                        DrawingLab.DrawLine(new Vector2(x, 427) + delta, new Vector2(800, 427) + delta, 3, Color.White * Alpha, 0.96f);
+                        DrawingLab.DrawLine(new Vector2(x, 427) + delta, new Vector2(x, 480) + delta, 3, Color.Red * Alpha, 0.96f);
                         DrawingLab.DrawLine(new Vector2(x * 2, 427) + delta, new Vector2(x * 2, 480) + delta, 3, Color.Silver * Alpha, 0.96f);
                         DrawingLab.DrawLine(new Vector2(x * 3, 427) + delta, new Vector2(x * 3, 480) + delta, 3, Color.Silver * Alpha, 0.96f);
                         DrawingLab.DrawLine(new Vector2(x * 4, 427) + delta, new Vector2(x * 4, 480) + delta, 3, Color.Gold * Alpha, 0.96f);
@@ -30,18 +28,18 @@ namespace UndyneFight_Ex.Remake.UI
                         DrawingLab.DrawLine(new Vector2(curX, 427) + delta, new Vector2(curX, 480) + delta, 3, Color.Lime * Alpha, 0.971f);
                         DrawingLab.DrawLine(new Vector2(memX, 427) + delta, new Vector2(memX, 480) + delta, 3, Color.Goldenrod * Alpha, 0.971f);
                         Depth = 0.92f;
-                        FormalDraw(FightResources.Sprites.pixUnit, new CollideRect(new Vector2(x, 427) + delta, new(x * 4, 53)).ToRectangle(), Color.Black);
-                        FightResources.Font.FightFont.CentreDraw(this.delta.ToString("F1"), delta + new Vector2(480, 450), Color.Silver * Alpha, 1.0f, 0.0f, 0.99f);
+                        FormalDraw(Sprites.pixUnit, new CollideRect(new Vector2(x, 427) + delta, new(x * 4, 53)).ToRectangle(), Color.Black);
+                        Font.FightFont.CentreDraw(this.delta.ToString("F1"), delta + new Vector2(480, 410), Color.Silver * Alpha, 1.0f, 0.0f, 0.99f);
 
                         if (memX == 0)
                         {
-                            float newAlpha = (curX < 4 * x) ? MathF.Pow(MathF.Max(0, (curX - 3.8f * x) / x * 5f), 1.8f)
-                                : Alpha * MathF.Max(0, 1 - 1.2f * (curX - 4 * x) / x);
-                            FightResources.Font.FightFont.CentreDraw("Press Space!", delta + new Vector2(480, 420), Color.Lime * newAlpha, 1.0f, 0.0f, 0.99f);
+                            float newAlpha = (curX < 4 * x) ? Pow(Max(0, (curX - 3.8f * x) / x * 5f), 1.8f)
+                                : Alpha * Max(0, 1 - 1.2f * (curX - 4 * x) / x);
+                            Font.FightFont.CentreDraw("Press Space!", delta + new Vector2(480, 420), Color.Lime * newAlpha, 1.0f, 0.0f, 0.99f);
                         }
                     }
                     int appearTime = 0;
-                    float delta = 0, curX = 0, memX = 0;
+                    float delta = 0, curX = -10, memX = -10;
                     public float Delta => delta;
                     public override void Update()
                     {
@@ -52,7 +50,7 @@ namespace UndyneFight_Ex.Remake.UI
 
                         if (Alpha > 0.2f)
                         {
-                            Alpha = MathF.Min(Alpha, 1);
+                            Alpha = Min(Alpha, 1);
                             if (appearTime == 3 * beat)
                                 PlaySound(damaged, Alpha);
                             else if (appearTime % beat == 0)

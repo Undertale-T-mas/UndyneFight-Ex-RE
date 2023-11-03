@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using UndyneFight_Ex;
-using UndyneFight_Ex.GameInterface;
 
 namespace RecallCharter
 {

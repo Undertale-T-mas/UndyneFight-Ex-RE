@@ -1,11 +1,7 @@
 ﻿using static UndyneFight_Ex.FightResources.Font;
 using Microsoft.Xna.Framework;
-using System.Xml;
-using System;
-using System.Linq;
-using UndyneFight_Ex.Remake.Data;
-using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Remake.Network;
+using UndyneFight_Ex.Remake.UI.DEBUG;
 using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
@@ -26,8 +22,8 @@ namespace UndyneFight_Ex.Remake.UI
             }
 
             private void Selected()
-            { 
-                if(this.CurrentSelected == _confirm)
+            {
+                if (this.CurrentSelected == _confirm)
                 {
                     //confirm:
                     if (string.IsNullOrEmpty(this._account.Result))
@@ -55,7 +51,7 @@ namespace UndyneFight_Ex.Remake.UI
                         PlayerManager.AddNewUser(_account.Result, this._password2.Result);
                         this._virtualFather.FatherObject.Dispose();
                         SendRegRequest();
-                        InstanceCreate(new DEBUG.IntroUI());
+                        InstanceCreate(new IntroUI());
                     }
                 }
                 else if (CurrentSelected == _cancel)
@@ -81,21 +77,21 @@ namespace UndyneFight_Ex.Remake.UI
                         }
                     }
                     else
-                    { 
+                    {
                         if (s.Info == "success login")
                         {
                             PlayerManager.CurrentUser.OnlineAsync = true;
                             KeepAliver.TryCreate();
                         }
-                        else if(s.Info == "the name already exists")
+                        else if (s.Info == "the name already exists")
                         {
                             var v = new PageTips.NameConflictUI(_account.Result, newPassword);
-                            DEBUG.IntroUI.PendingTip(v); 
+                            IntroUI.PendingTip(v);
                         }
                     }
                 });
                 login.SendRequest($"Log\\key\\none");
-                //     login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
+                //login.SendRequest($"Log\\in\\{_account.Result}\\{_password.Result}");
             }
 
             private void RegKeyChange()
@@ -169,25 +165,26 @@ namespace UndyneFight_Ex.Remake.UI
             }
             public override void Draw()
             {
-                NormalFont.CentreDraw("Register", this.Centre, DrawingColor, 1.8f * _secondaryScale, 0.1f);
+                var F = NormalFont;
+                F.CentreDraw("Register", this.Centre, DrawingColor, 1.8f * _secondaryScale, 0.1f);
 
                 if (!Activated) return;
-                NormalFont.CentreDraw("Account", new Vector2(480, 65), Color.White, 1.3f, 0.1f);
-                NormalFont.CentreDraw("Name", new Vector2(480, 100), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Account", new Vector2(480, 65), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Name", new Vector2(480, 100), Color.White, 1.3f, 0.1f);
 
                 //float l2 = 390, r2 = 900;
                 DrawLine(new(390, 105), new(410, 125), Color.White);
                 DrawLine(new(410, 125), new(550, 125), Color.White);
 
-                NormalFont.CentreDraw("Pass", new Vector2(480, 152), Color.White, 1.3f, 0.1f);
-                NormalFont.CentreDraw("code", new Vector2(480, 187), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Pass", new Vector2(480, 152), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("code", new Vector2(480, 187), Color.White, 1.3f, 0.1f);
 
                 //float l2 = 390, r2 = 900;
                 DrawLine(new(390, 192), new(410, 212), Color.White);
                 DrawLine(new(410, 212), new(550, 212), Color.White);
 
-                NormalFont.CentreDraw("Passcode", new Vector2(480, 239), Color.White, 1.3f, 0.1f);
-                NormalFont.CentreDraw("again", new Vector2(480, 274), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Passcode", new Vector2(480, 239), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("again", new Vector2(480, 274), Color.White, 1.3f, 0.1f);
 
                 //float l2 = 390, r2 = 900;
                 DrawLine(new(390, 279), new(410, 299), Color.White);
@@ -203,23 +200,20 @@ namespace UndyneFight_Ex.Remake.UI
              2
             3 4
              */
-            private int[] _downNext = { 1, 2, 3, 3, 4};
-            private int[] _upNext = { 0, 0, 1, 2, 2};
+            private int[] _downNext = { 1, 2, 3, 3, 4 };
+            private int[] _upNext = { 0, 0, 1, 2, 2 };
 
             public override void Update()
             {
                 this.Centre = new Vector2(204, 169);
                 base.Update();
-                if (this.collidingBox.Contain(MouseSystem.TransferredPosition))
-                {
-                    this._secondaryScale = MathHelper.Lerp(_secondaryScale, 1.1f, 0.1f);
-                }
-                else _secondaryScale = MathHelper.Lerp(_secondaryScale, 1.0f, 0.1f);
+                var scale = collidingBox.Contain(MouseSystem.TransferredPosition) ? 1.1f : 1.0f;
+                _secondaryScale = MathHelper.Lerp(_secondaryScale, scale, 0.1f);
             }
             private void DoBack()
             {
                 this._virtualFather.FatherObject.Dispose();
-                InstanceCreate(new DEBUG.IntroUI());
+                InstanceCreate(new IntroUI());
             }
         }
     }
