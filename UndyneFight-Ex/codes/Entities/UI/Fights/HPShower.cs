@@ -58,20 +58,23 @@ namespace UndyneFight_Ex.Entities
             FormalDraw(hpBar, collidingBox.ToRectangle(), hpExistCurrent);
             Depth = 0.0f;
             FormalDraw(hpBar, FullRect.ToRectangle(), hpLoseCurrent);
+            if (HeartAttribute.BuffedLevel > 0)
+            {
+                //FightFont.Draw($"B.LV. {HeartAttribute.BuffedLevel:F2}", new Vector2(FullRect.Left, collidingBox.Y - 10), Color.White, 0.5f, 0);
+            }
 
             string hpString;
             HeartAttribute.HP = Max(0, HeartAttribute.HP);
             var RoundHP = Round(HeartAttribute.HP, 2);
             var CeilHP = Ceiling(HeartAttribute.HP);
-            if (((CurrentScene as FightScene).Mode & GameMode.Practice) != 0)
-                hpString = "inf";
+            if (((CurrentScene as FightScene).Mode & GameMode.Practice) != 0) hpString = "inf";
             else
             {
                 if (((CurrentScene as FightScene).Mode & GameMode.Buffed) == 0 && HeartAttribute.BuffedLevel == 0)
-                    hpString = CeilHP + " / " + Ceiling(HeartAttribute.MaxHP);
+                    hpString = $"{CeilHP} / {Ceiling(HeartAttribute.MaxHP)}";
                 else if (HeartAttribute.BuffedLevel != 0)
                 {
-                    hpString = string.Format("{0:N2}", RoundHP + " / " + Ceiling(HeartAttribute.MaxHP));
+                    hpString = $"{RoundHP:F2} / {Ceiling(HeartAttribute.MaxHP)}";
                 }
                 else
                 {
@@ -80,6 +83,10 @@ namespace UndyneFight_Ex.Entities
                     string hptext = string.Format("{0:N2}", hp * scale);
                     if (hptext.Length == 1) hptext += "0";
                     hpString = hptext + " / 20.00";
+                }
+                if (Heart.Shields != null && Heart.Shields.Circle.Consumption > 1)
+                {
+                    hpString += $"/ {(Heart.Shields.Circle.Consumption * 8 - 8) :F2}";
                 }
             }
             if (!Vertical)

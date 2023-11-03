@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using UndyneFight_Ex.Entities;
 using Microsoft.Xna.Framework;
 using UndyneFight_Ex.Remake.Components;
 using UndyneFight_Ex.Remake.Effects;
-using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex.UserService;
 using vec2 = Microsoft.Xna.Framework.Vector2;
 using col = Microsoft.Xna.Framework.Color;
 using Microsoft.Xna.Framework.Input;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
+using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.Remake.Resources;
+using static UndyneFight_Ex.Remake.Resources.UI;
+using static UndyneFight_Ex.FightResources.Sprites;
 
 namespace UndyneFight_Ex.Remake.UI.DEBUG
 {
@@ -36,8 +35,8 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             }
 
             private void ExhibitButton_LeftClick()
-            { 
-                
+            {
+
             }
 
             public override void Draw()
@@ -47,15 +46,15 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                     this.Depth = 0.1f;
                     this.FormalDraw(this.Image, this.collidingBox, col.White * 0.8f);
                     this.FormalDraw(StoreData.AllItems["2023MEMTroSil"].Image, this.collidingBox + new vec2(140, 0), col.White * 0.8f);
-            /*        CollideRect rect = this.collidingBox;
-                    rect.X -= 20; rect.Y -= 20; rect.Height += 40; rect.Width += 40;
-                    DrawingLab.DrawRectangle(rect, col.White, 3.0f, 0.1f);
-                    this.Depth = 0.01f;
-                    this.FormalDraw(FightResources.Sprites.pixiv, rect, col.Black * 0.38f);*/
+                    /*        CollideRect rect = this.collidingBox;
+                            rect.X -= 20; rect.Y -= 20; rect.Height += 40; rect.Width += 40;
+                            DrawingLab.DrawRectangle(rect, col.White, 3.0f, 0.1f);
+                            this.Depth = 0.01f;
+                            this.FormalDraw(FightResources.Sprites.pixiv, rect, col.Black * 0.38f);*/
                 }
                 else
                 {
-                    this.FormalDraw(FightResources.Sprites.pixUnit, this.collidingBox, col.White * 0.8f);
+                    this.FormalDraw(pixUnit, this.collidingBox, col.White * 0.8f);
                 }
 
             }
@@ -71,7 +70,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         ExhibitButton exhibit;
 
         static SmartMusicPlayer music;
-        BackGenerater _backGenerater;
+        BackGenerator _backGenerater;
 
         private static TipUI _tipUI = null;
         public static void PendingTip(TipUI tipUI)
@@ -79,32 +78,33 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             _tipUI = tipUI;
         }
         public IntroUI()
-        { 
+        {
             if (music == null || !music.Onplay)
             {
                 SmartMusicPlayer smartPlayer = new();
-                smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_INTRO), 2407.5f, false);
-                smartPlayer.InsertPeriod(new MusicPlayer(Resources.Musics.DreamDiver_LOOP), 4808.5f, true);
-                GameStates.InstanceCreate(smartPlayer); smartPlayer.Play();
+                smartPlayer.InsertPeriod(new MusicPlayer(Musics.DreamDiver_INTRO), 2407.5f, false);
+                smartPlayer.InsertPeriod(new MusicPlayer(Musics.DreamDiver_LOOP), 4808.5f, true);
+                InstanceCreate(smartPlayer); smartPlayer.Play();
                 music = smartPlayer;
             }
 
-            GameStates.InstanceCreate(new InstantEvent(2, () => {
+            InstanceCreate(new InstantEvent(2, () =>
+            {
                 var render = GameStates.CurrentScene.BackgroundRendering;
                 GameStates.CurrentScene.CurrentDrawingSettings.backGroundColor = Color.White;
-                render.InsertProduction(_backGenerater = new BackGenerater(0.6f));
+                render.InsertProduction(_backGenerater = new BackGenerator(0.6f));
             }));
 
             this.Activate();
             CurrentScene.CurrentDrawingSettings.defaultWidth = 960f;
 
             float x = 490;
-            
-            mail = new(this, new(20, 20), Resources.UI.Mail);
-            start = new(this, new(x, 430), Resources.UI.IntroStart); 
-            setting = new(this, new(x, 500), Resources.UI.IntroSetting);
-            account = new(this, new(x, 570), Resources.UI.IntroAccount);
-            showPage = new(this, new(960 - 115, 640), "show page") { DefaultScale = 1.15f }; 
+
+            mail = new(this, new(20, 20), Mail);
+            start = new(this, new(x, 430), IntroStart);
+            setting = new(this, new(x, 500), IntroSetting);
+            account = new(this, new(x, 570), IntroAccount);
+            showPage = new(this, new(960 - 115, 640), "show page") { DefaultScale = 1.15f };
             contributor = new(this, new(960 - 115, 690), "Contributors") { DefaultScale = 1.15f };
             start.DefaultScale = 1.5f;
             setting.DefaultScale = 1.5f;
@@ -113,24 +113,25 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             this.AddChild(start);
             this.AddChild(setting);
             this.AddChild(account);
-       //     this.AddChild(showPage);
+            //     this.AddChild(showPage);
             this.AddChild(contributor);
-            
+
 
             DefaultFocus = 1;
 
             this.OnSelected += IntroUI_OnSelected;
-            this.KeyEvent = () => {  
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+            this.KeyEvent = () =>
+            {
+                if (IsKeyPressed120f(InputIdentity.MainDown))
                 {
-                    int id = FocusID; 
-                    if(id + 1 < all.Length)
+                    int id = FocusID;
+                    if (id + 1 < all.Length)
                     {
                         currentFocus.OffFocus();
                         all[id + 1].OnFocus();
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                else if (IsKeyPressed120f(InputIdentity.MainUp))
                 {
                     int id = FocusID;
                     if (id > 1)
@@ -139,7 +140,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                         all[id - 1].OnFocus();
                     }
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus?.ConfirmKeyDown();
                 }
@@ -149,36 +150,33 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         private void IntroUI_OnSelected()
         {
             var selection = CurrentSelected;
-            if(selection == start)
+            if (selection == start)
             {
                 // Do start
                 this.Dispose();
-                GameStates.InstanceCreate(new SelectUI());
+                InstanceCreate(new SelectUI());
             }
-            else if(selection == setting)
+            else if (selection == setting)
             {
                 // into setting
                 this.Dispose();
-                GameStates.InstanceCreate(new SettingUI());
+                InstanceCreate(new SettingUI());
             }
-            else if(selection == account)
+            else if (selection == account)
             {
                 //into account
                 this.Dispose();
-                if (PlayerManager.CurrentUser != null)
-                    GameStates.InstanceCreate(new AccountManager());
-                else
-                    GameStates.InstanceCreate(new UserUI());
+                InstanceCreate(PlayerManager.CurrentUser == null ? new UserUI() : new AccountManager());
             }
-            else if(selection == contributor)
+            else if (selection == contributor)
             {
                 this.Dispose();
-                GameStates.InstanceCreate(new ContributerUI());
+                InstanceCreate(new ContributerUI());
             }
-            else if(selection == showPage)
+            else if (selection == showPage)
             {
                 this.Dispose();
-                GameStates.InstanceCreate(new ItemShowUI());
+                InstanceCreate(new ItemShowUI());
             }
         }
 
@@ -194,15 +192,16 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         Entity titleShower;
 
         public override void Draw()
-        { 
-            if(topUI != null)
+        {
+            if (topUI != null)
             {
                 IEnumerable<Entity> all = topUI.GetDrawableTree();
                 foreach (Entity entity in all) { entity.Draw(); }
             }
-            if (titleShower != null) {
+            if (titleShower != null)
+            {
                 IEnumerable<Entity> all = titleShower.GetDrawableTree();
-                foreach(Entity entity in all) { entity.Draw(); }
+                foreach (Entity entity in all) { entity.Draw(); }
             }
             cursor.Draw();
         }
@@ -232,14 +231,14 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             cursor.Update();
 
 #if DEBUG
-            if (GameStates.IsKeyDown(Keys.LeftControl) && GameStates.IsKeyPressed120f(Keys.D))
+            if (IsKeyDown(Keys.LeftControl) && IsKeyPressed120f(Keys.D))
             {
                 // DEBUG INTRO
                 this.Dispose();
-                GameStates.InstanceCreate(new DebugWindow());
+                InstanceCreate(new DebugWindow());
             }
 #endif
         }
-        Entity topUI; 
+        Entity topUI;
     }
 }

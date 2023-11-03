@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -33,9 +34,8 @@ namespace UndyneFight_Ex.Remake.UI
                     foreach (var obj in this.ChildObjects)
                     {
                         this.all[i] = obj as SelectingModule;
-                        if (all[i] is LeafSelection)
+                        if (all[i] is LeafSelection leaf)
                         {
-                            LeafSelection leaf = (LeafSelection)all[i];
                             _images[i] = leaf.Illustration;
                             leaf.LeftClick += () =>
                             {
@@ -148,7 +148,7 @@ namespace UndyneFight_Ex.Remake.UI
                     }
                     if (_lastSelected != null && !_lastSelected.ModuleSelected) this.SelectedID = this._father.SelectedID = -1;
 
-                    if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                    if (IsKeyPressed120f(InputIdentity.MainDown))
                     {
                         int id = FocusID;
                         for (int i = id + 1; i < all.Length; i++)
@@ -161,7 +161,7 @@ namespace UndyneFight_Ex.Remake.UI
                             }
                         }
                     }
-                    else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                    else if (IsKeyPressed120f(InputIdentity.MainUp))
                     {
                         int id = FocusID;
                         for (int i = id - 1; i >= 0; i--)
@@ -174,7 +174,7 @@ namespace UndyneFight_Ex.Remake.UI
                             }
                         }
                     }
-                    if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                    if (IsKeyPressed120f(InputIdentity.Confirm))
                     {
                         _currentFocus.ConfirmKeyDown();
                     }
@@ -210,8 +210,7 @@ namespace UndyneFight_Ex.Remake.UI
                 float wheelRemain = 0f, wheelLast = 0;
                 private void DoAutoWheel()
                 {
-                    LeafSelection curSelection = this._lastSelected as LeafSelection;
-                    if (curSelection == null) return;
+                    if (this._lastSelected is not LeafSelection curSelection) return;
                     float y = curSelection.DrawingY;
                     if (y < -10) this._positionDelta.Y -= y * 0.15f;// this._positionDelta.Y += 
                     else if (y > 730) this._positionDelta.Y -= y * 0.15f;

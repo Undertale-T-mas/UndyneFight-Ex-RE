@@ -9346,10 +9346,6 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.SceneRendering.InsertProduction(production1);
                 ScreenDrawing.SceneRendering.InsertProduction(production2);
                 GametimeDelta = BeatTime(-0.01f);
-                //GametimeDelta = BeatTime(16 * 9 + 2f - 4) -4;
-                //PlayOffset = BeatTime(16 * 9 + 2f - 4);
-                //GametimeDelta = BeatTime(108 - 2 + 17 * 2)-4;
-                //PlayOffset = BeatTime(108 - 2 + 17 * 2);
                 Heart.Gravity = 10.7f;
                 SetSoul(1);
                 SetBox(new Vector2(320, 240), 84, 84);

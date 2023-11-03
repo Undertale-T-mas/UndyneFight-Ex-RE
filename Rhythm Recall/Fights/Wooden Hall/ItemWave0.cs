@@ -23,7 +23,7 @@ namespace Rhythm_Recall.Waves
                     CreateGB(new NormalGB(FightBox.instance.Centre + GetVector2(140, waveTime * 4), Heart.Centre, new Vector2(1.0f, 0.5f), waveTime * 4 + 180, 35, 14)
                     {
                         IsShake = true
-                    }); ;
+                    });
                 }
                 if (waveTime >= 500)
                 {

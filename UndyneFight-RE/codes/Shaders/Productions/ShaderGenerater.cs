@@ -4,30 +4,30 @@ using System;
 using System.Collections.Generic;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex;
+using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
+using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex.Remake.Effects
 {
-    public class BackGenerater : RenderProduction
+    public class BackGenerator : RenderProduction
     {
-        public BackGenerater(float depth = 0.5f ) : base(Resources.UIShaders.Background, SpriteSortMode.Immediate, BlendState.Additive, depth)
+        public BackGenerator(float depth = 0.5f ) : base(Resources.UIShaders.Background, SpriteSortMode.Immediate, BlendState.Additive, depth)
         { 
         }
-        float time0 = 0.0f;
+        float time = 0;
         BackgroundShader _shader { get; set; }
         public override void Update()
         {
             if (_shader == null) return;
             _shader.Time += 0.35f;
-            time0 += 0.5f;
+            time += 0.5f;
 
-            if ((time0 + 1) % 15 < 0.5f)
+            if ((time + 1) % 15 < 0.5f)
             {
                 particles.Add(new Particle(
-                    Color.White * MathUtil.GetRandom(0.4f, 0.8f) * 0.8f,
-                    new Vector2(MathUtil.GetRandom(-1.0f, 1.0f) * 0.5f, -MathUtil.GetRandom(3f, 4f)),
-                    MathUtil.GetRandom(40f, 70f) * 1.2f,
-                    new Vector2(MathUtil.GetRandom(-10f, 970f), 960),
-                    Fight.Functions.ScreenDrawing.Shaders.Lighting.lightSources[0]
+                    Color.White * GetRandom(0.4f, 0.8f) * 0.8f, new(GetRandom(-1.0f, 1.0f) * 0.5f,
+                    -GetRandom(3f, 4f)), GetRandom(40f, 70f) * 1.2f, new(GetRandom(-10f, 970f), 960),
+                    Lighting.lightSources[0]
                     )
                 { DarkingSpeed = 0.27f });
             }
@@ -40,15 +40,15 @@ namespace UndyneFight_Ex.Remake.Effects
         {
             if (!LightSourceUpdated)
             {
-                var v = new Fight.Functions.ScreenDrawing.Shaders.Lighting(0.4f);
+                var v = new Lighting(0.4f);
                 v.Draw(obj);
                 LightSourceUpdated = true;
             }
             this.Shader = this._shader  = Resources.UIShaders.Background;
             this.BlendState = BlendState.Additive;
             this.TransForm = Matrix.Identity;
-            float position = MathF.Sin(time0 / 215f) * 1;
-            float position2 = MathF.Sin(time0 / 205f) * 1;
+            float position = MathF.Sin(time / 215f);
+            float position2 = MathF.Sin(time / 205f);
 
             if(obj != HelperTarget3)
             {
@@ -72,8 +72,6 @@ namespace UndyneFight_Ex.Remake.Effects
             Entity.DrawOptimize = false;
             this.TransForm = GameStates.ResizeMatrix;
             this.DrawEntities(this.particles.ToArray());
-
-
 
             return HelperTarget;
 

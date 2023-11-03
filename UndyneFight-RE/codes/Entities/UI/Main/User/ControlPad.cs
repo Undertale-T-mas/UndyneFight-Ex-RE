@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Input;
-using System.Net.Sockets;
-using UndyneFight_Ex.SongSystem;
-using System.ComponentModel.Design.Serialization;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.Entities;
-
-namespace UndyneFight_Ex.Remake.UI
+﻿namespace UndyneFight_Ex.Remake.UI
 {
     internal partial class UserUI : Entity
     {
@@ -19,8 +6,10 @@ namespace UndyneFight_Ex.Remake.UI
         {  
             public VirtualFather()
             {
-                Login = new LoginUI(); Register = new RegisterUI();
-                this.AddChild(Login); this.AddChild(Register);
+                Login = new LoginUI();
+                Register = new RegisterUI();
+                AddChild(Login);
+                AddChild(Register);
                 Login.Activate();
                 CurrentActivate = Login;
             }
@@ -50,13 +39,13 @@ namespace UndyneFight_Ex.Remake.UI
              
             if (PlayerManager.CurrentUser != null)
             {
-                this.Dispose();
+                Dispose();
                 GameStates.InstanceCreate(new SelectUI());
                 return;
             }
-            this.AddChild(new MouseCursor());
-            this.AddChild(new LineDistributer());
-            this.AddChild(new VirtualFather());
+            AddChild(new MouseCursor());
+            AddChild(new LineDistributer());
+            AddChild(new VirtualFather());
         }
 
         public override void Draw()

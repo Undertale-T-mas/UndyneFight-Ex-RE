@@ -123,10 +123,12 @@ Alternate: Space";
 
             #region Test Charts
             SongSet test = new("Test");
+            test.Push(typeof(AprilExtends.BocchiTheRock));
             test.Push(typeof(AFleetingOath));
             test.Push(typeof(AprilExtends.Stasis));
             test.Push(typeof(Clb1e86f2));
             test.Push(typeof(TheFuneral));
+            test.Push(typeof(Weekender));
             test.Push(typeof(Flan));
             test.Push(typeof(Galileo));
             test.Push(typeof(LoveAndHate));
@@ -147,7 +149,6 @@ Alternate: Space";
             test.Push(typeof(mu));
             test.Push(typeof(Clb1e86f2));
             test.Push(typeof(BrainPower));
-            test.Push(typeof(Weekender));
             test.Push(typeof(PapyEn));
             test.Push(typeof(MistemperedMalignance));
             test.Push(typeof(Rainshower));
@@ -157,6 +158,8 @@ Alternate: Space";
             GameStartUp.PushSongset(test);
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
+                typeof(LunaticGaze),
+                typeof(NCWLQ),
                 typeof(Song_That_Might_Play_When_You_Fight_Sans),
                 typeof(DreadNaught),
                 typeof(Conflict),
@@ -170,7 +173,7 @@ Alternate: Space";
                 typeof(Resurrection),
                 typeof(Letsgonow),
                 typeof(GOODWORLD),
-                });
+            });
 #if OSTPublish
             GameStartUp.MainSceneIntro = () => { GameStates.SelectMode(0); ClassicalGUI.CreateFightSelector(); };
 #endif

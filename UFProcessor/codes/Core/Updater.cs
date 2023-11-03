@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using static UndyneFight_Ex.Server.UFConsole;
 
 namespace UndyneFight_Ex.Server
 { 
@@ -7,11 +7,11 @@ namespace UndyneFight_Ex.Server
         public static void Initialize()
         {
             Task.Run(() => {
-                UFConsole.WriteLine("\0#Green]UFUpdater start!");
+                WriteLine("\0#Green]UFUpdater start!");
                 while (true)
                 {
                     Thread.Sleep(1000 * 60);
-                    UFConsole.WriteLine("\0#Cyan]UfUpdater working...");
+                    WriteLine("\0#Cyan]UfUpdater working...");
                     try
                     {
                         UserLibrary.SaveAll();
@@ -20,9 +20,9 @@ namespace UndyneFight_Ex.Server
                     }
                     catch (Exception ex)
                     {
-                        UFConsole.WriteLine("\0#Red] An exception occured when updating: " + ex.ToString());
+                        WriteLine("\0#Red] An exception occured when updating: " + ex.ToString());
                     }
-                    UFConsole.WriteLine("\0#Cyan]UfUpdater work end.");
+                    WriteLine("\0#Cyan]UfUpdater work end.");
                 }
             });
         }

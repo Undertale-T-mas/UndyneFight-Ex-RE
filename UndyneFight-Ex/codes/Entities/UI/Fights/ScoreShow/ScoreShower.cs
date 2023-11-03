@@ -74,6 +74,8 @@ namespace UndyneFight_Ex.Entities
             if (type >= 3)
             {
                 perfect++;
+                if (type == 4) perfectE++;
+                if (type == 5) perfectL++;
             }
 
             int perfectScore = judgeState switch
@@ -97,7 +99,7 @@ namespace UndyneFight_Ex.Entities
             }
         }
 
-        private int miss, okay, nice, perfect, maxCombo;
+        private int miss, okay, nice, perfect, perfectL, perfectE, maxCombo;
         private int totalCount = 0;
         private readonly JudgementState judgeState;
         internal int surviveTime = 0;

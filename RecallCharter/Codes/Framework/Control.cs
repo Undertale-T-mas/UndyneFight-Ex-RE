@@ -1,7 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Remake;
 
@@ -31,7 +28,7 @@ namespace RecallCharter
         }
 
         Vector2 _relatedPosition = Vector2.Zero;
-        public bool _posUpdated = false;    
+        public bool _posUpdated = false;
 
         private bool _deattaching = false;
         public void Deattach()
@@ -54,20 +51,23 @@ namespace RecallCharter
                 _deattaching = false;
                 return;
             }
-            if (!Father.IsEnabled) {
-                return; 
+            if (!Father.IsEnabled)
+            {
+                return;
             }
-            if(!_posUpdated)
+            if (!_posUpdated)
             {
                 _posUpdated = true;
                 this._relatedPosition = this.collidingBox.TopLeft;
             }
             this.collidingBox.TopLeft = this.Father.collidingBox.TopLeft + _relatedPosition;
             this.MouseOn = this.CollidingBox.Contain(MouseSystem.TransferredPosition);
-            if (this.FocusedKid != null && (!FocusedKid.IsFocused)) {
+            if (this.FocusedKid != null && (!FocusedKid.IsFocused))
+            {
                 this.FocusedKid = null;
-                foreach(Control ctr in this.ChildObjects) { 
-                    if(ctr.IsFocused)
+                foreach (Control ctr in this.ChildObjects)
+                {
+                    if (ctr.IsFocused)
                     {
                         FocusedKid = ctr;
                         break;
@@ -86,7 +86,7 @@ namespace RecallCharter
             }
             else if (!ClickToFocus || MouseSystem.IsLeftClick()) this.IsFocused = false;
             if (this.IsFocused) this.Father.FocusedKid = this;
-            if(this.EnableWhenFocused) { this.IsEnabled = this.IsFocused; }
+            if (this.EnableWhenFocused) { this.IsEnabled = this.IsFocused; }
         }
     }
 }

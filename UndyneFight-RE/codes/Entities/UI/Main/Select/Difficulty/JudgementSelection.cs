@@ -12,7 +12,7 @@ namespace UndyneFight_Ex.Remake.UI
             private class JudgementSelection : Button
             {
                 JudgementState _judgeState;
-                public JudgementSelection(DifficultyUI father) : base(father, new Vector2(797, 550), "")
+                public JudgementSelection(DifficultyUI father) : base(father, new Vector2(797, 530), "")
                 {
                     this._judgeState = father._virtualFather.CurrentJudgementState;
 
@@ -56,7 +56,7 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     this.Depth = 0.1f;
                     base.Draw();
-                    FightResources.Font.NormalFont.CentreDraw("Current Judge:", this.Centre - new Vector2(0, 50), Color.White, 1.18f, 0.1f);
+                    FightResources.Font.NormalFont.CentreDraw("Current Judge:", this.Centre - new Vector2(0, 40), Color.White, 1.18f, 0.1f);
                 }
 
                 public override void Update()

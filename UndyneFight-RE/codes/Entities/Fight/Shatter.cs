@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.GameInterface;
-using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Fight;
-using System.Linq.Expressions;
-using System.Collections.Specialized;
+﻿using Microsoft.Xna.Framework;
 
 namespace UndyneFight_Ex.Remake.Entities
 { 
@@ -21,25 +11,25 @@ namespace UndyneFight_Ex.Remake.Entities
             this.Rotation = origin.Rotation;
             this.Scale = origin.Scale;
             this.UpdateIn120 = true;
-            rest1 = new CollideRect(ImageCentre, ImageCentre);
-            rest2 = new CollideRect(new Vector2(0, ImageCentre.Y), ImageCentre);
-            rest3 = new CollideRect(Vector2.Zero, ImageCentre);
-            rest4 = new CollideRect(new Vector2(ImageCentre.X, 0), ImageCentre);
+            rect1 = new CollideRect(ImageCentre, ImageCentre);
+            rect2 = new CollideRect(new Vector2(0, ImageCentre.Y), ImageCentre);
+            rect3 = new CollideRect(Vector2.Zero, ImageCentre);
+            rect4 = new CollideRect(new Vector2(ImageCentre.X, 0), ImageCentre);
             this.distance = ImageCentre / 2f;
         }
 
         public override void Draw()
         {
-            this.FormalDraw(this.Image, pos1.ToRectangle(), rest1.ToRectangle(), Color.White * alpha);
-            this.FormalDraw(this.Image, pos2.ToRectangle(), rest2.ToRectangle(), Color.White * alpha);
-            this.FormalDraw(this.Image, pos3.ToRectangle(), rest3.ToRectangle(), Color.White * alpha);
-            this.FormalDraw(this.Image, pos4.ToRectangle(), rest4.ToRectangle(), Color.White * alpha);
+            this.FormalDraw(this.Image, pos1.ToRectangle(), rect1.ToRectangle(), Color.White * alpha);
+            this.FormalDraw(this.Image, pos2.ToRectangle(), rect2.ToRectangle(), Color.White * alpha);
+            this.FormalDraw(this.Image, pos3.ToRectangle(), rect3.ToRectangle(), Color.White * alpha);
+            this.FormalDraw(this.Image, pos4.ToRectangle(), rect4.ToRectangle(), Color.White * alpha);
         }
         Vector2 distance = Vector2.Zero;
         float alpha = 1.0f;
 
         CollideRect pos1, pos2, pos3, pos4;
-        CollideRect rest1, rest2, rest3, rest4;
+        CollideRect rect1, rect2, rect3, rect4;
 
         public override void Update()
         {

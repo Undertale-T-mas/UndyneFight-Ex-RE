@@ -1,11 +1,15 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
-using System.Runtime.CompilerServices;
 using UndyneFight_Ex.Remake.UI;
 using UndyneFight_Ex.Remake.Effects;
 using UndyneFight_Ex.Remake.Texts;
+using static UndyneFight_Ex.Remake.Resources.UI;
+using static UndyneFight_Ex.Remake.Resources.Musics;
+using static UndyneFight_Ex.Remake.Resources.Font;
+using static UndyneFight_Ex.Remake.Resources.Sounds;
+using static UndyneFight_Ex.Remake.Resources.FightSprites;
+using static UndyneFight_Ex.FightResources.Font;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -14,43 +18,44 @@ namespace UndyneFight_Ex.Remake
         internal static void Initialize(ContentManager loader)
         {
             loader.RootDirectory = "Content\\ReEngine";
-            UI.Cursor = loader.Load<Texture2D>("Mouse\\cursor");
-            UI.Start = loader.Load<Texture2D>("UI\\start");
-            UI.Tick = loader.Load<Texture2D>("UI\\tick");
-            UI.ScrollArrow = loader.Load<Texture2D>("UI\\scrollArrow");
-            UI.Gear = loader.Load<Texture2D>("UI\\gear");
-            UI.Mail = loader.Load<Texture2D>("UI\\mail");
-            UI.IntroStart = loader.Load<Texture2D>("UI\\introStart");
-            UI.IntroAccount = loader.Load<Texture2D>("UI\\account");
-            UI.IntroSetting = loader.Load<Texture2D>("UI\\introSetting");
+            Cursor = loader.Load<Texture2D>("Mouse\\cursor");
+            Start = loader.Load<Texture2D>("UI\\start");
+            Tick = loader.Load<Texture2D>("UI\\tick");
+            ScrollArrow = loader.Load<Texture2D>("UI\\scrollArrow");
+            Gear = loader.Load<Texture2D>("UI\\gear");
+            Mail = loader.Load<Texture2D>("UI\\mail");
+            IntroStart = loader.Load<Texture2D>("UI\\introStart");
+            IntroAccount = loader.Load<Texture2D>("UI\\account");
+            IntroSetting = loader.Load<Texture2D>("UI\\introSetting");
 
-            Musics.DreamDiver_INTRO = new("ReEngine\\Musics\\Dream diver_INTRO.ogg");
-            Musics.DreamDiver_LOOP = new("ReEngine\\Musics\\Dream diver_LOOP.ogg");
+            DreamDiver_INTRO = new("ReEngine\\Musics\\Dream diver_INTRO.ogg");
+            DreamDiver_LOOP = new("ReEngine\\Musics\\Dream diver_LOOP.ogg");
 
-            Font.Normal = new GLFont("Font\\chinese", loader);
+            Normal = new GLFont("Font\\chinese", loader);
 
-            Sounds.YellowShoot = loader.Load<SoundEffect>("Sounds\\shoot");
-            Sounds.TargetBurst = loader.Load<SoundEffect>("Sounds\\objBurst");
-            Sounds.Bomb = loader.Load<SoundEffect>("Sounds\\bomb");
+            YellowShoot = loader.Load<SoundEffect>("Sounds\\shoot");
+            TargetBurst = loader.Load<SoundEffect>("Sounds\\objBurst");
+            Bomb = loader.Load<SoundEffect>("Sounds\\bomb");
 
-            FightSprites.SoulShoot = loader.Load<Texture2D>("FightSprites\\soulBullet");
-            for(int a = 0; a < 2; a++)
-                FightSprites.Fireball[a] = loader.Load<Texture2D>($"FightSprites\\FireBall\\spr_{a}");
-            FightSprites.MettBlockA = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockA");
-            FightSprites.MettBlockB = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockB");
-            FightSprites.MettBullet = loader.Load<Texture2D>("FightSprites\\Mettaton\\bullet");
-            FightSprites.Spider = loader.Load<Texture2D>("FightSprites\\spider");
+            SoulShoot = loader.Load<Texture2D>("FightSprites\\soulBullet");
+            MettBlockA = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockA");
+            MettBlockB = loader.Load<Texture2D>("FightSprites\\Mettaton\\blockB");
+            MettBullet = loader.Load<Texture2D>("FightSprites\\Mettaton\\bullet");
+            Spider = loader.Load<Texture2D>("FightSprites\\spider");
 
             for (int i = 0; i < 18; i++)
             {
-                FightSprites.ParasolMett[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_parasolmett_" + i);
+                ParasolMett[i] = loader.Load<Texture2D>($"FightSprites\\Mettaton\\spr_parasolmett_{i}");
                 if (i < 7)
                 {
-                    FightSprites.MettBombCoreBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_coreblast_" + i);
-                    FightSprites.MettBombHorBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_horblast_" + i);
-                    FightSprites.MettBombVerBlast[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_verblast_" + i);
+                    MettBombCoreBlast[i] = loader.Load<Texture2D>($"FightSprites\\Mettaton\\spr_plusbomb_coreblast_{i}");
+                    MettBombHorBlast[i] = loader.Load<Texture2D>($"FightSprites\\Mettaton\\spr_plusbomb_horblast_{i}");
+                    MettBombVerBlast[i] = loader.Load<Texture2D>($"FightSprites\\Mettaton\\spr_plusbomb_verblast_{i}");
                     if (i < 2)
-                        FightSprites.MettBomb[i] = loader.Load<Texture2D>("FightSprites\\Mettaton\\spr_plusbomb_" + i);
+                    {
+                        MettBomb[i] = loader.Load<Texture2D>($"FightSprites\\Mettaton\\spr_plusbomb_{i}");
+                        Fireball[i] = loader.Load<Texture2D>($"FightSprites\\FireBall\\spr_{i}");
+                    }
                 }
             }
 
@@ -69,9 +74,9 @@ namespace UndyneFight_Ex.Remake
             public static void Initialize()
             {
                 Default = new SmartFont();
-                Default.Insert(Font.Normal, 0.0f);
-                Default.Insert(FightResources.Font.Japanese, 0.5f);
-                Default.Insert(FightResources.Font.NormalFont, 1.0f);
+                Default.Insert(Normal, 0.0f);
+                Default.Insert(Japanese, 0.5f);
+                Default.Insert(NormalFont, 1.0f);
             }
         }
 

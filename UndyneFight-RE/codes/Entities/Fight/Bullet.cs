@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Text;
-using System.Threading.Tasks;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Entities;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.Remake.Resources;
 
 namespace UndyneFight_Ex.Remake.Entities
 {
@@ -15,8 +12,8 @@ namespace UndyneFight_Ex.Remake.Entities
             UpdateIn120 = true;
             this._origin = heart.Centre + MathUtil.GetVector2(14, heart.Rotation + 90);
             this.PositionRoute = EasingUtil.CentreEasing.Linear(MathUtil.GetVector2(22, heart.Rotation + 90));
-            this.Image = Resources.FightSprites.SoulShoot;
-            Fight.Functions.PlaySound(Resources.Sounds.YellowShoot);
+            this.Image = FightSprites.SoulShoot;
+            PlaySound(Sounds.YellowShoot);
             this.Rotation = heart.Rotation + 180;
             this.AngleMode = true;
             this.Broadcast("Bullet");

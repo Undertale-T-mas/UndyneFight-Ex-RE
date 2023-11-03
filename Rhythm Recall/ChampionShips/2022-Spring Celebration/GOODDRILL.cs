@@ -583,7 +583,7 @@ namespace Rhythm_Recall.Waves
                     TP(30, 390);
                     SetSoul(2);
                     SetBox(20, 100, 320, 400);
-                    PlayerInstance.hpControl.GiveProtectTime(30);
+                    PlayerInstance.hpControl.GiveProtectTime(5,true);
                     CreateBone(new CustomBone(new(70, 400), Motions.PositionRoute.cameFromDown, 0, 40, 380));
                     CreateBone(new CustomBone(new(70, 80), Motions.PositionRoute.cameFromUp, 0, 500, 380));
                     CreateBone(new CustomBone(new(110, 400), Motions.PositionRoute.cameFromDown, 0, 30, 380));
@@ -1978,15 +1978,15 @@ namespace Rhythm_Recall.Waves
                 {
                     NormalBarrage.A2();
                 }
+                if (GametimeF > 420 && GametimeF < 755)
+                    ScreenDrawing.ScreenPositionDetla = new Vector2(320f, 240f) - FightBox.instance.Centre;
                 if (GametimeF > 480 && GametimeF < 600)
                 {
                     SetBox(20 + (Gametime - 480) * 100 / 120, 100 + (Gametime - 480) * 100 / 120, 320, 400);
-                    ScreenDrawing.ScreenPositionDetla = new(480 - (Gametime - 480) * 100 / 120, -240);
                 }
                 if (GametimeF > 600 && GametimeF < 755)
                 {
                     SetBox(120, 200, 320 - (Gametime - 600) * 1.25f, 400 - (Gametime - 600) * 1.25f);
-                    ScreenDrawing.ScreenPositionDetla = new(380, (Gametime - 600) * 1.25f - 240);
                 }
                 if (GametimeF == 800)
                 {

@@ -41,8 +41,8 @@ namespace UndyneFight_Ex.Remake.UI.PageTips
     {
         string _name, _password;
         public NameConflictUI(string name, string password) : base("Name Conflict", 
-            "Your name is used by other",
-            "people. You need to change",
+            "Your name is used by another",
+            "person. You need to change",
             "your name to successfully",
             "register in cloud server"
             )

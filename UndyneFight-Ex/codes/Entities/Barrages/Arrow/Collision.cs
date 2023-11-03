@@ -3,6 +3,9 @@ using System;
 using UndyneFight_Ex.Settings;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.FightResources.Sounds;
+using static UndyneFight_Ex.Settings.SettingsManager.DataLibrary;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -38,9 +41,16 @@ namespace UndyneFight_Ex.Entities
             if (VolumeFactor <= 0.01f) return;
             if (isSoundPlayed) return;
             isSoundPlayed = true;
-            float volume = isSettingBased ? SettingsManager.DataLibrary.SpearBlockingVolume / 100f : 1f;
+            float volume = isSettingBased ? SpearBlockingVolume / 100f : 1f;
 
-            PlaySound(FightResources.Sounds.ArrowStuck, volume * scale * VolumeFactor);
+            var HitSound = SpearBlockSound switch
+            {
+                0 => Ding,
+                1 => ArrowStuck,
+                _ => throw new Exception()
+            };
+
+            PlaySound(HitSound, volume * scale * VolumeFactor);
         }
         private void Init()
         {
@@ -227,8 +237,8 @@ namespace UndyneFight_Ex.Entities
                 HitScore(0, -100);
                 LoseHP(mission);
                 GiveKR(1.2f);
-                if (GameStates.currentScene is SongFightingScene)
-                    (GameStates.currentScene as SongFightingScene).Accuracy.PushDelta(0, 0, ArrowColor, way, mission.Shields);
+                if (currentScene is SongFightingScene)
+                    (currentScene as SongFightingScene).Accuracy.PushDelta(0, 0, ArrowColor, way, mission.Shields);
                 return;
             }
             /*
@@ -306,7 +316,7 @@ namespace UndyneFight_Ex.Entities
 
                 (GameStates.CurrentScene as SongFightingScene).Accuracy.PushDelta(time, score, ArrowColor, way, mission.Shields);
 
-                bool percise = SettingsManager.DataLibrary.perciseWarning;
+                bool percise = perciseWarning;
                 bool generateTip = percise ? (score != 3) : (score <= 2);
                 if(this.JudgeType == JudgementType.Hold) { generateTip = false; }
                 if (generateTip)
@@ -334,7 +344,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Dispose()
         {
-            GameStates.InstanceCreate(new BreakArrow(2, Rotation + additiveRotation, ArrowColor, rotatingType, Centre, Scale * DrawingScale));
+            InstanceCreate(new BreakArrow(2, Rotation + additiveRotation, ArrowColor, rotatingType, Centre, Scale * DrawingScale));
             arrows.Remove(this);
 
             base.Dispose();

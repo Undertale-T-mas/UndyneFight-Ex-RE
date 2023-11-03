@@ -75,6 +75,7 @@ namespace UndyneFight_Ex.Settings
                 Normal = 1,
                 High = 2
             }
+            public static int SpearBlockSound = 1;
             public static int masterVolume = 100;
             public static bool debugMessage = false;
             public static bool dialogAvailable = true;

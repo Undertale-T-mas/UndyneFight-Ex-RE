@@ -1,26 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using UndyneFight_Ex.Entities;
-using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Remake.Components;
-using UndyneFight_Ex.Remake.Effects;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.UserService;
-using vec2 = Microsoft.Xna.Framework.Vector2;
-using col = Microsoft.Xna.Framework.Color;
-using Microsoft.Xna.Framework.Input;
-using UndyneFight_Ex.Remake.Network;
-using System.Security.Principal;
-using UndyneFight_Ex.Remake.UI.DEBUG;
-using System.Xml.Linq;
-using System.Reflection.Metadata.Ecma335;
+﻿using col = Microsoft.Xna.Framework.Color;
 
 namespace UndyneFight_Ex.Remake.UI.DEBUG
-{ 
+{
     internal enum CommandState
     {
         Unknown = -1,
@@ -40,11 +21,12 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
 
         public col Analyze(string text)
         {
-            if(_command == null) {
+            if (_command == null)
+            {
                 _command = Command.TryAnalyze(text);
                 if (_command != null) this.state = _command.CommandState;
             }
-            if(_command != null)
+            if (_command != null)
             {
                 CurrentText = text;
                 return _command.Analyze(this);

@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using UndyneFight_Ex;
-using UndyneFight_Ex.Remake;
 
 namespace RecallCharter
 {
@@ -41,8 +38,7 @@ namespace RecallCharter
         
         public override void Draw()
         {
-            if (!Father.IsEnabled)
-                return;
+            if (!Father.IsEnabled) return;
             this.Image = FightResources.Sprites.pixUnit;
             float dep = this.Depth;
             this.FormalDraw(Image, this.CollidingBox.ToRectangle(), this.BackgroundColor);

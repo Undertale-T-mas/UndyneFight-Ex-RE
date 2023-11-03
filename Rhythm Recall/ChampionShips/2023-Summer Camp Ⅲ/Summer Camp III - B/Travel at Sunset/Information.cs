@@ -51,6 +51,9 @@ namespace Rhythm_Recall.Waves
                           {
                                 HashSet<Difficulty> result = new();
                                 int t = Accessibility();
+#if DEBUG
+                                t = 2;
+#endif
                                 if (t >= 1) result.Add(Difficulty.Normal);
                                 if (t >= 2) result.Add(Difficulty.ExtremePlus);
 #if DEBUG

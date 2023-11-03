@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using UndyneFight_Ex.Entities;
-using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Remake.Components;
-using UndyneFight_Ex.Remake.Effects;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.UserService;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Win32;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -34,7 +24,7 @@ namespace UndyneFight_Ex.Remake.UI
             back.LeftClick += Back;
 
             this.KeyEvent = () => {
-                if (GameStates.IsKeyPressed120f(InputIdentity.MainDown))
+                if (IsKeyPressed120f(InputIdentity.MainDown))
                 {
                     int id = FocusID;
                     if (id + 1 < all.Length)
@@ -43,7 +33,7 @@ namespace UndyneFight_Ex.Remake.UI
                         all[id + 1].OnFocus();
                     }
                 }
-                else if (GameStates.IsKeyPressed120f(InputIdentity.MainUp))
+                else if (IsKeyPressed120f(InputIdentity.MainUp))
                 {
                     int id = FocusID;
                     if (id > 1)
@@ -52,7 +42,7 @@ namespace UndyneFight_Ex.Remake.UI
                         all[id - 1].OnFocus();
                     }
                 }
-                if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+                if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus?.ConfirmKeyDown();
                 }
@@ -87,7 +77,7 @@ namespace UndyneFight_Ex.Remake.UI
         {
             base.Update();
 
-            if (GameStates.IsKeyPressed120f(InputIdentity.Cancel))
+            if (IsKeyPressed120f(InputIdentity.Cancel))
             {
                 Back();
             }
@@ -96,19 +86,16 @@ namespace UndyneFight_Ex.Remake.UI
         private void Back()
         {
             this.Dispose();
-            GameStates.InstanceCreate(new DEBUG.IntroUI());
+            InstanceCreate(new DEBUG.IntroUI());
         }
 
         public override void Draw()
         {
             var font = FightResources.Font.NormalFont;
-            font.CentreDraw("Rhythm Recall Team", new(480, 56), Color.White, 1.5f, 0.1f);
-            font.Draw("Art by:", new(80, 116 + 80 * 0), Color.White, 1.4f, 0.1f);
-            font.Draw("Music by:", new(80, 116 + 80 * 1), Color.White, 1.4f, 0.1f);
-            font.Draw("Chart by:", new(80, 116 + 80 * 2), Color.White, 1.4f, 0.1f);
-            font.Draw("Effect by:", new(80, 116 + 80 * 3), Color.White, 1.4f, 0.1f);
-            font.Draw("UF-Ex Engine by", new(80, 116 + 80 * 4), Color.White, 1.4f, 0.1f);
-             
+            font.CentreDraw("Rhythm Recall Arcade Team", new(480, 56), Color.White, 1.5f, 0.1f);
+            for (int i = 0; i < TextList.Length; i++)
+                font.Draw(TextList[i], new(80, 116 + 80 * i), Color.White, 1.4f, 0.1f);
         }
+        string[] TextList = { "Art by:", "Music by:", "Chart by:", "Effect by:", "UF-Ex Engine by:"};
     }
 }

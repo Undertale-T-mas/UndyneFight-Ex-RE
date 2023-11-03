@@ -1,24 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using UndyneFight_Ex.Entities;
-using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Remake.Components;
-using UndyneFight_Ex.Remake.Effects;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.UserService;
-using vec2 = Microsoft.Xna.Framework.Vector2;
-using col = Microsoft.Xna.Framework.Color;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using UndyneFight_Ex.Remake.Network;
-using System.Security.Principal;
 using UndyneFight_Ex.Remake.UI.DEBUG;
-using System.Xml.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Collections;
+using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -44,7 +28,7 @@ namespace UndyneFight_Ex.Remake.UI
         List<string> history = new() { "" };
         public override void Update()
         {
-            char ch = GameStates.CharInput;
+            char ch = CharInput;
             bool changed = false;
             if (ch != (char)1 && ch != (char)13)
             {
@@ -52,7 +36,7 @@ namespace UndyneFight_Ex.Remake.UI
                 current = current[..index] + ch + current[index..];
                 index++;
             }
-            else if (GameStates.IsKeyPressed120f(Keys.Back))
+            else if (IsKeyPressed120f(Keys.Back))
             {
                 if (index == 0) return;
                 changed = true;
@@ -65,18 +49,18 @@ namespace UndyneFight_Ex.Remake.UI
                 history[usageIndex] = current;
                 line.SetText(current);
             }
-            if (GameStates.IsKeyPressed120f(InputIdentity.Confirm))
+            if (IsKeyPressed120f(InputIdentity.Confirm))
             {
                 Fight.Functions.PlaySound(FightResources.Sounds.select);
                 RunCommand(current, line.CommandState);
-                history[history.Count - 1] = current;
+                history[^1] = current;
                 history.Add(string.Empty);
                 usageIndex = history.Count - 1;
                 line.SetText(string.Empty);
                 current = string.Empty;
                 index = 0;
             }
-            else if (GameStates.IsKeyPressed120f(Keys.Down))
+            else if (IsKeyPressed120f(Keys.Down))
             {
                 if (usageIndex == history.Count - 1) return;
                 history[usageIndex] = current;
@@ -85,7 +69,7 @@ namespace UndyneFight_Ex.Remake.UI
                 line.SetText(current);
                 index = 0;
             }
-            else if (GameStates.IsKeyPressed120f(Keys.Up))
+            else if (IsKeyPressed120f(Keys.Up))
             {
                 if (usageIndex == 0) return;
                 history[usageIndex] = current;

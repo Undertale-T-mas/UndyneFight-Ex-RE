@@ -2,6 +2,9 @@
 using System;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
+using static Microsoft.Xna.Framework.MathHelper;
+using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources.Sounds;
 
 namespace UndyneFight_Ex.Remake.UI
 {
@@ -23,18 +26,18 @@ namespace UndyneFight_Ex.Remake.UI
 
                     LeftClick += () => {
                         if (!this.ModuleSelected) _father._virtualFather.SelectDiff(Difficulty.NotSelected);
-                        Functions.PlaySound(FightResources.Sounds.select);
+                        PlaySound(select);
                     };
                     MouseOn += () =>
                     {
-                        Functions.PlaySound(FightResources.Sounds.changeSelection);
+                        PlaySound(changeSelection);
                     };
 
                     var attribute = father._virtualFather.SongSelected.Attributes;
                     if (attribute != null)
                     {
                         var map = attribute.ComplexDifficulty;
-                        if (map.ContainsKey(difficulty)) this._difText = ((int)map[difficulty]).ToString();
+                        if (map.ContainsKey(difficulty)) this._difText = ((float)map[difficulty]).ToString("F1");
                         else this._difText = "?";
                     }
                     else {
@@ -84,7 +87,7 @@ namespace UndyneFight_Ex.Remake.UI
                     var normalFont = FightResources.Font.NormalFont;
                     var fightFont = FightResources.Font.FightFont;
                     fightFont.CentreDraw(_text, Centre - new Vector2(-1, 12 + _move), Color.Lerp(_color, _drawingColor, _scale));
-                    normalFont.CentreDraw(_difText, Centre + new Vector2(1, 12 - _move), Color.Lerp(_color, _drawingColor, _scale), 1.1f, 0.1f);
+                    normalFont.CentreDraw(_difText, Centre + new Vector2(1, 12 - _move), Color.Lerp(_color, _drawingColor, _scale), 0.7f, 0.1f);
 
                     if(this._move > 0.1f)
                     {
@@ -106,18 +109,14 @@ namespace UndyneFight_Ex.Remake.UI
                     if (ModuleSelected)
                     {
                         _lastClickTimer++;
-                        this._scale = MathHelper.Lerp(_scale, 1, 0.1f);
+                        this._scale = Lerp(_scale, 1, 0.1f);
                     }
                     else
                     {
-                        this._scale = MathHelper.Lerp(_scale, 0, 0.1f);
+                        this._scale = Lerp(_scale, 0, 0.1f);
                         _lastClickTimer = 0;
                     }
-                    if (_mouseOn)
-                    {
-                        this._move = MathHelper.Lerp(_move, 2.5f, 0.1f);
-                    }
-                    else this._move = MathHelper.Lerp(_move, 0, 0.1f);
+                    this._move = Lerp(_move, _mouseOn ? 2.5f : 0, 0.1f);
 
                     base.Update();
                 }

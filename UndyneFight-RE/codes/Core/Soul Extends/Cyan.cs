@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 using UndyneFight_Ex.Entities;
+using static UndyneFight_Ex.GameStates;
+using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex.Remake
 {
@@ -35,20 +29,20 @@ namespace UndyneFight_Ex.Remake
                 Vector2 curCentre = curPos.GetCentre();
 
                 float speed = s.Speed;
-                if (GameStates.IsKeyDown(InputIdentity.Cancel)) { speed *= 0.5f; }
+                if (IsKeyDown(InputIdentity.Cancel)) { speed *= 0.5f; }
                 Vector2 delta = Vector2.Zero;
                 bool flag = false;
                 Vector2 plungeBuffer = Vector2.Zero;
                 for (int i = 0; i < 4; i++)
                 {
-                    if (GameStates.IsKeyDown(s.movingKey[i]))
+                    if (IsKeyDown(s.movingKey[i]))
                     {
-                        delta += MathUtil.GetVector2(speed * 0.5f, i * 90);
+                        delta += GetVector2(speed * 0.5f, i * 90);
                         
-                        if(_curTime > COOLDOWN && GameStates.IsKeyPressed120f(InputIdentity.Alternate))
+                        if(_curTime > COOLDOWN && IsKeyPressed120f(InputIdentity.Alternate))
                         {
                             flag = true;
-                            plungeBuffer += MathUtil.GetVector2(1f, i * 90);
+                            plungeBuffer += GetVector2(1f, i * 90);
                         }
                     }
                 }
