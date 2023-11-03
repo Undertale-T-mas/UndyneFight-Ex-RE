@@ -4,6 +4,7 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
+using static UndyneFight_Ex.FightResources;
 using V = Microsoft.Xna.Framework.Vector2;
 
 namespace Rhythm_Recall.Waves
