@@ -825,30 +825,30 @@ namespace Rhythm_Recall.Waves
                                                                                     Stable(0, 0), EaseIn(BeatTime(2f), -0.75f, EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen2", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
                                                                                                            Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic)));
 
                     });
                     RegisterFunctionOnce("Screen3", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                                                                                             Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic)));
 
                     });
                     RegisterFunctionOnce("Screen4", () => {
-                        RunEase((s) => { ScreenPositionDetla = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(15, -15), EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(15, -15), EaseState.Cubic),
                                                                                                             Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(-15, 15), EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen5", () => {
-                        RunEase((s) => { ScreenPositionDetla = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(-15, 15), EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(-15, 15), EaseState.Cubic),
                                                                                                             Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(15, -15), EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen6", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                                                                                             Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic)));
 
                     });
                     RegisterFunctionOnce("Screen7", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                                                                                             Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic)));
 
                     });
@@ -1378,7 +1378,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ScreenMove1", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new(s, 0); },
                             LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Back)),
                             LinkEase(Stable(0, -25), EaseOut(BeatTime(2f), 25, EaseState.Back)),
                             LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Back)),
@@ -2519,7 +2519,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Screen3", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(2f), 25, EaseState.Cubic)));
                     });
@@ -2533,19 +2533,19 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Screen5", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(0, s); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(0, s); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(2f), -25, EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen6", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(2f), -25, EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("ScreenExtend", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(0.5f), 10, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(0.5f), -10, EaseState.Cubic)));
                         RunEase((s) => { ScreenDrawing.ScreenAngle = s; },
@@ -2554,7 +2554,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ScreenExtend2", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(0.5f), -10, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(0.5f), 10, EaseState.Cubic)));
                         RunEase((s) => { ScreenDrawing.ScreenAngle = s; },
@@ -3399,30 +3399,30 @@ namespace Rhythm_Recall.Waves
                                                                                     Stable(0, 0), EaseIn(BeatTime(2f), -0.75f, EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen2", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
                                                                                                            Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic)));
 
                     });
                     RegisterFunctionOnce("Screen3", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                                                                                             Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic)));
 
                     });
                     RegisterFunctionOnce("Screen4", () => {
-                        RunEase((s) => { ScreenPositionDetla = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(15, -15), EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(15, -15), EaseState.Cubic),
                                                                                                             Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(-15, 15), EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen5", () => {
-                        RunEase((s) => { ScreenPositionDetla = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(-15, 15), EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = s; }, LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(-15, 15), EaseState.Cubic),
                                                                                                             Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(15, -15), EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen6", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                                                                                             Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic)));
 
                     });
                     RegisterFunctionOnce("Screen7", () => {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(0, s); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                                                                                             Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic)));
 
                     });
@@ -4008,7 +4008,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ScreenMove1", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = s; },
+                        RunEase((s) => { ScreenPositionDelta = s; },
                             LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(-25, 0), EaseState.Back)),
                             LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(25, 0), EaseState.Back)),
                             LinkEase(Stable(0, new Vector2()), EaseOut(BeatTime(2f), new Vector2(25, 0), EaseState.Back)),
@@ -5150,7 +5150,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Screen3", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(2f), 25, EaseState.Cubic)));
                     });
@@ -5164,19 +5164,19 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Screen5", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(0, s); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(0, s); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(2f), -25, EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Screen6", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), 25, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(2f), -25, EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("ScreenExtend", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(0.5f), 10, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(0.5f), -10, EaseState.Cubic)));
                         RunEase((s) => { ScreenDrawing.ScreenAngle = s; },
@@ -5185,7 +5185,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ScreenExtend2", () =>
                     {
-                        RunEase((s) => { ScreenPositionDetla = new Vector2(s, 0); },
+                        RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); },
                         LinkEase(Stable(0, 0), EaseOut(BeatTime(0.5f), -10, EaseState.Cubic),
                                  Stable(0, 0), EaseIn(BeatTime(0.5f), 10, EaseState.Cubic)));
                         RunEase((s) => { ScreenDrawing.ScreenAngle = s; },

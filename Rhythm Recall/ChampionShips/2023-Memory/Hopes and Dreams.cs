@@ -944,31 +944,31 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(0, 0), new(-18, 4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen2", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(-18, 4), new(18, 4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen3", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(18, 4), new(18, -4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen4", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(18, -4), new(-18, -4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("ScreenOver", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(2), CentreEasing.EaseOutQuart(new(-14, -4), new(0, 0), BeatTime(2)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Return", () =>
                 {
@@ -2691,31 +2691,31 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(0, 0), new(-18, 4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen2", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(-18, 4), new(18, 4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen3", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(18, 4), new(18, -4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen4", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(18, -4), new(-18, -4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("ScreenOver", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(2), CentreEasing.EaseOutQuart(new(-14, -4), new(0, 0), BeatTime(2)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Return", () =>
                 {
@@ -4436,31 +4436,31 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(0, 0), new(-18, 4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen2", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(-18, 4), new(18, 4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen3", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(18, 4), new(18, -4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Screen4", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(6), CentreEasing.EaseOutQuad(new(18, -4), new(-18, -4), BeatTime(6)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("ScreenOver", () =>
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(2), CentreEasing.EaseOutQuart(new(-14, -4), new(0, 0), BeatTime(2)));
-                    ce.Run((m) => { ScreenDrawing.ScreenPositionDetla = m; });
+                    ce.Run((m) => { ScreenDrawing.ScreenPositionDelta = m; });
                 });
                 RegisterFunctionOnce("Return", () =>
                 {

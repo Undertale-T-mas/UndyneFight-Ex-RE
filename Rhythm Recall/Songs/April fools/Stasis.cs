@@ -1076,7 +1076,7 @@ namespace AprilExtends
                     );
                     RunEase((b) =>
                     {
-                        ScreenDrawing.ScreenPositionDetla = new(0 + b, 0);
+                        ScreenDrawing.ScreenPositionDelta = new(0 + b, 0);
                     },
                         Scale(
                         LinkEase(
@@ -1369,7 +1369,7 @@ namespace AprilExtends
                     {
                         RunEase(p =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = new(0 - 0.5f * p, 0);
+                            ScreenDrawing.ScreenPositionDelta = new(0 - 0.5f * p, 0);
                             //BoxStates.Centre = p;
                             InstantTP(320 + p, 240);
                             //InstantSetBox(240 + p, 100, 100);

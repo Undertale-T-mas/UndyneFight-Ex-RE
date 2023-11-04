@@ -373,7 +373,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(528 - 1, 528 + 136))
                 {
-                    ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.8f + screenMission * 0.2f;
+                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.8f + screenMission * 0.2f;
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.85f + scaleMission * 0.15f;
                 }
                 if (InBeat(656 - 16))
@@ -716,7 +716,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1296 - 1, 1296 + 136))
                 {
-                    ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.8f + screenMission * 0.2f;
+                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.8f + screenMission * 0.2f;
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.85f + scaleMission * 0.15f;
                 }
                 if (InBeat(1424 - 12))
@@ -1161,7 +1161,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(528, 528 + 136))
                 {
-                    ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.8f + screenMission * 0.2f;
+                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.8f + screenMission * 0.2f;
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.85f + scaleMission * 0.15f;
                 }
                 if (InBeat(656 - 16))
@@ -1499,7 +1499,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1296 - 1, 1296 + 136))
                 {
-                    ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.8f + screenMission * 0.2f;
+                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.8f + screenMission * 0.2f;
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.85f + scaleMission * 0.15f;
                 }
                 if (InBeat(1424-12))

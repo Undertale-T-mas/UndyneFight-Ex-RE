@@ -4779,8 +4779,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.DamageTaken = 3;
                 HPBar.HPExistColor = Color.Yellow;
                 GametimeDelta = -5f;
-                //    GametimeDelta = BeatTime(140) - 8f;
-                //   PlayOffset = BeatTime(140) ;
+                Settings.GreenTap = true;
                 if (AnomalyAvailable()) TryGenerateAnomaly();
             }
 

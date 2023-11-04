@@ -2495,19 +2495,19 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.ScreenAngle = 30;
                     ScreenScale = 0.9f;
-                    ScreenPositionDetla = new(10, 20);
+                    ScreenPositionDelta = new(10, 20);
                 });
                 RegisterFunctionOnce("Camera2", () =>
                 {
                     ScreenDrawing.ScreenAngle = -24;
                     ScreenScale = 0.8f;
-                    ScreenPositionDetla = new(10, -20);
+                    ScreenPositionDelta = new(10, -20);
                 });
                 RegisterFunctionOnce("Camera3", () =>
                 {
                     //ScreenDrawing.ScreenAngle = 0;
                     //ScreenScale = 2.5f;
-                    DelayBeat(0, () => { ScreenPositionDetla = Vector2.Zero; });
+                    DelayBeat(0, () => { ScreenPositionDelta = Vector2.Zero; });
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(1, ValueEasing.Stable(2.5f));
                     ve.Insert(BeatTime(2.5f), ValueEasing.EaseInQuad(2.5f, 1f, BeatTime(2.5f)));
@@ -4538,19 +4538,19 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.ScreenAngle = 30;
                     ScreenScale = 0.9f;
-                    ScreenPositionDetla = new(10, 20);
+                    ScreenPositionDelta = new(10, 20);
                 });
                 RegisterFunctionOnce("Camera2", () =>
                 {
                     ScreenDrawing.ScreenAngle = -24;
                     ScreenScale = 0.8f;
-                    ScreenPositionDetla = new(10, -20);
+                    ScreenPositionDelta = new(10, -20);
                 });
                 RegisterFunctionOnce("Camera3", () =>
                 {
                     //ScreenDrawing.ScreenAngle = 0;
                     //ScreenScale = 2.5f;
-                    DelayBeat(0, () => { ScreenPositionDetla = Vector2.Zero; });
+                    DelayBeat(0, () => { ScreenPositionDelta = Vector2.Zero; });
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(1, ValueEasing.Stable(2.5f));
                     ve.Insert(BeatTime(2.5f), ValueEasing.EaseInQuad(2.5f, 1f, BeatTime(2.5f)));
@@ -6570,19 +6570,19 @@ namespace Rhythm_Recall.Waves
                 {
                     ScreenDrawing.ScreenAngle = 30;
                     ScreenScale = 0.9f;
-                    ScreenPositionDetla = new(10, 20);
+                    ScreenPositionDelta = new(10, 20);
                 });
                 RegisterFunctionOnce("Camera2", () =>
                 {
                     ScreenDrawing.ScreenAngle = -24;
                     ScreenScale = 0.8f;
-                    ScreenPositionDetla = new(10, -20);
+                    ScreenPositionDelta = new(10, -20);
                 });
                 RegisterFunctionOnce("Camera3", () =>
                 {
                     //ScreenDrawing.ScreenAngle = 0;
                     //ScreenScale = 2.5f;
-                    DelayBeat(0, () => { ScreenPositionDetla = Vector2.Zero; });
+                    DelayBeat(0, () => { ScreenPositionDelta = Vector2.Zero; });
                     ValueEasing.EaseBuilder ve = new();
                     ve.Insert(1, ValueEasing.Stable(2.5f));
                     ve.Insert(BeatTime(2.5f), ValueEasing.EaseInQuad(2.5f, 1f, BeatTime(2.5f)));

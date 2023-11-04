@@ -341,12 +341,12 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(320 + 32 - 4))
                 {
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(0, -90);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, -90);
                     PlaySound(Sounds.pierce);
                 }
                 if (InBeat(320 + 32, 320 + 80))
                 {
-                    ScreenDrawing.ScreenPositionDetla *= 0.8f;
+                    ScreenDrawing.ScreenPositionDelta *= 0.8f;
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.8f + 1f * 0.2f;
                 }
                 if (InBeat(320 + 32))
@@ -485,7 +485,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -545,7 +545,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -863,7 +863,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -924,7 +924,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -1366,7 +1366,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -1427,7 +1427,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -1830,12 +1830,12 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(320 + 32 - 4))
                 {
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(0, -90);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, -90);
                     PlaySound(Sounds.pierce);
                 }
                 if (InBeat(320 + 32, 320 + 80))
                 {
-                    ScreenDrawing.ScreenPositionDetla *= 0.8f;
+                    ScreenDrawing.ScreenPositionDelta *= 0.8f;
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.8f + 1f * 0.2f;
                 }
                 if (InBeat(320 + 32))
@@ -2010,7 +2010,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -2071,7 +2071,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -2455,7 +2455,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -2517,7 +2517,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -2986,7 +2986,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };
@@ -3048,7 +3048,7 @@ namespace Rhythm_Recall.Waves
                         int x = i;
                         a.OnDispose += () =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                            ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             ScreenDrawing.ScreenAngle = 0;
                             ScreenDrawing.ScreenScale = 1.3f - x * 0.1f;
                         };

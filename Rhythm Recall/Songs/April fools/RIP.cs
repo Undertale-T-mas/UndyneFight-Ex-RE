@@ -726,7 +726,7 @@ namespace Rhythm_Recall.Waves
                         muhai.Parameters["distance1"].SetValue(new Vector2(0f, 0f));
                         muhai.Parameters["distance2"].SetValue(new Vector2(0f, 0f));
                     }));
-                    ScreenDrawing.ScreenPositionDetla = Rand(0, 1) == 0 ? new(-7, 0) : new(7, 0);
+                    ScreenDrawing.ScreenPositionDelta = Rand(0, 1) == 0 ? new(-7, 0) : new(7, 0);
                 }
                 if (GametimeF > 48 * 62.5f + 50 && GametimeF < 50 * 62.5f + 10)
                 {
@@ -1324,7 +1324,7 @@ namespace Rhythm_Recall.Waves
                 {
                     InstantSetBox(380 - (GametimeF - (int)(33 * 16 * bpm + 8 * bpm)) * 2.25f, 84, 84);
                     TP(BoxStates.Centre.X, BoxStates.Centre.Y);
-                    ScreenDrawing.ScreenPositionDetla = new(Heart.Centre.X - 320, Heart.Centre.Y - 240);
+                    ScreenDrawing.ScreenPositionDelta = new(Heart.Centre.X - 320, Heart.Centre.Y - 240);
                 }
                 if (GametimeF == (int)(33 * 16 * bpm + 8 * bpm))
                 {
@@ -1353,11 +1353,11 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF > 43 * 62.5f + 50 && GametimeF < 44 * 62.5f + 30)
                 {
-                    ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.9f + new Vector2(0, ScreenDrawing.ScreenPositionDetla.Y / 2) * 0.1f;
+                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(0, ScreenDrawing.ScreenPositionDelta.Y / 2) * 0.1f;
                 }
                 if (GametimeF > 44 * 62.5f + 30 && GametimeF < 45 * 62.5f + 10)
                 {
-                    ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.9f + new Vector2(0, 0) * 0.1f;
+                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(0, 0) * 0.1f;
                 }
                 if (GametimeF == 44 * 62.5f + 30)
                 {
@@ -1407,7 +1407,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(0, 62.5f, () =>
                     {
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 1.25f * 0.1f;
-                        ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.9f + new Vector2(Heart.Centre.X - 320, Heart.Centre.Y - 240) * 0.1f;
+                        ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(Heart.Centre.X - 320, Heart.Centre.Y - 240) * 0.1f;
                     }));
                 }
                 if (GametimeF == 45 * 62.5f + 30)
@@ -1417,7 +1417,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(0, 62.5f - 30, () =>
                     {
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 1.25f * 0.1f;
-                        ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.9f + new Vector2(Heart.Centre.X - 320, Heart.Centre.Y - 240) * 0.1f;
+                        ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(Heart.Centre.X - 320, Heart.Centre.Y - 240) * 0.1f;
                     }));
                     mainEffects.MaskSquare m = new(-640, -480, 640 * 3, 480 * 3, 600, Color.Black, 0);
                     CreateEntity(m);
@@ -1442,7 +1442,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(0, 62.5f - 30, () =>
                     {
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 1.25f * 0.1f;
-                        ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.9f + new Vector2(Heart.Centre.X - 320, Heart.Centre.Y - 240) * 0.1f;
+                        ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(Heart.Centre.X - 320, Heart.Centre.Y - 240) * 0.1f;
                     }));
                     mainEffects.MaskSquare m = new(-640, -480, 640 * 3, 480 * 3, 600, Color.Black, 0);
                     CreateEntity(m);
@@ -1467,7 +1467,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(0, 62.5f, () =>
                     {
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 1 * 0.1f;
-                        ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.9f + new Vector2(0, 0) * 0.1f;
+                        ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(0, 0) * 0.1f;
                     }));
                 }
                 if (GametimeF > 49 * 62.5f + 30 && GametimeF < 50 * 62.5f)
@@ -2520,13 +2520,13 @@ namespace Rhythm_Recall.Waves
                             AddInstance(new TimeRangedEvent(Beat, bpm * 16, () =>
                             {
                                 sin += 90 / bpm / 16;
-                                ScreenDrawing.ScreenPositionDetla = new(-Sin(sin) * 750f, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(-Sin(sin) * 750f, 0);
                             }));
                             float sin2 = 180;
                             AddInstance(new TimeRangedEvent(bpm * 16 + Beat, bpm * 16, () =>
                             {
                                 sin2 += 90 / bpm / 16;
-                                ScreenDrawing.ScreenPositionDetla = new(640 + Sin(sin2) * 640f, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(640 + Sin(sin2) * 640f, 0);
                             }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () =>
                             {
@@ -2837,19 +2837,19 @@ namespace Rhythm_Recall.Waves
                         {
                             AddInstance(new TimeRangedEvent(bpm * 16 + beat, 5, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(Rand(-3, 3), 0);
+                                ScreenDrawing.ScreenPositionDelta = new(Rand(-3, 3), 0);
                             }));
                             AddInstance(new TimeRangedEvent(bpm * 16 + 8 + beat, 1, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(0, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(0, 0);
                             }));
                             AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + beat, 5, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(Rand(-3, 3), 0);
+                                ScreenDrawing.ScreenPositionDelta = new(Rand(-3, 3), 0);
                             }));
                             AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + 8 + beat, 1, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(0, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(0, 0);
                             }));
                         }
                         else if (arrow[i] == "M")
@@ -3350,19 +3350,19 @@ namespace Rhythm_Recall.Waves
                         {
                             AddInstance(new TimeRangedEvent(bpm * 16 + beat, 5, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(Rand(-2, 2), 0);
+                                ScreenDrawing.ScreenPositionDelta = new(Rand(-2, 2), 0);
                             }));
                             AddInstance(new TimeRangedEvent(bpm * 16 + 8 + beat, 1, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(0, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(0, 0);
                             }));
                             AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + beat, 5, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(Rand(-2, 2), 0);
+                                ScreenDrawing.ScreenPositionDelta = new(Rand(-2, 2), 0);
                             }));
                             AddInstance(new TimeRangedEvent(bpm * 16 + bpm * 2 + 8 + beat, 1, delegate ()
                             {
-                                ScreenDrawing.ScreenPositionDetla = new(0, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(0, 0);
                             }));
                         }
                         else if (arrow[i][0] == 'S')
@@ -4177,13 +4177,13 @@ namespace Rhythm_Recall.Waves
                             AddInstance(new TimeRangedEvent(Beat, bpm * 16, () =>
                             {
                                 sin += 90 / bpm / 16;
-                                ScreenDrawing.ScreenPositionDetla = new(-Sin(sin) * 750f, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(-Sin(sin) * 750f, 0);
                             }));
                             float sin2 = 180;
                             AddInstance(new TimeRangedEvent(bpm * 16 + Beat, bpm * 16, () =>
                             {
                                 sin2 += 90 / bpm / 16;
-                                ScreenDrawing.ScreenPositionDetla = new(640 + Sin(sin2) * 640f, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(640 + Sin(sin2) * 640f, 0);
                             }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () =>
                             {
@@ -5314,13 +5314,13 @@ namespace Rhythm_Recall.Waves
                             AddInstance(new TimeRangedEvent(Beat, bpm * 16, () =>
                             {
                                 sin += 90 / bpm / 16;
-                                ScreenDrawing.ScreenPositionDetla = new(-Sin(sin) * 750f, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(-Sin(sin) * 750f, 0);
                             }));
                             float sin2 = 180;
                             AddInstance(new TimeRangedEvent(bpm * 16 + Beat, bpm * 16, () =>
                             {
                                 sin2 += 90 / bpm / 16;
-                                ScreenDrawing.ScreenPositionDetla = new(640 + Sin(sin2) * 640f, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(640 + Sin(sin2) * 640f, 0);
                             }));
                             AddInstance(new TimeRangedEvent(Beat, 1, () =>
                             {

@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.Fight
         /// </summary>
         public static bool RoundType => roundType;
         public static string PlayerName { set => NameShower.name = value; }
-        public static int PlayerLevel { set => NameShower.level = value; }
+        public static int PlayerLevel { set => NameShower.level = value.ToString(); }
         public static class PlayerInformation
         {
             public static string PlayerName { set => NameShower.name = value; }

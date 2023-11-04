@@ -504,10 +504,10 @@ namespace AprilExtends
                     for (int a = 0; a < 12; a++)
                     {
                         AddInstance(new TimeRangedEvent(a * 2.1f, 1, () =>
-                            { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-7.0f, 7.0f), Rand(-7.0f, 7.0f)); }
+                            { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-7.0f, 7.0f), Rand(-7.0f, 7.0f)); }
                         ));
                         AddInstance(new TimeRangedEvent((a + 1) * 2.1f, 1, () =>
-                          { ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0); }
+                          { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
 ));
                     }
                 }
@@ -516,10 +516,10 @@ namespace AprilExtends
                     for (int a = 0; a < 9; a++)
                     {
                         AddInstance(new TimeRangedEvent(a * 1.8f, 1, () =>
-                        { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-5.0f, 5.0f), Rand(-5.0f, 5.0f)); }
+                        { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-5.0f, 5.0f), Rand(-5.0f, 5.0f)); }
                         ));
                         AddInstance(new TimeRangedEvent((a + 1) * 1.8f, 1, () =>
-                        { ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0); }
+                        { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
 ));
                     }
                 }
@@ -528,10 +528,10 @@ namespace AprilExtends
                     for (int a = 0; a < 6; a++)
                     {
                         AddInstance(new TimeRangedEvent(a * 1.7f, 1, () =>
-                        { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-3.0f, 3.0f), Rand(-3.0f, 3.0f)); }
+                        { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-3.0f, 3.0f), Rand(-3.0f, 3.0f)); }
                         ));
                         AddInstance(new TimeRangedEvent((a + 1) * 1.7f, 1, () =>
-                        { ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0); }
+                        { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
 ));
                     }
                 }
@@ -559,10 +559,10 @@ namespace AprilExtends
                     for (int a = 0; a < 64; a++)
                     {
                         AddInstance(new TimeRangedEvent(a * bpm * 0.5f, 1, () =>
-                          { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-2, 2), Rand(-2, 2)); }
+                          { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-2, 2), Rand(-2, 2)); }
                         ));
                         AddInstance(new TimeRangedEvent((a + 1) * bpm * 0.5f, 1, () =>
-                          { ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0); }
+                          { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
 ));
                     }
                 }

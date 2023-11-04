@@ -1390,7 +1390,7 @@ namespace Rhythm_Recall.Waves
 
                         CentreEasing.EaseBuilder screen = new();
                         screen.Insert(game.BeatTime(2), CentreEasing.EaseOutQuad(new(0, 0), new(0, 50), game.BeatTime(2)));
-                        screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                        screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
 
                         RenderProduction production4 = new ScreenDrawing.Shaders.Filter(game.Effect3D, 0.2f);
                         ScreenDrawing.SceneRendering.InsertProduction(production4);
@@ -3336,7 +3336,7 @@ namespace Rhythm_Recall.Waves
 
                         CentreEasing.EaseBuilder screen = new();
                         screen.Insert(game.BeatTime(2), CentreEasing.EaseOutQuad(new(0, 0), new(0, 50), game.BeatTime(2)));
-                        screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                        screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
 
                         RenderProduction production4 = new ScreenDrawing.Shaders.Filter(game.Effect3D, 0.2f);
                         ScreenDrawing.SceneRendering.InsertProduction(production4);
@@ -5405,7 +5405,7 @@ namespace Rhythm_Recall.Waves
 
                         CentreEasing.EaseBuilder screen = new();
                         screen.Insert(game.BeatTime(2), CentreEasing.EaseOutQuad(new(0, 0), new(0, 50), game.BeatTime(2)));
-                        screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                        screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
 
                         RenderProduction production4 = new ScreenDrawing.Shaders.Filter(game.Effect3D, 0.2f);
                         ScreenDrawing.SceneRendering.InsertProduction(production4);
@@ -6382,7 +6382,7 @@ namespace Rhythm_Recall.Waves
 
                     CentreEasing.EaseBuilder screen = new();
                     screen.Insert(BeatTime(2), CentreEasing.EaseOutQuint(new(0, 0), new(0, -10), BeatTime(2)));
-                    screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                    screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
 
                     cameraProduction = new ScreenDrawing.Shaders.Filter(Effect3D, 0.2f);
                     ScreenDrawing.SceneRendering.InsertProduction(cameraProduction);
@@ -6463,7 +6463,7 @@ namespace Rhythm_Recall.Waves
                 scale.Run(s => ScreenDrawing.ScreenScale = s);
                 CentreEasing.EaseBuilder screen = new();
                 screen.Insert(BeatTime(beatCount), CentreEasing.EaseOutQuad(new(0, 60), new(0, 0), BeatTime(beatCount)));
-                screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
                 DelayBeat(beatCount, () =>
                 {
 

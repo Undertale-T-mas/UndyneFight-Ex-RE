@@ -1630,7 +1630,7 @@ namespace AprilExtends
                         ce.Insert(BeatTime(2), CentreEasing.EaseOutCubic(new(-10, 0), new(10, 0), BeatTime(2)));
                         ce.Insert(BeatTime(2), CentreEasing.EaseOutCubic(new(10, 0), new(-10, 0), BeatTime(2)));
                         ce.Insert(BeatTime(2), CentreEasing.EaseOutCubic(new(-10, 0), new(0, 0), BeatTime(2)));
-                        ce.Run((s) => { ScreenDrawing.ScreenPositionDetla = s; });
+                        ce.Run((s) => { ScreenDrawing.ScreenPositionDelta = s; });
                     });
 
                     int playednumber = 0;
@@ -2599,7 +2599,7 @@ namespace AprilExtends
                     CentreEasing.Linear(intensity*2/timedel),
                 }));
                 ce.Insert(timedel, CentreEasing.Linear(intensity / timedel));
-                ce.Run((s) => { ScreenDrawing.ScreenPositionDetla = s / 10; });
+                ce.Run((s) => { ScreenDrawing.ScreenPositionDelta = s / 10; });
             }
             ScreenDrawing.Shaders.RGBSplitting RGBSplitting = new();
             public void Start()

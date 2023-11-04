@@ -265,7 +265,7 @@ namespace Rhythm_Recall.Waves
                 {
                     var amt = ShakeIntensity;
                     var Blur = ShakeBlur;
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-amt, amt), Blur ? 0 : Rand(-amt, amt));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-amt, amt), Blur ? 0 : Rand(-amt, amt));
                     ShakeIntensity -= ShakeDecrease;
                 }
             }

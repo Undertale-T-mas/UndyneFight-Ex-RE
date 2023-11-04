@@ -1391,7 +1391,7 @@ namespace AprilExtends
                 {
                     int x = Rand(120, 520);
                     int y = Rand(80, 400);
-                    ScreenDrawing.ScreenPositionDetla = new(Rand(-15, 15), Rand(-10, 10));
+                    ScreenDrawing.ScreenPositionDelta = new(Rand(-15, 15), Rand(-10, 10));
                     InstantSetBox(new Vector2(x, y), Rand(30, 160), Rand(30, 160));
                     InstantTP(new(x, y));
                     SetSoul(Rand(0, 4));
@@ -1444,7 +1444,7 @@ namespace AprilExtends
                             GlobalResources.Effects.BallShapingShader v = p2.CurrentShader as GlobalResources.Effects.BallShapingShader;
                             v.Intensity = 0.2f;
                             v.ScreenScale = 1.1f;
-                            ScreenDrawing.ScreenPositionDetla = new Vector2(0f, -4f);
+                            ScreenDrawing.ScreenPositionDelta = new Vector2(0f, -4f);
                         }));*/
                     }
                 }
@@ -1650,7 +1650,7 @@ namespace AprilExtends
                 {
                     int x = Rand(120, 520);
                     int y = Rand(80, 400);
-                    ScreenDrawing.ScreenPositionDetla = new(Rand(-15, 15), Rand(-10, 10));
+                    ScreenDrawing.ScreenPositionDelta = new(Rand(-15, 15), Rand(-10, 10));
                     InstantSetBox(new Vector2(x, y), Rand(30, 160), Rand(30, 160));
                     InstantTP(new(x, y));
                     SetSoul(Rand(0, 4));
@@ -1663,7 +1663,7 @@ namespace AprilExtends
                     HeartAttribute.JumpTimeLimit = 0;
                     SetBox(320 - 60, 320 + 60, 0, 480);
                     TP();
-                    ScreenDrawing.ScreenPositionDetla = new(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(0, 0);
                     ScreenDrawing.BoundColor = Color.White;
                     AddInstance(new TimeRangedEvent(0, 20, () =>
                     {

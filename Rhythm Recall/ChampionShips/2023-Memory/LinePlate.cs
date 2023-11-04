@@ -68,7 +68,9 @@ namespace Rhythm_Recall.Waves
 
             public override void Draw()
             {
+#if DEBUG
                 Font.FightFont.CentreDraw($"{Factor}/{Count}", new(320, 50), DrawingColor, 1, 0, 0.9f);
+#endif
             }
         }
     }

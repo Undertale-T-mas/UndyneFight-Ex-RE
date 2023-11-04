@@ -9,16 +9,17 @@ namespace UndyneFight_Ex.Entities
         public NameShower() { Centre = new Vector2(20, 457); instance = this; }
 
         public float detla = 50;
-        public static int level = -1;
+        public static string level = "";
         public static string name;
         public static NameShower instance;
         public static float nameAlpha = 1;
+        public static string OverrideName = "";
 
         public override void Draw()
         {
             Vector2 namePos = new(Centre.X, Centre.Y - FightFont.SFX.MeasureString("HP").Y / 2f);
-            string showing = string.IsNullOrEmpty(name) ? (string.IsNullOrEmpty(PlayerManager.currentPlayer)
-                ? "guest" : PlayerManager.currentPlayer) : name;
+            string showing = OverrideName == "" ? (string.IsNullOrEmpty(name) ? (string.IsNullOrEmpty(PlayerManager.currentPlayer)
+                ? "guest" : PlayerManager.currentPlayer) : name) : OverrideName;
             Vector2 lvPos = new(FightFont.SFX.MeasureString(showing).X + 22 + Centre.X + (GameRule.nameColor == "Colorful" ? 20 : 0), Centre.Y - FightFont.SFX.MeasureString("HP").Y / 2f);
 
             switch (GameRule.nameColor)
@@ -36,8 +37,8 @@ namespace UndyneFight_Ex.Entities
                         namePos, Color.Orange * nameAlpha);
                     break;
                 default:
-                    FightFont.CentreDraw(string.IsNullOrEmpty(PlayerManager.currentPlayer)
-                        ? "guest" : PlayerManager.currentPlayer,
+                    FightFont.CentreDraw(OverrideName == "" ? (string.IsNullOrEmpty(PlayerManager.currentPlayer)
+                        ? "guest" : PlayerManager.currentPlayer) : OverrideName,
                         new Vector2(100, 462), new Color(DrawingLab.HsvToRgb(GameMain.gameTime, 160, 160, 255)));
                     for (int i = 0; i < 3; i++)
                     {
@@ -50,7 +51,7 @@ namespace UndyneFight_Ex.Entities
                     break;
             }
 
-            int trueLV = (level != -1) ? level : difficulty;
+            string trueLV = (level != "") ? level : difficulty.ToString();
             FightFont.Draw("lv " + trueLV,
                 lvPos, GameMain.CurrentDrawingSettings.UIColor * nameAlpha);
         }

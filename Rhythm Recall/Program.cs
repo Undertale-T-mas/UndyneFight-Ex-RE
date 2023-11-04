@@ -158,8 +158,10 @@ Alternate: Space";
             GameStartUp.PushSongset(test);
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
+#if DEBUG
                 typeof(LunaticGaze),
                 typeof(NCWLQ),
+#endif
                 typeof(Song_That_Might_Play_When_You_Fight_Sans),
                 typeof(DreadNaught),
                 typeof(Conflict),

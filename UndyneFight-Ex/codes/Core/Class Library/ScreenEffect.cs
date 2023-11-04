@@ -272,7 +272,7 @@ namespace UndyneFight_Ex.Fight
                 UIColor = Color.White;
                 ScreenAngle = 0;
                 ScreenScale = 1;
-                ScreenPositionDetla = Vector2.Zero;
+                ScreenPositionDelta = Vector2.Zero;
                 BoundDistance = Vector4.One;
                 BoundColor = Color.Black;
                 whiteOutRest = 0;
@@ -349,7 +349,7 @@ namespace UndyneFight_Ex.Fight
             /// <summary>
             /// 屏幕的偏移
             /// </summary>
-            public static Vector2 ScreenPositionDetla
+            public static Vector2 ScreenPositionDelta
             {
                 get => GameMain.CurrentDrawingSettings.screenDetla;
                 set => GameMain.CurrentDrawingSettings.screenDetla = value;

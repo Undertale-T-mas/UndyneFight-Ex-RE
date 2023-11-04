@@ -40,17 +40,17 @@ namespace Rhythm_Recall.Waves
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 18f),
+
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 18f),
+
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 21f),
+
                         }
                     );
                 public override string BarrageAuthor => "TK";
@@ -58,14 +58,7 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "Masaharu Fukuyama + Akira Inoue";
             }
             public SongInformation Attributes => new ThisInformation();
-            private bool notRegistered = true;
             public static Game game;
-            GlobalResources.Effects.StepSampleShader StepSample;
-            ScreenDrawing.Shaders.Blur Blur;
-            RenderProduction production1;
-            RenderProduction production2;
-            ScreenDrawing.Shaders.RGBSplitting splitter = new();
-            GlobalResources.Effects.PolarShader Polar;
             public float TempVar;
             #region Not Yet
             public void Hard()
@@ -498,28 +491,28 @@ namespace Rhythm_Recall.Waves
                     {
                         Convulse(true);
                         LerpScreenScale(BeatTime(1), ScreenScale + 0.3f, 0.24f);
-                        ScreenPositionDetla -= new Vector2(0, 20);
+                        ScreenPositionDelta -= new Vector2(0, 20);
                         CreateEntity(new Boneslab(0, 80, 1, 10));
                     }
                     if (InBeat(200f))
                     {
                         Convulse(false);
                         LerpScreenScale(BeatTime(1), ScreenScale + 0.3f, 0.24f);
-                        ScreenPositionDetla -= new Vector2(0, 20);
+                        ScreenPositionDelta -= new Vector2(0, 20);
                         CreateEntity(new Boneslab(90, 170, 1, 10));
                     }
                     if (InBeat(201f))
                     {
                         Convulse(true);
                         LerpScreenScale(BeatTime(1), ScreenScale + 0.3f, 0.24f);
-                        ScreenPositionDetla -= new Vector2(0, 20);
+                        ScreenPositionDelta -= new Vector2(0, 20);
                         CreateEntity(new Boneslab(180, 80, 1, 10));
                     }
                     if (InBeat(202f))
                     {
                         Convulse(false);
                         LerpScreenScale(BeatTime(1), ScreenScale + 0.3f, 0.24f);
-                        ScreenPositionDetla -= new Vector2(0, 20);
+                        ScreenPositionDelta -= new Vector2(0, 20);
                         CreateEntity(new Boneslab(270, 170, 1, 10));
                     }
                     if (InBeat(203))

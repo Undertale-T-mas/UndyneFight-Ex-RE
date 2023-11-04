@@ -3154,7 +3154,7 @@
 
 #begin Musics/Transcendence/song.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Transcendence/song.wav
 
