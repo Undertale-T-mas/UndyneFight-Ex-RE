@@ -158,6 +158,12 @@ Alternate: Space";
             GameStartUp.PushSongset(test);
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
+                typeof(狂风_余音),
+                typeof(UselessThreshold),
+                typeof(Prospector),
+                typeof(Shadow),
+                typeof(DreamTravel),
+                typeof(_1111),
                 typeof(LunaticGaze),
                 typeof(NCWLQ),
                 typeof(Song_That_Might_Play_When_You_Fight_Sans),
