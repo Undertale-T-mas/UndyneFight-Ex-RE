@@ -348,12 +348,12 @@ namespace UndyneFight_Ex.Entities
 
             float trueVal = (appearTime + startTime) / roundTime * 360 % 360;
             float X = Cos(trueVal) * (controlingBox.CollidingBox.Width - 2) / 2;
-            float heightDetla = controlingBox.CollidingBox.Height - Length - 2;
+            float heightDelta = controlingBox.CollidingBox.Height - Length - 2;
             float res1 = Math.Abs(Sin(trueVal));
             float Y = trueVal > 180 ? -(float)Math.Sqrt(res1) : (float)Math.Sqrt(res1);
-            //Y = Sin(trueVal) * heightDetla / 2;
+            //Y = Sin(trueVal) * heightDelta / 2;
 
-            Centre = new Vector2(X, Y * heightDetla / 2) + controlingBox.Centre;
+            Centre = new Vector2(X, Y * heightDelta / 2) + controlingBox.Centre;
 
             appearTime += 0.5f;
 
@@ -383,9 +383,9 @@ namespace UndyneFight_Ex.Entities
         public Func<CustomBone, float> AlphaRoute { private get; set; }
 
         public float AppearTime => appearTime;
-        public float RotationDetla { set => rotationDetla = value; }
+        public float RotationDelta { set => rotationDelta = value; }
 
-        private float rotationDetla;
+        private float rotationDelta;
         private float appearTime = 0;
         private Vector2 detla;
 
@@ -445,7 +445,7 @@ namespace UndyneFight_Ex.Entities
             Vector2 v = PositionRoute(this);
             Centre = startPos + v;
             detla = v;
-            Rotation = RotationRoute(this) + rotationDetla;
+            Rotation = RotationRoute(this) + rotationDelta;
             Length = LengthRoute(this);
 
             if (Length < -1) Dispose();

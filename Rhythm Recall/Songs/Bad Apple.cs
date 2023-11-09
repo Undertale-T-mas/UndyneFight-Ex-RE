@@ -1201,7 +1201,7 @@ namespace Rhythm_Recall.Waves
                 for (int i = 0; i < 8; i++)
                 {
                     float detla = Rand(-25, 25);
-                    float startDetla = Rand(-100, 100);
+                    float startDelta = Rand(-100, 100);
                     float x = Rand(24, 30);
 
                     float detla1 = BeatTime(i * 4);
@@ -1211,7 +1211,7 @@ namespace Rhythm_Recall.Waves
                     {
                         CreateBone(new CustomBone(new Vector2(320, detla + 290 + j * 70), Motions.PositionRoute.XYAxisSin, 0, 24)
                         {
-                            PositionRouteParam = new float[] { 50, BeatTime(x), startDetla, 160, BeatTime(32), detla2 },
+                            PositionRouteParam = new float[] { 50, BeatTime(x), startDelta, 160, BeatTime(32), detla2 },
                             AlphaRoute = (s) =>
                             {
                                 float val = (Sin(360f * (s.AppearTime + detla1) / BeatTime(32)) * 0.7f + 1.2f) * Math.Min(1, s.AppearTime / 30f);
@@ -1221,9 +1221,9 @@ namespace Rhythm_Recall.Waves
                             LengthRoute = (s) =>
                             {
                                 float val = Math.Min(24, Sin(360f * (s.AppearTime + detla1) / BeatTime(32)) * 7.7f + 24f);
-                                float timeDetla = BeatTime(124) - s.AppearTime;
-                                if (timeDetla < 0) return -10;
-                                float val2 = timeDetla * timeDetla / 10f;
+                                float timeDelta = BeatTime(124) - s.AppearTime;
+                                if (timeDelta < 0) return -10;
+                                float val2 = timeDelta * timeDelta / 10f;
                                 return MathHelper.Min(val, val2);
                             }
                         });

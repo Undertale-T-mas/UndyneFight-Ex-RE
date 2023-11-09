@@ -3490,7 +3490,7 @@ namespace Rhythm_Recall.Waves
                 TP();
                 SetSoul(1);
                 GametimeDelta = -68.5f + 8 * 4.22297f;
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
 
                 //   GametimeDelta = BeatTime(1599);
                 // SetSoul(0); 

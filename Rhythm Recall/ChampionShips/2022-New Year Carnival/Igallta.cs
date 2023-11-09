@@ -7128,7 +7128,7 @@ namespace Rhythm_Recall.Waves
                 colorwhitebool = false;
                 //GametimeDelta = 4600;
                 //PlayOffset = 4600 + 77;
-                //  GametimeDetla = this.BeatTime(1532);
+                //  GametimeDelta = this.BeatTime(1532);
                 // SetSoul(0); 
             }
             //GlobalResources.Effects.CameraShader Effect3D;

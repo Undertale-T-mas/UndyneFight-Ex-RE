@@ -1387,9 +1387,9 @@ namespace AprilExtends
                 SetSoul(1);
                 // GametimeDelta = -10 + this.BeatTime(224);
                 GametimeDelta = -10;
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
 
-                //  GametimeDetla = this.BeatTime(1532);
+                //  GametimeDelta = this.BeatTime(1532);
                 // SetSoul(0); 
 
             }

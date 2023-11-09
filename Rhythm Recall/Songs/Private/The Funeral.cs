@@ -271,7 +271,7 @@ namespace Rhythm_Recall.Waves
                 //  ScreenDrawing.UISettings.CreateUISurface();
 
                 //      CreateLine(150, 100);
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
                 GametimeDelta = 0.7f; //+ game.BeatTime(311);
                 bool delayEnable = false;
                 if (delayEnable)

@@ -11,7 +11,7 @@ namespace UndyneFight_Ex.Achievements
 {
     internal class AchievementBlock : Entity, ISelectAble
     {
-        public static Vector2 positionDetla = Vector2.Zero;
+        public static Vector2 positionDelta = Vector2.Zero;
 
         private bool isSelected = false;
         private int posX, posY;

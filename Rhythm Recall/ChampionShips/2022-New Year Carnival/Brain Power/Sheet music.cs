@@ -1087,7 +1087,7 @@ namespace Rhythm_Recall.Waves
                 SetSoul(1);
                 GametimeDelta = -39;
                 //GametimeDelta = 2905;
-                //GametimeDetla = this.BeatTime(1532);
+                //GametimeDelta = this.BeatTime(1532);
                 PlayOffset = GametimeDelta + 39;
                 //SetSoul(0); 
             }

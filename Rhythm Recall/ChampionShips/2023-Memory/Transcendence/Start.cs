@@ -5,13 +5,12 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.GlobalResources.Effects;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using System.Runtime.CompilerServices;
+using static UndyneFight_Ex.MathUtil;
 
 namespace Rhythm_Recall.Waves
 {
@@ -96,7 +95,7 @@ namespace Rhythm_Recall.Waves
                         alpha = Rand(0.3f, 0.5f);
                         this.rainer = rainer;
                         Centre = new(Rand(-50, 690), -15);
-                        length = Rand(6, 11) + rainer.Speed * 1f;
+                        length = Rand(6, 11) + (rainer.Speed * 1f);
                         randVal = Rand(0f, 1f);
                     }
 
@@ -271,6 +270,7 @@ namespace Rhythm_Recall.Waves
 
                 if (GameStates.difficulty == 5)
                 {
+                    HeartAttribute.BuffedLevel = 0;
                     #region Functions
                     int rand1 = Rand(-1, 1);
                     int rand2 = Rand(1, 3);

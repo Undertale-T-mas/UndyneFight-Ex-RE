@@ -1240,6 +1240,7 @@ namespace Rhythm_Recall.Waves
                                 ScreenDrawing.UISettings.RemoveUISurface();
                                 ScreenDrawing.UISettings.NameShowerPos = new Vector2(20, 457);
                                 ScreenDrawing.UISettings.HPShowerPos = new(320, 443);
+                                HeartAttribute.BuffedLevel = 3;
                             });
 
                         });
@@ -3294,7 +3295,11 @@ namespace Rhythm_Recall.Waves
                         line.VerticalMirror = true;
                         DelayBeat(1.55f, () => { line.Dispose(); });
                     });
-                    RegisterFunctionOnce("LV", () => NameShower.level = "?");
+                    RegisterFunctionOnce("LV", () =>
+                    {
+                        NameShower.level = "?";
+                        HeartAttribute.BuffedLevel = 4;
+                    });
                     RegisterFunctionOnce("Name", () =>
                     {
                         switch (NameShower.OverrideName)

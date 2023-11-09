@@ -503,9 +503,9 @@ namespace UndyneFight_Ex.Entities
                     positionRest *= 0.7f;
                 }
 
-                float rotateDetla = GetRotateDetla();
+                float rotateDelta = GetRotateDelta();
 
-                Rotation += rotateDetla * 0.3f * (rotateWay ? 1 : -1);
+                Rotation += rotateDelta * 0.3f * (rotateWay ? 1 : -1);
 
                 if (!Fight.FightStates.roundType)
                 { 
@@ -603,7 +603,7 @@ namespace UndyneFight_Ex.Entities
             /// </summary>
             private bool rotateWay;
 
-            private float GetRotateDetla()
+            private float GetRotateDelta()
             {
                 float trueRot = (Rotation + 90) % 360;
                 float trueMission = (missionRotation + 90) % 360;

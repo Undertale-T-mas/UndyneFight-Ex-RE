@@ -2463,8 +2463,8 @@ namespace Rhythm_Recall.Waves
                 TP();
                 SetSoul(1);
                 GametimeDelta = -17;
-                //GametimeDetla = 4300;
-                //GametimeDetla = this.BeatTime(1532);
+                //GametimeDelta = 4300;
+                //GametimeDelta = this.BeatTime(1532);
                 //SetSoul(0); 
                 var displace = BeatTime(0);
                 GametimeDelta += displace;

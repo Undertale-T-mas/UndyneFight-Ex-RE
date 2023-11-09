@@ -11,23 +11,23 @@ namespace UndyneFight_Ex.Entities
     {
         private class TextSelectionEx : Entity, ISelectAble
         {
-            private static Vector2 missionDetla;
-            private static Vector2 currentDetla;
+            private static Vector2 missionDelta;
+            private static Vector2 currentDelta;
             public static void MoveRight()
             {
-                missionDetla += new Vector2(-640, 0);
+                missionDelta += new Vector2(-640, 0);
             }
             public static void MoveLeft()
             {
-                missionDetla += new Vector2(640, 0);
+                missionDelta += new Vector2(640, 0);
             }
             public static void Reset()
             {
-                missionDetla = currentDetla = Vector2.Zero;
+                missionDelta = currentDelta = Vector2.Zero;
             }
             public static void Move()
             {
-                currentDetla = currentDetla * 0.8f + missionDetla * 0.2f;
+                currentDelta = currentDelta * 0.8f + missionDelta * 0.2f;
             }
 
             public class ShinyTextEffect : Entity
@@ -124,7 +124,7 @@ namespace UndyneFight_Ex.Entities
                 currentSize = isSelected
                     ? currentSize * (1 - sizeChangeSpeed) + maxSize * sizeChangeSpeed
                     : currentSize * (1 - sizeChangeSpeed) + sizeChangeSpeed;
-                Centre = currentDetla + startCentre;
+                Centre = currentDelta + startCentre;
             }
 
             public virtual void SelectionEvent()

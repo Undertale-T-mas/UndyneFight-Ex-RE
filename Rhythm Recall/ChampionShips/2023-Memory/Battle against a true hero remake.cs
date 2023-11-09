@@ -8343,7 +8343,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.ArrowFixed = true;
 
                 //      CreateLine(150, 100);
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
                 GametimeDelta = -2.5f;// + game.BeatTime(311);
                 ScreenDrawing.UISettings.CreateUISurface();
 

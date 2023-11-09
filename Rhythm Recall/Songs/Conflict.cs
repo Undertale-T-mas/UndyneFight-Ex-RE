@@ -3891,7 +3891,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ThemeColor = ScreenDrawing.UIColor = Color.Lerp(Color.White, Color.Magenta, MathF.Max(0, AdvanceFunctions.Sin01(0.08f + GametimeF / BeatTime(2)) * 0.1f));
                 }));
                 HeartAttribute.ArrowFixed = true;
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
 
                 //   GametimeDelta = BeatTime(1599);
                 // SetSoul(0); 

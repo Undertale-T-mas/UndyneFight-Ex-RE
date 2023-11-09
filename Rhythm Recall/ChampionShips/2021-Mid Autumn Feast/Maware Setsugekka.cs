@@ -3205,7 +3205,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.ArrowFixed = true;
 
                 GametimeDelta = -27;
-                //  GametimeFDetla = this.BeatTime(1532);
+                //  GametimeFDelta = this.BeatTime(1532);
                 // SetSoul(0);
                 HeartAttribute.MaxHP = 10;
                 ScreenDrawing.UISettings.CreateUISurface();

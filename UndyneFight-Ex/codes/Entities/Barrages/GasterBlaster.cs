@@ -27,7 +27,7 @@ namespace UndyneFight_Ex.Entities
         protected static CollideRect screen = new(-150, -50, 940, 580);
         public static bool spawnSoundPlayed = false, shootSoundPlayed = false;
 
-        protected float GetDetla()
+        protected float GetDelta()
         {
             return Math.Min((missionRotation - Rotation + 360) % 360, (360 - missionRotation + Rotation) % 360);
         }
@@ -82,7 +82,7 @@ namespace UndyneFight_Ex.Entities
             if (appearTime < waitingTime)
                 Centre = Centre * movingScale + missionPlace * (1 - movingScale);
 
-            Rotation += GetDetla() * (0.98f - movingScale) * (rotateWay ? 1 : -1);
+            Rotation += GetDelta() * (0.98f - movingScale) * (rotateWay ? 1 : -1);
         }
 
         public void PushDown()
@@ -175,7 +175,7 @@ namespace UndyneFight_Ex.Entities
         private Vector2 Position; //以玩家为中心建立平面直角坐标系该炮的位置
 
         private bool stucked = false;
-        private float pushDetla;
+        private float pushDelta;
 
         float timeDelta;
 
@@ -327,7 +327,7 @@ namespace UndyneFight_Ex.Entities
             if (dir == way)
             {
                 stucked = true;
-                laserPlace = GetVector2(1091 + 38 - pushDetla, missionRotation + 180) + missionPlayer.Centre;
+                laserPlace = GetVector2(1091 + 38 - pushDelta, missionRotation + 180) + missionPlayer.Centre;
 
                 missionPlayer.Shields.Push(this, color);
             }
@@ -336,7 +336,7 @@ namespace UndyneFight_Ex.Entities
                 stucked = false;
                 laserPlace = GetVector2(1091 + 38 - 76, missionRotation + 180) + missionPlayer.Centre;
             }
-            pushDetla = missionPlayer.Shields.PushDelta(color);
+            pushDelta = missionPlayer.Shields.PushDelta(color);
         }
 
         public override void Draw()
@@ -350,7 +350,7 @@ namespace UndyneFight_Ex.Entities
         private void GetCollide()
         {
             bool alw = Auto;
-            if (!stucked || pushDetla > 22)
+            if (!stucked || pushDelta > 22)
             {
                 if (alw || alpha < 0.5f)
                     return;
@@ -378,11 +378,11 @@ namespace UndyneFight_Ex.Entities
                     hasHit = true;
                 }
             }
-            else if (pushDetla > 14 && stucked)
+            else if (pushDelta > 14 && stucked)
             {
                 score = Math.Min(2, score);
             }
-            else if (pushDetla > 6 && stucked)
+            else if (pushDelta > 6 && stucked)
             {
                 score = 1;
             }

@@ -6,7 +6,7 @@ namespace UndyneFight_Ex.Entities.Advanced
 {
     public class ScreenShaker : GameObject
     {
-        internal static Vector2 ScreenShakeDetla { get => CurrentSetting.shakings; set => CurrentSetting.shakings = value; }
+        internal static Vector2 ScreenShakeDelta { get => CurrentSetting.shakings; set => CurrentSetting.shakings = value; }
         Vector2[] shakeVector;
         public ScreenShaker(int shakeCount, float shakeIndensity, float shakeDelay)
         {
@@ -79,12 +79,12 @@ namespace UndyneFight_Ex.Entities.Advanced
             }
             float movePercent = 1f / shakeDelay * 0.4f + 1f * 0.6f;
             movePercent *= 0.7f;
-            ScreenShakeDetla = ScreenShakeDetla * (1 - movePercent) + shakeVector[_index] * movePercent;
+            ScreenShakeDelta = ScreenShakeDelta * (1 - movePercent) + shakeVector[_index] * movePercent;
             appearTime += 0.5f;
         }
         public override void Dispose()
         {
-            ScreenShakeDetla = Vector2.Zero;
+            ScreenShakeDelta = Vector2.Zero;
             base.Dispose();
         }
     }

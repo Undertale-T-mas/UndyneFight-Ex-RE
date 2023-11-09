@@ -1041,7 +1041,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.JumpSpeed = 4f;
 
                 GametimeDelta = -61 + BeatTime(8);
-                //  GametimeDetla = this.BeatTime(1471 - 3);
+                //  GametimeDelta = this.BeatTime(1471 - 3);
                 SetSoul(0);
                 SetBox(300, 160, 160);
 

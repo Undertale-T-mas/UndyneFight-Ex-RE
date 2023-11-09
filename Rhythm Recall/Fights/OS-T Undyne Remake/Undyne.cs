@@ -76,7 +76,7 @@ namespace Rhythm_Recall
             }
         }
 
-        private float slideDetla;
+        private float slideDelta;
         private float alpha = 1;
         private int appearTime = 0;
         private int shakingRemain = 0;
@@ -122,13 +122,13 @@ namespace Rhythm_Recall
 
             if (!motionAvailable)
             {
-                slideDetla = (float)Math.Sin(appearTime / 242f);
+                slideDelta = (float)Math.Sin(appearTime / 242f);
                 hairRot = MathUtil.GetRadian((float)Math.Sin(appearTime / 52f) - 90f) * 9f;
             }
             else
             {
-                slideDetla = (float)Math.Sin(appearTime / 12f);
-                hairRot = MathUtil.GetRadian(slideDetla - 90f) * 9f;
+                slideDelta = (float)Math.Sin(appearTime / 12f);
+                hairRot = MathUtil.GetRadian(slideDelta - 90f) * 9f;
 
                 if (Rand(0, 30) == 0) CreateEntity(new EyeLaser());
             }
@@ -146,21 +146,21 @@ namespace Rhythm_Recall
             }
 
             Head_place.X = 277;
-            Head_place.Y = slideDetla * 2.5f + 16;
+            Head_place.Y = slideDelta * 2.5f + 16;
             Body_place.X = 257;
             Body_place.Y = Head_place.Y * 0.5f + 20;
-            Larm_place.X = 178 - slideDetla * 4f / (headDied == currentHead ? 3 : 1);
-            Larm_place.Y = Body_place.Y - slideDetla * 3.1f / (headDied == currentHead ? 3 : 1) + 30;
+            Larm_place.X = 178 - slideDelta * 4f / (headDied == currentHead ? 3 : 1);
+            Larm_place.Y = Body_place.Y - slideDelta * 3.1f / (headDied == currentHead ? 3 : 1) + 30;
             float val2 = (float)Math.Sin(appearTime / 6.5f);
             if (!motionAvailable)
             {
                 val2 = (float)Math.Sin(appearTime / 126.5f);
                 val2 /= 3f;
             }
-            Rarm_place.X = 315 + val2 * 2f - slideDetla * 2.2f;
+            Rarm_place.X = 315 + val2 * 2f - slideDelta * 2.2f;
             Rarm_place.Y = Body_place.Y * 1.1f * 2 + val2 * 1.9f + 31;
             Pants_place.X = 262;
-            Pants_place.Y = 143 + slideDetla * 2;
+            Pants_place.Y = 143 + slideDelta * 2;
             Leggings_place.X = 276;
             Leggings_place.Y = 162;
 
@@ -183,13 +183,13 @@ namespace Rhythm_Recall
             Depth = 0.1f;
             FormalDraw(currentHead, Head_place, dc, 1, 0, new Vector2(37, 30));
             Depth -= 0.01f;
-            FormalDraw(normalBody, Body_place, dc, 1, MathUtil.GetRadian(slideDetla - 0.4f) * 2.5f, new Vector2(57, 30));
+            FormalDraw(normalBody, Body_place, dc, 1, MathUtil.GetRadian(slideDelta - 0.4f) * 2.5f, new Vector2(57, 30));
             Depth -= 0.01f;
             FormalDraw(larm, Larm_place, dc, 1, 0, new Vector2(46, 76));
             Depth -= 0.01f;
-            FormalDraw(rarm, Rarm_place, dc, 1, MathUtil.GetRadian(slideDetla) * 2.5f + 0.4f, new Vector2(19, 44));
+            FormalDraw(rarm, Rarm_place, dc, 1, MathUtil.GetRadian(slideDelta) * 2.5f + 0.4f, new Vector2(19, 44));
             Depth += 0.03f;
-            FormalDraw(pants, Pants_place, dc, 1, MathUtil.GetRadian(slideDetla) * -4.5f, new Vector2(39, 27));
+            FormalDraw(pants, Pants_place, dc, 1, MathUtil.GetRadian(slideDelta) * -4.5f, new Vector2(39, 27));
             Depth -= 0.03f;
             FormalDraw(leggings, Leggings_place, dc, 1, 0, new Vector2(40, 44));
             Depth -= 0.01f;

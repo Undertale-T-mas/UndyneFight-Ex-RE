@@ -6,7 +6,7 @@ namespace UndyneFight_Ex.Fight
     {
         internal class ActionSelector : FightTextSelection
         {
-            public static Vector2 positionDetla;
+            public static Vector2 positionDelta;
             private readonly GameAction action;
 
             public ActionSelector(string text, float height, GameAction action) : base(text, new Vector2(50, height))

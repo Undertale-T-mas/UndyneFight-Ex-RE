@@ -1260,7 +1260,7 @@ namespace Rhythm_Recall.Waves
                     {
                         RunEase((s) =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = s;
+                            ScreenDrawing.ScreenPositionDelta = s;
                         }, LinkEase(EaseOut(T(0.75f), new V(Arguments[0], 0), EaseState.Quad), EaseOut(T(0.75f), new V(-2 * Arguments[0], 0), EaseState.Quad), EaseOut(T(0.75f), new V(Arguments[0], 0), EaseState.Quad)));
                     });
                     RegisterFunctionOnce("B1", () =>
@@ -1554,7 +1554,7 @@ namespace Rhythm_Recall.Waves
                     {
                         RunEase((s) =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = s;
+                            ScreenDrawing.ScreenPositionDelta = s;
                         }, LinkEase(EaseOut(T(0.75f), new V(Arguments[0], 0), EaseState.Quad), EaseOut(T(0.75f), new V(-2 * Arguments[0], 0), EaseState.Quad), EaseOut(T(0.75f), new V(Arguments[0], 0), EaseState.Quad)));
                     });
                     RegisterFunctionOnce("Start", () =>

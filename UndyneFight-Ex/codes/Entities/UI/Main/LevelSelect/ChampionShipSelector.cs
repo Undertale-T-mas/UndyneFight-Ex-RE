@@ -42,7 +42,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
-            Centre = startPosition - new Vector2(ChampionShipSelector.XPositionDetla - moveDelta, 0);
+            Centre = startPosition - new Vector2(ChampionShipSelector.XPositionDelta - moveDelta, 0);
             switch (championShip.CheckTime())
             {
                 case ChampionShipStates.End:
@@ -124,14 +124,14 @@ namespace UndyneFight_Ex.Entities
     {
         private int pages = 0;
         private int curPage = 0;
-        public static float XPositionDetla = 0;
-        public static float XPositionDetlaMission = 0;
+        public static float XPositionDelta = 0;
+        public static float XPositionDeltaMission = 0;
 
         public ChampionShipSelector() : base(true)
         {
             UpdateIn120 = true;
             AutoDispose = false;
-            XPositionDetla = XPositionDetlaMission = 0;
+            XPositionDelta = XPositionDeltaMission = 0;
             Vector2 Position0 = new(317, 127);
             int yCnt = 0;
             foreach (ChampionShip s in FightSystem.ChampionShips)
@@ -173,14 +173,14 @@ namespace UndyneFight_Ex.Entities
                 {
                     curPage--;
                     currentSelect -= 3;
-                    XPositionDetlaMission -= 640;
+                    XPositionDeltaMission -= 640;
                 }
                 if (IsKeyPressed120f(InputIdentity.MainRight) && curPage != pages)
                 {
                     curPage++;
                     currentSelect += 3;
                     if (currentSelect >= SelectionCount) currentSelect = SelectionCount - 1;
-                    XPositionDetlaMission += 640;
+                    XPositionDeltaMission += 640;
                 }
 #if DEBUG
                 if (IsKeyPressed120f(InputIdentity.Special))
@@ -191,7 +191,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
-            XPositionDetla = MathHelper.Lerp(XPositionDetla, XPositionDetlaMission, 0.2f);
+            XPositionDelta = MathHelper.Lerp(XPositionDelta, XPositionDeltaMission, 0.2f);
             base.Update();
         }
 

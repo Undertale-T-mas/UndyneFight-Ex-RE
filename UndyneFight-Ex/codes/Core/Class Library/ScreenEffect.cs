@@ -351,8 +351,8 @@ namespace UndyneFight_Ex.Fight
             /// </summary>
             public static Vector2 ScreenPositionDelta
             {
-                get => GameMain.CurrentDrawingSettings.screenDetla;
-                set => GameMain.CurrentDrawingSettings.screenDetla = value;
+                get => GameMain.CurrentDrawingSettings.screenDelta;
+                set => GameMain.CurrentDrawingSettings.screenDelta = value;
             }
 
             /// <summary>

@@ -856,7 +856,7 @@ namespace AprilExtends
                         float[] a2 = new float[2];
                         a2[0] = 6f;
                         customBone2.RotationRouteParam = a2;
-                        cross1.RotationDetla = l * 90;
+                        cross1.RotationDelta = l * 90;
                         CreateBone(cross1);
                     }
                     CreateBone(new LeftBone(true, 8, 40) { ColorType = 1 });
@@ -877,7 +877,7 @@ namespace AprilExtends
                         float[] a2 = new float[2];
                         a2[0] = 8f;
                         customBone2.RotationRouteParam = a2;
-                        cross2.RotationDetla = l * 45;
+                        cross2.RotationDelta = l * 45;
                         CreateBone(cross2);
                     }
                     CustomBone cross3;
@@ -896,7 +896,7 @@ namespace AprilExtends
                         float[] a2 = new float[2];
                         a2[0] = -8f;
                         customBone2.RotationRouteParam = a2;
-                        cross3.RotationDetla = l * 45;
+                        cross3.RotationDelta = l * 45;
                         CreateBone(cross3);
                     }
                 }
@@ -1901,7 +1901,7 @@ namespace AprilExtends
                             float[] a2 = new float[2];
                             a2[0] = 6f;
                             customBone2.RotationRouteParam = a2;
-                            cross1.RotationDetla = l * 90;
+                            cross1.RotationDelta = l * 90;
                             CreateBone(cross1);
                             PlaySound(Sounds.pierce);
                         }
@@ -1923,7 +1923,7 @@ namespace AprilExtends
                             float[] a2 = new float[2];
                             a2[0] = -6f;
                             customBone2.RotationRouteParam = a2;
-                            cross2.RotationDetla = l * 90;
+                            cross2.RotationDelta = l * 90;
                             CreateBone(cross2);
                             PlaySound(Sounds.pierce);
                         }
