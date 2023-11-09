@@ -2876,11 +2876,11 @@
 /processorParam:TextureFormat=Color
 /build:Musics/Night of Knights/paint.jpeg
 
-#begin Musics/Night of Knights/song.wav
-/importer:WavImporter
+#begin Musics/Night of Knights/song.mp3
+/importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Musics/Night of Knights/song.wav
+/build:Musics/Night of Knights/song.mp3
 
 #begin Musics/Papyrus Encounter/Papyrus Encounter.jpg
 /importer:TextureImporter

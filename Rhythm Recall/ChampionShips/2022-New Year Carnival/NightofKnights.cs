@@ -2236,12 +2236,12 @@ namespace Rhythm_Recall.Waves
                 SetGreenBox();
                 TP();
                 SetSoul(1);
-                GametimeDelta = -6.5f;
-                //GametimeDelta = 4300;
+                GametimeDelta = -43f;
+                //GametimeDetla = 4300;
 
                 //GametimeDelta = this.BeatTime(1532);
                 //GametimeDelta += BeatTime(1758);
-                PlayOffset = GametimeDelta + 6.5f;
+                PlayOffset = GametimeDelta + 43f;
                 // SetSoul(0); 
             }
         }
