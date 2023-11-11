@@ -297,7 +297,7 @@ namespace Rhythm_Recall.Waves
                 bool delayEnable = false;
                 if (delayEnable)
                 {
-                    float delay = BeatTime(1016);
+                    float delay = BeatTime(1912);
                     PlayOffset = delay;
                     GametimeDelta += delay;
                     InstantSetBox(new Vector2(320, 240), 84, 84);

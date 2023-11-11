@@ -3811,9 +3811,9 @@ namespace Rhythm_Recall.Waves
                 //Effect
                 if(InBeat(1391, 9999))
                 {
-                    Heart.CreateCollideEffect2(Color.Red, 2);
+                    Heart.CreateCollideEffect2(Color.Red, 3f);
                 }
-                if (InBeat(2168, 2424) && At0thBeat(0.5f))
+                if (InBeat(2168, 2488) && At0thBeat(0.5f))
                 {
                     CreateEntity(new Particle(Color.White, -GetVector2(8, GametimeF * 22.5f), 24, new Vector2(320, 240) + GetVector2(400, GametimeF * 22.5f), Sprites.arrow[Rand(0, 1), 0, 0])
                     {
@@ -3821,6 +3821,7 @@ namespace Rhythm_Recall.Waves
                         Depth = 5,
                         DarkingSpeed = 6
                     });
+                    if (At0thBeat(1)) HeartAttribute.HP += HeartAttribute.IsFullHP ? 0 : 0.01f;
                 }
             }
         }
