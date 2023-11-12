@@ -52,14 +52,6 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "Hey! Say! Jump";
             }
             public SongInformation Attributes => new ThisInformation();
-            private bool notRegistered = true;
-            public static Game game;
-            GlobalResources.Effects.StepSampleShader StepSample;
-            ScreenDrawing.Shaders.Blur Blur;
-            RenderProduction production1;
-            RenderProduction production2;
-            ScreenDrawing.Shaders.RGBSplitting splitter = new();
-            GlobalResources.Effects.PolarShader Polar;
             public float TempVar;
 
             public void Extreme()
@@ -73,7 +65,6 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",         "", "", "", "",
                     });
             }
-
             public void Noob()
             {
                 if (Gametime < 0) return;
@@ -421,6 +412,17 @@ namespace Rhythm_Recall.Waves
                     {
                         "R", "", "", "",         "", "", "R", "",
                         "", "", "R", "",         "", "", "", "",
+                        "R", "", "R", "",         "", "", "R", "",
+                        "", "", "R", "",         "", "", "R", "",
+                        "", "", "R", "",         "", "", "R", "",
+                        "", "", "R", "",         "", "", "(R)(+01)", "",
+                        "", "", "(R)(+01)", "",         "", "", "(R)(+01)", "",
+                        "", "", "", "",         "", "", "", "",
+                        "R", "", "R", "",         "R", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                     });
