@@ -40,7 +40,6 @@ namespace UndyneFight_Ex.Entities
             {
                 if (PlayerInstance.hpControl.KR)
                     PlayerInstance.hpControl.GiveKR(1);
-
                 combo = 0;
             }
             else
@@ -49,34 +48,20 @@ namespace UndyneFight_Ex.Entities
             }
 
             maxCombo = Math.Max(maxCombo, combo);
-
-            var v = new ScoreText(type == 0 ? "miss" : (type == 1 ? "okay" : (type == 2 ? "nice" : (type == 3 ? "perfect" : (type == 4 ? "perfectE" : "perfectL")))),
-                type == 0 ? Color.Red : (type == 1 ? Color.Green : (type == 2 ? Color.LightBlue : (type == 3 ? Color.Gold : Color.Orange))), combo);
+            string DispTxt = ""; Color DispCol = Color.White;
+            switch (type)
+            {
+                case 0: DispTxt = "Miss";       DispCol = Color.Red;        miss++;     break;
+                case 1: DispTxt = "Okay";       DispCol = Color.Green;      okay++;     break;
+                case 2: DispTxt = "Nice";       DispCol = Color.LightBlue;  nice++;     break;
+                case 3: DispTxt = "PERFECT";    DispCol = Color.Gold;       perfect++;  break;
+                case 4: DispTxt = "PerfectE";   DispCol = Color.Orange;     perfect++; perfectE++; break;
+                case 5: DispTxt = "PerfectL";   DispCol = Color.Orange;     perfect++; perfectL++; break;
+            }
+            var v = new ScoreText(DispTxt, DispCol, combo);
             current?.GetOut();
             current = v;
-
             totalCount++;
-            if (type == 0)
-            {
-                miss++;
-            }
-
-            if (type == 1)
-            {
-                okay++;
-            }
-
-            if (type == 2)
-            {
-                nice++;
-            }
-
-            if (type >= 3)
-            {
-                perfect++;
-                if (type == 4) perfectE++;
-                if (type == 5) perfectL++;
-            }
 
             int perfectScore = judgeState switch
             {
@@ -99,14 +84,11 @@ namespace UndyneFight_Ex.Entities
             }
         }
 
-        private int miss, okay, nice, perfect, perfectL, perfectE, maxCombo;
-        private int totalCount = 0;
+        private int miss, okay, nice, perfect, perfectL, perfectE, maxCombo, combo, totalCount = 0, surviveTime = 0;
         private readonly JudgementState judgeState;
-        internal int surviveTime = 0;
 
         private static int difficulty;
 
-        private int combo;
         private Protected<int> score;
 
         public static int Score => instance.score;
@@ -115,12 +97,11 @@ namespace UndyneFight_Ex.Entities
 
         internal class ScoreText : Entity
         {
-            private float alpha;
+            private float alpha, scale = 1, outingSpeed = 0.4f;
             private int appearTime = 0;
             private readonly int combo;
             private readonly string text;
             private Color color;
-            private float outingSpeed = 0.4f;
             private bool isOuting = false;
 
             public void GetOut()
@@ -149,10 +130,10 @@ namespace UndyneFight_Ex.Entities
             {
                 if (combo != 0)
                 {
-                    FightResources.Font.NormalFont.CentreDraw("x" + combo, Centre + new Vector2(0, 24), color * alpha, Math.Min(10, appearTime) / 10f, 0.45f);
+                    FightResources.Font.NormalFont.CentreDraw("x" + combo, Centre + new Vector2(0, 24 * scale), color * alpha, Math.Min(10, appearTime) / 10f * scale, 0.45f);
                 }
 
-                FightResources.Font.NormalFont.CentreDraw(text, Centre, color * alpha, Math.Min(10, appearTime) / 10f, 0.45f);
+                FightResources.Font.NormalFont.CentreDraw(text, Centre, color * alpha, Math.Min(10, appearTime) / 10f * scale, 0.45f) ;
             }
 
             public override void Update()
@@ -176,6 +157,7 @@ namespace UndyneFight_Ex.Entities
                     collidingBox.Y -= 3f * outingSpeed;
                     outingSpeed += 0.06f;
                     alpha -= 0.06f;
+                    if (scale > 0) scale -= 0.02f;
                 }
                 if (alpha <= 0)
                 {
@@ -233,11 +215,13 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            FightResources.Font.NormalFont.CentreDraw(score.Value.ToString(), new Vector2(540, 20), GameMain.CurrentDrawingSettings.UIColor);
+            Color UICol = GameMain.CurrentDrawingSettings.UIColor;
+            GLFont F = FightResources.Font.NormalFont;
+            F.CentreDraw(score.Value.ToString(), new Vector2(540, 20), UICol);
             if (totalCount != 0)
             {
-                FightResources.Font.NormalFont.CentreDraw("p/a:" + MathF.Round((float)(perfect * 100.0 / totalCount), 1) + "%", new Vector2(92, 50), GameMain.CurrentDrawingSettings.UIColor);
-                FightResources.Font.NormalFont.CentreDraw("m/a:" + MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1) + "%", new Vector2(92, 80), GameMain.CurrentDrawingSettings.UIColor);
+                F.CentreDraw($"p/a:{MathF.Round((float)(perfect * 100.0 / totalCount), 1)}%", new Vector2(92, 50), UICol);
+                F.CentreDraw($"m/a:{MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1)}%", new Vector2(92, 80), UICol);
             }
             current?.Draw();
         }

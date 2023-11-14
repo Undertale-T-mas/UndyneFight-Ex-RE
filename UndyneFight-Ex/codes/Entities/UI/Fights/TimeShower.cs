@@ -20,6 +20,7 @@ namespace UndyneFight_Ex.Entities
                 col.B = (byte)Math.Max(col.B - 2, 0);
             }
             int d = (int)(Fight.Functions.GametimeF / 62.5f * 60f);
+            if (d < 0) return;
             int min = d / 3600, sec = d / 60 % 60, ms = d % 60;
             FightResources.Font.NormalFont.CentreDraw($"{min}:{(sec < 10 ? "0" : "") + sec}:{(ms < 10 ? "0" : "") + ms}",
                 new Vector2(94, 20), col);
