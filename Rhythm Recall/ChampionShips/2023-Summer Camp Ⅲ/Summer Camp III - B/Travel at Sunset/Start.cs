@@ -1,16 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using static UndyneFight_Ex.MathUtil;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Rhythm_Recall.Waves
 {
@@ -71,7 +67,6 @@ namespace Rhythm_Recall.Waves
                     EaseOut(BeatTime(time) / 4f, Arguments[1], EaseState.Quad),
                     EaseIn(BeatTime(time) / 4f * 3, -Arguments[1], EaseState.Quad)
                     );
-                    //Delay(time+2, () => { ScreenDrawing.ScreenAngle = 0; });
                 });
                 RegisterFunction("SetScreenAngle", () =>
                 {
@@ -159,12 +154,7 @@ namespace Rhythm_Recall.Waves
                 if (jump)
                 {
                     float beat;
-                    //beat = 897;
-                    //beat = 711 + 128 + 32 + 32 + 16 + 32 + 4;
-                    //beat = 328;
-                    //beat = 711 + 128;
                     beat = 1020;
-                    //beat = 711;
                     sans.Alpha = 0.0f;
                     GametimeDelta += BeatTime(beat);
 

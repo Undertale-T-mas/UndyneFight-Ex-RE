@@ -42,21 +42,21 @@ namespace Rhythm_Recall.Waves
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                        new(Difficulty.Noob, 3.0f),
+                            new(Difficulty.Noob, 3.0f),
                             new(Difficulty.Normal, 10.0f),
                             new(Difficulty.Extreme, 17.5f),
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                        new(Difficulty.Noob, 3.0f),
+                            new(Difficulty.Noob, 3.0f),
                             new(Difficulty.Normal, 10.5f),
                             new(Difficulty.Extreme, 17.9f),
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                        new(Difficulty.Noob, 9.0f),
+                            new(Difficulty.Noob, 9.0f),
                             new(Difficulty.Normal, 15.0f),
                             new(Difficulty.Extreme, 20.9f),
                         }
@@ -77,9 +77,8 @@ namespace Rhythm_Recall.Waves
             private static Game game;
             private static void MakeLine(int t, bool dir)
             {
-                NormalLine line = dir
-                    ? new(240 - t * 40, 0, 240 - t * 40, 640, (int)game.BeatTime(10.5f + t * 2), 0)
-                    : new(400 + t * 40, 0, 400 + t * 40, 640, (int)game.BeatTime(10.5f + t * 2), 0);
+                var X = dir ? 240 - t * 40 : 400 + t * 40;
+                NormalLine line = new(X, 0, X, 640, (int)game.BeatTime(10.5f + t * 2), 0);
                 Color col = line.color = Color.Lerp(Color.White, Color.Magenta, 0.4f);
                 AddInstance(new TimeRangedEvent(game.BeatTime(8f + t * 2), game.BeatTime(2.5f), () =>
                 {
@@ -265,7 +264,6 @@ namespace Rhythm_Recall.Waves
 
                 }
             }
-            private static class NormalBarrage { }
 
             public void Noob()
             {
@@ -288,14 +286,14 @@ namespace Rhythm_Recall.Waves
                 }
                 for (int i = 0; i < 6; i++)
                 {
-                    if (InBeat(384 + 84 + i * 4)) EasyBarrage.Hall0A5();
+                    if (InBeat(468 + i * 4)) EasyBarrage.Hall0A5();
                 }
-                if (InBeat(384 + 127.5f)) EasyBarrage.Hall0A6();
+                if (InBeat(511.5f)) EasyBarrage.Hall0A6();
 
-                if (InBeat(384 + 128)) EasyBarrage.Main2A();
-                if (InBeat(384 + 192)) EasyBarrage.Main2B();
+                if (InBeat(512)) EasyBarrage.Main2A();
+                if (InBeat(576)) EasyBarrage.Main2B();
                 if (InBeat(640)) EasyBarrage.Rest0A();
-                if (InBeat(640 + 64)) EasyBarrage.Rest0B();
+                if (InBeat(704)) EasyBarrage.Rest0B();
                 if (InBeat(640 + 128)) EasyBarrage.Rest1A();
                 if (InBeat(640 + 192)) EasyBarrage.Rest1B();
                 if (InBeat(640 + 192)) EasyBarrage.Rest1B();
@@ -3893,7 +3891,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ThemeColor = ScreenDrawing.UIColor = Color.Lerp(Color.White, Color.Magenta, MathF.Max(0, AdvanceFunctions.Sin01(0.08f + GametimeF / BeatTime(2)) * 0.1f));
                 }));
                 HeartAttribute.ArrowFixed = true;
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
 
                 //   GametimeDelta = BeatTime(1599);
                 // SetSoul(0); 

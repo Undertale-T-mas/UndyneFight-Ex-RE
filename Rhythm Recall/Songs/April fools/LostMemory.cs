@@ -856,7 +856,7 @@ namespace AprilExtends
                         float[] a2 = new float[2];
                         a2[0] = 6f;
                         customBone2.RotationRouteParam = a2;
-                        cross1.RotationDetla = l * 90;
+                        cross1.RotationDelta = l * 90;
                         CreateBone(cross1);
                     }
                     CreateBone(new LeftBone(true, 8, 40) { ColorType = 1 });
@@ -877,7 +877,7 @@ namespace AprilExtends
                         float[] a2 = new float[2];
                         a2[0] = 8f;
                         customBone2.RotationRouteParam = a2;
-                        cross2.RotationDetla = l * 45;
+                        cross2.RotationDelta = l * 45;
                         CreateBone(cross2);
                     }
                     CustomBone cross3;
@@ -896,7 +896,7 @@ namespace AprilExtends
                         float[] a2 = new float[2];
                         a2[0] = -8f;
                         customBone2.RotationRouteParam = a2;
-                        cross3.RotationDetla = l * 45;
+                        cross3.RotationDelta = l * 45;
                         CreateBone(cross3);
                     }
                 }
@@ -1391,7 +1391,7 @@ namespace AprilExtends
                 {
                     int x = Rand(120, 520);
                     int y = Rand(80, 400);
-                    ScreenDrawing.ScreenPositionDetla = new(Rand(-15, 15), Rand(-10, 10));
+                    ScreenDrawing.ScreenPositionDelta = new(Rand(-15, 15), Rand(-10, 10));
                     InstantSetBox(new Vector2(x, y), Rand(30, 160), Rand(30, 160));
                     InstantTP(new(x, y));
                     SetSoul(Rand(0, 4));
@@ -1444,7 +1444,7 @@ namespace AprilExtends
                             GlobalResources.Effects.BallShapingShader v = p2.CurrentShader as GlobalResources.Effects.BallShapingShader;
                             v.Intensity = 0.2f;
                             v.ScreenScale = 1.1f;
-                            ScreenDrawing.ScreenPositionDetla = new Vector2(0f, -4f);
+                            ScreenDrawing.ScreenPositionDelta = new Vector2(0f, -4f);
                         }));*/
                     }
                 }
@@ -1650,7 +1650,7 @@ namespace AprilExtends
                 {
                     int x = Rand(120, 520);
                     int y = Rand(80, 400);
-                    ScreenDrawing.ScreenPositionDetla = new(Rand(-15, 15), Rand(-10, 10));
+                    ScreenDrawing.ScreenPositionDelta = new(Rand(-15, 15), Rand(-10, 10));
                     InstantSetBox(new Vector2(x, y), Rand(30, 160), Rand(30, 160));
                     InstantTP(new(x, y));
                     SetSoul(Rand(0, 4));
@@ -1663,7 +1663,7 @@ namespace AprilExtends
                     HeartAttribute.JumpTimeLimit = 0;
                     SetBox(320 - 60, 320 + 60, 0, 480);
                     TP();
-                    ScreenDrawing.ScreenPositionDetla = new(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(0, 0);
                     ScreenDrawing.BoundColor = Color.White;
                     AddInstance(new TimeRangedEvent(0, 20, () =>
                     {
@@ -1901,7 +1901,7 @@ namespace AprilExtends
                             float[] a2 = new float[2];
                             a2[0] = 6f;
                             customBone2.RotationRouteParam = a2;
-                            cross1.RotationDetla = l * 90;
+                            cross1.RotationDelta = l * 90;
                             CreateBone(cross1);
                             PlaySound(Sounds.pierce);
                         }
@@ -1923,7 +1923,7 @@ namespace AprilExtends
                             float[] a2 = new float[2];
                             a2[0] = -6f;
                             customBone2.RotationRouteParam = a2;
-                            cross2.RotationDetla = l * 90;
+                            cross2.RotationDelta = l * 90;
                             CreateBone(cross2);
                             PlaySound(Sounds.pierce);
                         }

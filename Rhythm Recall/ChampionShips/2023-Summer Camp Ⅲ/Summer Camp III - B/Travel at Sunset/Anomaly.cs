@@ -2,10 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex;
 using System;
-using System.Collections.Generic;
-using System.Numerics;
 using System.Threading.Tasks;
-using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.Remake;
@@ -15,7 +12,6 @@ using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.MathUtil;
 
 using vec2 = Microsoft.Xna.Framework.Vector2;
 using rect = UndyneFight_Ex.CollideRect;

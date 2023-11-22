@@ -143,9 +143,9 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.ScreenAngle = ScreenDrawing.ScreenAngle * 0.88f + missionRotation * 0.12f;
                 if (MathF.Abs(ScreenDrawing.ScreenAngle - missionRotation) < 0.5f)
                     ScreenDrawing.ScreenAngle = missionRotation;
-                ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * 0.88f + missionPosition * 0.12f;
-                if ((ScreenDrawing.ScreenPositionDetla - missionPosition).Length() < 0.5f)
-                    ScreenDrawing.ScreenPositionDetla = missionPosition;
+                ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.88f + missionPosition * 0.12f;
+                if ((ScreenDrawing.ScreenPositionDelta - missionPosition).Length() < 0.5f)
+                    ScreenDrawing.ScreenPositionDelta = missionPosition;
                 #region Are you ready
                 if (GametimeF == 0)
                 {
@@ -876,11 +876,11 @@ namespace Rhythm_Recall.Waves
                     float v = MathF.Pow(Sin(_time / 44f * 360), 2);
                     if (_time % 44 < 22)
                     {
-                        ScreenDrawing.ScreenPositionDetla = GetVector2(v * 32, 45);
+                        ScreenDrawing.ScreenPositionDelta = GetVector2(v * 32, 45);
                     }
                     if (_time % 44 >= 22)
                     {
-                        ScreenDrawing.ScreenPositionDetla = GetVector2(v * 32, 135);
+                        ScreenDrawing.ScreenPositionDelta = GetVector2(v * 32, 135);
                     }
                 }
                 #endregion
@@ -976,12 +976,12 @@ namespace Rhythm_Recall.Waves
                                     if (_dir == 1)
                                     {
                                         ScreenDrawing.ScreenAngle = -8;
-                                        ScreenDrawing.ScreenPositionDetla = new(20, 0);
+                                        ScreenDrawing.ScreenPositionDelta = new(20, 0);
                                     }
                                     if (_dir == 0)
                                     {
                                         ScreenDrawing.ScreenAngle = 8;
-                                        ScreenDrawing.ScreenPositionDetla = new(-20, 0);
+                                        ScreenDrawing.ScreenPositionDelta = new(-20, 0);
                                     }
                                 }));
                             NoteSummon(t, time, rhythm1, rhythm2);
@@ -1012,12 +1012,12 @@ namespace Rhythm_Recall.Waves
                                 {
                                     if (_dir == 1)
                                     {
-                                        ScreenDrawing.ScreenPositionDetla = new(0, -15);
+                                        ScreenDrawing.ScreenPositionDelta = new(0, -15);
                                         ScreenDrawing.ScreenAngle = 8;
                                     }
                                     if (_dir == 0)
                                     {
-                                        ScreenDrawing.ScreenPositionDetla = new(0, 15);
+                                        ScreenDrawing.ScreenPositionDelta = new(0, 15);
                                         ScreenDrawing.ScreenAngle = -8;
                                     }
                                 }));
@@ -1087,7 +1087,7 @@ namespace Rhythm_Recall.Waves
                 SetSoul(1);
                 GametimeDelta = -39;
                 //GametimeDelta = 2905;
-                //GametimeDetla = this.BeatTime(1532);
+                //GametimeDelta = this.BeatTime(1532);
                 PlayOffset = GametimeDelta + 39;
                 //SetSoul(0); 
             }

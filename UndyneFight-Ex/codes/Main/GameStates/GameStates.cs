@@ -173,8 +173,9 @@ namespace UndyneFight_Ex
             isInBattle = false;
 
             Player.Heart.ResetMove();
-            NameShower.level = -1;
+            NameShower.level = "";
             NameShower.name = null;
+            NameShower.OverrideName = "";
 
             Surface.Hidden.BackGroundColor = Color.Black;
             FightBox.boxs = new List<FightBox>();

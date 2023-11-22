@@ -1,4 +1,4 @@
-Optimise Codes
-Text file for Input Identity reading (KeyChecker.cs)
-Account merge
-song preview on song selection
+Optimise Codes 優化代碼
+Text file for Input Identity reading (KeyChecker.cs) 自定義按鍵
+Account merge 賬戶融合
+song preview on song selection 歌曲選單有歌曲預覽 (?)

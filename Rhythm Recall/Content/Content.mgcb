@@ -2186,6 +2186,12 @@
 /processorParam:Quality=Best
 /build:Musics/#1e86f2/song.wav
 
+#begin Musics/1111/song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/1111/song.mp3
+
 #begin Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -2419,6 +2425,12 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Dream Battle/song.ogg
+
+#begin Musics/Dream Travel/song.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Dream Travel/song.wav
 
 #begin Musics/DustTrust/dt2 paint00001.png
 /importer:TextureImporter
@@ -2864,11 +2876,11 @@
 /processorParam:TextureFormat=Color
 /build:Musics/Night of Knights/paint.jpeg
 
-#begin Musics/Night of Knights/song.wav
-/importer:WavImporter
+#begin Musics/Night of Knights/song.mp3
+/importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Musics/Night of Knights/song.wav
+/build:Musics/Night of Knights/song.mp3
 
 #begin Musics/Papyrus Encounter/Papyrus Encounter.jpg
 /importer:TextureImporter
@@ -2893,6 +2905,12 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Pentiment/song.mp3
+
+#begin Musics/Prospector/song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Prospector/song.mp3
 
 #begin Musics/Rainshower/paint.jpg
 /importer:TextureImporter
@@ -3001,6 +3019,12 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Seraphim (Long Ver.)/song.mp3
+
+#begin Musics/Shadow/song.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Shadow/song.wav
 
 #begin Musics/Song That Might Play When You Fight Sans.mp3
 /importer:Mp3Importer
@@ -3154,7 +3178,7 @@
 
 #begin Musics/Transcendence/song.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Transcendence/song.wav
 
@@ -3425,11 +3449,23 @@
 /processorParam:TextureFormat=Color
 /build:Musics/Universal Collapse/uni paint00098.png;Musics/Universal Collapse/paint.png
 
+#begin Musics/Useless Threshold/song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Useless Threshold/song.mp3
+
 #begin Musics/Weekender/Hey! Say! JUMP - ウィークエンダー [Official Music Video].mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Weekender/Hey! Say! JUMP - ウィークエンダー [Official Music Video].mp3;Musics/Weekender/song.mp3
+
+#begin Musics/狂风·余音/song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/狂风·余音/song.mp3
 
 #begin Shop/Souvenir/MemoryBronze.png
 /importer:TextureImporter

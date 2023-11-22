@@ -5595,16 +5595,16 @@ namespace Rhythm_Recall.Waves
                 {
                     AddInstance(new TimeRangedEvent(bpm * 16 * a - 1, bpm * 8 - 1, () =>
                     {
-                        ScreenPositionDetla = new Vector2(-24 * 0.08f + ScreenPositionDetla.X * 0.92f, 0);
+                        ScreenPositionDelta = new Vector2(-24 * 0.08f + ScreenPositionDelta.X * 0.92f, 0);
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 16 * a - 1 + bpm * 8, bpm * 8 - 1, () =>
                     {
-                        ScreenPositionDetla = new Vector2(24 * 0.08f + ScreenPositionDetla.X * 0.92f, 0);
+                        ScreenPositionDelta = new Vector2(24 * 0.08f + ScreenPositionDelta.X * 0.92f, 0);
                     }));
                 }
                 AddInstance(new TimeRangedEvent(bpm * 16 * 14, 60, () =>
                 {
-                    ScreenPositionDetla = new Vector2(0 * 0.1f + ScreenPositionDetla.X * 0.9f, 0);
+                    ScreenPositionDelta = new Vector2(0 * 0.1f + ScreenPositionDelta.X * 0.9f, 0);
                 }));
                 for (int a = 0; a < 16 * 14 / 2; a++)
                 {

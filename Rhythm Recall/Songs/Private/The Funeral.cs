@@ -271,7 +271,7 @@ namespace Rhythm_Recall.Waves
                 //  ScreenDrawing.UISettings.CreateUISurface();
 
                 //      CreateLine(150, 100);
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
                 GametimeDelta = 0.7f; //+ game.BeatTime(311);
                 bool delayEnable = false;
                 if (delayEnable)
@@ -888,7 +888,7 @@ namespace Rhythm_Recall.Waves
 
                     CentreEasing.EaseBuilder screen = new();
                     screen.Insert(BeatTime(2), CentreEasing.EaseOutQuint(new(0, 0), new(0, -10), BeatTime(2)));
-                    screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                    screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
 
                     cameraProduction = new ScreenDrawing.Shaders.Filter(Effect3D, 0.2f);
                     ScreenDrawing.SceneRendering.InsertProduction(cameraProduction);
@@ -940,7 +940,7 @@ namespace Rhythm_Recall.Waves
 
                     CentreEasing.EaseBuilder screen = new();
                     screen.Insert(BeatTime(2), CentreEasing.EaseOutQuint(new(0, 0), new(0, -10), BeatTime(2)));
-                    screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                    screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
 
                     cameraProduction = new ScreenDrawing.Shaders.Filter(Effect3D, 0.2f);
                     ScreenDrawing.SceneRendering.InsertProduction(cameraProduction);

@@ -401,7 +401,7 @@ namespace AprilExtends
 
                         CentreEasing.EaseBuilder screen = new();
                         screen.Insert(BeatTime(2), CentreEasing.EaseOutQuart(new(0, 0), new(0, 0), BeatTime(2)));
-                        screen.Run(s => ScreenDrawing.ScreenPositionDetla = s);
+                        screen.Run(s => ScreenDrawing.ScreenPositionDelta = s);
 
                         cameraProduction = new ScreenDrawing.Shaders.Filter(Effect3D, 0.2f);
                         ScreenDrawing.SceneRendering.InsertProduction(cameraProduction);

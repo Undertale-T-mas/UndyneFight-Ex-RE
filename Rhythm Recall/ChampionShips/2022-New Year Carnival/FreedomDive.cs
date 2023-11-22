@@ -138,7 +138,7 @@ namespace Rhythm_Recall.Waves
 
                         InstantSetBox(-100, 24, 24);
 
-                        ScreenDrawing.ScreenPositionDetla = new(0, -4);
+                        ScreenDrawing.ScreenPositionDelta = new(0, -4);
                     }));
                     AddInstance(new InstantEvent(1200, () =>
                     {

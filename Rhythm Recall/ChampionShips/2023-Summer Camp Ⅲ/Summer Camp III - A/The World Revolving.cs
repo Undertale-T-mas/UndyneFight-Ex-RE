@@ -1235,7 +1235,7 @@ namespace Rhythm_Recall.Waves
                     {
                         InstantSetBox(s,84,84);
                         InstantTP(s);
-                        ScreenDrawing.ScreenPositionDetla = new V(320, 240) - s;
+                        ScreenDrawing.ScreenPositionDelta = new V(320, 240) - s;
                     },
                     Stable(0,320,240),
                     EaseOut(T(2),new Vector2(0,-40),EaseState.Quad),
@@ -1253,7 +1253,7 @@ namespace Rhythm_Recall.Waves
                     {
                         InstantSetBox(s, 84, 84);
                         InstantTP(s);
-                        ScreenDrawing.ScreenPositionDetla = new V(320, 240) - s;
+                        ScreenDrawing.ScreenPositionDelta = new V(320, 240) - s;
                     },
                     Stable(0, 320, 240),
                     EaseOut(T(2), new Vector2(0, 40), EaseState.Quad),

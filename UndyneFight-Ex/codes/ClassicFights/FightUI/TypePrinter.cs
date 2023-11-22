@@ -30,7 +30,7 @@ namespace UndyneFight_Ex.Fight
         Func<float, Vector2> action;
         internal override void Reset(PrintingSettings textPrinter)
         {
-            textPrinter.charPositionDetla = action.Invoke(textPrinter.CurrentData.restTime);
+            textPrinter.charPositionDelta = action.Invoke(textPrinter.CurrentData.restTime);
         }
     }
     public class TextSizeAttribute : TextAttribute
@@ -82,11 +82,11 @@ namespace UndyneFight_Ex.Fight
         internal override void Reset(PrintingSettings textPrinter)
         {
             del = movingFunc.Invoke(textPrinter.CurrentData.restTime);
-            textPrinter.charPositionDetla += del;
+            textPrinter.charPositionDelta += del;
         }
         internal override void ResetEnd(PrintingSettings textPrinter)
         {
-            textPrinter.charPositionDetla -= del;
+            textPrinter.charPositionDelta -= del;
         }
     }
     public class TextGleamAttribute : TextAttribute
@@ -156,7 +156,7 @@ namespace UndyneFight_Ex.Fight
         public bool ShouldDispose { get; set; } = false;
         public float TextColorAlpha { get; set; } = 1.0f;
         public Color textColor = Color.White;
-        public Vector2 charPositionDetla = Vector2.Zero;
+        public Vector2 charPositionDelta = Vector2.Zero;
         public GLFont renderFont = FightResources.Font.NormalFont;
 
         public SoundEffect printSound = FightResources.Sounds.printWord;
@@ -300,14 +300,14 @@ namespace UndyneFight_Ex.Fight
                 maxSize = MathF.Max(maxSize, printingSettings.TextSize);
 
                 Color col = printingSettings.textColor * printingSettings.TextColorAlpha;
-                printingSettings.renderFont.Draw(text[i] + "", currentPosition + printingSettings.charPositionDetla, col, printingSettings.TextSize, Depth);
+                printingSettings.renderFont.Draw(text[i] + "", currentPosition + printingSettings.charPositionDelta, col, printingSettings.TextSize, Depth);
                 if (printingSettings.LightEnabled)
                 {
                     Vector2 textdel = printingSettings.renderFont.SFX.MeasureString(text[i].ToString());
                     textdel = MathUtil.Rotate(textdel, Rotation);
 
                     for (int x = 0; x <= 4; x++)
-                        printingSettings.renderFont.Draw(text[i] + "", currentPosition + printingSettings.charPositionDetla - textdel * (x + 1) * 0.07f, col * (0.5f - x * 0.1f), printingSettings.TextSize * (1.14f + x * 0.14f), Depth);
+                        printingSettings.renderFont.Draw(text[i] + "", currentPosition + printingSettings.charPositionDelta - textdel * (x + 1) * 0.07f, col * (0.5f - x * 0.1f), printingSettings.TextSize * (1.14f + x * 0.14f), Depth);
                 }
 
                 Vector2 size = printingSettings.renderFont.SFX.MeasureString(text[i] + "");

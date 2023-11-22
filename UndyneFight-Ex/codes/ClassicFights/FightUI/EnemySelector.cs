@@ -6,7 +6,7 @@ namespace UndyneFight_Ex.Fight
     {
         private class EnemyShower : FightTextSelection
         {
-            public static Vector2 positionDetla;
+            public static Vector2 positionDelta;
             private readonly Enemy connected;
             public EnemyShower(string text, float height, Enemy enemy) : base(text, new Vector2(50, height))
             {

@@ -1403,10 +1403,10 @@ namespace Extends
             for (int a = 0; a < 4; a++)
             {
                 AddInstance(new TimeRangedEvent(a * 2f, 1, () =>
-                { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-2f, 2f), Rand(-2f, 2f)); }
+                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-2f, 2f), Rand(-2f, 2f)); }
                 ));
                 AddInstance(new TimeRangedEvent((a + 1) * 2f, 1, () =>
-                { ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0); }
+                { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
 ));
             }
         }
@@ -1415,10 +1415,10 @@ namespace Extends
             for (int a = 0; a < 5; a++)
             {
                 AddInstance(new TimeRangedEvent(a * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-range, range), Rand(-range, range)); }
+                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-range, range), Rand(-range, range)); }
                 ));
                 AddInstance(new TimeRangedEvent((a + 1) * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0); }
+                { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
 ));
             }
         }
@@ -1427,11 +1427,11 @@ namespace Extends
             for (int a = 0; a < times; a++)
             {
                 AddInstance(new TimeRangedEvent(a * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-range, range), Rand(-range, range)); }
+                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-range, range), Rand(-range, range)); }
                 ));
                 AddInstance(new TimeRangedEvent((a + 1) * interval, 1, () =>
                 {
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
                 }
                 ));
             }
@@ -1441,11 +1441,11 @@ namespace Extends
             for (int a = 0; a < times; a++)
             {
                 AddInstance(new TimeRangedEvent(a * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDetla = new Vector2(Rand(-rangeX, rangeX), Rand(-rangeY, rangeY)); }
+                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-rangeX, rangeX), Rand(-rangeY, rangeY)); }
                 ));
                 AddInstance(new TimeRangedEvent((a + 1) * interval, 1, () =>
                 {
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
                 }
                 ));
             }
@@ -1564,7 +1564,7 @@ namespace Extends
         {
             AddInstance(new TimeRangedEvent(duration, () =>
             {
-                ScreenDrawing.ScreenPositionDetla = ScreenDrawing.ScreenPositionDetla * (1 - lerpcount) + getto * lerpcount;
+                ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * (1 - lerpcount) + getto * lerpcount;
             }));
         }
         public static void LerpScreenScale(float duration, float getto, float lerpcount)

@@ -349,7 +349,7 @@ namespace UndyneFight_Ex
             float scrHeight = scrWidth / GameStates.Aspect;
             CollideRect cur = new(0, -scrHeight * extend.W, scrWidth * scale * GameStates.SurfaceScale, scrHeight * (scale + extend.W) * GameStates.SurfaceScale);
             cur.SetCentre(new Vector2(scrWidth / 2f, (1 - extend.W) * 0.5f * scrHeight) * GameStates.SurfaceScale);
-            cur.Offset(-CurrentScene.CurrentDrawingSettings.screenDetla / CurrentScene.CurrentDrawingSettings.screenScale);
+            cur.Offset(-CurrentScene.CurrentDrawingSettings.screenDelta / CurrentScene.CurrentDrawingSettings.screenScale);
 
             if (cur.Contain(centre)) return false;
 

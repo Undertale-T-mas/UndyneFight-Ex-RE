@@ -233,7 +233,7 @@ namespace Rhythm_Recall.Waves
                 {
                     AddInstance(new TimeRangedEvent(bpm * 20, bpm * 13, () =>
                     {
-                        ScreenDrawing.ScreenPositionDetla = Heart.Centre - new Vector2(320, 240);
+                        ScreenDrawing.ScreenPositionDelta = Heart.Centre - new Vector2(320, 240);
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 20, 1, () =>
                     {
@@ -277,7 +277,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(bpm * 20 + bpm * 14, bpm * 16, () =>
                     {
-                        ScreenDrawing.ScreenPositionDetla = new(0, 0);
+                        ScreenDrawing.ScreenPositionDelta = new(0, 0);
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.95f + 1 * 0.05f;
                     }));
                 }
@@ -4158,7 +4158,7 @@ namespace Rhythm_Recall.Waves
                 {
                     AddInstance(new TimeRangedEvent(0, bpm * 4, () =>
                     {
-                        ScreenDrawing.ScreenPositionDetla -= new Vector2(0, 480 / bpm / 4);
+                        ScreenDrawing.ScreenPositionDelta -= new Vector2(0, 480 / bpm / 4);
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 1.2f - 0.175f;
                     }));
                 }
@@ -4166,7 +4166,7 @@ namespace Rhythm_Recall.Waves
                 {
                     shader.Parameters["distance"].SetValue(new Vector2(0.001f, 0.001f));
                     TP();
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
                     ScreenDrawing.ScreenScale = 1;
                     for (int b = 0; b < 4; b++)
                         PlaySound(switchScene);
@@ -4408,7 +4408,7 @@ namespace Rhythm_Recall.Waves
                 {
                     AddInstance(new TimeRangedEvent(0, bpm * 4, () =>
                     {
-                        ScreenDrawing.ScreenPositionDetla -= new Vector2(0, 480 / bpm / 4);
+                        ScreenDrawing.ScreenPositionDelta -= new Vector2(0, 480 / bpm / 4);
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 1.2f - 0.175f;
                     }));
                 }
@@ -4416,7 +4416,7 @@ namespace Rhythm_Recall.Waves
                 {
                     shader.Parameters["distance"].SetValue(new Vector2(0.001f, 0.001f));
                     TP();
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
                     ScreenDrawing.ScreenScale = 1;
                     for (int b = 0; b < 4; b++)
                         PlaySound(switchScene);

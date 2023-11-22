@@ -1197,14 +1197,14 @@ namespace Rhythm_Recall.Waves
             private readonly float[] pRP;
             private readonly float[] rRP;
 
-            public float AppearTime => Gametime - timeDetla;
+            public float AppearTime => Gametime - timeDelta;
 
-            private readonly int timeDetla;
+            private readonly int timeDelta;
             public TMotion1(float[] pRP, float[] rRP)
             {
                 this.pRP = pRP;
                 this.rRP = rRP;
-                timeDetla = Gametime;
+                timeDelta = Gametime;
             }
         }
 
@@ -1363,14 +1363,14 @@ namespace Rhythm_Recall.Waves
                         LengthRouteParam = new float[] { 24 },
                         PositionRouteParam = new float[] { 4, 0 },
                         RotationRouteParam = new float[] { 6, 0 },
-                        RotationDetla = i * 90
+                        RotationDelta = i * 90
                     });
                     CreateBone(new CustomBone(new Vector2(490, 310), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
                     {
                         LengthRouteParam = new float[] { 24 },
                         PositionRouteParam = new float[] { -4, 0 },
                         RotationRouteParam = new float[] { 6, 0 },
-                        RotationDetla = i * 90
+                        RotationDelta = i * 90
                     });
                 }
 
@@ -1597,7 +1597,7 @@ namespace Rhythm_Recall.Waves
                     LengthRouteParam = new float[] { 300, BeatTime(120 - 4) },
                     RotationRouteParam = new float[] { 1.5f, 0 },
                     ColorType = 2,
-                    RotationDetla = 90
+                    RotationDelta = 90
                 });
             }
             if (InBeat(1152 + 2, 1280 - 10 - 16) && AtKthBeat(32, BeatTime(8)))
@@ -1697,14 +1697,14 @@ namespace Rhythm_Recall.Waves
                         LengthRouteParam = new float[] { 24 },
                         PositionRouteParam = new float[] { 4, 0 },
                         RotationRouteParam = new float[] { 6, 0 },
-                        RotationDetla = i * 90
+                        RotationDelta = i * 90
                     });
                     CreateBone(new CustomBone(new Vector2(530, 335), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
                     {
                         LengthRouteParam = new float[] { 24 },
                         PositionRouteParam = new float[] { -4, 0 },
                         RotationRouteParam = new float[] { 6, 0 },
-                        RotationDetla = i * 90
+                        RotationDelta = i * 90
                     });
                 }
             }

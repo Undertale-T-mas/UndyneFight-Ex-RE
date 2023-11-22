@@ -55,6 +55,10 @@ namespace Rhythm_Recall.Waves
                     }
                     );
             }
+            public void Start()
+            {
+
+            }
             public void Easy()
             {
                 throw new NotImplementedException();

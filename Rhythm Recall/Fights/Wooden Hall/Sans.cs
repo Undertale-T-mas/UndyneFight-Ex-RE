@@ -130,7 +130,7 @@ namespace Rhythm_Recall.Waves
         public static int BodyMoveSpeed { get; set; } = 7;
 
         private static EnemyComponment drawingHead, drawingBody, drawingLeg;
-        private static Vector2 headPosition, bodyPosition, legPosition, gravityDetla = Vector2.Zero, gravityMission = Vector2.Zero;
+        private static Vector2 headPosition, bodyPosition, legPosition, gravityDelta = Vector2.Zero, gravityMission = Vector2.Zero;
         private int dodgingTime = -1, appearTime = 0;
         private static int bodyMovementTick = -1;
 
@@ -162,7 +162,7 @@ namespace Rhythm_Recall.Waves
         {
             SetGravityMission();
 
-            gravityDetla = gravityDetla * 0.6f + gravityMission * 0.4f;
+            gravityDelta = gravityDelta * 0.6f + gravityMission * 0.4f;
             if (bodyMovementTick >= 0)
             {
                 if (bodyMovementTick == 0) drawingBody = bodyTemporary;
@@ -181,8 +181,8 @@ namespace Rhythm_Recall.Waves
             Vector2 detla2 = new Vector2(Cos(angle) * 2, Sin(angle)) * 1.5f;
             if (!IsShake) detla2 = Vector2.Zero;
 
-            headPosition = new Vector2(-1, -88 + boxDeltaY) + missionPosition + detla2 / 1.2f + Centre + gravityDetla;
-            bodyPosition = new Vector2(0, -39 + boxDeltaY) + missionPosition + detla2 + Centre + gravityDetla;
+            headPosition = new Vector2(-1, -88 + boxDeltaY) + missionPosition + detla2 / 1.2f + Centre + gravityDelta;
+            bodyPosition = new Vector2(0, -39 + boxDeltaY) + missionPosition + detla2 + Centre + gravityDelta;
             legPosition = new Vector2(1, 8 + boxDeltaY) + missionPosition + Centre;
             dodgingTime--;
             if (dodgingTime < 0) dodgingTime = 0;

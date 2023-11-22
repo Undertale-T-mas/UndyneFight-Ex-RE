@@ -508,7 +508,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ML", () =>
                     {
-                        RunEase((s) => ScreenDrawing.ScreenPositionDetla = new Vector2(s * 1.45f, 0),
+                        RunEase((s) => ScreenDrawing.ScreenPositionDelta = new Vector2(s * 1.45f, 0),
                             EaseOut(BeatTime(1), 4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
@@ -537,7 +537,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("MR", () =>
                     {
-                        RunEase((s) => ScreenDrawing.ScreenPositionDetla = new Vector2(-s * 1.45f, 0),
+                        RunEase((s) => ScreenDrawing.ScreenPositionDelta = new Vector2(-s * 1.45f, 0),
                             EaseOut(BeatTime(1), 4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
                             EaseOut(BeatTime(1), -4.0f, EaseState.Sine),
@@ -934,7 +934,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("KickR", () =>
                     {
-                        RunEase((s) => { ScreenDrawing.ScreenPositionDetla = s; },
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; },
                             EaseOut(BeatTime(2), new Vector2(-20, 20), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(-10, -40), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(-30, 30), EaseState.Quad),
@@ -944,7 +944,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("KickL", () =>
                     {
-                        RunEase((s) => { ScreenDrawing.ScreenPositionDetla = s; },
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; },
                             EaseOut(BeatTime(2), new Vector2(+20, 20), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(+10, -40), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(+30, 30), EaseState.Quad),
@@ -1058,7 +1058,7 @@ namespace Rhythm_Recall.Waves
                     {
                         RunEase((s) =>
                         {
-                            ScreenDrawing.ScreenPositionDetla = s;
+                            ScreenDrawing.ScreenPositionDelta = s;
                         }, Stable(0, new Vector2(0, 0)),
                         EaseOut(BeatTime(12), new Vector2(-120, 0), EaseState.Sine),
                         EaseIn(BeatTime(4), new Vector2(120, 0), EaseState.Quad),
@@ -1150,7 +1150,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("KickR", () =>
                     {
-                        RunEase((s) => { ScreenDrawing.ScreenPositionDetla = s; },
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; },
                             EaseOut(BeatTime(2), new Vector2(-20, 20), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(-10, -40), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(-30, 30), EaseState.Quad),
@@ -1160,7 +1160,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("KickL", () =>
                     {
-                        RunEase((s) => { ScreenDrawing.ScreenPositionDetla = s; },
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; },
                             EaseOut(BeatTime(2), new Vector2(+20, 20), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(+10, -40), EaseState.Quad),
                             EaseOut(BeatTime(1.5f), new Vector2(+30, 30), EaseState.Quad),
@@ -2883,7 +2883,7 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(0.5f), -0.1f, EaseState.Cubic),
                             EaseOut(BeatTime(0.5f), -0.1f, EaseState.Cubic)
                             );
-                        RunEase(s => ScreenDrawing.ScreenPositionDetla = new(0, -s * 0.5f),
+                        RunEase(s => ScreenDrawing.ScreenPositionDelta = new(0, -s * 0.5f),
                             EaseOut(BeatTime(4), 60f, EaseState.Cubic),
                             EaseOut(BeatTime(0.5f), -10f, EaseState.Cubic),
                             EaseOut(BeatTime(0.5f), -10f, EaseState.Cubic),
@@ -2987,7 +2987,7 @@ namespace Rhythm_Recall.Waves
                                 rand -= 7f / 1500;
                                 float x = Rand(-rand, rand);
                                 float y = Rand(-rand, rand);
-                                ScreenDrawing.ScreenPositionDetla = new Vector2(x, y);
+                                ScreenDrawing.ScreenPositionDelta = new Vector2(x, y);
 
                                 Shaders.StepSample.CentreX = x + 320;
                                 Shaders.StepSample.CentreY = y + 240;
@@ -3682,7 +3682,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ShakeL", () =>
                     {
-                        RunEase(s => ScreenDrawing.ScreenPositionDetla = s,
+                        RunEase(s => ScreenDrawing.ScreenPositionDelta = s,
                             EaseOut(BeatTime(0.57f), new(-18, 0), new Vector2(0, 0), EaseState.Cubic)
                             );
                         RunEase(s => ScreenDrawing.ScreenAngle = s,
@@ -3691,7 +3691,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ShakeR", () =>
                     {
-                        RunEase(s => ScreenDrawing.ScreenPositionDetla = s,
+                        RunEase(s => ScreenDrawing.ScreenPositionDelta = s,
                             EaseOut(BeatTime(0.57f), new(18, 0), new Vector2(0, 0), EaseState.Cubic)
                             );
                         RunEase(s => ScreenDrawing.ScreenAngle = s,

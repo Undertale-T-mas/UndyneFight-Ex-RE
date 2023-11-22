@@ -12,21 +12,21 @@ namespace UndyneFight_Ex.Entities
     {
         private class TextSelectionEx : Entity, ISelectAble
         {
-            public static void Reset() { missionDetla = currentDetla = Vector2.Zero; }
-            private static Vector2 missionDetla;
-            private static Vector2 currentDetla;
+            public static void Reset() { missionDelta = currentDelta = Vector2.Zero; }
+            private static Vector2 missionDelta;
+            private static Vector2 currentDelta;
             public static void MoveUp()
             {
-                missionDetla += new Vector2(0, 52);
+                missionDelta += new Vector2(0, 52);
             }
             public static void MoveDown()
             {
-                missionDetla += new Vector2(0, -52);
+                missionDelta += new Vector2(0, -52);
             }
 
             public static void Move()
             {
-                currentDetla = currentDetla * 0.8f + missionDetla * 0.2f;
+                currentDelta = currentDelta * 0.8f + missionDelta * 0.2f;
             }
 
             public class ShinyTextEffect : Entity
@@ -111,7 +111,7 @@ namespace UndyneFight_Ex.Entities
             public override void Draw()
             {
                 float size1 = currentSize * size;
-                FightResources.Font.NormalFont.Draw(texts, startLocation + currentDetla - new Vector2(0, size1 * 14 - 14), showingColor * alpha, size1, 0.9f);
+                FightResources.Font.NormalFont.Draw(texts, startLocation + currentDelta - new Vector2(0, size1 * 14 - 14), showingColor * alpha, size1, 0.9f);
             }
 
             public void Selected()
@@ -126,7 +126,7 @@ namespace UndyneFight_Ex.Entities
                 currentSize = isSelected
                     ? currentSize * (1 - sizeChangeSpeed) + maxSize * sizeChangeSpeed
                     : currentSize * (1 - sizeChangeSpeed) + sizeChangeSpeed;
-                Centre = currentDetla + startLocation;
+                Centre = currentDelta + startLocation;
             }
 
             public virtual void SelectionEvent()

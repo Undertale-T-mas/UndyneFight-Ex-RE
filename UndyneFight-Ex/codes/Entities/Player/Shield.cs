@@ -62,7 +62,7 @@ namespace UndyneFight_Ex.Entities
                     private Color drawingColor;
                     private readonly float missionRotation;
                     private readonly bool rotateWay;
-                    private float GetDetla()
+                    private float GetDelta()
                     {
                         return Math.Min((missionRotation - Rotation + 360) % 360, (360 - missionRotation + Rotation) % 360);
                     }
@@ -78,7 +78,7 @@ namespace UndyneFight_Ex.Entities
                         Centre = user.Centre;
                         if (alpha > 0)
                         {
-                            float detla = GetDetla();
+                            float detla = GetDelta();
                             float scale = Math.Min(Pow(rotateStartTime, 1.5f) / 2.1f * 0.04f, 0.18f);
                             if (detla <= 35f)
                             {
@@ -107,7 +107,7 @@ namespace UndyneFight_Ex.Entities
                         return;
                     }
 
-                    pushDetla *= 0.8f;
+                    pushDelta *= 0.8f;
                 }
 
                 public bool enabled = false;
@@ -125,7 +125,7 @@ namespace UndyneFight_Ex.Entities
 
                 public float missionRotation = 0;
 
-                private float pushDetla = 0;
+                private float pushDelta = 0;
                 GreenSoulGB attachedGB = null;
                 public bool AttachingGB => attachedGB != null;
 
@@ -140,22 +140,22 @@ namespace UndyneFight_Ex.Entities
                     if (Auto || GameStates.IsKeyDown(UpdateKeys[gb.Way]))
                         attachedGB = gb;
                     if (Auto) return;
-                    if (pushDetla > user.controlingBox.CollidingBox.Width - 12)
+                    if (pushDelta > user.controlingBox.CollidingBox.Width - 12)
                     {
                         return;
                     }
 
-                    pushDetla += 0.1f;
-                    pushDetla *= 1.2f;
-                    pushDetla = Math.Min(user.controlingBox.CollidingBox.Width - 12, pushDetla);
+                    pushDelta += 0.1f;
+                    pushDelta *= 1.2f;
+                    pushDelta = Math.Min(user.controlingBox.CollidingBox.Width - 12, pushDelta);
                 }
 
                 internal Heart user;
                 public Heart User => user;
 
-                public float PushDelta => pushDetla;
+                public float PushDelta => pushDelta;
 
-                private float GetDetla()
+                private float GetDelta()
                 {
                     return Math.Min((missionRotation - Rotation + 360) % 360, (360 - missionRotation + Rotation) % 360);
                 }
@@ -203,7 +203,7 @@ namespace UndyneFight_Ex.Entities
                         }
 #endif
 
-                    FormalDraw(Image, Centre + MathUtil.GetVector2(pushDetla, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(drawingColor, 0.6f) * user.Alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
+                    FormalDraw(Image, Centre + MathUtil.GetVector2(pushDelta, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(drawingColor, 0.6f) * user.Alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
                 }
 
                 public override void Update()
@@ -213,13 +213,13 @@ namespace UndyneFight_Ex.Entities
                     while (resetTime > 0)
                     {
                         resetTime--;
-                        pushDetla *= 0.6f;
+                        pushDelta *= 0.6f;
                     }
                     rotateStartTime++;
                     Centre = user.Centre;
                     if (rotateStarted)
                     {
-                        float detla = GetDetla();
+                        float detla = GetDelta();
                         float scale = Math.Min(Pow(rotateStartTime, 1.5f) / 2.1f * 0.04f, 0.18f);
                         if (detla <= 35f)
                         {
@@ -239,14 +239,14 @@ namespace UndyneFight_Ex.Entities
                 }
 
                 private int resetTime = 0;
-                public void ResetPushDetla()
+                public void ResetPushDelta()
                 {
                     resetTime = 20;
                 }
 
                 public void Rotate(int missionWay)
                 {
-                    if (attachedGB != null && pushDetla < 4)
+                    if (attachedGB != null && pushDelta < 4)
                     {
                         AddChild(new ShieldShadow(this, missionWay * 90));
                         return;
@@ -255,7 +255,7 @@ namespace UndyneFight_Ex.Entities
                     {
                         if (hearts.Count == 1)
                             user.Shields.ShieldRotated();
-                        ResetPushDetla();
+                        ResetPushDelta();
                         if (rotateStartTime < 8f)
                             AddChild(new ShieldShadow(this));
                     }

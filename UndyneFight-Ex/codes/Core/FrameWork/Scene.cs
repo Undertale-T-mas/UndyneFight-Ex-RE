@@ -22,7 +22,7 @@ namespace UndyneFight_Ex
             public float outFadeScale = 0.86f;
             public float masterAlpha = 1.0f;
             public float defaultWidth = 640f;
-            public Vector2 screenDetla;
+            public Vector2 screenDelta;
             public Vector2 shakings = new(0, 0);
             public float screenAngle = 0.0f;
             public Dictionary<string, Surface> surfaces = new();

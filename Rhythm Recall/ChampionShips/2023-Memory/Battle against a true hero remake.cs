@@ -969,7 +969,7 @@ namespace Rhythm_Recall.Waves
                     }
                     CentreEasing.EaseBuilder builder = new();
                     builder.Insert(BeatTime(128), CentreEasing.YSinWave(6, BeatTime(32), 0));
-                    builder.Run((s) => { ScreenDrawing.ScreenPositionDetla = s; });
+                    builder.Run((s) => { ScreenDrawing.ScreenPositionDelta = s; });
                 }
                 #endregion
                 if (InBeat(960))
@@ -2198,11 +2198,11 @@ namespace Rhythm_Recall.Waves
                             ));
                             builder.Run((s) =>
                             {
-                                ScreenDrawing.ScreenPositionDetla = s;
+                                ScreenDrawing.ScreenPositionDelta = s;
                             });
                             DelayBeat(3.2f, () =>
                             {
-                                ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                                ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             });
                         });
                     });
@@ -3110,7 +3110,7 @@ namespace Rhythm_Recall.Waves
                     }
                     CentreEasing.EaseBuilder builder = new();
                     builder.Insert(BeatTime(128), CentreEasing.YSinWave(6, BeatTime(32), 0));
-                    builder.Run((s) => { ScreenDrawing.ScreenPositionDetla = s; });
+                    builder.Run((s) => { ScreenDrawing.ScreenPositionDelta = s; });
                 }
                 #endregion
                 if (InBeat(960))
@@ -5038,7 +5038,7 @@ namespace Rhythm_Recall.Waves
                     }
                     CentreEasing.EaseBuilder builder = new();
                     builder.Insert(BeatTime(128), CentreEasing.YSinWave(6, BeatTime(32), 0));
-                    builder.Run((s) => { ScreenDrawing.ScreenPositionDetla = s; });
+                    builder.Run((s) => { ScreenDrawing.ScreenPositionDelta = s; });
                 }
                 #endregion
                 if (InBeat(960))
@@ -6461,11 +6461,11 @@ namespace Rhythm_Recall.Waves
                             ));
                             builder.Run((s) =>
                             {
-                                ScreenDrawing.ScreenPositionDetla = s;
+                                ScreenDrawing.ScreenPositionDelta = s;
                             });
                             DelayBeat(3.2f, () =>
                             {
-                                ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                                ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                             });
                         });
                     });
@@ -7372,7 +7372,7 @@ namespace Rhythm_Recall.Waves
                     }
                     CentreEasing.EaseBuilder builder = new();
                     builder.Insert(BeatTime(128), CentreEasing.YSinWave(6, BeatTime(32), 0));
-                    builder.Run((s) => { ScreenDrawing.ScreenPositionDetla = s; });
+                    builder.Run((s) => { ScreenDrawing.ScreenPositionDelta = s; });
                 }
 
                 if (InBeat(960))
@@ -8343,7 +8343,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.ArrowFixed = true;
 
                 //      CreateLine(150, 100);
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
                 GametimeDelta = -2.5f;// + game.BeatTime(311);
                 ScreenDrawing.UISettings.CreateUISurface();
 

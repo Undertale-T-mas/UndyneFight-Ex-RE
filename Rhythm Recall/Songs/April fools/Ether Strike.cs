@@ -352,7 +352,7 @@ namespace AprilExtends
                         {
                             float x = t / (total - 1) * t / (total - 1);
                             float g = MathF.Sqrt(2 * x - x * x);
-                            ScreenDrawing.ScreenPositionDetla = new(0, start - del * g);
+                            ScreenDrawing.ScreenPositionDelta = new(0, start - del * g);
                             t++;
                         }));
                     }));
@@ -373,14 +373,14 @@ namespace AprilExtends
                         {
                             float t = 0;
                             float total = game.BeatTime(0.75f);
-                            float start = ScreenDrawing.ScreenPositionDetla.Y;
-                            float end = ScreenDrawing.ScreenPositionDetla.Y - 100;
+                            float start = ScreenDrawing.ScreenPositionDelta.Y;
+                            float end = ScreenDrawing.ScreenPositionDelta.Y - 100;
                             float del = start - end;
                             AddInstance(new TimeRangedEvent(0, total, () =>
                             {
                                 float x = t / (total - 1) * t / (total - 1);
                                 float g = MathF.Sqrt(2 * x - x * x);
-                                ScreenDrawing.ScreenPositionDetla = new(0, start - del * g);
+                                ScreenDrawing.ScreenPositionDelta = new(0, start - del * g);
                                 t++;
                             }));
                         }));
@@ -409,15 +409,15 @@ namespace AprilExtends
                         AddInstance(new InstantEvent(beats7[i], () =>
                         {
                             float t = 0;
-                            float start = ScreenDrawing.ScreenPositionDetla.X;
-                            float end = ScreenDrawing.ScreenPositionDetla.X - 150;
+                            float start = ScreenDrawing.ScreenPositionDelta.X;
+                            float end = ScreenDrawing.ScreenPositionDelta.X - 150;
                             float del = start - end;
                             float total = game.BeatTime(0.75f);
                             AddInstance(new TimeRangedEvent(0, total, () =>
                             {
                                 float x = t / (total - 1) * t / (total - 1);
                                 float g = MathF.Sqrt(2 * x - x * x);
-                                ScreenDrawing.ScreenPositionDetla = new(start - del * g, 0);
+                                ScreenDrawing.ScreenPositionDelta = new(start - del * g, 0);
                                 t++;
                             }));
                         }));
@@ -428,15 +428,15 @@ namespace AprilExtends
                     AddInstance(new InstantEvent(beats8, () =>
                     {
                         float t = 0;
-                        float start = ScreenDrawing.ScreenPositionDetla.X;
-                        float end = ScreenDrawing.ScreenPositionDetla.X + 300;
+                        float start = ScreenDrawing.ScreenPositionDelta.X;
+                        float end = ScreenDrawing.ScreenPositionDelta.X + 300;
                         float del = start - end;
                         float total = delay3;
                         AddInstance(new TimeRangedEvent(0, total, () =>
                         {
                             float x = t / (total - 1) * t / (total - 1);
                             float g = MathF.Sqrt(2 * x - x * x);
-                            ScreenDrawing.ScreenPositionDetla = new(start - del * g, 0);
+                            ScreenDrawing.ScreenPositionDelta = new(start - del * g, 0);
                             t++;
                         }));
                     }));
@@ -1387,9 +1387,9 @@ namespace AprilExtends
                 SetSoul(1);
                 // GametimeDelta = -10 + this.BeatTime(224);
                 GametimeDelta = -10;
-                //   GametimeDetla = 4300;
+                //   GametimeDelta = 4300;
 
-                //  GametimeDetla = this.BeatTime(1532);
+                //  GametimeDelta = this.BeatTime(1532);
                 // SetSoul(0); 
 
             }

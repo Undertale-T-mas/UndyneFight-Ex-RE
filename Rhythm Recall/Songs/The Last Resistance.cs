@@ -193,10 +193,10 @@ namespace Rhythm_Recall.Waves
                 ()=>{ LerpGreenBox(bpm * 4, new(260, 240), 0.085f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); },
                 ()=>{ LerpGreenBox(bpm * 4, new(380, 240), 0.085f); NormalLine line=new(new(640,240),new(BoxStates.Right-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90);},
                 ()=>{ LerpGreenBox(bpm * 4, new(320, 240), 0.072f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); NormalLine line1=new(new(640,240),new(BoxStates.Right-2,240),bpm*16,0,new(195,31,255));CreateTagLine(line1,"a");ForBeat(4,()=>{line1.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line1,bpm*5,0.5f,0,bpm*4,90); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDetla=new(0,0); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDelta=new(0,0); },
             });
             if (InBeat(20 * 4))
                 SpecialRhythmCreate(BeatTime(0.125f), 6.4f, 0,
@@ -1017,10 +1017,10 @@ namespace Rhythm_Recall.Waves
                 ()=>{ LerpGreenBox(bpm * 4, new(260, 240), 0.085f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); },
                 ()=>{ LerpGreenBox(bpm * 4, new(380, 240), 0.085f); NormalLine line=new(new(640,240),new(BoxStates.Right-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90);},
                 ()=>{ LerpGreenBox(bpm * 4, new(320, 240), 0.072f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); NormalLine line1=new(new(640,240),new(BoxStates.Right-2,240),bpm*16,0,new(195,31,255));CreateTagLine(line1,"a");ForBeat(4,()=>{line1.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line1,bpm*5,0.5f,0,bpm*4,90); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDetla=new(0,0); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDelta=new(0,0); },
             });
             if (InBeat(20 * 4))
                 SpecialRhythmCreate(BeatTime(0.125f), 6.4f, 0,
@@ -1841,10 +1841,10 @@ namespace Rhythm_Recall.Waves
                 ()=>{ LerpGreenBox(bpm * 4, new(260, 240), 0.085f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); },
                 ()=>{ LerpGreenBox(bpm * 4, new(380, 240), 0.085f); NormalLine line=new(new(640,240),new(BoxStates.Right-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90);},
                 ()=>{ LerpGreenBox(bpm * 4, new(320, 240), 0.072f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); NormalLine line1=new(new(640,240),new(BoxStates.Right-2,240),bpm*16,0,new(195,31,255));CreateTagLine(line1,"a");ForBeat(4,()=>{line1.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line1,bpm*5,0.5f,0,bpm*4,90); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDetla=new(0,0); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDelta=new(0,0); },
             });
             if (InBeat(20 * 4))
                 SpecialRhythmCreate(BeatTime(0.125f), 6.4f, 0,
@@ -2716,10 +2716,10 @@ namespace Rhythm_Recall.Waves
                 ()=>{ LerpGreenBox(bpm * 4, new(260, 240), 0.085f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); },
                 ()=>{ LerpGreenBox(bpm * 4, new(380, 240), 0.085f); NormalLine line=new(new(640,240),new(BoxStates.Right-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90);},
                 ()=>{ LerpGreenBox(bpm * 4, new(320, 240), 0.072f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); NormalLine line1=new(new(640,240),new(BoxStates.Right-2,240),bpm*16,0,new(195,31,255));CreateTagLine(line1,"a");ForBeat(4,()=>{line1.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line1,bpm*5,0.5f,0,bpm*4,90); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDetla=new(0,0); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDelta=new(0,0); },
             });
             if (InBeat(20 * 4))
                 SpecialRhythmCreate(BeatTime(0.125f), 6.4f, 0,
@@ -3584,10 +3584,10 @@ namespace Rhythm_Recall.Waves
                 ()=>{ LerpGreenBox(bpm * 4, new(260, 240), 0.085f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); },
                 ()=>{ LerpGreenBox(bpm * 4, new(380, 240), 0.085f); NormalLine line=new(new(640,240),new(BoxStates.Right-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90);},
                 ()=>{ LerpGreenBox(bpm * 4, new(320, 240), 0.072f); NormalLine line=new(new(0,240),new(BoxStates.Left-2,240),bpm*5,0,new(195,31,255));CreateTagLine(line,"a");ForBeat(4,()=>{line.x2=BoxStates.Left-2; });LineMoveLibrary.AlphaSin(line,bpm*5,0.5f,0,bpm*4,90); NormalLine line1=new(new(640,240),new(BoxStates.Right-2,240),bpm*16,0,new(195,31,255));CreateTagLine(line1,"a");ForBeat(4,()=>{line1.x2=BoxStates.Right+2; }); LineMoveLibrary.AlphaSin(line1,bpm*5,0.5f,0,bpm*4,90); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDetla=new(Rand(-40,40),Rand(-40,40)); },
-                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDetla=new(0,0); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(90);LerpScreenScale(bpm,1.2f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(180);LerpScreenScale(bpm,1.5f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(270);LerpScreenScale(bpm,1.8f,0.09f);ScreenPositionDelta=new(Rand(-40,40),Rand(-40,40)); },
+                ()=>{SetSoul(1);Heart.InstantSetRotation(0);LerpScreenScale(bpm*2,1,0.09f);ScreenPositionDelta=new(0,0); },
             });
             if (InBeat(20 * 4))
                 SpecialRhythmCreate(BeatTime(0.125f), 6.4f, 0,

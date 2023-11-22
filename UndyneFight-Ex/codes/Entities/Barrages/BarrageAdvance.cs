@@ -88,7 +88,7 @@ namespace UndyneFight_Ex.Entities.Advanced
                 {
                     LengthRouteParam = new float[] { length, duration },
                     RotationRouteParam = new float[] { rotationSpeed, 0 },
-                    RotationDetla = detla,
+                    RotationDelta = detla,
                     AlphaIncrease = isAlphaIncrease,
                     ColorType = colorType
                 });
@@ -103,7 +103,7 @@ namespace UndyneFight_Ex.Entities.Advanced
                 {
                     LengthRouteParam = new float[] { length, duration },
                     RotationRouteParam = new float[] { rotationSpeed, 0 },
-                    RotationDetla = detla,
+                    RotationDelta = detla,
                     AlphaIncrease = true
                 });
             }
@@ -118,7 +118,7 @@ namespace UndyneFight_Ex.Entities.Advanced
                     PositionRouteParam = motion.PositionRouteParam,
                     LengthRouteParam = new float[] { length, duration },
                     RotationRouteParam = motion.RotationRouteParam,
-                    RotationDetla = detla,
+                    RotationDelta = detla,
                     AlphaIncrease = true
                 });
             }
@@ -133,7 +133,7 @@ namespace UndyneFight_Ex.Entities.Advanced
                     PositionRouteParam = positionRouteParam,
                     LengthRouteParam = new float[] { length, duration >= 0 ? duration : 0x3f3f3f3f },
                     RotationRouteParam = new float[] { rotationSpeed, 0 },
-                    RotationDetla = detla,
+                    RotationDelta = detla,
                     AlphaIncrease = duration >= 0
                 });
             }
@@ -148,7 +148,7 @@ namespace UndyneFight_Ex.Entities.Advanced
                     PositionRouteParam = motion.PositionRouteParam,
                     LengthRouteParam = lengthControl.LengthRouteParam,
                     RotationRouteParam = motion.RotationRouteParam,
-                    RotationDetla = detla
+                    RotationDelta = detla
                 });
             }
         }

@@ -86,7 +86,7 @@ namespace UndyneFight_Ex
             Graphics.PreferredBackBufferHeight = 480;
             Graphics.PreferredBackBufferWidth = 640;
             Window.AllowUserResizing = true;
-            Window.Title = "Rhythm Recall v0.2.1 (UF-Ex [V0.2.0])";
+            Window.Title = "Rhythm Recall v0.2.2 (UF-Ex [V0.2.0])";
             Graphics.ApplyChanges();
 
             // TODO: Add your initialization logic here
@@ -317,13 +317,15 @@ namespace UndyneFight_Ex
 
         public void ToggleFullScreen()
         {
-            Graphics.ToggleFullScreen();
+
             if (_isFullScreen)
             {
                 Graphics.PreferredBackBufferWidth = (int)(480 * Aspect);
                 Graphics.PreferredBackBufferHeight = 480;
-                Window.AllowUserResizing = true;
+                Window.AllowUserResizing = false;
                 CilentBoundChanged();
+                Graphics.ToggleFullScreen();
+                Graphics.ApplyChanges();
             }
             else
             {
@@ -331,10 +333,12 @@ namespace UndyneFight_Ex
                 lastSize = screenSize;
                 Graphics.PreferredBackBufferWidth = adapter.CurrentDisplayMode.Width;
                 Graphics.PreferredBackBufferHeight = adapter.CurrentDisplayMode.Height;
-                Window.AllowUserResizing = false;
+                Window.AllowUserResizing = true;
+                Graphics.ApplyChanges();
+                Graphics.ToggleFullScreen();
             }
             _isFullScreen = !_isFullScreen;
-            Graphics.ApplyChanges();
+
         }
 
         private static void CreateDebugWindow()

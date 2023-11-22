@@ -330,7 +330,7 @@ namespace Rhythm_Recall.Waves
                         ////
                         "$21","","~_!$21","",    "~_$21","","~_!$21","",    "(~_$21)($0)","","(~_!$21)(~_!$0)","",    "(~_$21)(~_$0)","","(~_!$21)(~_!$0)","",
                         "(~_!$21)(~_!$21@A1)(~_!$21@A2)(~_!$21@A3)(~_!$21@A4)(~_!$21@A5)(~_!$21@A6)(~_!$21@A7)(~_!$21@A8)" +
-                        "(~_!$0)(~_!$0@A1)(~_!$0@A2)(~_!$0@A3)(~_!$0@A4)(~_!$0@A5)(~_!$0@A6)(~_!$0@A7)(~_!$0@A8)" + 
+                        "(~_!$0)(~_!$0@A1)(~_!$0@A2)(~_!$0@A3)(~_!$0@A4)(~_!$0@A5)(~_!$0@A6)(~_!$0@A7)(~_!$0@A8)" +
                         "($11)(~_!$11@C1)(~_!$11@C2)(~_!$11@C3)(~_!$11@C4)(~_!$11@C5)(~_!$11@C6)(~_!$11@C7)(~_!$11@C8)" +
                         "($1)(~_!$1@B1)(~_!$1@B2)(~_!$1@B3)(~_!$1@B4)(~_!$1@B5)(~_!$1@B6)(~_!$1@B7)(~_!$1@B8)","","","",    "","","","",    "","","","",    "","","","",
                         //
@@ -489,13 +489,13 @@ namespace Rhythm_Recall.Waves
                 Settings.GreenTap = true;
                 HeartAttribute.ArrowFixed = true;
 
-                GametimeDelta =BeatTime(-0.65f);
+                GametimeDelta = BeatTime(-0.65f);
                 bool jump = true;
                 if (jump)
                 {
                     int beat = 0;
                     //int beat = 4 * 15;
-                    GametimeDelta =BeatTime(-0.65f + beat);
+                    GametimeDelta = BeatTime(-0.65f + beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
                 }

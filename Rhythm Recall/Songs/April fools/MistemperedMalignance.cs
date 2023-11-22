@@ -281,7 +281,7 @@ namespace Rhythm_Recall.Waves
                          InstantSetBox(start - del * f, 84, 84);
                          t++;
                          InstantTP(BoxStates.Centre.X, BoxStates.Centre.Y);
-                         ScreenDrawing.ScreenPositionDetla = new Vector2(ScreenDrawing.ScreenPositionDetla.X, (240 - BoxStates.Centre.Y) * 2f);
+                         ScreenDrawing.ScreenPositionDelta = new Vector2(ScreenDrawing.ScreenPositionDelta.X, (240 - BoxStates.Centre.Y) * 2f);
                      }));
                     AddInstance(new InstantEvent((int)(bpm * 32), () =>
                     {

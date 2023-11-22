@@ -692,7 +692,7 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(138 + 128 - 7.7f))
             {
-                ScreenDrawing.ScreenPositionDetla = new Vector2(110, -120) * 1.0f;
+                ScreenDrawing.ScreenPositionDelta = new Vector2(110, -120) * 1.0f;
                 ScreenDrawing.ScreenScale = 1.7f;
                 SetSoul(0);
                 SetBox(100, 320, 300, 420);
@@ -702,11 +702,11 @@ namespace Rhythm_Recall.Waves
                 SetSoul(3);
                 SetBox(290, 160, 160);
                 ScreenDrawing.ScreenScale = 1.0f;
-                ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
             }
             if (InBeat(266 + 4, 394 - 4))
             {
-                ScreenDrawing.ScreenPositionDetla = new Vector2(Sin((Gametime - BeatTime(14)) / BeatTime(16) * 360) * 60, 0);
+                ScreenDrawing.ScreenPositionDelta = new Vector2(Sin((Gametime - BeatTime(14)) / BeatTime(16) * 360) * 60, 0);
                 float posY = Sin(Gametime / BeatTime(16) * 360 + 270) * 20;
                 SetBox(240, 400, 230 + posY, 370);
             }
@@ -781,7 +781,7 @@ namespace Rhythm_Recall.Waves
             {
                 float d = Sin((Gametime - BeatTime(10)) / BeatTime(8) * 360) * 35f;
                 float d2 = Sin((Gametime - BeatTime(10)) / BeatTime(12) * 360) * 35f;
-                ScreenDrawing.ScreenPositionDetla = new Vector2(d, d2);
+                ScreenDrawing.ScreenPositionDelta = new Vector2(d, d2);
                 if (InBeat(526))
                 {
                     CreateBone(new SwarmBone(72, BeatTime(16), BeatTime(0), BeatTime(120)) { ColorType = 2 });
@@ -882,7 +882,7 @@ namespace Rhythm_Recall.Waves
             {
                 SetSoul(0);
                 Heart.Rotation = ScreenDrawing.ScreenAngle = 0;
-                ScreenDrawing.ScreenPositionDetla = Vector2.Zero;
+                ScreenDrawing.ScreenPositionDelta = Vector2.Zero;
                 Heart.EnabledRedShield = false;
                 ScreenDrawing.BackGroundColor = Color.Black;
                 ScreenDrawing.UIColor = Color.White;
@@ -1201,7 +1201,7 @@ namespace Rhythm_Recall.Waves
                 for (int i = 0; i < 8; i++)
                 {
                     float detla = Rand(-25, 25);
-                    float startDetla = Rand(-100, 100);
+                    float startDelta = Rand(-100, 100);
                     float x = Rand(24, 30);
 
                     float detla1 = BeatTime(i * 4);
@@ -1211,7 +1211,7 @@ namespace Rhythm_Recall.Waves
                     {
                         CreateBone(new CustomBone(new Vector2(320, detla + 290 + j * 70), Motions.PositionRoute.XYAxisSin, 0, 24)
                         {
-                            PositionRouteParam = new float[] { 50, BeatTime(x), startDetla, 160, BeatTime(32), detla2 },
+                            PositionRouteParam = new float[] { 50, BeatTime(x), startDelta, 160, BeatTime(32), detla2 },
                             AlphaRoute = (s) =>
                             {
                                 float val = (Sin(360f * (s.AppearTime + detla1) / BeatTime(32)) * 0.7f + 1.2f) * Math.Min(1, s.AppearTime / 30f);
@@ -1221,9 +1221,9 @@ namespace Rhythm_Recall.Waves
                             LengthRoute = (s) =>
                             {
                                 float val = Math.Min(24, Sin(360f * (s.AppearTime + detla1) / BeatTime(32)) * 7.7f + 24f);
-                                float timeDetla = BeatTime(124) - s.AppearTime;
-                                if (timeDetla < 0) return -10;
-                                float val2 = timeDetla * timeDetla / 10f;
+                                float timeDelta = BeatTime(124) - s.AppearTime;
+                                if (timeDelta < 0) return -10;
+                                float val2 = timeDelta * timeDelta / 10f;
                                 return MathHelper.Min(val, val2);
                             }
                         });

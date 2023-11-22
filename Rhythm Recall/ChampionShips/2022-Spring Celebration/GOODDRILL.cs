@@ -1155,12 +1155,12 @@ namespace Rhythm_Recall.Waves
                 if (GametimeF > 755 && GametimeF < 810)
                 {
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 0.1f;
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f, ScreenDrawing.ScreenPositionDetla.Y * 0.9f);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f, ScreenDrawing.ScreenPositionDelta.Y * 0.9f);
                 }
                 if (GametimeF > 450 && GametimeF < 480)
                 {
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 2.25f * 0.1f;
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 480 * 0.1f, ScreenDrawing.ScreenPositionDetla.Y * 0.9f - 240 * 0.1f);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 480 * 0.1f, ScreenDrawing.ScreenPositionDelta.Y * 0.9f - 240 * 0.1f);
                 }
                 #endregion
                 //特效1
@@ -1326,7 +1326,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2185 + 0 * 42.5f && GametimeF < 2185 + 1 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
                     NormalLine line = new(640 - (Gametime - 2185 - 0 * 42.5f) * 0.9f * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 0 * 42.5f) * 0.9f * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1336,7 +1336,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2185 + 1 * 42.5f && GametimeF < 2185 + 2 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
                     NormalLine line = new((Gametime - 2185 - 1 * 42.5f) * 0.9f * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 1 * 42.5f) * 0.9f * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1346,7 +1346,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2185 + 2 * 42.5f && GametimeF < 2185 + 3 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
                     NormalLine line = new(640 - (Gametime - 2185 - 2 * 42.5f) * 0.9f * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 2 * 42.5f) * 0.9f * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1356,7 +1356,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2185 + 3 * 42.5f && GametimeF < 2185 + 4 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
                     NormalLine line = new((Gametime - 2185 - 3 * 42.5f) * 0.9f * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 3 * 42.5f) * 0.9f * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1366,7 +1366,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2185 + 4 * 42.5f && GametimeF < 2185 + 5 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
                     NormalLine line = new(640 - (Gametime - 2185 - 4 * 42.5f) * 0.9f * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 4 * 42.5f) * 0.9f * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1376,7 +1376,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2185 + 5 * 42.5f && GametimeF < 2185 + 6 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
                     NormalLine line = new((Gametime - 2185 - 5 * 42.5f) * 0.9f * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 5 * 42.5f) * 0.9f * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1386,7 +1386,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2185 + 6 * 42.5f && GametimeF < 2185 + 7 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f, 0);
                     NormalLine line = new(640 - (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     NormalLine line1 = new((Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
@@ -1457,7 +1457,7 @@ namespace Rhythm_Recall.Waves
                 #region
                 if (GametimeF >= 2520 + 0 * 42.5f && GametimeF < 2520 + 1 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
                     NormalLine line = new((Gametime - 2520 - 0 * 42.5f) * 0.9f * ((Gametime - 2520 - 0 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 0 * 42.5f) * 0.9f * ((Gametime - 2520 - 0 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1467,7 +1467,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2520 + 1 * 42.5f && GametimeF < 2520 + 2 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
                     NormalLine line = new(640 - (Gametime - 2520 - 1 * 42.5f) * 0.9f * ((Gametime - 2520 - 1 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 1 * 42.5f) * 0.9f * ((Gametime - 2520 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1477,7 +1477,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2520 + 2 * 42.5f && GametimeF < 2520 + 3 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
                     NormalLine line = new((Gametime - 2520 - 2 * 42.5f) * 0.9f * ((Gametime - 2520 - 2 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 2 * 42.5f) * 0.9f * ((Gametime - 2520 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1487,7 +1487,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2520 + 3 * 42.5f && GametimeF < 2520 + 4 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
                     NormalLine line = new(640 - (Gametime - 2520 - 3 * 42.5f) * 0.9f * ((Gametime - 2520 - 3 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 3 * 42.5f) * 0.9f * ((Gametime - 2520 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1497,7 +1497,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2520 + 4 * 42.5f && GametimeF < 2520 + 5 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f - 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
                     NormalLine line = new((Gametime - 2520 - 4 * 42.5f) * 0.9f * ((Gametime - 2520 - 4 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 4 * 42.5f) * 0.9f * ((Gametime - 2520 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1507,7 +1507,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2520 + 5 * 42.5f && GametimeF < 2520 + 6 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f + 50 * 0.1f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
                     NormalLine line = new(640 - (Gametime - 2520 - 5 * 42.5f) * 0.9f * ((Gametime - 2520 - 5 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 5 * 42.5f) * 0.9f * ((Gametime - 2520 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     AddInstance(new TimeRangedEvent(1, 89, () =>
@@ -1517,7 +1517,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2520 + 6 * 42.5f && GametimeF < 2520 + 7 * 42.5f)
                 {
-                    ScreenDrawing.ScreenPositionDetla = new(ScreenDrawing.ScreenPositionDetla.X * 0.9f, 0);
+                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f, 0);
                     NormalLine line = new(640 - (Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
                     NormalLine line1 = new((Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 0, (Gametime - 2520 - 6 * 42.5f) * 0.9f * ((Gametime - 2520 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
@@ -1979,7 +1979,7 @@ namespace Rhythm_Recall.Waves
                     NormalBarrage.A2();
                 }
                 if (GametimeF > 420 && GametimeF < 755)
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(320f, 240f) - FightBox.instance.Centre;
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(320f, 240f) - FightBox.instance.Centre;
                 if (GametimeF > 480 && GametimeF < 600)
                 {
                     SetBox(20 + (Gametime - 480) * 100 / 120, 100 + (Gametime - 480) * 100 / 120, 320, 400);
@@ -2654,7 +2654,7 @@ namespace Rhythm_Recall.Waves
                     HardBarrage.A2();
                 }
                 if (GametimeF > 420 && GametimeF < 755)
-                    ScreenDrawing.ScreenPositionDetla = new Vector2(320f, 240f) - FightBox.instance.Centre;
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(320f, 240f) - FightBox.instance.Centre;
                 if (GametimeF > 480 && GametimeF < 600)
                 {
                     SetBox(20 + (Gametime - 480) * 100 / 120, 100 + (Gametime - 480) * 100 / 120, 320, 400);
