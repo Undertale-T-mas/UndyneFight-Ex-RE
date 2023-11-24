@@ -89,7 +89,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public override void Draw() { }
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 private int appearTime;
                 public string[] tags = { "noany" };
                 public override void Update()
@@ -100,7 +100,7 @@ namespace Rhythm_Recall.Waves
                         for (int a = 0; a < quantity; a++)
                         {
                             float b = (a + 0.5f) * distance * speed;
-                            DownBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                            DownBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                             CreateBone(bone1);
                         }
                     }
@@ -139,7 +139,7 @@ namespace Rhythm_Recall.Waves
                 public override void Draw() { }
                 int appearTime;
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 public string[] tags = { "noany" };
                 public override void Update()
                 {
@@ -149,7 +149,7 @@ namespace Rhythm_Recall.Waves
                         for (int a = 0; a < quantity; a++)
                         {
                             float b = (a + 0.5f) * distance * speed;
-                            UpBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                            UpBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                             CreateBone(bone1);
                         }
                     }
@@ -1146,7 +1146,7 @@ namespace Rhythm_Recall.Waves
 
                 }
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 private int appearTime;
                 public string[] tags = { "noany" };
                 public override void Update()
@@ -1158,14 +1158,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }
@@ -1211,7 +1211,7 @@ namespace Rhythm_Recall.Waves
                 }
                 int appearTime;
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 public string[] tags = { "noany" };
                 public override void Update()
                 {
@@ -1222,14 +1222,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }
@@ -2318,7 +2318,7 @@ namespace Rhythm_Recall.Waves
 
                 }
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 private int appearTime;
                 public string[] tags = { "noany" };
                 public override void Update()
@@ -2330,14 +2330,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }
@@ -2383,7 +2383,7 @@ namespace Rhythm_Recall.Waves
                 }
                 int appearTime;
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 public string[] tags = { "noany" };
                 public override void Update()
                 {
@@ -2394,14 +2394,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }
@@ -3352,7 +3352,7 @@ namespace Rhythm_Recall.Waves
 
                 }
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 private int appearTime;
                 public string[] tags = { "noany" };
                 public override void Update()
@@ -3364,14 +3364,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }
@@ -3417,7 +3417,7 @@ namespace Rhythm_Recall.Waves
                 }
                 int appearTime;
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 public string[] tags = { "noany" };
                 public override void Update()
                 {
@@ -3428,14 +3428,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }
@@ -4364,7 +4364,7 @@ namespace Rhythm_Recall.Waves
 
                 }
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 private int appearTime;
                 public string[] tags = { "noany" };
                 public override void Update()
@@ -4376,14 +4376,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }
@@ -4429,7 +4429,7 @@ namespace Rhythm_Recall.Waves
                 }
                 int appearTime;
                 float time = 0;
-                public bool marcksore;
+                public bool markscore;
                 public string[] tags = { "noany" };
                 public override void Update()
                 {
@@ -4440,14 +4440,14 @@ namespace Rhythm_Recall.Waves
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
                             }
                         if (!way)
                             for (int a = 0; a < quantity; a++)
                             {
                                 float b = (a + 0.5f) * distance * speed;
-                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
+                                UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
                                 CreateBone(bone1);
 
                             }

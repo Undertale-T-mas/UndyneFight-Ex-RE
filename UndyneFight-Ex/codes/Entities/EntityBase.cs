@@ -58,7 +58,7 @@ namespace UndyneFight_Ex.Entities
         }
         public static class PositionRoute
         {
-            public static Func<ICustomMotion, Vector2> stableValue = (s) => { return new Vector2(0, 0); };
+            public static Func<ICustomMotion, Vector2> stableValue = (s) => { return new Vector2(0); };
             public static Func<ICustomMotion, Vector2> cameFromUp = (s) => { return new Vector2(0, 0 - (float)(Math.Pow(0.85, s.AppearTime) * 600)); };
             public static Func<ICustomMotion, Vector2> cameFromDown = (s) => { return new Vector2(0, 0 + (float)(Math.Pow(0.85, s.AppearTime) * 600)); };
             public static Func<ICustomMotion, Vector2> cameFromLeft = (s) => { return new Vector2(0 - (float)(Math.Pow(0.85, s.AppearTime) * 600), 0); };

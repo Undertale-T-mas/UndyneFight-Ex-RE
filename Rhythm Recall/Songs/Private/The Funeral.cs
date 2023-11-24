@@ -242,7 +242,7 @@ namespace Rhythm_Recall.Waves
                 //arse1.DistanceEase = LinkEase(Stable(BeatTime(8 * (6 / 0.5f)-4), BeatTime(8*(6/0.5f))*0.5f),EaseOut(BeatTime(4), BeatTime(8*(6/0.5f))*0.5f, 0, EaseState.Quint));
                 arse1.PositionEase = LinkEase(
                     Stable(BeatTime(2), new Vector2(0, 100)),
-                    EaseOut(BeatTime(2), new Vector2(0, 100), new Vector2(0, 0), EaseState.Quint));
+                    EaseOut(BeatTime(2), new Vector2(0, 100), new Vector2(0), EaseState.Quint));
                 arse1.TagApply("R");
                 AddInstance(arse1);
 

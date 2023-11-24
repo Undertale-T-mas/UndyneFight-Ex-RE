@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using static UndyneFight_Ex.DrawingLab;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -83,27 +84,31 @@ namespace UndyneFight_Ex.Entities
                 this.timeLag = timeLag;
                 this.alphaGenerator = alphaGenerator;
             }
+            void DrawTargetLine(Vector2 Start, Vector2 End)
+            {
+                DrawLine(Start, End, follow.Width, follow.DrawingColor * follow.Alpha, Depth);
+            }
             public override void Draw()
             {
                 if (!available) return;
-                if (alpha < 0) return;
+                if (alpha <= 0) return;
                 float width = follow.Width;
-                DrawingLab.DrawLine(vec1, vec2, width, color * alpha, Depth);
+                DrawTargetLine(vec1, vec2);
                 if (verticalMirror)
-                    DrawingLab.DrawLine(new Vector2(vec1.X, 480 - vec1.Y), new Vector2(vec2.X, 480 - vec2.Y), width, color * alpha, Depth);
+                    DrawTargetLine(new Vector2(vec1.X, 480 - vec1.Y), new Vector2(vec2.X, 480 - vec2.Y));
                 if (transverseMirror)
-                    DrawingLab.DrawLine(new Vector2(640 - vec1.X, vec1.Y), new Vector2(640 - vec2.X, vec2.Y), width, color * alpha, Depth);
+                    DrawTargetLine(new Vector2(640 - vec1.X, vec1.Y), new Vector2(640 - vec2.X, vec2.Y));
                 if (obliqueMirror)
-                    DrawingLab.DrawLine(new Vector2(640 - vec1.X, 480 - vec1.Y), new Vector2(640 - vec2.X, 480 - vec2.Y), width, color * alpha, Depth);
+                    DrawTargetLine(new Vector2(640 - vec1.X, 480 - vec1.Y), new Vector2(640 - vec2.X, 480 - vec2.Y));
                 if (verticalline)
                 {
-                    DrawingLab.DrawLine(new Vector2(560 - vec1.Y, vec1.X - 80), new Vector2(560 - vec2.Y, vec2.X - 80), width, color * alpha, Depth);
+                    DrawTargetLine(new Vector2(560 - vec1.Y, vec1.X - 80), new Vector2(560 - vec2.Y, vec2.X - 80));
                     if (transverseMirror)
-                        DrawingLab.DrawLine(new Vector2(640 - (560 - vec1.Y), vec1.X - 80), new Vector2(640 - (560 - vec2.Y), vec2.X - 80), width, color * alpha, Depth);
+                        DrawTargetLine(new Vector2(640 - (560 - vec1.Y), vec1.X - 80), new Vector2(640 - (560 - vec2.Y), vec2.X - 80));
                     if (verticalMirror)
-                        DrawingLab.DrawLine(new Vector2(560 - vec1.Y, 480 - (vec1.X - 80)), new Vector2(560 - vec2.Y, 480 - (vec2.X - 80)), width, color * alpha, Depth);
+                        DrawTargetLine(new Vector2(560 - vec1.Y, 480 - (vec1.X - 80)), new Vector2(560 - vec2.Y, 480 - (vec2.X - 80)));
                     if (obliqueMirror)
-                        DrawingLab.DrawLine(new Vector2(640 - (560 - vec1.Y), 480 - (vec1.X - 80)), new Vector2(640 - (560 - vec2.Y), 480 - (vec2.X - 80)), width, color * alpha, Depth);
+                        DrawTargetLine(new Vector2(640 - (560 - vec1.Y), 480 - (vec1.X - 80)), new Vector2(640 - (560 - vec2.Y), 480 - (vec2.X - 80)));
                 }
             }
 

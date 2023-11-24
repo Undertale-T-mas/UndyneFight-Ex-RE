@@ -100,7 +100,7 @@ namespace Rhythm_Recall.Waves
                     ApplyTime = BeatTime(2.5f),
                     PositionEase = LinkEase(
                         Stable(BeatTime(1.4f), new Vector2(0, -245)),
-                        EaseOut(BeatTime(1.1f), new Vector2(0, -245), new Vector2(0, 0), EaseState.Elastic))
+                        EaseOut(BeatTime(1.1f), new Vector2(0, -245), new Vector2(0), EaseState.Elastic))
                 });
                 AddInstance(easeH = new Arrow.UnitEasing());
                 AddInstance(easeI = new Arrow.UnitEasing());

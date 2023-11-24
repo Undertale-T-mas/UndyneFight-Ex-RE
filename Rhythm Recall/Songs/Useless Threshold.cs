@@ -37,31 +37,29 @@ namespace Rhythm_Recall.Waves
                 public override string AttributeAuthor => "Tlott.God.Inf _ Onor.Kz";
                 public Information() { this.MusicOptimized = true; }
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
-                new KeyValuePair<Difficulty, float>[]
-                {
-                    new(Difficulty.Easy,0f),
-                    new(Difficulty.Normal,0f),
-                    new(Difficulty.Extreme,0f),
-
-
-                }
+                    new KeyValuePair<Difficulty, float>[]
+                    {
+                        new(Difficulty.Easy,0f),
+                        new(Difficulty.Normal,0f),
+                        new(Difficulty.Extreme,0f),
+                    }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Easy,0f),
-                    new(Difficulty.Normal,0f),
-                    new(Difficulty.Extreme,0f),
+                        new(Difficulty.Normal,0f),
+                        new(Difficulty.Extreme,0f),
                     }
-                    );
+                );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Easy,0f),
-                    new(Difficulty.Normal,0f),
-                    new(Difficulty.Extreme,0f),
+                        new(Difficulty.Normal,0f),
+                        new(Difficulty.Extreme,0f),
                     }
-                    );
+                );
             }
             public static Game game;
             GlobalResources.Effects.StepSampleShader StepSample;
@@ -243,7 +241,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.ArrowFixed = true;
 
                 GametimeDelta = BeatTime(-4);
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     int beat = 4*16;

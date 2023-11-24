@@ -28,7 +28,7 @@ namespace Rhythm_Recall.Waves
                 {
                     Shader = shader;
                     MissionTarget = obj;
-                    DrawTexture(obj, new Vector2(0, 0));
+                    DrawTexture(obj, new Vector2(0));
                     return obj;
                 }
             }

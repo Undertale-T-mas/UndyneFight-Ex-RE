@@ -202,32 +202,32 @@ namespace Rhythm_Recall.Waves
 
             if (GametimeF == 90)
             {
-                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0, 0), new Vector2(1, 1), 30, 30));
+                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0), new Vector2(1, 1), 30, 30));
             }
             if (GametimeF == 150)
             {
 
-                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0, 0), new Vector2(1, 1), 30, 30));
+                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0), new Vector2(1, 1), 30, 30));
             }
             if (GametimeF == 210)
             {
                 SetBox(0, 100, 100);
-                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0, 0), new Vector2(1, 1), 30, 30));
+                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0), new Vector2(1, 1), 30, 30));
             }
             if (GametimeF == 270)
             {
                 SetBox(150, 100, 100);
-                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0, 0), new Vector2(1, 1), 30, 30));
+                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0), new Vector2(1, 1), 30, 30));
             }
             if (GametimeF == 330)
             {
                 SetBox(320, 240, 240);
-                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0, 0), new Vector2(1, 1), 30, 30));
+                CreateGB(new NormalGB(new Vector2(320, 50), new Vector2(0), new Vector2(1, 1), 30, 30));
             }
             if (GametimeF == 390)
             {
 
-                CreateGB(new NormalGB(new Vector2(300, 80), new Vector2(0, 0), new Vector2(3, 3), 100, 100));
+                CreateGB(new NormalGB(new Vector2(300, 80), new Vector2(0), new Vector2(3, 3), 100, 100));
             }
 
             if (GametimeF == 540)

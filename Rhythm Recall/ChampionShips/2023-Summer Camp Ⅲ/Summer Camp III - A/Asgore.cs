@@ -2928,7 +2928,7 @@ namespace Rhythm_Recall.Waves
                         for (int a = 0; a < 16; a++)
                         {
                             var link = Add(LinkEase(EaseOut(BeatTime(1f), new Vector2(0, -60), EaseState.Quad),
-                                EaseIn(BeatTime(3f), new Vector2(0, 540), EaseState.Quad)), Linear(BeatTime(2.5f), new Vector2(0, 0)));
+                                EaseIn(BeatTime(3f), new Vector2(0, 540), EaseState.Quad)), Linear(BeatTime(2.5f), new Vector2(0)));
                             int i = a;
                             var ce = LinkEase(
                                 Stable(0, new Vector2(randx + i * 80, 60)),
@@ -2945,7 +2945,7 @@ namespace Rhythm_Recall.Waves
                         for (int a = 0; a < 16; a++)
                         {
                             var link = Add(LinkEase(EaseOut(BeatTime(1f), new Vector2(0, -60), EaseState.Quad),
-                                EaseIn(BeatTime(3f), new Vector2(0, 540), EaseState.Quad)), Linear(BeatTime(2.5f), new Vector2(0, 0)));
+                                EaseIn(BeatTime(3f), new Vector2(0, 540), EaseState.Quad)), Linear(BeatTime(2.5f), new Vector2(0)));
                             int i = a;
                             var ce = LinkEase(
                                 Stable(0, new Vector2(randx + i * 80, 60)),
@@ -3755,7 +3755,7 @@ namespace Rhythm_Recall.Waves
                             int x = a;
                             Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 40);
                             var e = LinkEase(
-                                Stable(0, new Vector2(0, 0)),
+                                Stable(0, new Vector2(0)),
                                 Linear(BeatTime(6), mt)
                                 );
                             var i = LinkEase(
@@ -3783,7 +3783,7 @@ namespace Rhythm_Recall.Waves
                             if ((0 <= x && x < 9) || (18 <= x && x < 27)) colortype = 2;
                             Vector2 mt = MathUtil.GetVector2(MathF.Sqrt(360 * 360 + 280 * 280), r + x * 10);
                             var e = LinkEase(
-                                Stable(0, new Vector2(0, 0)),
+                                Stable(0, new Vector2(0)),
                                 Linear(BeatTime(6), mt)
                                 );
                             var i = LinkEase(

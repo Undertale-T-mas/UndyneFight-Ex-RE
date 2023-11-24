@@ -2210,48 +2210,6 @@
 /processorParam:TextureFormat=Color
 /build:Musics/A Fleeting Oath/刹那の誓い.jpg;Musics/A Fleeting Oath/paint.jpg
 
-#begin Musics/a/a.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/a/a.ogg;Musics/a/song.ogg
-
-#begin Musics/a/astro00001.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Musics/a/astro00001.png;Musics/a/paint.png
-
-#begin Musics/ad,!U)~ZRr]/intro.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/ad,!U)~ZRr]/intro.wav
-
-#begin Musics/ad,!U)~ZRr]/paint.jpeg
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Musics/ad,!U)~ZRr]/paint.jpeg
-
-#begin Musics/ad,!U)~ZRr]/song.wav
-/importer:WavImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/ad,!U)~ZRr]/song.wav
-
 #begin Musics/Asgore/Hand.png
 /importer:TextureImporter
 /processor:TextureProcessor

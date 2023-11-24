@@ -23,17 +23,17 @@ namespace Rhythm_Recall.Waves
         {
             public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 18.9f),
+                        //new(Difficulty.Extreme, 18.9f),
                     }
                 );
             public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 18.9f),
+                        //new(Difficulty.Extreme, 18.9f),
                     }
                 );
             public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.Extreme, 20.9f),
+                        //new(Difficulty.Extreme, 20.9f),
                     }
                 );
             public override string BarrageAuthor => "T-mas & TK";
@@ -74,8 +74,7 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("Summon", () =>
                 {
                     PlaySound(Sounds.pierce);
-                    float l = 320 - 128;
-                    float r = 320 + 128;
+                    float l = 320 - 128, r = 320 + 128;
 
                     int count = 12;
                     List<DownBone> bones2 = new();
@@ -90,13 +89,16 @@ namespace Rhythm_Recall.Waves
                             bones2.Add(temp);
                         });
                         float x2 = MathHelper.Lerp(r, 320, i * 1.0f / count);
-                        DelayBeat(i / 16f, () =>
+                        if (i < count)
                         {
-                            DownBone temp;
-                            CreateBone(temp = new DownBone(false, x2, 0, 20));
-                            temp.LengthLerpScale = 0.02f;
-                            bones2.Add(temp);
-                        });
+                            DelayBeat(i / 16f, () =>
+                            {
+                                DownBone temp;
+                                CreateBone(temp = new DownBone(false, x2, 0, 20));
+                                temp.LengthLerpScale = 0.02f;
+                                bones2.Add(temp);
+                            });
+                        }
                     }
 
                     DelayBeat(24, () =>
@@ -105,13 +107,10 @@ namespace Rhythm_Recall.Waves
                         {
                             temp.MissionLength = 140f;
                             //temp.ColorType = 2;  hard才转颜色
-                            temp.Alpha = 0.5f;
                             temp.LengthLerpScale = 0.02f;
                             ForBeat(12, () =>
                             {
                                 temp.Speed += 0.06f;
-                                if (temp.Alpha < 0.96f)
-                                    temp.Alpha += 0.009f;
                             });
                         }
                     });
@@ -303,17 +302,18 @@ namespace Rhythm_Recall.Waves
                     "Red"
                 });
             }
+            //Red
             if (InBeat(65))
             {
                 for (int i = 0; i < 4; i++)
                 {
                     for (int k = 0; k < 2; k++)
                     {
-                        CustomBone SideBone = new(new Vector2(320, 320), Motions.PositionRoute.circle, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
+                        CustomBone SideBone = new(new Vector2(320), Motions.PositionRoute.circle, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
                         {
                             PositionRouteParam = new float[] { 70, 1.8f, i * 90 },
                             LengthRouteParam = new float[] { 70 + k * 30, BeatTime(48) },
-                            RotationRouteParam = new float[] { 2 * (((i + k) % 2) == 0 ? 2 : -2), k * 90 },
+                            RotationRouteParam = new float[] { 2 * (((i + k) % 2) == 1 ? 2 : -2), k * 90 },
                             AlphaIncrease = true,
                             ColorType = k * 2,
                         };
@@ -343,33 +343,35 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(67))
             {
-                CreateGB(new NormalGB(new(140, 200), new(140, 0), new(1, 1), MathUtil.Direction(new(140, 200), new(320, 320)), BeatTime(61), 20));
-                CreateGB(new NormalGB(new(500, 200), new(500, 0), new(1, 1), MathUtil.Direction(new(500, 200), new(320, 320)), BeatTime(61), 20));
+                CreateGB(new NormalGB(new(140, 200), new(140, 0), new(1), MathUtil.Direction(new(140, 200), new(320, 320)), BeatTime(61), 20));
+                CreateGB(new NormalGB(new(500, 200), new(500, 0), new(1), MathUtil.Direction(new(500, 200), new(320, 320)), BeatTime(61), 20));
             }
             if (InBeat(73))
             {
-                CreateGB(new NormalGB(new(320, 170), new(320, 480), new(1, 1), 90, BeatTime(63), 20));
-                CreateGB(new NormalGB(new(250, 170), new(250, 0), new(1, 1), 90, BeatTime(71), 20));
-                CreateGB(new NormalGB(new(390, 170), new(390, 0), new(1, 1), 90, BeatTime(71), 20));
+                CreateGB(new NormalGB(new(320, 170), new(320, 0), new(1), 90, BeatTime(63), 20));
+            }
+            if (InBeat(80))
+            {
+                CreateGB(new NormalGB(new(250, 170), new(0, 0), new(1), 90, BeatTime(64), 20));
+            }
+            if (InBeat(88))
+            {
+                CreateGB(new NormalGB(new(390, 170), new(640, 0), new(1), 90, BeatTime(64), 20));
             }
             if (InBeat(95))
             {
                 SetSoul(0);
                 Heart.RotateTo(0);
             }
-            if (InBeat(102))
-            {
-                DrawingUtil.BetterBlackScreen(BeatTime(10), BeatTime(15), BeatTime(3), Color.Black);
-            }
             if (InBeat(130, 158))
             {
                 if (AtKthBeat(2, 0))
                 {
                     PlaySound(Sounds.pierce);
-                    CreateBone(new UpBone(true, 390, 5, 65));
+                    CreateBone(new UpBone(true, 390, 6, 65));
                     CreateBone(new CustomBone(new Vector2(455, 320), Motions.PositionRoute.linear, 90, 25)
                     {
-                        PositionRouteParam = new float[] { -5, 0 },
+                        PositionRouteParam = new float[] { -5.5f, 0 },
                     }); ;
                 }
                 if (AtKthBeat(2, 1))
@@ -378,48 +380,50 @@ namespace Rhythm_Recall.Waves
                     CreateBone(new DownBone(true, 465, 5, 65));
                 }
             }
-            if (InBeat(160, 188))
+            if (InBeat(160))
             {
-                if (AtKthBeat(2, 1))
-                {
-                    LeftBone bone = new(true, 315, 0, 140)
-                    {
-                        LengthLerpScale = 0.16f,
-                    };
-                    DelayBeat(2, () =>
-                    {
-                        bone.IsMasked = false;
-                        bone.ColorType = Rand(1, 2);
-                    });
-                    DelayBeat(4, () =>
-                    {
-                        bone.Speed = 3;
-                        bone.IsMasked = true;
-                        PlaySound(Sounds.pierce);
-                    });
-                    CreateBone(bone);
-                }
-                if (AtKthBeat(2, 0))
-                {
-                    RightBone bone2 = new(false, 325, 0, 140)
-                    {
-                        LengthLerpScale = 0.16f,
-                    };
-                    DelayBeat(2, () =>
-                    {
-                        bone2.IsMasked = false;
-                        bone2.ColorType = Rand(1, 2);
-                        PlaySound(Sounds.Ding);
-                    });
-                    DelayBeat(4, () =>
-                    {
-                        bone2.Speed = 3;
-                        bone2.IsMasked = true;
-                        PlaySound(Sounds.pierce);
-                    });
-                    CreateBone(bone2);
-                }
+                CreateBone(new LeftBone(false, 315, 0, 140));
+                CreateBone(new RightBone(true, 325, 0, 140));
             }
+            if (InBeat(162, 188) && At0thBeat(2))
+            {
+                PlaySound(Sounds.pierce);
+                //Rot
+                var TarRot = 4 * (At0thBeat(4) ? 1 : -1);
+                CreateBone(new CustomBone(new(250, 280), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
+                {
+                    PositionRouteParam = new float[] { 3, 0 },
+                    LengthRouteParam = new float[] { 55 },
+                    RotationRouteParam = new float[] { TarRot, 0 }
+                });
+                CreateBone(new CustomBone(new(390, 280), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
+                {
+                    PositionRouteParam = new float[] { -3, 0 },
+                    LengthRouteParam = new float[] { 55 },
+                    RotationRouteParam = new float[] { -TarRot, 0 }
+                });
+                CreateBone(new CustomBone(new(250, 360), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
+                {
+                    PositionRouteParam = new float[] { 3, 0 },
+                    LengthRouteParam = new float[] { 55 },
+                    RotationRouteParam = new float[] { TarRot, 0 }
+                });
+                CreateBone(new CustomBone(new(390, 360), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.linear)
+                {
+                    PositionRouteParam = new float[] { -3, 0 },
+                    LengthRouteParam = new float[] { 55 },
+                    RotationRouteParam = new float[] { -TarRot, 0 }
+                });
+                //Vert
+                var YCheck = Heart.Centre.Y < 320;
+                CreateBone(new CustomBone(new(320, YCheck ? 140 : 500), Motions.PositionRoute.linear, Motions.LengthRoute.stableValue, Motions.RotationRoute.stableValue)
+                {
+                    PositionRouteParam = new float[] { 0, YCheck ? 8 : -8 },
+                    LengthRouteParam = new float[] { 35 },
+                    RotationRouteParam = new float[] { 90 }
+                });
+            }
+            //Green
             if (InBeat(190))
             {
                 RegisterFunctionOnce("ToGreen", () =>
@@ -579,18 +583,21 @@ namespace Rhythm_Recall.Waves
             if (delayEnable)
             {
                 float delay = BeatTime(256 - 3);
-                delay = BeatTime(10 + 366);
+                delay = BeatTime(158);
                 PlayOffset = delay + 3.9f;
                 GametimeDelta += delay;
                 InstantSetBox(new Vector2(320, 240), 84, 84);
                 InstantTP(new Vector2(320, 240));
+                SetSoul(0);
+                InstantSetBox(320, 140, 140);
+                InstantTP(350, 350);
             }
             else
             {
                 PlayOffset = 0;
             }
             //GametimeDelta = -0.6f + BeatTime(159);
-            GametimeDelta = -0.6f;
+            //GametimeDelta = -0.6f;
             //PlayOffset = BeatTime(159);
             //SetBox(320, 140, 140);
         }

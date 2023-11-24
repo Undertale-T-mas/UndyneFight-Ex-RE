@@ -3,11 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks; 
-using Microsoft.Xna.Framework.Content; 
 using static System.MathF;
-using UndyneFight_Ex.Settings;
 using static UndyneFight_Ex.Settings.SettingsManager;
 using System.Diagnostics;
 
@@ -165,7 +162,7 @@ namespace UndyneFight_Ex
             InitializeRendering(); 
             PlayerManager.Initialize();
 
-            InstanceCodeAfter();
+            //InstanceCodeAfter();
         }
 
         /// <summary>

@@ -663,7 +663,7 @@ namespace Rhythm_Recall.Waves
                 float posX = (Gametime - BeatTime(138.4f)) * 0.2f;
                 float posY = Sin(Gametime / BeatTime(16) * 360) * 15;
                 SetBox(400 - posX, 640 - posX, 150 + posY, 270 + posY);
-                CreateEntity(new Particle(Color.White * Rand(0.3f, 0.9f), new Vector2(0, 0), 3, new Vector2(Rand(0, 640), Rand(0, 480))) { Depth = 2 });
+                CreateEntity(new Particle(Color.White * Rand(0.3f, 0.9f), new Vector2(0), 3, new Vector2(Rand(0, 640), Rand(0, 480))) { Depth = 2 });
             }
             if (InBeat(138.4f, 138 + 128 - 16) && At0thBeat(8))
             {

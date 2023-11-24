@@ -215,7 +215,7 @@ namespace Rhythm_Recall.Waves
                 if (waveTime == 1395 - 10)
                 {
                     GasterBlaster.IsGBMute = true;
-                    CreateGB(new NormalGB(new Vector2(100, 300 - 35), new Vector2(0, 0), Vector2.One, 0, 1448 - 1385, 20) { IsShake = true });
+                    CreateGB(new NormalGB(new Vector2(100, 300 - 35), new Vector2(0), Vector2.One, 0, 1448 - 1385, 20) { IsShake = true });
                     CreateGB(new NormalGB(new Vector2(540, 300 - 35), new Vector2(640, 0), Vector2.One, 180, 1448 - 1385, 20) { IsShake = true });
                     InstantTP(420, 300 - 40);
                     isPlayMusic = true;

@@ -112,7 +112,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("LineA", () =>
                     {
-                        Line a = new(new Vector2(320 - 42, 240 - 42), new Vector2(0, 0)) { DrawingColor = Color.MediumPurple * 0.9f, Alpha = 0.7f };
+                        Line a = new(new Vector2(320 - 42, 240 - 42), new Vector2(0)) { DrawingColor = Color.MediumPurple * 0.9f, Alpha = 0.7f };
                         Line b = new(new Vector2(320 + 42, 240 + 42), new Vector2(640, 480)) { DrawingColor = Color.MediumPurple * 0.9f, Alpha = 0.7f };
                         Line[] lines = { a, b };
                         foreach (Line l in lines)
@@ -2088,8 +2088,8 @@ namespace Rhythm_Recall.Waves
                     easeX.RotationEase = LinkEase(Stable(0, -70),
                         EaseOut(BeatTime(3), -70, 0, EaseState.Quad),
                         Stable(BeatTime(1), 0));
-                    easeX.PositionEase = LinkEase(Stable(0, new Vector2(0, 0)),
-                        EaseOut(BeatTime(3), new Vector2(0, 0), new Vector2(24, 0), EaseState.Linear),
+                    easeX.PositionEase = LinkEase(Stable(0, new Vector2(0)),
+                        EaseOut(BeatTime(3), new Vector2(0), new Vector2(24, 0), EaseState.Linear),
                         Stable(BeatTime(1), new Vector2(24, 0)));
                     easeX.TagApply("X");
                     Arrow.UnitEasing easeY = new();
@@ -2098,8 +2098,8 @@ namespace Rhythm_Recall.Waves
                     easeY.RotationEase = LinkEase(Stable(0, 70),
                         EaseOut(BeatTime(3), 70, 0, EaseState.Quad),
                         Stable(BeatTime(1), 0));
-                    easeY.PositionEase = LinkEase(Stable(0, new Vector2(0, 0)),
-                        EaseOut(BeatTime(3), new Vector2(0, 0), new Vector2(-24, 0), EaseState.Linear),
+                    easeY.PositionEase = LinkEase(Stable(0, new Vector2(0)),
+                        EaseOut(BeatTime(3), new Vector2(0), new Vector2(-24, 0), EaseState.Linear),
                         Stable(BeatTime(1), new Vector2(24, 0)));
                     easeY.TagApply("Y");
                     Arrow.ClassicApplier easeK = new();
@@ -2271,15 +2271,15 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line7L", () =>
                     {
-                        Line l1 = new(LinkEase(Stable(0, new Vector2(0, 0)), EaseOut(BeatTime(4), new Vector2(10, 0), EaseState.Cubic)),
+                        Line l1 = new(LinkEase(Stable(0, new Vector2(0)), EaseOut(BeatTime(4), new Vector2(10, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), -5, EaseState.Cubic)));
                         Line l2 = new(LinkEase(Stable(0, new Vector2(0, 480)), EaseOut(BeatTime(4), new Vector2(20, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), 15, EaseState.Cubic)));
-                        Line l3 = new(LinkEase(Stable(0, new Vector2(0, 0)), EaseOut(BeatTime(4), new Vector2(30, 0), EaseState.Cubic)),
+                        Line l3 = new(LinkEase(Stable(0, new Vector2(0)), EaseOut(BeatTime(4), new Vector2(30, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), -25, EaseState.Cubic)));
                         Line l4 = new(LinkEase(Stable(0, new Vector2(0, 480)), EaseOut(BeatTime(4), new Vector2(40, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), 35, EaseState.Cubic)));
-                        Line l5 = new(LinkEase(Stable(0, new Vector2(0, 0)), EaseOut(BeatTime(4), new Vector2(50, 0), EaseState.Cubic)),
+                        Line l5 = new(LinkEase(Stable(0, new Vector2(0)), EaseOut(BeatTime(4), new Vector2(50, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), -45, EaseState.Cubic)));
                         Line l6 = new(LinkEase(Stable(0, new Vector2(0, 480)), EaseOut(BeatTime(4), new Vector2(60, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), 55, EaseState.Cubic)));
@@ -2291,8 +2291,8 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line8L", () => {
                         Line l1 = new(LinkEase(Stable(0, new Vector2(0, 120)), EaseOut(BeatTime(1), new Vector2(320, 0), EaseState.Cubic),
-                                               Stable(BeatTime(1.5f), new Vector2(0, 0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
-                                               Stable(BeatTime(2.75f), new Vector2(0, 0)), EaseIn(BeatTime(4), new Vector2(-520, 0), EaseState.Cubic)),
+                                               Stable(BeatTime(1.5f), new Vector2(0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
+                                               Stable(BeatTime(2.75f), new Vector2(0)), EaseIn(BeatTime(4), new Vector2(-520, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(0), 0, EaseState.Cubic),
                                                Stable(BeatTime(1f), 0), EaseOut(BeatTime(0.75f), 10, EaseState.Cubic),
                                                Stable(0, 0), EaseOut(BeatTime(0.75f), -10, EaseState.Cubic),
@@ -2305,8 +2305,8 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line8R", () => {
                         Line l1 = new(LinkEase(Stable(0, new Vector2(640, 120)), EaseOut(BeatTime(1), new Vector2(-320, 0), EaseState.Cubic),
-                                               Stable(BeatTime(1f), new Vector2(0, 0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
-                                               Stable(BeatTime(2.75f), new Vector2(0, 0)), EaseIn(BeatTime(4), new Vector2(520, 0), EaseState.Cubic)),
+                                               Stable(BeatTime(1f), new Vector2(0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
+                                               Stable(BeatTime(2.75f), new Vector2(0)), EaseIn(BeatTime(4), new Vector2(520, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(0), 0, EaseState.Cubic),
                                                Stable(BeatTime(0.5f), 0), EaseOut(BeatTime(0.75f), -10, EaseState.Cubic),
                                                Stable(0, 0), EaseOut(BeatTime(0.75f), 10, EaseState.Cubic),
@@ -2686,7 +2686,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("LineA", () =>
                     {
-                        Line a = new(new Vector2(320 - 42, 240 - 42), new Vector2(0, 0)) { DrawingColor = Color.MediumPurple * 0.9f, Alpha = 0.7f };
+                        Line a = new(new Vector2(320 - 42, 240 - 42), new Vector2(0)) { DrawingColor = Color.MediumPurple * 0.9f, Alpha = 0.7f };
                         Line b = new(new Vector2(320 + 42, 240 + 42), new Vector2(640, 480)) { DrawingColor = Color.MediumPurple * 0.9f, Alpha = 0.7f };
                         Line[] lines = { a, b };
                         foreach (Line l in lines)
@@ -4719,8 +4719,8 @@ namespace Rhythm_Recall.Waves
                     easeX.RotationEase = LinkEase(Stable(0, -70),
                         EaseOut(BeatTime(3), -70, 0, EaseState.Quad),
                         Stable(BeatTime(1), 0));
-                    easeX.PositionEase = LinkEase(Stable(0, new Vector2(0, 0)),
-                        EaseOut(BeatTime(3), new Vector2(0, 0), new Vector2(24, 0), EaseState.Linear),
+                    easeX.PositionEase = LinkEase(Stable(0, new Vector2(0)),
+                        EaseOut(BeatTime(3), new Vector2(0), new Vector2(24, 0), EaseState.Linear),
                         Stable(BeatTime(1), new Vector2(24, 0)));
                     easeX.TagApply("X");
                     Arrow.UnitEasing easeY = new();
@@ -4729,8 +4729,8 @@ namespace Rhythm_Recall.Waves
                     easeY.RotationEase = LinkEase(Stable(0, 70),
                         EaseOut(BeatTime(3), 70, 0, EaseState.Quad),
                         Stable(BeatTime(1), 0));
-                    easeY.PositionEase = LinkEase(Stable(0, new Vector2(0, 0)),
-                        EaseOut(BeatTime(3), new Vector2(0, 0), new Vector2(-24, 0), EaseState.Linear),
+                    easeY.PositionEase = LinkEase(Stable(0, new Vector2(0)),
+                        EaseOut(BeatTime(3), new Vector2(0), new Vector2(-24, 0), EaseState.Linear),
                         Stable(BeatTime(1), new Vector2(24, 0)));
                     easeY.TagApply("Y");
                     Arrow.ClassicApplier easeK = new();
@@ -4902,15 +4902,15 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line7L", () =>
                     {
-                        Line l1 = new(LinkEase(Stable(0, new Vector2(0, 0)), EaseOut(BeatTime(4), new Vector2(10, 0), EaseState.Cubic)),
+                        Line l1 = new(LinkEase(Stable(0, new Vector2(0)), EaseOut(BeatTime(4), new Vector2(10, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), -5, EaseState.Cubic)));
                         Line l2 = new(LinkEase(Stable(0, new Vector2(0, 480)), EaseOut(BeatTime(4), new Vector2(20, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), 15, EaseState.Cubic)));
-                        Line l3 = new(LinkEase(Stable(0, new Vector2(0, 0)), EaseOut(BeatTime(4), new Vector2(30, 0), EaseState.Cubic)),
+                        Line l3 = new(LinkEase(Stable(0, new Vector2(0)), EaseOut(BeatTime(4), new Vector2(30, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), -25, EaseState.Cubic)));
                         Line l4 = new(LinkEase(Stable(0, new Vector2(0, 480)), EaseOut(BeatTime(4), new Vector2(40, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), 35, EaseState.Cubic)));
-                        Line l5 = new(LinkEase(Stable(0, new Vector2(0, 0)), EaseOut(BeatTime(4), new Vector2(50, 0), EaseState.Cubic)),
+                        Line l5 = new(LinkEase(Stable(0, new Vector2(0)), EaseOut(BeatTime(4), new Vector2(50, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), -45, EaseState.Cubic)));
                         Line l6 = new(LinkEase(Stable(0, new Vector2(0, 480)), EaseOut(BeatTime(4), new Vector2(60, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(4), 55, EaseState.Cubic)));
@@ -4922,8 +4922,8 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line8L", () => {
                         Line l1 = new(LinkEase(Stable(0, new Vector2(0, 120)), EaseOut(BeatTime(1), new Vector2(320, 0), EaseState.Cubic),
-                                               Stable(BeatTime(1.5f), new Vector2(0, 0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
-                                               Stable(BeatTime(2.75f), new Vector2(0, 0)), EaseIn(BeatTime(4), new Vector2(-520, 0), EaseState.Cubic)),
+                                               Stable(BeatTime(1.5f), new Vector2(0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
+                                               Stable(BeatTime(2.75f), new Vector2(0)), EaseIn(BeatTime(4), new Vector2(-520, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(0), 0, EaseState.Cubic),
                                                Stable(BeatTime(1f), 0), EaseOut(BeatTime(0.75f), 10, EaseState.Cubic),
                                                Stable(0, 0), EaseOut(BeatTime(0.75f), -10, EaseState.Cubic),
@@ -4936,8 +4936,8 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line8R", () => {
                         Line l1 = new(LinkEase(Stable(0, new Vector2(640, 120)), EaseOut(BeatTime(1), new Vector2(-320, 0), EaseState.Cubic),
-                                               Stable(BeatTime(1f), new Vector2(0, 0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
-                                               Stable(BeatTime(2.75f), new Vector2(0, 0)), EaseIn(BeatTime(4), new Vector2(520, 0), EaseState.Cubic)),
+                                               Stable(BeatTime(1f), new Vector2(0)), EaseOut(BeatTime(0), new Vector2(0, 240), EaseState.Cubic),
+                                               Stable(BeatTime(2.75f), new Vector2(0)), EaseIn(BeatTime(4), new Vector2(520, 0), EaseState.Cubic)),
                                       LinkEase(Stable(0, 90), EaseOut(BeatTime(0), 0, EaseState.Cubic),
                                                Stable(BeatTime(0.5f), 0), EaseOut(BeatTime(0.75f), -10, EaseState.Cubic),
                                                Stable(0, 0), EaseOut(BeatTime(0.75f), 10, EaseState.Cubic),

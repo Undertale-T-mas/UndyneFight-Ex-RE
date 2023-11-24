@@ -236,7 +236,7 @@ namespace Rhythm_Recall.Waves
                     CentreEasing.EaseBuilder e = new();
                     e.Insert(BeatTime(4), CentreEasing.LerpTo(new(320, -50), 0.0295f, new Vector2(320, 100)));
                     Extends.Star s = new(new Vector2(320, -50), 0.8f) { rotatespeed = 0.5f };
-                    e.Run((m) => { s.Centre = new Vector2(0, 0) + m; });
+                    e.Run((m) => { s.Centre = new Vector2(0) + m; });
                     s.rotatespeed = 1.8f;
                     CreateEntity(s);
                     DelayBeat(4, () => { s.Dispose(); });
@@ -436,14 +436,14 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder e = new();
                     e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
-                    Extends.Star s = new(new Vector2(0, 0), 0.6f) { rotate = false };
+                    Extends.Star s = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s);
                     int a = Rand(-60, -20);
                     int b = Rand(20, 60);
                     e.Run((m) => { s.Centre = new Vector2(320 + a, 510) + m; });
                     CentreEasing.EaseBuilder e1 = new();
                     e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
-                    Extends.Star s1 = new(new Vector2(0, 0), 0.6f) { rotate = false };
+                    Extends.Star s1 = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320 + b, 510) + m; });
 
@@ -530,7 +530,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(0, ValueEasing.Stable(90));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(0, 0));
-                            ce.Insert(BeatTime(1.5f), CentreEasing.LerpTo(new Vector2(0, 0), 0.06f, new Vector2(760, 0)));
+                            ce.Insert(BeatTime(1.5f), CentreEasing.LerpTo(new Vector2(0), 0.06f, new Vector2(760, 0)));
                             Line l = new(ce.GetResult(), ve.GetResult()) { DrawingColor = c[x] };
                             CreateEntity(l);
                             ScreenDrawing.CameraEffect.Convulse(10, true);
@@ -725,7 +725,7 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < max; a++)
                     {
                         int value = a;
-                        Star s = new(new Vector2(0, 0), 0.5f) { ColorType = a % 2 + 1 };
+                        Star s = new(new Vector2(0), 0.5f) { ColorType = a % 2 + 1 };
                         CreateEntity(s);
                         CentreEasing.EaseBuilder ce = new();
                         ValueEasing.EaseBuilder ve1 = new();
@@ -761,7 +761,7 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 16; a++)
                     {
                         int value = a;
-                        Fireball f = new(new Vector2(0, 0), 1);
+                        Fireball f = new(new Vector2(0), 1);
                         CreateEntity(f);
                         ValueEasing.EaseBuilder ve1 = new();
                         ve1.Insert(BeatTime(32), ValueEasing.SinWave(35, -BeatTime(4), 1f / 12f * value + delta));
@@ -776,7 +776,7 @@ namespace Rhythm_Recall.Waves
                         {
                             valueN = n;
                         });
-                        Fireball f2 = new(new Vector2(0, 0), 1);
+                        Fireball f2 = new(new Vector2(0), 1);
                         CreateEntity(f2);
                         ValueEasing.EaseBuilder ve3 = new();
                         ve3.Insert(BeatTime(32), ValueEasing.SinWave(35, -BeatTime(4), 1f / 12f * value + delta));
@@ -1986,7 +1986,7 @@ namespace Rhythm_Recall.Waves
                     CentreEasing.EaseBuilder e = new();
                     e.Insert(BeatTime(4), CentreEasing.LerpTo(new(320, -50), 0.0295f, new Vector2(320, 100)));
                     Extends.Star s = new(new Vector2(320, -50), 0.8f) { rotatespeed = 0.5f, ColorType = 1 };
-                    e.Run((m) => { s.Centre = new Vector2(0, 0) + m; });
+                    e.Run((m) => { s.Centre = new Vector2(0) + m; });
                     s.rotatespeed = 1.8f;
                     CreateEntity(s);
                     DelayBeat(4, () => { s.Dispose(); });
@@ -2186,14 +2186,14 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder e = new();
                     e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
-                    Extends.Star s = new(new Vector2(0, 0), 0.6f) { rotate = false };
+                    Extends.Star s = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s);
                     int a = Rand(-60, -20);
                     int b = Rand(20, 60);
                     e.Run((m) => { s.Centre = new Vector2(320 + a, 510) + m; });
                     CentreEasing.EaseBuilder e1 = new();
                     e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
-                    Extends.Star s1 = new(new Vector2(0, 0), 0.6f) { rotate = false };
+                    Extends.Star s1 = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320 + b, 510) + m; });
 
@@ -2280,7 +2280,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(0, ValueEasing.Stable(90));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(0, 0));
-                            ce.Insert(BeatTime(1.5f), CentreEasing.LerpTo(new Vector2(0, 0), 0.06f, new Vector2(760, 0)));
+                            ce.Insert(BeatTime(1.5f), CentreEasing.LerpTo(new Vector2(0), 0.06f, new Vector2(760, 0)));
                             Line l = new(ce.GetResult(), ve.GetResult()) { DrawingColor = c[x] };
                             CreateEntity(l);
                             ScreenDrawing.CameraEffect.Convulse(10, true);
@@ -2475,7 +2475,7 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < max; a++)
                     {
                         int value = a;
-                        Star s = new(new Vector2(0, 0), 0.5f) { ColorType = 1 };
+                        Star s = new(new Vector2(0), 0.5f) { ColorType = 1 };
                         CreateEntity(s);
                         CentreEasing.EaseBuilder ce = new();
                         ValueEasing.EaseBuilder ve1 = new();
@@ -2511,7 +2511,7 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 16; a++)
                     {
                         int value = a;
-                        Fireball f = new(new Vector2(0, 0), 1);
+                        Fireball f = new(new Vector2(0), 1);
                         CreateEntity(f);
                         ValueEasing.EaseBuilder ve1 = new();
                         ve1.Insert(BeatTime(32), ValueEasing.SinWave(35, -BeatTime(4), 1f / 12f * value + delta));
@@ -2526,7 +2526,7 @@ namespace Rhythm_Recall.Waves
                         {
                             valueN = n;
                         });
-                        Fireball f2 = new(new Vector2(0, 0), 1);
+                        Fireball f2 = new(new Vector2(0), 1);
                         CreateEntity(f2);
                         ValueEasing.EaseBuilder ve3 = new();
                         ve3.Insert(BeatTime(32), ValueEasing.SinWave(35, -BeatTime(4), 1f / 12f * value + delta));
@@ -3731,7 +3731,7 @@ namespace Rhythm_Recall.Waves
                     CentreEasing.EaseBuilder e = new();
                     e.Insert(BeatTime(4), CentreEasing.LerpTo(new(320, -50), 0.0295f, new Vector2(320, 100)));
                     Extends.Star s = new(new Vector2(320, -50), 0.8f) { rotatespeed = 0.5f };
-                    e.Run((m) => { s.Centre = new Vector2(0, 0) + m; });
+                    e.Run((m) => { s.Centre = new Vector2(0) + m; });
                     s.rotatespeed = 1.8f;
                     CreateEntity(s);
                     DelayBeat(4, () => { s.Dispose(); });
@@ -3931,14 +3931,14 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder e = new();
                     e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
-                    Extends.Star s = new(new Vector2(0, 0), 0.6f) { rotate = false };
+                    Extends.Star s = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s);
                     int a = Rand(-60, -20);
                     int b = Rand(20, 60);
                     e.Run((m) => { s.Centre = new Vector2(320 + a, 510) + m; });
                     CentreEasing.EaseBuilder e1 = new();
                     e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
-                    Extends.Star s1 = new(new Vector2(0, 0), 0.6f) { rotate = false };
+                    Extends.Star s1 = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320 + b, 510) + m; });
 
@@ -4025,7 +4025,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(0, ValueEasing.Stable(90));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(0, 0));
-                            ce.Insert(BeatTime(1.5f), CentreEasing.LerpTo(new Vector2(0, 0), 0.06f, new Vector2(760, 0)));
+                            ce.Insert(BeatTime(1.5f), CentreEasing.LerpTo(new Vector2(0), 0.06f, new Vector2(760, 0)));
                             Line l = new(ce.GetResult(), ve.GetResult()) { DrawingColor = c[x] };
                             CreateEntity(l);
                             ScreenDrawing.CameraEffect.Convulse(10, true);
@@ -4220,7 +4220,7 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < max; a++)
                     {
                         int value = a;
-                        Star s = new(new Vector2(0, 0), 0.5f) { ColorType = 1 };
+                        Star s = new(new Vector2(0), 0.5f) { ColorType = 1 };
                         CreateEntity(s);
                         CentreEasing.EaseBuilder ce = new();
                         ValueEasing.EaseBuilder ve1 = new();
@@ -4256,7 +4256,7 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 16; a++)
                     {
                         int value = a;
-                        Fireball f = new(new Vector2(0, 0), 1);
+                        Fireball f = new(new Vector2(0), 1);
                         CreateEntity(f);
                         ValueEasing.EaseBuilder ve1 = new();
                         ve1.Insert(BeatTime(32), ValueEasing.SinWave(35, -BeatTime(4), 1f / 12f * value + delta));
@@ -4271,7 +4271,7 @@ namespace Rhythm_Recall.Waves
                         {
                             valueN = n;
                         });
-                        Fireball f2 = new(new Vector2(0, 0), 1);
+                        Fireball f2 = new(new Vector2(0), 1);
                         CreateEntity(f2);
                         ValueEasing.EaseBuilder ve3 = new();
                         ve3.Insert(BeatTime(32), ValueEasing.SinWave(35, -BeatTime(4), 1f / 12f * value + delta));

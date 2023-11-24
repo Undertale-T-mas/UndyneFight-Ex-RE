@@ -1297,7 +1297,7 @@ namespace Rhythm_Recall.Waves
                 {
                     for (int i = 0; i < 16; i++)
                     {
-                        Line a = new(EaseOut(BeatTime(1.6f * 19f / 17f), new Vector2(0, 0), new Vector2(320, 240), EaseState.Linear), Stable(0, -45)) { Alpha = 0.55f };
+                        Line a = new(EaseOut(BeatTime(1.6f * 19f / 17f), new Vector2(0), new Vector2(320, 240), EaseState.Linear), Stable(0, -45)) { Alpha = 0.55f };
                         Line b = new(EaseOut(BeatTime(1.6f * 19f / 17f), new Vector2(640, 480), new Vector2(320, 240), EaseState.Linear), Stable(0, -45)) { Alpha = 0.55f };
                         Line[] ls = {a, b};
                         foreach(Line l in ls)
