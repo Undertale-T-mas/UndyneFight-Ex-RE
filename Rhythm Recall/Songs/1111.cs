@@ -68,20 +68,22 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
+                GametimeDelta = -1.5f - T(3);
                 InstantSetGreenBox();
                 SetSoul(1);
                 InstantTP(320, 240);
-                bool delay = true;
-                var beat = BeatTime(delay ? 80 : 0);
-                PlayOffset = BeatTime(4) + beat;
+                bool delay = false;
+                var beat = BeatTime(32);
                 if (delay)
                 {
-                    GametimeDelta += beat;
+                    PlayOffset = beat;
+                    GametimeDelta = beat - 1.5f - T(3);
                 }
-                else if (beat == 0)
-                {
-                    DrawingUtil.BetterBlackScreen(0, 0, BeatTime(32), Color.Black);
-                }
+                //DrawingUtil.BetterBlackScreen(0, 0, BeatTime(32), Color.Black);
+            }
+            private float T(float beat)
+            {
+                return BeatTime(beat);
             }
             public void Easy()
             {
@@ -91,7 +93,7 @@ namespace Rhythm_Recall.Waves
             public void Extreme()
             {
                 //Intro 1
-                if (InBeat(1) || InBeat(17))
+                if (InBeat(0))
                 {
                     RegisterFunctionOnce("Line1", () =>
                     {
@@ -111,21 +113,48 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(12, () => line.Dispose());
                         CreateEntity(line);
                     });
-                    CreateChart(BeatTime(2), BeatTime(1), 7f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 7f, new string[]
                     {
                         "R(Line1)", "", "", "",         "R", "", "", "",
                         "R", "", "", "",         "", "", "", "",
                         "R", "", "", "",         "R", "", "", "",
                         "", "", "", "",         "", "", "", "",
+
                         "R", "", "", "",         "R", "", "", "",
-                        "", "", "", "",         "", "R", "", "",
-                        "", "R", "", "",         "", "", "", "",
+                        "", "", "", "",         "R", "", "", "",
+                        "R", "", "", "",         "", "", "", "",
                         "", "", "", "",         "R(Line2)", "", "", "",
+
                         "R", "", "", "",         "R", "", "", "",
                         "R", "", "", "",         "", "", "", "",
                         "R", "", "", "",         "R", "", "", "",
                         "", "", "", "",         "", "", "", "",
+
                         "R", "", "", "",         "R", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        //
+                        "R(Line1)", "", "", "",         "R", "", "", "",
+                        "R", "", "", "",         "", "", "", "",
+                        "R", "", "", "",         "R", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "R", "", "", "",         "R", "", "", "",
+                        "", "", "", "",         "R", "", "", "",
+                        "R", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "(Line2)", "", "", "",
+
+                        "R", "", "", "",         "R", "", "", "",
+                        "R", "", "", "",         "", "", "", "",
+                        "R", "", "", "",         "R", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "R", "", "", "",         "R", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "R", "+01", "+10", "+01",         "+10", "+01", "+10", "+01",
+                        "+01",
                     });
                 }
                 # region Intro 2
@@ -142,9 +171,9 @@ namespace Rhythm_Recall.Waves
                     {
                         bool rnd = RandBool();
                         Vector2 start = new(rnd ? Rand(0, 100) : Rand(540, 640), Rand(0, 480)), end = new(rnd ? Rand(540, 640) : Rand(0, 100), Rand(0, 480));
-                        for(int i = 0; i < 4; i++)
+                        for(int i = 0; i < 3; i++)
                         {
-                            Line line = new(EaseInOut(BeatTime(4), start, end, EaseState.Linear).Easing, InfLinear(i * 45f, 4));
+                            Line line = new(EaseInOut(BeatTime(4), start, end, EaseState.Linear).Easing, InfLinear(i * 60f, 4));
                             line.Alpha = 0;
                             line.AlphaIncreaseAndDecrease(BeatTime(4), 1);
                             CreateEntity(line);
@@ -155,46 +184,57 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.CameraEffect.Convulse(17.5f, BeatTime(3), Arguments[0] == 0);
                         ScreenDrawing.CameraEffect.SizeShrink(5, BeatTime(3));
                     });
-                    CreateChart(BeatTime(2), BeatTime(1), 7.3f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(1), 7.3f, new string[]
                     {
-                        "R", "+01", "+10", "+01",         "+10", "+01", "+10", "+01",
                         "", "", "", "",         "", "", "", "",
                         "R", "", "", "",         "", "", "", "",
-                        "R", "", "", "",         "", "", "", "",
-                        "#1.8#R(Line)(<0>Cam)", "", "", "",         "", "", "", "",
+                        "#1.8#R(Line)", "", "", "",         "", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+
                         "", "", "", "",         "", "", "", "",
                         "R", "", "", "",         "", "", "", "",
                         "R", "", "", "",         "R", "", "", "",
                         "", "", "", "",         "R", "", "", "",
+
                         "R", "", "", "",         "", "", "", "",
-                        "", "", "#1.5#R(Line)(<1>Cam)", "",         "", "", "", "",
+                        "#1.8#R(Line)", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "R", "", "", "",         "R", "", "", "",
+
                         "R", "", "", "",         "R", "", "", "",
                         "", "", "", "",         "", "", "", "",
-                        "", "", "R", "",         "R", "", "", "",
+                        "", "", "", "",         "R", "", "R", "",
+                        "R", "", "", "",         "(R)(Line)", "", "", "",
+                        //
                         "R", "", "", "",         "R", "", "", "",
-                        "R", "", "", "",         "(#1.5#R)(R1)(Line)", "", "+21@A", "",
-                        "+21@A", "", "+21@A", "",         "", "", "+21@A", "",
-                        "+21@A", "", "+21@A", "",         "", "", "+21@A", "",
-                        "+21@A", "", "+21@A", "",         "", "", "+21@A", "",
-                        "+21@A", "", "+21@A", "",         "", "", "+21@A", "<<2",
-                        "", "", "R", "",         "", "", "R", "",
-                        "", "", "R", "",         "", "", "R", "",
-                        "", "", "R", "",         "", "", "R", "",
+                        "R", "", "", "",         "D1", "", "+21", "",
+                        "+21", "", "", "",         "D1", "", "+21", "",
+                        "+21", "", "", "",         "D1", "", "+21", "",
+
+                        "+21", "", "", "",         "D1", "", "+21", "",
+                        "(*$0)(*$2)", "", "", "",        "(*$0)(*$2)", "", "", "",
+                        "", "", "", "",         "R", "", "", "",
+                        "(R)(R1)", "", "", "",         "R", "", "", "",
+
+                        "R", "", "", "",         "", "", "", "",
+                        "(R)(R1)", "", "", "",         "", "", "", "",
+                        "R", "", "", "",         "", "", "", "",
+                        "(R)", "", "", "",         "R", "", "", "",
+
+                        "", "", "", "",         "R", "", "", "",
                     });
                 }
-                if (InBeat(34))
+                if (InBeat(35))
                 {
                     AddInstance(new ScreenShaker(10, 5, BeatTime(0.1f)));
-                    DrawingUtil.SetScreenScale(1.3f, BeatTime(2));
+                    DrawingUtil.SetScreenScale(1.3f, BeatTime(0.5f));
                 }
-                if (InBeat(34, 35) && At0thBeat(0.1f)) ScreenDrawing.ScreenAngle = ScreenDrawing.ScreenAngle >= 0 ? -1.2f : 1.2f;
-                if (InBeat(35)) ScreenDrawing.ScreenAngle = 0;
+                if (InBeat(35.5f, 36) && At0thBeat(0.05f)) ScreenDrawing.ScreenAngle = ScreenDrawing.ScreenAngle >= 0 ? -1.2f : 1.2f;
+                if (InBeat(36)) ScreenDrawing.ScreenAngle = 0;
                 if (InBeat(36)) DrawingUtil.SetScreenScale(1, BeatTime(1));
                 #endregion
                 #region Intro 3
-                if (InBeat(55))
+                if (InBeat(888))
                 {
                     RegisterFunctionOnce("Cam", ()=> DrawingUtil.SetScreenScale(1, BeatTime(2)));
                     CreateChart(BeatTime(2), BeatTime(1), 7.3f, new string[]
@@ -203,15 +243,16 @@ namespace Rhythm_Recall.Waves
                         "D", "", "D", "",         "D", "", "D", "",
                         "D", "", "", "",         "", "", "", "",
                         "#7#+0(Cam)", "", "", "",         "D1", "", "", "",
+
                         "", "", "D1", "",         "", "", "", "",
                         "D1", "", "", "",         "D1", "", "", "",
                         "", "", "", "",         "D1", "", "", "",
                     });
                 }
-                if (InBeat(56)) DrawingUtil.SetScreenScale(1.4f, BeatTime(2));
+                if (InBeat(888)) DrawingUtil.SetScreenScale(1.4f, BeatTime(2));
                 #endregion
                 //Flute
-                if(InBeat(65))
+                if(InBeat(888))
                 {
                     DrawingUtil.BetterBlackScreen(BeatTime(0.5f), BeatTime(0.5f), BeatTime(0.5f), Color.Black);
                     CreateChart(BeatTime(2), BeatTime(1), 7.3f, new string[]
@@ -235,26 +276,26 @@ namespace Rhythm_Recall.Waves
                         "$01", "", "", "",         "", "", "", "",
                     });
                 }
-                if (InBeat(66))
+                if (InBeat(888))
                 {
                     ScreenDrawing.ScreenScale = 1.5f;
                     ScreenDrawing.ScreenPositionDelta += new Vector2(120, 0);
                 }
-                if (InBeat(73.5f)) DrawingUtil.BetterBlackScreen(BeatTime(0.5f), BeatTime(0.5f), BeatTime(0.5f), Color.Black);
-                if (InBeat(74.5f)) ScreenDrawing.ScreenPositionDelta -= new Vector2(240, 0);
-                if (InBeat(82.75f))
+                if (InBeat(888f)) DrawingUtil.BetterBlackScreen(BeatTime(0.5f), BeatTime(0.5f), BeatTime(0.5f), Color.Black);
+                if (InBeat(888f)) ScreenDrawing.ScreenPositionDelta -= new Vector2(240, 0);
+                if (InBeat(888f))
                 {
                     ScreenDrawing.CameraEffect.Convulse(BeatTime(0.25f), 15, true);
                     DrawingUtil.SetScreenScale(1.2f, BeatTime(0.25f));
                     DrawingUtil.LerpScreenPos(BeatTime(0.25f), new(120, 0), 0.24f);
                 }
-                if (InBeat(83))
+                if (InBeat(8388))
                 {
                     ScreenDrawing.CameraEffect.Convulse(BeatTime(0.25f), 15, false);
                     DrawingUtil.SetScreenScale(1, BeatTime(0.25f));
                     DrawingUtil.LerpScreenPos(BeatTime(0.25f), new(0), 0.24f);
                 }
-                if (InBeat(82))
+                if (InBeat(888))
                 {
                     CreateChart(BeatTime(2), BeatTime(1), 7.3f, new string[]
                     {
@@ -274,7 +315,7 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",         "", "", "", "",
                     });
                 }
-                if ((InBeat(67, 82) && At0thBeat(1))|| (InBeat(83, 999) && AtKthBeat(2, BeatTime(1))))
+                if ((InBeat(888, 8888) && At0thBeat(1))|| (InBeat(83, 999) && AtKthBeat(2, BeatTime(1))))
                 {
                     var CheckBeat = InBeat(67, 82) ? At0thBeat(2) : AtKthBeat(4, BeatTime(1));
                     Line line = new(EaseOut(BeatTime(2), new Vector2(320, CheckBeat ? -5 : 485), new(320, CheckBeat ? 155 : 325), EaseState.Sine).Easing, Stable(0, 0).Easing);
