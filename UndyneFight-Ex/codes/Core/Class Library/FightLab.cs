@@ -754,8 +754,7 @@ namespace UndyneFight_Ex.Fight
         {
             for (int a = 0; a < et.Length; a++)
             {
-                int x = a;
-                InstanceCreate(et[x]);
+                InstanceCreate(et[a]);
             }
         }
         /// <summary>
@@ -765,6 +764,13 @@ namespace UndyneFight_Ex.Fight
         public static void AddInstance(GameObject go)
         {
             InstanceCreate(go);
+        }
+        public static void AddInstances(params GameObject[] go)
+        {
+            for (int a = 0; a < go.Length; a++)
+            {
+                InstanceCreate(go[a]);
+            }
         }
         public static void ArrowApply(string tag, Action<Arrow> action)
         {

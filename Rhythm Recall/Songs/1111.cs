@@ -84,7 +84,7 @@ namespace Rhythm_Recall.Waves
                 InstantSetGreenBox();
                 SetSoul(1);
                 InstantTP(320, 240);
-                bool delay = true;
+                bool delay = false;
                 var beat = BeatTime(128);
                 if (delay)
                 {

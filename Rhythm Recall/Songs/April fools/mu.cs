@@ -2330,7 +2330,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.HPBar.HPExistColor = Color.Lerp(Color.Red, Color.DarkRed, 0.4f); 
                 GametimeDelta = -3.5f ;
                 PlayOffset = 0;
-                bool jump = true;
+                bool jump = false;
                 if (jump)
                 {
                     //float beat = 4f * 40;
