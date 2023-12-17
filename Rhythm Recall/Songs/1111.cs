@@ -107,8 +107,8 @@ namespace Rhythm_Recall.Waves
                 InstantSetGreenBox();
                 SetSoul(1);
                 InstantTP(320, 240);
-                bool delay = true;
-                var beat = BeatTime(32);
+                bool delay = false;
+                var beat = BeatTime(64);
                 if (delay)
                 {
                     PlayOffset = beat;
@@ -391,8 +391,8 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("SS", () => { SetSoul(1); });//SoulShine
                     RegisterFunctionOnce("L1", () =>
                     {
-                        Line l1 = new(EaseOut(T(0.7f), new Vector2(0, 240), new Vector2(160, 240), EaseState.Quad), Stable(0, 90)) { Alpha = 0.75f };
-                        Line l2 = new(EaseOut(T(0.7f), new Vector2(320, 0), new Vector2(320, 120), EaseState.Quad), Stable(0, 0)) { Alpha = 0.75f };
+                        Line l1 = new(EaseOut(T(0.7f), new Vector2(0, 240), new Vector2(120, 240), EaseState.Quad), Stable(0, 90)) { Alpha = 0.75f };
+                        Line l2 = new(EaseOut(T(0.7f), new Vector2(320, 0), new Vector2(320, 90), EaseState.Quad), Stable(0, 0)) { Alpha = 0.75f };
                         l1.AlphaDecrease(T(0.7f), 0.75f);
                         l1.TransverseMirror = true;
                         l2.AlphaDecrease(T(0.7f), 0.75f);
