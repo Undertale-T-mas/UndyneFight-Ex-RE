@@ -139,18 +139,22 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     currentFocus?.ConfirmKeyDown();
                 }
+                if (IsKeyPressed120f(InputIdentity.Cancel))
+                {
+                    DoBack();
+                }
             }
 
             private void SetChild()
             {
                 ChildObjects.Clear();
                 ChildObjects.Add(_account = new TextInputer(this, new CollideRect(new Vector2(571, 66), new Vector2(330, 50))) { FontScale = 1.2f });
-                ChildObjects.Add(_password = new PasswordInputer(this, new CollideRect(new Vector2(571, 153), new Vector2(330, 50))) { FontScale = 1.2f });
-                ChildObjects.Add(_password2 = new PasswordInputer(this, new CollideRect(new Vector2(571, 240), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(_password = new PasswordInputer(this, new CollideRect(new Vector2(571, 156), new Vector2(330, 50))) { FontScale = 1.2f });
+                ChildObjects.Add(_password2 = new PasswordInputer(this, new CollideRect(new Vector2(571, 246), new Vector2(330, 50))) { FontScale = 1.2f });
 
 
-                ChildObjects.Add(_confirm = new Button(this, new Vector2(543, 330), "Confirm") { NeverEnable = true });
-                ChildObjects.Add(_cancel = new Button(this, new Vector2(800, 330), "Cancel") { NeverEnable = true });
+                ChildObjects.Add(_confirm = new Button(this, new Vector2(543, 336), "Confirm") { NeverEnable = true });
+                ChildObjects.Add(_cancel = new Button(this, new Vector2(800, 336), "Cancel") { NeverEnable = true });
             }
 
             VirtualFather _virtualFather;
@@ -176,19 +180,19 @@ namespace UndyneFight_Ex.Remake.UI
                 DrawLine(new(390, 105), new(410, 125), Color.White);
                 DrawLine(new(410, 125), new(550, 125), Color.White);
 
-                F.CentreDraw("Pass", new Vector2(480, 152), Color.White, 1.3f, 0.1f);
-                F.CentreDraw("code", new Vector2(480, 187), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Pass", new Vector2(480, 155), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("code", new Vector2(480, 190), Color.White, 1.3f, 0.1f);
 
                 //float l2 = 390, r2 = 900;
-                DrawLine(new(390, 192), new(410, 212), Color.White);
-                DrawLine(new(410, 212), new(550, 212), Color.White);
+                DrawLine(new(390, 195), new(410, 215), Color.White);
+                DrawLine(new(410, 215), new(550, 215), Color.White);
 
-                F.CentreDraw("Passcode", new Vector2(480, 239), Color.White, 1.3f, 0.1f);
-                F.CentreDraw("again", new Vector2(480, 274), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("Passcode", new Vector2(480, 245), Color.White, 1.3f, 0.1f);
+                F.CentreDraw("again", new Vector2(480, 280), Color.White, 1.3f, 0.1f);
 
                 //float l2 = 390, r2 = 900;
-                DrawLine(new(390, 279), new(410, 299), Color.White);
-                DrawLine(new(410, 299), new(550, 299), Color.White);
+                DrawLine(new(390, 285), new(410, 305), Color.White);
+                DrawLine(new(410, 305), new(550, 305), Color.White);
             }
             float _secondaryScale = 1.0f;
             private TextInputer _account;

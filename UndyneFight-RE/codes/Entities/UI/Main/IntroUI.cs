@@ -46,11 +46,13 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                     this.Depth = 0.1f;
                     this.FormalDraw(this.Image, this.collidingBox, col.White * 0.8f);
                     this.FormalDraw(StoreData.AllItems["2023MEMTroSil"].Image, this.collidingBox + new vec2(140, 0), col.White * 0.8f);
-                    /*        CollideRect rect = this.collidingBox;
-                            rect.X -= 20; rect.Y -= 20; rect.Height += 40; rect.Width += 40;
-                            DrawingLab.DrawRectangle(rect, col.White, 3.0f, 0.1f);
-                            this.Depth = 0.01f;
-                            this.FormalDraw(FightResources.Sprites.pixiv, rect, col.Black * 0.38f);*/
+                    /*        
+                    CollideRect rect = this.collidingBox;
+                    rect.X -= 20; rect.Y -= 20; rect.Height += 40; rect.Width += 40;
+                    DrawingLab.DrawRectangle(rect, col.White, 3.0f, 0.1f);
+                    this.Depth = 0.01f;
+                    this.FormalDraw(FightResources.Sprites.pixiv, rect, col.Black * 0.38f);
+                    */
                 }
                 else
                 {
@@ -113,7 +115,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             this.AddChild(start);
             this.AddChild(setting);
             this.AddChild(account);
-            //     this.AddChild(showPage);
+            //this.AddChild(showPage);
             this.AddChild(contributor);
 
 
