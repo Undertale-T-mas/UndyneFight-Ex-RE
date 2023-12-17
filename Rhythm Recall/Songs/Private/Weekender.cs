@@ -47,7 +47,6 @@ namespace Rhythm_Recall.Waves
                         }
                     );
                 public override string BarrageAuthor => "TK";
-                public override string PaintAuthor => "";
                 public override string SongAuthor => "Hey! Say! Jump";
             }
             public SongInformation Attributes => new ThisInformation();
@@ -55,15 +54,9 @@ namespace Rhythm_Recall.Waves
 
             public void Extreme()
             {
-                if (InBeat(230))
-                    CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
-                    {
-                        "#999#R", "", "", "",         "", "", "R", "",
-                        "", "", "R", "",         "", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-                    });
+
             }
+            #region Empty
             public void Noob()
             {
                 if (Gametime < 0) return;
@@ -76,6 +69,7 @@ namespace Rhythm_Recall.Waves
             {
                 if (Gametime < 0) return;
             }
+            #endregion
             public void Normal()
             {
                 //Effect
@@ -792,9 +786,9 @@ namespace Rhythm_Recall.Waves
                 });
                 #endregion
                 SetSoul(1);
-                GametimeDelta = BeatTime(0);
+                GametimeDelta = BeatTime(0) - 1.5f;
                 PlayOffset = 240 + GametimeDelta;
-                if (GametimeDelta == 0)
+                if (GametimeDelta <= 0)
                 {
                     InstantSetBox(-80, 84, 84);
                     InstantTP(320, -80);
