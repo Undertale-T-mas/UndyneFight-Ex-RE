@@ -1281,8 +1281,8 @@ namespace UndyneFight_Ex.Entities
                     float value = x < 1 / d1
                         ? n1 * x * x
                         : x < 2 / d1
-                            ? n1 * (x - 1.5f / d1) * x + 0.75f
-                            : x < 2.5 / d1 ? n1 * (x - 2.25f / d1) * x + 0.9375f : n1 * (x - 2.625f / d1) * x + 0.984375f;
+                            ? n1 * (float)Math.Pow(x - 1.5f / d1,2) + 0.75f
+                            : x < 2.5 / d1 ? n1 * (float)Math.Pow(x - 2.25f / d1,2) + 0.9375f : n1 * (float)Math.Pow(x - 2.625f / d1,2) * x + 0.984375f;
                     return Vector2.Lerp(v1, v2, 1 - value);
                 };
             public static Func<ICustomMotion, Vector2> EaseOutBounce(Vector2 v1, Vector2 v2, float time) =>
@@ -1295,8 +1295,8 @@ namespace UndyneFight_Ex.Entities
                     float value = x < 1 / d1
                         ? n1 * x * x
                         : x < 2 / d1
-                            ? n1 * (x - 1.5f / d1) * x + 0.75f
-                            : x < 2.5 / d1 ? n1 * (x - 2.25f / d1) * x + 0.9375f : n1 * (x - 2.625f / d1) * x + 0.984375f;
+                            ? n1 * (float)Math.Pow(x - 1.5f / d1, 2) + 0.75f
+                            : x < 2.5 / d1 ? n1 * (float)Math.Pow(x - 2.25f / d1, 2) + 0.9375f : n1 * (float)Math.Pow(x - 2.625f / d1, 2) + 0.984375f;
                     return Vector2.Lerp(v1, v2, value);
                 };
 
@@ -1719,8 +1719,8 @@ namespace UndyneFight_Ex.Entities
                     float value = x < 1 / d1
                         ? n1 * x * x
                         : x < 2 / d1
-                            ? n1 * (x - 1.5f / d1) * x + 0.75f
-                            : x < 2.5 / d1 ? n1 * (x - 2.25f / d1) * x + 0.9375f : n1 * (x - 2.625f / d1) * x + 0.984375f;
+                            ? n1 * (float)Math.Pow(x - 1.5f / d1, 2) + 0.75f
+                            : x < 2.5 / d1 ? n1 * (float)Math.Pow(x - 2.25f / d1, 2) + 0.9375f : n1 * (float)Math.Pow(x - 2.625f / d1, 2) + 0.984375f;
                     return MathHelper.Lerp(v1, v2, 1 - value);
                 };
             public static Func<ICustomMotion, float> EaseOutBounce(float v1, float v2, float time) =>
@@ -1732,8 +1732,8 @@ namespace UndyneFight_Ex.Entities
                     float value = x < 1 / d1
                         ? n1 * x * x
                         : x < 2 / d1
-                            ? n1 * (x - 1.5f / d1) * x + 0.75f
-                            : x < 2.5 / d1 ? n1 * (x - 2.25f / d1) * x + 0.9375f : n1 * (x - 2.625f / d1) * x + 0.984375f;
+                            ? n1 * (float)Math.Pow(x - 1.5f / d1, 2) + 0.75f
+                            : x < 2.5 / d1 ? n1 * (float)Math.Pow(x - 2.25f / d1, 2) + 0.9375f : n1 * (float)Math.Pow(x - 2.625f / d1, 2) + 0.984375f;
                     return MathHelper.Lerp(v1, v2, value);
                 };
 
