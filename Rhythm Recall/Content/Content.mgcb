@@ -2186,11 +2186,11 @@
 /processorParam:Quality=Best
 /build:Musics/#1e86f2/song.wav
 
-#begin Musics/1111/song.mp3
-/importer:Mp3Importer
+#begin Musics/1111/song.wav
+/importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Musics/1111/song.mp3
+/build:Musics/1111/song.wav
 
 #begin Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav
 /importer:WavImporter

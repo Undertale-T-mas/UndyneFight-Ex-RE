@@ -8,6 +8,7 @@ namespace UndyneFight_Ex.Entities
 {
     public partial class StateShower : Entity
     {
+        private static float FontScale { get; set; } = 0.75f;
         internal void PushBonus(int bonus)
         {
             score.Value = Score + bonus;
@@ -54,7 +55,7 @@ namespace UndyneFight_Ex.Entities
                 case 0: DispTxt = "Miss";       DispCol = Color.Red;        miss++;     break;
                 case 1: DispTxt = "Okay";       DispCol = Color.Green;      okay++;     break;
                 case 2: DispTxt = "Nice";       DispCol = Color.LightBlue;  nice++;     break;
-                case 3: DispTxt = "PERFECT";    DispCol = Color.Gold;       perfect++;  break;
+                case 3: DispTxt = "Perfect!";    DispCol = Color.Gold;       perfect++;  break;
                 case 4: DispTxt = "PerfectE";   DispCol = Color.Orange;     perfect++; perfectE++; break;
                 case 5: DispTxt = "PerfectL";   DispCol = Color.Orange;     perfect++; perfectL++; break;
             }
@@ -97,7 +98,9 @@ namespace UndyneFight_Ex.Entities
 
         internal class ScoreText : Entity
         {
-            private float alpha, scale = 1, outingSpeed = 0.4f;
+            
+            private float scale = FontScale;
+            private float alpha,outingSpeed = 0.4f;
             private int appearTime = 0;
             private readonly int combo;
             private readonly string text;
@@ -130,10 +133,10 @@ namespace UndyneFight_Ex.Entities
             {
                 if (combo != 0)
                 {
-                    FightResources.Font.NormalFont.CentreDraw("x" + combo, Centre + new Vector2(0, 24 * scale), color * alpha, Math.Min(10, appearTime) / 10f * scale, 0.45f);
+                    FightResources.Font.NormalFont.CentreDraw("x" + combo, Centre + new Vector2(30 * scale, 32 * scale), color * alpha, Math.Min(10, appearTime) / 10f * scale, 0.45f);
                 }
 
-                FightResources.Font.NormalFont.CentreDraw(text, Centre, color * alpha, Math.Min(10, appearTime) / 10f * scale, 0.45f) ;
+                FightResources.Font.NormalFont.CentreDraw(text, Centre, color * alpha, Math.Min(10, appearTime) / 10f * scale*1.25f, 0.45f) ;
             }
 
             public override void Update()
@@ -202,7 +205,7 @@ namespace UndyneFight_Ex.Entities
         public Action NiceAction { get; set; }
         public Action PerfectAction { get; set; }
         public Action EndAction { get; set; }
-
+        //private float FontScale { get; set; } = 0.75f;
         internal StateShower(IWaveSet waveSet, int difficulty, JudgementState judgeState, GameMode mode, float duration)
         {
             songDuration = duration;
@@ -217,11 +220,11 @@ namespace UndyneFight_Ex.Entities
         {
             Color UICol = GameMain.CurrentDrawingSettings.UIColor;
             GLFont F = FightResources.Font.NormalFont;
-            F.CentreDraw(score.Value.ToString(), new Vector2(540, 20), UICol);
+            F.CentreDraw(score.Value.ToString(), new Vector2(640-72, 20), UICol, 1, this.Depth);
             if (totalCount != 0)
             {
-                F.CentreDraw($"p/a:{MathF.Round((float)(perfect * 100.0 / totalCount), 1)}%", new Vector2(92, 50), UICol);
-                F.CentreDraw($"m/a:{MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1)}%", new Vector2(92, 80), UICol);
+                F.CentreDraw($"{MathF.Round((float)(perfect * 100.0 / totalCount), 1)}%", new Vector2(640-72, 40), UICol,FontScale*0.8f,this.Depth);
+                //F.CentreDraw($"m/a:{MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1)}%", new Vector2(92, 80), UICol);
             }
             current?.Draw();
         }
