@@ -3419,12 +3419,6 @@
 /processorParam:Quality=Best
 /build:Musics/Weekender/Hey! Say! JUMP - ウィークエンダー [Official Music Video].mp3;Musics/Weekender/song.mp3
 
-#begin Musics/狂风·余音/song.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/狂风·余音/song.mp3
-
 #begin Shop/Souvenir/MemoryBronze.png
 /importer:TextureImporter
 /processor:TextureProcessor

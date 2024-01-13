@@ -159,7 +159,6 @@ Alternate: Space";
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
 #if DEBUG
-                typeof(狂风_余音),
                 typeof(UselessThreshold),
                 typeof(Prospector),
                 typeof(Shadow),
