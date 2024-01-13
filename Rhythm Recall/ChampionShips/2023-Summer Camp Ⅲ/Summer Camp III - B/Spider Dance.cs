@@ -48,14 +48,14 @@ namespace Rhythm_Recall.Waves
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Easy, 7.5f),
-                        new(Difficulty.Extreme, 18f)
+                        new(Difficulty.Extreme, 18.4f)
                     }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Easy, 7.5f),
-                        new(Difficulty.Extreme, 18f)
+                        new(Difficulty.Extreme, 18.3f)
                     }
                  );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
@@ -591,7 +591,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("SetBox", () =>
                     {
-                        SetSoul(Souls.RedSoul);
+                        SetSoul(0);
                         RunEase((s) => { InstantSetBox(new Vector2(320, 240), s.X, s.Y); }, LinkEase(Stable(0, new Vector2(84)), EaseOut(BeatTime(1f), new Vector2(240 - 84, 160 - 84), EaseState.Cubic)));
                     });
                     RegisterFunctionOnce("Purple", () =>
@@ -814,6 +814,7 @@ namespace Rhythm_Recall.Waves
                             Stable(0, 0), EaseOut(BeatTime(1f), -0.25f, EaseState.Cubic),
                             Stable(0, 0), EaseOut(BeatTime(2f), 0.5f, EaseState.Cubic),
                             Stable(0, 0), EaseIn(BeatTime(2f), -0.75f, EaseState.Cubic)));
+                        DelayBeat(8, () => ScreenDrawing.ScreenAngle=0);
                     });
                     RegisterFunctionOnce("Screen2", () => {
                         RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
@@ -1278,7 +1279,7 @@ namespace Rhythm_Recall.Waves
                                             new Vector2(G, Y),
                                             new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
                                             EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
-                                        { Alpha = 0.25f, DrawingColor = Color.MediumPurple };
+                                        { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                         CreateEntity(a);
 
                                         DelayBeat(2.05f, () => { a.Dispose(); });
@@ -1287,7 +1288,7 @@ namespace Rhythm_Recall.Waves
                                             new Vector2(G, Y),
                                             new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
                                             EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
-                                        { Alpha = 0.25f, DrawingColor = Color.MediumPurple };
+                                        { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                         CreateEntity(b);
                                         DelayBeat(2.05f, () => { b.Dispose(); });
                                         G += 128;
@@ -1314,7 +1315,7 @@ namespace Rhythm_Recall.Waves
                                         new Vector2(G, Y),
                                         new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
                                         EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple };
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                     CreateEntity(a);
 
                                     DelayBeat(2.05f, () => { a.Dispose(); });
@@ -1323,7 +1324,7 @@ namespace Rhythm_Recall.Waves
                                         new Vector2(G, Y),
                                         new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
                                         EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple };
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f),Depth=0.1f, Width = 1 };
                                     CreateEntity(b);
 
                                     DelayBeat(2.05f, () => { b.Dispose(); });
@@ -1346,28 +1347,28 @@ namespace Rhythm_Recall.Waves
                                     Line a = new(
                                         EaseOut(BeatTime(2),
                                         new Vector2(G, Y),
-                                        new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                        EaseOut(BeatTime(4), 25, Rand(-90, 90), EaseState.Cubic))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple };
+                                        new Vector2(G, Y + (Sin(25) * 128 + 5))*RandSignal(), EaseState.Cubic),
+                                        EaseOut(BeatTime(time*1.2f), 25, Rand(-90, 90), EaseState.Cubic))
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                     CreateEntity(a);
 
                                     DelayBeat(7, () => { a.Dispose(); });
                                     Line b = new(
                                         EaseOut(BeatTime(2),
                                         new Vector2(G, Y),
-                                        new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                        EaseOut(BeatTime(4), -25, Rand(-90, 90), EaseState.Cubic))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple };
+                                        new Vector2(G, Y + (Sin(25) * 128 + 5)*RandSignal()), EaseState.Cubic),
+                                        EaseOut(BeatTime(time*1.2f), -25, Rand(-90, 90), EaseState.Cubic))
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f,Width=1 };
                                     CreateEntity(b);
 
-                                    DelayBeat(7, () => { b.Dispose(); });
+                                    DelayBeat(16, () => { b.Dispose(); });
                                     G += 128;
                                     RunEase((s) => { a.Alpha = s; b.Alpha = s; },
-                                    LinkEase(Stable(BeatTime(time - 2f), 0.25f), EaseOut(BeatTime(2), -0.25f, EaseState.Cubic)));
+                                    LinkEase(Stable(BeatTime(time-2), 1f), EaseOut(BeatTime(2), -1f, EaseState.Cubic)));
                                     RunEase((s) => {
-                                        a.DrawingColor = b.DrawingColor = Color.Lerp(Color.MediumPurple, Color.White, s);
+                                        a.DrawingColor = b.DrawingColor = Color.Lerp(Color.Lerp(Color.MediumPurple,Color.Black,0.25f), Color.White, s);
                                     },
-                                    LinkEase(Stable(BeatTime(time - 2f), 0f), EaseOut(BeatTime(0.5f), 1f, EaseState.Cubic)));
+                                    LinkEase(Stable(BeatTime(time-2), 0f), EaseOut(BeatTime(0.5f), 1f, EaseState.Cubic)));
                                 }
                                 Y += Sin(25) * 128 + 5;
                             }
@@ -1405,6 +1406,7 @@ namespace Rhythm_Recall.Waves
                             LinkEase(Stable(0, -5), EaseOut(BeatTime(1f), 10, EaseState.Back)),
                             LinkEase(Stable(0, 5), EaseOut(BeatTime(4f), -5, EaseState.Elastic)));
                     });
+
                     CreateChart(BeatTime(4), BeatTime(2), 6.2f, new string[]
                     {
                         //pre
@@ -1531,7 +1533,7 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("ScreenAngle", () =>
                     {
                         float sin = 0;
-                        ForBeat(32, () => ScreenDrawing.ScreenAngle = Sin(sin++ * 0.5f) * 8);
+                        ForBeat(32, () => ScreenDrawing.ScreenAngle = Sin(sin++ * 2.4f) * 8);
                         DelayBeat(32, () =>
                         {
                             RunEase((s) => { ScreenDrawing.ScreenAngle = s; },
@@ -2417,11 +2419,19 @@ namespace Rhythm_Recall.Waves
                         }
                     });
                     #endregion
+                    
                     RegisterFunctionOnce("Screen", () =>
                     {
                         RunEase((s) => { ScreenScale = s; }, LinkEase(Stable(0, 1), EaseOut(BeatTime(4f), 0.5f, EaseState.Cubic)));
                         float rot = 0;
-                        ForBeat(4, () => ScreenDrawing.ScreenAngle = Sin(rot++) * 15);
+                        for (int i = 0; i < 400; i++)
+                        {
+                            DelayBeat(i * 0.01f, () =>
+                            {
+                                ScreenDrawing.ScreenAngle = Sin(rot) * 15;
+                                rot += 2;
+                            });
+                        }
                     });
                     RegisterFunctionOnce("Screen1", () =>
                     {
@@ -3299,6 +3309,7 @@ namespace Rhythm_Recall.Waves
                                                                                     Stable(0, 0), EaseOut(BeatTime(1f), -0.25f, EaseState.Cubic),
                                                                                     Stable(0, 0), EaseOut(BeatTime(2f), 0.5f, EaseState.Cubic),
                                                                                     Stable(0, 0), EaseIn(BeatTime(2f), -0.75f, EaseState.Cubic)));
+                        DelayBeat(8, () => ScreenDrawing.ScreenAngle = 0);
                     });
                     RegisterFunctionOnce("Screen2", () => {
                         RunEase((s) => { ScreenPositionDelta = new Vector2(s, 0); }, LinkEase(Stable(0, 0), EaseOut(BeatTime(2f), -25, EaseState.Cubic),
@@ -3755,46 +3766,39 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("LineF", () =>
                     {
-                        float Y = Sin(15) * (640 / 5) * -20;
-                        float Y2 = Y;
-
-
+                        float Y = Sin(15) * (640 / 5) * -20, Y2 = Y;
                         for (int i5 = 0; i5 < 56 * 0.5f; i5++)
                         {
-
                             DelayBeat(2 * i5, () =>
                             {
-                                float g = 0.5f;
                                 Y = Y2;
                                 for (int i2 = 0; i2 < 7; i2++)
                                 {
-
                                     float G = 0;
                                     for (int i = 0; i < 5; i++)
                                     {
-
-
-
-                                        Line a = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                                      EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
-                                        { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                        Line a = new(
+                                            EaseOut(BeatTime(2),
+                                            new Vector2(G, Y),
+                                            new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
+                                            EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
+                                        { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                         CreateEntity(a);
 
                                         DelayBeat(2.05f, () => { a.Dispose(); });
-                                        Line b = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                                      EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
-                                        { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                        Line b = new(
+                                            EaseOut(BeatTime(2),
+                                            new Vector2(G, Y),
+                                            new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
+                                            EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
+                                        { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                         CreateEntity(b);
-
                                         DelayBeat(2.05f, () => { b.Dispose(); });
-                                        G = G + 128;
-
+                                        G += 128;
                                     }
-
-                                    Y = Y + Sin(25) * 128 + 5;
-
+                                    Y += Sin(25) * 128 + 5;
                                 }
-                                Y2 = Y2 + Sin(25) * 128 + 5;
+                                Y2 += Sin(25) * 128 + 5;
                                 if (Y2 >= Sin(25) * 128 + 5) { Y2 = Sin(25) * -128 + 5; }
                             });
                         }
@@ -3802,9 +3806,6 @@ namespace Rhythm_Recall.Waves
 
                             Y2 = Sin(25) * -128 + 5;
                             float time = 2f;
-
-
-                            float g = 0.5f;
                             Y = Y2;
                             for (int i2 = 0; i2 < 7; i2++)
                             {
@@ -3812,79 +3813,68 @@ namespace Rhythm_Recall.Waves
                                 float G = 0;
                                 for (int i = 0; i < 5; i++)
                                 {
-
-
-
-                                    Line a = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                                  EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    Line a = new(
+                                        EaseOut(BeatTime(2),
+                                        new Vector2(G, Y),
+                                        new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
+                                        EaseOut(BeatTime(2), 25, 25, EaseState.Expo))
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                     CreateEntity(a);
 
                                     DelayBeat(2.05f, () => { a.Dispose(); });
-                                    Line b = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                                 EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    Line b = new(
+                                        EaseOut(BeatTime(2),
+                                        new Vector2(G, Y),
+                                        new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
+                                        EaseOut(BeatTime(2), -25, -25, EaseState.Expo))
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                     CreateEntity(b);
 
                                     DelayBeat(2.05f, () => { b.Dispose(); });
-                                    G = G + 128;
-
+                                    G += 128;
                                 }
-
-                                Y = Y + Sin(25) * 128 + 5;
-
+                                Y += Sin(25) * 128 + 5;
                             }
-
-
-
-
                         });
                         DelayBeat(58, () => {
 
                             Y2 = Sin(25) * -128 + 5;
                             float time = 2f;
-
-
-                            float g = 0.5f;
                             Y = Y2;
                             for (int i2 = 0; i2 < 7; i2++)
                             {
-
                                 float G = 0;
                                 for (int i = 0; i < 5; i++)
                                 {
                                     time += 0.125f;
-
-
-                                    Line a = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                                  EaseOut(BeatTime(4), 25, Rand(-90, 90), EaseState.Cubic))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    Line a = new(
+                                        EaseOut(BeatTime(2),
+                                        new Vector2(G, Y),
+                                        new Vector2(G, Y + (Sin(25) * 128 + 5)) * RandSignal(), EaseState.Cubic),
+                                        EaseOut(BeatTime(time * 1.2f), 25, Rand(-90, 90), EaseState.Cubic))
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                     CreateEntity(a);
 
-                                    DelayBeat(7f, () => { a.Dispose(); });
-                                    Line b = new(EaseOut(BeatTime(2), new Vector2(G, Y), new Vector2(G, Y + Sin(25) * 128 + 5), EaseState.Cubic),
-                                                 EaseOut(BeatTime(4), -25, Rand(-90, 90), EaseState.Cubic))
-                                    { Alpha = 0.25f, DrawingColor = Color.MediumPurple * 1f };
+                                    DelayBeat(7, () => { a.Dispose(); });
+                                    Line b = new(
+                                        EaseOut(BeatTime(2),
+                                        new Vector2(G, Y),
+                                        new Vector2(G, Y + (Sin(25) * 128 + 5) * RandSignal()), EaseState.Cubic),
+                                        EaseOut(BeatTime(time * 1.2f), -25, Rand(-90, 90), EaseState.Cubic))
+                                    { DrawingColor = Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Depth = 0.1f, Width = 1 };
                                     CreateEntity(b);
 
-                                    DelayBeat(7f, () => { b.Dispose(); });
-                                    G = G + 128;
+                                    DelayBeat(16, () => { b.Dispose(); });
+                                    G += 128;
                                     RunEase((s) => { a.Alpha = s; b.Alpha = s; },
-                                    LinkEase(Stable(BeatTime(time - 2f), 0.25f), EaseOut(BeatTime(2), -0.25f, EaseState.Cubic)));
+                                    LinkEase(Stable(BeatTime(time - 2), 1f), EaseOut(BeatTime(2), -1f, EaseState.Cubic)));
                                     RunEase((s) => {
-                                        a.DrawingColor = Color.Lerp(Color.MediumPurple, Color.White, s);
-                                        b.DrawingColor = Color.Lerp(Color.MediumPurple, Color.White, s);
+                                        a.DrawingColor = b.DrawingColor = Color.Lerp(Color.Lerp(Color.MediumPurple, Color.Black, 0.25f), Color.White, s);
                                     },
-                                    LinkEase(Stable(BeatTime(time - 2f), 0f), EaseOut(BeatTime(0.5f), 1f, EaseState.Cubic)));
+                                    LinkEase(Stable(BeatTime(time - 2), 0f), EaseOut(BeatTime(0.5f), 1f, EaseState.Cubic)));
                                 }
-
-                                Y = Y + Sin(25) * 128 + 5;
-
+                                Y += Sin(25) * 128 + 5;
                             }
-
-
-
-
                         });
                     });
                     RegisterFunctionOnce("ScreenMove1", () =>
@@ -4047,15 +4037,8 @@ namespace Rhythm_Recall.Waves
 
                     RegisterFunctionOnce("ScreenAngle", () =>
                     {
-                        float sin = 0;
-                        for (int i = 0; i < 3200; i++)
-                        {
-                            DelayBeat(i * 0.01f, () =>
-                            {
-                                ScreenDrawing.ScreenAngle = Sin(sin * 0.5f) * 8;
-                                sin++;
-                            });
-                        }
+                        int sin = 0;
+                        ForBeat120(32, () => ScreenDrawing.ScreenAngle = Sin(sin++ * 2.4f) * 8);
 
                         DelayBeat(32, () =>
                         {
@@ -5210,7 +5193,7 @@ namespace Rhythm_Recall.Waves
                 bool jump = false;
                 if (jump)
                 {
-                    int beat = 312;
+                    int beat = 184;
                     GametimeDelta = -3.5f + BeatTime(beat);
                     PlayOffset = BeatTime(beat);
                     ScreenScale = 1f;
