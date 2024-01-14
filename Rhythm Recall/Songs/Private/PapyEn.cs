@@ -656,7 +656,7 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.SceneRendering.InsertProduction(production1);
                 ScreenDrawing.SceneRendering.InsertProduction(production2);
 
-                bool delayEnable = true;
+                bool delayEnable = false;
                 if (delayEnable)
                 {
                     float delay = BeatTime(8 * 15);
