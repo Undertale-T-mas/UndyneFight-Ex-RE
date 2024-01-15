@@ -33,6 +33,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         User AccountData;
         SingleSong[] data = new SingleSong[9];
+        int datacount=0;
         RatingCalculater.RatingList list;
         public AccountManager()
         {
@@ -56,6 +57,8 @@ namespace UndyneFight_Ex.Remake.UI
                 if (list.StrictDonors.Count == 0) break;
                 data[i] = list.StrictDonors.Max;
                 list.StrictDonors.Remove(list.StrictDonors.Max);
+                datacount++;
+                
             }
         }
         Color[] vertexColors;
@@ -154,7 +157,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             Color TextColor;
             string RatingText, DifficultyText, SongName;
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i <= datacount; i++)
             {
                 TextColor = i switch
                 {
