@@ -86,7 +86,7 @@ namespace UndyneFight_Ex.Entities
             }
             void DrawTargetLine(Vector2 Start, Vector2 End)
             {
-                DrawLine(Start, End, follow.Width, follow.DrawingColor * follow.Alpha, Depth);
+                DrawLine(Start, End, follow.Width, follow.DrawingColor * alpha, Depth);
             }
             public override void Draw()
             {
