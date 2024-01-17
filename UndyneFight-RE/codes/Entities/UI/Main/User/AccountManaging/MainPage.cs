@@ -57,7 +57,7 @@ namespace UndyneFight_Ex.Remake.UI
                 if (list.StrictDonors.Count == 0) break;
                 data[i] = list.StrictDonors.Max;
                 list.StrictDonors.Remove(list.StrictDonors.Max);
-                datacount++;
+                datacount=i;
                 
             }
         }

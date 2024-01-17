@@ -395,10 +395,13 @@ namespace UndyneFight_Ex.Entities
                 DrawingLab.DrawLine(new Vector2(210, 237.5f), new Vector2(618, 237.5f), 2, Color.White, 0.5f);
                 NormalFont.Draw("->", new Vector2(211, 156), Color.Silver, 0.9f, 0.1f);
                 NormalFont.Draw("*", new Vector2(330, 156), Color.White, 0.9f, 0.1f);
-                NormalFont.Draw("->", new Vector2(211, 286), Color.Silver, 0.9f, 0.1f);
-                NormalFont.Draw("*", new Vector2(330, 286), Color.White, 0.9f, 0.1f);
                 NormalFont.Draw($"{FloatToString(rerate * 100, 1)}%({FloatToString(accuracy * 100, 1)}%)", new Vector2(354, 156), Color.White, 0.9f, 0.1f);
-                NormalFont.Draw($"{FloatToString(rerate * 100, 1)}%({FloatToString(accuracy * 100, 1)}%)", new Vector2(354, 286), Color.White, 0.9f, 0.1f);
+                if (raitingSelection == 0 && !AP || AP)
+                {
+                    NormalFont.Draw("->", new Vector2(211, 286), Color.Silver, 0.9f, 0.1f);
+                    NormalFont.Draw("*", new Vector2(330, 286), Color.White, 0.9f, 0.1f);
+                    NormalFont.Draw($"{FloatToString(rerate * 100, 1)}%({FloatToString(accuracy * 100, 1)}%)", new Vector2(354, 286), Color.White, 0.9f, 0.1f);
+                }
                 if (raitingSelection == 0)
                 {
                     NormalFont.Draw("Complete:", new Vector2(211, 126), new(0, 255, 0), 0.95f, 0.1f);
@@ -498,15 +501,21 @@ namespace UndyneFight_Ex.Entities
                 analyzeShow.Alpha = alpha;
                 if (gamePlayed.Attributes != null)
                 {
-                    dif[0] = gamePlayed.Attributes.CompleteDifficulty[(Difficulty)difficulty];
-                    dif[1] = gamePlayed.Attributes.ComplexDifficulty[(Difficulty)difficulty];
-                    dif[2] = gamePlayed.Attributes.APDifficulty[(Difficulty)difficulty];
                     if (gamePlayed.Attributes.CompleteDifficulty.ContainsKey((Difficulty)difficulty))
+                    {
+                        dif[0] = gamePlayed.Attributes.CompleteDifficulty[(Difficulty)difficulty];
                         difficultyText[0] = "" + dif[0];
+                    }
                     if (gamePlayed.Attributes.ComplexDifficulty.ContainsKey((Difficulty)difficulty))
+                    {
+                        dif[1] = gamePlayed.Attributes.ComplexDifficulty[(Difficulty)difficulty];
                         difficultyText[1] = "" + dif[1];
+                    }
                     if (gamePlayed.Attributes.APDifficulty.ContainsKey((Difficulty)difficulty))
+                    {
+                        dif[2] = gamePlayed.Attributes.APDifficulty[(Difficulty)difficulty];
                         difficultyText[2] = "" + dif[2];
+                    }
                 }
                 accuracy = GetScorePercent();
                 rerate = ReRate(accuracy);
