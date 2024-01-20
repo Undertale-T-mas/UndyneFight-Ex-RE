@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
 
@@ -22,11 +23,12 @@ namespace UndyneFight_Ex.UserService
 
             public float Accuracy { get; set; }
             public float PauseTime { get; set; }
-
+            bool record { set => StateShower.ResultShower.record = value; }
             public void UpdateNew(SongResult result)
             {
+                bool Best = record = result.Accuracy > this.Accuracy;
                 int newScore = result.Score;
-                if(result.Accuracy > this.Accuracy)
+                if(Best)
                 {
                     this.PauseTime = result.PauseTime;
                 }
