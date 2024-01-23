@@ -716,7 +716,7 @@ namespace Rhythm_Recall.Waves
                 CreateBone(new DownBone(true, 2f, 55) { ColorType = 1 });
                 CreateBone(new DownBone(false, 4f, 55) { ColorType = 2 });
             }
-            if (InBeat(266, 394 - 4) && At0thBeat(3.8f))
+            if (InBeat(266, 394 - 8) && At0thBeat(4f))
             {
                 PlaySound(Sounds.pierce);
                 ScreenDrawing.CameraEffect.Convulse(10, BeatTime(2.9f), At0thBeat(7.6f));

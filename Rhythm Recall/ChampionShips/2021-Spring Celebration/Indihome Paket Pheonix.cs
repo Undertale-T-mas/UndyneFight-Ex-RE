@@ -324,7 +324,7 @@ namespace Rhythm_Recall.Waves
                                 {
                                     CreateArrow(time, Rand(0, 3), 5.0f, 0, 0);
                                 }
-                                time += 2 * 7.18f;
+                                time += 1.95f * SingleBeat;
                             });
                         });
                         Fortimes(4, () =>
@@ -335,7 +335,7 @@ namespace Rhythm_Recall.Waves
                                 {
                                     CreateArrow(time, Rand(0, 3), 5.0f, 0, 0);
                                 }
-                                time += 2 * 7.18f;
+                                time += 1.95f * SingleBeat;
                             });
                         });
                     });
