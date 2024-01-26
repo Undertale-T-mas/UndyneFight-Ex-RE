@@ -43,19 +43,18 @@ namespace Rhythm_Recall.Waves
                 public override string SongAuthor => "Toby Fox";
                 public override string BarrageAuthor => "Dance of zKronO and mentototo";
                 public override string AttributeAuthor => "ParaDOXXX, mentototo";
-                public override string Extra => GameStates.difficulty == 4 ? "Fixed by TK" : "";
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Easy, 7.5f),
-                        new(Difficulty.Extreme, 18.4f)
+                        new(Difficulty.Extreme, 18.5f)
                     }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Easy, 7.5f),
-                        new(Difficulty.Extreme, 18.3f)
+                        new(Difficulty.Extreme, 18.5f)
                     }
                  );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
@@ -1905,8 +1904,8 @@ namespace Rhythm_Recall.Waves
                             Line l6 = new(new Vector2(560 + Cos(sins) * -50, 240), 90);
                             Line l7 = new(new Vector2(80 + Cos(sin + 180) * 50, 240), 90);
                             Line l8 = new(new Vector2(560 + Cos(sins + 180) * -50, 240), 90); ;
-                            sin += 1 / 20;
-                            sins += 1 / 20;
+                            sin += 3;
+                            sins += 3;
                             Line[] lines = { l, l2, l3, l4, l5, l6, l7, l8 };
                             foreach (Line line in lines)
                             {
@@ -4444,57 +4443,43 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line7", () =>
                     {
-                        float sins = 0;
-                        float sin = 0;
-                        float Time = 0;
-                        for (int i = 0; i < 3000; i++)
+                        float sins = 0, sin = 0;
+                        ForBeat(30, () =>
                         {
-                            DelayBeat(i * 0.01f, () =>
+                            Line l = new(new Vector2(80 + Sin(sin) * 50, 240), 90);
+                            Line l2 = new(new Vector2(560 + Sin(sins) * -50, 240), 90);
+                            Line l3 = new(new Vector2(80 + Sin(sin + 180) * 50, 240), 90);
+                            Line l4 = new(new Vector2(560 + Sin(sins + 180) * -50, 240), 90);
+                            Line l5 = new(new Vector2(80 + Cos(sin) * 50, 240), 90);
+                            Line l6 = new(new Vector2(560 + Cos(sins) * -50, 240), 90);
+                            Line l7 = new(new Vector2(80 + Cos(sin + 180) * 50, 240), 90);
+                            Line l8 = new(new Vector2(560 + Cos(sins + 180) * -50, 240), 90); ;
+                            sin += 3;
+                            sins += 3;
+                            Line[] lines = { l, l2, l3, l4, l5, l6, l7, l8 };
+                            foreach (Line line in lines)
                             {
-                                Line l = new(new Vector2(80 + Sin(sin) * 50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                Line l2 = new(new Vector2(560 + Sin(sins) * -50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                Line l3 = new(new Vector2(80 + Sin(sin + 180) * 50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                Line l4 = new(new Vector2(560 + Sin(sins + 180) * -50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                Line l5 = new(new Vector2(80 + Cos(sin) * 50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                Line l6 = new(new Vector2(560 + Cos(sins) * -50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                Line l7 = new(new Vector2(80 + Cos(sin + 180) * 50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                Line l8 = new(new Vector2(560 + Cos(sins + 180) * -50, 240), 90) { DrawingColor = Color.MediumPurple };
-                                sin += 90 / 200f;
-                                sins += 90 / 200f;
-                                Time++;
-                                Line[] lines = { l, l2, l3, l4, l5, l6, l7, l8 };
-
-
-
-
-                                foreach (Line line in lines)
-                                {
-                                    CreateEntity(line);
-                                    DelayBeat(0.1f, () => { line.Alpha = 0; });
-                                    DelayBeat(2f, () => { line.Dispose(); });
-                                }
-
-                                if (Time == 2800)
-                                {
-
-                                    Line ll = new(80, 90);
-                                    Line ll2 = new(560, 90);
-                                    Line[] lines1 = { ll, ll2 };
-                                    foreach (Line line in lines1)
-                                    {
-                                        CreateEntity(line);
-                                        line.DrawingColor = Color.MediumPurple;
-                                        RunEase((s) => { line.Width = s; }, LinkEase(Stable(0, 0), EaseOut(BeatTime(4f), 480, EaseState.Cubic)
-                                                                                     ));
-                                        DelayBeat(2, () =>
-                                        {
-                                            line.AlphaDecrease(BeatTime(4));
-
-                                        });
-                                    }
-                                }
-                            });
-                        }
+                                CreateEntity(line);
+                                line.DrawingColor = Color.MediumPurple;
+                                DelayBeat(0.1f, () => { line.Alpha = 0; });
+                                DelayBeat(2f, () => { line.Dispose(); });
+                            }
+                        });
+                        DelayBeat(28, () =>
+                        {
+                            Line ll = new(80, 90);
+                            Line ll2 = new(560, 90);
+                            Line[] lines1 = { ll, ll2 };
+                            foreach (Line line in lines1)
+                            {
+                                CreateEntity(line);
+                                line.DrawingColor = Color.MediumPurple;
+                                RunEase((s) => { line.Width = s; },
+                                    LinkEase(Stable(0, 0),
+                                    EaseOut(BeatTime(4f), 480, EaseState.Cubic)));
+                                DelayBeat(2, () => line.AlphaDecrease(BeatTime(4)));
+                            }
+                        });
                     });
                     RegisterFunctionOnce("Effect", () =>
                     {

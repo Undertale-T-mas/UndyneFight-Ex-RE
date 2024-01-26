@@ -2332,7 +2332,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 4590)
                 {
-                    CustomBone bone = new(new(560, 240), Motions.PositionRoute.cameFromLeft, 0, 140, 400) { ColorType = 2 };
+                    CustomBone bone = new(new(560, 240), Motions.PositionRoute.cameFromRight, 0, 140, 400) { ColorType = 2 };
                     CreateBone(bone);
                     AddInstance(new InstantEvent(30, () =>
                     {
@@ -3012,7 +3012,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF == 4590)
                 {
-                    CustomBone bone = new(new(560, 240), Motions.PositionRoute.cameFromLeft, 0, 140, 400) { ColorType = 2 };
+                    CustomBone bone = new(new(560, 240), Motions.PositionRoute.cameFromRight, 0, 140, 400) { ColorType = 2 };
                     CreateBone(bone);
                     AddInstance(new InstantEvent(30, () =>
                     {

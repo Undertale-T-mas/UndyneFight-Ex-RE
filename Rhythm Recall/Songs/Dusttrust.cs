@@ -288,6 +288,7 @@ namespace Rhythm_Recall.Waves
                     PlaySound(switchScene);
                     SetSoul(2);
                     Heart.GiveForce(270, 0);
+                    Heart.JumpTimeLimit = 0;
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(0, bpm * 16, () =>
                     {
@@ -307,7 +308,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void part4()
                 {
-
+                    Heart.JumpTimeLimit = 3;
                     Heart.Gravity = 9.8f;
                     SetSoul(2);
                     Heart.GiveForce(270, 1);
@@ -2392,6 +2393,7 @@ namespace Rhythm_Recall.Waves
                 public static void SpecialKnife(Vector2 center, float rotate, bool trafic, float trafictime, bool value)
                 {
                     DrawingUtil.Linerotate head = new(center.X, center.Y, rotate + 180, trafictime, 1, Color.Red * 0.75f);
+                    head.depth = 1f;
                     head.width = 1.5f;
                     CreateEntity(head);
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
@@ -2416,6 +2418,7 @@ namespace Rhythm_Recall.Waves
                         if (!value) PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red * 0.75f);
                         Line.width = 0;
+                        Line.depth = 1;
                         CreateEntity(Line);
                         DrawingUtil.Shock(1.2f, 1.3f, 3);
                         AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
