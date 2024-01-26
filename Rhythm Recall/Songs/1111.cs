@@ -12,6 +12,7 @@ using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 using System.Net.Security;
+using System.Net.WebSockets;
 
 namespace Rhythm_Recall.Waves
 {
@@ -92,6 +93,15 @@ namespace Rhythm_Recall.Waves
                     var r = EaseOut(T(Arguments[0]), Arguments[1], Arguments[2], EaseState.Quad);
                     RunEase((s) => { ScreenDrawing.RightBoundDistance = s; }, r);
                 });
+                RegisterFunction("BoundBack", () =>
+                {
+                    var eas = LinkEase(
+                            Stable(0, ScreenDrawing.DownBoundDistance),
+                            EaseOut(T(Arguments[0]/2), Arguments[1], EaseState.Quad),
+                            EaseIn(T(Arguments[0]/2), -Arguments[1], EaseState.Sine)
+                            );
+                    RunEase((s) => { ScreenDrawing.DownBoundDistance = ScreenDrawing.UpBoundDistance = s; }, eas);
+                });
                 #endregion
                 RegisterFunction("Con", () =>
                 {
@@ -102,13 +112,23 @@ namespace Rhythm_Recall.Waves
                     var r = LinkEase(Stable(0, ScreenDrawing.ScreenScale), EaseOut(T(Arguments[0]), ScreenDrawing.ScreenScale, Arguments[1], EaseState.Quad));
                     RunEase((s) => { ScreenDrawing.ScreenScale = s; }, r);
                 });
+                RegisterFunction("SCP", () =>
+                {
+                    var r = LinkEase(Stable(0, ScreenDrawing.ScreenPositionDelta), EaseOut(T(Arguments[0])-1, ScreenDrawing.ScreenPositionDelta, new(Arguments[1], Arguments[2]), EaseState.Quad));
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, r);
+                });
+                RegisterFunction("SA", () =>
+                {
+                    var r = LinkEase(Stable(0, ScreenDrawing.ScreenAngle), EaseOut(T(Arguments[0]), ScreenDrawing.ScreenAngle, Arguments[1], EaseState.Quad));
+                    RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, r);
+                });
                 Settings.GreenTap = true;
                 GametimeDelta = 33.75f;
                 InstantSetGreenBox();
                 SetSoul(1);
                 InstantTP(320, 240);
                 bool delay = true;
-                var beat = BeatTime(194f-1);
+                var beat = BeatTime(128-1);
                 if (delay)
                 {
                     PlayOffset = beat;
@@ -117,7 +137,7 @@ namespace Rhythm_Recall.Waves
                 }
                 DelayBeat(0, () => { Main = Heart; });
                 Main = Heart;
-               // DrawingUtil.BetterBlackScreen(0, 0, BeatTime(32), Color.Black);
+               //DrawingUtil.BetterBlackScreen(0, 0, BeatTime(32), Color.Black);
             }
             private float T(float beat)
             {
@@ -131,9 +151,15 @@ namespace Rhythm_Recall.Waves
             public void Extreme()
             {
                 //Intro 1
-                if (InBeat(2f))
+                if (InBeat(2f)) 
                 {
-                    
+                    Arrow.UnitEasing ar = new();
+                    AddInstance(ar);
+                    ar.ApplyTime = BeatTime(2);
+                    ar.RotationEase = LinkEase(
+                        Stable(0,7),
+                        EaseOut(BeatTime(2), 7, 0, EaseState.Quad));
+                    ar.TagApply("A");
                     RegisterFunctionOnce("Line1", () =>
                     {
                         Line line = new(EaseIn(BeatTime(6), new Vector2(640, 485), new(0, -5), EaseState.Sine).Easing, EaseIn(BeatTime(6), 0, 90, EaseState.Sine).Easing);
@@ -184,46 +210,46 @@ namespace Rhythm_Recall.Waves
                     });
                     CreateChart(BeatTime(2), BeatTime(1), 7f, new string[]
                     {
-                        "R(Line1)", "", "", "",         "R", "", "", "",
-                        "R", "", "", "",         "", "", "", "",
-                        "R", "", "", "",         "R", "", "", "",
+                        "R@A(Line1)", "", "", "",         "R@A", "", "", "",
+                        "(R@A)(<4,10,0>SCP)(<4,-3.5>SA)", "", "", "",         "", "", "", "",
+                        "R@A", "", "", "",         "R@A", "", "", "",
                         "", "", "", "",         "", "", "", "",
 
-                        "R", "", "", "",         "R", "", "", "",
-                        "", "", "", "",         "R", "", "", "",
-                        "R", "", "", "",         "", "", "", "",
-                        "", "", "", "",         "R", "", "", "",
+                        "R@A", "", "", "",         "R@A", "", "", "",
+                        "(<4,-20,0>SCP)(<4,3.5>SA)", "", "", "",         "R@A", "", "", "",
+                        "R@A", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "R@A", "", "", "",
 
-                        "R(Line2)", "", "", "",         "R", "", "", "",
-                        "R", "", "", "",         "", "", "", "",
-                        "R", "", "", "",         "R", "", "", "",
+                        "R@A(Line2)", "", "", "",         "R@A", "", "", "",
+                        "R@A(<4,10,0>SCP)(<4,0>SA)", "", "", "",         "", "", "", "",
+                        "R@A", "", "", "",         "R@A", "", "", "",
                         "", "", "", "",         "", "", "", "",
 
-                        "", "R", "", "",         "", "R", "", "",
+                        "", "R@A", "", "",         "", "R@A", "", "",
+                        "(<2,1.15>SSS)", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-                        "", "", "", "",         "", "", "", "",
+                        "(<2,1>SSS)", "", "", "",         "", "", "", "",
                         //
-                        "", "", "R(Line1)", "",         "", "", "R", "",
-                        "", "", "R", "",         "", "", "", "",
-                        "", "", "R", "",         "", "", "R", "",
+                        "", "", "R@A(Line1)", "",         "", "", "R@A", "",
+                        "(<4,-10,0>SCP)(<4,3.5>SA)", "", "R@A", "",         "", "", "", "",
+                        "", "", "R@A", "",         "", "", "R@A", "",
                         "", "", "", "",         "", "", "", "",
 
-                        "", "", "R", "",         "", "", "R", "",
-                        "", "", "", "",         "", "", "R", "",
-                        "", "", "R", "",         "", "", "", "",
+                        "", "", "R@A", "",         "", "", "R@A", "",
+                        "(<4,20,0>SCP)(<4,-3.5>SA)", "", "", "",         "", "", "R@A", "",
+                        "", "", "R@A", "",         "", "", "", "",
                         "", "", "", "",         "", "", "(Line2)", "",
 
-                        "", "", "R", "",         "", "", "R", "",
-                        "", "", "R", "",         "", "", "", "",
-                        "", "", "R", "",         "", "", "R", "",
+                        "", "", "R@A", "",         "", "", "R@A", "",
+                        "(<4,-10,0>SCP)(<4,0>SA)", "", "R@A", "",         "", "", "", "",
+                        "", "", "R@A", "",         "", "", "R@A", "",
                         "", "", "", "",         "", "", "", "",
 
-                        "", "", "R", "",         "", "", "R", "",
+                        "", "", "R@A", "",         "", "", "R@A", "",
+                        "(<2,1.15>SSS)", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-                        "", "","(L3A)(R)", "+01", "+10", "+01","(L3B)(+10)", "+01",
-                        "+10", "+01",   "!!3","-1","+11","-1", "+11","",
+                        "", "","(L3A)($2)", "+01", "+10", "+01","(L3B)(+10)", "+01",
+                        "+10", "+01",   "!!3/6","$0","+21","-2", "+21","","",
                         "","", "","",         "","","", "",
 
 
@@ -258,26 +284,11 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.BoundColor = Color.White * 0.7f;
                     RegisterFunctionOnce("L1", () =>
                     {
-                        Line l = new(new Vector2(320, 240), EaseOut(T(2), 90, Arguments[0], EaseState.Quad)){ Alpha = 0.7f };
+                        Line l = new(new Vector2(320, 0), EaseOut(T(1f), 90, Arguments[0], EaseState.Quad)){ Alpha = 0.7f };
                         CreateEntity(l);
-                        l.AlphaDecrease(T(2), 0.7f);
-                        DelayBeat(2, () => { l.Dispose(); });
-                        ScreenDrawing.CameraEffect.Convulse(1.6f, T(1.6f), Arguments[1] == 1);
-                    });
-                    RegisterFunctionOnce("L2A", () =>
-                    {
-                        Line l = new(EaseOut(T(1.2f), new Vector2(0, 240), new Vector2(160, 240), EaseState.Sine), Stable(0, 90)) { Alpha = 0.75f };
-                        l.AlphaDecrease(T(1.1f), 0.75f);
-                        l.TransverseMirror = true;
-                        CreateEntity(l);
-                        DelayBeat(1.2f,() => { l.Dispose(); });
-                    });
-                    RegisterFunctionOnce("L2B", () =>
-                    {
-                        Line l = new(EaseOut(T(1.2f), new Vector2(320, 480), new Vector2(320, 360), EaseState.Sine), Stable(0, 0)) { Alpha = 0.75f };
-                        l.AlphaDecrease(T(1.1f), 0.75f);
-                        CreateEntity(l);
-                        DelayBeat(1.2f, () => { l.Dispose(); });
+                        l.AlphaDecrease(T(2f), 0.7f);
+                        DelayBeat(2f, () => { l.Dispose(); });
+                        //ScreenDrawing.CameraEffect.Convulse(4f, T(1.5f), Arguments[1] == 1);
                     });
                     RegisterFunctionOnce("L3A", () =>
                     {
@@ -303,13 +314,22 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("L4", () =>
                     {
-                        Line l = new(LinkEase(EaseOut(T(0.5f), new Vector2(300, 240), new Vector2(320, 240), EaseState.Bounce),
-                            Stable(T(0.5f), new Vector2(320, 240))), Stable(0,90))
-                        { Alpha = 0.75f };
-                        l.AlphaDecrease(T(1), 0.7f);
-                        l.TransverseMirror = true;
+                        float dis = 50;
+                    var eas = LinkEase(
+                        Stable(0, 320, 0),
+                        EaseOut(T(0.5f), new Vector2(dis, 0),EaseState.Cubic),
+                        EaseIn(T(0.5f), new Vector2(-dis, 0), EaseState.Cubic),
+                        EaseOut(T(0.5f), new Vector2(-dis, 0), EaseState.Cubic),
+                        EaseIn(T(0.5f), new Vector2(dis, 0), EaseState.Cubic),
+                        EaseOut(T(0.5f), new Vector2(dis, 0), EaseState.Cubic),
+                        EaseIn(T(0.5f), new Vector2(-dis, 0), EaseState.Cubic),
+                        EaseOut(T(0.5f), new Vector2(-dis, 0), EaseState.Cubic),
+                        EaseIn(T(0.5f), new Vector2(dis, 0), EaseState.Cubic)
+                            );
+                        Line l = new(eas, Stable(0, 90))
+                        { Alpha = 1 };
                         CreateEntity(l);
-                        DelayBeat(1,() => { l.Dispose(); });
+                        DelayBeat(4.5f,() => { l.Dispose(); });
                     });
                     RegisterFunctionOnce("L5A", () =>
                     {
@@ -319,7 +339,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(l1);
                         CreateEntity(l2);
                         DelayBeat(0.4f,() => { l1.Dispose(); l2.Dispose(); });
-                        ScreenDrawing.CameraEffect.Convulse(2, T(0.5f), true);
+                        ScreenDrawing.CameraEffect.Convulse(2, T(0.5f), false);
                     });
                     RegisterFunctionOnce("L5B", () =>
                     {
@@ -340,27 +360,16 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("L7G", () =>
                     {
-                        for (int i = 0; i < 5; i++)
-                        {
-                            Line l1 = new(LinkEase(EaseOut(T(3), new Vector2(320, 480), new Vector2(320, 480 - 40 - i * 40), EaseState.Quad),
-                                Stable(T(2), new Vector2(320, 480 - 40 - i * 40))),
-                                Stable(T(5), 0))
-                            { Alpha = 0.6f - i * 0.1f };
-                            Line l2 = new(LinkEase(EaseOut(T(3), new Vector2(320 - 5 * Cos(30) * 40, 240 - 5 * Sin(30) * 40), new Vector2(320 - (4 - i) * Cos(30) * 40, 240 - (4 - i) * Sin(30) * 40), EaseState.Quad),
-                                Stable(T(0.5f), new Vector2(320 - (4 - i) * Cos(30) * 40, 240 - (4 - i) * Sin(30) * 40))),
-                                Stable(T(5), 120))
-                            { Alpha = 0.6f - i * 0.1f };
-                            Line l3 = new(LinkEase(EaseOut(T(3), new Vector2(320 + 5 * Cos(30) * 40, 240 - 5 * Sin(30) * 40), new Vector2(320 + (4 - i) * Cos(30) * 40, 240 - (4 - i) * Sin(30) * 40), EaseState.Quad),
-                                Stable(T(0.5f), new Vector2(320 + (4 - i) * Cos(30) * 40, 240 - (4 - i) * Sin(30) * 40))),
-                                Stable(T(5), 60))
-                            { Alpha = 0.6f - i * 0.1f };
-                            Line[] line = { l1, l2, l3 };
-                            foreach(Line l in line)
-                            {
-                                CreateEntity(l);
-                                l.AlphaDecrease(T(5), 0.6f);
-                                DelayBeat(5, () => { l.Dispose(); });
-                            }
+                        float random = Rand(0, 359);
+                        for (int a = 0; a < 3; a++) {
+                            var l = LinkEase(Stable(0, 0), EaseOut(T(6), 480,EaseState.Quad));
+                            var r = LinkEase(Stable(0, random + a * 120), EaseOut(T(6), 280, EaseState.Sine));
+                            var r2 = LinkEase(Stable(0, random + a * 120+180), EaseOut(T(6), 280, EaseState.Sine));
+                            var p1 = Add(Polar(l, r), Stable(0, 320, 240));
+                            var p2 = Add(Polar(l, r2), Stable(0, 320, 240));
+                            Line L = new(p1,p2);
+                            CreateEntity(L);
+                            DelayBeat(2, () => { L.AlphaDecrease(T(6)); });
                         }
                     });
                     RegisterFunctionOnce("L8G", () =>
@@ -388,44 +397,80 @@ namespace Rhythm_Recall.Waves
                             });
                         }
                     });
+                    RegisterFunctionOnce("Start", () =>
+                    {
+                        ScreenDrawing.CameraEffect.SizeShrink(5, T(4));
+                        ScreenDrawing.CameraEffect.Convulse(10, T(4), true);
+                    });
+                    RegisterFunctionOnce("Shake", () =>
+                    {
+                        AddInstance(new ScreenShaker(10, 5, BeatTime(0.1f)));
+                    });
+                    RegisterFunctionOnce("Shake2", () =>
+                    {
+                        var eas = LinkEase(Linear(1, new Vector2(0,-12)), Linear(T(1f) - 4, new Vector2(0,12)));
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                        var eas2 = LinkEase(Linear(1, Arguments[0]), Linear(T(0.5f) - 4, -Arguments[0]));
+                        RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, eas2);
+                    });
+                    RegisterFunctionOnce("Piano", () =>
+                    {
+                        var eas = LinkEase(Stable(0, 0, 105), EaseOut(T(3), new Vector2(0, -145), EaseState.Sine));
+                        var rot = LinkEase(Linear(T(4), Rand(-15,15)));
+                        Line l = new(eas, rot) { Alpha=0.7f};
+                        CreateEntity(l);
+                        l.AlphaDecrease(T(2));
+                        l.VerticalMirror = true;
+                    });
+                    RegisterFunctionOnce("FinalLine", () =>
+                    {
+                        var eas = LinkEase(EaseIn(T(6), new Vector2(320, 0), EaseState.Sine));
+                        var rot = LinkEase(Stable(0, 90), Linear(T(6), -60));
+                        Line l = new(eas, rot);
+                        l.AlphaDecrease(T(4));
+                        CreateEntity(l);
+                        l.TransverseMirror = true;
+                        l.VerticalMirror = true;
+                        l.ObliqueMirror = true;
+                    });
                     CreateChart(BeatTime(4), BeatTime(1), 7.3f, new string[]
                     {
-                        "(<1.6,0,105>UpB)(<1.6,0,105>DownB)", "", "", "",         "", "", "", "",
-                        "R(Line)", "", "", "",         "", "", "", "",
-                        "#1.8#R1(<75,1>L1)", "", "", "",         "", "", "", "",
-                        "D", "", "", "",         "", "", "", "",
+                        "(<1,0,80>UpB)(<1,0,80>DownB)", "", "", "",         "", "", "", "",
+                        "R(Line)(Start)(<2,80>BoundBack)(Piano)", "", "", "",         "", "", "", "",
+                        "#1.8#R1(<75,1>L1)(Piano)", "", "", "",         "", "", "", "",
+                        "D(Piano)", "", "", "",         "", "", "", "",
 
-                        "R1(<75,1>L1)", "", "", "",         "", "", "", "",
-                        "R", "", "", "",         "", "", "", "",
-                        "R1(<105,0>L1)", "", "", "",         "R", "", "", "",
-                        "", "", "", "",         "R", "", "", "",
+                        "R1(<75,1>L1)", "", "", "",         "(Piano)", "", "", "",
+                        "R", "", "", "",         "(Piano)", "", "", "",
+                        "R1(<105,0>L1)(Piano)", "", "", "",         "R(Piano)", "", "", "",
+                        "", "", "", "",         "R(Piano)", "", "", "",
 
-                        "R1(<105,0>L1)", "", "", "",         "", "", "", "",
-                        "(#1.8#R)(#1.8#D1)(Line)(L2A)", "", "", "",         "(L2A)", "", "", "",
-                        "(L2A)", "", "", "",         "(L2A)", "", "", "",
-                        "R(L2A)(L2B)", "", "", "",         "R(L2A)(L2B)", "", "", "",
+                        "R1(<105,0>L1)(Piano)", "", "", "",         "", "", "", "",
+                        "(#1.8#R)(#1.8#D1)(Line)(<2,140>BoundBack)(Shake)(<1,1.15>SSS)(Piano)", "", "", "",         "", "", "", "",
+                        "(<1,1>SSS)(Piano)", "", "", "",         "", "", "", "",
+                        "R(Piano)", "", "", "",         "R", "", "", "",
 
-                        "R(L2A)(L2B)", "", "", "",         "R(L2A)(L2B)", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-                        "R1(<75,0>L1)", "", "", "",         "R", "", "R", "",
-                        "R(<160,1.5>L3A)", "", "", "",         "(R)(<320,1>L3B)", "", "", "",
+                        "R", "", "", "",         "R(Piano)", "", "", "",
+                        "", "", "", "",         "(Piano)", "", "", "",
+                        "R1(<75,0>L1)(Piano)", "", "", "",         "R(Piano)", "", "R", "",
+                        "R(<160,1.5>L3A)", "", "", "",         "(R)(<320,1>L3B)(Piano)", "", "", "",
                         //
-                        "R(<105,1>L1)(<480,0.5>L3A)", "", "", "",         "R", "", "", "",
-                        "R(L4)", "", "", "",         "*$01(L4)", "", "*+21", "",
-                        "*+21(L4)", "", "", "",         "*$21(L4)", "", "*+21", "",
-                        "*+21(L4)", "", "", "",         "*$01(L4)", "", "*+21", "",
+                        "R(<105,1>L1)(<480,0.5>L3A)(Piano)", "", "", "",         "R", "", "", "",
+                        "R(L4)(Piano)", "", "", "",         "*$01(<0.5,40>BoundBack)(<2>Shake2)", "", "*+211", "",
+                        "*+21", "", "", "",         "*$21 (<0.5,35>BoundBack)(<-2>Shake2)(Piano)", "", "*+211", "",
+                        "*+21", "", "", "",         "*$01(<0.5,30>BoundBack)(<2>Shake2)", "", "*+211", "",
 
-                        "*+21(L4)", "", "", "",         "*$21(L4)", "", "*+21", "",
-                        "(*$0)(*$2)(L5A)", "", "", "",        "(*$0)(*$2)(L5B)", "", "", "",
+                        "*+21(Piano)", "", "", "",         "*$21(<0.5,25>BoundBack)(<-2>Shake2)", "", "*+211", "",
+                        "(*$0)(*$2)(L5A)(Piano)(Piano)", "", "", "",        "(*$0)(*$2)(L5B)(Piano)(Piano)", "", "", "",
                         "", "", "", "",         "R(<75>L6)", "", "", "",
                         "(R1)(<105>L6)", "", "", "",         "R(<75>L6)", "", "", "",
 
                         "R(<105>L6)", "", "", "",         "", "", "", "",
-                        "(R1)(L7G)", "", "", "",         "", "", "", "",
+                        "(R1)(L7G)(<3.5,80>BoundBack)(<3.5,1.15>SSS)(FinalLine)", "", "", "",         "", "", "", "",
                         "R", "", "", "",         "", "", "", "",
                         "(R)", "", "", "",         "R", "", "", "",
 
-                        "", "", "", "",         "($3)(<2,105,0>UpB)(<2,105,0>DownB)(L8G)", "", "", "",
+                        "", "", "", "",         "($3)(L8G)(<2,105,0>UpB)(<2,105,0>DownB)", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
@@ -439,10 +484,26 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(35.75f, 36) && At0thBeat(0.05f)) ScreenDrawing.ScreenAngle = ScreenDrawing.ScreenAngle >= 0 ? -1.2f : 1.2f;
                 if (InBeat(36)) ScreenDrawing.ScreenAngle = 0;
                 if (InBeat(36)) DrawingUtil.SetScreenScale(1, BeatTime(1));
-                if (InBeat(65f)) DrawingUtil.SetScreenScale(1.1f, BeatTime(2));
+                
                 if(InBeat(65f)) DrawingUtil.BetterBlackScreen(BeatTime(1f), BeatTime(1.5f), BeatTime(0.5f), Color.Black);
                 if (InBeat(64.5f))
                 {
+                    float rotArg = 360 * 4;
+                    float rotSta = 30;
+                    var len = LinkEase(Stable(0, 80), Linear(T(32), 120));
+                    var rota = LinkEase(Stable(0, rotSta), Linear(T(32), rotArg));
+                    var rotb = LinkEase(Stable(0, rotSta+90), Linear(T(32), rotArg));
+                    var rotc = LinkEase(Stable(0, rotSta + 180), Linear(T(32), rotArg));
+                    var rotd = LinkEase(Stable(0, rotSta + 270), Linear(T(32), rotArg));
+                    var lseas1 = Add(Polar(len, rota),Stable(0,320,240));
+                    var lseas2 = Add(Polar(len, rotb), Stable(0, 320, 240));
+                    var lseas3 = Add(Polar(len, rotc), Stable(0, 320, 240));
+                    var lseas4 = Add(Polar(len, rotd), Stable(0, 320, 240));
+                    Line ls1 = new(lseas1, Stable(0,0,0)) { Alpha=0 };
+                    Line ls2 = new(lseas2, Stable(0, 640, 0)) { Alpha = 0 };
+                    Line ls3 = new(lseas3, Stable(0, 640, 480)) { Alpha = 0 };
+                    Line ls4 = new(lseas4, Stable(0, 0, 480)) { Alpha = 0 };
+                    CreateEntity(ls1,ls2,ls3,ls4);
                     RegisterFunctionOnce("SS", () => { SetSoul(1); });//SoulShine
                     RegisterFunctionOnce("L1", () =>
                     {
@@ -456,148 +517,400 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(l2);
                         DelayBeat(0.7f, () => { l1.Dispose(); l2.Dispose(); });
                     });
+                    RegisterFunctionOnce("LS", () =>
+                    {
+                        /*var eas = LinkEase(Stable(0, 0), EaseOut(T(Arguments[0])/2, 1, EaseState.Quad), EaseIn(T(Arguments[0]) / 2, -1, EaseState.Quad));
+                        RunEase((s) => { ls1.Alpha = ls2.Alpha = ls3.Alpha = ls4.Alpha = s; },eas);*/
+                        var eas = LinkEase(Stable(0, Arguments[0] * (640f / 8f),240));
+                        var rot = LinkEase(Stable(0, 90), EaseOut(T(1.5f), Arguments[1], EaseState.Quad));
+                        Line l = new(eas,rot);
+                        CreateEntity(l);
+                        l.AlphaDecrease(T(2));
+                    });
+                    RegisterFunctionOnce("DepPiano", () =>
+                    {
+                        Line l1 = new(EaseOut(T(4), new Vector2(240,0), EaseState.Sine),Stable(0,90)) { Alpha = 0.25f,TransverseMirror=true};
+                        Line l2 = new(EaseOut(T(4), new Vector2(240/4f*3,0), EaseState.Sine), Stable(0, 90)){ Alpha=0.5f, TransverseMirror = true };
+                        Line l3 = new(EaseOut(T(4), new Vector2(240 / 4f * 2,0), EaseState.Sine), Stable(0, 90)) { Alpha = 0.75f, TransverseMirror = true };
+                        Line l4 = new(EaseOut(T(4), new Vector2(240 / 4f * 1,0), EaseState.Sine), Stable(0, 90)) { Alpha = 1f, TransverseMirror = true };
+                        CreateEntity(l1, l2, l3, l4);
+                        l1.AlphaDecrease(T(2.5f));
+                        l2.AlphaDecrease(T(2.5f));
+                        l3.AlphaDecrease(T(2.5f));
+                        l4.AlphaDecrease(T(2.5f));
+                        
+                    });
+                    Arrow.UnitEasing eA = new();
+                    AddInstance(eA);
+                    eA.ApplyTime = BeatTime(36);
+                    eA.TagApply("A");
+                    
+                    eA.AlphaEase = LinkEase(
+                        Stable(T(1+32), 0f),
+                        EaseOut(T(1), 1, EaseState.Quad));
+                    eA.PositionEase = LinkEase(
+                        Stable(T(2+32),0, (380 - 282)),
+                        EaseIn(T(2),new Vector2(0,-(380-282)),EaseState.Quad)
+                        );
                     CreateChart(BeatTime(4), BeatTime(1), 5f, new string[]
                     {
-                        "(~_$0)(~_$2)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "", "", "", "",
-                        "(L1)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-                        "(L1)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
+                        "(R)", "", "", "",         "(+0)", "", "", "",
+                        "(+201)", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "(R01'0.8)", "", "", "",
+                        "", "", "", "",         "(R01'0.8)", "", "", "",
 
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "", "", "", "",
-                        "(L1)", "", "", "",         "", "", "", "",
-                        "(L1)", "", "", "",         "", "", "", "",
-
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "", "", "", "",
-                        "(L1)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "(~_$0)(~_$2)(L1)", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-                        "(L1)", "", "", "",         "", "", "", "",
-                        "(L1)", "", "", "",         "(L1)", "", "(L1)", "",
-                        //
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "(~_$0)(~_$2)(L1)", "", "", "",
-                        "(~_$0)(~_$2)(L1)", "", "", "",         "", "", "", "",
-                        "(~_$0)(~_$2)", "", "", "",         "", "", "", "",
-                        "(~_$0)(~_$2)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-
-                        "", "", "", "",         "", "", "", "",
-                        "(~_$0)(~_$2)", "", "", "",         "", "", "", "",
-                        "(~_$0)(~_$2)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-
-                        "(~_$0)(~_$2)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-                        "(~_$0)(~_$2)", "", "", "",         "", "", "", "",
-                        "(~_$0)(~_$2)", "", "", "",         "", "", "", "",
-                        "(~_$0)(~_$2)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
-
-                        "(~_$0)(~_$2)", "", "", "",         "(~_$0)(~_$2)", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(+001'0.8)", "", "", "",
+                        "(R01'0.8)", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
-                        "", "", "", "",         "", "", "", "",
-                    });
-                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
-                    {
-                        "", "", "", "",         "", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "", "", "", "",         "R1", "", "", "",
-                        "", "", "", "",         "R1", "", "", "",
 
-                        "", "", "", "",         "", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "", "", "", "",         "R1", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
+                        "(R01'0.8)", "", "", "",         "", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
+                        "", "", "", "",         "(R01'0.8)", "", "", "",
 
+                        "", "", "", "",         "(R01'0.8)", "", "", "",
                         "", "", "", "",         "", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "", "", "", "",         "R1", "", "", "",
-                        "", "", "", "",         "R1", "", "", "",
-
-                        "", "", "", "",         "R1", "", "", "",
-                        "", "", "", "",         "R1", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
+                        "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         //
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "", "", "", "",         "R1", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
+                        "(R01'0.8)", "", "", "",         "", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
+                        "", "", "", "",         "(R01'0.8)", "", "", "",
 
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "R1", "", "", "",         "", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "(R01'0.8)", "", "", "",         "", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
                         "", "", "", "",         "", "", "", "",
 
-                        "R1", "", "", "",         "R1", "", "", "",
-                        "R1", "", "", "",         "", "", "", "",
-                        "R1", "", "", "",         "", "", "", "",
-                        "R1", "", "", "",         "R1", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
+                        "(R01'0.8)", "", "", "",         "", "", "", "",
+                        "(R01'0.8)", "", "", "",         "", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
 
-                        "R1", "", "", "",         "R1", "", "", "",
+                        "(R01'0.8)", "", "", "",         "(R01'0.8)", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "($1'1.2)(<1,1>SSS)(SS)", "", "", "",         "", "", "", "",
-                        "R1", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                    });
+                    CreateChart(BeatTime(4), BeatTime(1), 0f, new string[]
+                    {
+                        "", "", "", "",         "", "", "", "",
+                        "~_$11@A(<3,12>LS)(DepPiano)", "", "", "",         "~_$11@A(<4,12>LS)", "", "", "",
+                        "", "", "", "",         "~_$11@A(<6,-12>LS)", "", "", "",
+                        "", "", "", "",         "~_$11@A(<5,-12>LS)", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "~_$11@A(<7,12>LS)(DepPiano)", "", "", "",         "~_$11@A(<6,12>LS)", "", "", "",
+                        "~_$11@A(<5,12>LS)", "", "", "",         "~_$11@A(<4,12>LS)", "", "", "",
+                        "", "", "", "",         "~_$11@A(<1,-12>LS)", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "~_$11@A(<6,12>LS)(DepPiano)", "", "", "",         "~_$11@A(<5,12>LS)", "", "", "",
+                        "", "", "", "",         "~_$11@A(<3,12>LS)", "", "", "",
+                        "", "", "", "",         "~_$11@A(<2,12>LS)", "", "", "",
+
+                        "", "", "", "",         "~_$11@A(<1,12>LS)(DepPiano)", "", "", "",
+                        "", "", "", "",         "~_$11@A(<7,12>LS)", "", "", "",
+                        "~_$11@A(<6,12>LS)", "", "", "",         "~_$11@A(<5,12>LS)", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        //
+                        "~_$11@A(<1,-12>LS)", "", "", "",         "~_$11@A(<2,-12>LS)", "", "", "",
+                        "~_$11@A(<3,-12>LS)(DepPiano)", "", "", "",         "~_$11@A(<4,-12>LS)", "", "", "",
+                        "~_$11@A(<5,-12>LS)", "", "", "",         "~_$11@A(<6,-12>LS)", "", "", "",
+                        "", "", "", "",         "~_$11@A(<1,-12>LS)", "", "", "",
+
+                        "~_$11@A(<2,-12>LS)", "", "", "",         "~_$11@A(<3,-12>LS)", "", "", "",
+                        "~_$11@A(<4,-12>LS)(DepPiano)", "", "", "",         "", "", "", "",
+                        "~_$11@A(<7,12>LS)", "", "", "",         "~_$11@A(<6,12>LS)", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "~_$11@A(<1,-12>LS)", "", "", "",         "~_$11@A(<2,-12>LS)", "", "", "",
+                        "~_$11@A(<3,-12>LS)(DepPiano)", "", "", "",         "", "", "", "",
+                        "~_$11@A(<5,12>LS)", "", "", "",         "", "", "", "",
+                        "~_$11@A(<3,12>LS)", "", "", "",         "~_$11@A(<4,12>LS)", "", "", "",
+
+                        "~_$11@A(<5,12>LS)", "", "", "",         "~_$11@A(<6,12>LS)(DepPiano)", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "~_$11@A(DepPiano)", "", "", "",         "", "", "", "",
                     });
                 }
                 if (InBeat(96.5f))
                 {
+                    RegisterFunctionOnce("LS", () =>
+                    {
+                        /*var eas = LinkEase(Stable(0, 0), EaseOut(T(Arguments[0])/2, 1, EaseState.Quad), EaseIn(T(Arguments[0]) / 2, -1, EaseState.Quad));
+                        RunEase((s) => { ls1.Alpha = ls2.Alpha = ls3.Alpha = ls4.Alpha = s; },eas);*/
+                        var eas = LinkEase(Stable(0, (8-Arguments[0]) * (640f / 8f), 240));
+                        var rot = LinkEase(Stable(0, 90), EaseOut(T(1.5f), -Arguments[1], EaseState.Quad));
+                        Line l = new(eas, rot);
+                        CreateEntity(l);
+                        l.AlphaDecrease(T(2));
+                    });
+                    RegisterFunctionOnce("jumpLine1", () =>
+                    {
+                        var eas = LinkEase(
+                            Stable(0, 320, 480),
+                            EaseOut(T(0.5f), new Vector2(0, -60), EaseState.Sine),
+                            EaseOut(T(0.5f), new Vector2(0, -60), EaseState.Sine),
+                            EaseOut(T(0.5f),new Vector2(0,80),EaseState.Quad),
+                            EaseIn(T(0.5f),new Vector2(0,-80),EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(0, -80), EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(0, 80), EaseState.Quad),
+                            EaseIn(T(0.5f), new Vector2(0, -80), EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(0, -80), EaseState.Sine)
+                            );
+                        var rot = LinkEase(
+                            Stable(T(1), 0),
+                            EaseOut(T(0.5f),45, EaseState.Quad),
+                            EaseIn(T(0.5f),-45,EaseState.Quad),
+                            Stable(T(0.5f), 0),
+                            EaseOut(T(0.5f), -45, EaseState.Quad),
+                            EaseIn(T(0.5f), 45, EaseState.Quad)
+                            );
+                        Line l = new(eas, rot) { VerticalMirror=true,ObliqueMirror=true,TransverseMirror=true,Alpha=0.5f};
+                        CreateEntity(l);
+                        DelayBeat(3, () => { l.AlphaDecrease(T(1)); });
+                    });
+                    RegisterFunctionOnce("jumpLine2", () =>
+                    {
+                        var eas = LinkEase(
+                            Stable(0, 640, 240),
+                            EaseOut(T(0.5f), new Vector2(-60,0), EaseState.Sine),
+                            EaseOut(T(0.5f), new Vector2(-60,0), EaseState.Sine),
+                            EaseOut(T(0.5f), new Vector2(80,0), EaseState.Quad),
+                            EaseIn(T(0.5f), new Vector2(-80,0), EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(-80,0), EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(80, 0), EaseState.Quad),
+                            EaseIn(T(0.5f), new Vector2(-80, 0), EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(-80, 0), EaseState.Sine)
+                            );
+                        var rot = LinkEase(
+                            Stable(T(1), 90),
+                            EaseOut(T(0.5f), 50, EaseState.Quad),
+                            EaseIn(T(0.5f), -50, EaseState.Quad),
+                            Stable(T(0.5f), 90),
+                            EaseOut(T(0.5f), -50, EaseState.Quad),
+                            EaseIn(T(0.5f), 50, EaseState.Quad)
+                            );
+                        Line l = new(eas, rot) { VerticalMirror = true, ObliqueMirror = true, TransverseMirror = true, Alpha = 0.5f };
+                        CreateEntity(l);
+                        DelayBeat(3, () => { l.AlphaDecrease(T(1)); });
+                    });
+                    RegisterFunctionOnce("jumpLine3", () =>
+                    {
+                        var eas = LinkEase(
+                            Stable(0, 320, 480),
+                            EaseOut(T(0.5f), new Vector2(0, -60), EaseState.Sine),
+                            EaseOut(T(0.5f), new Vector2(0, -60), EaseState.Sine),
+                            EaseOut(T(0.5f), new Vector2(0, 80), EaseState.Quad),
+                            EaseIn(T(0.5f), new Vector2(0, -80), EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(0, 80), EaseState.Quad),
+                            EaseIn(T(0.5f), new Vector2(0, -80), EaseState.Quad),
+                            EaseOut(T(0.5f), new Vector2(0, -80), EaseState.Sine)
+                            );
+                        var rot = LinkEase(
+                            Stable(T(1), 0),
+                            EaseOut(T(0.5f), 45, EaseState.Quad),
+                            EaseIn(T(0.5f), -45, EaseState.Quad),
+                            EaseOut(T(0.5f), -45, EaseState.Quad),
+                            EaseIn(T(0.5f), 45, EaseState.Quad)
+                            );
+                        Line l = new(eas, rot) { VerticalMirror = true, ObliqueMirror = true, TransverseMirror = true, Alpha = 0.5f };
+                        CreateEntity(l);
+                        DelayBeat(3, () => { l.AlphaDecrease(T(1)); });
+                    });
                     CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
                     {
                         "R", "", "", "",         "+0", "", "", "",
-                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1(jumpLine1)", "", "", "",         "D1", "", "", "",
                         "(D)(+01)", "", "", "",         "D1", "", "", "",
                         "D1", "", "", "",         "(D)(+21)", "", "", "",
 
                         "D1", "", "", "",         "D1", "", "", "",
-                        "D", "", "", "",         "D", "", "", "",
+                        "D(jumpLine2)", "", "", "",         "D", "", "", "",
                         "(D)(+01)", "", "", "",         "D", "", "", "",
                         "D", "", "", "",         "(D)(+21)", "", "", "",
 
                         "D", "", "", "",         "D", "", "", "",
-                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1(jumpLine3)", "", "", "",         "D1", "", "", "",
                         "(D)(+01)", "", "", "",         "D1", "", "", "",
                         "(D)(+21)", "", "", "",         "D1", "", "", "",
 
                         "", "", "", "",         "D1", "", "", "",
-                        "D", "", "", "",         "D", "", "", "",
+                        "D(jumpLine1)", "", "", "",         "D", "", "", "",
                         "(D)(+01)", "", "", "",         "D", "", "", "",
                         "D", "", "", "",         "(D)(+21)", "", "", "",
                         //
                         "D", "", "", "",         "D", "", "", "",
-                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1(jumpLine2)", "", "", "",         "D1", "", "", "",
                         "(D)(+01)", "", "", "",         "D1", "", "", "",
                         "D1", "", "", "",         "(D)(+21)", "", "", "",
 
                         "D1", "", "", "",         "D1", "", "", "",
-                        "D", "", "", "",         "D", "", "", "",
+                        "D(jumpLine1)", "", "", "",         "D", "", "", "",
                         "(D)(+01)", "", "", "",         "D", "", "", "",
                         "D", "", "", "",         "(D)(+21)", "", "", "",
 
                         "D", "", "", "",         "D", "", "", "",
-                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1(jumpLine3)", "", "", "",         "D1", "", "", "",
                         "(D)(+01)", "", "", "",         "D1", "", "", "",
                         "(D)(+21)", "", "", "",         "D1", "", "", "",
 
                         "", "", "", "",         "D1", "", "", "",
-                        "D", "", "", "",         "D", "", "", "",
+                        "D(jumpLine2)", "", "", "",         "D", "", "", "",
                         "(D)(+01)", "", "", "",         "D", "", "", "",
                         "D", "", "", "",         "(D)(+21)", "", "", "",
                         //
                     });
+                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
+                    {
+                        "", "", "", "",         "", "", "", "",
+                        "(<3,12>LS)", "", "", "",         "(<4,12>LS)", "", "", "",
+                        "", "", "", "",         "(<6,-12>LS)", "", "", "",
+                        "", "", "", "",         "(<5,-12>LS)", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "(<7,12>LS)", "", "", "",         "(<6,12>LS)", "", "", "",
+                        "(<5,12>LS)", "", "", "",         "(<4,12>LS)", "", "", "",
+                        "", "", "", "",         "(<1,-12>LS)", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "(<6,12>LS)", "", "", "",         "(<5,12>LS)", "", "", "",
+                        "", "", "", "",         "(<3,12>LS)", "", "", "",
+                        "", "", "", "",         "(<2,12>LS)", "", "", "",
+
+                        "", "", "", "",         "(<1,12>LS)", "", "", "",
+                        "", "", "", "",         "(<7,12>LS)", "", "", "",
+                        "(<6,12>LS)", "", "", "",         "(<5,12>LS)", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        //
+                        "(<1,-12>LS)", "", "", "",         "(<2,-12>LS)", "", "", "",
+                        "(<3,-12>LS)", "", "", "",         "(<4,-12>LS)", "", "", "",
+                        "(<5,-12>LS)", "", "", "",         "(<6,-12>LS)", "", "", "",
+                        "", "", "", "",         "(<1,-12>LS)", "", "", "",
+
+                        "(<2,-12>LS)", "", "", "",         "(<3,-12>LS)", "", "", "",
+                        "(<4,-12>LS)", "", "", "",         "", "", "", "",
+                        "(<7,12>LS)", "", "", "",         "(<6,12>LS)", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "(<1,-12>LS)", "", "", "",         "(<2,-12>LS)", "", "", "",
+                        "(<3,-12>LS)", "", "", "",         "", "", "", "",
+                        "(<5,12>LS)", "", "", "",         "", "", "", "",
+                        "(<3,12>LS)", "", "", "",         "(<4,12>LS)", "", "", "",
+
+                        "(<5,12>LS)", "", "", "",         "(<6,12>LS)", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "(<2,12>LS)", "", "", "",         "", "", "", "",
+                    });
                 }
                 if (InBeat(128.5f))
                 {
+                    RegisterFunctionOnce("RL1", () =>
+                    {
+                        var x = LinkEase(Stable(0, 0), Linear(T(2), 360));
+                        var y = LinkEase(Stable(0, 120), EaseOut(T(2), 360, EaseState.Quad));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60), Linear(T(2), -70));
+                        Line l = new(eas,rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f),Stable(T(2),0));
+                        RunEase((s) => { l.Alpha = s; }, al);                    
+                    });
+                    RegisterFunctionOnce("RL2", () =>
+                    {
+                        var x = LinkEase(Stable(0, 640), Linear(T(2), -360));
+                        var y = LinkEase(Stable(0, 360), EaseOut(T(2), -360, EaseState.Quad));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60+180), Linear(T(2), -70));
+                        Line l = new(eas, rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f), Stable(T(2), 0));
+                        RunEase((s) => { l.Alpha = s; }, al);
+                    });
+                    RegisterFunctionOnce("RL3", () =>
+                    {
+                        var x = LinkEase(Stable(0, 360), EaseOut(T(2), -360, EaseState.Quad));
+                        var y = LinkEase(Stable(0, 120), Linear(T(2), 360));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60), Linear(T(2), -70));
+                        Line l = new(eas, rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f), Stable(T(2), 0));
+                        RunEase((s) => { l.Alpha = s; }, al);
+                    });
+                    RegisterFunctionOnce("RL4", () =>
+                    {
+                        var x = LinkEase(Stable(0, 640), Linear(T(2), -360));
+                        var y = LinkEase(Stable(0, 120), EaseOut(T(2), 360, EaseState.Quad));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60+90), Linear(T(2), -70));
+                        Line l = new(eas, rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f), Stable(T(2), 0));
+                        RunEase((s) => { l.Alpha = s; }, al);
+                    });
+                    RegisterFunctionOnce("SRL1", () =>
+                    {
+                        var x = LinkEase(Stable(0, 0), Linear(T(2), 360));
+                        var y = LinkEase(Stable(0, 120), EaseOut(T(2), 360, EaseState.Quad));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60), Linear(T(2), -70));
+                        Line l = new(eas, rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f), Stable(T(2), 0));
+                        RunEase((s) => { l.Alpha = s; }, al);
+                    });
+                    RegisterFunctionOnce("SRL2", () =>
+                    {
+                        var x = LinkEase(Stable(0, 640), Linear(T(2), -360));
+                        var y = LinkEase(Stable(0, 360), EaseOut(T(2), -360, EaseState.Quad));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60 ), Linear(T(2), 70));
+                        Line l = new(eas, rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f), Stable(T(2), 0));
+                        RunEase((s) => { l.Alpha = s; }, al);
+                    });
+                    RegisterFunctionOnce("SRL3", () =>
+                    {
+                        var x = LinkEase(Stable(0, 0), Linear(T(2), 360));
+                        var y = LinkEase(Stable(0, 360), EaseOut(T(2), -360, EaseState.Quad));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60 + 270), Linear(T(2), -70));
+                        Line l = new(eas, rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f), Stable(T(2), 0));
+                        RunEase((s) => { l.Alpha = s; }, al);
+                    });
+                    RegisterFunctionOnce("SRL4", () =>
+                    {
+                        var x = LinkEase(Stable(0, 640), Linear(T(2), -360));
+                        var y = LinkEase(Stable(0, 120), EaseOut(T(2), 360, EaseState.Quad));
+                        var eas = Combine(x, y);
+                        var rot = LinkEase(Stable(0, 60 + 90), Linear(T(2), -70));
+                        Line l = new(eas, rot) { Alpha = 0 };
+                        CreateEntity(l);
+                        var al = LinkEase(Stable(0, 0), Linear(T(1f), 0.8f), Linear(T(1f), -1.2f), Stable(T(2), 0));
+                        RunEase((s) => { l.Alpha = s; }, al);
+                    });
+                    RegisterFunctionOnce("Cam", () =>
+                    {
+
+                    });
                     CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
                     {
                         "R1", "", "", "",         "R1", "", "", "",
                         "", "", "", "",         "R1", "", "", "",
                         "", "", "", "",         "", "", "", "",
-                        "#1#$0", "", "", "",         "", "", "", "",
+                        "#1#$0(RL1)", "(RL1)", "(RL1)", "(RL1)",         "(RL1)", "(RL1)", "(RL1)", "(RL1)",
 
-                        "#1#$21", "", "", "",         "", "", "", "",
-                        "#3#R", "", "", "",         "", "", "", "",
+                        "#1#$21(RL1)(RL2)", "(RL1)(RL2)", "(RL1)(RL2)", "(RL1)(RL2)",         "(RL1)(RL2)", "(RL1)(RL2)", "(RL1)(RL2)", "(RL1)(RL2)",
+                        "#3#R(RL1)(RL2)(RL3)(RL4)", "(RL1)(RL2)(RL3)(RL4)", "(RL1)(RL2)(RL3)(RL4)", "(RL1)(RL2)(RL3)(RL4)",         "(RL1)(RL2)(RL3)(RL4)", "(RL1)(RL2)(RL3)(RL4)", "(RL1)(RL2)(RL3)(RL4)", "(RL1)(RL2)(RL3)(RL4)",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
 
@@ -649,7 +962,7 @@ namespace Rhythm_Recall.Waves
                         "D1", "", "", "",         "D1", "", "", "",
                         "+01", "", "", "",         "D1", "", "", "",
 
-                        "D1", "", "", "",         "+01", "", "", "",
+                        "D1(SRL2)", "(SRL2)", "(SRL2)", "(SRL2)",         "+01(SRL2)", "(SRL2)", "(SRL2)", "(SRL2)",
                         "#3#D1", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
@@ -820,6 +1133,96 @@ namespace Rhythm_Recall.Waves
                         "D", "", "", "",         "", "", "D", "",
                         //
                         "D"
+                    });
+                }
+                if (InBeat(229.5f))
+                {
+                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
+                    {
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "D", "", "", "",         "", "", "D", "",
+                        "D", "", "", "",         "", "", "D", "",
+                        "D", "", "", "",         "", "", "D", "",
+                        "D", "", "", "",         "D", "", "", "",
+
+                        "D", "", "", "",         "D", "", "D", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        //
+                        "D", "", "", "",         "D", "", "D", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "D", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                    });
+                }
+                if (InBeat(251.5f))
+                {
+                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
+                    {
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "D", "", "", "",
+
+                        "", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        //
+                        "", "", "", "",         "", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+
+                        "", "", "", "",         "D", "", "", "",
+                        "", "", "", "",         "D", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "D", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
                     });
                 }
             }
