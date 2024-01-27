@@ -488,26 +488,26 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("Ar1", () =>
                     {
                         RunEase((s) => { CreateEntity(new FakeArrow(1, 0, 0, s, 1, 0.8f, -90)); },
-                            EaseOut(BeatTime(2), new Vector2(0, 240 - 80), new Vector2(320 - 12, 240 - 80), EaseState.Quart),
-                            EaseIn(BeatTime(2), new Vector2(320 - 12, 240 - 80), new Vector2(320 - 12, Heart.Centre.Y - 38), EaseState.Quad));
+                            EaseOut(BeatTime(2), new Vector2(0, 240 - 160), new Vector2(320 - 12, 240 - 160), EaseState.Quart),
+                            EaseIn(BeatTime(2.25f), new Vector2(320 - 12, 240 - 160), new Vector2(320 - 12, Heart.Centre.Y - 38), EaseState.Quad));
                     });
                     RegisterFunctionOnce("Ar2", () =>
                     {
                         RunEase((s) => { CreateEntity(new FakeArrow(0, 0, 0, s, 1, 0.8f, -90)); },
-                            EaseOut(BeatTime(2), new Vector2(640, 240 - 80), new Vector2(320 + 12, 240 - 80), EaseState.Quart),
-                            EaseIn(BeatTime(2), new Vector2(320 + 12, 240 - 80), new Vector2(320 + 12, Heart.Centre.Y - 38), EaseState.Quad));
+                            EaseOut(BeatTime(2), new Vector2(640, 240 - 160), new Vector2(320 + 12, 240 - 160), EaseState.Quart),
+                            EaseIn(BeatTime(2.25f), new Vector2(320 + 12, 240 - 160), new Vector2(320 + 12, Heart.Centre.Y - 38), EaseState.Quad));
                     });
                     RegisterFunctionOnce("Ar3", () =>
                     {
                         RunEase((s) => { CreateEntity(new FakeArrow(0, 0, 0, s, 1, 0.8f, 90)); },
-                            EaseOut(BeatTime(2), new Vector2(640, 240 + 80), new Vector2(320 + 12, 240 + 80), EaseState.Quart),
-                            EaseIn(BeatTime(2), new Vector2(320 + 12, 240 + 80), new Vector2(320 + 12, Heart.Centre.Y + 38), EaseState.Quad));
+                            EaseOut(BeatTime(2), new Vector2(640, 240 + 160), new Vector2(320 + 12, 240 + 160), EaseState.Quart),
+                            EaseIn(BeatTime(2.25f), new Vector2(320 + 12, 240 + 160), new Vector2(320 + 12, Heart.Centre.Y + 38), EaseState.Quad));
                     });
                     RegisterFunctionOnce("Ar4", () =>
                     {
                         RunEase((s) => { CreateEntity(new FakeArrow(1, 0, 0, s, 1, 0.8f, 90)); },
-                            EaseOut(BeatTime(2), new Vector2(0, 240 + 80), new Vector2(320 - 12, 240 + 80), EaseState.Quart),
-                            EaseIn(BeatTime(2), new Vector2(320 - 12, 240 + 80), new Vector2(320 - 12, Heart.Centre.Y + 38), EaseState.Quad));
+                            EaseOut(BeatTime(2), new Vector2(0, 240 + 160), new Vector2(320 - 12, 240 + 160), EaseState.Quart),
+                            EaseIn(BeatTime(2.25f), new Vector2(320 - 12, 240 + 160), new Vector2(320 - 12, Heart.Centre.Y + 38), EaseState.Quad));
                     });
                     CreateChart(BeatTime(4), BeatTime(1), 6.7f, new string[]
                     {
