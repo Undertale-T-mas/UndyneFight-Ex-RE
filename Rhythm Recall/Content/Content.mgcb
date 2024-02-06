@@ -2666,6 +2666,12 @@
 /processorParam:TextureFormat=Color
 /build:Musics/Indihome/ipp00001.png;Musics/Indihome/paint.png
 
+#begin Musics/Jinsei Reset Button/Color Reversal.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Musics/Jinsei Reset Button/Color Reversal.fx
+
 #begin Musics/Jinsei Reset Button/Jinsei Reset Button.png
 /importer:TextureImporter
 /processor:TextureProcessor
