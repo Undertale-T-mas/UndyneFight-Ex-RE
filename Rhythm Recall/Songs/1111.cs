@@ -914,7 +914,7 @@ namespace Rhythm_Recall.Waves
                         Line l = new(eas1, rot1);
                         Line l2 = new(eas2, rot1);
                         CreateEntity(l,l2);
-                        
+                        DelayBeat(6, () => { l.Dispose(); l2.Dispose(); });
                     });
                     RegisterFunctionOnce("UpLine", () =>
                     {
@@ -1039,11 +1039,11 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("In", () =>
                     {
                         Line l1=new(LinkEase(EaseOut(T(0.75f), new Vector2(320, 0), new Vector2(320, 240 - 200), EaseState.Quart),
-                            Stable(T(0.5f), new Vector2(320, 240 - 180))),
+                            Stable(T(0.5f), new Vector2(320, 240 - 200))),
                             Stable(T(1.25f), 0))
                         { Alpha = 0.7f };
                         Line l2 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 240), new Vector2(320 - 200, 240), EaseState.Quart),
-                            Stable(T(0.5f), new Vector2(320 - 180, 240))),
+                            Stable(T(0.5f), new Vector2(320 - 200, 240))),
                             Stable(T(1.25f), 90))
                         { Alpha = 0.7f };
                         Line l3 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 0), new Vector2(320 - 200, 240 - 200), EaseState.Quart),
@@ -1091,11 +1091,11 @@ namespace Rhythm_Recall.Waves
                         //
                         "(In)", "", "", "",         "D", "", "", "",
                         "D", "", "", "",         "+0", "", "", "",
-                        "D(<120>Piano)(In)", "", "", "",         "D", "", "(<240>Piano)", "",
-                        "+0(<280>Piano)", "", "", "",         "D", "", "(<360>Piano)", "",
+                        "","D(<120>Piano)(In)", "", "",         "!!3","D", "(<240>Piano)", "",
+                        "+0(<280>Piano)", "", "", "",         "!!3","D", "(<360>Piano)", "",
 
-                        "D(LeftLine)(<400>Piano)", "", "", "",         "+0(RightLine)", "", "(<480>Piano)", "",
-                        "R(<1,5>SA)(<1,1.05>SSS)(DanceLine)", "", "", "",         "", "", "", "",
+                        "D(LeftLine)(<400>Piano)", "", "", "",         "!!3","+0(RightLine)", "(<480>Piano)", "",
+                        "R(<1,5>SA)(<1,1.05>SSS)(DanceLine)(L2B)", "", "", "",         "", "", "", "",
                         "R(<1,-4>SA)(<1,1.1>SSS)", "", "", "",         "", "", "", "",
                         "R(<1,3>SA)(<1,1.15>SSS)", "", "", "",         "", "", "", "",
 
@@ -1266,7 +1266,7 @@ namespace Rhythm_Recall.Waves
                         Line l = new(eas1, rot1);
                         Line l2 = new(eas2, rot1);
                         CreateEntity(l, l2);
-
+                        DelayBeat(6, () => { l.Dispose(); l2.Dispose(); });
                     });
                     RegisterFunctionOnce("UpLine", () =>
                     {
@@ -1286,17 +1286,17 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("xL1A", () =>
                     {
-                        Line l1 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(120, 40), EaseState.Back),
-                            Stable(T(0.6f), new Vector2(120, 40)),
-                            EaseIn(T(4), new Vector2(120, 40), new Vector2(640 + 1600, 80), EaseState.Sine)),
-                            LinkEase(EaseOut(T(1.4f), 0, 20, EaseState.Quad), Stable(T(0.8f), 20),
-                            EaseIn(T(4), 20, 20 + 270 * 4f, EaseState.Sine)))
+                        Line l1 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(520, 40), EaseState.Back),
+                            Stable(T(0.6f), new Vector2(520, 40)),
+                            EaseIn(T(4), new Vector2(520, 40), new Vector2(-1600, 80), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1.4f), 0, -20, EaseState.Quad), Stable(T(0.8f), -20),
+                            EaseIn(T(4), -20, -20 - 270 * 4f, EaseState.Sine)))
                         { Alpha = 0.7f };
-                        Line l2 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(120, 40), EaseState.Back),
-                            Stable(T(0.6f), new Vector2(120, 40)),
-                            EaseIn(T(4), new Vector2(120, 40), new Vector2(640 + 1600, 80), EaseState.Sine)),
-                            LinkEase(EaseOut(T(1.4f), 90, 110, EaseState.Quad), Stable(T(0.8f), 110),
-                            EaseIn(T(4), 110, 110 + 270 * 4f, EaseState.Sine)))
+                        Line l2 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(520, 40), EaseState.Back),
+                            Stable(T(0.6f), new Vector2(520, 40)),
+                            EaseIn(T(4), new Vector2(520, 40), new Vector2(-1600, 80), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1.4f), 90, 70, EaseState.Quad), Stable(T(0.8f), 70),
+                            EaseIn(T(4), 70, 70 - 270 * 4f, EaseState.Sine)))
                         { Alpha = 0.7f };
                         Line[] lines = { l1, l2 };
                         foreach (Line l in lines)
@@ -1312,15 +1312,15 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("xL1B", () =>
                     {
-                        Line l1 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(520, 440), EaseState.Back),
-                            EaseIn(T(4), new Vector2(520, 440), new Vector2(-1600, 400), EaseState.Sine)),
-                            LinkEase(EaseOut(T(1), 90, 110, EaseState.Quad),
-                            EaseIn(T(4), 110, 110 - 270 * 4f, EaseState.Sine)))
+                        Line l1 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(120, 440), EaseState.Back),
+                            EaseIn(T(4), new Vector2(120, 440), new Vector2(640 + 1600, 400), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1), 90, 70, EaseState.Quad),
+                            EaseIn(T(4), 70, 70 + 270 * 4f, EaseState.Sine)))
                         { Alpha = 0.7f };
-                        Line l2 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(520, 440), EaseState.Back),
-                            EaseIn(T(4), new Vector2(520, 440), new Vector2(-1600, 400), EaseState.Sine)),
-                            LinkEase(EaseOut(T(1), 0, 20, EaseState.Quad),
-                            EaseIn(T(4), 20, 20 - 270 * 4f, EaseState.Sine)))
+                        Line l2 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(120, 440), EaseState.Back),
+                            EaseIn(T(4), new Vector2(120, 440), new Vector2(640 + 1600, 400), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1), 0, -20, EaseState.Quad),
+                            EaseIn(T(4), -20, -20 + 270 * 4f, EaseState.Sine)))
                         { Alpha = 0.7f };
                         Line[] lines = { l1, l2 };
                         foreach (Line l in lines)
@@ -1333,60 +1333,6 @@ namespace Rhythm_Recall.Waves
                             DelayBeat(1, () => { l.AlphaDecrease(T(4), 0.7f); });
                             DelayBeat(5, () => { l.Dispose(); });
                         }
-                    });
-                    RegisterFunctionOnce("L2A", () =>
-                    {
-                        for (int i = 0; i < 39; i++)
-                        {
-                            DelayBeat(1f / 3f * i, () =>
-                            {
-                                Line l1 = new(EaseIn(BeatTime(2), new Vector2(0, 0), new Vector2(640, 480), EaseState.Quad),
-                                    Stable(BeatTime(2), -10))
-                                { Alpha = 0f };
-                                Line l2 = new(EaseIn(BeatTime(2), new Vector2(640, 0), new Vector2(0, 480), EaseState.Quad),
-                                    Stable(BeatTime(2), 10))
-                                { Alpha = 0f };
-                                Line[] lines = { l1, l2 };
-                                foreach (Line l in lines)
-                                {
-                                    CreateEntity(l);
-                                    l.AlphaIncrease(BeatTime(2), 0.4f);
-                                    DelayBeat(2, () => { l.Dispose(); });
-                                }
-                            });
-                        }
-                    });
-                    RegisterFunctionOnce("L2B", () =>
-                    {
-                        for (int i = 0; i < 39; i++)
-                        {
-                            DelayBeat(1f / 3f * i, () =>
-                            {
-                                Line l1 = new(EaseOut(BeatTime(2), new Vector2(640, 480), new Vector2(0, 0), EaseState.Quad),
-                                    Stable(BeatTime(2), -10))
-                                { Alpha = 0.4f };
-                                Line l2 = new(EaseOut(BeatTime(2), new Vector2(0, 480), new Vector2(640, 0), EaseState.Quad),
-                                    Stable(BeatTime(2), 10))
-                                { Alpha = 0.4f };
-                                Line[] lines = { l1, l2 };
-                                foreach (Line l in lines)
-                                {
-                                    CreateEntity(l);
-                                    l.AlphaDecrease(BeatTime(2), 0.4f);
-                                    DelayBeat(2, () => { l.Dispose(); });
-                                }
-                            });
-                        }
-                    });
-                    RegisterFunctionOnce("Piano", () =>
-                    {
-                        Line l = new(LinkEase(EaseOut(T(0.75f), new Vector2(Arguments[0], 240), new Vector2(Arguments[0] + 20, 240), EaseState.Quart),
-                            Stable(T(0.5f), new Vector2(Arguments[0] + 20, 240))),
-                            Stable(T(1.25f), 110))
-                        { Alpha = 0.5f };
-                        CreateEntity(l);
-                        l.InsertRetention(new(T(0.35f), 0.35f));
-                        DelayBeat(0.5f, () => { l.AlphaDecrease(T(0.75f), 0.6f); });
                     });
                     RegisterFunctionOnce("In", () =>
                     {
@@ -1419,6 +1365,56 @@ namespace Rhythm_Recall.Waves
                         l1.VerticalMirror = true;
                         DelayBeat(0.5f, () => { l1.AlphaDecrease(T(0.5f), 0.8f); });
                     });
+                    RegisterFunctionOnce("SweepA", () =>
+                    {
+                        for (int i = 0; i < 48; i++)
+                        {
+                            DelayBeat(1f / 3f * i, () =>
+                            {
+                                Line l1 = new(EaseOut(T(2), new Vector2(640, 0), new Vector2(0, 0), EaseState.Linear), EaseOut(T(2), 80, 120, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l1);
+                                l1.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l1.AlphaDecrease(T(1.5f), 0.7f); });
+                                Line l2 = new(EaseOut(T(2), new Vector2(0, 480), new Vector2(0, 0), EaseState.Linear), EaseOut(T(2), 10, -30, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l2);
+                                l2.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l2.AlphaDecrease(T(1.5f), 0.7f); });
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("SweepB", () =>
+                    {
+                        for (int i = 0; i < 39; i++)
+                        {
+                            DelayBeat(1f / 3f * i, () =>
+                            {
+                                Line l1 = new(EaseOut(T(2), new Vector2(0, 480), new Vector2(640, 480), EaseState.Linear), EaseOut(T(2), 80, 120, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l1);
+                                l1.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l1.AlphaDecrease(T(1.5f), 0.7f); });
+                                Line l2 = new(EaseOut(T(2), new Vector2(640, 0), new Vector2(640, 480), EaseState.Linear), EaseOut(T(2), 10, -30, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l2);
+                                l2.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l2.AlphaDecrease(T(1.5f), 0.7f); });
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("RL1", () =>
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            DelayBeat(1f / 6f * i, () =>
+                            {
+                                Line l = new(Stable(T(0.8f), new Vector2(320, 240)), EaseOut(T(0.8f), 0, -180, EaseState.Linear)) { Alpha = 0.7f };
+                                CreateEntity(l);
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    l.InsertRetention(new(T(0.125f * i), 0.7f / 4f * i));
+                                }
+                                DelayBeat(0.8f, () => { l.Dispose(); });
+                            });
+                        }
+                    });
                     CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
                     {
                         "", "", "", "",         "", "", "", "",
@@ -1427,7 +1423,7 @@ namespace Rhythm_Recall.Waves
                         "#1#$0(xL1A)", "", "", "",         "", "", "", "",
 
                         "#1#$21(xL1B)", "", "", "",         "", "", "", "",
-                        "#3#R(L2A)(CamDelta)(CamAngle)", "", "", "",         "", "", "", "",
+                        "#3#R(SweepA)(CamDelta)(CamAngle)", "", "", "",         "", "", "", "",
                         "(In)", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
 
@@ -1447,7 +1443,7 @@ namespace Rhythm_Recall.Waves
                         "D", "", "", "",         "D", "", "", "",
 
                         "D(LeftLine)", "", "", "",         "(RightLine)", "", "", "",
-                        "D(<1,5>SA)(<1,1.05>SSS)(DanceLine)", "", "", "",         "", "", "", "",
+                        "D(<1,5>SA)(<1,1.05>SSS)(DanceLine)(SweepB)", "", "", "",         "", "", "", "",
                         "D(<1,-4>SA)(<1,1.1>SSS)", "", "", "",         "", "", "", "",
                         "D(<1,3>SA)(<1,1.15>SSS)", "", "", "",         "", "", "", "",
 
@@ -1464,7 +1460,7 @@ namespace Rhythm_Recall.Waves
                         "D(In)(DownLine)", "", "", "",         "#2#D", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
-                        "$0", "$21", "$3", "$11",         "$2", "$01", "$1", "$31",
+                        "$0(RL1)", "$21", "$3", "$11",         "$2", "$01", "$1", "$31",
                         "$0", "$21", "$3", "$11",         "$2", "$01", "$1", "$31","$31",
                     });
                     CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
@@ -1646,6 +1642,706 @@ namespace Rhythm_Recall.Waves
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
                         "", "", "", "",         "", "", "", "",
+                    });
+                }
+                //跳了
+                if (InBeat(324.5f))
+                {
+                    RegisterFunctionOnce("CamDelta", () =>
+                    {
+                        var camEase = LinkEase(
+                            Stable(0, 0, 0),
+                            Combine(Linear(T(2), 20), EaseIn(T(2), -20, EaseState.Quad)),
+                            Combine(EaseIn(T(2), -20, EaseState.Quad), Linear(T(2), 20)),
+                            Combine(EaseOut(T(2), 20, EaseState.Quad), Linear(T(2), 20)),
+                            Combine(Linear(T(2), -20), EaseIn(T(2), -20, EaseState.Quad)),
+                            Combine(Linear(T(2), -20), EaseOut(T(2), 20, EaseState.Quad)),
+                            Combine(EaseIn(T(2), 10, EaseState.Quad), Linear(T(2), -10)),
+                            Combine(EaseOut(T(2), -10, EaseState.Quad), Linear(T(2), -10)),
+                            Combine(EaseOut(T(2), 20, EaseState.Quad), EaseIn(T(2), 0, EaseState.Quad))
+                            );
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, camEase);
+                    });
+                    RegisterFunctionOnce("CamAngle", () =>
+                    {
+                        var camEase = LinkEase(
+                            Stable(0, 0),
+                            EaseOut(T(2), 7, EaseState.Sine),
+                            EaseIn(T(2), -7, EaseState.Sine),
+                            EaseOut(T(2), -7, EaseState.Sine),
+                            EaseIn(T(2), 7, EaseState.Sine),
+                            EaseOut(T(2), 7, EaseState.Sine),
+                            EaseIn(T(2), -7, EaseState.Sine),
+                            EaseOut(T(2), -7, EaseState.Sine),
+                            EaseIn(T(1), 3.5f, EaseState.Sine),
+                            EaseOut(T(1), 3.5f, EaseState.Sine)
+                            );
+                        RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, camEase);
+                    });
+                    RegisterFunctionOnce("LeftLine", () =>
+                    {
+                        var eas = LinkEase(Stable(0, 160, 0), EaseIn(T(1), new Vector2(160, 0), EaseState.Quart));
+                        var eas2 = LinkEase(Stable(0, 160, 0), EaseOut(T(0.5f), new Vector2(45, 0), EaseState.Quad));
+                        var eas3 = LinkEase(Stable(0, 160, 0), EaseOut(T(0.5f), new Vector2(-45, 0), EaseState.Quad));
+                        Line l = new(eas, Stable(0, 90));
+                        Line l2 = new(eas2, Stable(0, 90));
+                        Line l3 = new(eas3, Stable(0, 90));
+                        l.DelayDispose(T(1));
+                        l2.AlphaDecrease(T(0.5f));
+                        l3.AlphaDecrease(T(0.5f));
+                        CreateEntity(l, l2, l3);
+
+                    });
+                    RegisterFunctionOnce("RightLine", () =>
+                    {
+                        var eas = LinkEase(Stable(0, 480, 0), EaseIn(T(0.5f), new Vector2(-160, 0), EaseState.Quart));
+                        var eas2 = LinkEase(Stable(0, 480, 0), EaseOut(T(0.5f), new Vector2(45, 0), EaseState.Quad));
+                        var eas3 = LinkEase(Stable(0, 480, 0), EaseOut(T(0.5f), new Vector2(-45, 0), EaseState.Quad));
+                        Line l = new(eas, Stable(0, 90));
+                        Line l2 = new(eas2, Stable(0, 90));
+                        Line l3 = new(eas3, Stable(0, 90));
+                        l.DelayDispose(T(0.5f));
+                        l2.AlphaDecrease(T(0.5f));
+                        l3.AlphaDecrease(T(0.5f));
+                        CreateEntity(l, l2, l3);
+
+                    });
+                    RegisterFunctionOnce("DanceLine", () =>
+                    {
+                        var eas = LinkEase(
+                            Stable(0, 320, 0),
+                            EaseOut(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseOut(T(1f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(20, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(-260, 0), EaseState.Cubic)
+                            );
+                        Line l = new(eas, Stable(0, 90));
+                        CreateEntity(l);
+                        DelayBeat(4, () => { l.TransverseMirror = true; });
+                        DelayBeat(8, () => { l.Dispose(); });
+                    });
+                    RegisterFunctionOnce("DoubleLine", () =>
+                    {
+                        var eas1 = LinkEase(
+                            Stable(0, 0, 240),
+                            EaseOut(T(1), new Vector2(480, 0), EaseState.Quad),
+                            Stable(T(3.5f), 480, 240),
+                            EaseOut(T(1), new Vector2(0, -245), EaseState.Cubic)
+                            );
+                        var eas2 = LinkEase(
+                            Stable(T(0.5f), 645, 240),
+                            EaseOut(T(1), new Vector2(-485, 0), EaseState.Quad),
+                            Stable(T(3f), 160, 240),
+                            EaseOut(T(1), new Vector2(0, 245), EaseState.Cubic)
+                            );
+                        var rot1 = LinkEase(
+                            Stable(T(1), 90),
+                            EaseOut(T(0.5f), -45, EaseState.Quad),
+                            EaseIn(T(0.5f), 45, EaseState.Quad),
+                            EaseOut(T(0.5f), 45, EaseState.Quad),
+                            EaseIn(T(0.5f), -45, EaseState.Quad),
+                            EaseOut(T(0.5f), -90, EaseState.Quad));
+                        Line l = new(eas1, rot1);
+                        Line l2 = new(eas2, rot1);
+                        CreateEntity(l, l2);
+                        DelayBeat(6, () => { l.Dispose(); l2.Dispose(); });
+                    });
+                    RegisterFunctionOnce("UpLine", () =>
+                    {
+                        Line l = new(LinkEase(Stable(0, 0, 240), EaseOut(T(1), new Vector2(0, -245), EaseState.Cubic)), Stable(0, 0));
+                        CreateEntity(l);
+                        l.AlphaDecrease(T(1));
+                        DelayBeat(2, () => { l.Dispose(); });
+
+                    });
+                    RegisterFunctionOnce("DownLine", () =>
+                    {
+                        Line l = new(LinkEase(Stable(0, 0, 240), EaseOut(T(1), new Vector2(0, 245), EaseState.Cubic)), Stable(0, 0));
+                        CreateEntity(l);
+                        l.AlphaDecrease(T(1));
+                        DelayBeat(2, () => { l.Dispose(); });
+
+                    });
+                    RegisterFunctionOnce("xL1A", () =>
+                    {
+                        Line l1 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(120, 440), EaseState.Back),
+                            Stable(T(0.6f), new Vector2(120, 440)),
+                            EaseIn(T(4), new Vector2(120, 440), new Vector2(640 + 1600, 400), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1.4f), 0, -20, EaseState.Quad), Stable(T(0.8f), -20),
+                            EaseIn(T(4), -20, -20 + 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line l2 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(120, 440), EaseState.Back),
+                            Stable(T(0.6f), new Vector2(120, 440)),
+                            EaseIn(T(4), new Vector2(120, 440), new Vector2(640 + 1600, 400), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1.4f), 90, 70, EaseState.Quad), Stable(T(0.8f), 70),
+                            EaseIn(T(4), 70, 70 + 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line[] lines = { l1, l2 };
+                        foreach (Line l in lines)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 16; i++)
+                            {
+                                l.InsertRetention(new(T(0.0625f * i), 0.7f / 16f * i));
+                            }
+                            DelayBeat(2, () => { l.AlphaDecrease(T(4), 0.7f); });
+                            DelayBeat(6, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("xL1B", () =>
+                    {
+                        Line l1 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(520, 40), EaseState.Back),
+                            EaseIn(T(4), new Vector2(520, 40), new Vector2(-1600, 80), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1), 90, 70, EaseState.Quad),
+                            EaseIn(T(4), 70, 70 - 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line l2 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(520, 40), EaseState.Back),
+                            EaseIn(T(4), new Vector2(520, 40), new Vector2(-1600, 80), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1), 0, -20, EaseState.Quad),
+                            EaseIn(T(4), -20, -20 - 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line[] lines = { l1, l2 };
+                        foreach (Line l in lines)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 16; i++)
+                            {
+                                l.InsertRetention(new(T(0.0625f * i), 0.7f / 16f * i));
+                            }
+                            DelayBeat(1, () => { l.AlphaDecrease(T(4), 0.7f); });
+                            DelayBeat(5, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("L2A", () =>
+                    {
+                        for (int i = 0; i < 39; i++)
+                        {
+                            DelayBeat(1f / 3f * i, () =>
+                            {
+                                Line l1 = new(EaseIn(BeatTime(2), new Vector2(0, 0), new Vector2(640, 480), EaseState.Quad),
+                                    Stable(BeatTime(2), -10))
+                                { Alpha = 0f };
+                                Line l2 = new(EaseIn(BeatTime(2), new Vector2(640, 0), new Vector2(0, 480), EaseState.Quad),
+                                    Stable(BeatTime(2), 10))
+                                { Alpha = 0f };
+                                Line[] lines = { l1, l2 };
+                                foreach (Line l in lines)
+                                {
+                                    CreateEntity(l);
+                                    l.AlphaIncrease(BeatTime(2), 0.4f);
+                                    DelayBeat(2, () => { l.Dispose(); });
+                                }
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("L2B", () =>
+                    {
+                        for (int i = 0; i < 39; i++)
+                        {
+                            DelayBeat(1f / 3f * i, () =>
+                            {
+                                Line l1 = new(EaseOut(BeatTime(2), new Vector2(640, 480), new Vector2(0, 0), EaseState.Quad),
+                                    Stable(BeatTime(2), -10))
+                                { Alpha = 0.4f };
+                                Line l2 = new(EaseOut(BeatTime(2), new Vector2(0, 480), new Vector2(640, 0), EaseState.Quad),
+                                    Stable(BeatTime(2), 10))
+                                { Alpha = 0.4f };
+                                Line[] lines = { l1, l2 };
+                                foreach (Line l in lines)
+                                {
+                                    CreateEntity(l);
+                                    l.AlphaDecrease(BeatTime(2), 0.4f);
+                                    DelayBeat(2, () => { l.Dispose(); });
+                                }
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("Piano", () =>
+                    {
+                        Line l = new(LinkEase(EaseOut(T(0.75f), new Vector2(Arguments[0], 240), new Vector2(Arguments[0] - 20, 240), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(Arguments[0] - 20, 240))),
+                            Stable(T(1.25f), 70))
+                        { Alpha = 0.5f };
+                        CreateEntity(l);
+                        l.InsertRetention(new(T(0.35f), 0.35f));
+                        DelayBeat(0.5f, () => { l.AlphaDecrease(T(0.75f), 0.6f); });
+                    });
+                    RegisterFunctionOnce("In", () =>
+                    {
+                        Line l1 = new(LinkEase(EaseOut(T(0.75f), new Vector2(320, 0), new Vector2(320, 240 - 200), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320, 240 - 200))),
+                            Stable(T(1.25f), 0))
+                        { Alpha = 0.7f };
+                        Line l2 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 240), new Vector2(320 - 200, 240), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320 - 200, 240))),
+                            Stable(T(1.25f), 90))
+                        { Alpha = 0.7f };
+                        Line l3 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 0), new Vector2(320 - 200, 240 - 200), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320 - 200, 240 - 200))),
+                            Stable(T(1.25f), -45))
+                        { Alpha = 0.7f };
+                        Line l4 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 480), new Vector2(320 - 200, 240 + 200), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320 - 200, 240 + 200))),
+                            Stable(T(1.25f), 45))
+                        { Alpha = 0.7f };
+                        Line[] lines = { l2, l3, l4 };
+                        foreach (var line in lines)
+                        {
+                            CreateEntity(line);
+                            line.InsertRetention(new(T(0.35f), 0.35f));
+                            line.TransverseMirror = true;
+                            DelayBeat(0.35f, () => { line.AlphaDecrease(T(0.5f), 0.8f); });
+                        }
+                        CreateEntity(l1);
+                        l1.InsertRetention(new(T(0.35f), 0.35f));
+                        l1.VerticalMirror = true;
+                        DelayBeat(0.5f, () => { l1.AlphaDecrease(T(0.5f), 0.8f); });
+                    });
+                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
+                    {
+                        "R1", "", "", "",         "R1", "", "", "",
+                        "", "", "", "",         "R1", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "#1#$0(xL1A)", "", "", "",         "", "", "", "",
+
+                        "#1#$21(xL1B)", "", "", "",         "", "", "", "",
+                        "#3#R(L2A)(CamDelta)(CamAngle)", "", "", "",         "", "", "", "",
+                        "(In)", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "+0(In)", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "+0", "", "", "",
+                        "D(In)", "", "", "",         "D", "", "", "",
+                        "+0", "", "", "",         "D", "", "", "",
+
+                        "D(In)", "", "", "",         "+0", "", "", "",
+                        "#1#D", "", "", "",         "", "", "", "",
+                        "+0(In)", "", "", "",         "", "", "", "",
+                        "R", "", "", "",         "R", "", "", "",
+                        //
+                        "(In)", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "+0", "", "", "",
+                        "","D(<480>Piano)(In)", "", "",         "!!3","D", "(<400>Piano)", "",
+                        "+0(<360>Piano)", "", "", "",         "!!3","D", "(<280>Piano)", "",
+
+                        "D(LeftLine)(<240>Piano)", "", "", "",         "!!3","+0(RightLine)", "(<120>Piano)", "",
+                        "R(<1,5>SA)(<1,1.05>SSS)(DanceLine)(L2B)", "", "", "",         "", "", "", "",
+                        "R(<1,-4>SA)(<1,1.1>SSS)", "", "", "",         "", "", "", "",
+                        "R(<1,3>SA)(<1,1.15>SSS)", "", "", "",         "", "", "", "",
+
+                        "R(<1,-2>SA)(<1,1.2>SSS)", "", "", "",         "", "", "", "",
+                        "D(<1,1>SA)(<1,1.25>SSS)", "", "", "",         "+0", "", "", "",
+                        "D(<0.5,-1>SA)(<0.5,1.1>SSS)", "", "", "",         "D(<0.5,0>SA)(<0.5,1>SSS)", "", "", "",
+                        "+0", "", "", "",         "D", "", "", "",
+
+                        "D(In)(DoubleLine)", "", "", "",         "+0", "", "", "",
+                        "R", "", "", "",         "", "", "", "",
+                        "R", "", "", "",         "", "", "", "",
+                        "R", "", "", "",         "R(UpLine)", "", "", "",
+                        //
+                        //
+                        "R(In)(DownLine)", "", "", "",         "R", "", "", "",
+                        "R", "", "", "",         "R", "", "", "",
+                        "(R)(R1)", "", "", "",         "(R)(R1)", "", "", "",
+                        "(R)(R1)", "", "", "",         "(*$0'1.2)(*$2'1.2)", "", "(*$01'1.2)(*$21'1.2)", "",
+                        "(*$0'1.2)(*$2'1.2)", "", "", "",         "($0)", "", "", "",
+                    });
+                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
+                    {
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "D1", "", "", "",         "+01", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "+01", "", "", "",         "D1", "", "", "",
+
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "#3#D1", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "+01", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "+01", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        //
+                        "", "", "", "",         "#2#D1", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "D1", "", "", "",         "+01", "", "", "",
+                        "D1", "", "", "",         "+01", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "+01", "", "", "",         "D1", "", "", "",
+
+                        "D1", "", "", "",         "+01", "", "", "",
+                        "D1", "", "", "",         "", "", "", "",
+                        "R1", "", "", "",         "+01", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "R1", "", "", "",         "+01", "", "", "",
+                        "+01", "", "", "",         "", "", "", "",
+                        "R1", "", "", "",         "R1", "", "", "",
+                        "R1", "", "", "",         "R1", "", "", "",
+                        //
+                    });
+                }
+                if (InBeat(356.5f))
+                {
+                    RegisterFunctionOnce("CamDelta", () =>
+                    {
+                        var camEase = LinkEase(
+                            Stable(0, 0, 0),
+                            Combine(Linear(T(2), 20), EaseIn(T(2), -20, EaseState.Quad)),
+                            Combine(EaseIn(T(2), -20, EaseState.Quad), Linear(T(2), 20)),
+                            Combine(EaseOut(T(2), 20, EaseState.Quad), Linear(T(2), 20)),
+                            Combine(Linear(T(2), -20), EaseIn(T(2), -20, EaseState.Quad)),
+                            Combine(Linear(T(2), -20), EaseOut(T(2), 20, EaseState.Quad)),
+                            Combine(EaseIn(T(2), 10, EaseState.Quad), Linear(T(2), -10)),
+                            Combine(EaseOut(T(2), -10, EaseState.Quad), Linear(T(2), -10)),
+                            Combine(EaseOut(T(2), 20, EaseState.Quad), EaseIn(T(2), 0, EaseState.Quad))
+                            );
+                        RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, camEase);
+                    });
+                    RegisterFunctionOnce("CamAngle", () =>
+                    {
+                        var camEase = LinkEase(
+                            Stable(0, 0),
+                            EaseOut(T(2), 7, EaseState.Sine),
+                            EaseIn(T(2), -7, EaseState.Sine),
+                            EaseOut(T(2), -7, EaseState.Sine),
+                            EaseIn(T(2), 7, EaseState.Sine),
+                            EaseOut(T(2), 7, EaseState.Sine),
+                            EaseIn(T(2), -7, EaseState.Sine),
+                            EaseOut(T(2), -7, EaseState.Sine),
+                            EaseIn(T(1), 3.5f, EaseState.Sine),
+                            EaseOut(T(1), 3.5f, EaseState.Sine)
+                            );
+                        RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, camEase);
+                    });
+                    RegisterFunctionOnce("LeftLine", () =>
+                    {
+                        var eas = LinkEase(Stable(0, 160, 0), EaseIn(T(1), new Vector2(160, 0), EaseState.Quart));
+                        var eas2 = LinkEase(Stable(0, 160, 0), EaseOut(T(0.5f), new Vector2(45, 0), EaseState.Quad));
+                        var eas3 = LinkEase(Stable(0, 160, 0), EaseOut(T(0.5f), new Vector2(-45, 0), EaseState.Quad));
+                        Line l = new(eas, Stable(0, 90));
+                        Line l2 = new(eas2, Stable(0, 90));
+                        Line l3 = new(eas3, Stable(0, 90));
+                        l.DelayDispose(T(1));
+                        l2.AlphaDecrease(T(0.5f));
+                        l3.AlphaDecrease(T(0.5f));
+                        CreateEntity(l, l2, l3);
+
+                    });
+                    RegisterFunctionOnce("RightLine", () =>
+                    {
+                        var eas = LinkEase(Stable(0, 480, 0), EaseIn(T(0.5f), new Vector2(-160, 0), EaseState.Quart));
+                        var eas2 = LinkEase(Stable(0, 480, 0), EaseOut(T(0.5f), new Vector2(45, 0), EaseState.Quad));
+                        var eas3 = LinkEase(Stable(0, 480, 0), EaseOut(T(0.5f), new Vector2(-45, 0), EaseState.Quad));
+                        Line l = new(eas, Stable(0, 90));
+                        Line l2 = new(eas2, Stable(0, 90));
+                        Line l3 = new(eas3, Stable(0, 90));
+                        l.DelayDispose(T(0.5f));
+                        l2.AlphaDecrease(T(0.5f));
+                        l3.AlphaDecrease(T(0.5f));
+                        CreateEntity(l, l2, l3);
+
+                    });
+                    RegisterFunctionOnce("DanceLine", () =>
+                    {
+                        var eas = LinkEase(
+                            Stable(0, 320, 0),
+                            EaseOut(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseIn(T(0.5f), new Vector2(84, 0), EaseState.Cubic),
+                            EaseOut(T(1f), new Vector2(-84, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(20, 0), EaseState.Cubic),
+                            EaseOut(T(0.5f), new Vector2(-260, 0), EaseState.Cubic)
+                            );
+                        Line l = new(eas, Stable(0, 90));
+                        CreateEntity(l);
+                        DelayBeat(4, () => { l.TransverseMirror = true; });
+                        DelayBeat(8, () => { l.Dispose(); });
+                    });
+                    RegisterFunctionOnce("DoubleLine", () =>
+                    {
+                        var eas1 = LinkEase(
+                            Stable(0, 0, 240),
+                            EaseOut(T(1), new Vector2(480, 0), EaseState.Quad),
+                            Stable(T(3.5f), 480, 240),
+                            EaseOut(T(1), new Vector2(0, -245), EaseState.Cubic)
+                            );
+                        var eas2 = LinkEase(
+                            Stable(T(0.5f), 645, 240),
+                            EaseOut(T(1), new Vector2(-485, 0), EaseState.Quad),
+                            Stable(T(3f), 160, 240),
+                            EaseOut(T(1), new Vector2(0, 245), EaseState.Cubic)
+                            );
+                        var rot1 = LinkEase(
+                            Stable(T(1), 90),
+                            EaseOut(T(0.5f), -45, EaseState.Quad),
+                            EaseIn(T(0.5f), 45, EaseState.Quad),
+                            EaseOut(T(0.5f), 45, EaseState.Quad),
+                            EaseIn(T(0.5f), -45, EaseState.Quad),
+                            EaseOut(T(0.5f), -90, EaseState.Quad));
+                        Line l = new(eas1, rot1);
+                        Line l2 = new(eas2, rot1);
+                        CreateEntity(l, l2);
+                        DelayBeat(6, () => { l.Dispose(); l2.Dispose(); });
+                    });
+                    RegisterFunctionOnce("UpLine", () =>
+                    {
+                        Line l = new(LinkEase(Stable(0, 0, 240), EaseOut(T(1), new Vector2(0, -245), EaseState.Cubic)), Stable(0, 0));
+                        CreateEntity(l);
+                        l.AlphaDecrease(T(1));
+                        DelayBeat(2, () => { l.Dispose(); });
+
+                    });
+                    RegisterFunctionOnce("DownLine", () =>
+                    {
+                        Line l = new(LinkEase(Stable(0, 0, 240), EaseOut(T(1), new Vector2(0, 245), EaseState.Cubic)), Stable(0, 0));
+                        CreateEntity(l);
+                        l.AlphaDecrease(T(1));
+                        DelayBeat(2, () => { l.Dispose(); });
+
+                    });
+                    RegisterFunctionOnce("xL1A", () =>
+                    {
+                        Line l1 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(520, 440), EaseState.Back),
+                            Stable(T(0.6f), new Vector2(520, 440)),
+                            EaseIn(T(4), new Vector2(520, 440), new Vector2(-1600, 400), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1.4f), 0, 20, EaseState.Quad), Stable(T(0.8f), 20),
+                            EaseIn(T(4), 20, 20 - 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line l2 = new(LinkEase(EaseOut(BeatTime(1.4f), new Vector2(320, 240), new Vector2(520, 440), EaseState.Back),
+                            Stable(T(0.6f), new Vector2(520, 440)),
+                            EaseIn(T(4), new Vector2(520, 440), new Vector2(-1600, 400), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1.4f), 90, 110, EaseState.Quad), Stable(T(0.8f), 110),
+                            EaseIn(T(4), 110, 110 - 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line[] lines = { l1, l2 };
+                        foreach (Line l in lines)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 16; i++)
+                            {
+                                l.InsertRetention(new(T(0.0625f * i), 0.7f / 16f * i));
+                            }
+                            DelayBeat(2, () => { l.AlphaDecrease(T(4), 0.7f); });
+                            DelayBeat(6, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("xL1B", () =>
+                    {
+                        Line l1 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(120, 40), EaseState.Back),
+                            EaseIn(T(4), new Vector2(120, 40), new Vector2(640 + 1600, 80), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1), 90, 110, EaseState.Quad),
+                            EaseIn(T(4), 110, 110 + 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line l2 = new(LinkEase(EaseOut(BeatTime(1), new Vector2(320, 240), new Vector2(120, 40), EaseState.Back),
+                            EaseIn(T(4), new Vector2(120, 40), new Vector2(640 + 1600, 80), EaseState.Sine)),
+                            LinkEase(EaseOut(T(1), 0, 20, EaseState.Quad),
+                            EaseIn(T(4), 20, 20 + 270 * 4f, EaseState.Sine)))
+                        { Alpha = 0.7f };
+                        Line[] lines = { l1, l2 };
+                        foreach (Line l in lines)
+                        {
+                            CreateEntity(l);
+                            for (int i = 0; i < 16; i++)
+                            {
+                                l.InsertRetention(new(T(0.0625f * i), 0.7f / 16f * i));
+                            }
+                            DelayBeat(1, () => { l.AlphaDecrease(T(4), 0.7f); });
+                            DelayBeat(5, () => { l.Dispose(); });
+                        }
+                    });
+                    RegisterFunctionOnce("In", () =>
+                    {
+                        Line l1 = new(LinkEase(EaseOut(T(0.75f), new Vector2(320, 0), new Vector2(320, 240 - 200), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320, 240 - 180))),
+                            Stable(T(1.25f), 0))
+                        { Alpha = 0.7f };
+                        Line l2 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 240), new Vector2(320 - 200, 240), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320 - 180, 240))),
+                            Stable(T(1.25f), 90))
+                        { Alpha = 0.7f };
+                        Line l3 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 0), new Vector2(320 - 200, 240 - 200), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320 - 200, 240 - 200))),
+                            Stable(T(1.25f), -45))
+                        { Alpha = 0.7f };
+                        Line l4 = new(LinkEase(EaseOut(T(0.75f), new Vector2(0, 480), new Vector2(320 - 200, 240 + 200), EaseState.Quart),
+                            Stable(T(0.5f), new Vector2(320 - 200, 240 + 200))),
+                            Stable(T(1.25f), 45))
+                        { Alpha = 0.7f };
+                        Line[] lines = { l2, l3, l4 };
+                        foreach (var line in lines)
+                        {
+                            CreateEntity(line);
+                            line.InsertRetention(new(T(0.35f), 0.35f));
+                            line.TransverseMirror = true;
+                            DelayBeat(0.35f, () => { line.AlphaDecrease(T(0.5f), 0.8f); });
+                        }
+                        CreateEntity(l1);
+                        l1.InsertRetention(new(T(0.35f), 0.35f));
+                        l1.VerticalMirror = true;
+                        DelayBeat(0.5f, () => { l1.AlphaDecrease(T(0.5f), 0.8f); });
+                    });
+                    RegisterFunctionOnce("SweepA", () =>
+                    {
+                        for (int i = 0; i < 48; i++)
+                        {
+                            DelayBeat(1f / 3f * i, () =>
+                            {
+                                Line l1 = new(EaseOut(T(2), new Vector2(0, 0), new Vector2(640, 0), EaseState.Linear), EaseOut(T(2), 100, 60, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l1);
+                                l1.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l1.AlphaDecrease(T(1.5f), 0.7f); });
+                                Line l2 = new(EaseOut(T(2), new Vector2(640, 480), new Vector2(640, 0), EaseState.Linear), EaseOut(T(2), -10, 30, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l2);
+                                l2.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l2.AlphaDecrease(T(1.5f), 0.7f); });
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("SweepB", () =>
+                    {
+                        for (int i = 0; i < 39; i++)
+                        {
+                            DelayBeat(1f / 3f * i, () =>
+                            {
+                                Line l1 = new(EaseOut(T(2), new Vector2(640, 480), new Vector2(0, 480), EaseState.Linear), EaseOut(T(2), 100, 60, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l1);
+                                l1.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l1.AlphaDecrease(T(1.5f), 0.7f); });
+                                Line l2 = new(EaseOut(T(2), new Vector2(0, 0), new Vector2(0, 480), EaseState.Linear), EaseOut(T(2), -10, 30, EaseState.Linear)) { Alpha = 0.3f };
+                                CreateEntity(l2);
+                                l2.AlphaIncrease(T(0.5f), 0.4f);
+                                DelayBeat(0.5f, () => { l2.AlphaDecrease(T(1.5f), 0.7f); });
+                            });
+                        }
+                    });
+                    RegisterFunctionOnce("RL1", () =>
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            DelayBeat(1f / 6f * i, () =>
+                            {
+                                Line l = new(Stable(T(0.8f), new Vector2(320, 240)), EaseOut(T(0.8f), 0, 180, EaseState.Linear)) { Alpha = 0.7f };
+                                CreateEntity(l);
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    l.InsertRetention(new(T(0.125f * i), 0.7f / 4f * i));
+                                }
+                                DelayBeat(0.8f, () => { l.Dispose(); });
+                            });
+                        }
+                    });
+                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
+                    {
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "#1#$0(xL1A)", "", "", "",         "", "", "", "",
+
+                        "#1#$21(xL1B)", "", "", "",         "", "", "", "",
+                        "#3#R(SweepA)(CamDelta)(CamAngle)", "", "", "",         "", "", "", "",
+                        "(In)", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "+0(In)", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "+0", "", "", "",
+                        "D(In)", "", "", "",         "D", "", "", "",
+                        "+0", "", "", "",         "D", "", "", "",
+
+                        "D(In)", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+                        "D(In)", "", "", "",         "D", "", "", "",
+                        "", "", "", "",         "D", "", "", "",
+                        //
+                        "D(In)", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "D(In)", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+
+                        "D(LeftLine)", "", "", "",         "(RightLine)", "", "", "",
+                        "D(<1,5>SA)(<1,1.05>SSS)(DanceLine)(SweepB)", "", "", "",         "", "", "", "",
+                        "D(<1,-4>SA)(<1,1.1>SSS)", "", "", "",         "", "", "", "",
+                        "D(<1,3>SA)(<1,1.15>SSS)", "", "", "",         "", "", "", "",
+
+                        "D(<1,-2>SA)(<1,1.2>SSS)", "", "", "",         "D", "", "", "",
+                        "D(<1,1>SA)(<1,1.25>SSS)", "", "", "",         "D", "", "", "",
+                        "D(<0.5,-1>SA)(<0.5,1.1>SSS)", "", "", "",         "D(<0.5,0>SA)(<0.5,1>SSS)", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+
+                        "D(In)(DoubleLine)", "", "", "",         "D", "", "", "",
+                        "D", "", "", "",         "", "", "", "",
+                        "D", "", "", "",         "D", "", "", "",
+                        "", "", "", "",         "D(UpLine)", "", "", "",
+                        //
+                        "D(In)(DownLine)", "", "", "",         "#2#D", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "$0(RL1)", "$21", "$3", "$11",         "$2", "$01", "$1", "$31",
+                        "$0", "$21", "$3", "$11",         "$2", "$01", "$1", "$31","$31",
+                    });
+                    CreateChart(BeatTime(4), BeatTime(1), 6.3f, new string[]
+                    {
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "", "", "", "",         "", "", "", "",
+                        "D1", "", "", "",         "+01", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "+01", "", "", "",         "D1", "", "", "",
+
+                        "D1", "", "", "",         "+01", "", "", "",
+                        "#3#D1", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "+01", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        //
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+
+                        "D1", "", "", "",         "", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "", "", "", "",         "D1", "", "", "",
+                        "", "", "", "",         "", "", "", "",
+
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        "D1", "", "", "",         "D1", "", "", "",
+                        //
                     });
                 }
             }
