@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using Microsoft.Xna.Framework;
-using System.Net.NetworkInformation;
-using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Fight.Functions;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.DebugState;
 using static UndyneFight_Ex.GameStates;
-using Microsoft.Xna.Framework.Audio;
 
 namespace UndyneFight_Ex.Entities
 {

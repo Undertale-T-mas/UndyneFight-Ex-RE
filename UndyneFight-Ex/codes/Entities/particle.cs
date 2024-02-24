@@ -126,6 +126,16 @@ namespace UndyneFight_Ex.Entities
             private get { return darkingSpeed; }
             set { darkingSpeed = value; }
         }
+        public float Alpha
+        {
+            private get { return light; }
+            set { light = value; }
+        }
+        public float RotateSpeed
+        {
+            private get { return rotateSpeed; }
+            set { rotateSpeed = value; }
+        }
 
         private float darkingSpeed = 3;
         private readonly float size;

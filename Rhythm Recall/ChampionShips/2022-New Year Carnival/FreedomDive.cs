@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Security.Authentication.ExtendedProtection;
+using System.Security.Cryptography;
+using System.Transactions;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
@@ -71,6 +74,7 @@ namespace Rhythm_Recall.Waves
             public SongInformation Attributes => new ThisInformation();
 
             public static Game instance;
+            public bool Extended { get; set; } = false;
 
             public string Music => "Freedom Dive";
 
@@ -147,8 +151,7 @@ namespace Rhythm_Recall.Waves
                     for (int i = 0; i < authorPresent.Length; i++) AddInstance(authorPresent[i]);
                 }
 
-                public override void Draw()
-                { }
+                public override void Draw() { }
 
                 private readonly InstantEvent[] authorPresent = {
                     new InstantEvent(100, ()=>{
@@ -224,9 +227,13 @@ namespace Rhythm_Recall.Waves
                     }),
                 };
 
-                public override void Update()
+                public override void Update() { }
+                public override void Dispose()
                 {
-
+                    base.Dispose();
+                    foreach (var item in ChildObjects) item.Dispose();
+                    foreach (var item in GetAll<InstantEvent>()) item.Dispose();
+                    foreach (var item in GetAll<TextPrinter>()) item.Dispose();
                 }
             }
 
@@ -2600,7 +2607,20 @@ namespace Rhythm_Recall.Waves
                     CreateEntity(new TextPrinter("$Welcome to Rhythm Recall", new Vector2(130, 100), new TextFadeoutAttribute(500, 100)) { Depth = 0.95f });
                     AddInstance(new InstantEvent(700, () =>
                     {
-                        CreateEntity(new SpecialThanks());
+                        SpecialThanks s;
+                        CreateEntity(s = new SpecialThanks());
+                        if (game.Extended) AddInstance(new InstantEvent(480, () =>
+                        {
+                            s.Dispose();
+                            ScreenDrawing.WhiteOut(30);
+                            AddInstance(new InstantEvent(30, () =>
+                            {
+                                ScreenDrawing.HPBar.HPExistColor = Color.Green;
+                                ScreenDrawing.HPBar.HPLoseColor = Color.Red;
+                                ScreenDrawing.UIColor = Color.White;
+                                InstantSetGreenBox();
+                            }));
+                        }));
                     }));
                     for (int i = 0; i < 64; i++)
                     {
@@ -2678,7 +2698,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(512 + 96 - 8)) ExBarrage.Turning1E();
                 if (InBeat(512 + 128 - 8)) ExBarrage.Turning1F();
 
-                if (InBeat(640 + 0))
+                if (InBeat(640))
                 {
                     for (int i = 0; i < 4; i++)
                     {
@@ -2695,7 +2715,8 @@ namespace Rhythm_Recall.Waves
                     for (int i = 0; i < 8; i++) AddInstance(new InstantEvent(BeatTime(32 + i * 8), () =>
                     {
                         ScreenDrawing.CameraEffect.SizeExpand(4, BeatTime(2));
-                    })); ExBarrage.Area1B();
+                    }));
+                    ExBarrage.Area1B();
                 }
                 if (InBeat(640 + 128))
                 {
@@ -2893,10 +2914,85 @@ namespace Rhythm_Recall.Waves
                     ExBarrage.Area1C();
                 }
                 if (InBeat(2112)) ExBarrage.Final3A();
+
+                if (Extended)
+                {
+                    if (InBeat(2393))
+                    {
+                        HeartAttribute.HP = 10;
+                        CreateChart(BeatTime(10), BeatTime(8), 7, new string[]
+                        {
+                            "R", "", "", "",    "", "", "", "",
+                            "R", "+1", "+1", "",     "(R)(R1)", "", "", "(R)(R1)",
+                            "", "", "(R)(R1)", "",     "", "(R)(R1)", "", "",
+                            "($2)(+21)", "(-1)(+01)", "", "($0)(+21)",    "(-1)(+01)", "", "R", "",
+                            "$201", "<+2", ">+2", "^+2", "+201", ">+2", "<+2", "^+201",
+                            "+201", "<+2", ">+2", "^+2", "+201", ">+2", "<+2", "^+201",
+                            "R", "D1", "", "R",     "D1", "", "R", "D1",
+                            "", "R", "D1", "",     "", "", "", "",
+                        });
+                    }
+                    if (InBeat(2459))
+                    {
+                        CreateChart(BeatTime(8), BeatTime(8), 6.5f, new string[]
+                        {
+                            "D", "D1", "D1", "D",    "D1", "D", "D1", "D",
+                            "D", "D1", "D1", "D",    "D1", "D", "D1", "D",
+                            "D", "D1", "D1", "D",    "D1", "D", "D1", "D",
+                            "D", "D1", "D1", "D",    "D1", "D", "D1", "D",
+                            "D", "D1", "D1", "D",    "D1", "D", "D1", "D",
+                            "D", "D1", "D1", "D",    "D1", "D", "D1", "D",
+                            "D", "D1", "D1", "D",    "D1", "D", "D1", "D",
+                            "D", "D1", "D1", "D",
+                        });
+                    }
+                    if (InBeat(2511))
+                    {
+                        CreateChart(BeatTime(16), BeatTime(8), 7.2f, new string[]
+                        {
+                            "$0", "$1", "$2", "($1)(^R1)",    "$0", "$1", "$2", "($1)(^R1)",
+                            "$0", "$1", "$2", "($1)(^R1)",    "$0", "$1", "$2", "($1)(^R1)",
+                            "$0", "$1", "$2", "($1)(^R1)",    "$0", "$1", "$2", "($1)(^R1)",
+                            "$0", "$1", "$2", "($1)(^R1)",    "$0", "$1", "$2", "($1)(^R1)",
+
+                            "$01", "$11", "$21", "($11)(^R)",    "$01", "$11", "$21", "($11)(^R)",
+                            "$01", "$11", "$21", "($11)(^R)",    "$01", "$11", "$21", "($11)(^R)",
+                            "$01", "$11", "$21", "($11)(^R)",    "$01", "$11", "$21", "($11)(^R)",
+                            "$01", "$11", "$21", "($11)(^R)",    "$01", "$11", "$21", "($11)(^R)",
+                        });
+                    }
+                    if (InBeat(2575))
+                    {
+                        CreateChart(BeatTime(20), BeatTime(8), 7.2f, new string[]
+                        {
+                            "(^R)(^+0)", "^+2", "^+2", "",     "", "(^R)(^+0)", "^+2", "^+2",
+                            "", "", "(^R)(^+0)", "^+2",     "^+2", "", "", "(^R)(^+0)",
+                            "^+2", "^+2", "", "",     "(^R)(^+0)", "^+2", "^+2", "",
+                            "", "(^R)(^D1)", "", "(^R)(^D1)",     "", "(^R)(^D1)", "", "",
+
+
+                            "(R)(R1)", "", "", "R", "", "", "(R)", "/",
+                            "(R)(R1)", "", "", "R", "", "", "(R)(R1)", "/",
+                            "(R)(R1)", "", "", "R", "", "", "(R)", "/",
+                            "(R)(R1)", "", "", "R", "", "", "(R)(R1)", "/",
+                            "(R)(R1)", "", "", "R", "", "", "(R)", "/",
+                            "(R)(R1)", "", "", "R", "", "", "(R)(R1)", "/",
+                            "(R)(R1)", "", "", "R", "", "", "(R)", "/",
+                            "(R)(R1)", "", "R", "", "R", "", "(R)(R1)", "/",
+
+                            "", "", "", "",     "", "", "", "",
+                        });
+                    }
+                }
             }
 
             public void Start()
             {
+#if DEBUG
+                Extended = true;
+#else
+                Extended = (PlayerManager.CurrentUser != null && PlayerManager.PlayerSkill >= 90);
+#endif
                 ScreenDrawing.UISettings.CreateUISurface();
                 NoobBarrage.game = this;
                 HardBarrage.game = this;
@@ -2907,6 +3003,30 @@ namespace Rhythm_Recall.Waves
                 TP();
                 SetSoul(1);
                 GametimeDelta = -16.806f / 4f * 30.7f - 0.5f;
+                bool jump = true;
+#if DEBUG
+                jump = false;
+#endif
+                if (jump)
+                {
+                    var beat = BeatTime(2392);
+                    GametimeDelta += beat;
+                    PlayOffset = beat;
+
+                    if (beat >= BeatTime(2112))
+                    {
+                        ScreenDrawing.BackGroundColor = Color.DarkBlue;
+                        ScreenDrawing.BoundColor = Color.Silver;
+                        ScreenDrawing.Shaders.Filter p1, p2;
+                        ScreenDrawing.SceneRendering.InsertProduction(p1 = new ScreenDrawing.Shaders.Filter(Shaders.NeonLine, 0.55f));
+                        (p1.CurrentShader as GlobalResources.Effects.NeonLineShader).DrawingColor = Color.White * 0.2f;
+                        (p1.CurrentShader as GlobalResources.Effects.NeonLineShader).Speed = 0.4f;
+                        ScreenDrawing.SceneRendering.InsertProduction(p2 = new ScreenDrawing.Shaders.Filter(Shaders.Cos1Ball, 0.6f));
+                        var v = p2.CurrentShader as GlobalResources.Effects.BallShapingShader;
+                        v.Intensity = 0.5f;
+                        v.ScreenScale = 1.1f;
+                    }
+                }
             }
         }
     }

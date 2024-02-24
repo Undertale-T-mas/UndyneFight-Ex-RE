@@ -52,6 +52,7 @@ namespace UndyneFight_Ex.Entities
         /// 垂线的开关（90°线）
         /// </summary>
         public bool VerticalLine { private get; set; } = false;
+        public bool AlphaBlend { private get; set; } = false;
         public Line(Vector2 vec1, Vector2 vec2) : this(EasingUtil.CentreEasing.Stable(vec1), EasingUtil.CentreEasing.Stable(vec2)) { }
         public Line(Vector2 centre, float rotation) : this(centre, EasingUtil.ValueEasing.Stable(rotation)) { }
         public Line(float Xcentre, float rotation) : this(EasingUtil.CentreEasing.Stable(Xcentre, 240), EasingUtil.ValueEasing.Stable(rotation)) { }
@@ -135,12 +136,11 @@ namespace UndyneFight_Ex.Entities
         }
         void DrawTargetLine(Vector2 Start, Vector2 End)
         {
-            DrawLine(Start, End, Width, DrawingColor * Alpha, Depth, Image);
+            DrawLine(Start, End, Width, AlphaBlend ? Color.Lerp(DrawingColor, ScreenDrawing.BackGroundColor, Alpha) : (DrawingColor * Alpha), Depth, Image);
         }
         public override void Draw()
         {
             if (Alpha <= 0) return;
-            Color TargetColor = DrawingColor * Alpha;
             DrawTargetLine(vec1.CentrePosition, vec2.CentrePosition);
             if (VerticalMirror)
                 DrawTargetLine(new Vector2(vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y));

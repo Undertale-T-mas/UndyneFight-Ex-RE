@@ -74,6 +74,20 @@ namespace Rhythm_Recall.Waves
                             new(Difficulty.Extreme, 21.6f),
                         }
                     );
+                public override HashSet<Difficulty> UnlockedDifficulties
+                {
+                    get
+                    {
+                        HashSet<Difficulty> difficulties = new();
+                        var check = false;
+                        check = (PlayerManager.CurrentUser != null && PlayerManager.PlayerSkill >= 90);
+#if DEBUG
+                        check = true;
+#endif
+                        for (int i = 0; i <= (check ? 5 : 4); i++) difficulties.Add((Difficulty)i);
+                        return difficulties;
+                    }
+                }
             }
             public SongInformation Attributes => new ThisInformation();
 

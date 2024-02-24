@@ -83,7 +83,7 @@ namespace UndyneFight_Ex
             Graphics.PreferredBackBufferHeight = 480;
             Graphics.PreferredBackBufferWidth = 640;
             Window.AllowUserResizing = true;
-            Window.Title = "Rhythm Recall v0.2.2 (UF-Ex [V0.2.0])";
+            Window.Title = $"Rhythm Recall v0.2.2 (UF-Ex [V{ModDynamic.UFExVersion}])";
             Graphics.ApplyChanges();
 
             // TODO: Add your initialization logic here

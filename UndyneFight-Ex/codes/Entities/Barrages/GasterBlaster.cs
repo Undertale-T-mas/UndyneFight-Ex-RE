@@ -16,6 +16,7 @@ namespace UndyneFight_Ex.Entities
         public static bool IsGBMute { set => spawnSoundPlayed = value; }
 
         public bool IsShake { get; set; } = false;
+        public bool ColorIsTheme { get; set; } = false;
 
         public GasterBlaster()
         {
@@ -51,6 +52,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
+            if (ColorIsTheme) drawingColor = ScreenDrawing.ThemeColor;
             appearTime++;
             if (screen.Contain(laserPlace))
                 laserPlace = GetVector2(27 * size.Y, missionRotation) + Centre;
