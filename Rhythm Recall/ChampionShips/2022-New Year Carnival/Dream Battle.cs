@@ -13,6 +13,7 @@ using static UndyneFight_Ex.FightResources.Sounds;
 using Extends;
 using static Extends.DrawingUtil;
 using System;
+using UndyneFight_Ex.UserService;
 
 namespace Rhythm_Recall.Waves
 {
@@ -136,7 +137,12 @@ namespace Rhythm_Recall.Waves
                     get
                     {
                         HashSet<Difficulty> difficulties = new();
-                        for (int i = 0; i <= 4; i++) difficulties.Add((Difficulty)i);
+                        var check = false;
+                        check = (PlayerManager.CurrentUser != null && PlayerManager.PlayerSkill >= 90);
+#if DEBUG
+                        check = true;
+#endif
+                        for (int i = 0; i <= (check ? 5 : 4); i++) difficulties.Add((Difficulty)i);
                         return difficulties;
                     }
                 }

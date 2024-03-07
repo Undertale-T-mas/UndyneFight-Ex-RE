@@ -193,6 +193,11 @@ namespace Rhythm_Recall.Waves
 #endif
                         HashSet<Difficulty> difficulties = new();
                         int v = PlayerManager.CurrentUser.Custom.Nexts["reTranscendence"].Nexts["info"].IntValue;
+                        var check = false;
+                        check = PlayerManager.currentPlayer != null && PlayerManager.PlayerSkill >= 90;
+#if DEBUG
+                        check = true;
+#endif
                         for (int i = 0; i <= v; i++) difficulties.Add((Difficulty)i);
                         return difficulties;
                     }

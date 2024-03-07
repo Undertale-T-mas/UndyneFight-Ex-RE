@@ -213,10 +213,11 @@ namespace UndyneFight_Ex.Entities
     {
         public Vector2 rotateCentre;
         private int appearTime = 0;
-        private float rotateSpeed;
-        private readonly float linearSpeed;
-        private float distance;
-        private readonly float rotateFriction = 0.01f;
+        public float rotateSpeed;
+        public float linearSpeed;
+        public float distance;
+        public readonly float rotateFriction = 0.01f;
+        public readonly float rotateAngleDisplace = 0;
 
         public CircleSpear(Vector2 rotateCentre, float rotateSpeed, float linearSpeed, float distance, float rotation, float rotateFriction) : this(rotateCentre, rotateSpeed, linearSpeed, distance, rotation)
         {
@@ -231,6 +232,18 @@ namespace UndyneFight_Ex.Entities
             this.distance = distance;
             Rotation = rotation;
             this.rotateCentre = rotateCentre;
+        }
+
+        public CircleSpear(Vector2 rotateCentre, float rotateSpeed, float linearSpeed, float distance, float rotation, float rotex, float rotateFriction = 0.01f)
+        {
+            autoDispose = false;
+            this.rotateSpeed = rotateSpeed;
+            this.linearSpeed = linearSpeed;
+            this.distance = distance;
+            Rotation = rotation;
+            this.rotateCentre = rotateCentre;
+            rotateAngleDisplace = rotex;
+            this.rotateFriction = rotateFriction;
         }
 
         public override void Update()
@@ -263,7 +276,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            base.Draw();
+            FormalDraw(Image, Centre, drawingColor * alpha, GetRadian(Rotation + rotateAngleDisplace), ImageCentre);
         }
     }
 

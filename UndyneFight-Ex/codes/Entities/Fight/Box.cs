@@ -67,6 +67,7 @@ namespace UndyneFight_Ex.Entities
         float curAlpha = 1.0f;
 
         private bool _doDraw = false;
+        private bool AlphaBlend = true;
 
         public override void Update()
         {
@@ -97,9 +98,13 @@ namespace UndyneFight_Ex.Entities
             }
             for (int i = 0; i < Vertexs.Length - 1; i++)
             {
-                DrawingLab.DrawLine(positions[i], positions[i + 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
+                if (AlphaBlend)
+                    DrawingLab.DrawLine(positions[i], positions[i + 1], 4.2f, Color.Lerp(GameMain.CurrentDrawingSettings.backGroundColor, GameMain.CurrentDrawingSettings.themeColor, curAlpha), 0.4f);
+                else DrawingLab.DrawLine(positions[i], positions[i + 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
             }
-            DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
+            if(AlphaBlend)
+            DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, Color.Lerp(GameMain.CurrentDrawingSettings.backGroundColor, GameMain.CurrentDrawingSettings.themeColor, curAlpha), 0.4f);
+            else DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
         }
 
         public FightBox()

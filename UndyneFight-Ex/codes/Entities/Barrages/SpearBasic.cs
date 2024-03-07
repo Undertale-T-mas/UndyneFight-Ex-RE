@@ -19,6 +19,7 @@ namespace UndyneFight_Ex.Entities
         public float Alpha { protected set => alpha = value; get => alpha; }
 
         private bool hasHit = false;
+        public bool ForceDispose { set { hasBeenInside = value; } get { return hasBeenInside; }}
         private bool hasBeenInside = false;
         protected bool autoDispose = true;
 
