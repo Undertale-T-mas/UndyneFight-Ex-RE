@@ -108,6 +108,8 @@ namespace UndyneFight_Ex
 
             internal void SetPosition(float position)
             {
+                if (allInstances.Count == 0) return;
+                else
                 this.allInstances[0].SetPosition(position / 62.5f * 1000f);
             }
 

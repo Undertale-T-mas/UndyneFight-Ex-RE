@@ -2186,12 +2186,6 @@
 /processorParam:Quality=Best
 /build:Musics/#1e86f2/song.wav
 
-#begin Musics/1111/song.wav
-/importer:WavImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/1111/song.wav
-
 #begin Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -2935,6 +2929,12 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Resurrection/song.mp3
+
+#begin Musics/Retracing beneath/song.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Retracing beneath/song.wav
 
 #begin Musics/RIP/muhai.fx
 /importer:EffectImporter
