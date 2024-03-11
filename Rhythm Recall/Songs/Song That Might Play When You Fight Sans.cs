@@ -14,9 +14,7 @@ namespace Rhythm_Recall.Waves
         Dictionary<string, Difficulty> dif = new();
         public Song_That_Might_Play_When_You_Fight_Sans()
         {
-            dif.Add("Div.4", Difficulty.Noob);
-            dif.Add("Div.3", Difficulty.Easy);
-            dif.Add("Div.2", Difficulty.Normal);
+            dif.Add("Div.2", Difficulty.Easy);
             dif.Add("Div.1", Difficulty.Hard);
         }
         public IWaveSet GameContent => new Project();
@@ -37,27 +35,21 @@ namespace Rhythm_Recall.Waves
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Hard, 14f),
-                        new(Difficulty.Normal, 14f),
                         new(Difficulty.Easy, 6f),
-                        new(Difficulty.Noob, 6f),
                     }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Hard, 14.5f),
-                        new(Difficulty.Normal, 12f),
                         new(Difficulty.Easy, 7f),
-                        new(Difficulty.Noob, 5f),
                     }
                 );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Hard, 16.5f),
-                        new(Difficulty.Normal, 14f),
                         new(Difficulty.Easy, 10f),
-                        new(Difficulty.Noob, 6f),
                     }
                     );
                 public Information() { this.MusicOptimized = true; }
