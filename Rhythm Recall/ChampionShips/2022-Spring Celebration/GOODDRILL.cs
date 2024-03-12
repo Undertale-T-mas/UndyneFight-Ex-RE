@@ -5,12 +5,10 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static Extends.DrawingUtil;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using System.Reflection;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace Rhythm_Recall.Waves
 {
@@ -336,7 +334,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(30 + i * 80, 40, () => { rb1.Speed -= 0.25f; rb2.Speed -= 0.25f; }));
                         if (i < 12)
-                        AddInstance(new TimeRangedEvent(70 + i * 80, 40, () => { rb1.Speed += 0.25f; rb2.Speed += 0.25f; }));
+                            AddInstance(new TimeRangedEvent(70 + i * 80, 40, () => { rb1.Speed += 0.25f; rb2.Speed += 0.25f; }));
                     }
                 }
                 public static void A23()
@@ -438,7 +436,7 @@ namespace Rhythm_Recall.Waves
                     TP(30, 390);
                     SetSoul(2);
                     SetBox(20, 100, 320, 400);
-                    PlayerInstance.hpControl.GiveProtectTime(5,true);
+                    PlayerInstance.hpControl.GiveProtectTime(5, true);
                     CreateBone(new CustomBone(new(70, 400), Motions.PositionRoute.cameFromDown, 0, 40, 380));
                     CreateBone(new CustomBone(new(70, 80), Motions.PositionRoute.cameFromUp, 0, 500, 380));
                     CreateBone(new CustomBone(new(110, 400), Motions.PositionRoute.cameFromDown, 0, 30, 380));

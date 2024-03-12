@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic; 
-using UndyneFight_Ex.SongSystem;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using UndyneFight_Ex;
 
 namespace Rhythm_Recall.Waves
@@ -10,11 +8,12 @@ namespace Rhythm_Recall.Waves
     {
         internal partial class GridShader : UndyneFight_Ex.Shader
         {
-            public GridShader() : base(  
+            public GridShader() : base(
                 UndyneFight_Ex.Fight.Functions.Loader.Load<Effect>("Musics\\Traveler at Sunset\\Grid")
                 )
             {
-                this.StableEvents = (t) => {
+                this.StableEvents = (t) =>
+                {
                     Time += 0.011f * TimeElapsed;
                     RegisterTexture(GlobalResources.Sprites.hashtex, 1);
                     this.Parameters["iTime"].SetValue(Time);

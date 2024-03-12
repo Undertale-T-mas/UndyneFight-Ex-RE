@@ -114,7 +114,7 @@ namespace UndyneFight_Ex.Entities
                 float remarkHeightMax = 0;
                 float PosLerp(float lPos, float rPos, float lTime, float rTime, float curTime)
                 {
-                    return (rPos - lPos) * ((curTime - lTime) / (rTime - lTime)) + lPos;
+                    return ((rPos - lPos) * ((curTime - lTime) / (rTime - lTime))) + lPos;
                 }
                 public override void Draw()
                 {
@@ -186,15 +186,15 @@ namespace UndyneFight_Ex.Entities
                         yp = Clamp(-5, yp, 5);
                         yn = Clamp(-5, yn, 5);
 
-                        DrawLine(new Vector2(lastX, lastY * 10 + centreY), new Vector2(x, y1 * 10 + centreY),
+                        DrawLine(new Vector2(lastX, (lastY * 10) + centreY), new Vector2(x, (y1 * 10) + centreY),
                             1, Color.White, 0.5f);
 
                         if (Abs(yp) > 0.01f || Abs(lastYP) > 0.01f)
-                            DrawLine(new Vector2(lastX, lastYP * 10 + centreY), new Vector2(x, yp * 10 + centreY),
+                            DrawLine(new Vector2(lastX, (lastYP * 10) + centreY), new Vector2(x, (yp * 10) + centreY),
                                 1, Color.Orange, 0.55f);
 
                         if (Abs(yn) > 0.01f || Abs(lastYN) > 0.01f)
-                            DrawLine(new Vector2(lastX, lastYN * 10 + centreY), new Vector2(x, yn * 10 + centreY),
+                            DrawLine(new Vector2(lastX, (lastYN * 10) + centreY), new Vector2(x, (yn * 10) + centreY),
                                 1, Color.Violet, 0.55f);
 
                         lastY = y1; lastYP = yp; lastYN = yn;

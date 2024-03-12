@@ -7,7 +7,7 @@
         {
             Paused = true;
             CurrentScene.AlternatePause();
-        }        
+        }
         public static void RunGameResume()
         {
             Paused = false;

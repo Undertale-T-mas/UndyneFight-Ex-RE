@@ -62,11 +62,11 @@ namespace UndyneFight_Ex.Entities
 
             public void GetMark(int mark)
             {
-                if (mark <= 1) missionLostSpeed = missionLostSpeed * 0.8f + 0.2f * 0.2f;
-                if (mark == 2) missionLostSpeed = missionLostSpeed * 0.85f + 0.12f * 0.15f;
-                if (mark == 3) missionLostSpeed = missionLostSpeed * 0.965f + 0.0f * 0.035f;
+                if (mark <= 1) missionLostSpeed = (missionLostSpeed * 0.8f) + (0.2f * 0.2f);
+                if (mark == 2) missionLostSpeed = (missionLostSpeed * 0.85f) + (0.12f * 0.15f);
+                if (mark == 3) missionLostSpeed = (missionLostSpeed * 0.965f) + (0.0f * 0.035f);
                 if (mark >= 4) missionLostSpeed = missionLostSpeed < 0.05f ?
-                        (missionLostSpeed * 0.95f + 0.05f * 0.1f) :
+                        ((missionLostSpeed * 0.95f) + (0.05f * 0.1f)) :
                         missionLostSpeed;
             }
 
@@ -145,7 +145,7 @@ namespace UndyneFight_Ex.Entities
 
             public override void Update()
             {
-                if(protectTime > 0)
+                if (protectTime > 0)
                     protectTime--;
                 if (protectTime == 0) ScoreProtected = false;
                 curLost = MathHelper.Lerp(curLost, missionLostSpeed, 0.05f);
@@ -154,11 +154,11 @@ namespace UndyneFight_Ex.Entities
                 {
                     float scale = 1;
                     if (!NoHIT)
-                        scale = MathF.Min(1, hp / maxHP * 5 * 0.8f + 0.2f);
+                        scale = MathF.Min(1, (hp / maxHP * 5 * 0.8f) + 0.2f);
                     float scale2 = hp.Value / maxHP;
-                    float recovery = MathUtil.Clamp(0, 0.03f - scale2 * 0.03f, 0.01f);
+                    float recovery = MathUtil.Clamp(0, 0.03f - (scale2 * 0.03f), 0.01f);
                     float dif = BuffedLevel + (Buffed ? BuffDifficulty : 0);
-                    hp.Value -= maxHP * (missionLostSpeed - recovery * 6.5f / dif) * 0.0014f * dif * scale;
+                    hp.Value -= maxHP * (missionLostSpeed - (recovery * 6.5f / dif)) * 0.0014f * dif * scale;
                 }
                 if (kr && krHP > 0)
                     DoHPLose();

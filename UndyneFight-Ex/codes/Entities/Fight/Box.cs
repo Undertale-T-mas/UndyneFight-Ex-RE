@@ -16,15 +16,15 @@ namespace UndyneFight_Ex.Entities
         {
             get
             {
-                if (_id == -1) this._id = Previous == null ? 0 : Previous.ID + 1;
-                return this._id;
+                if (_id == -1) _id = Previous == null ? 0 : Previous.ID + 1;
+                return _id;
             }
         }
         private int _id = -1;
 
         public BoxVertex(Vector2 pos)
         {
-            this.CurrentPosition = this.MissionPosition = pos; 
+            CurrentPosition = MissionPosition = pos;
         }
         public BoxVertex() { }
 
@@ -33,20 +33,20 @@ namespace UndyneFight_Ex.Entities
 
         public void Move(float scale)
         {
-            this.CurrentPosition = CurrentPosition * (1 - scale) + MissionPosition * scale;
+            CurrentPosition = (CurrentPosition * (1 - scale)) + (MissionPosition * scale);
         }
         public void InstantMove(Vector2 position)
         {
-            this.CurrentPosition = this.MissionPosition = position;
+            CurrentPosition = MissionPosition = position;
         }
         private LinkedList<BoxVertex> GetAll(LinkedList<BoxVertex> prev)
         {
-            if(prev.First.Value == this) return prev;
+            if (prev.First.Value == this) return prev;
             prev.AddLast(this);
             GetAll(prev);
             return prev;
         }
-        public BoxVertex[] GetAll() => this.GetAll(new()).ToArray();
+        public BoxVertex[] GetAll() => GetAll(new()).ToArray();
     }
 
     public abstract class FightBox : Entity
@@ -58,7 +58,7 @@ namespace UndyneFight_Ex.Entities
         public abstract void InstanceMove(object v);
 
         protected readonly Player.Heart detect;
-        public Player.Heart Detect => detect; 
+        public Player.Heart Detect => detect;
 
         public float GreenSoulAlpha { get; set; } = 0.5f;
         public float InstantSetAlpha(float alpha) => GreenSoulAlpha = curAlpha = alpha;
@@ -71,7 +71,7 @@ namespace UndyneFight_Ex.Entities
         {
             _doDraw = false;
             curAlpha = detect != null && detect.SoulType == 1
-                ? curAlpha * 0.9f + GreenSoulAlpha * 0.1f : curAlpha * 0.9f + 1 * 0.1f;
+                ? (curAlpha * 0.9f) + (GreenSoulAlpha * 0.1f) : (curAlpha * 0.9f) + (1 * 0.1f);
             if (Vertexs == null) return;
             float scale = MovingScale * 0.6f;
             for (int i = 0; i < Vertexs.Length; i++)
@@ -101,7 +101,7 @@ namespace UndyneFight_Ex.Entities
                 else DrawingLab.DrawLine(positions[i], positions[i + 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
             }
             if (AlphaBlend)
-            DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, Color.Lerp(GameMain.CurrentDrawingSettings.backGroundColor, GameMain.CurrentDrawingSettings.themeColor, curAlpha), 0.4f);
+                DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, Color.Lerp(GameMain.CurrentDrawingSettings.backGroundColor, GameMain.CurrentDrawingSettings.themeColor, curAlpha), 0.4f);
             else DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
         }
 
@@ -111,8 +111,9 @@ namespace UndyneFight_Ex.Entities
             boxs.Add(this);
             instance = this;
         }
-        public FightBox(Player.Heart p) : this() {
-            detect = p; 
+        public FightBox(Player.Heart p) : this()
+        {
+            detect = p;
         }
 
         public float MovingScale { get; set; } = 0.15f;
@@ -121,13 +122,13 @@ namespace UndyneFight_Ex.Entities
     public class VertexBox : FightBox
     {
         public VertexBox(Player.Heart heart, RectangleBox rectangleBox) : base(heart)
-        { 
-            this.Vertexs = new BoxVertex[4];
+        {
+            Vertexs = new BoxVertex[4];
 
-            this.Vertexs[0] = new(rectangleBox.CollidingBox.TopRight);
-            this.Vertexs[1] = new(rectangleBox.CollidingBox.BottomRight);
-            this.Vertexs[2] = new(rectangleBox.CollidingBox.BottomLeft);
-            this.Vertexs[3] = new(rectangleBox.CollidingBox.TopLeft); 
+            Vertexs[0] = new(rectangleBox.CollidingBox.TopRight);
+            Vertexs[1] = new(rectangleBox.CollidingBox.BottomRight);
+            Vertexs[2] = new(rectangleBox.CollidingBox.BottomLeft);
+            Vertexs[3] = new(rectangleBox.CollidingBox.TopLeft);
         }
 
         public override void Draw()
@@ -140,11 +141,11 @@ namespace UndyneFight_Ex.Entities
             if (v is not Vector2[]) throw new ArgumentException($"{nameof(v)} has to be an vector array");
 
             Vector2[] temp = v as Vector2[];
-            if(temp.Length != Vertexs.Length) 
+            if (temp.Length != Vertexs.Length)
                 throw new ArgumentOutOfRangeException($"{nameof(v)} must be in same length with vertex count");
 
             for (int i = 0; i < temp.Length; i++)
-                this.Vertexs[i].InstantMove(temp[i]);
+                Vertexs[i].InstantMove(temp[i]);
         }
 
         public override void MoveTo(object v)
@@ -156,17 +157,18 @@ namespace UndyneFight_Ex.Entities
                 throw new ArgumentOutOfRangeException($"{nameof(v)} must be in same length with vertex count");
 
             for (int i = 0; i < temp.Length; i++)
-                this.Vertexs[i].MissionPosition = temp[i];
+                Vertexs[i].MissionPosition = temp[i];
         }
 
         public int Split(int originID, float scale)
         {
             if (scale < 0 || scale > 1) throw new ArgumentOutOfRangeException($"{nameof(scale)} has to be in [0, 1]");
-            if (originID != this.Vertexs.Length - 1) {
-                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
+            if (originID != Vertexs.Length - 1)
+            {
+                BoxVertex a = Vertexs[originID], b = Vertexs[originID + 1];
                 Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
 
-                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1]; 
+                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1];
 
                 temp = new BoxVertex[Vertexs.Length + 1];
                 Array.Copy(Vertexs, 0, temp, 0, originID + 1);
@@ -177,16 +179,16 @@ namespace UndyneFight_Ex.Entities
             }
             else
             {
-                BoxVertex a = this.Vertexs[originID], b = this.Vertexs[0];
+                BoxVertex a = Vertexs[originID], b = Vertexs[0];
                 Vector2 pos = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scale);
 
-                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1];  
-                
+                BoxVertex[] temp = new BoxVertex[Vertexs.Length + 1];
+
                 temp = new BoxVertex[Vertexs.Length + 1];
                 Array.Copy(Vertexs, temp, Vertexs.Length);
                 temp[originID + 1] = new(pos);
 
-                Vertexs = temp; 
+                Vertexs = temp;
             }
 
             return originID + 1;
@@ -195,9 +197,9 @@ namespace UndyneFight_Ex.Entities
         {
             if (scales == null || scales.Length <= 0) throw new ArgumentOutOfRangeException($"{nameof(scales)} should include elements");
 
-            BoxVertex a = this.Vertexs[originID], b = this.Vertexs[originID + 1];
-            Vector2[] pos = new Vector2[scales.Length]; 
-            
+            BoxVertex a = Vertexs[originID], b = Vertexs[originID + 1];
+            Vector2[] pos = new Vector2[scales.Length];
+
             int i = 0;
             for (i = 0; i < pos.Length; i++)
                 pos[i] = Vector2.Lerp(a.CurrentPosition, b.CurrentPosition, scales[i]);
@@ -216,22 +218,22 @@ namespace UndyneFight_Ex.Entities
 
         public void SetPosition(int originID, Vector2 position)
         {
-            this.Vertexs[originID].MissionPosition = position;
+            Vertexs[originID].MissionPosition = position;
         }
 
         public override void Update()
         {
             base.Update();
-            float x1 = Vertexs[0].CurrentPosition.X, x2 = Vertexs[0].CurrentPosition.X, 
+            float x1 = Vertexs[0].CurrentPosition.X, x2 = Vertexs[0].CurrentPosition.X,
                   y1 = Vertexs[0].CurrentPosition.Y, y2 = Vertexs[0].CurrentPosition.Y;
-            for(int i =  1; i < Vertexs.Length; i++)
+            for (int i = 1; i < Vertexs.Length; i++)
             {
                 x1 = MathF.Min(x1, Vertexs[i].CurrentPosition.X);
                 x2 = MathF.Max(x2, Vertexs[i].CurrentPosition.X);
                 y1 = MathF.Min(y1, Vertexs[i].CurrentPosition.Y);
                 y2 = MathF.Max(y2, Vertexs[i].CurrentPosition.Y);
             }
-            this.collidingBox = new(x1, y1, x2 - x1, y2 - y1);
+            collidingBox = new(x1, y1, x2 - x1, y2 - y1);
         }
     }
     public class RectangleBox : FightBox
@@ -248,14 +250,14 @@ namespace UndyneFight_Ex.Entities
 
         public RectangleBox(CollideRect Area)
         {
-            this.Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) this.Vertexs[i] = new();
-            this.InstanceMove(Area);
+            Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) Vertexs[i] = new();
+            InstanceMove(Area);
             collidingBox = Area;
         }
 
         public RectangleBox(Player.Heart p) : base(p)
         {
-            this.Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) this.Vertexs[i] = new();
+            Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) Vertexs[i] = new();
             collidingBox = new CollideRect(0, 0, 640, 480);
             gravityLines[0] = right;
             gravityLines[1] = down;
@@ -264,9 +266,9 @@ namespace UndyneFight_Ex.Entities
         }
         public RectangleBox(Player.Heart p, CollideRect area) : base(p)
         {
-            this.Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) this.Vertexs[i] = new();
+            Vertexs = new BoxVertex[4]; for (int i = 0; i < 4; i++) Vertexs[i] = new();
             collidingBox = area;
-            this.InstanceMove(area);
+            InstanceMove(area);
             gravityLines[0] = right;
             gravityLines[1] = down;
             gravityLines[2] = left;
@@ -283,7 +285,7 @@ namespace UndyneFight_Ex.Entities
             real.Width += 2; real.Height += 2;
             DrawingLab.DrawRectangle(real, GameMain.themeColor, 4.2f, 0.4f);
             */
-        } 
+        }
 
         public override void Update()
         {
@@ -324,7 +326,7 @@ namespace UndyneFight_Ex.Entities
         public override void MoveTo(object cl)
         {
             Vector2[] temp = ((CollideRect)cl).GetVertexs();
-            for(int i = 0; i < temp.Length; i++)
+            for (int i = 0; i < temp.Length; i++)
                 Vertexs[i].MissionPosition = temp[i];
         }
         public override void InstanceMove(object cl)
@@ -332,7 +334,7 @@ namespace UndyneFight_Ex.Entities
             Vector2[] temp = ((CollideRect)cl).GetVertexs();
             for (int i = 0; i < temp.Length; i++)
                 Vertexs[i].InstantMove(temp[i]);
-            this.collidingBox = (CollideRect)cl;
+            collidingBox = (CollideRect)cl;
         }
 
         public float Left => collidingBox.X;

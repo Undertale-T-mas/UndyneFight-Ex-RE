@@ -11,7 +11,7 @@ namespace UndyneFight_Ex.ChampionShips
         {
             if (accuracy > 1) return 1;
             float del = 1 - accuracy;
-            float lim = MathF.Pow(del * 3, 0.7f) / 2.4f + del * 2.0f;
+            float lim = (MathF.Pow(del * 3, 0.7f) / 2.4f) + (del * 2.0f);
             return MathF.Max(0, 1 - lim);
         }
         public static void GetScore(ChampionShip championShip)

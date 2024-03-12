@@ -82,7 +82,7 @@ namespace UndyneFight_Ex.Entities
                 alpha += 0.06f * (1 / movingScale);
 
             if (appearTime < waitingTime)
-                Centre = Centre * movingScale + missionPlace * (1 - movingScale);
+                Centre = (Centre * movingScale) + (missionPlace * (1 - movingScale));
 
             Rotation += GetDelta() * (0.98f - movingScale) * (rotateWay ? 1 : -1);
         }
@@ -94,15 +94,15 @@ namespace UndyneFight_Ex.Entities
             Image = Sprites.GBShooting[BoolToInt(appearTime % 6 <= 3)];
             if (laserIncreasing)
             {
-                beamAlpha = beamAlpha * 0.8f + 0.2f;
-                laserSize.Y = laserSize.Y * 0.8f + 0.21f;
+                beamAlpha = (beamAlpha * 0.8f) + 0.2f;
+                laserSize.Y = (laserSize.Y * 0.8f) + 0.21f;
                 if (laserSize.Y >= 0.88f)
                     laserIncreasing = false;
             }
             else
             {
-                beamAlpha = beamAlpha * 0.8f + 0.2f;
-                laserSize.Y = 0.9f + Sin(laserAffectTime * 15) * 0.18f;
+                beamAlpha = (beamAlpha * 0.8f) + 0.2f;
+                laserSize.Y = 0.9f + (Sin(laserAffectTime * 15) * 0.18f);
                 laserAffectTime++;
             }
         }
@@ -205,7 +205,7 @@ namespace UndyneFight_Ex.Entities
                 2 => Color.Yellow,
                 _ => throw new ArgumentException(),
             };
-            basicRotation = Rotation = (way * 90 + 180) % 360;
+            basicRotation = Rotation = ((way * 90) + 180) % 360;
             switch (way)
             {
                 case 0:
@@ -263,15 +263,15 @@ namespace UndyneFight_Ex.Entities
                         //check collision
                         CalcPush(dir);
                         PushDown();
-                        if(Follow && (missionPlayer.Centre - _lastPlayerPos).LengthSquared() > 0.10f)
+                        if (Follow && (missionPlayer.Centre - _lastPlayerPos).LengthSquared() > 0.10f)
                         {
-                            this.ArrangePos();
+                            ArrangePos();
                         }
                         GetCollide();
                     }
-                    Rotation = missionRotation * 0.12f + Rotation * 0.88f;
+                    Rotation = (missionRotation * 0.12f) + (Rotation * 0.88f);
                     if (appearTime <= waitingTime + 10 + timeDelta)
-                        Centre = Centre * movingScale + missionPlace * (1 - movingScale);
+                        Centre = (Centre * movingScale) + (missionPlace * (1 - movingScale));
                 }
             }
             else
@@ -281,10 +281,10 @@ namespace UndyneFight_Ex.Entities
                 {
                     if (appearTime < waitingTime)
                     {
-                        Centre = Centre * movingScale + missionPlace * (1 - movingScale);
+                        Centre = (Centre * movingScale) + (missionPlace * (1 - movingScale));
                     }
 
-                    Rotation = missionRotation * 0.12f + Rotation * 0.88f;
+                    Rotation = (missionRotation * 0.12f) + (Rotation * 0.88f);
                     if (alpha < 1)
                         alpha += 0.1f;
                 }
@@ -317,11 +317,11 @@ namespace UndyneFight_Ex.Entities
 
         private void ArrangePos()
         {
-            float rotation = this.missionRotation;
+            float rotation = missionRotation;
             float dirVertical = rotation + 90;
             Vector2 unitU = GetVector2(1, rotation);
-            float distance = Vector2.Dot(unitU, this.Centre - Heart.Centre);
-            this.Centre = Heart.Centre + unitU * distance;
+            float distance = Vector2.Dot(unitU, Centre - Heart.Centre);
+            Centre = Heart.Centre + (unitU * distance);
         }
 
         private void CalcPush(int dir)
@@ -427,7 +427,7 @@ namespace UndyneFight_Ex.Entities
         /// <param name="rotation">射击方向</param>
         public NormalGB(Vector2 missionPlace, Vector2 spawnPlace, Vector2 size, float rotation, float waitingTime, float duration)
         {
-            movingScale = waitingTime < 30 ? 0.5f + waitingTime / 90f : 0.93334f - 3f / waitingTime;
+            movingScale = waitingTime < 30 ? 0.5f + (waitingTime / 90f) : 0.93334f - (3f / waitingTime);
 
             if (!spawnSoundPlayed)
             {
@@ -483,10 +483,10 @@ namespace UndyneFight_Ex.Entities
                     float k = (float)Math.Tan(GetRadian(Rotation));
                     A = k;
                     B = -1;
-                    C = -A * Centre.X - B * Centre.Y;
-                    dist = (float)((A * heart.Centre.X + B * heart.Centre.Y + C) / Math.Sqrt(A * A + B * B));
+                    C = (-A * Centre.X) - (B * Centre.Y);
+                    dist = (float)(((A * heart.Centre.X) + (B * heart.Centre.Y) + C) / Math.Sqrt((A * A) + (B * B)));
                 }
-                float res = Math.Abs(dist) - (32 * laserSize.Y * size.Y - 2);
+                float res = Math.Abs(dist) - ((32 * laserSize.Y * size.Y) - 2);
 
                 if (res < 0)
                 {

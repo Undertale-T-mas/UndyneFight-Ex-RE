@@ -8,7 +8,8 @@ namespace UndyneFight_Ex
         public static partial class Effects
         {
             public class WaveShader : Shader
-            { Effect _eff;
+            {
+                Effect _eff;
                 public WaveShader(Effect eff) : base(eff)
                 {
                     _eff = eff;
@@ -26,13 +27,12 @@ namespace UndyneFight_Ex
                         x.Parameters["iFrequency2"].SetValue(Frequency2 * MathF.PI * 960f);
                         x.Parameters["iFrequency3"].SetValue(Frequency3 * MathF.PI * 960f);
 
-                        if (MathF.Abs(Intensity3) < 0.1f) this._eff.CurrentTechnique = _eff.Techniques[0];
-                        else this._eff.CurrentTechnique = _eff.Techniques[1];
+                        _eff.CurrentTechnique = MathF.Abs(Intensity3) < 0.1f ? _eff.Techniques[0] : _eff.Techniques[1];
                     };
                 }
 
-                public float Time { private get; set; } = 0.0f; 
-                public float Speed { private get; set; } = 1.0f; 
+                public float Time { private get; set; } = 0.0f;
+                public float Speed { private get; set; } = 1.0f;
                 public float Intensity1, Intensity2, Intensity3;
                 public float Frequency1, Frequency2, Frequency3;
             }

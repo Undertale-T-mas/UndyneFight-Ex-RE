@@ -27,7 +27,7 @@ namespace UndyneFight_Ex.Entities
                 this.color = color;
                 this.rotatingType = rotatingType;
                 appearTime = 0;
-                Depth = 0.5f - color / 200f;
+                Depth = 0.5f - (color / 200f);
             }
 
             private Vector2 speed;
@@ -55,7 +55,7 @@ namespace UndyneFight_Ex.Entities
                 for (int i = 0; i < 6; i++)
                 {
                     Texture2D image = FightResources.Sprites.arrowShards[color, rotatingType, i];
-                    Vector2 pos = Centre + Rotate(shardPosition[i] - ImageCentre + image.Bounds.Size.ToVector2() / 2, Rotation) * Scale;
+                    Vector2 pos = Centre + (Rotate(shardPosition[i] - ImageCentre + (image.Bounds.Size.ToVector2() / 2), Rotation) * Scale);
                     if (shardPosition[i].Y > ImageCentre.Y / 2)
                     {
                         GameStates.InstanceCreate(new ArrowPiece(

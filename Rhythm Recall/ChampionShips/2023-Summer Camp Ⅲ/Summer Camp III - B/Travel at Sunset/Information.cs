@@ -44,24 +44,24 @@ namespace Rhythm_Recall.Waves
                 public override string PaintAuthor => "Unknown";
                 public override string Extra => "Murder Time Trio (x\ntMas Tlott Tk";
 
-                      public override bool Hidden => Accessibility() == 0;
-                      public override HashSet<Difficulty> UnlockedDifficulties
-                      {
-                          get
-                          {
-                                HashSet<Difficulty> result = new();
-                                int t = Accessibility();
+                public override bool Hidden => Accessibility() == 0;
+                public override HashSet<Difficulty> UnlockedDifficulties
+                {
+                    get
+                    {
+                        HashSet<Difficulty> result = new();
+                        int t = Accessibility();
 #if DEBUG
-                                t = 2;
+                        t = 2;
 #endif
-                                if (t >= 1) result.Add(Difficulty.Normal);
-                                if (t >= 2) result.Add(Difficulty.ExtremePlus);
+                        if (t >= 1) result.Add(Difficulty.Normal);
+                        if (t >= 2) result.Add(Difficulty.ExtremePlus);
 #if DEBUG
                         result.Add(Difficulty.Noob);
 #endif
                         return result;
-                          }
-                      }
+                    }
+                }
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]

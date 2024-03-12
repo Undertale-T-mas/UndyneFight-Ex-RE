@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
@@ -414,7 +413,7 @@ namespace Rhythm_Recall.Waves
                 {
                     float time = BeatTime(12.5f);
                     int[] rhythm = {
- 
+
                     };
                     Fortimes(rhythm.Length, (x) =>
                     {
@@ -1470,7 +1469,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.8f + screenMission * 0.2f;
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.85f + scaleMission * 0.15f;
                 }
-                if (InBeat(1424-12))
+                if (InBeat(1424 - 12))
                 {
                     CreateChart(BeatTime(4), BeatTime(4), 6.5f, new string[]
                  {
@@ -1644,52 +1643,52 @@ namespace Rhythm_Recall.Waves
                 }
 
                 if (InBeat(1938 - 4))
-                    {
-                        SetBox(300, 240, 175);
-                        SetSoul(2);
-                        Heart.GiveForce(0, 11);
-                        CreateEntity(new Boneslab(0, 32, (int)BeatTime(6), (int)BeatTime(124)));
-                    }
-                    if (InBeat(1938 - 2))
-                    {
-                        CreatePlatform(new Platform(1, new(320, 342), Motions.PositionRoute.YAxisSin, Motions.LengthRoute.autoFold, Motions.RotationRoute.sin)
-                        {
-                            PositionRouteParam = new float[] { 0, 75, BeatTime(32), 0 },
-                            RotationRouteParam = new float[] { 32, BeatTime(16), 0, 0 },
-                            LengthRouteParam = new float[] { 52, BeatTime(124) }
-                        });
-                    }
-                    if (InBeat(1938, 1938 + 128 - 24) && At0thBeat(8))
-                    {
-                        PlaySound(Sounds.pierce);
-                        CreateEntity(new DownBone(false, 2.6f, 64));
-                    }
-                    if (InBeat(1938, 1938 + 128 - 24) && AtKthBeat(8, BeatTime(4)))
-                    {
-                        PlaySound(Sounds.pierce);
-                        CreateEntity(new UpBone(true, 4, 64));
-                    }
-                }
-            
-
-                public void Start()
                 {
-                    ScreenDrawing.UIColor = Color.Snow;
-
-                    HeartAttribute.Speed = 2.86f;
-                    SetSoul(0);
-                    SetBox(300, 200, 160);
-                    GametimeDelta = -70;
-                    bool jump = false;
-                    if (jump)
-                    {
-                        GametimeDelta = this.BeatTime(500) - 61f;
-                        PlayOffset = this.BeatTime(500);
-                    }
-
-
-                    HeartAttribute.MaxHP = 6;
+                    SetBox(300, 240, 175);
+                    SetSoul(2);
+                    Heart.GiveForce(0, 11);
+                    CreateEntity(new Boneslab(0, 32, (int)BeatTime(6), (int)BeatTime(124)));
                 }
+                if (InBeat(1938 - 2))
+                {
+                    CreatePlatform(new Platform(1, new(320, 342), Motions.PositionRoute.YAxisSin, Motions.LengthRoute.autoFold, Motions.RotationRoute.sin)
+                    {
+                        PositionRouteParam = new float[] { 0, 75, BeatTime(32), 0 },
+                        RotationRouteParam = new float[] { 32, BeatTime(16), 0, 0 },
+                        LengthRouteParam = new float[] { 52, BeatTime(124) }
+                    });
+                }
+                if (InBeat(1938, 1938 + 128 - 24) && At0thBeat(8))
+                {
+                    PlaySound(Sounds.pierce);
+                    CreateEntity(new DownBone(false, 2.6f, 64));
+                }
+                if (InBeat(1938, 1938 + 128 - 24) && AtKthBeat(8, BeatTime(4)))
+                {
+                    PlaySound(Sounds.pierce);
+                    CreateEntity(new UpBone(true, 4, 64));
+                }
+            }
+
+
+            public void Start()
+            {
+                ScreenDrawing.UIColor = Color.Snow;
+
+                HeartAttribute.Speed = 2.86f;
+                SetSoul(0);
+                SetBox(300, 200, 160);
+                GametimeDelta = -70;
+                bool jump = false;
+                if (jump)
+                {
+                    GametimeDelta = this.BeatTime(500) - 61f;
+                    PlayOffset = this.BeatTime(500);
+                }
+
+
+                HeartAttribute.MaxHP = 6;
             }
         }
     }
+}

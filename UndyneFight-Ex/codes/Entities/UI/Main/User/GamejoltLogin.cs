@@ -11,7 +11,7 @@ namespace UndyneFight_Ex.Entities
     {
         private partial class GamejoltManager : TextSelection
         {
-            public GamejoltManager() : base("Gamejolt", new(320, instance.SelectionCount * 50 + 110))
+            public GamejoltManager() : base("Gamejolt", new(320, (instance.SelectionCount * 50) + 110))
             {
             }
             public override void SelectionEvent()

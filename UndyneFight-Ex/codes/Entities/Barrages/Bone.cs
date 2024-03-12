@@ -62,7 +62,7 @@ namespace UndyneFight_Ex.Entities
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.X += speed * 0.5f * (movingWay ? -1 : 1);
             RectangleBox controlingBox = this.controlingBox as RectangleBox;
-            collidingBox.Y = controlingBox.Down - Length / 2 - 3;
+            collidingBox.Y = controlingBox.Down - (Length / 2) - 3;
             base.Update();
         }
     }
@@ -114,7 +114,7 @@ namespace UndyneFight_Ex.Entities
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.X += speed * 0.5f * (movingWay ? -1 : 1);
             RectangleBox controlingBox = this.controlingBox as RectangleBox;
-            collidingBox.Y = controlingBox.Up + Length / 2 + 3;
+            collidingBox.Y = controlingBox.Up + (Length / 2) + 3;
             base.Update();
         }
     }
@@ -168,7 +168,7 @@ namespace UndyneFight_Ex.Entities
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.Y += speed * 0.5f * (movingWay ? -1 : 1);
             RectangleBox controlingBox = this.controlingBox as RectangleBox;
-            collidingBox.X = controlingBox.Left + Length / 2 + 3;
+            collidingBox.X = controlingBox.Left + (Length / 2) + 3;
             base.Update();
         }
     }
@@ -222,7 +222,7 @@ namespace UndyneFight_Ex.Entities
             Length = Lerp(Length, missionLength, LengthLerpScale);
             collidingBox.Y += speed * 0.5f * (movingWay ? -1 : 1);
             RectangleBox controlingBox = this.controlingBox as RectangleBox;
-            collidingBox.X = controlingBox.Right - Length / 2 - 3;
+            collidingBox.X = controlingBox.Right - (Length / 2) - 3;
             base.Update();
         }
     }
@@ -255,7 +255,7 @@ namespace UndyneFight_Ex.Entities
         {
             Centre = controlingBox.Centre;
             appearTime += 0.5f;
-            Length = appearTime >= duration ? Length * 0.96f - 0.25f : Length * 0.96f + missionLength * 0.04f;
+            Length = appearTime >= duration ? (Length * 0.96f) - 0.25f : (Length * 0.96f) + (missionLength * 0.04f);
             Rotation += rotateSpeed * 0.5f;
             base.Update();
             if (Length <= 1f)
@@ -296,14 +296,14 @@ namespace UndyneFight_Ex.Entities
         public override void Update()
         {
             if (appearTime <= duration)
-                length1 = length1 * 0.93f + missionLength * 0.07f;
+                length1 = (length1 * 0.93f) + (missionLength * 0.07f);
             appearTime += 0.5f;
             float r = controlingBox.CollidingBox.Width / 2,
                   alpha = (Rotation + 270) % 90, cosV;
             cosV = (float)Math.Cos(GetRadian(alpha <= 45f ? alpha : 90 - alpha));
 
-            float dist1 = r - length1 / 2,
-                  dist2 = r / cosV - 3;
+            float dist1 = r - (length1 / 2),
+                  dist2 = (r / cosV) - 3;
 
             if (appearTime > duration)
                 dist1 += (float)Math.Pow(appearTime - duration, 2) / 3f;
@@ -344,7 +344,7 @@ namespace UndyneFight_Ex.Entities
                 Length *= 0.82f;
                 if (Length < 0) Dispose();
             }
-            else Length = Length * 0.86f + missionLength * 0.14f;
+            else Length = (Length * 0.86f) + (missionLength * 0.14f);
 
             float trueVal = (appearTime + startTime) / roundTime * 360 % 360;
             float X = Cos(trueVal) * (controlingBox.CollidingBox.Width - 2) / 2;

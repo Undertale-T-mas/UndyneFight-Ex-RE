@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
-using UndyneFight_Ex.Fight;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
@@ -1287,7 +1287,7 @@ namespace Rhythm_Recall.Waves
                     easeA.TagApply("A"); easeB.TagApply("B");
                     AddInstance(easeA); AddInstance(easeB);
 
-                    CreateChart(BeatTime(4), BeatTime(2),6.5f, new string[]
+                    CreateChart(BeatTime(4), BeatTime(2), 6.5f, new string[]
                     {
                         //pre
                         "", "", "", "",    "", "", "", "",
@@ -3724,7 +3724,6 @@ namespace Rhythm_Recall.Waves
                     string s1 = "($10)($31)";
                     string s11 = "($11@A)($30@A)";
                     string s2 = "($11)($30)";
-                    string s21 = "($11@A)($30@A)";
                     CreateChart(BeatTime(2), BeatTime(2), 7.4f, new string[]
                     {
                         // pre 

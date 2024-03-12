@@ -29,10 +29,10 @@ namespace UndyneFight_Ex.Entities
 
             float downCollideX = 0, upCollideX = 0, rightCollideY = 0, leftCollideY = 0;
 
-            if (isDownEnabled) downCollideX = missionCentre.X + (rect.Down - missionCentre.Y) / Tan(rotation);
-            if (isUpEnabled) upCollideX = missionCentre.X + (rect.Up - missionCentre.Y) / Tan(rotation);
-            if (isRightEnabled) rightCollideY = missionCentre.Y + (rect.Right - missionCentre.X) * Tan(rotation);
-            if (isLeftEnabled) leftCollideY = missionCentre.Y + (rect.Left - missionCentre.X) * Tan(rotation);
+            if (isDownEnabled) downCollideX = missionCentre.X + ((rect.Down - missionCentre.Y) / Tan(rotation));
+            if (isUpEnabled) upCollideX = missionCentre.X + ((rect.Up - missionCentre.Y) / Tan(rotation));
+            if (isRightEnabled) rightCollideY = missionCentre.Y + ((rect.Right - missionCentre.X) * Tan(rotation));
+            if (isLeftEnabled) leftCollideY = missionCentre.Y + ((rect.Left - missionCentre.X) * Tan(rotation));
 
             if (isDownEnabled && downCollideX >= rect.Left && downCollideX <= rect.Right)
                 distance = (new Vector2(downCollideX, rect.Down) - missionCentre).Length();
@@ -151,7 +151,7 @@ namespace UndyneFight_Ex.Entities
             {
                 k = F(appearTime / delayTime);
                 currentDistance = (1 - k) * distance;
-                alpha = k * 0.7f + 0.1f;
+                alpha = (k * 0.7f) + 0.1f;
             }
             if (appearTime == (int)delayTime)
             {
@@ -169,7 +169,7 @@ namespace UndyneFight_Ex.Entities
 
         private float F(float x)
         {
-            return -2 / (x - 2) - 1;
+            return (-2 / (x - 2)) - 1;
         }
     }
 }

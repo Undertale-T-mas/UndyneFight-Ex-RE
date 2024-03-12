@@ -81,8 +81,8 @@ namespace UndyneFight_Ex.Entities
                             float scale = Math.Min(Pow(rotateStartTime, 1.5f) / 2.1f * 0.04f, 0.18f);
                             if (detla <= 35f)
                             {
-                                scale *= 0.8f * Pow((detla + 37) / 77f, 1.5f) + 0.2f * 1;
-                                scale = Math.Min(1, scale * (1 + 15f / (detla * detla + 12)));
+                                scale *= (0.8f * Pow((detla + 37) / 77f, 1.5f)) + (0.2f * 1);
+                                scale = Math.Min(1, scale * (1 + (15f / ((detla * detla) + 12))));
                             }
                             if (rotateWay)
                             {
@@ -163,7 +163,7 @@ namespace UndyneFight_Ex.Entities
                 {
                     UpdateIn120 = true;
                     this.user = user;
-                    Depth = 0.43f - type * 0.005f;
+                    Depth = 0.43f - (type * 0.005f);
                     Image = FightResources.Sprites.shield;
                     Rotation = 0;
 
@@ -193,12 +193,12 @@ namespace UndyneFight_Ex.Entities
                     }
 
 #if DEBUG
-                    for(int i = 0; i < 4; i++) 
+                    for (int i = 0; i < 4; i++)
                         if (GameStates.IsKeyDown(UpdateKeys[i]))
                         {
                             Vector2 position = user.Centre + MathUtil.GetVector2(50, i * 90f);
-                            Vector2 delta = MathUtil.GetVector2(30, i * 90 + 90);
-                            DrawingLab.DrawLine(position + delta, position - delta, 3f, this.drawingColor * 0.4f, 0.4f);
+                            Vector2 delta = MathUtil.GetVector2(30, (i * 90) + 90);
+                            DrawingLab.DrawLine(position + delta, position - delta, 3f, drawingColor * 0.4f, 0.4f);
                         }
 #endif
 
@@ -222,8 +222,8 @@ namespace UndyneFight_Ex.Entities
                         float scale = Math.Min(Pow(rotateStartTime, 1.5f) / 2.1f * 0.04f, 0.18f);
                         if (detla <= 35f)
                         {
-                            scale *= 0.8f * Pow((detla + 37) / 77f, 1.5f) + 0.2f * 1;
-                            scale = Math.Min(1, scale * (1 + 15f / (detla * detla + 12)));
+                            scale *= (0.8f * Pow((detla + 37) / 77f, 1.5f)) + (0.2f * 1);
+                            scale = Math.Min(1, scale * (1 + (15f / ((detla * detla) + 12))));
                         }
                         if (rotateWay)
                         {
@@ -263,7 +263,7 @@ namespace UndyneFight_Ex.Entities
                     missionRotation = missionWay * 90;
                     rotateWay = (missionRotation - Rotation + 360) % 360 < (360 - missionRotation + Rotation) % 360;
 
-                    rotateStartTime = rotateStartTime >= 9f ? 0 : (int)(rotateStartTime / 3f + 1);
+                    rotateStartTime = rotateStartTime >= 9f ? 0 : (int)((rotateStartTime / 3f) + 1);
 
                     rotateStarted = true;
                 }
@@ -293,9 +293,9 @@ namespace UndyneFight_Ex.Entities
                     if (way == direction)
                         effect = new ShieldShinyEffect(this, cl);
                     else
-                    { 
-                        foreach (GameObject obj in this.ChildObjects)
-                        { 
+                    {
+                        foreach (GameObject obj in ChildObjects)
+                        {
                             if (obj is ShieldShadow)
                             {
                                 ShieldShadow shadow = obj as ShieldShadow; ;
@@ -325,7 +325,7 @@ namespace UndyneFight_Ex.Entities
                         };
                         for (int i = 0; i < times; i++)
                         {
-                            float rotation1 = missionRotation + 90 + Rand(0, 1) * 180;
+                            float rotation1 = missionRotation + 90 + (Rand(0, 1) * 180);
                             float rdelta = Rand(0, 1f) * Rand(0, 1f) * Rand(0, 1f) * RandSignal();
                             rotation1 += rdelta * 90;
                             GameStates.InstanceCreate(new Particle((type switch
@@ -474,8 +474,8 @@ namespace UndyneFight_Ex.Entities
                 public override void Update()
                 {
                     Heart mission = FatherObject as Heart;
-                    this.Circle.controlLayer = this.controlLayer;
-                    foreach (var v in shields) v.Value.controlLayer = this.controlLayer;
+                    Circle.controlLayer = controlLayer;
+                    foreach (var v in shields) v.Value.controlLayer = controlLayer;
                     if (mission.enabledRedShield && mission.SoulType != 1)
                     {
                         shields[1].enabled = true; shields[0].enabled = false;
@@ -535,7 +535,7 @@ namespace UndyneFight_Ex.Entities
                     Vector2 createCentre = mission.Centre + MathUtil.GetVector2(33, ang - 180 + Functions.Heart.Rotation);
                     for (int i = 0; i < Rand(5, 20); i++)
                     {
-                        float rotation1 = ang + 90 + Rand(0, 1) * 180;
+                        float rotation1 = ang + 90 + (Rand(0, 1) * 180);
                         float rdelta = Rand(0, 1f) * Rand(0, 1f) * Rand(0, 1f) * RandSignal();
                         rotation1 += rdelta * 90;
                         GameStates.InstanceCreate(new Particle(col * Rand(0.67f, 0.85f), MathUtil.GetVector2(Rand(5f, 9f), rotation1), Rand(4, 8), createCentre, FightResources.Sprites.square)
@@ -626,7 +626,7 @@ namespace UndyneFight_Ex.Entities
                     enabled = (FatherObject.FatherObject as Heart).SoulType == 1;
                     Centre = (FatherObject.FatherObject as Heart).Centre;
                     curColor = Color.Lerp(curColor, DrawingColor, 0.1f);
-                    drawConsumption = drawConsumption * 0.9f + Consumption * 0.1f;
+                    drawConsumption = (drawConsumption * 0.9f) + (Consumption * 0.1f);
                 }
 
                 private int type = 4;

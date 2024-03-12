@@ -83,12 +83,12 @@ namespace UndyneFight_Ex.Entities
                 if (xCalc)
                 {
                     float dist = centre.X + 640;
-                    result = new(-640, centre.Y - Tan(rotation) * dist);
+                    result = new(-640, centre.Y - (Tan(rotation) * dist));
                 }
                 else
                 {
                     float dist = centre.Y + 480;
-                    result = new(centre.X - dist / Tan(rotation), -480);
+                    result = new(centre.X - (dist / Tan(rotation)), -480);
                 }
                 return result;
             };
@@ -98,12 +98,12 @@ namespace UndyneFight_Ex.Entities
                 if (xCalc)
                 {
                     float dist = 1280 - centre.X;
-                    result = new(1280, centre.Y + Tan(rotation) * dist);
+                    result = new(1280, centre.Y + (Tan(rotation) * dist));
                 }
                 else
                 {
                     float dist = 960 - centre.Y;
-                    result = new(centre.X + dist / Tan(rotation), 960);
+                    result = new(centre.X + (dist / Tan(rotation)), 960);
                 }
                 return result;
             };
@@ -170,9 +170,9 @@ namespace UndyneFight_Ex.Entities
         {
             float total = Alpha, once = total / time;
             InstanceCreate(new TimeRangedEvent(time + 5, () => Alpha -= once));
-            InstanceCreate(new InstantEvent(time + 5, () =>  Dispose()));
+            InstanceCreate(new InstantEvent(time + 5, () => Dispose()));
         }
-        public void DelayAlphaDecrease(float delay,float time)
+        public void DelayAlphaDecrease(float delay, float time)
         {
             InstanceCreate(new InstantEvent(delay, () =>
             {
@@ -181,13 +181,13 @@ namespace UndyneFight_Ex.Entities
                 InstanceCreate(new InstantEvent(time + 5, () => Dispose()));
             }));
         }
-        public void DelayAlphaDecrease(float delay,float time, float val)
+        public void DelayAlphaDecrease(float delay, float time, float val)
         {
             InstanceCreate(new InstantEvent(delay, () =>
             {
                 float total = val, once = total / time;
                 InstanceCreate(new TimeRangedEvent(time + 5, () => Alpha -= once));
-               
+
             }));
         }
         public void AlphaIncrease(float time, float val)
@@ -195,7 +195,7 @@ namespace UndyneFight_Ex.Entities
             float total = val, once = total / time;
             InstanceCreate(new TimeRangedEvent(time, () => Alpha += once));
         }
-        public void DelayAlphaIncrease(float delay,float time, float val)
+        public void DelayAlphaIncrease(float delay, float time, float val)
         {
             InstanceCreate(new InstantEvent(delay, () =>
             {
@@ -229,20 +229,20 @@ namespace UndyneFight_Ex.Entities
                 ? this
                 : new Line(vec1.CentrePosition, vec2.CentrePosition) { Alpha = Alpha, Depth = Depth, DrawingColor = DrawingColor, };
         }
-        public void AddShadow(float timeLag,float alphaFactor)
-        {          
-            this.InsertRetention(new RetentionEffect(timeLag, alphaFactor));
+        public void AddShadow(float timeLag, float alphaFactor)
+        {
+            InsertRetention(new RetentionEffect(timeLag, alphaFactor));
         }
         public void AddShadow(RetentionEffect r)
         {
-            this.InsertRetention(r);           
+            InsertRetention(r);
         }
         public void AddShadow(params RetentionEffect[] r)
         {
             for (int a = 0; a < r.Length; a++)
             {
                 int x = a;
-                this.InsertRetention(r[x]);
+                InsertRetention(r[x]);
             }
         }
         private struct LineState

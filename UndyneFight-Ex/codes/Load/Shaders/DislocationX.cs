@@ -26,16 +26,9 @@ float iTime;
                     _eff = eff;
                     StableEvents = (x) =>
                     {
-                        if(RGBSplitEnabled)
-                        {
-                            _eff.CurrentTechnique = _eff.Techniques[1];
-                        }
-                        else
-                        {
-                            _eff.CurrentTechnique = _eff.Techniques[0];
-                        }
-                        this.Time += this.Speed;
-                        x.Parameters["iIntensity"].SetValue(Intensity / 480f); 
+                        _eff.CurrentTechnique = RGBSplitEnabled ? _eff.Techniques[1] : _eff.Techniques[0];
+                        Time += Speed;
+                        x.Parameters["iIntensity"].SetValue(Intensity / 480f);
                         x.Parameters["iTime"].SetValue(Time / 480f);
                         x.Parameters["iChunkHeight"].SetValue(ChunkHeight / 480f);
                     };
@@ -62,15 +55,8 @@ float iTime;
                     _eff = eff;
                     StableEvents = (x) =>
                     {
-                        if (RGBSplitEnabled)
-                        {
-                            _eff.CurrentTechnique = _eff.Techniques[1];
-                        }
-                        else
-                        {
-                            _eff.CurrentTechnique = _eff.Techniques[0];
-                        }
-                        this.Time += this.Speed;
+                        _eff.CurrentTechnique = RGBSplitEnabled ? _eff.Techniques[1] : _eff.Techniques[0];
+                        Time += Speed;
                         x.Parameters["iIntensity"].SetValue(Intensity);
                         x.Parameters["iIntensity"].SetValue(Intensity);
                         x.Parameters["iTime"].SetValue(Intensity / 640f);

@@ -40,21 +40,21 @@ namespace UndyneFight_Ex.ChampionShips
         public DateTime End { get; set; }
         public ChampionshipInfo ToInfo()
         {
-            return new ChampionshipInfo(this.title, Start, End, GetDiv());
+            return new ChampionshipInfo(title, Start, End, GetDiv());
         }
 
         private Dictionary<string, DivisionInformation> GetDiv()
         {
-            Type[] types = this.fightSet.Values;
+            Type[] types = fightSet.Values;
             IChampionShip[] songs = new IChampionShip[types.Length];
-            for(int i = 0; i < types.Length; i++)
+            for (int i = 0; i < types.Length; i++)
             {
                 songs[i] = Activator.CreateInstance(types[i]) as IChampionShip;
             }
             Dictionary<string, DivisionInformation> result = new();
-            for(int i = 0; i<types.Length;  i++)
+            for (int i = 0; i < types.Length; i++)
             {
-                foreach(var v in songs[i].DifficultyPanel)
+                foreach (var v in songs[i].DifficultyPanel)
                 {
                     if (!result.ContainsKey(v.Key)) result.Add(v.Key, new(v.Key, new(), new()));
 

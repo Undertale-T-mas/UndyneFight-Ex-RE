@@ -173,7 +173,7 @@ namespace UndyneFight_Ex.Entities
                 light -= darkingSpeed / 255f;
             else Dispose();
             Centre += speed;
-            speed = speed * (1 - SlowLerp) + Vector2.Zero * SlowLerp;
+            speed = (speed * (1 - SlowLerp)) + (Vector2.Zero * SlowLerp);
             if (autoRotate) Rotation += rotateSpeed / 180f * MathHelper.Pi;
         }
     }

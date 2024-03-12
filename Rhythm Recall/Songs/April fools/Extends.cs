@@ -1217,7 +1217,7 @@ namespace Extends
         {
             if (induration == 0)
             {
-                MaskSquare maskSquare = new(-320, -240, 640+320, 480+240, (int)(induration + duration + outduration), color, 1);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(induration + duration + outduration), color, 1);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(duration, outduration + 1, () =>
                 {
@@ -1231,7 +1231,7 @@ namespace Extends
             }
             else
             {
-                MaskSquare maskSquare = new(-320, -240, 640 + 320, 480 + 240, (int)(induration + duration + outduration), color, 0);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(induration + duration + outduration), color, 0);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(induration + 1, () =>
                     maskSquare.alpha += 1 / induration));

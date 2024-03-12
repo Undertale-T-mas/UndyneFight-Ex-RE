@@ -16,12 +16,12 @@ namespace UndyneFight_Ex
         private void InstanceCodeAfter()
         {
             PlayerManager.playerInfos["Div1unlock"].Custom.PushNext(new("TaSAnomaly:value=2"));
-                 PlayerManager.Login("Div1unlock");
-                 PlayerManager.Save();
+            PlayerManager.Login("Div1unlock");
+            PlayerManager.Save();
         }
         private void InstanceCode()
         {
-            
+
             /*
             List<ChampionshipInfo> infos = JsonSerializer.Deserialize<List<ChampionshipInfo>>(cur);
             ;

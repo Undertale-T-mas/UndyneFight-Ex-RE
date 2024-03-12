@@ -8347,7 +8347,7 @@ namespace Rhythm_Recall.Waves
                 GametimeDelta = -2.5f;// + game.BeatTime(311);
                 ScreenDrawing.UISettings.CreateUISurface();
 
-                if (AnomalyAvailable() ) TryGenerateAnomaly();
+                if (AnomalyAvailable()) TryGenerateAnomaly();
             }
             bool AnomalyAvailable()
             {

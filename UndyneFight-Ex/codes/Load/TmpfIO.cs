@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex.IO
@@ -183,7 +183,7 @@ namespace UndyneFight_Ex.IO
             byte[] b = bytes.ToArray();
             for (int i = 0; i < b.Length; i++)
             {
-                b[i] = (byte)((256 * 8192 - (bytes[i] + i)) % 256);
+                b[i] = (byte)(((256 * 8192) - (bytes[i] + i)) % 256);
             }
             return b;
         }
@@ -383,7 +383,7 @@ namespace UndyneFight_Ex.IO
             SaveInfo res2 = IOEvent.ToInfos(res);
 
             stream.Flush();
-            stream.Dispose(); 
+            stream.Dispose();
 
             return res2;
         }

@@ -2,11 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 using static System.MathF;
 using static UndyneFight_Ex.Settings.SettingsManager;
-using System.Diagnostics;
 
 namespace UndyneFight_Ex
 {
@@ -124,8 +124,8 @@ namespace UndyneFight_Ex
         public static void ResetRendering()
         {
             DrawFPS = DataLibrary.DrawFPS;
-            instance.CilentBoundChanged(); 
-            Graphics.SynchronizeWithVerticalRetrace = false; 
+            instance.CilentBoundChanged();
+            Graphics.SynchronizeWithVerticalRetrace = false;
             MissionSpriteBatch.DefaultState = DataLibrary.SamplerState switch
             {
                 "Nearest" => SpriteBatchEX.NearestSample,
@@ -159,7 +159,7 @@ namespace UndyneFight_Ex
             }
 #endif
 
-            InitializeRendering(); 
+            InitializeRendering();
             PlayerManager.Initialize();
 
             //InstanceCodeAfter();
@@ -194,7 +194,7 @@ namespace UndyneFight_Ex
         private static float basicAngle = Atan2(-320, -240);
         private const float quarterAngle = 0.5f * PI;
         private static Vector2 screenSize = new(480 * Aspect, 480);
-        private static float screenDistance = Sqrt(360 * 360 + 270 * 270);
+        private static float screenDistance = Sqrt((360 * 360) + (270 * 270));
         private static Matrix matrix;
         public static Matrix ResizeMatrix => matrix;
 
@@ -218,7 +218,7 @@ namespace UndyneFight_Ex
                     GameStates.RunGameResume();
                 else GameStates.RunGamePause();
             }
-            else this.Exit();
+            else Exit();
         }
 
         bool escPressed = false;
@@ -226,12 +226,12 @@ namespace UndyneFight_Ex
         protected override bool BeginDraw()
         {
             float frameTime = 1000f / DrawFPS;
-            if(_totalElapsedMS > frameTime)
-            { 
+            if (_totalElapsedMS > frameTime)
+            {
                 _totalElapsedMS -= frameTime;
                 return true;
             }
-            return false;   
+            return false;
         }
         public static float DrawFPS { get; set; } = 60f;
         float _totalElapsedMS = 0;
@@ -301,7 +301,7 @@ namespace UndyneFight_Ex
             GameInterface.UFEXSettings.DoUpdate();
 
 #if DEBUG
-            UpdateCost = (float)watch.Elapsed.TotalMilliseconds ;
+            UpdateCost = (float)watch.Elapsed.TotalMilliseconds;
             watch.Stop();
 #endif
             base.Update(gameTime);

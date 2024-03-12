@@ -58,7 +58,7 @@ namespace UndyneFight_Ex.SongSystem
     {
         IWaveSet GameContent { get; }
         Dictionary<string, Difficulty> DifficultyPanel { get; }
-    } 
+    }
 
     /// <summary>
     /// 曲目模板
@@ -74,7 +74,7 @@ namespace UndyneFight_Ex.SongSystem
         {
             _singleBeat = beatTime;
             SingleBeat = beatTime;
-            DelayEnabled = true; 
+            DelayEnabled = true;
         }
         /// <summary>
         /// 一个节拍占据的帧数
@@ -332,7 +332,7 @@ namespace UndyneFight_Ex.SongSystem
             {
                 return null;
             }
-            if(string.IsNullOrWhiteSpace(origin)) { return null; }
+            if (string.IsNullOrWhiteSpace(origin)) { return null; }
             string originCopy = origin;
             string[] entityTags = ProduceTag(ref origin);
             bool isFunction = false;
@@ -385,7 +385,7 @@ namespace UndyneFight_Ex.SongSystem
             {
                 arrowAttribute |= ArrowAttribute.Tap;
                 curSpecialI++;
-                if (this.Settings.GreenTap)
+                if (Settings.GreenTap)
                 {
                     arrowAttribute |= ArrowAttribute.ForceGreen;
                 }
@@ -462,7 +462,7 @@ namespace UndyneFight_Ex.SongSystem
                     arr.Tags = entityTags;
                 if (arr.RotateType == -1)
                     ;
-                if (isvoid) arr.VolumeFactor *= this.Settings.VoidArrowVolume;
+                if (isvoid) arr.VolumeFactor *= Settings.VoidArrowVolume;
                 LastArrow = arr;
 
                 if (ArrowProcesser != null) ArrowProcesser(arr);
@@ -502,17 +502,17 @@ namespace UndyneFight_Ex.SongSystem
             {
                 isFunction = true;
                 if (args != "")
-                { 
+                {
                     string[] argStrings = args.Split(',');
                     float[] argsFloat = new float[argStrings.Length];
-                    for(int i = 0; i < argsFloat.Length; i++) argsFloat[i] = MathUtil.FloatFromString(argStrings[i]);
+                    for (int i = 0; i < argsFloat.Length; i++) argsFloat[i] = MathUtil.FloatFromString(argStrings[i]);
 
                     if (delayMode)
                     {
                         Action action = chartingActions[origin];
                         GameObject[] list = { new InstantEvent(delay, () => {
                             Arguments = argsFloat;
-                            action.Invoke(); 
+                            action.Invoke();
                         }) };
                         return list;
                     }
@@ -634,7 +634,7 @@ namespace UndyneFight_Ex.SongSystem
         public static bool DelayEnabled { private get; set; } = true;
 
         public static float[] Temps { get; private set; } = new float[100];
-        public static float[] Arguments { get; private set; } 
+        public static float[] Arguments { get; private set; }
         /// <summary>
         /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>
         /// 箭头：<br/>

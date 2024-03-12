@@ -1,17 +1,12 @@
 ﻿using Extends;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
-using static AprilExtends.Stasis;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
 
 namespace Rhythm_Recall.Waves
 {
@@ -72,7 +67,7 @@ namespace Rhythm_Recall.Waves
             GlobalResources.Effects.PolarShader Polar;
             public void Easy()
             {
-                
+
             }
 
             public void Extreme()
@@ -88,14 +83,14 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Line2", () =>
                     {
-                        Line l1=new(EaseOut(BeatTime(1),new Vector2(320-42,240-42),new Vector2(320-360,240-360),EaseState.Sine),
+                        Line l1 = new(EaseOut(BeatTime(1), new Vector2(320 - 42, 240 - 42), new Vector2(320 - 360, 240 - 360), EaseState.Sine),
                             EaseOut(BeatTime(1), new Vector2(320 + 42, 240 + 42), new Vector2(320 + 360, 240 + 360), EaseState.Sine))
                         { Alpha = 0.8f };
                         Line l2 = new(EaseOut(BeatTime(1), new Vector2(320 - 42, 240 + 42), new Vector2(320 - 360, 240 + 360), EaseState.Sine),
                             EaseOut(BeatTime(1), new Vector2(320 + 42, 240 - 42), new Vector2(320 + 360, 240 - 360), EaseState.Sine))
                         { Alpha = 0.8f };
                         Line[] lines = { l1, l2 };
-                        foreach(Line l in lines)
+                        foreach (Line l in lines)
                         {
                             CreateEntity(l);
                             l.AlphaDecrease(BeatTime(1), 0.85f);
@@ -115,7 +110,7 @@ namespace Rhythm_Recall.Waves
                             l1.InsertRetention(new(BeatTime(0.1f * i), 0.55f - i * 0.55f / 3f));
                             l2.InsertRetention(new(BeatTime(0.1f * i), 0.55f - i * 0.55f / 3f));
                         }
-                        DelayBeat(1, () => { l1.Dispose();l2.Dispose(); });
+                        DelayBeat(1, () => { l1.Dispose(); l2.Dispose(); });
                     });
                     CreateChart(BeatTime(4), BeatTime(1), 6.5f, new string[]
                     {
@@ -253,7 +248,7 @@ namespace Rhythm_Recall.Waves
                     R.ApplyTime = BeatTime(4);
                     K.ApplyTime = BeatTime(4);
                     eL.PositionEase = Stable(BeatTime(4), new Vector2(-4, 0));
-                    eR.PositionEase=Stable(BeatTime(4), new Vector2(4, 0));
+                    eR.PositionEase = Stable(BeatTime(4), new Vector2(4, 0));
                     L.PositionEase = Stable(BeatTime(4), new Vector2(-12, 0));
                     R.PositionEase = Stable(BeatTime(4), new Vector2(12, 0));
                     K.AlphaEase = LinkEase(Stable(BeatTime(3.75f), 0.1f), Linear(BeatTime(0.1f), 0.1f, 0.99f));
@@ -266,7 +261,7 @@ namespace Rhythm_Recall.Waves
                     {
                         RunEase(s => InstantSetBox(s, 84, 84),
                             EaseOut(BeatTime(1), BoxStates.Centre.Y, 300, EaseState.Quad),
-                            Stable(0,300));
+                            Stable(0, 300));
                         ForBeat(1, () => { InstantTP(new Vector2(320, BoxStates.Centre.Y)); });
                     });
                     RegisterFunctionOnce("DownUp", () =>
@@ -284,7 +279,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(0.5f, () =>
                         {
                             InstantSetBox(480 + 45, 84, 84);
-                            RunEase(s => InstantSetBox(s, 84, 84),EaseOut(BeatTime(0.5f), 480 + 45, 180, EaseState.Quart));
+                            RunEase(s => InstantSetBox(s, 84, 84), EaseOut(BeatTime(0.5f), 480 + 45, 180, EaseState.Quart));
                         });
                         ForBeat(1, () => { InstantTP(new Vector2(320, BoxStates.Centre.Y)); });
                     });
@@ -302,7 +297,7 @@ namespace Rhythm_Recall.Waves
                         Line l4b = new(320 - 160, 85) { Alpha = 0.7f, Width = 4 };
                         Line l5b = new(320 + 160, 85) { Alpha = 0.7f, Width = 4 };
                         Line[] lines = { l1, l2, l3, l4, l5, l4a, l4b, l5a, l5b, l3a, l3b };
-                        foreach(Line line in lines)
+                        foreach (Line line in lines)
                         {
                             CreateEntity(line);
                             line.AlphaDecrease(BeatTime(3), 0.7f);
@@ -379,12 +374,12 @@ namespace Rhythm_Recall.Waves
                     {
                         for (int i = 0; i < 256; i++)
                         {
-                            DelayBeat(i*0.25f, () =>
+                            DelayBeat(i * 0.25f, () =>
                             {
                                 Line a = new(320 - 120, 90) { Alpha = 0.6f };
                                 Line b = new(320 + 120, 90) { Alpha = 0.6f };
                                 Line[] l = { a, b };
-                                foreach(Line c in l)
+                                foreach (Line c in l)
                                 {
                                     CreateEntity(c);
                                     c.AlphaDecrease(BeatTime(0.3f), 0.5f);
@@ -412,10 +407,10 @@ namespace Rhythm_Recall.Waves
                         Line b = new(new Vector2(320, 240), EaseOut(BeatTime(1), 0, 45, EaseState.Quad)) { Alpha = 0.6f };
                         Line c = new(new Vector2(320, 240), EaseOut(BeatTime(1), 0, 135, EaseState.Quad)) { Alpha = 0.6f };
                         Line[] d = { a, b, c };
-                        foreach(Line l in d)
+                        foreach (Line l in d)
                         {
                             CreateEntity(l);
-                            DelayBeat(1,()=> { l.Dispose(); });
+                            DelayBeat(1, () => { l.Dispose(); });
                         }
                     });
                     RegisterFunctionOnce("Line1s", () =>
@@ -577,17 +572,17 @@ namespace Rhythm_Recall.Waves
 
             public void ExtremePlus()
             {
-                
+
             }
 
             public void Hard()
             {
-                
+
             }
 
             public void Noob()
             {
-                
+
             }
 
             public void Normal()
@@ -622,9 +617,9 @@ namespace Rhythm_Recall.Waves
                 bool jump = true;
                 if (jump)
                 {
-                    int beat = 4*126;
+                    int beat = 4 * 126;
                     //int beat = 4 * 15;
-                    GametimeDelta = BeatTime( - 4 + beat);
+                    GametimeDelta = BeatTime(-4 + beat);
                     PlayOffset = BeatTime(beat);
                     ScreenDrawing.ScreenScale = 1f;
                 }

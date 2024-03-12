@@ -1,25 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Extends;
+using Microsoft.Xna.Framework;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using UndyneFight_Ex.Remake.Entities;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using UndyneFight_Ex.Remake;
-using System.Security.Cryptography.X509Certificates;
-using Extends;
-using System.Reflection;
-using static UndyneFight_Ex.Entities.Player;
+using static UndyneFight_Ex.Fight.Functions;
 
 namespace AprilExtends
 {
@@ -29,7 +17,7 @@ namespace AprilExtends
         {
             static float r = 0;
             float d;
-            public Hexagon(Player.Heart Position, float Rotation, float Duration) :base(Position)
+            public Hexagon(Player.Heart Position, float Rotation, float Duration) : base(Position)
             {
                 r = Rotation;
                 d = Duration;
@@ -38,7 +26,7 @@ namespace AprilExtends
             public override void Draw()
             {
                 for (int a = 0; a < 6; a++)
-                    DrawingLab.DrawLine( Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + a * 60), Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + 60 + a * 60), 4.2f, Color.White * 0.5f, 0.99f);
+                    DrawingLab.DrawLine(Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + a * 60), Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + 60 + a * 60), 4.2f, Color.White * 0.5f, 0.99f);
             }
             int time = 0;
             public override void Update()
@@ -263,7 +251,7 @@ namespace AprilExtends
         public void Extreme()
         {
             Arrow[] voids = GetAll<Arrow>("Hold");
-            for(int a=0;a<voids.Length;a++)
+            for (int a = 0; a < voids.Length; a++)
             {
                 int x = a;
                 voids[x].JudgeType = Arrow.JudgementType.Hold;
@@ -308,7 +296,7 @@ namespace AprilExtends
                         l1.Alpha = m;
                         l2.Alpha = m;
                     });
-                    
+
                     CreateEntity(l1);
                     CreateEntity(l2);
                     l2.ObliqueMirror = true;
@@ -502,7 +490,7 @@ namespace AprilExtends
             {
                 RegisterFunctionOnce("LineEvent00", () =>
                 {
-                    
+
                     CentreEasing.EaseBuilder c = new();
                     c.Insert(BeatTime(2), CentreEasing.EaseInQuad(new(320, 240), new(-100, 240), BeatTime(2)));
                     ValueEasing.EaseBuilder alpha = new();
@@ -632,7 +620,7 @@ namespace AprilExtends
             }
             if (InBeat(64))
             {
-                
+
                 //RegisterFunctionOnce("Line1", () =>
                 //{
                 //    CentreEasing.EaseBuilder ce = new();
@@ -835,7 +823,7 @@ namespace AprilExtends
                         s = m;
                         arrow.Delay(m);
                     });
-                    CreateEntity(arrow);        
+                    CreateEntity(arrow);
                 });
             }
             if (InBeat(112))
@@ -876,7 +864,7 @@ namespace AprilExtends
                         ScreenDrawing.ScreenScale = m;
                     });
                 });
-                
+
                 CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
                     "$0(R1)(ScreenSBack)","","","",    "$0","","","",
@@ -1108,7 +1096,7 @@ namespace AprilExtends
             }
             if (InBeat(206))
             {
-                
+
                 RegisterFunctionOnce("ArrowEffect", () =>
                 {
                     Arrow[] tagA = GetAll<Arrow>("A");
@@ -1125,7 +1113,7 @@ namespace AprilExtends
                         }
                         o = e;
                     },
-                        Stable(BeatTime(2),-400),
+                        Stable(BeatTime(2), -400),
                         EaseOut(BeatTime(4), 400, EaseState.Elastic)
                     );
                     Arrow[] tagB = GetAll<Arrow>("B");
@@ -1154,7 +1142,7 @@ namespace AprilExtends
                     },
                         EaseIn(BeatTime(8), 0.8f, EaseState.Expo),
                         EaseOut(BeatTime(4), -0.9f, EaseState.Elastic),
-                        EaseInOut(BeatTime(4), 0 ,0.1f, EaseState.Cubic)
+                        EaseInOut(BeatTime(4), 0, 0.1f, EaseState.Cubic)
                     );
                     RunEase((r) =>
                     {
@@ -1290,12 +1278,12 @@ namespace AprilExtends
                         EaseOut(BeatTime(3), 0, 120, EaseState.Expo),
                         EaseIn(BeatTime(9), 0, 1800, EaseState.Cubic)
                     );
-                    
+
                     Functions.Heart.controlingBox.GreenSoulAlpha = 0.01f;
                     //DelayBeat(16 + 8, () =>
                     //{
                     //    Heart.controlingBox.GreenSoulAlpha = 0.5f;
-                        
+
                     //});
                     //{
                     //    //box.SetPosition(2, new Vector2(320 - Sin(r) * 60, 240 + Cos(r) * 60));//
@@ -1331,7 +1319,7 @@ namespace AprilExtends
                     "($0)($21)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
-                    
+
                     "($0)($1)($21)($31)","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
@@ -1532,40 +1520,40 @@ namespace AprilExtends
                 //{
                 //    shields.AddShield(shield1);
                 //}));
-        ////        public class Modify
-        ////  {
-        ////    public static int Type { get; set; } = 1;
-        ////    public static int Angle { get; set; } = 90;
-        ////    public static int way { get; set; } = 360 / Angle;
-        ////    public static InputIdentity[] Keys { get; set; } = new InputIdentity[way];
-        ////    /// <summary>
-        ////    /// 设置每个方向的角度
-        ////    /// 设置的角度应可被360°整除！
-        ////    /// </summary>
-        ////    /// <param name="angle">你想要的角度</param>
-        ////    public void SetRotateAngle(int angle)
-        ////    {
-        ////        Angle = angle;
-        ////    }
-        ////    /// <summary>
-        ////    /// 设置按键
-        //    /// 设置的按键个数应与方向个数相同！
-        //    /// </summary>
-        //    /// <param name="keys">你想选择的按键</param>
-        //    public void SetKeys(InputIdentity[] keys)
-        //      {
-        //        Keys = keys;
-        //      }
-        //    public void SetType(int type)
-        //      {
-        //        Type = type;
-        //      }
-        //  }
-        //public float Angle { get; set; } = Modify.Angle;
-        //public InputIdentity[] Keys { get; set; } = Modify.Keys;
-        //public int Type = Modify.Type;
-        CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
-                {
+                ////        public class Modify
+                ////  {
+                ////    public static int Type { get; set; } = 1;
+                ////    public static int Angle { get; set; } = 90;
+                ////    public static int way { get; set; } = 360 / Angle;
+                ////    public static InputIdentity[] Keys { get; set; } = new InputIdentity[way];
+                ////    /// <summary>
+                ////    /// 设置每个方向的角度
+                ////    /// 设置的角度应可被360°整除！
+                ////    /// </summary>
+                ////    /// <param name="angle">你想要的角度</param>
+                ////    public void SetRotateAngle(int angle)
+                ////    {
+                ////        Angle = angle;
+                ////    }
+                ////    /// <summary>
+                ////    /// 设置按键
+                //    /// 设置的按键个数应与方向个数相同！
+                //    /// </summary>
+                //    /// <param name="keys">你想选择的按键</param>
+                //    public void SetKeys(InputIdentity[] keys)
+                //      {
+                //        Keys = keys;
+                //      }
+                //    public void SetType(int type)
+                //      {
+                //        Type = type;
+                //      }
+                //  }
+                //public float Angle { get; set; } = Modify.Angle;
+                //public InputIdentity[] Keys { get; set; } = Modify.Keys;
+                //public int Type = Modify.Type;
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
+                        {
                     "","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
@@ -1580,7 +1568,7 @@ namespace AprilExtends
                     "","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
-                });
+                        });
             }
         }
         public void ExtremePlus()
@@ -1591,7 +1579,7 @@ namespace AprilExtends
         void CreateRotArrowA(float rot)
         {
             Arrow r1 = MakeArrow(offset, 0, 10, 0, 0);
-            offset = offset+4.9f;
+            offset = offset + 4.9f;
             CreateEntity(r1);
             r1.CentreRotationOffset = rot;
         }
@@ -1601,7 +1589,7 @@ namespace AprilExtends
             CreateEntity(r1);
             r1.CentreRotationOffset = rot;
         }
-        void CreateRotArrow2(float offset,float rot)
+        void CreateRotArrow2(float offset, float rot)
         {
             Arrow r1 = MakeArrow(offset, 0, 5, 0, 0);
             CreateEntity(r1);
@@ -1614,7 +1602,7 @@ namespace AprilExtends
             //{
             //    for(int a=0;a<60;a++)
             //    CreateRotArrow2(40, a*6);
-                
+
             //}
             //if (GameStates.IsKeyPressed(Keys.Space))
             //{
@@ -1638,7 +1626,7 @@ namespace AprilExtends
             //        ve.Insert(BeatTime(8), ValueEasing.EaseOutElastic(aa[i].CentreRotationOffset, 0, BeatTime(8)));
             //        ve.Run((s) => { aa[i].CentreRotationOffset = s; });
             //    }
-                
+
             //}
             //if (GameStates.IsKeyPressed(Keys.B))
             //{
@@ -1661,7 +1649,7 @@ namespace AprilExtends
         //{
         //    public override void Draw()
         //    {
-                
+
         //    }
         //    float alpha = 0;
         //    float HP = HeartAttribute.HP;
@@ -1694,7 +1682,7 @@ namespace AprilExtends
         {
             throw new NotImplementedException();
         }
-        
+
         public override void Start()
         {
             float i = 0;
@@ -1713,7 +1701,7 @@ namespace AprilExtends
 
                 }
             }));
-            
+
             //CreateEntity(new Buffed());   ←THIS IS THE S**T
             AddInstance(new TimeRangedEvent(BeatTime(1000), () =>
             {
@@ -1721,7 +1709,7 @@ namespace AprilExtends
                 {
                     i += 0.001f;
                 }
-                else if(HeartAttribute.HP > 20 & i >= 0)
+                else if (HeartAttribute.HP > 20 & i >= 0)
                 {
                     i -= 0.02f;
                 }
@@ -1731,7 +1719,7 @@ namespace AprilExtends
             easeX = new();
             AddInstance(easeX = new Arrow.UnitEasing()
             {
-                
+
                 //AppearTime = BeatTime(12),
                 //Delay(BeatTime(4),()=>{ }),
                 ApplyTime = BeatTime(8),

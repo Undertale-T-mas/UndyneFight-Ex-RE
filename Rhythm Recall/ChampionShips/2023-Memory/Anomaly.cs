@@ -1,9 +1,6 @@
-﻿using Extends;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
@@ -151,7 +148,8 @@ namespace Rhythm_Recall.Waves
                         ScreenDrawing.BoundColor = Color.Lerp(Color.Silver, Color.Gray * 0.5f, s);
                     });
                 });
-                RegisterFunctionOnce("AlphaChange", () => {
+                RegisterFunctionOnce("AlphaChange", () =>
+                {
                     ValueEasing.EaseBuilder alphaEase = new();
                     alphaEase.Adjust = false;
                     alphaEase.Insert(BeatTime(4), ValueEasing.EaseOutQuad(0.4f, 1f, BeatTime(4)));
@@ -168,7 +166,8 @@ namespace Rhythm_Recall.Waves
                     alphaEase.Run(s => ScreenDrawing.MasterAlpha = s);
                 });
 
-                RegisterFunctionOnce("End", () => {
+                RegisterFunctionOnce("End", () =>
+                {
                     IntoChart(_difficulty);
                 });
 
@@ -355,7 +354,8 @@ namespace Rhythm_Recall.Waves
             {
                 AddInstance(new InstantEvent(0, this.StartEvent));
                 this.UpdateIn120 = true;
-                this.AddChild(new TimeRangedEvent(999999, () => {
+                this.AddChild(new TimeRangedEvent(999999, () =>
+                {
                     UpdateEvent();
                 })
                 { UpdateIn120 = true });
@@ -378,7 +378,8 @@ namespace Rhythm_Recall.Waves
             {
                 if (InBeat(1f))
                 {
-                    RegisterFunctionOnce("Move", () => {
+                    RegisterFunctionOnce("Move", () =>
+                    {
                         ValueEasing.EaseBuilder builder = new();
                         for (int i = 0; i < 3; i++)
                             builder.Insert(BeatTime(32), ValueEasing.EaseOutCubic(2.15f, 2.0f, BeatTime(32)));
@@ -387,10 +388,12 @@ namespace Rhythm_Recall.Waves
 
                         builder.Run(s => textureEntity.Scale = s);
                     });
-                    RegisterFunctionOnce("Shine", () => {
+                    RegisterFunctionOnce("Shine", () =>
+                    {
                         ScreenDrawing.MakeFlicker(Color.White * 0.3f);
                     });
-                    RegisterFunctionOnce("Out", () => {
+                    RegisterFunctionOnce("Out", () =>
+                    {
                         ScreenDrawing.SceneOut(Color.White, BeatTime(22));
                         ScreenDrawing.SceneOutScale = 1.2f;
                         ScreenDrawing.OutFadeScale = 0.98f;
@@ -419,11 +422,13 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(13f + 128))
                 {
-                    RegisterFunctionOnce("Particle", () => {
+                    RegisterFunctionOnce("Particle", () =>
+                    {
                         particleManager.ForeEnable = true;
                         gray.Intensity = 0.0f;
                     });
-                    RegisterFunctionOnce("Create", () => {
+                    RegisterFunctionOnce("Create", () =>
+                    {
                         AddInstance(new DifficultySelector());
                     });
                     string[] rhythm = {
@@ -450,7 +455,8 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(13f + 256))
                 {
-                    RegisterFunctionOnce("End", () => {
+                    RegisterFunctionOnce("End", () =>
+                    {
                         IntoChart();
                     });
                     string[] rhythm = {

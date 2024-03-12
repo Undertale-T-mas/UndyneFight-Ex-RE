@@ -143,7 +143,7 @@ namespace Rhythm_Recall.Waves
                     CreateBone(new UpBone(false, 2.2f, 95));
                     CreateEntity(new Boneslab(0, 15, BeatTime(4), 10)
                     {
-                        BoneProtruded = ()=>
+                        BoneProtruded = () =>
                         {
                             PlaySound(Sounds.pierce);
                         }
@@ -170,7 +170,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(192, 308))
                 {
-                    foreach(var b in GetAll<Bone>())
+                    foreach (var b in GetAll<Bone>())
                     {
                         b.Length = (b is UpBone) ? 60 + Sin(GametimeF * 2) * 20 : 60 - Sin(GametimeF * 2) * -30;
                     }
@@ -578,7 +578,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1346, 1346 + 128 - 16))
                 {
-                    if(At0thBeat(5))
+                    if (At0thBeat(5))
                     {
                         float pos1 = Rand(0, 149);
                         float pos2 = Rand(-60, 60);
@@ -1404,7 +1404,7 @@ namespace Rhythm_Recall.Waves
                     UndyneFight_Ex.Entities.Advanced.BarrageStruct.BoneWindfall(new(160, 300), 12, 2f, 300, BeatTime(60), 0, true);
                 }
                 if (InBeat(704 + 64, 704 + 128 - 24) && At0thBeat(8))
-                { 
+                {
                     CreateGB(new NormalGB(new(190, 300 + RandSignal() * 32), Heart.Centre, new(1, 1), 0, BeatTime(16), BeatTime(2)));
                 }
                 if (InBeat(832))

@@ -30,7 +30,7 @@ namespace UndyneFight_Ex.Achievements
 
         private void SetID(int index)
         {
-            targetY = 522 - index * 85;
+            targetY = 522 - (index * 85);
         }
 
         const int totalTime = 300;

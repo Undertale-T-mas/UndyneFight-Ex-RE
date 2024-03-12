@@ -1,17 +1,16 @@
 ﻿using Extends;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
+using UndyneFight_Ex.UserService;
+using static Extends.ShadowLibrary;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
-using static Extends.ShadowLibrary;
-using System;
-using UndyneFight_Ex.UserService;
-using System.Linq;
 
 namespace Rhythm_Recall.Waves
 {
@@ -35,13 +34,14 @@ namespace Rhythm_Recall.Waves
         public class Game : WaveConstructor, IWaveSet
         {
             public Game() : base(62.5f / (120f / 60f)) { }
-            private static int AnomalyExist() {
+            private static int AnomalyExist()
+            {
                 if (PlayerManager.CurrentUser == null) return 0;
                 var customData = PlayerManager.CurrentUser.Custom;
                 if (!customData.Nexts.ContainsKey("TaSAnomaly"))
                     customData.PushNext(new("TaSAnomaly:value=0"));
                 int t = customData.Nexts["TaSAnomaly"].IntValue;
-                if (t == 2) return 0; 
+                if (t == 2) return 0;
                 DateTime time = DateTime.UtcNow;
                 bool test = false;
 #if DEBUG || RELEASE
@@ -55,7 +55,7 @@ namespace Rhythm_Recall.Waves
                 {
                     var songs = PlayerManager.CurrentUser.SongManager;
                     Dictionary<string, SongData> dic = new();
-                    foreach(var v in songs.AllDatas)
+                    foreach (var v in songs.AllDatas)
                     {
                         dic.Add(v.SongName, v);
                     }
@@ -138,7 +138,7 @@ namespace Rhythm_Recall.Waves
             public SongInformation Attributes => new ThisInformation();
             private bool notRegistered = true;
             public static Game game;
-           
+
             public void ScreenScaleAdd(float scale, float time)
             {
                 time /= 2;
@@ -9282,7 +9282,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(108 * 4)) NorPart8();
             }
             public void Extreme()
-            { 
+            {
 
                 Arrow[] ars = GetAll<Arrow>("Tap");
                 for (int a = 0; a < ars.Length; a++)
@@ -9369,7 +9369,8 @@ namespace Rhythm_Recall.Waves
 
                 if (p == 0) return;
                 int k = 0;
-                if (p == 2 && (int)CurrentDifficulty >= 4) {
+                if (p == 2 && (int)CurrentDifficulty >= 4)
+                {
                     HeartAttribute.KR = false; HeartAttribute.DamageTaken = 12; ScreenDrawing.HPBar.HPExistColor = Color.DarkMagenta;
                     AutoEnd = false;
                     k = 2;
@@ -9381,9 +9382,11 @@ namespace Rhythm_Recall.Waves
                     k = 1;
                 }
                 if (k == 0) return;
-                AdvanceFunctions.Interactive.AddEndEvent(() => {
+                AdvanceFunctions.Interactive.AddEndEvent(() =>
+                {
                     SimplifiedEasing.RunEase(s => ScreenDrawing.MasterAlpha = s, SimplifiedEasing.Linear(BeatTime(4), 1, 0));
-                    DelayBeat(4, () => {
+                    DelayBeat(4, () =>
+                    {
                         GameStates.ResetScene(new Traveler_at_Sunset.Anomaly(k));
                     });
                 });

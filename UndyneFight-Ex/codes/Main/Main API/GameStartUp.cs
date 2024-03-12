@@ -17,7 +17,7 @@ namespace UndyneFight_Ex.GameInterface
         private static List<Type> MainGameFights;
 
         public static void SetMainSongs(List<Type> fights)
-        { 
+        {
             MainGameFights = fights;
         }
         public static void PushStoreItem(StoreItem item)

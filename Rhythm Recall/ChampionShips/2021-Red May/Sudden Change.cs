@@ -125,7 +125,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(128, 248) && (At0thBeat(4) || AtKthBeat(8, BeatTime(6)) || AtKthBeat(8, BeatTime(3))))
                 {
                     CreateEntity(new GunBullet(Heart.Centre, BeatTime(8),
-                        new float[] { Rand(0, 359)}));
+                        new float[] { Rand(0, 359) }));
                 }
 
                 if (InBeat(256))
@@ -202,7 +202,7 @@ namespace Rhythm_Recall.Waves
                 if (InBeat(576))
                 {
                     SetBox(280, 220, 160);
-                    for(int i = 0; i < 17; i++)
+                    for (int i = 0; i < 17; i++)
                     {
                         CreateBone(new CustomBone(new Vector2(210, 200 + i * 10), Motions.PositionRoute.cameFromLeft, Motions.LengthRoute.sin, Motions.RotationRoute.stableValue)
                         {
@@ -261,14 +261,14 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(576, 828) && At0thBeat(12))
                 {
-                    CreateBone( At0thBeat(24) ? new UpBone(true, 3, 80) { ColorType = 1 } : new DownBone(true, 3, 80) {  ColorType = 1});
+                    CreateBone(At0thBeat(24) ? new UpBone(true, 3, 80) { ColorType = 1 } : new DownBone(true, 3, 80) { ColorType = 1 });
                 }
                 if (InBeat(832))
                 {
                     foreach (CustomBone v in GetAll<CustomBone>())
                     {
                         SimplifiedEasing.RunEase((s) => v.Alpha = s, SimplifiedEasing.EaseOut(BeatTime(2), 1, 0, SimplifiedEasing.EaseState.Linear));
-                        DelayBeat(2, ()=> { v.Dispose(); });
+                        DelayBeat(2, () => { v.Dispose(); });
                     }
                     HeartAttribute.JumpSpeed = 4.5f;
                     SetBox(290, 200, 160);
@@ -452,7 +452,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(1184, 1296) && At0thBeat(4))
                 {
-                    CreateEntity(new GunBullet(Heart.Centre, BeatTime(4), new float[] {0, 180}));
+                    CreateEntity(new GunBullet(Heart.Centre, BeatTime(4), new float[] { 0, 180 }));
                 }
             }
             #endregion

@@ -1,17 +1,11 @@
-﻿using Extends;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Entities.EasingUtil;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using static Extends.DrawingUtil;
-using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace Rhythm_Recall.Waves

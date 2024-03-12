@@ -53,10 +53,11 @@ namespace UndyneFight_Ex
         {
             if (!Paused)
                 GameMain.gameTime += 0.5f;
-            if(CurrentScene != null && GameMain.Update120F) {
+            if (CurrentScene != null && GameMain.Update120F)
+            {
                 MainScene.UpdateAll();
                 CurrentScene.UpdateRendering();
-             }
+            }
             if (currentScene != missionScene)
             {
                 currentScene = missionScene;
@@ -143,7 +144,7 @@ namespace UndyneFight_Ex
             lastParam = @params;
             Fight.Functions.Loader.RootDirectory = "Content";
             ResetScene(@params.MusicLoaded ? new SongFightingScene(@params) : new SongLoadingScene(@params));
-        } 
+        }
         public static void ResetScene(Scene scene)
         {
             List<GameObject> crossObjects = null;
