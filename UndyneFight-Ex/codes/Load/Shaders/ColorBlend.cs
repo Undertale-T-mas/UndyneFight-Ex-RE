@@ -1,7 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Fight;
-using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex
 {

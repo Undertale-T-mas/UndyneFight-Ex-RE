@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using UndyneFight_Ex.Entities;
-
-namespace UndyneFight_Ex
+﻿namespace UndyneFight_Ex
 {
     public static partial class GameStates
     {

@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Input;
-using System.Net.Sockets;
 using UndyneFight_Ex.SongSystem;
-using System.ComponentModel.Design.Serialization;
 using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.Remake.Components;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Remake.Effects;
-using System.Collections;
 using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI

@@ -399,7 +399,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(0, Rand(100, 300)));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -1), new(0, 0.2f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -1), new(0, 0.2f)));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(-32, -20)));
                     CreateEntity(l);
                     for (int a = 0; a < 4; a++)
@@ -431,7 +431,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(640, Rand(100, 300)));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -1), new(0, 0.2f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -1), new(0, 0.2f)));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(180 + Rand(20, 32)));
                     CreateEntity(l);
                     for (int a = 0; a < 4; a++)
@@ -534,8 +534,8 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 5; a++)
                     {
                         CentreEasing.EaseBuilder ce = new();
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(6 + a * 0.1f, 0), new(-0.2f, 0.4f)));
-                        FakeNote.LeftNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accerlating(new(9 + a * 1f, 0), new(-0.05f, 0.1f)), BeatTime(4));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(6 + a * 0.1f, 0), new(-0.2f, 0.4f)));
+                        FakeNote.LeftNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accelerating(new(9 + a * 1f, 0), new(-0.05f, 0.1f)), BeatTime(4));
                         note.Offset = new(Rand(-200, 0), Rand(-30, 30));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(BeatTime(4), ValueEasing.Stable(180));
@@ -546,8 +546,8 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 5; a++)
                     {
                         CentreEasing.EaseBuilder ce = new();
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(-6 + a * 0.1f, 0), new(0.2f, 0.4f)));
-                        FakeNote.RightNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accerlating(new(-9 + a * 1f, 0), new(+0.05f, 0.1f)), BeatTime(4));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(-6 + a * 0.1f, 0), new(0.2f, 0.4f)));
+                        FakeNote.RightNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accelerating(new(-9 + a * 1f, 0), new(+0.05f, 0.1f)), BeatTime(4));
                         note.Offset = new(Rand(0, 200), Rand(-30, 30));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(BeatTime(4), ValueEasing.Stable(180));
@@ -1557,7 +1557,7 @@ namespace Rhythm_Recall.Waves
                     float randomnumber1 = Rand(-20, 20);
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(0, Rand(200, 400)));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, times), new(0, count)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, times), new(0, count)));
                     Line l = new(ce, ValueEasing.Stable(randomnumber1)) { Alpha = 0.7f };
                     CreateEntity(l);
                     l.InsertRetention(new Line.RetentionEffect(BeatTime(0.125f), 0.5f));
@@ -1884,10 +1884,10 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(Rand(Heart.Centre.X - 10, Heart.Centre.X + 10), Rand(-60, -30)));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accelerating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -1898,10 +1898,10 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(Rand(Heart.Centre.X - 10, Heart.Centre.X + 10), 640 + Rand(30, 60)));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.10f, 0.20f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accelerating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -2097,7 +2097,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Rand(480 - 20, 480 + 20), 20));
-                    ce.Insert(BeatTime(4f), CentreEasing.Accerlating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
+                    ce.Insert(BeatTime(4f), CentreEasing.Accelerating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(20, 40)));
                     CreateEntity(l);
                     l.AlphaDecrease(BeatTime(3));
@@ -2106,7 +2106,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Rand(480 - 20, 480 + 20), 20));
-                    ce.Insert(BeatTime(4f), CentreEasing.Accerlating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
+                    ce.Insert(BeatTime(4f), CentreEasing.Accelerating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(-40, -20)));
                     CreateEntity(l);
                     l.AlphaDecrease(BeatTime(3));
@@ -2783,7 +2783,7 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 540 + a * 27));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -Rand(4.00f, 8.00f)), new(0, -Rand(0.040f, 0.090f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -Rand(4.00f, 8.00f)), new(0, -Rand(0.040f, 0.090f))));
                         CreateBone(new CustomBone(new(0, 0), ce.GetResult(), 90 + Rand(-30, 30), BoxStates.Width + 80) { ColorType = 2 });
                     }
 
@@ -3440,7 +3440,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(0, Rand(100, 300)));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -1), new(0, 0.2f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -1), new(0, 0.2f)));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(-32, -20)));
                     CreateEntity(l);
                     for (int a = 0; a < 4; a++)
@@ -3472,7 +3472,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(640, Rand(100, 300)));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -1), new(0, 0.2f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -1), new(0, 0.2f)));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(180 + Rand(20, 32)));
                     CreateEntity(l);
                     for (int a = 0; a < 4; a++)
@@ -3575,8 +3575,8 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 5; a++)
                     {
                         CentreEasing.EaseBuilder ce = new();
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(6 + a * 0.1f, 0), new(-0.2f, 0.4f)));
-                        FakeNote.LeftNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accerlating(new(9 + a * 1f, 0), new(-0.05f, 0.1f)), BeatTime(4));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(6 + a * 0.1f, 0), new(-0.2f, 0.4f)));
+                        FakeNote.LeftNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accelerating(new(9 + a * 1f, 0), new(-0.05f, 0.1f)), BeatTime(4));
                         note.Offset = new(Rand(-200, 0), Rand(-30, 30));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(BeatTime(4), ValueEasing.Stable(180));
@@ -3587,8 +3587,8 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 5; a++)
                     {
                         CentreEasing.EaseBuilder ce = new();
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(-6 + a * 0.1f, 0), new(0.2f, 0.4f)));
-                        FakeNote.RightNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accerlating(new(-9 + a * 1f, 0), new(+0.05f, 0.1f)), BeatTime(4));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(-6 + a * 0.1f, 0), new(0.2f, 0.4f)));
+                        FakeNote.RightNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accelerating(new(-9 + a * 1f, 0), new(+0.05f, 0.1f)), BeatTime(4));
                         note.Offset = new(Rand(0, 200), Rand(-30, 30));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(BeatTime(4), ValueEasing.Stable(180));
@@ -4586,7 +4586,7 @@ namespace Rhythm_Recall.Waves
                     float randomnumber1 = Rand(-20, 20);
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(0, Rand(200, 400)));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, times), new(0, count)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, times), new(0, count)));
                     Line l = new(ce, ValueEasing.Stable(randomnumber1)) { Alpha = 0.7f };
                     CreateEntity(l);
                     l.InsertRetention(new Line.RetentionEffect(BeatTime(0.125f), 0.5f));
@@ -4913,10 +4913,10 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(Rand(Heart.Centre.X - 10, Heart.Centre.X + 10), Rand(-60, -30)));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accelerating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -4927,10 +4927,10 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(Rand(Heart.Centre.X - 10, Heart.Centre.X + 10), 640 + Rand(30, 60)));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.15f, 0.20f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.15f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.20f) * Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accelerating(0, Rand(0.10f, 0.20f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -5126,7 +5126,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Rand(480 - 20, 480 + 20), 20));
-                    ce.Insert(BeatTime(4f), CentreEasing.Accerlating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
+                    ce.Insert(BeatTime(4f), CentreEasing.Accelerating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(20, 40)));
                     CreateEntity(l);
                     l.AlphaDecrease(BeatTime(3));
@@ -5135,7 +5135,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Rand(480 - 20, 480 + 20), 20));
-                    ce.Insert(BeatTime(4f), CentreEasing.Accerlating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
+                    ce.Insert(BeatTime(4f), CentreEasing.Accelerating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(-40, -20)));
                     CreateEntity(l);
                     l.AlphaDecrease(BeatTime(3));
@@ -5809,7 +5809,7 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 540 + a * 27));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -Rand(4.00f, 8.00f)), new(0, -Rand(0.040f, 0.090f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -Rand(4.00f, 8.00f)), new(0, -Rand(0.040f, 0.090f))));
                         CreateBone(new CustomBone(new(0, 0), ce.GetResult(), 90 + Rand(-30, 30), BoxStates.Width + 80) { ColorType = 2 });
                     }
 
@@ -6454,7 +6454,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(0, Rand(100, 300)));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -1), new(0, 0.2f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -1), new(0, 0.2f)));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(-32, -20)));
                     CreateEntity(l);
                     for (int a = 0; a < 4; a++)
@@ -6486,7 +6486,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(640, Rand(100, 300)));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -1), new(0, 0.2f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -1), new(0, 0.2f)));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(180 + Rand(20, 32)));
                     CreateEntity(l);
                     for (int a = 0; a < 4; a++)
@@ -6589,8 +6589,8 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 5; a++)
                     {
                         CentreEasing.EaseBuilder ce = new();
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(6 + a * 0.1f, 0), new(-0.2f, 0.4f)));
-                        FakeNote.LeftNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accerlating(new(9 + a * 1f, 0), new(-0.05f, 0.1f)), BeatTime(4));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(6 + a * 0.1f, 0), new(-0.2f, 0.4f)));
+                        FakeNote.LeftNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accelerating(new(9 + a * 1f, 0), new(-0.05f, 0.1f)), BeatTime(4));
                         note.Offset = new(Rand(-200, 0), Rand(-30, 30));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(BeatTime(4), ValueEasing.Stable(180));
@@ -6601,8 +6601,8 @@ namespace Rhythm_Recall.Waves
                     for (int a = 0; a < 5; a++)
                     {
                         CentreEasing.EaseBuilder ce = new();
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(-6 + a * 0.1f, 0), new(0.2f, 0.4f)));
-                        FakeNote.RightNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accerlating(new(-9 + a * 1f, 0), new(+0.05f, 0.1f)), BeatTime(4));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(-6 + a * 0.1f, 0), new(0.2f, 0.4f)));
+                        FakeNote.RightNote note = new(BeatTime(4), 6 + a * 0.1f, Rand(0, 1), 0, CentreEasing.Accelerating(new(-9 + a * 1f, 0), new(+0.05f, 0.1f)), BeatTime(4));
                         note.Offset = new(Rand(0, 200), Rand(-30, 30));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(BeatTime(4), ValueEasing.Stable(180));
@@ -7547,7 +7547,7 @@ namespace Rhythm_Recall.Waves
                     float randomnumber1 = Rand(-20, 20);
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(0, Rand(200, 400)));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, times), new(0, count)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, times), new(0, count)));
                     Line l = new(ce, ValueEasing.Stable(randomnumber1)) { Alpha = 0.7f };
                     CreateEntity(l);
                     l.InsertRetention(new Line.RetentionEffect(BeatTime(0.125f), 0.5f));
@@ -7874,10 +7874,10 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(Rand(Heart.Centre.X - 10, Heart.Centre.X + 10), Rand(-60, -30)));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.010f, 0.010f), Rand(3.30f, 4.30f)), new(0, Rand(0.10f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accelerating(0, Rand(0.10f, 0.30f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -7888,10 +7888,10 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(Rand(Heart.Centre.X - 10, Heart.Centre.X + 10), 640 + Rand(30, 60)));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.15f, 0.20f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-1.60f, 1.60f), Rand(-13.00f, -11.00f)), new(0, Rand(0.15f, 0.20f))));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                        ve.Insert(BeatTime(8), ValueEasing.Accerlating(0, Rand(0.10f, 0.20f) * Someway.Rand0or1()));
+                        ve.Insert(BeatTime(8), ValueEasing.Accelerating(0, Rand(0.10f, 0.20f) * Someway.Rand0or1()));
                         CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 35 }, IsMasked = false };
                         CreateBone(b);
                     }
@@ -8087,7 +8087,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Rand(480 - 20, 480 + 20), 20));
-                    ce.Insert(BeatTime(4f), CentreEasing.Accerlating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
+                    ce.Insert(BeatTime(4f), CentreEasing.Accelerating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(20, 40)));
                     CreateEntity(l);
                     l.AlphaDecrease(BeatTime(3));
@@ -8096,7 +8096,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Rand(480 - 20, 480 + 20), 20));
-                    ce.Insert(BeatTime(4f), CentreEasing.Accerlating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
+                    ce.Insert(BeatTime(4f), CentreEasing.Accelerating(new(0, 0), new(0, Rand(0.08f, 0.12f))));
                     Line l = new(ce.GetResult(), ValueEasing.Stable(Rand(-40, -20)));
                     CreateEntity(l);
                     l.AlphaDecrease(BeatTime(3));
@@ -8742,7 +8742,7 @@ namespace Rhythm_Recall.Waves
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 540 + a * 27));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, -Rand(4.00f, 8.00f)), new(0, -Rand(0.040f, 0.090f))));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, -Rand(4.00f, 8.00f)), new(0, -Rand(0.040f, 0.090f))));
                         CreateBone(new CustomBone(new(0, 0), ce.GetResult(), 90 + Rand(-30, 30), BoxStates.Width + 80) { ColorType = 2 });
                     }
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UndyneFight_Ex.Fight;
 using static System.Math;
 using static System.MathF;
@@ -612,7 +611,7 @@ namespace UndyneFight_Ex.Entities
                         FormalDraw(Image, Centre, curColor * 0.6f * (FatherObject.FatherObject as Heart).Alpha, Rotation, ImageCentre);
                         float scale = MathF.Min(1, drawConsumption);
                         if (drawConsumption > 0.004f)
-                            FormalDraw(FightResources.Sprites.ShieldCircle,
+                            FormalDraw(Image,
                                 Centre + new Vector2(0, Image.Height * (1 - scale)),
                                 new CollideRect(0, Image.Height * (1 - scale), Image.Width,
                                 Image.Height * scale).ToRectangle(),

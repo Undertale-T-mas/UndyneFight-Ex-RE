@@ -3,10 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.GameMain;
+using static UndyneFight_Ex.MathUtil;
 using Color = Microsoft.Xna.Framework.Color;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace UndyneFight_Ex
 {
@@ -21,14 +20,14 @@ namespace UndyneFight_Ex
         {
             int i;
             Vector2[] vector2s = new Vector2[pointList.Length];
-            for(i = 0;  i < pointList.Length; i++)
+            for (i = 0; i < pointList.Length; i++)
             {
                 vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
             }
             List<Tuple<int, int, int>> results = GetIndices(vector2s);
             int[] indices = new int[results.Count * 3];
             i = 0;
-            foreach(Tuple<int, int, int> tuple in results)
+            foreach (Tuple<int, int, int> tuple in results)
             {
                 indices[i] = tuple.Item1; i++;
                 indices[i] = tuple.Item2; i++;
@@ -42,7 +41,7 @@ namespace UndyneFight_Ex
         public static List<Tuple<int, int, int>> GetIndices(VertexPositionColorTexture[] pointList)
         {
             Vector2[] vector2s = new Vector2[pointList.Length];
-            for(int i = 0;  i < pointList.Length; i++)
+            for (int i = 0; i < pointList.Length; i++)
             {
                 vector2s[i] = new(pointList[i].Position.X, pointList[i].Position.Y);
             }
@@ -51,22 +50,22 @@ namespace UndyneFight_Ex
         /// <summary>
         /// 按顺时针输入点列，获得该点列的一组三角剖分
         /// </summary>
-        public static List<Tuple<int, int, int>> GetIndices(Vector2[] pointList) { 
+        public static List<Tuple<int, int, int>> GetIndices(Vector2[] pointList) {
             Tuple<int, Vector2>[] arr = new Tuple<int, Vector2>[pointList.Length];
             for (int i = 0; i < arr.Length; i++) arr[i] = new(i, pointList[i]);
             return GetIndices(arr);
         }
-        
+
         /// <summary>
         /// 按顺时针输入点列，获得该点列的一组三角剖分
         /// </summary>
         public static List<Tuple<int, int, int>> GetIndices(Tuple<int, Vector2>[] pointList)
         {
             if (pointList.Length <= 2) return new();
-            if(pointList.Length == 3) {
+            if (pointList.Length == 3) {
                 return new List<Tuple<int, int, int>>() { new Tuple<int, int, int>(pointList[0].Item1, pointList[1].Item1, pointList[2].Item1) };
-            }  
-            List<Tuple<int, int, int>> result = new(); 
+            }
+            List<Tuple<int, int, int>> result = new();
 
             List<int> reflexs = null;
 
@@ -78,7 +77,7 @@ namespace UndyneFight_Ex
                 int i2 = i + 1;
                 if (i2 == pointList.Length) i2 = 0;
                 Vector2 cur = pointList[i2].Item2 - pointList[i].Item2;
-                if(last.Cross(cur) < 0)
+                if (last.Cross(cur) < 0)
                 {
                     if (!existReflex)
                     {
@@ -95,9 +94,9 @@ namespace UndyneFight_Ex
                 last = cur;
             }
 
-            if(!existReflex) //凸多边形
+            if (!existReflex) //凸多边形
             {
-                for(int i = 2; i < pointList.Length; i++)
+                for (int i = 2; i < pointList.Length; i++)
                 {
                     result.Add(new(pointList[0].Item1, pointList[i - 1].Item1, pointList[i].Item1));
                 }
@@ -106,7 +105,7 @@ namespace UndyneFight_Ex
             // 凹多边形
             int length = pointList.Length;
             bool[] used = new bool[pointList.Length];
-            for(int i = 0; i < pointList.Length; i++)
+            for (int i = 0; i < pointList.Length; i++)
             {
                 if (i == pointList.Length - 1 && used[0]) break;
                 if (!reflex[i]) // 可能是可以分割的顶点
@@ -139,7 +138,7 @@ namespace UndyneFight_Ex
             }
             int k = 0;
             Tuple<int, Vector2>[] tuples = new Tuple<int, Vector2>[length];
-            for(int i = 0; i < pointList.Length; i++)
+            for (int i = 0; i < pointList.Length; i++)
             {
                 if (!used[i])
                 {
@@ -294,7 +293,7 @@ namespace UndyneFight_Ex
         /// <param name="cl">线条颜色</param>
         public static void DrawLine(Vector2 Centre, float angle, float length, float width, Color cl, float depth, Texture2D texture = null)
         {
-            texture ??= FightResources.Sprites.pixUnit; 
+            texture ??= FightResources.Sprites.pixUnit;
             angle = GetAngle(angle);
             Vector2 v1 = GetVector2(length / 2f, angle);
             Vector2 v2 = -v1;
@@ -302,7 +301,7 @@ namespace UndyneFight_Ex
             Vector2 del = GetVector2(width / 2f, angle + 90);
             Vector2 p1 = v1 + del, p2 = v2 + del;
             Vector2 p3 = v1 - del, p4 = v2 - del;
-            MissionSpriteBatch.DrawVertex(texture, depth, 
+            MissionSpriteBatch.DrawVertex(texture, depth,
                 new VertexPositionColorTexture(new(p1, depth), cl, new(0, 0)),
                 new VertexPositionColorTexture(new(p2, depth), cl, new(0, 1)),
                 new VertexPositionColorTexture(new(p4, depth), cl, new(1, 1)),
@@ -326,6 +325,35 @@ namespace UndyneFight_Ex
             DrawLine(V2, V4, width, color, depth);
             DrawLine(V3, V4, width, color, depth);
         }
+        public static void DrawCircle(Vector2 center, float radius, int vertexnum, float thickness, Color col, float depth) => DrawCircleSections(center, radius, vertexnum, thickness, col, depth, 0, vertexnum);
+        public static void DrawCircleSections(Vector2 center, float radius, int vertexnum, float thickness, Color col, float depth, float startang, float endang)
+        {
+            vertexnum = Math.Max(3, vertexnum);
+            for (int i = 0; i < vertexnum; i++)
+            {
+                Vector2 a = center + GetVector2(radius, i * 360 / vertexnum + startang),
+                    b = center + GetVector2(radius, (i + 1) * 360 / vertexnum + startang);
+                bool check = (i + 1) * 360 / vertexnum + startang > endang;
+                if (check) b = center + GetVector2(radius, endang);
+                DrawLine(a, b, thickness, col, depth);
+                if (check) break;
+            }
+        }
+
+        public static void DrawLineColors(Vector2 Centre, float angle, float length, float width, Color[] cl, float depth, Texture2D texture = null)
+        {
+            texture ??= FightResources.Sprites.pixUnit;
+            Vector2 v1 = GetVector2(length / 2f, angle), v2 = -v1;
+            v1 += Centre; v2 += Centre;
+            Vector2 del = GetVector2(width / 2f, angle + 90),
+                    p1 = v1 + del, p2 = v2 + del, p3 = v1 - del, p4 = v2 - del;
+            MissionSpriteBatch.DrawVertex(texture, depth,
+                new VertexPositionColorTexture(new(p1, depth), cl[0], new(0, 0)),
+                new VertexPositionColorTexture(new(p2, depth), cl[1], new(0, 1)),
+                new VertexPositionColorTexture(new(p4, depth), cl[2], new(1, 1)),
+                new VertexPositionColorTexture(new(p3, depth), cl[3], new(1, 0)));
+        }
+        public static void DrawLineColors(Vector2 Centre, float angle, float length, float width, Color cl, float depth, Texture2D texture = null) => DrawLineColors(Centre, angle, length, width, new Color[] { cl, cl, cl, cl }, depth, texture);
     }
     public static class UsingShader
     {

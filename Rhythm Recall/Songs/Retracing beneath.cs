@@ -1392,7 +1392,7 @@ namespace Rhythm_Recall.Waves
                     {
                         var rot = LinkEase(Stable(0, 90), EaseOut(T(2f), 360 + 135, EaseState.Sine));
                         var rot1 = LinkEase(Stable(0, 180), EaseOut(T(2f), 360 + 135, EaseState.Sine));
-                        var cen = EasingUtil.CentreEasing.Combine(new Vector2(320, 240), EasingUtil.CentreEasing.Accerlating(new(0, -10), new(0, 10f / T(0.85f))));
+                        var cen = EasingUtil.CentreEasing.Combine(new Vector2(320, 240), EasingUtil.CentreEasing.Accelerating(new(0, -10), new(0, 10f / T(0.85f))));
                         Line l = new(cen, rot);
                         Line l1 = new(cen, rot1);
                         CreateEntity(l, l1);
@@ -2711,7 +2711,7 @@ namespace Rhythm_Recall.Waves
                     {
                         var rot = LinkEase(Stable(0, 90), EaseOut(T(2f), 360 + 135, EaseState.Sine));
                         var rot1 = LinkEase(Stable(0, 180), EaseOut(T(2f), 360 + 135, EaseState.Sine));
-                        var cen = EasingUtil.CentreEasing.Combine(new Vector2(320, 240), EasingUtil.CentreEasing.Accerlating(new(0, -10), new(0, 10f / T(0.85f))));
+                        var cen = EasingUtil.CentreEasing.Combine(new Vector2(320, 240), EasingUtil.CentreEasing.Accelerating(new(0, -10), new(0, 10f / T(0.85f))));
                         Line l = new(cen, rot);
                         Line l1 = new(cen, rot1);
                         CreateEntity(l, l1);
@@ -4067,7 +4067,7 @@ namespace Rhythm_Recall.Waves
                     {
                         var rot = LinkEase(Stable(0, 90), EaseOut(T(2f), 360+135, EaseState.Sine));
                         var rot1 = LinkEase(Stable(0, 180), EaseOut(T(2f), 360+135, EaseState.Sine));
-                        var cen=EasingUtil.CentreEasing.Combine(new Vector2(320,240),EasingUtil.CentreEasing.Accerlating(new(0, -10), new(0, 10f / T(0.85f))));
+                        var cen=EasingUtil.CentreEasing.Combine(new Vector2(320,240),EasingUtil.CentreEasing.Accelerating(new(0, -10), new(0, 10f / T(0.85f))));
                         Line l = new(cen, rot);
                         Line l1 = new(cen, rot1);
                         CreateEntity(l, l1);
@@ -5386,7 +5386,7 @@ namespace Rhythm_Recall.Waves
                     {
                         var rot = LinkEase(Stable(0, 90), EaseOut(T(2f), 360 + 135, EaseState.Sine));
                         var rot1 = LinkEase(Stable(0, 180), EaseOut(T(2f), 360 + 135, EaseState.Sine));
-                        var cen = EasingUtil.CentreEasing.Combine(new Vector2(320, 240), EasingUtil.CentreEasing.Accerlating(new(0, -10), new(0, 10f / T(0.85f))));
+                        var cen = EasingUtil.CentreEasing.Combine(new Vector2(320, 240), EasingUtil.CentreEasing.Accelerating(new(0, -10), new(0, 10f / T(0.85f))));
                         Line l = new(cen, rot);
                         Line l1 = new(cen, rot1);
                         CreateEntity(l, l1);

@@ -6006,7 +6006,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.LerpTo(new(320, yCentre), 0.12f, CentreEasing.EaseOutQuad(new(320 - 31, yCentre), new(320, yCentre), time)),
                         CentreEasing.LerpTo(new(320, yCentre), 0.12f, CentreEasing.EaseOutQuad(new(320 + 31, yCentre), new(320, yCentre), time))
                     ));
-                builder.Insert(time, CentreEasing.Accerlating(new(-5, -7), new(0, 0.7f)));
+                builder.Insert(time, CentreEasing.Accelerating(new(-5, -7), new(0, 0.7f)));
                 Line follow, mid, line = new(builder.GetResult(), (s) => s.AppearTime > time ? (90 + (s.AppearTime - time) * 3.3f) : 90, (s) => length) { Depth = 0.5f };
                 line.Width = 4;
                 line.DrawingColor = Color.Red;

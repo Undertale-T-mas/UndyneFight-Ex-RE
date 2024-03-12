@@ -485,10 +485,10 @@ namespace Rhythm_Recall.Waves
                         {
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(Rand(Heart.Centre.X - 30, Heart.Centre.X + 30), 640 + Rand(30, 60)));
-                            ce.Insert(BeatTime(64), CentreEasing.Accerlating(new(0, Rand(-9, -4)), new(0, Rand(0.05f, 0.12f))));
+                            ce.Insert(BeatTime(64), CentreEasing.Accelerating(new(0, Rand(-9, -4)), new(0, Rand(0.05f, 0.12f))));
                             ValueEasing.EaseBuilder ve = new();
                             ve.Insert(0, ValueEasing.Stable(Rand(0, 359)));
-                            ve.Insert(BeatTime(64), ValueEasing.Accerlating(0, Rand(0.05f, 0.12f) * Someway.Rand0or1()));
+                            ve.Insert(BeatTime(64), ValueEasing.Accelerating(0, Rand(0.05f, 0.12f) * Someway.Rand0or1()));
                             CustomBone b = new(new(0, 0), ce.GetResult(), Motions.LengthRoute.stableValue, ve.GetResult()) { LengthRouteParam = new float[] { 20 }, IsMasked = false };
                             CreateBone(b);
                         }

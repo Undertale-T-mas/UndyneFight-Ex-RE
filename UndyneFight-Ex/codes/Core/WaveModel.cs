@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Entities.Advanced;
 using static UndyneFight_Ex.Fight.Functions;
 
 namespace UndyneFight_Ex.SongSystem

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using UndyneFight_Ex.Settings;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.GameStates;
@@ -318,7 +317,7 @@ namespace UndyneFight_Ex.Entities
 
                 bool percise = perciseWarning;
                 bool generateTip = percise ? (score != 3) : (score <= 2);
-                if(this.JudgeType == JudgementType.Hold) { generateTip = false; }
+                if(this.JudgeType == JudgementType.Hold || ForceDisableTimeTips) { generateTip = false; }
                 if (generateTip)
                 {
                     Color tipscolor = Color.CornflowerBlue;

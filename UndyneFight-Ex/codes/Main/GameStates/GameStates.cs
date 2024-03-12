@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
@@ -38,6 +37,7 @@ namespace UndyneFight_Ex
 
         internal static bool isInBattle = false;
         public static int difficulty = -1;
+        public static bool ForceDisableTimeTips = false;
         private static GameMode curMode;
 
         internal static bool isReplay = false;

@@ -12,7 +12,9 @@ namespace Rhythm_Recall.Waves
                 SongSet fightSet = new("Spring Event I");
                 fightSet.Push(typeof(Astronomia));
                 fightSet.Push(typeof(HellTaker));
-                fightSet.Push(typeof(IndihomePaketPhoenix));
+                //2024 April
+                fightSet.Push(typeof(Goyang));
+                //fightSet.Push(typeof(IndihomePaketPhoenix));
                 fightSet.Push(typeof(NeverGonnaGiveYouUp));
                 return new ChampionShip(fightSet)
                 {

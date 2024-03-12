@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex
 {

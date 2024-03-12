@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
-using System.Threading;
 using UndyneFight_Ex.Entities;
-using static UndyneFight_Ex.Entities.Player;
 
 namespace UndyneFight_Ex
 {

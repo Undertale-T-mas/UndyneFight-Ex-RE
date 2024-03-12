@@ -6,7 +6,6 @@ using col = Microsoft.Xna.Framework.Color;
 using UndyneFight_Ex.Remake.Network;
 using System.Collections.Generic;
 using System.Text.Json;
-using Microsoft.Xna.Framework;
 using System.Linq;
 using static Microsoft.Xna.Framework.MathHelper;
 

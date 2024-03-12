@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.MathUtil;
@@ -1116,7 +1115,7 @@ namespace UndyneFight_Ex.Entities
                     Vector2 vec = new(0, Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity);
                     return vec;
                 };
-            public static Func<ICustomMotion, Vector2> Accerlating(Vector2 speed, Vector2 accerlation) =>
+            public static Func<ICustomMotion, Vector2> Accelerating(Vector2 speed, Vector2 accerlation) =>
                 (s) =>
                 {
                     return speed * s.AppearTime + accerlation * (0.5f * s.AppearTime * s.AppearTime);
@@ -1569,7 +1568,7 @@ namespace UndyneFight_Ex.Entities
             /// <returns></returns>
             public static Func<ICustomMotion, float> SinWave(float intensity, float cycleTime, float startPhase) =>
                 (s) => Sin01(s.AppearTime * 2 / cycleTime + startPhase) * intensity;
-            public static Func<ICustomMotion, float> Accerlating(float speed, float accerlation) =>
+            public static Func<ICustomMotion, float> Accelerating(float speed, float accerlation) =>
                 (s) =>
                 {
                     return speed * s.AppearTime + accerlation * (0.5f * s.AppearTime * s.AppearTime);

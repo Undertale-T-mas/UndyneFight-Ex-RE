@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -84,7 +82,7 @@ namespace UndyneFight_Ex.Entities
         }
         public override void Draw()
         {
-            if (_doDraw) return;
+            if (_doDraw || !Visible) return;
             _doDraw = true;
             Vector2 gravity = Vector2.Zero;
             for (int i = 0; i < Vertexs.Length; i++)
@@ -102,7 +100,7 @@ namespace UndyneFight_Ex.Entities
                     DrawingLab.DrawLine(positions[i], positions[i + 1], 4.2f, Color.Lerp(GameMain.CurrentDrawingSettings.backGroundColor, GameMain.CurrentDrawingSettings.themeColor, curAlpha), 0.4f);
                 else DrawingLab.DrawLine(positions[i], positions[i + 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
             }
-            if(AlphaBlend)
+            if (AlphaBlend)
             DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, Color.Lerp(GameMain.CurrentDrawingSettings.backGroundColor, GameMain.CurrentDrawingSettings.themeColor, curAlpha), 0.4f);
             else DrawingLab.DrawLine(positions[0], positions[Vertexs.Length - 1], 4.2f, GameMain.CurrentDrawingSettings.themeColor * curAlpha, 0.4f);
         }

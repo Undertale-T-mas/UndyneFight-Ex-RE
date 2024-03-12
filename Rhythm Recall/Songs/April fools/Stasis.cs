@@ -641,7 +641,7 @@ namespace AprilExtends
                 //    ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(280, 260, BeatTime(4)), ValueEasing.EaseOutSine(160, 300, BeatTime(4))));
                 //    ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(260, 320, BeatTime(4)), ValueEasing.EaseOutQuad(300, 360, BeatTime(4))));
                 //    ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(320, 420, BeatTime(4)), ValueEasing.EaseOutQuad(360, 160, BeatTime(4))));
-                //    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0.5f), new(0, 0.15f)));
+                //    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0.5f), new(0, 0.15f)));
                 //    ValueEasing.EaseBuilder ve1 = new();
                 //    ve1.Insert(0, ValueEasing.Stable(90));
                 //    ve1.Insert(BeatTime(4), ValueEasing.EaseOutBack(90, 90 + 60, BeatTime(4)));
