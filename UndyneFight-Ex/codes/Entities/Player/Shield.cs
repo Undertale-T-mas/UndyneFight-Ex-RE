@@ -531,8 +531,9 @@ namespace UndyneFight_Ex.Entities
                 }
                 public void MakeShieldParticle(Color col, float ang)
                 {
+                    if (!Functions.Heart.FixArrow) ang -= Functions.Heart.Rotation;
                     Heart mission = FatherObject as Heart;
-                    Vector2 createCentre = mission.Centre + MathUtil.GetVector2(33, ang - 180 + Functions.Heart.Rotation);
+                    Vector2 createCentre = mission.Centre + MathUtil.GetVector2(33, ang - 180);
                     for (int i = 0; i < Rand(5, 20); i++)
                     {
                         float rotation1 = ang + 90 + (Rand(0, 1) * 180);
