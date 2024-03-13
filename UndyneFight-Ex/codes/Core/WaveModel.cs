@@ -72,8 +72,7 @@ namespace UndyneFight_Ex.SongSystem
         /// <param name="beatTime">一个节拍占据的帧数</param>
         public WaveConstructor(float beatTime)
         {
-            _singleBeat = beatTime;
-            SingleBeat = beatTime;
+            SingleBeat = _singleBeat = beatTime;
             DelayEnabled = true;
         }
         /// <summary>

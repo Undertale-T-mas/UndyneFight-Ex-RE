@@ -325,7 +325,7 @@ namespace UndyneFight_Ex
             DrawLine(V2, V4, width, color, depth);
             DrawLine(V3, V4, width, color, depth);
         }
-        public static void DrawCircle(Vector2 center, float radius, int vertexnum, float thickness, Color col, float depth) => DrawCircleSections(center, radius, vertexnum, thickness, col, depth, 0, vertexnum);
+        public static void DrawCircle(Vector2 center, float radius, int vertexnum, float thickness, Color col, float depth) => DrawCircleSections(center, radius, vertexnum, thickness, col, depth, 0, 360);
         public static void DrawCircleSections(Vector2 center, float radius, int vertexnum, float thickness, Color col, float depth, float startang, float endang)
         {
             vertexnum = Math.Max(3, vertexnum);
