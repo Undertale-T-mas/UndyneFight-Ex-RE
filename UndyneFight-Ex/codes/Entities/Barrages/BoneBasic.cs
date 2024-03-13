@@ -57,7 +57,7 @@ namespace UndyneFight_Ex.Entities
         public override void Draw()
         {
             if (Length < 0) return;
-            Depth = 0.5f - colorType * 0.02f;
+            Depth = 0.5f - (colorType * 0.02f);
 
             var spb = GameMain.MissionSpriteBatch;
             CollideRect cl1 = new(0, 0, 6, Length - 2);
@@ -102,11 +102,11 @@ namespace UndyneFight_Ex.Entities
                 float k = (float)Math.Tan(GetRadian(Rotation + 90));
                 A = k;
                 B = -1;
-                C = -A * Centre.X - B * Centre.Y;
-                dist = (float)((A * Heart.Centre.X + B * Heart.Centre.Y + C) / Math.Sqrt(A * A + B * B));
+                C = (-A * Centre.X) - (B * Centre.Y);
+                dist = (float)(((A * Heart.Centre.X) + (B * Heart.Centre.Y) + C) / Math.Sqrt((A * A) + (B * B)));
             }
 
-            float res = Max(Abs(dist) - 4.5f, GetDistance(Heart.Centre, Centre) - Length / 2f - 3.5f);
+            float res = Max(Abs(dist) - 4.5f, GetDistance(Heart.Centre, Centre) - (Length / 2f) - 3.5f);
 
             int offset = 3 - (int)JudgeState;
 
@@ -115,16 +115,16 @@ namespace UndyneFight_Ex.Entities
             if (PlayerInstance.hpControl.ScoreProtected && PlayerInstance.hpControl.protectTime > 0) return;
             if (res < 0)
             {
-                    if (!hasHit)
-                        PushScore(0);
-                    LoseHP(Heart);
-                    hasHit = true;
+                if (!hasHit)
+                    PushScore(0);
+                LoseHP(Heart);
+                hasHit = true;
             }
-            else if (res <= 1.6f - offset * 0.4f)
+            else if (res <= 1.6f - (offset * 0.4f))
             {
                 if (score >= 2) { score = 1; Player.CreateCollideEffect(Color.LawnGreen, 3f); }
             }
-            else if (res <= 4.2f - offset * 1.2f)
+            else if (res <= 4.2f - (offset * 1.2f))
             {
                 if (score >= 3) { score = 2; Player.CreateCollideEffect(Color.LightBlue, 6f); }
             }

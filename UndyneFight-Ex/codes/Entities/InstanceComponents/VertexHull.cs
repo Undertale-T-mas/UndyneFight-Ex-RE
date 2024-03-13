@@ -16,7 +16,7 @@ namespace UndyneFight_Ex.Entities.Advanced
         {
             var v = Matrix.CreateRotationX(GetRadian(rot.X)) * Matrix.CreateRotationY(GetRadian(rot.Y)) * Matrix.CreateRotationZ(GetRadian(rot.Z));
             Vector3 s = (new Matrix(Vector4.Zero, Vector4.Zero, Vector4.Zero, new(pos, 0)) * v).Translation;
-            return s.X * xAxis + s.Y * yAxis + s.Z * zAxis;
+            return (s.X * xAxis) + (s.Y * yAxis) + (s.Z * zAxis);
         }
 
         public override void Update()

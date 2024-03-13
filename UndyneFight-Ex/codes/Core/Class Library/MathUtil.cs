@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using static System.Math;
@@ -22,8 +21,7 @@ namespace UndyneFight_Ex
             if (sg1 ^ sg2) return false;
             float re3 = l3.Cross(d3);
             bool sg3 = re3 > 0;
-            if (sg1 ^ sg3) return false;
-            return true;
+            return !(sg1 ^ sg3);
         }
 
         public static string FloatToString(float val, int digits) => FloatToString(val, digits, false);
@@ -83,7 +81,7 @@ namespace UndyneFight_Ex
                 if (ch[i] < '0' || ch[i] > '9')
                     return isCheck ? throw new ArgumentException($"{str} has some character which is not digit", nameof(str)) : 0;
                 if (intPart)
-                    intValue = intValue * 10 + (ch[i] - '0');
+                    intValue = (intValue * 10) + (ch[i] - '0');
                 else
                 {
                     basis *= 10f;
@@ -108,7 +106,7 @@ namespace UndyneFight_Ex
         }
         public static Vector2 Transfer(Matrix matrix, Vector2 origin)
         {
-            return new(origin.X * matrix.M11 + origin.Y * matrix.M21 + matrix.M41, origin.X * matrix.M12 + origin.Y * matrix.M22 + matrix.M42);
+            return new((origin.X * matrix.M11) + (origin.Y * matrix.M21) + matrix.M41, (origin.X * matrix.M12) + (origin.Y * matrix.M22) + matrix.M42);
         }
         public static Vector2 Rotate(Vector2 origin, float rot)
         {
@@ -164,7 +162,7 @@ namespace UndyneFight_Ex
         /// <returns></returns>
         public static float Sigmoid01(float val)
         {
-            return (Tanh(val * 6 - 3) / 0.99505f + 1) / 2f;
+            return ((Tanh((val * 6) - 3) / 0.99505f) + 1) / 2f;
         }
         /// <summary>
         /// 两向量的叉积 
@@ -174,7 +172,7 @@ namespace UndyneFight_Ex
         /// <returns>叉积</returns>
         public static float Cross(this Vector2 vec, Vector2 vec2)
         {
-            return vec.X * vec2.Y - vec.Y * vec2.X;
+            return (vec.X * vec2.Y) - (vec.Y * vec2.X);
         }
         public static int Clamp(int min, int val, int max)
         {
@@ -206,7 +204,7 @@ namespace UndyneFight_Ex
         {
             float dx = P1.X - P2.X;
             float dy = P1.Y - P2.Y;
-            return (float)Math.Sqrt(dx * dx + dy * dy);
+            return (float)Math.Sqrt((dx * dx) + (dy * dy));
         }
         public static int GetRandom(int x, int y)
         {
@@ -253,7 +251,7 @@ namespace UndyneFight_Ex
         private static ulong GetHashCode(string s)
         {
             ulong res = 0;
-            for (int i = 0; i < s.Length; i++) { res = res * 131 + Convert.ToUInt64((int)s[i]); }
+            for (int i = 0; i < s.Length; i++) { res = (res * 131) + Convert.ToUInt64((int)s[i]); }
             return res;
         }
         public static ulong QuickPow(ulong a, ulong b)
@@ -299,15 +297,15 @@ namespace UndyneFight_Ex
             Vector2 result;
             var dx = LinePoint2.X - LinePoint1.X;
             var dy = LinePoint2.Y - LinePoint1.Y;
-            var lengthSqr = dx * dx + dy * dy;
+            var lengthSqr = (dx * dx) + (dy * dy);
 
             //检查线是否长度为零
             if (lengthSqr <= 0)
                 result = new(LinePoint1.X, LinePoint1.Y);
             else
             {
-                var t = Clamp(0, dx * (Point.X - LinePoint1.X) + dy * (Point.Y - LinePoint1.Y), 1);
-                result = new(LinePoint1.X + t * dx, LinePoint1.Y + t * dy);
+                var t = Clamp(0, (dx * (Point.X - LinePoint1.X)) + (dy * (Point.Y - LinePoint1.Y)), 1);
+                result = new(LinePoint1.X + (t * dx), LinePoint1.Y + (t * dy));
             }
             return result;
         }
@@ -322,7 +320,7 @@ namespace UndyneFight_Ex
         }
         public static string Decrypt(string base64Origin, string rsaKeyPrivate)
         {
-            RSACryptoServiceProvider rsa = new(); 
+            RSACryptoServiceProvider rsa = new();
             rsa.FromXmlString(rsaKeyPrivate);
 
             byte[] buffer = Convert.FromBase64String(base64Origin);

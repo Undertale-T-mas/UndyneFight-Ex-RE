@@ -1,5 +1,4 @@
-﻿using Extends;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
@@ -156,7 +155,7 @@ namespace Rhythm_Recall.Waves
                     builder.Insert(BeatTime(2), CentreEasing.EaseOutCubic(new Vector2(260, 340), new Vector2(320, 340), BeatTime(2)));
                     builder.Insert(BeatTime(8), CentreEasing.Combine(
                          CentreEasing.Intensify(CentreEasing.SinWave(11, 3, 0, 0), ValueEasing.EaseOutCubic(1f, 0f, BeatTime(8)))
-                        , CentreEasing.Accerlating(new Vector2(RandSignal() * Rand(2.0f, 3.6f) * 0.7f, -6f), new Vector2(0, 0.25f))));
+                        , CentreEasing.Accelerating(new Vector2(RandSignal() * Rand(2.0f, 3.6f) * 0.7f, -6f), new Vector2(0, 0.25f))));
 
                     ValueEasing.EaseBuilder builder1 = new();
                     builder1.Insert(BeatTime(8), ValueEasing.EaseOutCubic(32, 0, BeatTime(8)));

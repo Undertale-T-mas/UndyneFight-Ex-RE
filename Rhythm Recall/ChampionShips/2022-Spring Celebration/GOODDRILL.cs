@@ -5,12 +5,10 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static Extends.DrawingUtil;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using System.Reflection;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace Rhythm_Recall.Waves
 {
@@ -21,7 +19,6 @@ namespace Rhythm_Recall.Waves
             difficulties = new();
             difficulties.Add("div.2", Difficulty.Normal);
             difficulties.Add("div.1", Difficulty.Hard);
-            difficulties.Add("div.0", Difficulty.Extreme);
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
@@ -68,12 +65,10 @@ namespace Rhythm_Recall.Waves
                 public static void A1()
                 {
                     SetBox(240, 180, 180);
-                    CreateBone(new CentreCircleBone(0, 4, 160, 330) { ColorType = 2 });
-                    CreateBone(new CentreCircleBone(0, -2.75f, 160, 330) { ColorType = 1 });
+                    CreateBone(new CentreCircleBone(0, 4, 160, 300) { ColorType = 2 });
+                    CreateBone(new CentreCircleBone(0, -2.75f, 160, 300) { ColorType = 1 });
                     for (int i = 0; i <= 8; i++)
-                    {
-                        CreateBone(new SideCircleBone(i * 360 / 8, 2.25f, 40, 360));
-                    }
+                        CreateBone(new SideCircleBone(i * 360 / 8, 2.25f, 40, 300));
                 }
                 public static void A2()
                 {
@@ -288,15 +283,13 @@ namespace Rhythm_Recall.Waves
                 {
                     CreateEntity(new Boneslab(90, 165, 0, 10));
                 }
-                #endregion
                 public static void A18()
                 {
                     for (int i = 0; i <= 12; i++)
-                    {
                         CreateBone(new SideCircleBone(360 / 12 * i, 6, 40, 20));
-                    }
                     CreateEntity(new Boneslab(0, 130, 0, 20) { ColorType = 2 });
                 }
+                #endregion
                 public static void A19()
                 {
                     int R = Rand(0, 2);
@@ -341,7 +334,7 @@ namespace Rhythm_Recall.Waves
                     {
                         AddInstance(new TimeRangedEvent(30 + i * 80, 40, () => { rb1.Speed -= 0.25f; rb2.Speed -= 0.25f; }));
                         if (i < 12)
-                        AddInstance(new TimeRangedEvent(70 + i * 80, 40, () => { rb1.Speed += 0.25f; rb2.Speed += 0.25f; }));
+                            AddInstance(new TimeRangedEvent(70 + i * 80, 40, () => { rb1.Speed += 0.25f; rb2.Speed += 0.25f; }));
                     }
                 }
                 public static void A23()
@@ -432,10 +425,10 @@ namespace Rhythm_Recall.Waves
                 public static void A1()
                 {
                     SetBox(240, 180, 180);
-                    CreateBone(new CentreCircleBone(0, -2.75f, 160, 330));
+                    CreateBone(new CentreCircleBone(0, -2.75f, 160, 300));
                     for (int i = 0; i <= 8; i++)
                     {
-                        CreateBone(new SideCircleBone(i * 360 / 8, 2.25f, 40, 360));
+                        CreateBone(new SideCircleBone(i * 360 / 8, 2.25f, 40, 300));
                     }
                 }
                 public static void A2()
@@ -443,7 +436,7 @@ namespace Rhythm_Recall.Waves
                     TP(30, 390);
                     SetSoul(2);
                     SetBox(20, 100, 320, 400);
-                    PlayerInstance.hpControl.GiveProtectTime(5,true);
+                    PlayerInstance.hpControl.GiveProtectTime(5, true);
                     CreateBone(new CustomBone(new(70, 400), Motions.PositionRoute.cameFromDown, 0, 40, 380));
                     CreateBone(new CustomBone(new(70, 80), Motions.PositionRoute.cameFromUp, 0, 500, 380));
                     CreateBone(new CustomBone(new(110, 400), Motions.PositionRoute.cameFromDown, 0, 30, 380));
@@ -834,8 +827,7 @@ namespace Rhythm_Recall.Waves
 
             public static void Effect()
             {
-                //开头特效
-                #region
+                #region 开头特效
                 if (Gametime == 0)
                 {
                     var Box = FightBox.instance as RectangleBox;
@@ -857,7 +849,7 @@ namespace Rhythm_Recall.Waves
                     if (GametimeF >= i * 12 && GametimeF < 102 + i * 12)
                     {
                         var rate = MathF.Pow((Gametime - i * 12) * 0.55f, 2);
-                        var alpha = 0.1f + Gametime * 3f / 80f - 0.5f;
+                        var alpha = 0.1f + Gametime * 3f / 80f - 1;
                         NormalLine[] lines = {
                             new(340 + rate, 0, 340 + rate, 480, 150, alpha),
                             new(0, 260 + rate, 640, 260 + rate, 150, alpha),
@@ -866,13 +858,13 @@ namespace Rhythm_Recall.Waves
                         };
                         AddInstance(new TimeRangedEvent(1, 89, () =>
                         {
-                            for (int i = 0; i < 4; i++)
-                                lines[i].alpha -= 0.15f;
+                            for (int i = 0; i < 4; i++) lines[i].alpha -= 0.05f;
                         }));
                         CreateEntity(lines);
                     }
                 }
-                if (GametimeF >= 90 && (GametimeF % 30) == 0 && GametimeF < 450)
+                if (GametimeF >= 90 && (GametimeF % 30) == 0 && GametimeF < 450 ||
+                    GametimeF >= 6390 && (GametimeF % 30) == 0 && GametimeF < 6990)
                 {
                     for (int i = 0; i < 5; i++)
                     {
@@ -886,8 +878,7 @@ namespace Rhythm_Recall.Waves
                     }
                 }
                 #endregion
-                //啥也不是（
-                #region
+                #region 啥也不是（
                 if (GametimeF > 755 && GametimeF < 810)
                 {
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 0.1f;
@@ -899,8 +890,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 480 * 0.1f, ScreenDrawing.ScreenPositionDelta.Y * 0.9f - 240 * 0.1f);
                 }
                 #endregion
-                //特效1
-                #region
+                #region 特效1
                 for (int i = 0; i < 6; i++)
                 {
                     if (GametimeF == 1490 + 60 * i && GametimeF < 1550 + 60 * i)
@@ -921,8 +911,7 @@ namespace Rhythm_Recall.Waves
                     }
                 }
                 #endregion
-                //好康的））1
-                #region
+                #region 好康的））1
                 if (GametimeF == 2080)
                 {
                     SetBox(100, 40, 40);
@@ -946,10 +935,11 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF >= 2121)
                 {
-                    NormalLine line = new(0, 240 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 640, 240 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 90, 0.65f);
-                    NormalLine line1 = new(0, 240 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 640, 240 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 90, 0.65f);
-                    NormalLine line2 = new(320 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 0, 320 + 90 + (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 480, 90, 0.65f);
-                    NormalLine line3 = new(320 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 0, 320 - 90 - (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f), 480, 90, 0.65f);
+                    var rate = (Gametime - 2120) * 0.75f * ((Gametime - 2120) * 0.75f);
+                    NormalLine line = new(0, 240 - 90 - rate, 640, 240 - 90 - rate, 90, 0.65f);
+                    NormalLine line1 = new(0, 240 + 90 + rate, 640, 240 + 90 + rate, 90, 0.65f);
+                    NormalLine line2 = new(320 + 90 + rate, 0, 320 + 90 + rate, 480, 90, 0.65f);
+                    NormalLine line3 = new(320 - 90 - rate, 0, 320 - 90 - rate, 480, 90, 0.65f);
                     CreateEntity(line);
                     CreateEntity(line1);
                     CreateEntity(line2);
@@ -966,87 +956,10 @@ namespace Rhythm_Recall.Waves
                 {
                     NormalLine line = new(640 - (Gametime - 2160) * 0.9f * ((Gametime - 2160) * 0.9f), 0, 640 - (Gametime - 2160) * 0.9f * ((Gametime - 2160) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.125f;
-                    }));
-                }
-                if (GametimeF >= 2185 + 0 * 42.5f && GametimeF < 2185 + 1 * 42.5f)
-                {
-                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(640 - (Gametime - 2185 - 0 * 42.5f) * 0.9f * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 0 * 42.5f) * 0.9f * ((Gametime - 2185 - 0 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.75f;
-                    }));
-                }
-                if (GametimeF >= 2185 + 1 * 42.5f && GametimeF < 2185 + 2 * 42.5f)
-                {
-                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new((Gametime - 2185 - 1 * 42.5f) * 0.9f * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 1 * 42.5f) * 0.9f * ((Gametime - 2185 - 1 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.75f;
-                    }));
-                }
-                if (GametimeF >= 2185 + 2 * 42.5f && GametimeF < 2185 + 3 * 42.5f)
-                {
-                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(640 - (Gametime - 2185 - 2 * 42.5f) * 0.9f * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 2 * 42.5f) * 0.9f * ((Gametime - 2185 - 2 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.75f;
-                    }));
-                }
-                if (GametimeF >= 2185 + 3 * 42.5f && GametimeF < 2185 + 4 * 42.5f)
-                {
-                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new((Gametime - 2185 - 3 * 42.5f) * 0.9f * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 3 * 42.5f) * 0.9f * ((Gametime - 2185 - 3 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.75f;
-                    }));
-                }
-                if (GametimeF >= 2185 + 4 * 42.5f && GametimeF < 2185 + 5 * 42.5f)
-                {
-                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f - 50 * 0.1f, 0);
-                    NormalLine line = new(640 - (Gametime - 2185 - 4 * 42.5f) * 0.9f * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 4 * 42.5f) * 0.9f * ((Gametime - 2185 - 4 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.75f;
-                    }));
-                }
-                if (GametimeF >= 2185 + 5 * 42.5f && GametimeF < 2185 + 6 * 42.5f)
-                {
-                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f + 50 * 0.1f, 0);
-                    NormalLine line = new((Gametime - 2185 - 5 * 42.5f) * 0.9f * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 5 * 42.5f) * 0.9f * ((Gametime - 2185 - 5 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.75f;
-                    }));
-                }
-                if (GametimeF >= 2185 + 6 * 42.5f && GametimeF < 2185 + 7 * 42.5f)
-                {
-                    ScreenDrawing.ScreenPositionDelta = new(ScreenDrawing.ScreenPositionDelta.X * 0.9f, 0);
-                    NormalLine line = new(640 - (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, 640 - (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line);
-                    NormalLine line1 = new((Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 0, (Gametime - 2185 - 6 * 42.5f) * 0.9f * ((Gametime - 2185 - 6 * 42.5f) * 0.9f), 480, 90, 0.75f);
-                    CreateEntity(line1);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.75f;
-                        line1.alpha -= 0.75f;
-                    }));
+                    AddInstance(new TimeRangedEvent(1, 89, () => line.alpha -= 0.125f));
                 }
                 #endregion
-                //走过场1 F
-                #region
+                #region 走过场1 F
                 if (GametimeF == 2450 || GametimeF == 2470)
                 {
                     Line l = new(EaseOut(20, new Vector2(320, 0), new Vector2(320, 144), EaseState.Quad), Stable(0, 0));
@@ -1085,11 +998,10 @@ namespace Rhythm_Recall.Waves
                     }));
                 }
                 #endregion
-                //好康的（并不）2 F
-                #region
+                #region 好康的（并不）2 F
                 for (int i = 0; i <= 7; i++)
                 {
-                    if (GametimeF == 2520 + i * 42.5f)
+                    if (GametimeF == 2185 + i * 42.5f || GametimeF == 2520 + i * 42.5f)
                     {
                         var ScrTargetX = (i == 7 ? 0 : (((i & 1) == 1) ? -50 : 50));
                         RunEase((s) =>
@@ -1103,8 +1015,7 @@ namespace Rhythm_Recall.Waves
                     }
                 }
                 #endregion
-                //走过场2 F
-                #region
+                #region 走过场2 F
                 if (GametimeF > 2850 && GametimeF < 2890)
                 {
                     Linerotate line = new(320, 240, (Gametime - 2850) * 1.25f * ((Gametime - 2850) * 1.25f), 90, 1 - (Gametime - 2850) * 0.05f * ((Gametime - 2850) * 0.05f));
@@ -1128,10 +1039,7 @@ namespace Rhythm_Recall.Waves
                 {
                     NormalLine line = new((Gametime - 2890) * 0.9f * ((Gametime - 2890) * 0.9f), 0, (Gametime - 2890) * 0.9f * ((Gametime - 2890) * 0.9f), 480, 90, 0.75f);
                     CreateEntity(line);
-                    AddInstance(new TimeRangedEvent(1, 89, () =>
-                    {
-                        line.alpha -= 0.125f;
-                    }));
+                    AddInstance(new TimeRangedEvent(1, 89, () => line.alpha -= 0.125f));
                 }
                 if (GametimeF > 2850 && GametimeF < 2970)
                 {
@@ -1159,8 +1067,7 @@ namespace Rhythm_Recall.Waves
                     SetBox(240, 180, 180);
                 }
                 #endregion
-                //好康的（并不）3 F
-                #region
+                #region 好康的（并不）3 F
                 for (int i = 0; i <= 7; i++)
                 {
                     if (GametimeF == 2890 + i * 42.5f || GametimeF == 3190 + 42.5f + i * 42.5f)
@@ -1173,8 +1080,7 @@ namespace Rhythm_Recall.Waves
                     }
                 }
                 #endregion
-                //走过场3
-                #region
+                #region 走过场3
                 if (GametimeF >= 3200 && GametimeF < 3240)
                 {
                     Linerotate line = new(320, 240, (Gametime - 3200) * 1.25f * ((Gametime - 3200) * 1.25f), 90, 1 - (Gametime - 3200) * 0.05f * ((Gametime - 3200) * 0.05f));
@@ -1204,8 +1110,7 @@ namespace Rhythm_Recall.Waves
                     }));
                 }
                 #endregion
-                //（？）1
-                #region
+                #region （？）1
                 if (GametimeF > 3520 && GametimeF < 3560)
                 {
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 0.5f * 0.1f;
@@ -1309,8 +1214,7 @@ namespace Rhythm_Recall.Waves
                     ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 0.1f;
                 }
                 #endregion
-                //（？）2
-                #region
+                #region （？）2
                 if (GametimeF == 4220)
                 {
                     SetBox(240, 120, 120);
@@ -1366,19 +1270,10 @@ namespace Rhythm_Recall.Waves
                 }
                 #endregion
                 //寄
-                if (GametimeF == 4880)
-                {
-                    SetBox(300, 40, 40);
-                }
-                if (GametimeF == 4900)
-                {
-                    SetBox(240, 480, 240);
-                }
+                if (GametimeF == 4880) SetBox(300, 40, 40);
+                if (GametimeF == 4900) SetBox(240, 480, 240);
                 //二寄
-                if (GametimeF == 5560)
-                {
-                    SetSoul(0);
-                }
+                if (GametimeF == 5560) SetSoul(0);
                 //SP.part
                 for (int i = 0; i < 16; i++)
                 {
@@ -1395,6 +1290,37 @@ namespace Rhythm_Recall.Waves
                             l1.alpha -= 0.075f;
                         }));
                     }
+                }
+                if (GametimeF == 8488)
+                {
+                    NormalLine line1 = new(0, 240, 640, 240, 114514, 0.4f);
+                    NormalLine line2 = new(0, 240, 640, 240, 114514, 0.6f);
+                    NormalLine line3 = new(0, 240, 640, 240, 114514, 0.8f);
+                    SetBox(240, 84, 84);
+                    TP();
+                    SetSoul(1);
+                    float a = 0;
+                    CreateEntity(line1);
+                    AddInstance(new TimeRangedEvent(bpm * 2, 1, () => CreateEntity(line2)));
+                    AddInstance(new TimeRangedEvent(bpm * 4, 1, () => CreateEntity(line3)));
+                    AddInstance(new TimeRangedEvent(0, bpm * 16, () =>
+                    {
+                        line1.y1 -= a;
+                        line1.y2 -= a;
+                        a += 0.1f;
+                    }));
+                    AddInstance(new TimeRangedEvent(bpm * 2, bpm * 16, () =>
+                    {
+                        line2.y1 -= a;
+                        line2.y2 -= a;
+                        a += 0.1f;
+                    }));
+                    AddInstance(new TimeRangedEvent(bpm * 4, bpm * 16, () =>
+                    {
+                        line3.y1 -= a;
+                        line3.y2 -= a;
+                        a += 0.1f;
+                    }));
                 }
             }
             #region 啥笔玩意儿））
@@ -1419,7 +1345,7 @@ namespace Rhythm_Recall.Waves
             public void Normal()
             {
                 Effect();
-                if (GametimeF == 60)
+                if (GametimeF == 90)
                 {
                     NormalBarrage.A1();
                     SetSoul(0);
@@ -1965,9 +1891,6 @@ namespace Rhythm_Recall.Waves
                     TP();
                     SetSoul(2);
                 }
-                NormalLine line1 = new(0, 240, 640, 240, 114514, 0.4f);
-                NormalLine line2 = new(0, 240, 640, 240, 114514, 0.6f);
-                NormalLine line3 = new(0, 240, 640, 240, 114514, 0.8f);
                 for (int a = 0; a < 16; a++)
                 {
                     if (GametimeF == (int)(7077 + bpm * 16 * a))
@@ -2043,51 +1966,11 @@ namespace Rhythm_Recall.Waves
                         }
                     }
                 }
-                if (GametimeF == 8488)
-                {
-                    SetBox(240, 84, 84);
-                    TP();
-                    SetSoul(1);
-                    float a = 0;
-                    CreateEntity(line1);
-                    AddInstance(new TimeRangedEvent(bpm * 0.5f, 1, () =>
-                    {
-                        CreateEntity(line2);
-                    }));
-                    AddInstance(new TimeRangedEvent(bpm * 1f, 1, () =>
-                    {
-                        CreateEntity(line3);
-                    }));
-                    AddInstance(new TimeRangedEvent(0, bpm * 16, () =>
-                    {
-                        line1.y1 -= a;
-                        line1.y2 -= a;
-                        a += 0.1f;
-                    }));
-                    AddInstance(new TimeRangedEvent(0.5f * 0.5f, bpm * 16, () =>
-                    {
-                        line2.y1 -= a;
-                        line2.y2 -= a;
-                        a += 0.1f;
-                    }));
-                    AddInstance(new TimeRangedEvent(bpm * 1, bpm * 16, () =>
-                    {
-                        line3.y1 -= a;
-                        line3.y2 -= a;
-                        a += 0.1f;
-                    }));
-                }
-                if (GametimeF == 8119)
-                {
-                    line1.Dispose();
-                    line2.Dispose();
-                    line3.Dispose();
-                }
             }
             public void Hard()
             {
                 Effect();
-                if (GametimeF == 60) HardBarrage.A1();
+                if (GametimeF == 90) HardBarrage.A1();
                 if (GametimeF == 420) HardBarrage.A2();
                 if (GametimeF > 420 && GametimeF < 755)
                     ScreenDrawing.ScreenPositionDelta = new Vector2(320f, 240f) - FightBox.instance.Centre;
@@ -2127,10 +2010,7 @@ namespace Rhythm_Recall.Waves
                     if (GametimeF == 1760 + i * 20)
                     {
                         CreateArrow(80, 0, 6, 0, 0);
-                    }
-                    if (GametimeF == 1770 + i * 20)
-                    {
-                        CreateArrow(80, 2, 6, 0, 0);
+                        CreateArrow(90, 2, 6, 0, 0);
                     }
                 }
                 for (int i = 0; i <= 7; i++)
@@ -2139,11 +2019,8 @@ namespace Rhythm_Recall.Waves
                     {
                         CreateArrow(80, 0, 7, 0, 1);
                         CreateArrow(80, 1, 6, 1, 0);
-                    }
-                    if (GametimeF == 1935 + i * 10)
-                    {
-                        CreateArrow(80, 2, 7, 0, 1);
-                        CreateArrow(80, 3, 6, 1, 0);
+                        CreateArrow(85, 2, 7, 0, 1);
+                        CreateArrow(85, 3, 6, 1, 0);
                     }
                 }
                 for (int i = 0; i <= 6; i++)
@@ -2165,10 +2042,7 @@ namespace Rhythm_Recall.Waves
                     Heart.GiveForce(0, 5.5f);
                     SetSoul(2);
                 }
-                if (GametimeF == 3185)
-                {
-                    Heart.GiveForce(180, 5.5f);
-                }
+                if (GametimeF == 3185) Heart.GiveForce(180, 5.5f);
                 #region 啥笔都不看的叠代码
                 for (int i = 0; i < 2; i++)
                 {
@@ -2191,10 +2065,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CustomBone bone = new(new(80, 240), Motions.PositionRoute.cameFromLeft, 0, 140, 400) { ColorType = 2, MarkScore = false };
                     CreateBone(bone);
-                    AddInstance(new InstantEvent(30, () =>
-                    {
-                        bone.ColorType = 0;
-                    }));
+                    AddInstance(new InstantEvent(30, () => bone.ColorType = 0));
                     SetBox(240, 560, 120);
                     SetSoul(4);
                     HeartAttribute.PurpleLineCount = 3;
@@ -2209,10 +2080,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CustomBone bone = new(new(560, 240), Motions.PositionRoute.cameFromRight, 0, 140, 400) { ColorType = 2, MarkScore = false };
                     CreateBone(bone);
-                    AddInstance(new InstantEvent(30, () =>
-                    {
-                        bone.ColorType = 0;
-                    }));
+                    AddInstance(new InstantEvent(30, () => bone.ColorType = 0));
                     SetBox(240, 560, 120);
                     SetSoul(4);
                     HeartAttribute.PurpleLineCount = 3;
@@ -2223,7 +2091,6 @@ namespace Rhythm_Recall.Waves
                     if (GametimeF == 4610 + 30 * i) HardBarrage.A20();
                 }
                 #endregion
-                //寄来喽
                 #region 寄来喽
                 if (GametimeF == 4900) HardBarrage.A21();
                 if (GametimeF == 4930) HardBarrage.A22();
@@ -2239,7 +2106,6 @@ namespace Rhythm_Recall.Waves
                 }
 
                 #endregion
-                //二寄来喽））
                 #region 二寄来喽））
                 for (int i = 0; i < 22; i++)
                 {
@@ -2253,10 +2119,7 @@ namespace Rhythm_Recall.Waves
                     if (GametimeF == 5598 + i * 32) HardBarrage.A27();
                 }
                 //SP.part
-                if (GametimeF > 5690 && GametimeF < 6360)
-                {
-                    ScreenDrawing.ScreenAngle = Sin((Gametime - 5690) * 1.25f) * 5;
-                }
+                if (GametimeF > 5690 && GametimeF < 6360) ScreenDrawing.ScreenAngle = Sin((Gametime - 5690) * 1.25f) * 5;
                 for (int i = 0; i < 8; i++)
                 {
                     if (GametimeF == 5690 + i * 80)//br1
@@ -2313,10 +2176,7 @@ namespace Rhythm_Recall.Waves
                         });
                     }
                 }
-                if (GametimeF > 6360 && GametimeF < 6360 + 120)
-                {
-                    ScreenDrawing.ScreenAngle *= 0.9f;
-                }
+                if (GametimeF > 6360 && GametimeF < 6360 + 120) ScreenDrawing.ScreenAngle *= 0.9f;
                 #endregion
                 //后面是尾杀我鸽了（）
                 //谱师屑亿代是个大傻逼（迫真）
@@ -2326,21 +2186,15 @@ namespace Rhythm_Recall.Waves
                     TP();
                     SetSoul(1);
                 }
-                if (GametimeF == 6457 - 80)
-                {
-                    HardBarrageArrow.arrow1();
-                }
+                if (GametimeF == 6457 - 80) HardBarrageArrow.arrow1();
                 for (int i = 0; i <= 7; i++)
                 {
                     if (GametimeF == (int)(6457 + bpm * 80 + i * 10 - 80))
                     {
-                        CreateArrow(80, 0, 7, 0, 1);
-                        CreateArrow(80, 1, 6, 1, 0);
-                    }
-                    if (GametimeF == (int)(6462 + bpm * 80 + i * 10 - 80))
-                    {
-                        CreateArrow(80, 2, 7, 0, 1);
-                        CreateArrow(80, 3, 6, 1, 0);
+                        CreateArrow(bpm * 16, 0, 7, 0, 1);
+                        CreateArrow(bpm * 16, 1, 6, 1, 0);
+                        CreateArrow(bpm * 17, 2, 7, 0, 1);
+                        CreateArrow(bpm * 17, 3, 6, 1, 0);
                     }
                 }
                 if (GametimeF == 7050)
@@ -2349,130 +2203,35 @@ namespace Rhythm_Recall.Waves
                     TP();
                     SetSoul(2);
                 }
-                RightBone bone1 = new(true, 5, 1);
-                RightBone bone2 = new(false, 5, 1);
-                DownBone bone3 = new(true, 5, 1);
-                DownBone bone4 = new(false, 5, 1);
-                LeftBone bone5 = new(true, 5, 1);
-                LeftBone bone6 = new(false, 5, 1);
-                UpBone bone7 = new(true, 5, 1);
-                UpBone bone8 = new(false, 5, 1);
-                NormalLine line1 = new(0, 240, 640, 240, 114514, 0.4f);
-                NormalLine line2 = new(0, 240, 640, 240, 114514, 0.6f);
-                NormalLine line3 = new(0, 240, 640, 240, 114514, 0.8f);
                 for (int a = 0; a < 32; a++)
                 {
+                    dynamic[] bones =
+                    {
+                        new DownBone(true, 5, 1),
+                        new DownBone(false, 5, 1),
+                        new LeftBone(true, 5, 1),
+                        new LeftBone(false, 5, 1),
+                        new UpBone(true, 5, 1),
+                        new UpBone(false, 5, 1),
+                        new RightBone(true, 5, 1),
+                        new RightBone(false, 5, 1),
+                    };
                     if (GametimeF == (int)(7077 + bpm * 8 * a))
                     {
-                        if (Rand(0, 3) == 0)
+                        var rand = Rand(0, 3);
+                        Heart.GiveForce(rand * 90, 20);
+                        AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
                         {
-                            Heart.GiveForce(270, 20);
-                            AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
-                            {
-                                PlaySound(Sounds.pierce);
-                                CreateBone(bone1);
-                                CreateBone(bone2);
-                            }));
-                            AddInstance(new TimeRangedEvent(bpm * 4, bpm * 4, () =>
-                            {
-                                bone1.MissionLength += 3f;
-                                bone2.MissionLength += 3f;
-                            }));
-                        }
-                        else if (LastRand == 1)
-                        {
-                            Heart.GiveForce(360, 20);
                             PlaySound(Sounds.pierce);
-                            AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
-                            {
-                                PlaySound(Sounds.pierce);
-                                CreateBone(bone3);
-                                CreateBone(bone4);
-                            }));
-                            AddInstance(new TimeRangedEvent(bpm * 4, bpm * 4, () =>
-                            {
-                                bone3.MissionLength += 3f;
-                                bone4.MissionLength += 3f;
-                            }));
-                        }
-                        else if (LastRand == 2)
+                            CreateBone(bones[rand * 2]);
+                            CreateBone(bones[rand * 2 + 1]);
+                        }));
+                        AddInstance(new TimeRangedEvent(bpm * 4, bpm * 4, () =>
                         {
-                            Heart.GiveForce(90, 20);
-                            AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
-                            {
-                                PlaySound(Sounds.pierce);
-                                CreateBone(bone5);
-                                CreateBone(bone6);
-                            }));
-                            AddInstance(new TimeRangedEvent(bpm * 4, bpm * 4, () =>
-                            {
-                                bone5.MissionLength += 3f;
-                                bone6.MissionLength += 3f;
-                            }));
-                        }
-                        else if (LastRand == 3)
-                        {
-                            Heart.GiveForce(180, 20);
-                            AddInstance(new TimeRangedEvent(bpm * 4, 1, () =>
-                            {
-                                PlaySound(Sounds.pierce);
-                                CreateBone(bone7);
-                                CreateBone(bone8);
-                            }));
-                            AddInstance(new TimeRangedEvent(bpm * 4, bpm * 4, () =>
-                            {
-                                bone7.MissionLength += 3f;
-                                bone8.MissionLength += 3f;
-                            }));
-                        }
+                            bones[rand * 2].MissionLength += 3f;
+                            bones[rand * 2 + 1].MissionLength += 3f;
+                        }));
                     }
-                }
-                if (GametimeF == 8488)
-                {
-                    SetBox(240, 84, 84);
-                    TP();
-                    SetSoul(1);
-                    float a = 0;
-                    CreateEntity(line1);
-                    AddInstance(new TimeRangedEvent(bpm * 0.5f, 1, () =>
-                    {
-                        CreateEntity(line2);
-                    }));
-                    AddInstance(new TimeRangedEvent(bpm * 1f, 1, () =>
-                    {
-                        CreateEntity(line3);
-                    }));
-                    AddInstance(new TimeRangedEvent(0, bpm * 16, () =>
-                    {
-                        line1.y1 -= a;
-                        line1.y2 -= a;
-                        a += 0.1f;
-                    }));
-                    AddInstance(new TimeRangedEvent(0.5f * bpm, bpm * 16, () =>
-                    {
-                        line2.y1 -= a;
-                        line2.y2 -= a;
-                        a += 0.1f;
-                    }));
-                    AddInstance(new TimeRangedEvent(bpm * 1, bpm * 16, () =>
-                    {
-                        line3.y1 -= a;
-                        line3.y2 -= a;
-                        a += 0.1f;
-                    }));
-                }
-                if (GametimeF == 8119)
-                {
-                    line1.Dispose();
-                    line2.Dispose();
-                    line3.Dispose();
-                    bone1.Dispose();
-                    bone3.Dispose();
-                    bone4.Dispose();
-                    bone5.Dispose();
-                    bone6.Dispose();
-                    bone7.Dispose();
-                    bone8.Dispose();
                 }
             }
             public class HardBarrageArrow
@@ -2509,15 +2268,8 @@ namespace Rhythm_Recall.Waves
                     };
                     for (int a = 0; a < Bluearrowway.Length; a++)
                     {
-                        if (Bluearrowway[a] == "/")
-                        {
-                            BeattimeB += bpm;
-                        }
-                        else if (Bluearrowway[a] != "/")
-                        {
-                            CreateArrow(80 + BeattimeB, Bluearrowway[a], 6.2f, 0, 0);
-                            BeattimeB += bpm;
-                        }
+                        if (Bluearrowway[a] != "/") CreateArrow(80 + BeattimeB, Bluearrowway[a], 6.2f, 0, 0);
+                        BeattimeB += bpm;
                     }
                 }
             }
@@ -2529,12 +2281,6 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 40, 40);
                 SetSoul(3);
                 TP();
-                if (true)
-                {
-                    SetSoul(0);
-                    GametimeDelta = 3559;
-                    PlayOffset = GametimeDelta;
-                }
             }
         }
     }

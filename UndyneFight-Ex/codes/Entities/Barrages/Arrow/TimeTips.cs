@@ -23,7 +23,7 @@ namespace UndyneFight_Ex.Entities
             public override void Update()
             {
                 appearTime += 0.5f;
-                Centre = pos + MathF.Pow(appearTime / 2, 1.7f) * fadeSpeed;
+                Centre = pos + (MathF.Pow(appearTime / 2, 1.7f) * fadeSpeed);
                 alpha = appearTime > 20f ? (40 - appearTime) * 0.05f : 1;
                 if (alpha <= 0) Dispose();
             }

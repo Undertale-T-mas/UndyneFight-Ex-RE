@@ -1,17 +1,15 @@
-﻿using Extends;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
 using static Extends.DrawingUtil;
-using static Extends.Someway;
 using static Extends.LineMoveLibrary;
+using static Extends.Someway;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.CameraEffect;
-using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.FightResources.Sounds;
 using static UndyneFight_Ex.MathUtil;
 
@@ -2376,7 +2374,7 @@ namespace Rhythm_Recall.Waves
                      "sc","(R1)(+01)","/","/","/",   "($01)","/","/","/",
                      "($01)","/","/","/",   "($01)","/","/","/",
                      "($01)","/","/","/",    "3<($01)","/","/","3<($01)","/","/","3<($01)","/","/",
-                     "($01)","/","/","/","/","/","/","/", 
+                     "($01)","/","/","/","/","/","/","/",
                      "sc2","/","/","/",
 
                          #endregion

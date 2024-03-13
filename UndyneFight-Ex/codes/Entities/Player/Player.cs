@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using static UndyneFight_Ex.Fight.Functions;
 
 namespace UndyneFight_Ex.Entities
@@ -82,7 +82,7 @@ namespace UndyneFight_Ex.Entities
                     else
                     {
                         var v = user.controlingBox.CollidingBox;
-                        FormalDraw(FightResources.Sprites.pixUnit, new CollideRect(v.X, v.Down - v.Height * percent, v.Width, v.Height * percent).ToRectangle(), Color.MediumPurple);
+                        FormalDraw(FightResources.Sprites.pixUnit, new CollideRect(v.X, v.Down - (v.Height * percent), v.Width, v.Height * percent).ToRectangle(), Color.MediumPurple);
                     }
                 }
 
@@ -91,7 +91,7 @@ namespace UndyneFight_Ex.Entities
                     appearTime++;
                     if (appearTime < halfTime)
                     {
-                        percent = percent * 0.85f + 0.15f;
+                        percent = (percent * 0.85f) + 0.15f;
                     }
                     else if (appearTime == halfTime)
                     {
@@ -338,7 +338,7 @@ namespace UndyneFight_Ex.Entities
 
             public Heart()
             {
-                this._currentMoveState = _red;
+                _currentMoveState = _red;
                 controlLayer = Surface.Hidden;
                 heartInstance = this;
                 hearts.Add(this);
@@ -398,17 +398,17 @@ namespace UndyneFight_Ex.Entities
             {
                 Heart v = new()
                 {
-                    speed = this.speed,
-                    jumpTimeLimit = this.jumpTimeLimit,
-                    SoulType = this.SoulType,
-                    purpleLineCount = this.purpleLineCount,
-                    gravity = this.gravity,
-                    jumpSpeed = this.jumpSpeed,
-                    umbrellaAvailable = this.umbrellaAvailable,
-                    umbrellaSpeed = this.umbrellaSpeed,
-                    Centre = this.Centre,
-                    Alpha = this.Alpha,
-                    _currentMoveState = this._currentMoveState,
+                    speed = speed,
+                    jumpTimeLimit = jumpTimeLimit,
+                    SoulType = SoulType,
+                    purpleLineCount = purpleLineCount,
+                    gravity = gravity,
+                    jumpSpeed = jumpSpeed,
+                    umbrellaAvailable = umbrellaAvailable,
+                    umbrellaSpeed = umbrellaSpeed,
+                    Centre = Centre,
+                    Alpha = Alpha,
+                    _currentMoveState = _currentMoveState,
                 };
                 v.controlingBox.InstanceMove(controlingBox.CollidingBox);
 
@@ -433,7 +433,7 @@ namespace UndyneFight_Ex.Entities
                     umbrellaSpeed = umbrellaSpeed,
                     Centre = area.GetCentre(),
                     Alpha = Alpha,
-                    _currentMoveState = this._currentMoveState
+                    _currentMoveState = _currentMoveState
                 };
                 v.controlingBox.InstanceMove(area);
 
@@ -468,7 +468,7 @@ namespace UndyneFight_Ex.Entities
                     for (int i = 1; i < count; i++)
                     {
                         RectangleBox box = controlingBox as RectangleBox;
-                        DrawingLab.DrawLine(new Vector2(box.Centre.X, i * detla + box.Up),
+                        DrawingLab.DrawLine(new Vector2(box.Centre.X, (i * detla) + box.Up),
                             0, purpleLineLength, 3, Color.MediumPurple, 0.1f);
                     }
                 }
@@ -508,8 +508,8 @@ namespace UndyneFight_Ex.Entities
                 Rotation += rotateDelta * 0.3f * (rotateWay ? 1 : -1);
 
                 if (!Fight.FightStates.roundType)
-                { 
-                    this._currentMoveState.MoveFunction.Invoke(this);
+                {
+                    _currentMoveState.MoveFunction.Invoke(this);
                 }
 
                 if (isOranged)
@@ -557,7 +557,7 @@ namespace UndyneFight_Ex.Entities
                         GameStates.InstanceCreate(new PurpleFiller(-1, this));
                         break;
                 }
-                this._currentMoveState = type switch
+                _currentMoveState = type switch
                 {
                     0 => _red,
                     1 => _green,
@@ -583,11 +583,11 @@ namespace UndyneFight_Ex.Entities
             {
                 float v = 0.78f;
                 float v2 = 1 - v;
-                Centre = Centre * v + mergeMission.Centre * v2;
+                Centre = (Centre * v) + (mergeMission.Centre * v2);
                 var cl = controlingBox.CollidingBox;
                 for (int i = 0; i < controlingBox.Vertexs.Length; i++)
                 {
-                    controlingBox.Vertexs[i].CurrentPosition = controlingBox.Vertexs[i].CurrentPosition * v + mergeMission.controlingBox.Vertexs[i].MissionPosition * v2;
+                    controlingBox.Vertexs[i].CurrentPosition = (controlingBox.Vertexs[i].CurrentPosition * v) + (mergeMission.controlingBox.Vertexs[i].MissionPosition * v2);
                 }
 
                 controlingBox.InstanceMove(new CollideRect(controlingBox.Vertexs[0].CurrentPosition, controlingBox.Vertexs[2].CurrentPosition - controlingBox.Vertexs[0].CurrentPosition));

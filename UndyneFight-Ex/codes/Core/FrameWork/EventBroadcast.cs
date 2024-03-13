@@ -6,8 +6,8 @@ namespace UndyneFight_Ex
     {
         public GameEventArgs(GameObject gameObject, string info)
         {
-            this.Source = gameObject;
-            this.ActionName = info;
+            Source = gameObject;
+            ActionName = info;
         }
 
         public string ActionName { get; set; }
@@ -15,7 +15,7 @@ namespace UndyneFight_Ex
 
         public void Dispose()
         {
-            this.Disposed = true;
+            Disposed = true;
         }
         public bool Disposed { get; private set; }
     }

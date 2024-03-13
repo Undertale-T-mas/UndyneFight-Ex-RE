@@ -636,7 +636,7 @@ namespace Rhythm_Recall.Waves
                         foreach (var box in FightBox.boxs)
                         {
                             for (int i = 0; i < 4; i++)
-                                box.Vertexs[i].MissionPosition -= new Vector2(0, 140); 
+                                box.Vertexs[i].MissionPosition -= new Vector2(0, 140);
                         }
                     }
                     if (GametimeF == 4495 + 2 * 22 + 11)

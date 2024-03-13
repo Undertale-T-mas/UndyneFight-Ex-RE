@@ -19,7 +19,7 @@ namespace UndyneFight_Ex.Entities
         public float WaitingTime { get; set; } = 59;
         public bool Rebound { get; set; } = false;
         public int ReboundCount { get; set; } = 3;
-        public Vector2[] ReboundVertexs { get; set; } = { new(0, 0), new(640, 0), new(640, 480), new(0, 480)};
+        public Vector2[] ReboundVertexs { get; set; } = { new(0, 0), new(640, 0), new(640, 480), new(0, 480) };
         public float Duration { private get; set; } = 200;
 
         public NormalSpear(Vector2 centre) : this(centre, (float)(Atan2(Heart.Centre.Y - centre.Y, Heart.Centre.X - centre.X) * 180 / Math.PI)) { }
@@ -98,7 +98,7 @@ namespace UndyneFight_Ex.Entities
         public Pike(Vector2 centre, float waitingTime) : this(centre, (float)(Atan2(Heart.Centre.Y - centre.Y, Heart.Centre.X - centre.X) * 180 / Math.PI), waitingTime) { }
         public Pike(Vector2 centre, float rotation, float waitingTime)
         {
-            alphaChangeTime = 20 - 12 / waitingTime;
+            alphaChangeTime = 20 - (12 / waitingTime);
             Centre = centre;
             Rotation = rotation;
             this.waitingTime = waitingTime;
@@ -177,7 +177,7 @@ namespace UndyneFight_Ex.Entities
             {
                 if (waitingTime < 34)
                 {
-                    appearRotation *= 1 - 1.3f / waitingTime;
+                    appearRotation *= 1 - (1.3f / waitingTime);
                     appearRotation -= 5f / waitingTime;
                 }
                 appearRotation -= 0.8f;

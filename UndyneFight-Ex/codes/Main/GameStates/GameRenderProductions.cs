@@ -9,7 +9,7 @@ namespace UndyneFight_Ex
     public static partial class GameStates
     {
         public static float Aspect { set => GameMain.Aspect = value; get => GameMain.Aspect; }
-        public static float SurfaceScale => CurrentScene == null? 1 : CurrentScene.CurrentDrawingSettings.SurfaceScale;
+        public static float SurfaceScale => CurrentScene == null ? 1 : CurrentScene.CurrentDrawingSettings.SurfaceScale;
         internal static Settings.SettingsManager.DataLibrary.DrawingQuality Quality => Settings.SettingsManager.DataLibrary.drawingQuality;
 
         public static Matrix ResizeMatrix => GameMain.ResizeMatrix;
@@ -72,8 +72,8 @@ namespace UndyneFight_Ex
                     Vector4 vec = Fight.Functions.ScreenDrawing.BoundDistance;
                     if (CurrentScene is FightScene && ((CurrentScene as FightScene).Mode & SongSystem.GameMode.Buffed) != 0 && (CurrentScene as FightScene).PlayerInstance != null)
                     {
-                        float scale = (CurrentScene as FightScene).PlayerInstance.hpControl.LostSpeed / 3 - 0.125f;
-                        scale = MathHelper.Clamp(scale, 0, 0.5f) + (CurrentScene as FightScene).PlayerInstance.hpControl.Under1HPScale * 0.5f;
+                        float scale = ((CurrentScene as FightScene).PlayerInstance.hpControl.LostSpeed / 3) - 0.125f;
+                        scale = MathHelper.Clamp(scale, 0, 0.5f) + ((CurrentScene as FightScene).PlayerInstance.hpControl.Under1HPScale * 0.5f);
                         vec.Y = MathHelper.Lerp(vec.Y, 100, scale * 0.9f);
                         vec.W = MathHelper.Lerp(vec.W, 100, scale * 0.9f);
                     }
@@ -85,8 +85,8 @@ namespace UndyneFight_Ex
 
                     if (CurrentScene is FightScene && ((CurrentScene as FightScene).Mode & SongSystem.GameMode.Buffed) != 0 && (CurrentScene as FightScene).PlayerInstance != null)
                     {
-                        float scale = (CurrentScene as FightScene).PlayerInstance.hpControl.LostSpeed / 3 - 0.125f;
-                        scale = MathHelper.Clamp(scale, 0, 0.5f) + (CurrentScene as FightScene).PlayerInstance.hpControl.Under1HPScale * 0.5f;
+                        float scale = ((CurrentScene as FightScene).PlayerInstance.hpControl.LostSpeed / 3) - 0.125f;
+                        scale = MathHelper.Clamp(scale, 0, 0.5f) + ((CurrentScene as FightScene).PlayerInstance.hpControl.Under1HPScale * 0.5f);
                         vec = Vector4.Lerp(vec, Color.DarkRed.ToVector4(), scale * 0.9f);
                     }
                     return vec;
@@ -149,7 +149,7 @@ namespace UndyneFight_Ex
                     {
                         Fight.Functions.ScreenDrawing.whiteOutRest--;
                         float scale = MathF.Min(0.955f, Fight.Functions.ScreenDrawing.SceneOutScale / (Fight.Functions.ScreenDrawing.whiteOutRest + 1f));
-                        alpha = alpha * (1 - scale) + 1f * scale;
+                        alpha = (alpha * (1 - scale)) + (1f * scale);
                     }
                     else
                     {
@@ -158,13 +158,13 @@ namespace UndyneFight_Ex
                     flinkerColor = Fight.Functions.ScreenDrawing.flinkerColor;
                 }
                 public override RenderTarget2D Draw(RenderTarget2D obj)
-                { 
+                {
                     float alp = alpha;
                     Color col = flinkerColor;
                     if (CurrentScene is FightScene && ((CurrentScene as FightScene).Mode & SongSystem.GameMode.Buffed) != 0 && (CurrentScene as FightScene).PlayerInstance != null)
                     {
-                        float scale = (CurrentScene as FightScene).PlayerInstance.hpControl.LostSpeed / 3 - 0.125f;
-                        scale = MathHelper.Clamp(scale, 0, 0.5f) + (CurrentScene as FightScene).PlayerInstance.hpControl.Under1HPScale * 0.3f;
+                        float scale = ((CurrentScene as FightScene).PlayerInstance.hpControl.LostSpeed / 3) - 0.125f;
+                        scale = MathHelper.Clamp(scale, 0, 0.5f) + ((CurrentScene as FightScene).PlayerInstance.hpControl.Under1HPScale * 0.3f);
                         alp = MathHelper.Lerp(alp, 0.8f, scale);
                         col = Color.Lerp(alpha < 0.05f ? Color.Transparent : col, Color.DarkRed, scale * 1.2f);
                     }

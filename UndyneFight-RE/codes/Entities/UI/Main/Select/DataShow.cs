@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
 using UndyneFight_Ex.UserService;
 using static UndyneFight_Ex.GlobalResources.Sprites;

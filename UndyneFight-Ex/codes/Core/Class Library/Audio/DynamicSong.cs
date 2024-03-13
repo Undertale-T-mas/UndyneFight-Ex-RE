@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using System.IO;
-using System.Threading.Tasks;
 using NVorbis;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace UndyneFight_Ex
-{ 
+{
     public class DynamicSong
     {
         public string Name;
@@ -76,67 +74,65 @@ namespace UndyneFight_Ex
 
         private void ReadOgg(string path)
         {
-            using (VorbisReader vorbis = new(path))
+            using VorbisReader vorbis = new(path);
+            channels = vorbis.Channels;
+            sampleRate = vorbis.SampleRate;
+            duration = (float)vorbis.TotalTime.TotalMilliseconds;
+
+            TimeSpan totalTime = vorbis.TotalTime;
+
+            float[] buffer = new float[channels * sampleRate / 5];
+
+            List<byte> byteList = new();
+            int count;
+            while ((count = vorbis.ReadSamples(buffer, 0, buffer.Length)) > 0)
             {
-                channels = vorbis.Channels;
-                sampleRate = vorbis.SampleRate;
-                duration = (float)vorbis.TotalTime.TotalMilliseconds;
-
-                TimeSpan totalTime = vorbis.TotalTime;
-
-                float[] buffer = new float[channels * sampleRate / 5];
-
-                List<byte> byteList = new();
-                int count;
-                while ((count = vorbis.ReadSamples(buffer, 0, buffer.Length)) > 0)
+                for (int i = 0; i < count; i++)
                 {
-                    for (int i = 0; i < count; i++)
+                    short temp = (short)(32767f * buffer[i]);
+                    if (temp > 32767)
                     {
-                        short temp = (short)(32767f * buffer[i]);
-                        if (temp > 32767)
-                        {
-                            byteList.Add(0xFF);
-                            byteList.Add(0x7F);
-                        }
-                        else if (temp < -32768)
-                        {
-                            byteList.Add(0x80);
-                            byteList.Add(0x00);
-                        }
-                        byteList.Add((byte)temp);
-                        byteList.Add((byte)(temp >> 8));
+                        byteList.Add(0xFF);
+                        byteList.Add(0x7F);
                     }
+                    else if (temp < -32768)
+                    {
+                        byteList.Add(0x80);
+                        byteList.Add(0x00);
+                    }
+                    byteList.Add((byte)temp);
+                    byteList.Add((byte)(temp >> 8));
+                }
+            }
+
+            byteArray = byteList.ToArray();
+            bytesOverMilliseconds = byteArray.Length / duration;
+
+            Int64.TryParse(
+                vorbis.Comments.FirstOrDefault(c => c.Contains("LOOPSTART"))?.Split("LOOPSTART=")[1],
+                out loopStartSamples
+            );
+
+            Int64.TryParse(
+                vorbis.Comments.FirstOrDefault(c => c.Contains("LOOPLENGTH"))?.Split("LOOPLENGTH=")[1],
+                out loopLengthSamples
+            );
+
+            Int64.TryParse(
+                vorbis.Comments.FirstOrDefault(c => c.Contains("LOOPEND"))?.Split("LOOPEND=")[1],
+                out loopEndSamples
+            );
+
+            if (loopStartSamples != 0)
+            {
+                if (loopEndSamples == 0)
+                {
+                    loopEndSamples = (Int64)duration * sampleRate / 1000;
                 }
 
-                byteArray = byteList.ToArray();
-                bytesOverMilliseconds = byteArray.Length / duration;
-
-                Int64.TryParse(
-                    vorbis.Comments.FirstOrDefault(c => c.Contains("LOOPSTART"))?.Split("LOOPSTART=")[1],
-                    out loopStartSamples
-                );
-
-                Int64.TryParse(
-                    vorbis.Comments.FirstOrDefault(c => c.Contains("LOOPLENGTH"))?.Split("LOOPLENGTH=")[1],
-                    out loopLengthSamples
-                );
-
-                Int64.TryParse(
-                    vorbis.Comments.FirstOrDefault(c => c.Contains("LOOPEND"))?.Split("LOOPEND=")[1],
-                    out loopEndSamples
-                );
-
-                if (loopStartSamples != 0)
+                if (loopLengthSamples == 0)
                 {
-                    if (loopEndSamples == 0)
-                    {
-                        loopEndSamples = (Int64)duration * (Int64)sampleRate / 1000;
-                    }
-
-                    if (loopLengthSamples == 0)
-                    {
-                        loopLengthSamples = loopEndSamples - loopStartSamples;
-                    }
+                    loopLengthSamples = loopEndSamples - loopStartSamples;
                 }
             }
         }
@@ -145,7 +141,7 @@ namespace UndyneFight_Ex
         {
             byte[] allBytes = File.ReadAllBytes(absolutePath);
             int byterate = BitConverter.ToInt32(new[] { allBytes[28], allBytes[29], allBytes[30], allBytes[31] }, 0);
-            duration = (int)Math.Floor((float)(allBytes.Length - 8) / (float)byterate * 1000);
+            duration = (int)Math.Floor((allBytes.Length - 8) / (float)byterate * 1000);
 
             Stream waveFileStream = TitleContainer.OpenStream(path);
             BinaryReader reader = new(waveFileStream);
@@ -265,7 +261,7 @@ namespace UndyneFight_Ex
 
                 if (loopEndSamples == 0)
                 {
-                    loopEndSamples = (Int64)duration * (Int64)sampleRate / 1000;
+                    loopEndSamples = (Int64)duration * sampleRate / 1000;
                 }
 
                 if (loopLengthSamples == 0)

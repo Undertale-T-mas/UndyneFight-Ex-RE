@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
+using System;
 
 namespace UndyneFight_Ex
 {
@@ -52,24 +48,22 @@ namespace UndyneFight_Ex
             this.dynamicSound.BufferNeeded += new EventHandler<EventArgs>(UpdateBuffer);
         }
 
-        public SoundState State => this.dynamicSound.IsDisposed ? SoundState.Stopped : this.dynamicSound.State;
+        public SoundState State => dynamicSound.IsDisposed ? SoundState.Stopped : dynamicSound.State;
 
         public void Play()
         {
-            dynamicSound.Pitch = 0; 
+            dynamicSound.Pitch = 0;
             dynamicSound.Play();
         }
 
         public void Pause()
         {
-            if (dynamicSound != null)
-                dynamicSound.Stop();
+            dynamicSound?.Stop();
         }
 
         public void Stop()
         {
-            if (dynamicSound != null)
-                dynamicSound.Stop();
+            dynamicSound?.Stop();
             dynamicSound = null;
         }
 
@@ -95,7 +89,7 @@ namespace UndyneFight_Ex
                 return;
             }
             dynamicSound.SubmitBuffer(byteArray, position, count / 2);
-            dynamicSound.SubmitBuffer(byteArray, position + count / 2, count / 2);
+            dynamicSound.SubmitBuffer(byteArray, position + (count / 2), count / 2);
             position += count;
 
             if ((loopEndBytes > 0) && (loopLengthBytes > 0) && (position + count >= loopEndBytes))
@@ -108,13 +102,13 @@ namespace UndyneFight_Ex
                 if (IsLoop)
                     position = 0;
                 else
-                    this._enabled = false;
+                    _enabled = false;
             }
         }
 
         internal void Resume()
         {
-            this.dynamicSound.Resume();
+            dynamicSound.Resume();
         }
 
         private bool _enabled = true;

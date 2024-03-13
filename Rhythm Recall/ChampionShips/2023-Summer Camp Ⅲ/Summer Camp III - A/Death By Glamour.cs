@@ -79,9 +79,9 @@ namespace Rhythm_Recall.Waves
                     CreateChart(BeatTime(0), BeatTime(2), 5.6f, new string[]
                     {                        
                         //1
-                        "$0", "", "", "",     "d", "", "", "",    
-                        "d", "", "", "d",     "", "", "d", "",    
-                        "", "", "d", "",     "d", "", "", "",    
+                        "$0", "", "", "",     "d", "", "", "",
+                        "d", "", "", "d",     "", "", "d", "",
+                        "", "", "d", "",     "d", "", "", "",
                         "d", "", "", "d",     "", "", "", "",    
 
                         //2
@@ -124,7 +124,7 @@ namespace Rhythm_Recall.Waves
                     CreateChart(BeatTime(2), BeatTime(2), 5.6f, new string[]
                     {                        
                         //1
-                        "#5#$00", "", "", "",     "$21", "", "", "", 
+                        "#5#$00", "", "", "",     "$21", "", "", "",
                         "$21", "", "", "$21",     "", "", "$21", "",
                         "", "", "$21", "",     "$21", "", "", "",
                         "#1#$00", "", "", "$21",     "#1#$00", "", "", "", 
@@ -213,7 +213,7 @@ namespace Rhythm_Recall.Waves
 
                         "+01","","","",   "","","R","",
                         "R","","","",   "R","","","",
-                        "R","","","",   "R","","","", 
+                        "R","","","",   "R","","","",
                         "R","","","",   "","","","",
                         //
                         "(R)","","","",   "R","","","",
@@ -364,10 +364,10 @@ namespace Rhythm_Recall.Waves
                         "$01","","","",   "$2","","($01)($2)","",
                         "","","$01","",   "($01)($2)","","","",
                         "($01)($2)","","","",   "","","$2","",
-                        "($01)($2)","","","",   "$01","","","", 
+                        "($01)($2)","","","",   "$01","","","",
                     });
                 }
-                if (InBeat(158+64))
+                if (InBeat(158 + 64))
                 {
                     CreateChart(BeatTime(2), BeatTime(1), 5.6f, new string[]
                     {
@@ -453,7 +453,7 @@ namespace Rhythm_Recall.Waves
                         //
                     });
                 }
-                if (InBeat(158 + 64+64))
+                if (InBeat(158 + 64 + 64))
                 {
                     CreateChart(BeatTime(2), BeatTime(1), 5.6f, new string[]
                     {
@@ -934,7 +934,7 @@ namespace Rhythm_Recall.Waves
             }
             public void Start()
             {
-                
+
                 HeartAttribute.MaxHP = 12;
                 SetBox(new Vector2(320, 240), 84f, 84f);
                 SetSoul(1);

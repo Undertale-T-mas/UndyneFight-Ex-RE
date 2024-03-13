@@ -5,12 +5,12 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.FightResources.Sprites;
 using static UndyneFight_Ex.FightResources.Sounds;
+using static UndyneFight_Ex.FightResources.Sprites;
 using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Fight.AdvanceFunctions;
 
 namespace Rhythm_Recall.Waves
 {
@@ -1586,12 +1586,12 @@ namespace Rhythm_Recall.Waves
             }
             if (InBeat(1152))
             {
-               CreateBone(new CustomBone(new Vector2(320, 240), Motions.PositionRoute.stableValue, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
+                CreateBone(new CustomBone(new Vector2(320, 240), Motions.PositionRoute.stableValue, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
                 {
                     LengthRouteParam = new float[] { 300, BeatTime(120 - 4) },
                     RotationRouteParam = new float[] { 1.5f, 0 },
                     ColorType = 1,
-                    Tags=new string[] { "a" }
+                    Tags = new string[] { "a" }
                 });
                 CreateBone(new CustomBone(new Vector2(320, 240), Motions.PositionRoute.stableValue, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
                 {

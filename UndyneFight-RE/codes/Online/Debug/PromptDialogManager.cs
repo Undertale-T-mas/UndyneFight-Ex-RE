@@ -1,19 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using UndyneFight_Ex.Entities;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using UndyneFight_Ex.Remake.Components;
-using UndyneFight_Ex.Remake.Effects;
-using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.UserService;
-using col = Microsoft.Xna.Framework.Color;
-using Microsoft.Xna.Framework.Input;
-using UndyneFight_Ex.Remake.Network;
-using System.Security.Principal;
 
 namespace UndyneFight_Ex.Remake.UI.DEBUG
 {

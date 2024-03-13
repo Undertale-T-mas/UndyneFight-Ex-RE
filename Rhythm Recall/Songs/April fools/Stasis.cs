@@ -1,25 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Extends;
+using Microsoft.Xna.Framework;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using UndyneFight_Ex.Remake.Entities;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using UndyneFight_Ex.Remake;
-using System.Security.Cryptography.X509Certificates;
-using Extends;
-using System.Reflection;
-using static UndyneFight_Ex.Entities.Player;
+using static UndyneFight_Ex.Fight.Functions;
 
 namespace AprilExtends
 {
@@ -29,7 +17,7 @@ namespace AprilExtends
         {
             static float r = 0;
             float d;
-            public Hexagon(Player.Heart Position, float Rotation, float Duration) :base(Position)
+            public Hexagon(Player.Heart Position, float Rotation, float Duration) : base(Position)
             {
                 r = Rotation;
                 d = Duration;
@@ -38,7 +26,7 @@ namespace AprilExtends
             public override void Draw()
             {
                 for (int a = 0; a < 6; a++)
-                    DrawingLab.DrawLine( Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + a * 60), Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + 60 + a * 60), 4.2f, Color.White * 0.5f, 0.99f);
+                    DrawingLab.DrawLine(Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + a * 60), Functions.Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 30 + r + 60 + a * 60), 4.2f, Color.White * 0.5f, 0.99f);
             }
             int time = 0;
             public override void Update()
@@ -252,10 +240,6 @@ namespace AprilExtends
                 CreateRotArrowA(0);
             }
         }
-        private float T(float beat)
-        {
-            return BeatTime(beat);
-        }
         static Arrow.UnitEasing easeX, easeY;
         //private class Rotate()
         //{
@@ -267,7 +251,7 @@ namespace AprilExtends
         public void Extreme()
         {
             Arrow[] voids = GetAll<Arrow>("Hold");
-            for(int a=0;a<voids.Length;a++)
+            for (int a = 0; a < voids.Length; a++)
             {
                 int x = a;
                 voids[x].JudgeType = Arrow.JudgementType.Hold;
@@ -312,46 +296,46 @@ namespace AprilExtends
                         l1.Alpha = m;
                         l2.Alpha = m;
                     });
-                    
+
                     CreateEntity(l1);
                     CreateEntity(l2);
                     l2.ObliqueMirror = true;
                     //l1.ObliqueMirror = true;
                     //l2.ObliqueMirror = true;
                 });
-                RegisterFunctionOnce("ScreenE5.5", () =>
+                RegisterFunction("ScreenE5.5", () =>
                 {
                     ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(2));
                 });
-                RegisterFunctionOnce("ScreenE7.5", () =>
+                RegisterFunction("ScreenE7.5", () =>
                 {
                     ScreenDrawing.CameraEffect.SizeExpand(7.5f, BeatTime(2));
                 });
-                RegisterFunctionOnce("ScreenRR8", () =>
+                RegisterFunction("ScreenRR8", () =>
                 {
                     ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), true);
                 });
-                RegisterFunctionOnce("ScreenRL8", () =>
+                RegisterFunction("ScreenRL8", () =>
                 {
                     ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), false);
                 });
-                RegisterFunctionOnce("ScreenS5.5", () =>
+                RegisterFunction("ScreenS5.5", () =>
                 {
                     ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(2));
                 });
-                RegisterFunctionOnce("ScreenRR8F", () =>
+                RegisterFunction("ScreenRR8F", () =>
                 {
                     ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), true);
                 });
-                RegisterFunctionOnce("ScreenRL8F", () =>
+                RegisterFunction("ScreenRL8F", () =>
                 {
                     ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), false);
                 });
-                RegisterFunctionOnce("ScreenE5.5F", () =>
+                RegisterFunction("ScreenE5.5F", () =>
                 {
                     ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(1));
                 });
-                RegisterFunctionOnce("ScreenS5.5F", () =>
+                RegisterFunction("ScreenS5.5F", () =>
                 {
                     ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(1));
                 });
@@ -479,58 +463,22 @@ namespace AprilExtends
                     CreateEntity(l2);
                     l2.ObliqueMirror = true;
                 });
-                RegisterFunctionOnce("ScreenE5.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenE7.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(7.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenRR8", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), true);
-                });
-                RegisterFunctionOnce("ScreenRL8", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), false);
-                });
-                RegisterFunctionOnce("ScreenS5.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenRR8F", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), true);
-                });
-                RegisterFunctionOnce("ScreenRL8F", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), false);
-                });
-                RegisterFunctionOnce("ScreenE5.5F", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(1));
-                });
-                RegisterFunctionOnce("ScreenS5.5F", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(1));
-                });
                 CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "(#0.75#$1)(#0.75#$31)(ScreenE5.5)","","","",    "","","","",
                     "","","","",    "(#0.75#$2)(#0.75#$01)(ScreenE7.5)","","","",
                     "","","","",    "","","","",
-                    "$1(LineEvent01)","","","",    "$3(LineEvent02)","","$1(LineEvent03)","",
+                    "$1(LineEvent01)","","$3(LineEvent02)","",    "$1(LineEvent03)","","","",
 
                     "","","","",    "(#0.3#$1)(#0.3#$21)(ScreenRR8)","","","",
                     "","","","",    "(#0.3#$3)(#0.3#$01)(ScreenRL8)","","","",
                     "","","","",    "#0.75#$1(ScreenS5.5)","","","",
-                    "","","","",    "$3","","","",
+                    "","","","",    "","","","",
 
                     "(#0.75#$1)(#0.75#$01)(ScreenE5.5)","","","",    "","","","",
                     "","","","",    "(#0.75#$2)(#0.75#$31)(ScreenE7.5)","","","",
                     "","","","",    "","","","",
-                    "$2(LineEvent04)","","","",    "$0(LineEvent05)","","$2(LineEvent06)","",
+                    "$2(LineEvent04)","","$0(LineEvent05)","",    "$2(LineEvent06)","","","",
 
                     "(#2.5#$2)(#2.5#$01)(RotScreen)","","","",    "","","","",
                     "","","","",    "","","","",
@@ -542,7 +490,7 @@ namespace AprilExtends
             {
                 RegisterFunctionOnce("LineEvent00", () =>
                 {
-                    
+
                     CentreEasing.EaseBuilder c = new();
                     c.Insert(BeatTime(2), CentreEasing.EaseInQuad(new(320, 240), new(-100, 240), BeatTime(2)));
                     ValueEasing.EaseBuilder alpha = new();
@@ -594,42 +542,6 @@ namespace AprilExtends
                     });
                     CreateEntity(l1);
                     CreateEntity(l2);
-                });
-                RegisterFunctionOnce("ScreenE5.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenE7.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(7.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenRR8", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), true);
-                });
-                RegisterFunctionOnce("ScreenRL8", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), false);
-                });
-                RegisterFunctionOnce("ScreenS5.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenRR8F", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), true);
-                });
-                RegisterFunctionOnce("ScreenRL8F", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), false);
-                });
-                RegisterFunctionOnce("ScreenE5.5F", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(1));
-                });
-                RegisterFunctionOnce("ScreenS5.5F", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(1));
                 });
                 CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
@@ -683,42 +595,6 @@ namespace AprilExtends
                         ScreenDrawing.ScreenScale = m;
                     });
                 });
-                RegisterFunctionOnce("ScreenE5.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenE7.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(7.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenRR8", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), true);
-                });
-                RegisterFunctionOnce("ScreenRL8", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(1.5f), false);
-                });
-                RegisterFunctionOnce("ScreenS5.5", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(2));
-                });
-                RegisterFunctionOnce("ScreenRR8F", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), true);
-                });
-                RegisterFunctionOnce("ScreenRL8F", () =>
-                {
-                    ScreenDrawing.CameraEffect.Convulse(8, BeatTime(0.5f), false);
-                });
-                RegisterFunctionOnce("ScreenE5.5F", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeExpand(5.5f, BeatTime(1));
-                });
-                RegisterFunctionOnce("ScreenS5.5F", () =>
-                {
-                    ScreenDrawing.CameraEffect.SizeShrink(5.5f, BeatTime(1));
-                });
                 CreateChart(BeatTime(4), BeatTime(1), 7, new string[]
                 {
                     "$00(ScreenE5.5F)","","$01","",    "$2(ScreenE5.5F)","","$21","",
@@ -744,7 +620,7 @@ namespace AprilExtends
             }
             if (InBeat(64))
             {
-                
+
                 //RegisterFunctionOnce("Line1", () =>
                 //{
                 //    CentreEasing.EaseBuilder ce = new();
@@ -753,7 +629,7 @@ namespace AprilExtends
                 //    ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(280, 260, BeatTime(4)), ValueEasing.EaseOutSine(160, 300, BeatTime(4))));
                 //    ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(260, 320, BeatTime(4)), ValueEasing.EaseOutQuad(300, 360, BeatTime(4))));
                 //    ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(320, 420, BeatTime(4)), ValueEasing.EaseOutQuad(360, 160, BeatTime(4))));
-                //    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0.5f), new(0, 0.15f)));
+                //    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0.5f), new(0, 0.15f)));
                 //    ValueEasing.EaseBuilder ve1 = new();
                 //    ve1.Insert(0, ValueEasing.Stable(90));
                 //    ve1.Insert(BeatTime(4), ValueEasing.EaseOutBack(90, 90 + 60, BeatTime(4)));
@@ -911,34 +787,27 @@ namespace AprilExtends
                         ScreenDrawing.ScreenAngle = m;
                     });
                 });
-                Arrow.UnitEasing eA = new();
-                AddInstance(eA);
-                eA.ApplyTime = BeatTime(4);
-                eA.RotationEase = LinkEase(
-                    Stable(T(2),45),
-                    EaseOut(BeatTime(2), 45, 0, EaseState.Back));
-                eA.TagApply("A");
                 CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
-                    "$2(R1@A)(ScreenS)","","","",    "$2","","","",
-                    "$3(R1@A)","","","",    "$3","","","",
+                    "$2(R1)(ScreenS)","","","",    "$2","","","",
+                    "$3(R1)","","","",    "$3","","","",
                     "$2(ScreenRL)","","","",    "$2","","","",
-                    "$3(R1@A)","","","",    "$3","","","",
+                    "$3(R1)","","","",    "$3","","","",
 
-                    "$2(R1@A)(ScreenS)","","","",    "$2","","","",
-                    "$3","","","",    "$3(R1@A)","","","",
-                    "$2(R1@A)(ScreenRR)","","","",    "$2(R1@A)","","","",
-                    "$3(R1@A)","","","",    "$3","","","",
+                    "$2(R1)(ScreenS)","","","",    "$2","","","",
+                    "$3","","","",    "$3(R1)","","","",
+                    "$2(R1)(ScreenRR)","","","",    "$2(R1)","","","",
+                    "$3(R1)","","","",    "$3","","","",
 
                     "($2)(R1)(ScreenS)","+01'1.5{Hold}","+01'1.5{Hold}","+01'1.5{Hold}",    "$2","","","",
-                    "$3(R1@A)","","","",    "$3","","","",
+                    "$3(R1)","","","",    "$3","","","",
                     "$2(ScreenRL)","","","",    "$2","","","",
-                    "$3(R1@A)","","","",    "$3","","","",
+                    "$3(R1)","","","",    "$3","","","",
 
-                    "$2(R1@A)(ScreenS)","","","",    "$2","","","",
-                    "$3","","","",    "$3(R1@A)","","","",
-                    "R(R1@A)(ScreenSAdd)","","","",    "","","R(R1)(ScreenSAdd)","",
-                    "","","","",    "R(R1@A)(ScreenSAdd)","","","",
+                    "$2(R1)(ScreenS)","","","",    "$2","","","",
+                    "$3","","","",    "$3(R1)","","","",
+                    "R(R1)(ScreenSAdd)","","","",    "","","R(R1)(ScreenSAdd)","",
+                    "","","","",    "R(R1)(ScreenSAdd)","","","",
                 });
             }
             if (InBeat(112))
@@ -954,18 +823,11 @@ namespace AprilExtends
                         s = m;
                         arrow.Delay(m);
                     });
-                    CreateEntity(arrow);        
+                    CreateEntity(arrow);
                 });
             }
             if (InBeat(112))
             {
-                Arrow.UnitEasing eA = new();
-                AddInstance(eA);
-                eA.ApplyTime = BeatTime(4);
-                eA.RotationEase = LinkEase(
-                    Stable(T(2), -45),
-                    EaseOut(BeatTime(2), -45, 0, EaseState.Back));
-                eA.TagApply("A");
                 RegisterFunctionOnce("ScreenSBack", () =>
                 {
                     ValueEasing.EaseBuilder S = new();
@@ -1002,23 +864,23 @@ namespace AprilExtends
                         ScreenDrawing.ScreenScale = m;
                     });
                 });
-                
+
                 CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
-                    "$0(R1@A)(ScreenSBack)","","","",    "$0","","","",
-                    "$1(R1@A)","","","",    "$1","","","",
+                    "$0(R1)(ScreenSBack)","","","",    "$0","","","",
+                    "$1(R1)","","","",    "$1","","","",
                     "$0(ScreenRL)","","","",    "$0","","","",
-                    "$1(R1@A)","","","",    "$1","","","",
+                    "$1(R1)","","","",    "$1","","","",
 
-                    "$0(R1@A)(ScreenS)","","","",    "$0","","","",
-                    "$1","","","",    "$1(R1@A)","","","",
-                    "$0(R1@A)(ScreenRR)","","","",    "$0(R1@A)","","","",
-                    "$1(R1@A)","","","",    "$1","","","",
+                    "$0(R1)(ScreenS)","","","",    "$0","","","",
+                    "$1","","","",    "$1(R1)","","","",
+                    "$0(R1)(ScreenRR)","","","",    "$0(R1)","","","",
+                    "$1(R1)","","","",    "$1","","","",
 
                     "($0)(R1)(ScreenS)","+01'1.5{Hold}","+01'1.5{Hold}","+01'1.5{Hold}",    "$0","","","",
-                    "$1(R1@A)","","","",    "$1","","","",
+                    "$1(R1)","","","",    "$1","","","",
                     "$0(ScreenRL)","","","",    "$0","","","",
-                    "$1(R1@A)","","","",    "$1","","","",
+                    "$1(R1)","","","",    "$1","","","",
 
                     "R","","","",    "R","","+01'1.2","",
                     "R","","","",    "R","","","",
@@ -1028,174 +890,54 @@ namespace AprilExtends
             }
             if (InBeat(128))
             {
-                Arrow.UnitEasing eA = new();
-                AddInstance(eA);
-                eA.ApplyTime = BeatTime(16);
-                eA.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eA.TagApply("A");
-                eA.PositionEase = LinkEase(
-                    Stable(T(14), 250, 200),
-                    Combine(EaseOut(T(2),-250,EaseState.Sine),EaseIn(T(2),-200,EaseState.Sine))
-                    );
-                eA.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eB = new();
-                AddInstance(eB);
-                eB.ApplyTime = BeatTime(16);
-                eB.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eB.TagApply("B");
-                eB.PositionEase = LinkEase(
-                    Stable(T(14), -250, -200),
-                    Combine(EaseOut(T(2), 250, EaseState.Sine), EaseIn(T(2), 200, EaseState.Sine))
-                    );
-                eB.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eC = new();
-                AddInstance(eC);
-                eC.ApplyTime = BeatTime(16);
-                eC.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eC.TagApply("C");
-                eC.PositionEase = LinkEase(
-                    Stable(T(14), -250, 200),
-                    Combine(EaseOut(T(2), 250, EaseState.Sine), EaseIn(T(2), -200, EaseState.Sine))
-                    );
-                eC.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eD = new();
-                AddInstance(eD);
-                eD.ApplyTime = BeatTime(16);
-                eD.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eD.TagApply("D");
-                eD.PositionEase = LinkEase(
-                    Stable(T(14), 250, -200),
-                    Combine(EaseOut(T(2), -250, EaseState.Sine), EaseIn(T(2), 200, EaseState.Sine))
-                    );
-                eD.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
                 CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
-                    "(^$012'1.1)(R0)","","","",    "R0","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
-                    "($21'0@A)($01'0@A)(R0)","","","",    "R0","","","",
-                    "R0","","","",    "R0","","","",
-
-                    "(^$212'1.1)(R0)","","","",    "R0","","","",
-                    "R0","","","",    "R0","","","",
-                    "($21'0@B)($01'0@B)(R0)","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
 
-                    "(^$112'1.1)(R0)","","","",    "R0","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
-                    "($21'0@C)($01'0@C)(R0)","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
 
-                    "(^$312'1.1)(R0)","","","",    "R0","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
-                    "($21'0@D)($01'0@D)(R0)","","","",    "R0","","","",
-                    "R0","","","",    "R1($002'1.1)","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
                 });
             }
             if (InBeat(144))
             {
-                Arrow.UnitEasing eA = new();
-                AddInstance(eA);
-                eA.ApplyTime = BeatTime(16);
-                eA.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eA.TagApply("Aa");
-                eA.PositionEase = LinkEase(
-                    Stable(T(14), 250, 200),
-                    Combine(EaseOut(T(2), -250, EaseState.Sine), EaseIn(T(2), -200, EaseState.Sine))
-                    );
-                eA.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eB = new();
-                AddInstance(eB);
-                eB.ApplyTime = BeatTime(16);
-                eB.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eB.TagApply("Bb");
-                eB.PositionEase = LinkEase(
-                    Stable(T(14), -250, -200),
-                    Combine(EaseOut(T(2), 250, EaseState.Sine), EaseIn(T(2), 200, EaseState.Sine))
-                    );
-                eB.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eC = new();
-                AddInstance(eC);
-                eC.ApplyTime = BeatTime(16);
-                eC.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eC.TagApply("Cc");
-                eC.PositionEase = LinkEase(
-                    Stable(T(14), -250, 200),
-                    Combine(EaseOut(T(2), 250, EaseState.Sine), EaseIn(T(2), -200, EaseState.Sine))
-                    );
-                eC.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eD = new();
-                AddInstance(eD);
-                eD.ApplyTime = BeatTime(16);
-                eD.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eD.TagApply("Dd");
-                eD.PositionEase = LinkEase(
-                    Stable(T(14), 250, -200),
-                    Combine(EaseOut(T(2), -250, EaseState.Sine), EaseIn(T(2), 200, EaseState.Sine))
-                    );
-                eD.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
                 CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
-                    "(R1)","","","",    "R1","","","",
+                    "(R02'1.1)(R1)","","","",    "R1","","","",
                     "R0{B}","","","",    "R0{B}","","","",
-                    "($00'0@Aa)($20'0@Aa)(R0{B})","","","",    "R0{B}","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
                     "R0{B}","","","",    "R0{B}","","","",
 
-                    "($202'1.1)(R0{B})","","","",    "R0{B}","","","",
+                    "(R02'1.1)(R0{B})","","","",    "R0{B}","","","",
                     "R0{B}","","","",    "R0{B}","","","",
-                    "($00'0@Bb)($20'0@Bb)(R0{B})","","","",    "R0{B}","","","",
-                    "R0{B}","","","",    "R0($112'1.1)","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
 
-                    "(R0)","","","",    "R0","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R1{A}","","","",    "R1{A}","","","",
-                    "($01'0@Cc)($21'0@Cc)(R1{A})","","","",    "R1{A}","","","",
+                    "(^R12'2.5)(^+012'2.5)(R1{A})","","","",    "R1{A}","","","",
                     "R1{A}","","","",    "R1{A}","","","",
 
-                    "($112'1.1)(R1{A})","","","",    "R1{A}","","","",
+                    "(R12'1.1)(R1{A})","","","",    "R1{A}","","","",
                     "R1{A}","","","",    "R1{A}","","","",
-                    "($01'0@Dd)($21'0@Dd)(R1{A})","","","",    "R1{A}","","","",
+                    "(^R12'2.5)(^+012'2.5)(R1{A})","","","",    "R1{A}","","","",
                     "R1{A}","","","",    "R1{A}","","","",
                 });
-                DelayBeat(3.5f, () =>
+                DelayBeat(4, () =>
                 {
                     Arrow[] tagB = GetAll<Arrow>("B");
                     foreach (Arrow b in tagB)
@@ -1203,7 +945,7 @@ namespace AprilExtends
                         b.ResetColor(1);
                     }
                 });
-                DelayBeat(11.5f, () =>
+                DelayBeat(12, () =>
                 {
                     Arrow[] tagA = GetAll<Arrow>("A");
                     foreach (Arrow a in tagA)
@@ -1214,159 +956,45 @@ namespace AprilExtends
             }
             if (InBeat(160))
             {
-                Arrow.UnitEasing eA = new();
-                AddInstance(eA);
-                eA.ApplyTime = BeatTime(16);
-                eA.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eA.TagApply("Aa");
-                eA.PositionEase = LinkEase(
-                    Stable(T(14), 250, 200),
-                    Combine(EaseOut(T(2), -250, EaseState.Sine), EaseIn(T(2), -200, EaseState.Sine))
-                    );
-                eA.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eB = new();
-                AddInstance(eB);
-                eB.ApplyTime = BeatTime(16);
-                eB.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eB.TagApply("Bb");
-                eB.PositionEase = LinkEase(
-                    Stable(T(14), -250, -200),
-                    Combine(EaseOut(T(2), 250, EaseState.Sine), EaseIn(T(2), 200, EaseState.Sine))
-                    );
-                eB.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eC = new();
-                AddInstance(eC);
-                eC.ApplyTime = BeatTime(16);
-                eC.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eC.TagApply("Cc");
-                eC.PositionEase = LinkEase(
-                    Stable(T(14), -250, 200),
-                    Combine(EaseOut(T(2), 250, EaseState.Sine), EaseIn(T(2), -200, EaseState.Sine))
-                    );
-                eC.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eD = new();
-                AddInstance(eD);
-                eD.ApplyTime = BeatTime(16);
-                eD.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eD.TagApply("Dd");
-                eD.PositionEase = LinkEase(
-                    Stable(T(14), 250, -200),
-                    Combine(EaseOut(T(2), -250, EaseState.Sine), EaseIn(T(2), 200, EaseState.Sine))
-                    );
-                eD.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
                 CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
-                    "(^$012'1.1)(R0)","","","",    "R0","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
-                    "($21'0@Aa)($01'0@Aa)(R0)","","","",    "R0","","","",
-                    "R0","","","",    "R0","","","",
-
-                    "(^$212'1.1)(R0)","","","",    "R0","","","",
-                    "R0","","","",    "R0","","","",
-                    "($21'0@Bb)($01'0@Bb)(R0)","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
 
-                    "(^$112'1.1)(R0)","","","",    "R0","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
-                    "($21'0@Cc)($01'0@Cc)(R0)","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
 
-                    "(^$312'1.1)(R0)","","","",    "R0","","","",
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
                     "R0","","","",    "R0","","","",
-                    "($21'0@Dd)($01'0@Dd)(R0)","","","",    "R0","","","",
-                    "R0","","","",    "(^$002'1.1)R1","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+
+                    "(R12'1.1)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
+                    "(^R12'2.5)(^+012'2.5)(R0)","","","",    "R0","","","",
+                    "R0","","","",    "R0","","","",
                 });
             }
             if (InBeat(176))
             {
-                Arrow.UnitEasing eA = new();
-                AddInstance(eA);
-                eA.ApplyTime = BeatTime(16);
-                eA.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eA.TagApply("Aa");
-                eA.PositionEase = LinkEase(
-                    Stable(T(14), 250, 200),
-                    Combine(EaseOut(T(2), -250, EaseState.Sine), EaseIn(T(2), -200, EaseState.Sine))
-                    );
-                eA.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing eB = new();
-                AddInstance(eB);
-                eB.ApplyTime = BeatTime(16);
-                eB.RotationEase = LinkEase(
-                    Stable(T(14), -180),
-                    EaseOut(BeatTime(2), -180, 0, EaseState.Back));
-                eB.TagApply("Bb");
-                eB.PositionEase = LinkEase(
-                    Stable(T(14), -250, -200),
-                    Combine(EaseOut(T(2), 250, EaseState.Sine), EaseIn(T(2), 200, EaseState.Sine))
-                    );
-                eB.AlphaEase = LinkEase(false,
-                    Stable(T(14), 0),
-                    Stable(T(2), 1)
-                    );
-                Arrow.UnitEasing f1 = new();
-                AddInstance(f1);
-                f1.ApplyTime = BeatTime(16);
-                f1.TagApply("f1");
-                f1.PositionEase = LinkEase(
-                    Stable(T(12), -200, -300),
-                    Combine(EaseIn(T(4), 200, EaseState.Sine), EaseOut(T(4), 300, EaseState.Cubic))
-                    );
-                f1.AlphaEase = LinkEase(false,
-                    Stable(T(12), 0),
-                    Stable(T(4), 1)
-                    );
-                Arrow.UnitEasing f2 = new();
-                AddInstance(f2);
-                f2.ApplyTime = BeatTime(16);
-                f2.TagApply("f2");
-                f2.PositionEase = LinkEase(
-                    Stable(T(12), 200, 300),
-                    Combine(EaseIn(T(4), -200, EaseState.Sine), EaseOut(T(4), -300, EaseState.Cubic))
-                    );
-                f2.AlphaEase = LinkEase(false,
-                    Stable(T(12), 0),
-                    Stable(T(4), 1)
-                    );
                 CreateChart(BeatTime(4), BeatTime(1), 5, new string[]
                 {
-                    "(R1)","","","",    "R1","","","",
+                    "(R02'1.1)(R1)","","","",    "R1","","","",
                     "R0{B}","","","",    "R0{B}","","","",
-                    "($0'0@Aa)(+2'0@Aa)(R0{B})","","","",    "R0{B}","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
                     "R0{B}","","","",    "R0{B}","","","",
 
-                    "(^$202'1.1)(R0{B})","","","",    "R0{B}","","","",
+                    "(R02'1.1)(R0{B})","","","",    "R0{B}","","","",
                     "R0{B}","","","",    "R0{B}","","","",
-                    "($0'0@Bb)(+2'0@Bb)(R0{B})","","","",    "R0{B}","","","",
-                    "R0{B}","","","",    "R0(^$112'1.1)","","","",
+                    "(^R02'2.5)(^+002'2.5)(R0{B})","","","",    "R0{B}","","","",
+                    "R0{B}","","","",    "R0{B}","","","",
 
-                    "","","","",    "R1{A}","","","",
-                    "R1{A}","","","",    "R1{A}","","","",
+                    "R0","","","",    "","","","",
+                    "R0","","","",    "R1{A}","","","",
                     "R1{A}","","","",    "R1{A}","","","",
                     "R1{A}","","","",    "R1{A}","","","",
 
@@ -1375,9 +1003,9 @@ namespace AprilExtends
                     "(R1{A})","","","",    "R1{A}","","","",
                     "R1{A}","","","",    "","","","",
 
-                    "($00'0@f1)($21'0@f2)","","","",    "","","","",
+                    "($00)($21)","","","",    "","","","",
                 });
-                DelayBeat(3.5f, () =>
+                DelayBeat(4, () =>
                 {
                     Arrow[] tagB = GetAll<Arrow>("B");
                     foreach (Arrow b in tagB)
@@ -1385,7 +1013,7 @@ namespace AprilExtends
                         b.ResetColor(1);
                     }
                 });
-                DelayBeat(11.5f, () =>
+                DelayBeat(12, () =>
                 {
                     Arrow[] tagA = GetAll<Arrow>("A");
                     foreach (Arrow a in tagA)
@@ -1468,7 +1096,7 @@ namespace AprilExtends
             }
             if (InBeat(206))
             {
-                
+
                 RegisterFunctionOnce("ArrowEffect", () =>
                 {
                     Arrow[] tagA = GetAll<Arrow>("A");
@@ -1485,7 +1113,7 @@ namespace AprilExtends
                         }
                         o = e;
                     },
-                        Stable(BeatTime(2),-400),
+                        Stable(BeatTime(2), -400),
                         EaseOut(BeatTime(4), 400, EaseState.Elastic)
                     );
                     Arrow[] tagB = GetAll<Arrow>("B");
@@ -1514,7 +1142,7 @@ namespace AprilExtends
                     },
                         EaseIn(BeatTime(8), 0.8f, EaseState.Expo),
                         EaseOut(BeatTime(4), -0.9f, EaseState.Elastic),
-                        EaseInOut(BeatTime(4), 0 ,0.1f, EaseState.Cubic)
+                        EaseInOut(BeatTime(4), 0, 0.1f, EaseState.Cubic)
                     );
                     RunEase((r) =>
                     {
@@ -1650,12 +1278,12 @@ namespace AprilExtends
                         EaseOut(BeatTime(3), 0, 120, EaseState.Expo),
                         EaseIn(BeatTime(9), 0, 1800, EaseState.Cubic)
                     );
-                    
+
                     Functions.Heart.controlingBox.GreenSoulAlpha = 0.01f;
                     //DelayBeat(16 + 8, () =>
                     //{
                     //    Heart.controlingBox.GreenSoulAlpha = 0.5f;
-                        
+
                     //});
                     //{
                     //    //box.SetPosition(2, new Vector2(320 - Sin(r) * 60, 240 + Cos(r) * 60));//
@@ -1691,7 +1319,7 @@ namespace AprilExtends
                     "($0)($21)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
-                    
+
                     "($0)($1)($21)($31)","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
@@ -1892,40 +1520,40 @@ namespace AprilExtends
                 //{
                 //    shields.AddShield(shield1);
                 //}));
-        ////        public class Modify
-        ////  {
-        ////    public static int Type { get; set; } = 1;
-        ////    public static int Angle { get; set; } = 90;
-        ////    public static int way { get; set; } = 360 / Angle;
-        ////    public static InputIdentity[] Keys { get; set; } = new InputIdentity[way];
-        ////    /// <summary>
-        ////    /// 设置每个方向的角度
-        ////    /// 设置的角度应可被360°整除！
-        ////    /// </summary>
-        ////    /// <param name="angle">你想要的角度</param>
-        ////    public void SetRotateAngle(int angle)
-        ////    {
-        ////        Angle = angle;
-        ////    }
-        ////    /// <summary>
-        ////    /// 设置按键
-        //    /// 设置的按键个数应与方向个数相同！
-        //    /// </summary>
-        //    /// <param name="keys">你想选择的按键</param>
-        //    public void SetKeys(InputIdentity[] keys)
-        //      {
-        //        Keys = keys;
-        //      }
-        //    public void SetType(int type)
-        //      {
-        //        Type = type;
-        //      }
-        //  }
-        //public float Angle { get; set; } = Modify.Angle;
-        //public InputIdentity[] Keys { get; set; } = Modify.Keys;
-        //public int Type = Modify.Type;
-        CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
-                {
+                ////        public class Modify
+                ////  {
+                ////    public static int Type { get; set; } = 1;
+                ////    public static int Angle { get; set; } = 90;
+                ////    public static int way { get; set; } = 360 / Angle;
+                ////    public static InputIdentity[] Keys { get; set; } = new InputIdentity[way];
+                ////    /// <summary>
+                ////    /// 设置每个方向的角度
+                ////    /// 设置的角度应可被360°整除！
+                ////    /// </summary>
+                ////    /// <param name="angle">你想要的角度</param>
+                ////    public void SetRotateAngle(int angle)
+                ////    {
+                ////        Angle = angle;
+                ////    }
+                ////    /// <summary>
+                ////    /// 设置按键
+                //    /// 设置的按键个数应与方向个数相同！
+                //    /// </summary>
+                //    /// <param name="keys">你想选择的按键</param>
+                //    public void SetKeys(InputIdentity[] keys)
+                //      {
+                //        Keys = keys;
+                //      }
+                //    public void SetType(int type)
+                //      {
+                //        Type = type;
+                //      }
+                //  }
+                //public float Angle { get; set; } = Modify.Angle;
+                //public InputIdentity[] Keys { get; set; } = Modify.Keys;
+                //public int Type = Modify.Type;
+                CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
+                        {
                     "","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
@@ -1940,7 +1568,7 @@ namespace AprilExtends
                     "","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
-                });
+                        });
             }
         }
         public void ExtremePlus()
@@ -1951,7 +1579,7 @@ namespace AprilExtends
         void CreateRotArrowA(float rot)
         {
             Arrow r1 = MakeArrow(offset, 0, 10, 0, 0);
-            offset = offset+4.9f;
+            offset = offset + 4.9f;
             CreateEntity(r1);
             r1.CentreRotationOffset = rot;
         }
@@ -1961,7 +1589,7 @@ namespace AprilExtends
             CreateEntity(r1);
             r1.CentreRotationOffset = rot;
         }
-        void CreateRotArrow2(float offset,float rot)
+        void CreateRotArrow2(float offset, float rot)
         {
             Arrow r1 = MakeArrow(offset, 0, 5, 0, 0);
             CreateEntity(r1);
@@ -1974,7 +1602,7 @@ namespace AprilExtends
             //{
             //    for(int a=0;a<60;a++)
             //    CreateRotArrow2(40, a*6);
-                
+
             //}
             //if (GameStates.IsKeyPressed(Keys.Space))
             //{
@@ -1998,7 +1626,7 @@ namespace AprilExtends
             //        ve.Insert(BeatTime(8), ValueEasing.EaseOutElastic(aa[i].CentreRotationOffset, 0, BeatTime(8)));
             //        ve.Run((s) => { aa[i].CentreRotationOffset = s; });
             //    }
-                
+
             //}
             //if (GameStates.IsKeyPressed(Keys.B))
             //{
@@ -2021,7 +1649,7 @@ namespace AprilExtends
         //{
         //    public override void Draw()
         //    {
-                
+
         //    }
         //    float alpha = 0;
         //    float HP = HeartAttribute.HP;
@@ -2054,23 +1682,51 @@ namespace AprilExtends
         {
             throw new NotImplementedException();
         }
-        
+
         public override void Start()
         {
-            
+            float i = 0;
+            ScreenDrawing.DownBoundDistance = 120;
+            AddInstance(new TimeRangedEvent(BeatTime(1000), () =>
+            {
+                if (At0thBeat(0.5f))
+                {
+                    RunEase((a) =>
+                    {
+                        ScreenDrawing.BoundColor = Color.Lerp(Color.Aqua, new(255, 0, 0), i) * a;   //DownBound
+                    }
+                        ,
+                        EaseOut(BeatTime(1), 0.5f, 0.2f, EaseState.Linear)
+                    );
+
+                }
+            }));
+
             //CreateEntity(new Buffed());   ←THIS IS THE S**T
+            AddInstance(new TimeRangedEvent(BeatTime(1000), () =>
+            {
+                if (HeartAttribute.HP < 20 & i <= 1)
+                {
+                    i += 0.001f;
+                }
+                else if (HeartAttribute.HP > 20 & i >= 0)
+                {
+                    i -= 0.02f;
+                }
+                ScreenDrawing.HPBar.HPExistColor = Color.Lerp(new(0, 255, 0), new(255, 0, 0), i);   //Change HP's Color
+            }));
             //THIS IS MUCH EASIER THAN THAT 'S**T'
             easeX = new();
             AddInstance(easeX = new Arrow.UnitEasing()
             {
-                
+
                 //AppearTime = BeatTime(12),
                 //Delay(BeatTime(4),()=>{ }),
                 ApplyTime = BeatTime(8),
                 RotationEase = LinkEase(EaseIn(BeatTime(4), 0, 90, EaseState.Quart), EaseOut(BeatTime(8), -180, 0, EaseState.Linear)/*, Alternate(2f, Stable(1f, 1f), Stable(1, -1)*/)
                 //RotationEase=EaseOut(BeatTime(16),720,0,EaseState.Linear)
             });
-            GametimeDelta = -1.4f;
+            GametimeDelta = -0.4f;
             ScreenDrawing.HPBar.HPLoseColor = Color.Black;
             HeartAttribute.BuffedLevel = 1;
             SetGreenBox();
@@ -2081,10 +1737,10 @@ namespace AprilExtends
             bool jump = true;
             if (jump)
             {
-                int beat = 128;
+                int beat = 240;
                 //   int beat = 326;
                 //    int beat = 198 + 64;
-                GametimeDelta = -5.5f + BeatTime(beat);
+                GametimeDelta = -3.5f + BeatTime(beat);
 
                 PlayOffset = BeatTime(beat);
             }

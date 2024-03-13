@@ -1,19 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using UndyneFight_Ex;
-using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Entities.Advanced;
-using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
-using UndyneFight_Ex.Fight;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.MathUtil;
-using vec2 = Microsoft.Xna.Framework.Vector2;
-using col = Microsoft.Xna.Framework.Color;
 
 namespace Rhythm_Recall.Waves
 {
@@ -62,7 +51,8 @@ namespace Rhythm_Recall.Waves
                 }
             );
         }
-        public void Start() {
+        public void Start()
+        {
             GametimeDelta = -BeatTime(2) + 0.95f;
             SetGreenBox();
             TP();
@@ -72,8 +62,8 @@ namespace Rhythm_Recall.Waves
             bool jump = false;
             if (jump)
             {
-                float beat; 
-                beat = 61 + 64; 
+                float beat;
+                beat = 61 + 64;
                 GametimeDelta += BeatTime(beat);
 
                 PlayOffset = BeatTime(beat);

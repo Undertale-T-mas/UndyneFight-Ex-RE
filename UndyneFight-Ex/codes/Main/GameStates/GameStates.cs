@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
@@ -38,6 +37,7 @@ namespace UndyneFight_Ex
 
         internal static bool isInBattle = false;
         public static int difficulty = -1;
+        public static bool ForceDisableTimeTips = false;
         private static GameMode curMode;
 
         internal static bool isReplay = false;
@@ -53,10 +53,11 @@ namespace UndyneFight_Ex
         {
             if (!Paused)
                 GameMain.gameTime += 0.5f;
-            if(CurrentScene != null && GameMain.Update120F) {
+            if (CurrentScene != null && GameMain.Update120F)
+            {
                 MainScene.UpdateAll();
                 CurrentScene.UpdateRendering();
-             }
+            }
             if (currentScene != missionScene)
             {
                 currentScene = missionScene;
@@ -143,7 +144,7 @@ namespace UndyneFight_Ex
             lastParam = @params;
             Fight.Functions.Loader.RootDirectory = "Content";
             ResetScene(@params.MusicLoaded ? new SongFightingScene(@params) : new SongLoadingScene(@params));
-        } 
+        }
         public static void ResetScene(Scene scene)
         {
             List<GameObject> crossObjects = null;

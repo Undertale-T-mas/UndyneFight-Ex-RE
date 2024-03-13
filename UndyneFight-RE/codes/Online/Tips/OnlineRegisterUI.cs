@@ -1,11 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using vec2 = Microsoft.Xna.Framework.Vector2;
-using rect = UndyneFight_Ex.CollideRect;
-using col = Microsoft.Xna.Framework.Color;
-using VPCT = Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture;
-using VPC = Microsoft.Xna.Framework.Graphics.VertexPositionColor;
-using System.Security.Principal;
-using UndyneFight_Ex.Remake.Network;
+﻿using UndyneFight_Ex.Remake.Network;
 
 namespace UndyneFight_Ex.Remake.UI.PageTips
 {

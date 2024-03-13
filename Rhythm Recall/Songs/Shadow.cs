@@ -1,14 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using UndyneFight_Ex;
-using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.IO;
+﻿using System.Collections.Generic;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
 
 namespace Rhythm_Recall.Waves
 {
@@ -68,32 +59,32 @@ namespace Rhythm_Recall.Waves
             }
             public void Easy()
             {
-                
+
             }
 
             public void Extreme()
             {
-                
+
             }
 
             public void ExtremePlus()
             {
-                
+
             }
 
             public void Hard()
             {
-                
+
             }
 
             public void Noob()
             {
-                
+
             }
 
             public void Normal()
             {
-                
+
             }
         }
     }

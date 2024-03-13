@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UndyneFight_Ex.Entities;
 
 namespace UndyneFight_Ex
@@ -89,18 +87,18 @@ namespace UndyneFight_Ex
         protected void DrawPrimitives(VertexPositionColorTexture[] vertexArray, Texture2D texture = null)
         {
             GraphicsDevice obj = WindowDevice;
-            obj.BlendState = this.BlendState;
+            obj.BlendState = BlendState;
             obj.DepthStencilState = DepthStencilState.None;
             obj.RasterizerState = RasterizerState.CullNone;
-            obj.SamplerStates[0] = this.SamplerState ?? SamplerState.LinearClamp;
+            obj.SamplerStates[0] = SamplerState ?? SamplerState.LinearClamp;
 
             VertexPositionColorTexture[] ver = new VertexPositionColorTexture[6];
-            for(int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 ver[i] = vertexArray[_indices[i]];
             }
             GameMain.SpritePass.Apply();
-            Effect eff = this.shader;
+            Effect eff = shader;
             eff?.CurrentTechnique.Passes[0].Apply();
             WindowDevice.Textures[0] = texture;
             WindowDevice.DrawUserPrimitives(PrimitiveType.TriangleList, ver, 0, 2);
@@ -110,7 +108,7 @@ namespace UndyneFight_Ex
         {
             TrySetTarget();
             if (shader == null)
-            { 
+            {
                 GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, SamplerState, null, null, null, enabledMatrix ? matrix : null);
                 foreach (var v in entities) v.Draw();
                 GameMain.MissionSpriteBatch.End();
@@ -159,7 +157,7 @@ namespace UndyneFight_Ex
             {
                 GameMain.MissionSpriteBatch.Begin(SpriteSortMode, BlendState, null, null, null, null, enabledMatrix ? matrix : null);
             }
-            for(int i = 0; i < tex.Length; ++i)
+            for (int i = 0; i < tex.Length; ++i)
                 GameMain.MissionSpriteBatch.Draw(tex[i], pos, from, colors[i]);
             GameMain.MissionSpriteBatch.End();
         }
@@ -167,7 +165,7 @@ namespace UndyneFight_Ex
         {
             Color[] colors = new Color[tex.Length];
             for (int i = 0; i < tex.Length; i++) colors[i] = color;
-            this.DrawTextures(tex, pos, from, colors);
+            DrawTextures(tex, pos, from, colors);
         }
         protected void DrawTextures(Texture2D[] s, Rectangle bound)
         {
@@ -256,10 +254,10 @@ namespace UndyneFight_Ex
 
         internal static void Initialize()
         {
-           // Normal = new("normal") { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, Transfer = TransferUse.ForceNormal, SamplerState = SpriteBatchEX.NearestSample };
-           // Hidden = new("hidden", true) { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, BackGroundColor = Color.Black, SamplerState = SpriteBatchEX.NearestSample };
+            // Normal = new("normal") { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, Transfer = TransferUse.ForceNormal, SamplerState = SpriteBatchEX.NearestSample };
+            // Hidden = new("hidden", true) { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, BackGroundColor = Color.Black, SamplerState = SpriteBatchEX.NearestSample };
             Normal = new("normal") { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, Transfer = TransferUse.ForceNormal };
-            Hidden = new("hidden", true) { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, BackGroundColor = Color.Black  };
+            Hidden = new("hidden", true) { BlendState = BlendState.AlphaBlend, SpriteSortMode = SpriteSortMode.FrontToBack, BackGroundColor = Color.Black };
         }
         public Surface(string name) : base(null, SpriteSortMode.Deferred, null, 0.0f)
         {
@@ -294,19 +292,20 @@ namespace UndyneFight_Ex
                     vertexs[i] = new(new(_vertexs[i].CurrentPosition, 0.395f), Color.White, _vertexs[i].CurrentPosition / new Vector2(640, 480));
                 }
                 if (vertexs.Length == 4)
-                    SpriteBatch.DrawVertex(this.Image, 0.39f, vertexs);
-                else {
+                    SpriteBatch.DrawVertex(Image, 0.39f, vertexs);
+                else
+                {
                     var indices = DrawingLab.GetIndices(vertexs);
                     int[] input = new int[indices.Count * 3];
                     int x = 0;
-                    for(int i = 0; i < indices.Count; i++)
+                    for (int i = 0; i < indices.Count; i++)
                     {
                         input[x] = indices[i].Item1; x++;
                         input[x] = indices[i].Item2; x++;
                         input[x] = indices[i].Item3; x++;
                     }
-                    SpriteBatch.DrawVertex(this.Image, 0.39f, input, vertexs);
-                } 
+                    SpriteBatch.DrawVertex(Image, 0.39f, input, vertexs);
+                }
             }
 
             public override void Update()
@@ -317,8 +316,8 @@ namespace UndyneFight_Ex
 
         public RenderTarget2D RenderPaint { get; private set; }
         public static Surface Normal { get; private set; }
-        public static Surface Hidden { get; private set; } 
-         
+        public static Surface Hidden { get; private set; }
+
         public Color BackGroundColor { get; set; } = Color.Transparent;
         public bool DisableExpand { get; set; } = false;
         public event Action DoUpdate;
@@ -346,7 +345,7 @@ namespace UndyneFight_Ex
         public static Matrix NormalTransfer { get; private set; }
         public Matrix CustomMatrix { get; private set; } = Matrix.Identity;
         public void Draw(Entity[] entities, Matrix transfer)
-        { 
+        {
             if (Transfer == TransferUse.ForceDefault)
             {
                 transfer = Matrix.CreateScale(AdaptingScale / GameStates.SurfaceScale); transfer.M33 = 1;
@@ -354,7 +353,7 @@ namespace UndyneFight_Ex
             else if (Transfer == TransferUse.Custom) transfer = CustomMatrix;
             MissionTarget = RenderPaint;
             ResetTargetColor(BackGroundColor);
-            TransForm = transfer; 
+            TransForm = transfer;
             DrawEntities(entities);/*
             GameMain.Graphics.GraphicsDevice.SetRenderTarget(RenderPaint);
            // GameMain.Graphics.GraphicsDevice.SetRenderTarget(null);
@@ -388,7 +387,7 @@ namespace UndyneFight_Ex
             Hidden.Draw(distributer[Hidden].ToArray(), transfer);
             distributer.Remove(Hidden);
             foreach (FightBox box in FightBox.boxs)
-            { 
+            {
                 distributer[Normal].Add(new BoxPartDrawer(Hidden.RenderPaint, box.Vertexs));
             }
             foreach (KeyValuePair<Surface, List<Entity>> kvp in distributer)
@@ -415,7 +414,7 @@ namespace UndyneFight_Ex
             RenderTarget2D cur = startTarget;
 
             foreach (var itor in surfaces)
-            { 
+            {
                 if (itor.Enabled)
                     cur = itor.Draw(cur);
             }
@@ -436,12 +435,12 @@ namespace UndyneFight_Ex
 
         internal void UpdateAll()
         {
-            foreach (var v in this.surfaces) v.Update();
+            foreach (var v in surfaces) v.Update();
         }
 
         public void ResetProduction()
         {
-            foreach (var v in this.surfaces) v.Dispose();
+            foreach (var v in surfaces) v.Dispose();
             surfaces.Clear();
         }
     }

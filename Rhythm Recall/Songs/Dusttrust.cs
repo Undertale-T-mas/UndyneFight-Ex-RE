@@ -1256,7 +1256,6 @@ namespace Rhythm_Recall.Waves
                 {
                     ResetBarrage();
                     ScreenDrawing.BoundColor = new(243, 3, 218);
-                    float bound = 0;
                     CreateEntity(new Boneslab(0, 0, 1, (int)(bpm * 16 * 10) + 8, Motions.LengthRoute.sin, new float[] { 40, bpm * 33, bpm * 16.5f, 55 }));
                     CreateEntity(new Boneslab(180, 0, 1, (int)(bpm * 16 * 10) + 8, Motions.LengthRoute.sin, new float[] { 40, bpm * 33, 0, 55 }));
                     for (int a = 0; a < 22; a++)

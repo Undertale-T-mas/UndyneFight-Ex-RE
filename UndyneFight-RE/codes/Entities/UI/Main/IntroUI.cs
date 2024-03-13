@@ -206,6 +206,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                 foreach (Entity entity in all) { entity.Draw(); }
             }
             cursor.Draw();
+            FightResources.Font.NormalFont.Draw("V. 2024 April Fools", new vec2(10, 680), col.White, 1, 1);
         }
 
         public override void Update()

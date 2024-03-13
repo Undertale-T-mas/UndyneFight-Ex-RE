@@ -86,7 +86,7 @@ namespace UndyneFight_Ex.Entities
                 }
                 if (Heart.Shields != null && Heart.Shields.Circle.Consumption > 1)
                 {
-                    hpString += $"/ {(Heart.Shields.Circle.Consumption * 8 - 8) :F2}";
+                    hpString += $"/ {(Heart.Shields.Circle.Consumption * 8) - 8:F2}";
                 }
             }
             if (!Vertical)
@@ -115,7 +115,7 @@ namespace UndyneFight_Ex.Entities
 
             float scale = 1;
             if (Buffed)
-                scale = MathHelper.Clamp(1.25f - PlayerInstance.hpControl.LostSpeed * 0.5f, 0.1f, 1.0f);
+                scale = MathHelper.Clamp(1.25f - (PlayerInstance.hpControl.LostSpeed * 0.5f), 0.1f, 1.0f);
             scale = 1 - scale;
             hpExistCurrent = Color.Lerp(hpExistColor, new(128, 32, 32), scale);
             hpLoseCurrent = Color.Lerp(hpLoseColor, new(128, 32, 32), scale);

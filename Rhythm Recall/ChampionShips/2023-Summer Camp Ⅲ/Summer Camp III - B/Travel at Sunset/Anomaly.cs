@@ -1,40 +1,40 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex;
 using System;
 using System.Threading.Tasks;
+using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.Remake.Components;
+using UndyneFight_Ex.Remake.Texts;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
-
-using vec2 = Microsoft.Xna.Framework.Vector2;
-using rect = UndyneFight_Ex.CollideRect;
 using col = Microsoft.Xna.Framework.Color;
+using rect = UndyneFight_Ex.CollideRect;
+using vec2 = Microsoft.Xna.Framework.Vector2;
 using VPCT = Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture;
-using UndyneFight_Ex.Remake.Texts;
 
 namespace Rhythm_Recall.Waves
 {
     internal partial class Traveler_at_Sunset : IChampionShip
     {
         private static Texture2D anomalyImage0, anomalyImage1, anomalyImage2, anomalyImage3, anomalyImage4;
-        public partial class Project 
+        public partial class Project
         {
             Glitching glitch;
             ImageEntity i0, i1, i2, i3, i4, i5, i6;
             public void Noob()
-            {  
+            {
                 if (InBeat(0))
                 {
                     int index = -1;
                     float v = GametimeF;
-                    RegisterFunctionOnce("Image1", () => {
+                    RegisterFunctionOnce("Image1", () =>
+                    {
                         CreateEntity(i0 = new(anomalyImage0));
                         i0.Centre = new(420, 140);
                         i0.Scale = 0.45f;
@@ -63,12 +63,13 @@ namespace Rhythm_Recall.Waves
                         i1.Depth = 0.12f;
                         RunEase(s => i1.Alpha = s,
                             Linear(BeatTime(8), 0.04f, 0.7f)
-                            ); 
+                            );
                         RunEase(s => i1.Centre = s,
-                            EaseOut(BeatTime(8), new(1420, 340), new vec2(320, 240), EaseState.Cubic) 
+                            EaseOut(BeatTime(8), new(1420, 340), new vec2(320, 240), EaseState.Cubic)
                             ); ;
                     });
-                    RegisterFunctionOnce("Move2", () => { 
+                    RegisterFunctionOnce("Move2", () =>
+                    {
                         RunEase(s => i1.Scale = s,
                             EaseOut(BeatTime(16), 1.16f, 0.64f, EaseState.Cubic)
                             ); ;
@@ -77,14 +78,16 @@ namespace Rhythm_Recall.Waves
                             EaseInOut(BeatTime(8), 6, 0, EaseState.Cubic)
                             ); ;
                     });
-                    RegisterFunctionOnce("Fade", () => {
+                    RegisterFunctionOnce("Fade", () =>
+                    {
                         RunEase(s => i1.Alpha = s,
                             Linear(BeatTime(5), 0.7f, 0.63f),
                             Linear(BeatTime(3), 0.63f, 0.0f)
                             );
 
                     });
-                    RegisterFunctionOnce("i3", () => {
+                    RegisterFunctionOnce("i3", () =>
+                    {
                         CreateEntity(i2 = new(anomalyImage2));
                         i2.Centre = new(320, -450);
                         i2.Scale = 0.790774299f;
@@ -106,14 +109,15 @@ namespace Rhythm_Recall.Waves
                             new(0, 0, 640, 480)
                         };
 
-                        i3.OnDraw += () => {
+                        i3.OnDraw += () =>
+                        {
                             if (index < 0 || i3.Alpha < 0.01f) return;
                             vec2 tl = new(-107, 0), tr = new(640 + 107, 0), bl = new(-107, 480);
                             vec2[] tri = { tl, tr, bl };
                             rect cur = rects[index];
                             vec2 uvTL = cur.TopLeft, uvBR = cur.BottomRight;
                             vec2 uvTR = cur.TopRight, uvBL = cur.BottomLeft;
-                            ScreenDrawing.SpriteBatch.DrawVertex(i3.Image, i3.Depth, 
+                            ScreenDrawing.SpriteBatch.DrawVertex(i3.Image, i3.Depth,
                                 new VPCT(new(uvTL, 0), col.White * i3.Alpha, DrawingLab.UVPosition(tri, uvTL)),
                                 new VPCT(new(uvTR, 0), col.White * i3.Alpha, DrawingLab.UVPosition(tri, uvTR)),
                                 new VPCT(new(uvBR, 0), col.White * i3.Alpha, DrawingLab.UVPosition(tri, uvBR)),
@@ -129,7 +133,8 @@ namespace Rhythm_Recall.Waves
                         glitch.Intensity = 7;
                         glitch.RGBSplitIntensity = 0;
                     });
-                    RegisterFunctionOnce("Flash", () => {
+                    RegisterFunctionOnce("Flash", () =>
+                    {
                         RunEase(s => i3.Alpha = s, false,
                             Linear(BeatTime(0.25f), 0.21f, 0),
                             Linear(BeatTime(0.25f), 0.31f, 0),
@@ -137,12 +142,14 @@ namespace Rhythm_Recall.Waves
                             );
                         index++;
                     });
-                    RegisterFunctionOnce("Screen", () => {
+                    RegisterFunctionOnce("Screen", () =>
+                    {
                         RunEase(s => ScreenDrawing.ScreenScale = s,
                             EaseOut(BeatTime(1f), 1.15f, 1.0f, EaseState.Cubic)
                             );
                     });
-                    RegisterFunctionOnce("Lag", () => {
+                    RegisterFunctionOnce("Lag", () =>
+                    {
                         glitch.Intensity = 14;
                         glitch.RGBSplitIntensity = 5.5f;
                         glitch.AverageDelta = 0.5f;
@@ -193,7 +200,8 @@ namespace Rhythm_Recall.Waves
                 GameStates.ResetTime();
                 this.AddChild(project = new Project());
                 UpdateIn120 = true;
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     Loader.RootDirectory = "Content\\Musics\\Traveler at Sunset";
                     player = new(new Audio("anomaly.ogg"));
                     player.Play();
@@ -217,7 +225,7 @@ namespace Rhythm_Recall.Waves
 #endif
                 if (isPrepared)
                 {
-                    if(!isStarted)
+                    if (!isStarted)
                     {
                         isStarted = true;
                         project.AnomalyStart();

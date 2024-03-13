@@ -8,9 +8,9 @@ using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.GlobalResources;
 using static UndyneFight_Ex.GameStates;
- 
+using static UndyneFight_Ex.GlobalResources;
+
 namespace UndyneFight_Ex
 {
     public class LoadingScene : Scene
@@ -36,7 +36,7 @@ namespace UndyneFight_Ex
             public override void Update()
             {
                 appearTime++;
-                alpha = Functions.Sin(appearTime * 7.5f) * 0.9f + 0.1f;
+                alpha = (Functions.Sin(appearTime * 7.5f) * 0.9f) + 0.1f;
             }
         }
         private const int loadingCentreY = 430;
@@ -52,8 +52,8 @@ namespace UndyneFight_Ex
             public override void Draw()
             {
                 Rectangle v = fullBound;
-                v.X = 280 - v.Width / 2;
-                v.Y = loadingCentreY - v.Height / 2;
+                v.X = 280 - (v.Width / 2);
+                v.Y = loadingCentreY - (v.Height / 2);
                 FormalDraw(Image, v, Color.White * alpha);
             }
 
@@ -96,7 +96,7 @@ namespace UndyneFight_Ex
                 InstanceCreate(new TitleShower(Sprites.loadingTexture));
             InstanceCreate(new LoadingTexture());
             for (int i = 0; i < 6; i++)
-                InstanceCreate(new ProgressArrow(new(395 + i * 20, loadingCentreY), -i * 6 - 20));
+                InstanceCreate(new ProgressArrow(new(395 + (i * 20), loadingCentreY), (-i * 6) - 20));
 
             Thread thread = new(new ThreadStart(() =>
             {
@@ -149,8 +149,8 @@ namespace UndyneFight_Ex
             public override void Update()
             {
                 sel ??= FatherObject as SongSelector;
-                Vector2 mission = new(320, 480 * sel.currentSelect + 240);
-                Centre = Centre * 0.85f + mission * 0.15f;
+                Vector2 mission = new(320, (480 * sel.currentSelect) + 240);
+                Centre = (Centre * 0.85f) + (mission * 0.15f);
             }
         }
         SongInformation Information;

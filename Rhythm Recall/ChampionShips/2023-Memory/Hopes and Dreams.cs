@@ -207,7 +207,7 @@ namespace Rhythm_Recall.Waves
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(280, 260, BeatTime(4)), ValueEasing.EaseOutSine(160, 300, BeatTime(4))));
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(260, 320, BeatTime(4)), ValueEasing.EaseOutQuad(300, 360, BeatTime(4))));
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(320, 420, BeatTime(4)), ValueEasing.EaseOutQuad(360, 160, BeatTime(4))));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0.5f), new(0, 0.15f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0.5f), new(0, 0.15f)));
                     ValueEasing.EaseBuilder ve1 = new();
                     ve1.Insert(0, ValueEasing.Stable(90));
                     ve1.Insert(BeatTime(4), ValueEasing.EaseOutBack(90, 90 + 60, BeatTime(4)));
@@ -245,7 +245,7 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star2", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.40f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.40f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s = new(e.GetResult(), 0.6f) { rotate = false };
                     CreateEntity(s);
                     e.Run((m) => { s.Centre = new Vector2(320, 100) + m; });
@@ -259,12 +259,12 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star3", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.10f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s = new(new Vector2(320, 100), 0.6f) { rotate = false };
                     CreateEntity(s);
                     e.Run((m) => { s.Centre = new Vector2(320, 100) + m; });
                     CentreEasing.EaseBuilder e1 = new();
-                    e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.10f, -0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e1.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.10f, -0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s1 = new(new Vector2(320, 100), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320, 100) + m; });
@@ -354,7 +354,7 @@ namespace Rhythm_Recall.Waves
                     e.Insert(BeatTime(4), ValueEasing.EaseOutQuart(160, 180 + 45, BeatTime(4)));
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(2), CentreEasing.Stable(320, 240));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, 0), new(0, 0.12f)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, 0), new(0, 0.12f)));
                     Line l = new(ce.GetResult(), e.GetResult()) { Alpha = 0.75f };
                     l.InsertRetention(new Line.RetentionEffect(0.5f, 0.5f));
                     DelayBeat(2, () => { l.AlphaDecrease(BeatTime(4f)); });
@@ -378,7 +378,7 @@ namespace Rhythm_Recall.Waves
                     e.Insert(BeatTime(4), ValueEasing.EaseOutQuart(160 + 90, 270 + 45, BeatTime(4)));
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(0), CentreEasing.Stable(320, 240));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, 0), new(0, 0.12f)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, 0), new(0, 0.12f)));
                     Line l = new(ce.GetResult(), e.GetResult()) { Alpha = 0.75f };
                     for (int i = 0; i < 12; i++)
                     {
@@ -435,14 +435,14 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star4", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
                     Extends.Star s = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s);
                     int a = Rand(-60, -20);
                     int b = Rand(20, 60);
                     e.Run((m) => { s.Centre = new Vector2(320 + a, 510) + m; });
                     CentreEasing.EaseBuilder e1 = new();
-                    e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
+                    e1.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
                     Extends.Star s1 = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320 + b, 510) + m; });
@@ -670,7 +670,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(BeatTime(4), ValueEasing.EaseInSine(8, 12, BeatTime(4)));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(320, 560));
-                            ce.Insert(BeatTime(16), CentreEasing.Accerlating(new(0, 0f), new(0, -0.175f)));
+                            ce.Insert(BeatTime(16), CentreEasing.Accelerating(new(0, 0f), new(0, -0.175f)));
                             Line l2 = new(ce.GetResult(), ve.GetResult());
                             CreateEntity(l2);
                             l2.DrawingColor = Color.CornflowerBlue;
@@ -690,7 +690,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(BeatTime(4), ValueEasing.EaseInSine(-8, -12, BeatTime(4)));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(320, 560));
-                            ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0f), new(0, -0.175f)));
+                            ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0f), new(0, -0.175f)));
                             Line l2 = new(ce.GetResult(), ve.GetResult());
                             CreateEntity(l2);
                             l2.DrawingColor = Color.CornflowerBlue;
@@ -1957,7 +1957,7 @@ namespace Rhythm_Recall.Waves
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(280, 260, BeatTime(4)), ValueEasing.EaseOutSine(160, 300, BeatTime(4))));
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(260, 320, BeatTime(4)), ValueEasing.EaseOutQuad(300, 360, BeatTime(4))));
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(320, 420, BeatTime(4)), ValueEasing.EaseOutQuad(360, 160, BeatTime(4))));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0.5f), new(0, 0.15f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0.5f), new(0, 0.15f)));
                     ValueEasing.EaseBuilder ve1 = new();
                     ve1.Insert(0, ValueEasing.Stable(90));
                     ve1.Insert(BeatTime(4), ValueEasing.EaseOutBack(90, 90 + 60, BeatTime(4)));
@@ -1995,7 +1995,7 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star2", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.40f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.40f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s = new(e.GetResult(), 0.6f) { rotate = false, ColorType = 1 };
                     CreateEntity(s);
                     e.Run((m) => { s.Centre = new Vector2(320, 100) + m; });
@@ -2009,12 +2009,12 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star3", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.10f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s = new(new Vector2(320, 100), 0.6f) { rotate = false, ColorType = 1 };
                     CreateEntity(s);
                     e.Run((m) => { s.Centre = new Vector2(320, 100) + m; });
                     CentreEasing.EaseBuilder e1 = new();
-                    e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.10f, -0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e1.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.10f, -0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s1 = new(new Vector2(320, 100), 0.6f) { rotate = false, ColorType = 1 };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320, 100) + m; });
@@ -2104,7 +2104,7 @@ namespace Rhythm_Recall.Waves
                     e.Insert(BeatTime(4), ValueEasing.EaseOutQuart(160, 180 + 45, BeatTime(4)));
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(2), CentreEasing.Stable(320, 240));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, 0), new(0, 0.12f)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, 0), new(0, 0.12f)));
                     Line l = new(ce.GetResult(), e.GetResult()) { Alpha = 0.75f };
                     l.InsertRetention(new Line.RetentionEffect(0.5f, 0.5f));
                     DelayBeat(2, () => { l.AlphaDecrease(BeatTime(4f)); });
@@ -2128,7 +2128,7 @@ namespace Rhythm_Recall.Waves
                     e.Insert(BeatTime(4), ValueEasing.EaseOutQuart(160 + 90, 270 + 45, BeatTime(4)));
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(0), CentreEasing.Stable(320, 240));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, 0), new(0, 0.12f)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, 0), new(0, 0.12f)));
                     Line l = new(ce.GetResult(), e.GetResult()) { Alpha = 0.75f };
                     for (int i = 0; i < 12; i++)
                     {
@@ -2185,14 +2185,14 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star4", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
                     Extends.Star s = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s);
                     int a = Rand(-60, -20);
                     int b = Rand(20, 60);
                     e.Run((m) => { s.Centre = new Vector2(320 + a, 510) + m; });
                     CentreEasing.EaseBuilder e1 = new();
-                    e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
+                    e1.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
                     Extends.Star s1 = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320 + b, 510) + m; });
@@ -2420,7 +2420,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(BeatTime(4), ValueEasing.EaseInSine(8, 12, BeatTime(4)));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(320, 560));
-                            ce.Insert(BeatTime(16), CentreEasing.Accerlating(new(0, 0f), new(0, -0.175f)));
+                            ce.Insert(BeatTime(16), CentreEasing.Accelerating(new(0, 0f), new(0, -0.175f)));
                             Line l2 = new(ce.GetResult(), ve.GetResult());
                             CreateEntity(l2);
                             l2.DrawingColor = Color.CornflowerBlue;
@@ -2440,7 +2440,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(BeatTime(4), ValueEasing.EaseInSine(-8, -12, BeatTime(4)));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(320, 560));
-                            ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0f), new(0, -0.175f)));
+                            ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0f), new(0, -0.175f)));
                             Line l2 = new(ce.GetResult(), ve.GetResult());
                             CreateEntity(l2);
                             l2.DrawingColor = Color.CornflowerBlue;
@@ -3702,7 +3702,7 @@ namespace Rhythm_Recall.Waves
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(280, 260, BeatTime(4)), ValueEasing.EaseOutSine(160, 300, BeatTime(4))));
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(260, 320, BeatTime(4)), ValueEasing.EaseOutQuad(300, 360, BeatTime(4))));
                     ce.Insert(BeatTime(4), CentreEasing.Combine(ValueEasing.EaseOutQuart(320, 420, BeatTime(4)), ValueEasing.EaseOutQuad(360, 160, BeatTime(4))));
-                    ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0.5f), new(0, 0.15f)));
+                    ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0.5f), new(0, 0.15f)));
                     ValueEasing.EaseBuilder ve1 = new();
                     ve1.Insert(0, ValueEasing.Stable(90));
                     ve1.Insert(BeatTime(4), ValueEasing.EaseOutBack(90, 90 + 60, BeatTime(4)));
@@ -3740,7 +3740,7 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star2", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.40f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.40f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s = new(e.GetResult(), 0.6f) { rotate = false };
                     CreateEntity(s);
                     e.Run((m) => { s.Centre = new Vector2(320, 100) + m; });
@@ -3754,12 +3754,12 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star3", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.10f, 0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s = new(new Vector2(320, 100), 0.6f) { rotate = false };
                     CreateEntity(s);
                     e.Run((m) => { s.Centre = new Vector2(320, 100) + m; });
                     CentreEasing.EaseBuilder e1 = new();
-                    e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.10f, -0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
+                    e1.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.10f, -0.61f), Rand(-3.00f, -5.00f)), new(0, 0.15f)));
                     Extends.Star s1 = new(new Vector2(320, 100), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320, 100) + m; });
@@ -3849,7 +3849,7 @@ namespace Rhythm_Recall.Waves
                     e.Insert(BeatTime(4), ValueEasing.EaseOutQuart(160, 180 + 45, BeatTime(4)));
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(2), CentreEasing.Stable(320, 240));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, 0), new(0, 0.12f)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, 0), new(0, 0.12f)));
                     Line l = new(ce.GetResult(), e.GetResult()) { Alpha = 0.75f };
                     l.InsertRetention(new Line.RetentionEffect(0.5f, 0.5f));
                     DelayBeat(2, () => { l.AlphaDecrease(BeatTime(4f)); });
@@ -3873,7 +3873,7 @@ namespace Rhythm_Recall.Waves
                     e.Insert(BeatTime(4), ValueEasing.EaseOutQuart(160 + 90, 270 + 45, BeatTime(4)));
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(BeatTime(0), CentreEasing.Stable(320, 240));
-                    ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0, 0), new(0, 0.12f)));
+                    ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0, 0), new(0, 0.12f)));
                     Line l = new(ce.GetResult(), e.GetResult()) { Alpha = 0.75f };
                     for (int i = 0; i < 12; i++)
                     {
@@ -3930,14 +3930,14 @@ namespace Rhythm_Recall.Waves
                 RegisterFunctionOnce("star4", () =>
                 {
                     CentreEasing.EaseBuilder e = new();
-                    e.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
+                    e.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(0.10f, 0.41f), -10), new(0, 0.17f)));
                     Extends.Star s = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s);
                     int a = Rand(-60, -20);
                     int b = Rand(20, 60);
                     e.Run((m) => { s.Centre = new Vector2(320 + a, 510) + m; });
                     CentreEasing.EaseBuilder e1 = new();
-                    e1.Insert(BeatTime(8), CentreEasing.Accerlating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
+                    e1.Insert(BeatTime(8), CentreEasing.Accelerating(new(Rand(-0.41f, -0.10f), -10), new(0, 0.17f)));
                     Extends.Star s1 = new(new Vector2(0), 0.6f) { rotate = false };
                     CreateEntity(s1);
                     e1.Run((m) => { s1.Centre = new Vector2(320 + b, 510) + m; });
@@ -4165,7 +4165,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(BeatTime(4), ValueEasing.EaseInSine(8, 12, BeatTime(4)));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(320, 560));
-                            ce.Insert(BeatTime(16), CentreEasing.Accerlating(new(0, 0f), new(0, -0.175f)));
+                            ce.Insert(BeatTime(16), CentreEasing.Accelerating(new(0, 0f), new(0, -0.175f)));
                             Line l2 = new(ce.GetResult(), ve.GetResult());
                             CreateEntity(l2);
                             l2.DrawingColor = Color.CornflowerBlue;
@@ -4185,7 +4185,7 @@ namespace Rhythm_Recall.Waves
                             ve.Insert(BeatTime(4), ValueEasing.EaseInSine(-8, -12, BeatTime(4)));
                             CentreEasing.EaseBuilder ce = new();
                             ce.Insert(0, CentreEasing.Stable(320, 560));
-                            ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0f), new(0, -0.175f)));
+                            ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0f), new(0, -0.175f)));
                             Line l2 = new(ce.GetResult(), ve.GetResult());
                             CreateEntity(l2);
                             l2.DrawingColor = Color.CornflowerBlue;

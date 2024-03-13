@@ -3,10 +3,10 @@ using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
 
 namespace Rhythm_Recall.Waves
 {
@@ -14,7 +14,7 @@ namespace Rhythm_Recall.Waves
     {
         public partial class Project : WaveConstructor, IWaveSet
         {
-            public Project() : base(62.5f/(226f/60f)) { }
+            public Project() : base(62.5f / (226f / 60f)) { }
 
             public SongInformation Attributes => new Information();
             Blur Blur;
@@ -37,14 +37,14 @@ namespace Rhythm_Recall.Waves
                 throw new NotImplementedException();
             }
 
-#endregion
+            #endregion
             Winder r = new(), s = null;
             static Arrow.UnitEasing easeA = null, easeB = null, easeC = null, easeD, easeE, easeF, easeG, easeH, easeI, easeJ, easeK;
             static Arrow.EnsembleEasing easeX = null, easeY = null, easeZ = null, easeU, easeV, easeW, easeS2, easeT2, easeS1, easeT1;
             static Arrow.ClassicApplier easeK1;
 
             GridShader shaderGrid;
-             
+
             Sans sans;
             public void Start()
             {
@@ -52,9 +52,10 @@ namespace Rhythm_Recall.Waves
                 shaderGrid = new();
                 if (CurrentDifficulty == Difficulty.Noob)
                 {
-                    DelayBeat(1, () => {
+                    DelayBeat(1, () =>
+                    {
                         GameStates.ResetScene(new Anomaly());
-                    }); 
+                    });
                 }
                 RegisterFunction("Drum", () =>
                 {
@@ -94,7 +95,7 @@ namespace Rhythm_Recall.Waves
                 AddInstance(easeC = new Arrow.UnitEasing());
                 AddInstance(easeD = new Arrow.UnitEasing());
                 AddInstance(easeE = new Arrow.UnitEasing());
-                AddInstance(easeF = new Arrow.UnitEasing()); 
+                AddInstance(easeF = new Arrow.UnitEasing());
                 AddInstance(easeG = new Arrow.UnitEasing()
                 {
                     ApplyTime = BeatTime(2.5f),
@@ -144,7 +145,7 @@ namespace Rhythm_Recall.Waves
                 CreateEntity(r);
                 GametimeDelta = -3.5f;
                 SetSoul(1);
-                InstantSetBox(new Vector2(320,240), 84, 84);
+                InstantSetBox(new Vector2(320, 240), 84, 84);
                 InstantTP(320, 240);
                 ScreenDrawing.MasterAlpha = 0f;
                 ScreenDrawing.ScreenScale = 2f;

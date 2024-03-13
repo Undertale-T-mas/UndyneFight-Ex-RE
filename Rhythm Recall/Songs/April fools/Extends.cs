@@ -1192,7 +1192,7 @@ namespace Extends
         {
             if (inDuration == 0)
             {
-                MaskSquare maskSquare = new(-320, -240, 640 + 320, 480 + 240, (int)(inDuration + duration + outDuration), Color.Black, 1);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(inDuration + duration + outDuration), Color.Black, 1);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(duration, outDuration + 1, () =>
                 {
@@ -1205,7 +1205,7 @@ namespace Extends
             }
             else
             {
-                MaskSquare maskSquare = new(-320, -240, 640 + 320, 480 + 240, (int)(inDuration + duration + outDuration), Color.Black, 0);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(inDuration + duration + outDuration), Color.Black, 0);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(inDuration + 1, () =>
                     maskSquare.alpha += 1 / inDuration));
@@ -1217,7 +1217,7 @@ namespace Extends
         {
             if (induration == 0)
             {
-                MaskSquare maskSquare = new(-320, -240, 640+320, 480+240, (int)(induration + duration + outduration), color, 1);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(induration + duration + outduration), color, 1);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(duration, outduration + 1, () =>
                 {
@@ -1231,7 +1231,7 @@ namespace Extends
             }
             else
             {
-                MaskSquare maskSquare = new(-320, -240, 640 + 320, 480 + 240, (int)(induration + duration + outduration), color, 0);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(induration + duration + outduration), color, 0);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(induration + 1, () =>
                     maskSquare.alpha += 1 / induration));

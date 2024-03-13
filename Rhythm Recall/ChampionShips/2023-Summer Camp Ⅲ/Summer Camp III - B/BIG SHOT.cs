@@ -1,16 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.Remake.Entities;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
 namespace Rhythm_Recall.Waves
 {
@@ -24,7 +21,7 @@ namespace Rhythm_Recall.Waves
         }
         public IWaveSet GameContent => new Project();
         public Dictionary<string, Difficulty> DifficultyPanel => dif;
-        class Project : WaveConstructor,IWaveSet
+        class Project : WaveConstructor, IWaveSet
         {
             public Project() : base(62.5f / (140f / 60f)) { }
             public string Music => "BIG SHOT";
@@ -877,8 +874,8 @@ namespace Rhythm_Recall.Waves
                         l.AddShadow(4, 0);
                         l.DelayAlphaDecrease(BeatTime(4), BeatTime(0.5f));
                         var sc = LinkEase(
-                            Stable(0,0),
-                            EaseOut(BeatTime(0.75f),-1.5f,EaseState.Quart),
+                            Stable(0, 0),
+                            EaseOut(BeatTime(0.75f), -1.5f, EaseState.Quart),
                             EaseOut(BeatTime(0.75f), -1.5f, EaseState.Quart),
                             EaseOut(BeatTime(0.75f), -1.5f, EaseState.Quart),
                             EaseOut(BeatTime(0.75f), 3f, EaseState.Quart),
@@ -921,7 +918,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("aLine2", () =>
                     {
-                        Line l = new(LinkEase(Stable(0, new Vector2(Arguments[0], 240)),EaseOut(BeatTime(0.8f),new Vector2(Arguments[2],0),EaseState.Cubic)).Easing, LinkEase(Stable(0, 90), EaseOut(BeatTime(0.5f), Arguments[1], EaseState.Cubic)));
+                        Line l = new(LinkEase(Stable(0, new Vector2(Arguments[0], 240)), EaseOut(BeatTime(0.8f), new Vector2(Arguments[2], 0), EaseState.Cubic)).Easing, LinkEase(Stable(0, 90), EaseOut(BeatTime(0.5f), Arguments[1], EaseState.Cubic)));
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(0.8f));
                     });
@@ -984,9 +981,9 @@ namespace Rhythm_Recall.Waves
                     ar2.TagApply("Y");
                     RegisterFunctionOnce("ThreeLine1", () =>
                     {
-                        var ce = LinkEase(Stable(0,new Vector2(480 - Arguments[0], 240)));
+                        var ce = LinkEase(Stable(0, new Vector2(480 - Arguments[0], 240)));
                         var re = LinkEase(Stable(0, 90));
-                        Line l = new(ce,re);
+                        Line l = new(ce, re);
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(0.5f));
                     });
@@ -1000,7 +997,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("SCR", () =>
                     {
-                        RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, EaseOut(BeatTime(Arguments[0]), Arguments[1], EaseState.Sine),EaseOut(BeatTime(Arguments[0]), -Arguments[1], EaseState.Sine));
+                        RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, EaseOut(BeatTime(Arguments[0]), Arguments[1], EaseState.Sine), EaseOut(BeatTime(Arguments[0]), -Arguments[1], EaseState.Sine));
                     });
                     RegisterFunctionOnce("RSA", () =>
                     {
@@ -1008,25 +1005,25 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("ArrowLine1", () =>
                     {
-                        var ce=LinkEase(
-                            Stable(0,new Vector2(320+42-3+BeatTime(1)*3.1f,560)),
-                            Linear(BeatTime(1),new Vector2(-BeatTime(1)*3.1f,0)),
-                            EaseOut(BeatTime(1),new Vector2(-150,0),EaseState.Quad),
-                            EaseOut(BeatTime(0.25f),new Vector2(45,0),EaseState.Quad),
-                            EaseOut(BeatTime(0.5f),new Vector2(-45,0),EaseState.Quad),
-                            EaseOut(BeatTime(0.5f),new Vector2(-42,0),EaseState.Quad),
+                        var ce = LinkEase(
+                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f, 560)),
+                            Linear(BeatTime(1), new Vector2(-BeatTime(1) * 3.1f, 0)),
+                            EaseOut(BeatTime(1), new Vector2(-150, 0), EaseState.Quad),
+                            EaseOut(BeatTime(0.25f), new Vector2(45, 0), EaseState.Quad),
+                            EaseOut(BeatTime(0.5f), new Vector2(-45, 0), EaseState.Quad),
+                            EaseOut(BeatTime(0.5f), new Vector2(-42, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine),
                             EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine),
                             EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine)
                             );
                         var ce2 = LinkEase(
-                            Stable(0, new Vector2(320+42 -3+BeatTime(1) * 3.1f, 560)),
-                            Combine(Linear(BeatTime(1),-BeatTime(1) * 3.1f),EaseOut(BeatTime(1),-640,EaseState.Quad)),
+                            Stable(0, new Vector2(320 + 42 - 3 + BeatTime(1) * 3.1f, 560)),
+                            Combine(Linear(BeatTime(1), -BeatTime(1) * 3.1f), EaseOut(BeatTime(1), -640, EaseState.Quad)),
                             EaseOut(BeatTime(1), new Vector2(-150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(-45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(-42, 0), EaseState.Quad),
-                            EaseOut(BeatTime(0.25f), new Vector2(470/3f, 0), EaseState.Sine),
+                            EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine),
                             EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine),
                             EaseOut(BeatTime(0.25f), new Vector2(470 / 3f, 0), EaseState.Sine)
                             );
@@ -2359,7 +2356,7 @@ namespace Rhythm_Recall.Waves
                     Arrow.UnitEasing ease;
                     AddInstance(ease = new Arrow.UnitEasing() { ApplyTime = BeatTime(2f) });
                     ease.RotationEase = LinkEase(Stable(0, 15), EaseOut(BeatTime(2f), -15, EaseState.Sine));
-                    ease.TagApply("L"); 
+                    ease.TagApply("L");
                     CreateChart(BeatTime(4), BeatTime(1), 6.2f, new string[]
                     {
                         "SetSoul(BaseLine)","","","",   "","","","",
@@ -2472,8 +2469,8 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("ArrowLine2", () =>
                     {
                         var ce = LinkEase(
-                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f*2, 560)),
-                            Linear(BeatTime(1), new Vector2(BeatTime(1) * 3.1f*2, 0)),
+                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f * 2, 560)),
+                            Linear(BeatTime(1), new Vector2(BeatTime(1) * 3.1f * 2, 0)),
                             EaseOut(BeatTime(1), new Vector2(150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(-45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(45, 0), EaseState.Quad),
@@ -2483,8 +2480,8 @@ namespace Rhythm_Recall.Waves
                             EaseOut(BeatTime(0.25f), new Vector2(-470 / 3f, 0), EaseState.Sine)
                             );
                         var ce2 = LinkEase(
-                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f*2, 560)),
-                            Combine(Linear(BeatTime(1), BeatTime(1) * 3.1f*2), EaseOut(BeatTime(1), -640, EaseState.Quad)),
+                            Stable(0, new Vector2(320 - 42 + 3 - BeatTime(1) * 3.1f * 2, 560)),
+                            Combine(Linear(BeatTime(1), BeatTime(1) * 3.1f * 2), EaseOut(BeatTime(1), -640, EaseState.Quad)),
                             EaseOut(BeatTime(1), new Vector2(150, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.25f), new Vector2(-45, 0), EaseState.Quad),
                             EaseOut(BeatTime(0.5f), new Vector2(45, 0), EaseState.Quad),
@@ -3012,14 +3009,14 @@ namespace Rhythm_Recall.Waves
                 InstantSetBox(240, 84, 84);
                 InstantTP(320, 240);
                 bool jump = false;
-                int jumpbeat=284;
+                int jumpbeat = 284;
                 HeartAttribute.MaxHP = 54;
                 HeartAttribute.DamageTaken = 8;
                 HeartAttribute.ArrowFixed = true;
                 if (jump)
                 {
                     GametimeDelta = -4.5f + BeatTime(jumpbeat);
-                    PlayOffset=BeatTime(jumpbeat);
+                    PlayOffset = BeatTime(jumpbeat);
                     SetSoul(1);
                     //Heart.RotateTo(0);for(int i = 0; i < 5;i++) 
                 }

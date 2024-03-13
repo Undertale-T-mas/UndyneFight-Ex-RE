@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources.Sounds;

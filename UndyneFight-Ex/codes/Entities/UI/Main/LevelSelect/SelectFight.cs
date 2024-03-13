@@ -26,7 +26,7 @@ namespace UndyneFight_Ex.Entities
 
             public static void Move()
             {
-                currentDelta = currentDelta * 0.8f + missionDelta * 0.2f;
+                currentDelta = (currentDelta * 0.8f) + (missionDelta * 0.2f);
             }
 
             public class ShinyTextEffect : Entity
@@ -45,15 +45,15 @@ namespace UndyneFight_Ex.Entities
                 }
                 public override void Draw()
                 {
-                    FightResources.Font.NormalFont.Draw(texts, Centre - new Vector2(0, size * 14 - 14), showingColor * alpha, size, 0.9f);
+                    FightResources.Font.NormalFont.Draw(texts, Centre - new Vector2(0, (size * 14) - 14), showingColor * alpha, size, 0.9f);
                 }
 
                 public override void Update()
                 {
-                    collidingBox.Y -= 0.1f + alpha * 0.4f;
+                    collidingBox.Y -= 0.1f + (alpha * 0.4f);
                     alpha *= 0.9f;
                     alpha -= 0.03f;
-                    size += ((2 - alpha) / 40f + 0.04f) / 1.6f;
+                    size += (((2 - alpha) / 40f) + 0.04f) / 1.6f;
                     if (alpha < 0) Dispose();
                 }
             }
@@ -111,7 +111,7 @@ namespace UndyneFight_Ex.Entities
             public override void Draw()
             {
                 float size1 = currentSize * size;
-                FightResources.Font.NormalFont.Draw(texts, startLocation + currentDelta - new Vector2(0, size1 * 14 - 14), showingColor * alpha, size1, 0.9f);
+                FightResources.Font.NormalFont.Draw(texts, startLocation + currentDelta - new Vector2(0, (size1 * 14) - 14), showingColor * alpha, size1, 0.9f);
             }
 
             public void Selected()
@@ -124,8 +124,8 @@ namespace UndyneFight_Ex.Entities
                 if (alpha < 1f) alpha += 0.025f;
                 else alpha = 1f;
                 currentSize = isSelected
-                    ? currentSize * (1 - sizeChangeSpeed) + maxSize * sizeChangeSpeed
-                    : currentSize * (1 - sizeChangeSpeed) + sizeChangeSpeed;
+                    ? (currentSize * (1 - sizeChangeSpeed)) + (maxSize * sizeChangeSpeed)
+                    : (currentSize * (1 - sizeChangeSpeed)) + sizeChangeSpeed;
                 Centre = currentDelta + startLocation;
             }
 
@@ -200,7 +200,7 @@ namespace UndyneFight_Ex.Entities
 
                     string name = fight.FightName;
 
-                    selection = new TextSelectionEx(name, new Vector2(100, 160 + 52 * y))
+                    selection = new TextSelectionEx(name, new Vector2(100, 160 + (52 * y)))
                     {
                         SetSelectionAction = () =>
                         {
@@ -214,7 +214,7 @@ namespace UndyneFight_Ex.Entities
                     Fight.IExtraOption opt;
                     opt = tem as Fight.IExtraOption;
                     string name = opt.OptionName;
-                    selection = new TextSelectionEx(name, new Vector2(100, 160 + 52 * y))
+                    selection = new TextSelectionEx(name, new Vector2(100, 160 + (52 * y)))
                     {
                         SetSelectionAction = () =>
                         {

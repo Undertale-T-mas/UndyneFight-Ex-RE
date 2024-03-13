@@ -5,12 +5,10 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.EasingUtil;
-using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using System.Net.Mail;
-using UFData;
+using static UndyneFight_Ex.FightResources;
 
 namespace Rhythm_Recall.Waves
 {
@@ -950,7 +948,7 @@ namespace Rhythm_Recall.Waves
                             Line a = new(new Vector2(320 - x * 55, 240), -45) { Alpha = 0.6f };
                             Line b = new(new Vector2(320 + x * 55, 240), -45) { Alpha = 0.6f };
                             Line[] lines = { a, b };
-                            foreach(Line l in lines)
+                            foreach (Line l in lines)
                             {
                                 CreateEntity(l);
                                 l.AlphaDecrease(BeatTime(2.4f * 19f / 17f));
@@ -1096,8 +1094,8 @@ namespace Rhythm_Recall.Waves
                     Line a1 = new(320, 135) { Alpha = 0.4f };
                     Line b1 = new(320 + 40, 45) { Alpha = 0.55f };
                     Line c1 = new(320 + 40, 135) { Alpha = 0.55f };
-                    Line[] ls = {a,b,c,a1,b1,c1};
-                    foreach(Line l in ls)
+                    Line[] ls = { a, b, c, a1, b1, c1 };
+                    foreach (Line l in ls)
                     {
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(0.5f * 19f / 17f));
@@ -1154,8 +1152,8 @@ namespace Rhythm_Recall.Waves
                     float rd = Rand(80, 640 - 80);
                     Line a = new(EaseOut(BeatTime(0.65f * 19f / 17f), new Vector2(rd, 240), new Vector2(rd + 40, 240), EaseState.Quad), Stable(0, 90)) { Alpha = 0.8f };
                     Line b = new(EaseOut(BeatTime(0.65f * 19f / 17f), new Vector2(rd, 240), new Vector2(rd - 40, 240), EaseState.Quad), Stable(0, 90)) { Alpha = 0.8f };
-                    Line[] ls = {a, b};
-                    foreach(Line l in ls)
+                    Line[] ls = { a, b };
+                    foreach (Line l in ls)
                     {
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(0.65f * 19f / 17f));
@@ -1299,15 +1297,15 @@ namespace Rhythm_Recall.Waves
                     {
                         Line a = new(EaseOut(BeatTime(1.6f * 19f / 17f), new Vector2(0), new Vector2(320, 240), EaseState.Linear), Stable(0, -45)) { Alpha = 0.55f };
                         Line b = new(EaseOut(BeatTime(1.6f * 19f / 17f), new Vector2(640, 480), new Vector2(320, 240), EaseState.Linear), Stable(0, -45)) { Alpha = 0.55f };
-                        Line[] ls = {a, b};
-                        foreach(Line l in ls)
+                        Line[] ls = { a, b };
+                        foreach (Line l in ls)
                         {
                             DelayBeat(0.0625f * 19f / 17f * i, () =>
                             {
                                 CreateEntity(l);
                                 l.VerticalMirror = true;
                                 l.AlphaDecrease(BeatTime(1.2f * 19f / 17f));
-                                DelayBeat(1.6f * 19f / 17f, () => {l.Dispose();});
+                                DelayBeat(1.6f * 19f / 17f, () => { l.Dispose(); });
                             });
                         }
                     }
@@ -1354,7 +1352,7 @@ namespace Rhythm_Recall.Waves
                         DelayBeat(0.25f * i * 19f / 17f, () =>
                         {
                             x++;
-                            Line l = new(new Vector2(640f - 640f / 9f * x, 240), EaseOut(BeatTime(1.2f * 19f / 17f), 90, 75, EaseState.Quad)){ Alpha = 0.7f };
+                            Line l = new(new Vector2(640f - 640f / 9f * x, 240), EaseOut(BeatTime(1.2f * 19f / 17f), 90, 75, EaseState.Quad)) { Alpha = 0.7f };
                             CreateEntity(l);
                             l.AlphaDecrease(BeatTime(1.2f * 19f / 17f));
                             DelayBeat(1.2f * 19f / 17f, () => { l.Dispose(); });
@@ -1365,8 +1363,8 @@ namespace Rhythm_Recall.Waves
                 {
                     Line a = new(new Vector2(320, 240), EaseOut(BeatTime(2f * 19f / 17f), 45, 45 + 360 + 90, EaseState.Quad)) { Alpha = 0.7f };
                     Line b = new(new Vector2(320, 240), EaseOut(BeatTime(2f * 19f / 17f), -45, -45 + 360 + 90, EaseState.Quad)) { Alpha = 0.7f };
-                    Line[]ls= { a, b };
-                    foreach(Line l in ls)
+                    Line[] ls = { a, b };
+                    foreach (Line l in ls)
                     {
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(2f * 19f / 17f));
@@ -1898,7 +1896,7 @@ namespace Rhythm_Recall.Waves
                             Stable(1, new Vector2(320 - 40 * i, 240))), Stable(0, 90))
                         { Alpha = 0.7f - i * 0.05f };
                         Line[] ls = { a, b };
-                        foreach(Line l in ls)
+                        foreach (Line l in ls)
                         {
                             CreateEntity(l);
                             l.AlphaDecrease(BeatTime(5f * 19f / 14f));
@@ -1910,8 +1908,8 @@ namespace Rhythm_Recall.Waves
                 {
                     Line a = new(40, 90) { Alpha = 0.7f };
                     Line b = new(80, 90) { Alpha = 0.45f };
-                    Line[]ls = { a, b };
-                    foreach(Line l in ls)
+                    Line[] ls = { a, b };
+                    foreach (Line l in ls)
                     {
                         CreateEntity(l);
                         l.AlphaDecrease(BeatTime(0.7f * 19f / 14f));
@@ -2327,8 +2325,8 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.MaxHP = 24;
                 HeartAttribute.DamageTaken = 1;
                 ScreenDrawing.HPBar.HPLoseColor = Color.Gray;
-                ScreenDrawing.HPBar.HPExistColor = Color.Lerp(Color.Red, Color.DarkRed, 0.4f); 
-                GametimeDelta = -3.5f ;
+                ScreenDrawing.HPBar.HPExistColor = Color.Lerp(Color.Red, Color.DarkRed, 0.4f);
+                GametimeDelta = -3.5f;
                 PlayOffset = 0;
                 bool jump = false;
                 if (jump)
