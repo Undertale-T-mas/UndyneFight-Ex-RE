@@ -68,34 +68,11 @@ namespace Rhythm_Recall.Waves
 					RunEase((s) => Heart.InstantSetRotation(s), EaseOut(BeatTime(2), Heart.Rotation, Heart.Rotation + 450, EaseState.Expo)));
 				});
 				Settings.GreenTap = true;
-				HeartAttribute.MaxHP = HeartAttribute.HP = 30;
+				HeartAttribute.MaxHP = HeartAttribute.HP = 41;
+				HeartAttribute.DamageTaken = 4;
 				SetSoul(0);
 				InstantSetBox(0, 0, 0);
-				bool jump = true;
-				if (jump)
-				{
-					bool IsEx = GameStates.difficulty == 3;
-					float beat = 395;
-					GametimeDelta = BeatTime(beat);
-					PlayOffset = GametimeDelta;
-					if (beat >= 59)
-					{
-						InstantTP(320, 240);
-						SetSoul(1);
-						InstantSetGreenBox();
-					}
-					if (beat > 335)
-					{
-						FightBox.boxs[0].Visible = false;
-						ScreenDrawing.BoxBackColor = Color.Transparent;
-						ScreenDrawing.ScreenScale = 1;
-						CreateEntity(CircleBox = new Circle(new(320, 240), MathF.Sqrt(42 * 42 * 2), 5));
-					}
-				}
-				else
-				{
-					RunEase((s) => ScreenDrawing.MasterAlpha = s, EaseOut(BeatTime(32), 0, 1, EaseState.Linear));
-				}
+				RunEase((s) => ScreenDrawing.MasterAlpha = s, EaseOut(BeatTime(32), 0, 1, EaseState.Linear));
 			}
 			Circle CircleBox;
 			private class Circle : Entity
