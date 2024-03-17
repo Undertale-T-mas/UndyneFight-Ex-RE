@@ -38,7 +38,7 @@ namespace UndyneFight_Ex
             private Vector4 extending;
 
             public float SurfaceScale => defaultWidth / 640f;
-             
+
             public DrawingSettings()
             {
                 surfaces.Add("normal", Surface.Normal);
@@ -70,7 +70,9 @@ namespace UndyneFight_Ex
         public static ContentManager Loader { get; private set; }
         internal Selector BaseSelector { get; set; }
 
-        public bool Pausable { get;
+        public bool Pausable
+        {
+            get;
 #if DEBUG
             set;
 #else
@@ -86,7 +88,7 @@ namespace UndyneFight_Ex
         }
         public override void Draw()
         {
-            if (stopTime > 0.01f) return; 
+            if (stopTime > 0.01f) return;
         }
         private Dictionary<string, List<GameEventArgs>> GameEvents { get; set; } = new Dictionary<string, List<GameEventArgs>>();
         public void Broadcast(GameEventArgs gameEventArgs)
@@ -117,7 +119,7 @@ namespace UndyneFight_Ex
             {
                 s.TreeUpdate();
             });
-            foreach(var v in GameEvents)
+            foreach (var v in GameEvents)
             {
                 v.Value.RemoveAll(s => s.Disposed);
             }
@@ -163,8 +165,8 @@ namespace UndyneFight_Ex
 
         internal void UpdateRendering()
         {
-            this.SceneRendering.UpdateAll();
-            this.BackgroundRendering.UpdateAll();
+            SceneRendering.UpdateAll();
+            BackgroundRendering.UpdateAll();
         }
     }
 }

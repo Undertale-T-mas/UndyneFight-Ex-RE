@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using UndyneFight_Ex.Entities;
-
-namespace UndyneFight_Ex
+﻿namespace UndyneFight_Ex
 {
     public static partial class GameStates
     {
@@ -11,7 +7,7 @@ namespace UndyneFight_Ex
         {
             Paused = true;
             CurrentScene.AlternatePause();
-        }        
+        }
         public static void RunGameResume()
         {
             Paused = false;

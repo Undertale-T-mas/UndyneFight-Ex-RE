@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
-using UndyneFight_Ex.Entities;
-using static UndyneFight_Ex.FightResources.Font;
-using static UndyneFight_Ex.GameStates;
+﻿using static UndyneFight_Ex.GameStates;
 
 namespace UndyneFight_Ex.Remake.UI
 {

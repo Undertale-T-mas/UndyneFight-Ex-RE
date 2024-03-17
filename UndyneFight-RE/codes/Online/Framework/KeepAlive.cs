@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Principal;
 using static UndyneFight_Ex.PlayerManager;
 
 namespace UndyneFight_Ex.Remake.Network

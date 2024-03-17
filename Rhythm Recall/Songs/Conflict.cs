@@ -6,11 +6,11 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
+using static Extends.DrawingUtil;
+using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.FightResources.Sprites;
-using static UndyneFight_Ex.Entities.EasingUtil;
-using static Extends.DrawingUtil;
 
 namespace Rhythm_Recall.Waves
 {

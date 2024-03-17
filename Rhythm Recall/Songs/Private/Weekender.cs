@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using UndyneFight_Ex;
+﻿using Extends;
+using System.Collections.Generic;
 using UndyneFight_Ex.SongSystem;
-using UndyneFight_Ex.Remake.Entities;
-using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using Extends;
+using static UndyneFight_Ex.Fight.Functions;
 
 namespace Rhythm_Recall.Waves
 {
@@ -250,7 +248,7 @@ namespace Rhythm_Recall.Waves
                         "R", "", "", "",   "", "", "R", "",
                         "", "", "R", "",   "", "", "R", "",
                         "", "", "", "",   "", "", "", "",
-                        "", "", 
+                        "", "",
                         "R", "", "", "",   "R", "", "", "",
                     });
                 }

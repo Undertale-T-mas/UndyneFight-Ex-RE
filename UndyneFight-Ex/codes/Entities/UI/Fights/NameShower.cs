@@ -17,10 +17,10 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            Vector2 namePos = new(Centre.X, Centre.Y - FightFont.SFX.MeasureString("HP").Y / 2f);
+            Vector2 namePos = new(Centre.X, Centre.Y - (FightFont.SFX.MeasureString("HP").Y / 2f));
             string showing = OverrideName == "" ? (string.IsNullOrEmpty(name) ? (string.IsNullOrEmpty(PlayerManager.currentPlayer)
                 ? "guest" : PlayerManager.currentPlayer) : name) : OverrideName;
-            Vector2 lvPos = new(FightFont.SFX.MeasureString(showing).X + 22 + Centre.X + (GameRule.nameColor == "Colorful" ? 20 : 0), Centre.Y - FightFont.SFX.MeasureString("HP").Y / 2f);
+            Vector2 lvPos = new(FightFont.SFX.MeasureString(showing).X + 22 + Centre.X + (GameRule.nameColor == "Colorful" ? 20 : 0), Centre.Y - (FightFont.SFX.MeasureString("HP").Y / 2f));
 
             switch (GameRule.nameColor)
             {
@@ -44,9 +44,9 @@ namespace UndyneFight_Ex.Entities
                     {
                         FightFont.CentreDraw(string.IsNullOrEmpty(PlayerManager.currentPlayer)
                             ? "guest" : PlayerManager.currentPlayer,
-                            new Vector2(100, 462) + MathUtil.GetVector2(10, GameMain.gameTime / 1.5f + i * 120) * new Vector2(1.0f, 0.8f),
-                            new Color(DrawingLab.HsvToRgb(GameMain.gameTime / 1.3f + i * 100 + 16, 255, 255, 255)),
-                            1.0f, i / 100f + 0.01f);
+                            new Vector2(100, 462) + (MathUtil.GetVector2(10, (GameMain.gameTime / 1.5f) + (i * 120)) * new Vector2(1.0f, 0.8f)),
+                            new Color(DrawingLab.HsvToRgb((GameMain.gameTime / 1.3f) + (i * 100) + 16, 255, 255, 255)),
+                            1.0f, (i / 100f) + 0.01f);
                     }
                     break;
             }

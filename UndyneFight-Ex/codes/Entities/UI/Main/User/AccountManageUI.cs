@@ -85,7 +85,7 @@ namespace UndyneFight_Ex.Entities
 
         private class BecomeVIP : TextSelection
         {
-            public BecomeVIP() : base("Input VIP key", new Vector2(320, instance.SelectionCount * 50 + 110))
+            public BecomeVIP() : base("Input VIP key", new Vector2(320, (instance.SelectionCount * 50) + 110))
             { }
             public override void SelectionEvent()
             {
@@ -162,7 +162,7 @@ namespace UndyneFight_Ex.Entities
                     ulong res = 0;
                     for (int i = 0; i < s.Length; i++)
                     {
-                        res = res * 10 + Convert.ToUInt64(Math.Abs(s[i] - '0'));
+                        res = (res * 10) + Convert.ToUInt64(Math.Abs(s[i] - '0'));
                     }
                     return res;
                 }
@@ -179,7 +179,7 @@ namespace UndyneFight_Ex.Entities
 
         private class Rename : TextSelection
         {
-            public Rename() : base("Rename", new Vector2(320, instance.SelectionCount * 50 + 110))
+            public Rename() : base("Rename", new Vector2(320, (instance.SelectionCount * 50) + 110))
             { }
             public override void SelectionEvent()
             {
@@ -262,7 +262,7 @@ namespace UndyneFight_Ex.Entities
                         break;
                 }
             }
-            public ChangeColor() : base("Current name color: " + GameRule.nameColor, new Vector2(320, instance.SelectionCount * 50 + 110))
+            public ChangeColor() : base("Current name color: " + GameRule.nameColor, new Vector2(320, (instance.SelectionCount * 50) + 110))
             {
                 MaxSize = 1.2f;
             }
@@ -276,7 +276,7 @@ namespace UndyneFight_Ex.Entities
 
         private class Statistic : TextSelection
         {
-            public Statistic() : base("Statistic", new(320, instance.SelectionCount * 50 + 110)) { }
+            public Statistic() : base("Statistic", new(320, (instance.SelectionCount * 50) + 110)) { }
             public override void SelectionEvent()
             {
                 instance.Dispose();
@@ -319,7 +319,7 @@ namespace UndyneFight_Ex.Entities
         }
         private class RatingList : TextSelection
         {
-            public RatingList() : base("Rating list", new(320, instance.SelectionCount * 50 + 110))
+            public RatingList() : base("Rating list", new(320, (instance.SelectionCount * 50) + 110))
             {
             }
             public override void SelectionEvent()
@@ -415,8 +415,8 @@ namespace UndyneFight_Ex.Entities
                         int y = i / 2;
                         positions[i].Width = 290;
                         positions[i].Height = 106;
-                        positions[i].X = x * 320 + 15 - (x - 0.5f) * 16;
-                        positions[i].Y = y * 120 + 77;
+                        positions[i].X = (x * 320) + 15 - ((x - 0.5f) * 16);
+                        positions[i].Y = (y * 120) + 77;
                     }
                     List<DataBox> dataBoxs = new()
                     {
@@ -487,7 +487,7 @@ namespace UndyneFight_Ex.Entities
 
         private class ShopMall : TextSelection
         {
-            public ShopMall() : base("Shop", new Vector2(320, instance.SelectionCount * 50 + 110))
+            public ShopMall() : base("Shop", new Vector2(320, (instance.SelectionCount * 50) + 110))
             { }
             public override void SelectionEvent()
             {
@@ -499,7 +499,7 @@ namespace UndyneFight_Ex.Entities
 
         private class ChangePassword : TextSelection
         {
-            public ChangePassword() : base("Change password", new Vector2(320, instance.SelectionCount * 50 + 110))
+            public ChangePassword() : base("Change password", new Vector2(320, (instance.SelectionCount * 50) + 110))
             { }
             public override void SelectionEvent()
             {

@@ -1,8 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics; 
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace UndyneFight_Ex
 {
@@ -10,7 +8,7 @@ namespace UndyneFight_Ex
     {
         private class SpriteBatcherEX
         {
-            private GraphicsDevice _graphicsDevice; 
+            private GraphicsDevice _graphicsDevice;
 
             private List<SpriteBatchItem> _items = new(256);
 
@@ -21,7 +19,7 @@ namespace UndyneFight_Ex
 
             public SpriteBatcherEX(GraphicsDevice graphicsDevice)
             {
-                this._graphicsDevice = graphicsDevice;
+                _graphicsDevice = graphicsDevice;
             }
 
             internal void DrawBatch(SpriteSortMode sortMode, Effect effect)
@@ -45,13 +43,13 @@ namespace UndyneFight_Ex
                     for (int i = 0; i < _current.Length; i++)
                     {
                         if (effect == null)
-                            this.DrawItem(_current[i]);
-                        else this.DrawItem(effect, _current[i]);
+                            DrawItem(_current[i]);
+                        else DrawItem(effect, _current[i]);
                     }
                 else
                 {
                     for (int i = 0; i < _current.Length; i++)
-                        this.DrawItemSampler(effect, _current[i]);
+                        DrawItemSampler(effect, _current[i]);
                 }
                 _items.Clear();
             }
@@ -59,8 +57,8 @@ namespace UndyneFight_Ex
             VertexPositionColorTexture[] buffer = new VertexPositionColorTexture[3];
             private void DrawItem(SpriteBatchItem item)
             {
-                    _graphicsDevice.Textures[0] = item.Texture;
-                    _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
+                _graphicsDevice.Textures[0] = item.Texture;
+                _graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, item.Vertexs, 0, item.Vertexs.Length, item.Indices, 0, item.PrimitiveCount, VertexPositionColorTexture.VertexDeclaration);
 
             }
             private void DrawItem(Effect effect, SpriteBatchItem item)

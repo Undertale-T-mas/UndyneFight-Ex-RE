@@ -1,13 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using UFData;
-using UndyneFight_Ex.Server;
 
 namespace UndyneFight_Ex
 {
@@ -25,12 +16,12 @@ namespace UndyneFight_Ex
         private void InstanceCodeAfter()
         {
             PlayerManager.playerInfos["Div1unlock"].Custom.PushNext(new("TaSAnomaly:value=2"));
-                 PlayerManager.Login("Div1unlock");
-                 PlayerManager.Save();
+            PlayerManager.Login("Div1unlock");
+            PlayerManager.Save();
         }
         private void InstanceCode()
         {
-            
+
             /*
             List<ChampionshipInfo> infos = JsonSerializer.Deserialize<List<ChampionshipInfo>>(cur);
             ;

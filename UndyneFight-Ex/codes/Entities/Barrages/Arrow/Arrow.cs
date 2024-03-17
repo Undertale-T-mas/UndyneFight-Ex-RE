@@ -12,7 +12,7 @@ namespace UndyneFight_Ex.Entities
     public partial class Arrow : Entity, IComparable
     {
         private const float speedUpPlace = 104;
-        float DrawingScale => GoldenMarkIntensity * 0.1f + 1;
+        float DrawingScale => (GoldenMarkIntensity * 0.1f) + 1;
         public int RotateType => rotatingType;
         public bool VoidMode { get; set; } = false;
 
@@ -30,7 +30,7 @@ namespace UndyneFight_Ex.Entities
         /// <param name="rotatingType">旋转模式，0正常，1黄，2绿</param>
         public Arrow(Player.Heart mission, float shootShieldTime, int way, float speed, int color, int rotatingType)
         {
-            if(color < 0 || color >= 4) throw new ArgumentOutOfRangeException(nameof(color));
+            if (color < 0 || color >= 4) throw new ArgumentOutOfRangeException(nameof(color));
             if (Mirror) color ^= 1;
             basicScale = ArrowScale;
 
@@ -109,7 +109,7 @@ namespace UndyneFight_Ex.Entities
             //if (!VoidMode) Image = Sprites.arrow[ArrowColor, backColor, 0];
             //if (VoidMode) Image = Sprites.voidarrow[ArrowColor];
             Image = VoidMode ? Sprites.voidarrow[ArrowColor] : Sprites.arrow[ArrowColor, backColor, 0];
-            Depth = 0.5f - ArrowColor / 200f;
+            Depth = 0.5f - (ArrowColor / 200f);
             FormalDraw(Image, Centre, new Color(0.98f, 0.98f, 0.98f, ArrowColor == 1 ? 0.75f : 0.25f) * Alpha, DrawingScale * Scale, GetRadian(Rotation + additiveRotation + SelfRotationOffset), ImageCentre);
 
             if (GoldenMarkIntensity > 0 && EnableGoldMark)
@@ -124,7 +124,7 @@ namespace UndyneFight_Ex.Entities
         {
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             float max = MathF.Max(MathF.Max(extend.X, extend.Y), MathF.Max(extend.Z, extend.W));
-            if (Speed * (shootShieldTime - GametimeF) + this.additiveDistance > 640 * (max + 1.5f)) return;
+            if ((Speed * (shootShieldTime - GametimeF)) + additiveDistance > 640 * (max + 1.5f)) return;
             PositionCalculate();
             AppearTime += 0.5f;
             if (shootShieldTime - GametimeF < 15)

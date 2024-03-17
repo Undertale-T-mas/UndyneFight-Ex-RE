@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;

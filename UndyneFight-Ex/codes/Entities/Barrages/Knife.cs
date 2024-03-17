@@ -61,7 +61,7 @@ namespace UndyneFight_Ex.Entities
         public override void Draw()
         {
             Depth = 0.99f;
-            float alpha = 1 - AppearTime / delay * 2f;
+            float alpha = 1 - (AppearTime / delay * 2f);
             if (AppearTime > delay)
                 FormalDraw(Image, Centre, DrawColor * rayAlpha, new Vector2(scale * 0.5f, 2), Rotation - 90, ImageCentre);
             else if (alpha > 0)
@@ -78,11 +78,11 @@ namespace UndyneFight_Ex.Entities
             {
                 float k = (float)Math.Tan(MathUtil.GetRadian(Rotation));
                 A = k; B = -1;
-                C = -A * Centre.X - B * Centre.Y;
-                dist = (float)((A * Heart.Centre.X + B * Heart.Centre.Y + C) / Math.Sqrt(A * A + B * B));
+                C = (-A * Centre.X) - (B * Centre.Y);
+                dist = (float)(((A * Heart.Centre.X) + (B * Heart.Centre.Y) + C) / Math.Sqrt((A * A) + (B * B)));
             }
 
-            float res = Math.Abs(dist) - 2 - 8.5f * scale;
+            float res = Math.Abs(dist) - 2 - (8.5f * scale);
 
             int offset = 3 - (int)JudgeState;
 
@@ -92,7 +92,7 @@ namespace UndyneFight_Ex.Entities
                 LoseHP(Heart);
                 hasHit = true;
             }
-            else if (res <= 1.6f - offset * 0.4f)
+            else if (res <= 1.6f - (offset * 0.4f))
             {
                 if (score >= 2)
                 {
@@ -100,7 +100,7 @@ namespace UndyneFight_Ex.Entities
                     Player.CreateCollideEffect(Color.LawnGreen, 3f);
                 }
             }
-            else if (res <= 4.2f - offset * 1.2f)
+            else if (res <= 4.2f - (offset * 1.2f))
             {
                 if (score >= 3)
                 {
@@ -142,7 +142,7 @@ namespace UndyneFight_Ex.Entities
             }
             if (AppearTime > delay)
             {
-                scale = scale * 0.9f + 1 * 0.1f;
+                scale = (scale * 0.9f) + (1 * 0.1f);
                 rayAlpha -= 0.015f;
             }
             if (rayAlpha < 0) Dispose();

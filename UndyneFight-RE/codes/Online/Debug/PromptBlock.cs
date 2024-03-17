@@ -1,6 +1,5 @@
 ﻿using vec2 = Microsoft.Xna.Framework.Vector2;
 using col = Microsoft.Xna.Framework.Color;
-using System;
 using System.Collections.Generic;
 
 namespace UndyneFight_Ex.Remake.UI.DEBUG

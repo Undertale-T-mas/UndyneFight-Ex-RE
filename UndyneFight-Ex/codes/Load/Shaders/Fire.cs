@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UndyneFight_Ex
 {
@@ -10,8 +10,8 @@ namespace UndyneFight_Ex
             public class FireShader : Shader
             {
                 public FireShader(Effect eff) : base(eff)
-                { 
-                    
+                {
+
                     StableEvents = (x) =>
                     {
                         Time += Speed * TimeElapsed;
@@ -25,12 +25,12 @@ uniform float iPieceRate;//残渣量（0.1）
 uniform float3 iBlend;//内火焰颜色RGB
 uniform float3 iBlendEdge;//外火焰颜色RGB
                         */
-                        this.Parameters["iDistort"].SetValue(Distort);
-                        this.Parameters["iTime"].SetValue(Time);
-                        this.Parameters["iHeight"].SetValue(480 - Height);
-                        this.Parameters["iPieceRate"].SetValue(PieceRate);
-                        this.Parameters["iBlend"].SetValue(Blend.ToVector3());
-                        this.Parameters["iBlendEdge"].SetValue(BlendEdge.ToVector3());
+                        Parameters["iDistort"].SetValue(Distort);
+                        Parameters["iTime"].SetValue(Time);
+                        Parameters["iHeight"].SetValue(480 - Height);
+                        Parameters["iPieceRate"].SetValue(PieceRate);
+                        Parameters["iBlend"].SetValue(Blend.ToVector3());
+                        Parameters["iBlendEdge"].SetValue(BlendEdge.ToVector3());
                     };
                 }
 

@@ -109,10 +109,10 @@ namespace AprilExtends
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 0));
-                        ce.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0), new(0.15f, 0)));
+                        ce.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0), new(0.15f, 0)));
                         CentreEasing.EaseBuilder ce2 = new();
                         ce2.Insert(0, CentreEasing.Stable(320, 0));
-                        ce2.Insert(BeatTime(8), CentreEasing.Accerlating(new(0, 0), new(-0.15f, 0)));
+                        ce2.Insert(BeatTime(8), CentreEasing.Accelerating(new(0, 0), new(-0.15f, 0)));
                         Line l = new(ce.GetResult(), ValueEasing.Stable(90));
                         Line l2 = new(ce2.GetResult(), ValueEasing.Stable(90));
                         CreateEntity(l);
@@ -430,7 +430,7 @@ namespace AprilExtends
                     {
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 240));
-                        ce.Insert(BeatTime(6), CentreEasing.Accerlating(new(0.8f, -4.5f), new(0.02f, 0.215f)));
+                        ce.Insert(BeatTime(6), CentreEasing.Accelerating(new(0.8f, -4.5f), new(0.02f, 0.215f)));
                         ce.Run((s) => { InstantSetBox(s, 84, 84); InstantTP(s); });
                         ScreenDrawing.BoundColor = Color.DarkBlue * 0.9f;
                         AddInstance(new TimeRangedEvent(0, game.BeatTime(7), () =>
@@ -821,7 +821,7 @@ namespace AprilExtends
                         ce.Insert(BeatTime(0.5f), CentreEasing.EaseOutSine(new(0, 0), new(240, 0), BeatTime(0.5f)));
                         ce.Insert(BeatTime(0.5f), CentreEasing.EaseOutSine(new(240, 0), new(120, 0), BeatTime(0.5f)));
                         ce.Insert(BeatTime(0.5f), CentreEasing.EaseOutSine(new(120, 0), new(360, 0), BeatTime(0.5f)));
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(0, 0), new(0, -0.1f)));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(0, 0), new(0, -0.1f)));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(90));
                         ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(90, 70, BeatTime(0.5f)));
@@ -839,7 +839,7 @@ namespace AprilExtends
                         ce.Insert(BeatTime(0.5f), CentreEasing.EaseOutSine(new(0, 480), new(240, 480), BeatTime(0.5f)));
                         ce.Insert(BeatTime(0.5f), CentreEasing.EaseOutSine(new(240, 480), new(120, 480), BeatTime(0.5f)));
                         ce.Insert(BeatTime(0.5f), CentreEasing.EaseOutSine(new(120, 480), new(360, 480), BeatTime(0.5f)));
-                        ce.Insert(BeatTime(4), CentreEasing.Accerlating(new(0, 0), new(0, 0.1f)));
+                        ce.Insert(BeatTime(4), CentreEasing.Accelerating(new(0, 0), new(0, 0.1f)));
                         ValueEasing.EaseBuilder ve = new();
                         ve.Insert(0, ValueEasing.Stable(90));
                         ve.Insert(BeatTime(0.5f), ValueEasing.EaseOutSine(90, 110, BeatTime(0.5f)));

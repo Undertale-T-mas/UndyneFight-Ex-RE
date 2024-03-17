@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
-using System.Threading;
 using UndyneFight_Ex.Entities;
-using static UndyneFight_Ex.Entities.Player;
 
 namespace UndyneFight_Ex
 {
@@ -58,7 +54,7 @@ namespace UndyneFight_Ex
                     keys[i] = (Keys)converter.ConvertFromString(keyValueTemp[i]);
                     keys[i] = keys[i];
                 }
-                
+
                 return keys;
             }
 
@@ -240,7 +236,7 @@ namespace UndyneFight_Ex
 #if DEBUG
 
             KeyCheckTime2 = (float)stopwatch.Elapsed.TotalMilliseconds;
-            stopwatch.Stop(); 
+            stopwatch.Stop();
 #endif
         }
         public static bool IsKeyPressed(InputIdentity key)

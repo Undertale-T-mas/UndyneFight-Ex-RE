@@ -1,23 +1,14 @@
 ﻿using Extends;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
-using static AprilExtends.Stasis;
-using static Rhythm_Recall.Waves.Determination.Game;
+using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.Entities.EasingUtil;
-using static UndyneFight_Ex.FightResources;
-using System.Threading;
-using System.Runtime.Intrinsics;
 
 namespace Rhythm_Recall.Waves
 {
@@ -83,7 +74,7 @@ namespace Rhythm_Recall.Waves
                 public Speech[] lyrics;
                 public Color color;
                 public float scale = 1f;
-               float timer = 0;
+                float timer = 0;
                 int lyriccount = 0;
                 float depth = 0.9f;
                 public Vector2 location;
@@ -128,11 +119,11 @@ namespace Rhythm_Recall.Waves
             {
                 var kk = new ScreenDrawing.Shaders.Filter(Reversal, 0.5f);
                 ScreenDrawing.SceneRendering.InsertProduction(kk);
-                AddInstance(new InstantEvent(duration, () =>{ kk.Dispose(); }));
+                AddInstance(new InstantEvent(duration, () => { kk.Dispose(); }));
             }
             public void Easy()
             {
-                
+
             }
 
             public void Extreme()
@@ -279,9 +270,9 @@ namespace Rhythm_Recall.Waves
                             LinkEase(EaseOut(BeatTime(0.75f), 45, 30, EaseState.Quad), Stable(BeatTime(1.25f), 30)))
                         { Alpha = 0.4f, Tags = new string[] { "a" } };
                         Line l2 = new(new Vector2(640 - Arguments[0], 240),
-                            LinkEase(EaseOut(BeatTime(0.75f), 90 + 45, 90 +60, EaseState.Quad), Stable(BeatTime(1.25f), 90 + 60)))
+                            LinkEase(EaseOut(BeatTime(0.75f), 90 + 45, 90 + 60, EaseState.Quad), Stable(BeatTime(1.25f), 90 + 60)))
                         { Alpha = 0.4f, Tags = new string[] { "a" } };
-                        Line[]lines = { l1, l2 };
+                        Line[] lines = { l1, l2 };
                         foreach (var l in lines)
                         {
                             CreateEntity(l);
@@ -292,7 +283,7 @@ namespace Rhythm_Recall.Waves
                     {
                         ColorReversal(BeatTime(8));
                         Line[] l = GetAll<Line>("a");
-                        foreach(var line in l) { line.Dispose(); }
+                        foreach (var line in l) { line.Dispose(); }
                     });
                     RegisterFunctionOnce("Blur", () =>
                     {
@@ -300,8 +291,8 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Out", () =>
                     {
-                        CentreEasing.EaseBuilder e1 =new ();
-                        e1.Insert(BeatTime(Arguments[0]),CentreEasing.EaseInQuad(new Vector2(320, 240), new Vector2(0, 240), BeatTime(4)));
+                        CentreEasing.EaseBuilder e1 = new();
+                        e1.Insert(BeatTime(Arguments[0]), CentreEasing.EaseInQuad(new Vector2(320, 240), new Vector2(0, 240), BeatTime(4)));
                         e1.Insert(BeatTime(8), CentreEasing.Stable(new Vector2()));
                         CentreEasing.EaseBuilder e2 = new();
                         e2.Insert(BeatTime(Arguments[0]), CentreEasing.EaseInQuad(new Vector2(320, 240), new Vector2(640, 240), BeatTime(4)));
@@ -347,17 +338,17 @@ namespace Rhythm_Recall.Waves
 
             public void ExtremePlus()
             {
-                
+
             }
 
             public void Hard()
             {
-                
+
             }
 
             public void Noob()
             {
-                
+
             }
 
             public void Normal()
@@ -395,7 +386,7 @@ namespace Rhythm_Recall.Waves
                 {
                     int beat = 224;
                     //int beat = 4 * 15;
-                    GametimeDelta = BeatTime( - 4 + beat);
+                    GametimeDelta = BeatTime(-4 + beat);
                     PlayOffset = BeatTime(beat - 4);
                     ScreenDrawing.ScreenScale = 1f;
                 }

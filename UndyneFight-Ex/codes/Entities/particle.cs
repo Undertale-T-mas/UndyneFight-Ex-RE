@@ -126,6 +126,16 @@ namespace UndyneFight_Ex.Entities
             private get { return darkingSpeed; }
             set { darkingSpeed = value; }
         }
+        public float Alpha
+        {
+            private get { return light; }
+            set { light = value; }
+        }
+        public float RotateSpeed
+        {
+            private get { return rotateSpeed; }
+            set { rotateSpeed = value; }
+        }
 
         private float darkingSpeed = 3;
         private readonly float size;
@@ -163,7 +173,7 @@ namespace UndyneFight_Ex.Entities
                 light -= darkingSpeed / 255f;
             else Dispose();
             Centre += speed;
-            speed = speed * (1 - SlowLerp) + Vector2.Zero * SlowLerp;
+            speed = (speed * (1 - SlowLerp)) + (Vector2.Zero * SlowLerp);
             if (autoRotate) Rotation += rotateSpeed / 180f * MathHelper.Pi;
         }
     }

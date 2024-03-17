@@ -165,10 +165,10 @@ Alternate: Space";
                 typeof(Prospector),
                 typeof(Shadow),
                 typeof(DreamTravel),
-                typeof(_1111),
                 typeof(LunaticGaze),
                 typeof(NCWLQ),
 #endif
+                typeof(RetracingBeneath),
                 typeof(Song_That_Might_Play_When_You_Fight_Sans),
                 typeof(DreadNaught),
                 typeof(Conflict),

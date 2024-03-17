@@ -21,21 +21,21 @@ namespace UndyneFight_Ex.UserService
             info = new SaveInfo("StartInfo->{");
             Random rand = new();
             long uuid = rand.NextInt64();
-            info.Nexts.Add("Password",      new SaveInfo("Password:" + MathUtil.StringHash(password)));
-            info.Nexts.Add("PlayerName",    new SaveInfo("PlayerName:" + name));
-            info.Nexts.Add("UUID",          new SaveInfo("UUID:" + uuid));
-            info.Nexts.Add("Coins",         new SaveInfo("Coins:0"));
-            info.Nexts.Add("Achievements",  new SaveInfo("Achievements{"));
+            info.Nexts.Add("Password", new SaveInfo("Password:" + MathUtil.StringHash(password)));
+            info.Nexts.Add("PlayerName", new SaveInfo("PlayerName:" + name));
+            info.Nexts.Add("UUID", new SaveInfo("UUID:" + uuid));
+            info.Nexts.Add("Coins", new SaveInfo("Coins:0"));
+            info.Nexts.Add("Achievements", new SaveInfo("Achievements{"));
             info.Nexts.Add("ChampionShips", new SaveInfo("ChampionShips{"));
-            info.Nexts.Add("NormalFights",  new SaveInfo("NormalFights{"));
-            info.Nexts.Add("VIP",           new SaveInfo("VIP:false"));
-            info.Nexts.Add("AC",            new SaveInfo("AC{"));
-            info.Nexts.Add("AP",            new SaveInfo("AP{"));
-            info.Nexts.Add("Mark",          new SaveInfo("Mark{"));
-            info.Nexts.Add("Skill",         new SaveInfo("Skill:0"));
-            info.Nexts.Add("GameJolt",      new SaveInfo("GameJolt{"));
-            info.Nexts.Add("Settings",      new SaveInfo("Settings{"));
-            info.Nexts.Add("ShopData",      new SaveInfo("ShopData{"));
+            info.Nexts.Add("NormalFights", new SaveInfo("NormalFights{"));
+            info.Nexts.Add("VIP", new SaveInfo("VIP:false"));
+            info.Nexts.Add("AC", new SaveInfo("AC{"));
+            info.Nexts.Add("AP", new SaveInfo("AP{"));
+            info.Nexts.Add("Mark", new SaveInfo("Mark{"));
+            info.Nexts.Add("Skill", new SaveInfo("Skill:0"));
+            info.Nexts.Add("GameJolt", new SaveInfo("GameJolt{"));
+            info.Nexts.Add("Settings", new SaveInfo("Settings{"));
+            info.Nexts.Add("ShopData", new SaveInfo("ShopData{"));
             info.Nexts.Add("ChallengeData", new SaveInfo("ChallengeData{"));
             user.Load(info);
             return user;
@@ -102,14 +102,14 @@ namespace UndyneFight_Ex.UserService
             _name = info.GetDirectory("PlayerName").StringValue;
             _password = Convert.ToInt64(info.GetDirectory("Password").StringValue);
 
-            if(info.Nexts.ContainsKey("UUID"))
+            if (info.Nexts.ContainsKey("UUID"))
                 _uuid = Convert.ToInt64(info.GetDirectory("UUID").StringValue);
             else
             {
                 Random rand = new();
                 long uuid = rand.NextInt64();
                 _uuid = uuid;
-            }    
+            }
 
             if (!info.Nexts.ContainsKey("Achievements"))
                 info.Nexts.Add("Achievements", new SaveInfo("Achievements{"));
@@ -233,15 +233,15 @@ namespace UndyneFight_Ex.UserService
         }
         public bool CheckPassword(string password)
         {
-            if(this._password == MathUtil.StringHash(password))
+            if (_password == MathUtil.StringHash(password))
             {
-                this.PasswordMemory = password;
+                PasswordMemory = password;
                 return true;
             }
             return false;
         }
         public bool OnlineAsync { get; set; } = false;
-        public bool LoginSuccess => PlayerManager.currentPlayer == this._name;
+        public bool LoginSuccess => PlayerManager.currentPlayer == _name;
         public string PasswordMemory { get; set; }
     }
 }

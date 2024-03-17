@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.UserService;
 using static Rhythm_Recall.Resources.Championships;
 using static UndyneFight_Ex.GameInterface.GameStartUp;

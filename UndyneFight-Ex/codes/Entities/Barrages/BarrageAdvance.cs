@@ -73,8 +73,8 @@ namespace UndyneFight_Ex.Entities.Advanced
             Vector2 c1 = bone.Centre;
             Vector2 detla = GetVector2(bone.Length / 4f, bone.Rotation + 90);
             bone.Dispose();
-            return new Bone[] { new SplitBone(c1 + detla, GetVector2(1, Rand(0, 359)), bone.Rotation, bone.Length / 2 - 1){ IsMasked = bone.IsMasked },
-                new SplitBone(c1 - detla, GetVector2(1, Rand(0, 359)),bone.Rotation,  bone.Length / 2 - 1){ IsMasked = bone.IsMasked }};
+            return new Bone[] { new SplitBone(c1 + detla, GetVector2(1, Rand(0, 359)), bone.Rotation, (bone.Length / 2) - 1){ IsMasked = bone.IsMasked },
+                new SplitBone(c1 - detla, GetVector2(1, Rand(0, 359)),bone.Rotation,  (bone.Length / 2) - 1){ IsMasked = bone.IsMasked }};
         }
     }
     public static class BarrageStruct

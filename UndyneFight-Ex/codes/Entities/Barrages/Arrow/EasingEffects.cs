@@ -40,7 +40,7 @@ namespace UndyneFight_Ex.Entities
                 arrows.ForEach(s => SetArrowPos(s));
                 if (RotateOffset ^ _lastRotateOffsetState)
                 {
-                    arrows.ForEach(s => s.RotateOffset = this.RotateOffset);
+                    arrows.ForEach(s => s.RotateOffset = RotateOffset);
                     _lastRotateOffsetState = RotateOffset;
                 }
             }
@@ -54,7 +54,7 @@ namespace UndyneFight_Ex.Entities
             private float _rotationEasing = 0;
             private float _distanceEasing = 0;
 
-            public EnsembleEasing() { } 
+            public EnsembleEasing() { }
 
             public void DeltaEase(params EaseUnit<Vector2>[] deltaEases)
             {
@@ -164,7 +164,7 @@ namespace UndyneFight_Ex.Entities
             int arrayIndex = -1;
 
             private int ToArrayIndex(float x) => (int)((x - 0.5f) * 2f);
-            
+
             public override void SetArrowPos(Arrow arr)
             {
                 float time = ApplyTime - arr.TimeDelta;
@@ -179,7 +179,7 @@ namespace UndyneFight_Ex.Entities
 
                 while (r > arrayIndex) UpdateEase();
 
-                float add = (time - 0.5f) * 2f - l;
+                float add = ((time - 0.5f) * 2f) - l;
 
                 Vector2 realPos = Vector2.Zero;
                 float realRot = 0, realDis = 0, realAlp = 0.0f;
@@ -231,9 +231,9 @@ namespace UndyneFight_Ex.Entities
                 if (alphaEaseEnabled)
                     alphaBuffer[arrayIndex] = TempAlpha = alphaEase.Easing.Invoke(this);
 
-                if(AppearTime > 20 && AutoDispose)
+                if (AppearTime > 20 && AutoDispose)
                 {
-                    if (arrows.Count == 0) this.Dispose();
+                    if (arrows.Count == 0) Dispose();
                 }
             }
         }
@@ -249,10 +249,10 @@ namespace UndyneFight_Ex.Entities
                 tuples.Add(new(stopTime, DelayControl.DelayType.Stop));
             }
             List<Tuple<float, DelayControl.DelayType>> tuples = new();
-            
+
             public override void SetArrowPos(Arrow arr)
             {
-                foreach(var pair in tuples)
+                foreach (var pair in tuples)
                 {
                     if (pair.Item2 == DelayControl.DelayType.Pull) arr.Delay(pair.Item1);
                     else arr.Stop(pair.Item1);

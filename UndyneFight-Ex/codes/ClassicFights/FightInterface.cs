@@ -228,7 +228,7 @@ namespace UndyneFight_Ex.Fight
         public static IClassicFight currentFight;
         public static void CreateClassicFight(IClassicFight classicFight)
         {
-            FightStates.UIBoxPosition = new CollideRect(320 - 589 / 2f, 312 - 140 / 2f, 589, 140);
+            FightStates.UIBoxPosition = new CollideRect(320 - (589 / 2f), 312 - (140 / 2f), 589, 140);
             ClassicFight.InterActive.Reset();
             FightStates.enemys = new List<Enemy>();
             FightStates.items = new List<Item>();

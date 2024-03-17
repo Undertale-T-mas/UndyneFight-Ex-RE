@@ -47,7 +47,7 @@ namespace UndyneFight_Ex.Entities
 
         public void DelayDispose(float v)
         {
-            this.AddChild(new InstantEvent(v, () => { this.Dispose(); }));
+            AddChild(new InstantEvent(v, () => { Dispose(); }));
         }
 
         public new class RetentionEffect : Entity

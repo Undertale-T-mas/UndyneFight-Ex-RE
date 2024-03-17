@@ -19,7 +19,7 @@ namespace UndyneFight_Ex.Entities
         public float WaitingTime { get; set; } = 59;
         public bool Rebound { get; set; } = false;
         public int ReboundCount { get; set; } = 3;
-        public Vector2[] ReboundVertexs { get; set; } = { new(0, 0), new(640, 0), new(640, 480), new(0, 480)};
+        public Vector2[] ReboundVertexs { get; set; } = { new(0, 0), new(640, 0), new(640, 480), new(0, 480) };
         public float Duration { private get; set; } = 200;
 
         public NormalSpear(Vector2 centre) : this(centre, (float)(Atan2(Heart.Centre.Y - centre.Y, Heart.Centre.X - centre.X) * 180 / Math.PI)) { }
@@ -98,7 +98,7 @@ namespace UndyneFight_Ex.Entities
         public Pike(Vector2 centre, float waitingTime) : this(centre, (float)(Atan2(Heart.Centre.Y - centre.Y, Heart.Centre.X - centre.X) * 180 / Math.PI), waitingTime) { }
         public Pike(Vector2 centre, float rotation, float waitingTime)
         {
-            alphaChangeTime = 20 - 12 / waitingTime;
+            alphaChangeTime = 20 - (12 / waitingTime);
             Centre = centre;
             Rotation = rotation;
             this.waitingTime = waitingTime;
@@ -177,7 +177,7 @@ namespace UndyneFight_Ex.Entities
             {
                 if (waitingTime < 34)
                 {
-                    appearRotation *= 1 - 1.3f / waitingTime;
+                    appearRotation *= 1 - (1.3f / waitingTime);
                     appearRotation -= 5f / waitingTime;
                 }
                 appearRotation -= 0.8f;
@@ -213,10 +213,11 @@ namespace UndyneFight_Ex.Entities
     {
         public Vector2 rotateCentre;
         private int appearTime = 0;
-        private float rotateSpeed;
-        private readonly float linearSpeed;
-        private float distance;
-        private readonly float rotateFriction = 0.01f;
+        public float rotateSpeed;
+        public float linearSpeed;
+        public float distance;
+        public readonly float rotateFriction = 0.01f;
+        public readonly float rotateAngleDisplace = 0;
 
         public CircleSpear(Vector2 rotateCentre, float rotateSpeed, float linearSpeed, float distance, float rotation, float rotateFriction) : this(rotateCentre, rotateSpeed, linearSpeed, distance, rotation)
         {
@@ -231,6 +232,18 @@ namespace UndyneFight_Ex.Entities
             this.distance = distance;
             Rotation = rotation;
             this.rotateCentre = rotateCentre;
+        }
+
+        public CircleSpear(Vector2 rotateCentre, float rotateSpeed, float linearSpeed, float distance, float rotation, float rotex, float rotateFriction = 0.01f)
+        {
+            autoDispose = false;
+            this.rotateSpeed = rotateSpeed;
+            this.linearSpeed = linearSpeed;
+            this.distance = distance;
+            Rotation = rotation;
+            this.rotateCentre = rotateCentre;
+            rotateAngleDisplace = rotex;
+            this.rotateFriction = rotateFriction;
         }
 
         public override void Update()
@@ -263,7 +276,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            base.Draw();
+            FormalDraw(Image, Centre, drawingColor * alpha, GetRadian(Rotation + rotateAngleDisplace), ImageCentre);
         }
     }
 

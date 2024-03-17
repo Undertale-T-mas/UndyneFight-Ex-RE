@@ -4,18 +4,13 @@ using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
-using UndyneFight_Ex.Remake.Entities;
-using UndyneFight_Ex.Remake.Texts;
 using static UndyneFight_Ex.Entities.EasingUtil;
+using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
 using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
-using static UndyneFight_Ex.Remake.TextUtils;
-using System.Runtime.CompilerServices;
 
 namespace Rhythm_Recall.Waves
 {
@@ -23,7 +18,7 @@ namespace Rhythm_Recall.Waves
     {
         public TheFuneral()
         {
-            Game.game = new Game(); 
+            Game.game = new Game();
             difficulties = new();
             difficulties.Add("div2", Difficulty.Normal);
             difficulties.Add("div1", Difficulty.Extreme);
@@ -31,7 +26,7 @@ namespace Rhythm_Recall.Waves
         }
 
         private readonly Dictionary<string, Difficulty> difficulties = new();
-        public Dictionary<string, Difficulty> DifficultyPanel => difficulties; 
+        public Dictionary<string, Difficulty> DifficultyPanel => difficulties;
 
         public IWaveSet GameContent => new Game();
         public partial class Game : WaveConstructor, IWaveSet
@@ -107,13 +102,13 @@ namespace Rhythm_Recall.Waves
                 }
                 SpriteBatchEX sprite;
                 public override void Update()
-                { 
+                {
                 }
                 public override RenderTarget2D Draw(RenderTarget2D obj)
                 {
                     MissionTarget = HelperTarget3;
                     ResetTargetColor(Color.Black);
-                    sprite.Begin(sortMode:SpriteSortMode.FrontToBack, transform: Surface.NormalTransfer);
+                    sprite.Begin(sortMode: SpriteSortMode.FrontToBack, transform: Surface.NormalTransfer);
                     VertexPositionColor[] vertexPositionColors = new VertexPositionColor[]
                     {
                         new VertexPositionColor(new Vector3(80, 0, 0.1f), Color.White),
@@ -246,12 +241,12 @@ namespace Rhythm_Recall.Waves
                 arse1.TagApply("R");
                 AddInstance(arse1);
 
-                CreateChart(BeatTime(2), BeatTime(2), 7.0f, new[] { 
-                    "$0@R", "", "", "",      "$0@R", "", "", "",    
-                    "$0@R", "", "", "",      "$0@R", "", "", "",    
-                    "$0@R", "", "", "",      "$0@R", "", "", "",    
-                    "$0@R", "", "", "",      "$0@R", "", "", "",    
-                    "$0@R", "", "", "",      "$0@R", "", "", "",    
+                CreateChart(BeatTime(2), BeatTime(2), 7.0f, new[] {
+                    "$0@R", "", "", "",      "$0@R", "", "", "",
+                    "$0@R", "", "", "",      "$0@R", "", "", "",
+                    "$0@R", "", "", "",      "$0@R", "", "", "",
+                    "$0@R", "", "", "",      "$0@R", "", "", "",
+                    "$0@R", "", "", "",      "$0@R", "", "", "",
                 });
 
                 /*     ScreenDrawing.SceneRendering.InsertProduction(new Filter(Shaders.Swirl));
@@ -318,35 +313,34 @@ namespace Rhythm_Recall.Waves
                     InstantSetBox(260, 300, 300);
                     BoxUtils.Vertexify();
                     BoxUtils.VertexBoxInstance.SetPosition(
-                        BoxUtils.VertexBoxInstance.Split(1, 0.35f), 
+                        BoxUtils.VertexBoxInstance.Split(1, 0.35f),
                         new Vector2(340, 350)
                         );
                     ;
                     BoxUtils.VertexBoxInstance.SetPosition(
-                        BoxUtils.VertexBoxInstance.Split(2, 0.65f), 
+                        BoxUtils.VertexBoxInstance.Split(2, 0.65f),
                         new Vector2(300, 350)
-                        ); 
+                        );
                     BoxUtils.VertexBoxInstance.SetPosition(
-                        BoxUtils.VertexBoxInstance.Split(5, 0.35f), 
+                        BoxUtils.VertexBoxInstance.Split(5, 0.35f),
                         new Vector2(300, 250)
                         );
                     ;
                     BoxUtils.VertexBoxInstance.SetPosition(
-                        BoxUtils.VertexBoxInstance.Split(6, 0.65f), 
+                        BoxUtils.VertexBoxInstance.Split(6, 0.65f),
                         new Vector2(340, 250)
-                        ); 
+                        );
                     InstantTP(320, 260);
                 }
                 if (InBeat(1f))
                 {
                     Heart.RotateTo(180);
-                    ParasolMett mett1;
                 }
             }
 
             public void Hard()
             {
-                
+
             }
 
             public void Extreme()

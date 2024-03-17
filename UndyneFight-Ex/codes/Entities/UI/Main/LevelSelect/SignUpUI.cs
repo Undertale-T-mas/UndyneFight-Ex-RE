@@ -38,7 +38,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
-            Centre = Centre * 0.85f + new Vector2(320, 180) * 0.15f;
+            Centre = (Centre * 0.85f) + (new Vector2(320, 180) * 0.15f);
             card.Update();
             card.Centre = Centre;
             appearTime++;

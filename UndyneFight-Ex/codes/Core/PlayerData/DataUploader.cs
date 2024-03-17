@@ -10,7 +10,7 @@ namespace UndyneFight_Ex.UserService
             static InfoText last;
             public InfoText(string text, Color color)
             {
-                if (last != null) last.Dispose();
+                last?.Dispose();
                 last = this;
                 this.text = text;
                 this.color = color;

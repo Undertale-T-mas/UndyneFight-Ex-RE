@@ -51,7 +51,7 @@ namespace UndyneFight_Ex.Entities
                     int count = mission.purpleLineCount + 1;
                     float detla = _curBox.CollidingBox.Height / count;
 
-                    Vector2 detla2 = new(0, detla * currentLine + _curBox.Up - mission.Centre.Y);
+                    Vector2 detla2 = new(0, (detla * currentLine) + _curBox.Up - mission.Centre.Y);
                     mission.positionRest.Y = detla2.Y;
 
                     if (moving != Vector2.Zero)
@@ -172,7 +172,7 @@ namespace UndyneFight_Ex.Entities
                         moving *= mission.speed;
                     }
 
-                    Vector2 finalMoving = GetVector2(moving.Length(), (float)Math.Atan2(moving.Y, moving.X) / PI * 180 + mission.missionRotation);
+                    Vector2 finalMoving = GetVector2(moving.Length(), ((float)Math.Atan2(moving.Y, moving.X) / PI * 180) + mission.missionRotation);
 
                     mission.collidingBox.Offset(finalMoving * 0.5f);
                     if (mission.collidingBox.X < _curBox.Left)
@@ -252,7 +252,7 @@ namespace UndyneFight_Ex.Entities
                         if (v >= 3)
                         {
                             Fight.Functions.PlaySound(FightResources.Sounds.slam, Math.Min(1, MathF.Sqrt(v - 1) / 3f));
-                            InstanceCreate(new Advanced.ScreenShaker((int)Math.Ceiling(Math.Sqrt(v - 2) * 1.33f), 4 + MathF.Sqrt(v * 1.33f + 1) * 1.56f, 3, trueRot));
+                            InstanceCreate(new Advanced.ScreenShaker((int)Math.Ceiling(Math.Sqrt(v - 2) * 1.33f), 4 + (MathF.Sqrt((v * 1.33f) + 1) * 1.56f), 3, trueRot));
                         }
                         mission.isForced = false;
                     }
@@ -285,7 +285,7 @@ namespace UndyneFight_Ex.Entities
                             float best = (final + 360) % 360, bestAngle = RotationDist(best, playerXaxisDir);
                             for (int i = 1; i < 4; i++)
                             {
-                                float cur = final + i * 90;
+                                float cur = final + (i * 90);
                                 float curAngle = RotationDist(cur, playerXaxisDir);
                                 if (curAngle < bestAngle)
                                 {
@@ -355,7 +355,7 @@ namespace UndyneFight_Ex.Entities
                     }
                     if (mission.gravitySpeed > 0)
                         if (mission.umbrellaAvailable && IsKeyDown(InputIdentity.Alternate) && (!mission.isForced))
-                            mission.gravitySpeed = mission.gravitySpeed * 0.85f + 0.667f * 0.15f;
+                            mission.gravitySpeed = (mission.gravitySpeed * 0.85f) + (0.667f * 0.15f);
                 }
 
                 public static void MoveAsGray()
@@ -432,7 +432,7 @@ namespace UndyneFight_Ex.Entities
 
                     if (mission.gravitySpeed > 0)
                         if (mission.umbrellaAvailable && IsKeyDown(InputIdentity.Alternate))
-                            mission.gravitySpeed = mission.gravitySpeed * 0.8f + 1.0f * 0.2f;
+                            mission.gravitySpeed = (mission.gravitySpeed * 0.8f) + (1.0f * 0.2f);
                 }
 
                 public static void MoveAsBlueOrange()
@@ -506,7 +506,7 @@ namespace UndyneFight_Ex.Entities
                     {
                         if (v.IsCollideWith(mission) && mission.gravitySpeed >= 0f)
                         {
-                            float rot = (v.Rotation / PI * 180 - xFacing + 180) % 180;
+                            float rot = ((v.Rotation / PI * 180) - xFacing + 180) % 180;
                             if (rot < -90)
                                 rot += 180;
 
@@ -552,7 +552,7 @@ namespace UndyneFight_Ex.Entities
 
                     if (mission.gravitySpeed > 0)
                         if (mission.umbrellaAvailable && IsKeyDown(InputIdentity.Alternate))
-                            mission.gravitySpeed = mission.gravitySpeed * 0.8f + 1.0f * 0.2f;
+                            mission.gravitySpeed = (mission.gravitySpeed * 0.8f) + (1.0f * 0.2f);
                 }
             }
         }

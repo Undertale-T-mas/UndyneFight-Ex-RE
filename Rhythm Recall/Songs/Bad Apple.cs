@@ -1,16 +1,15 @@
-﻿using Extends;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static Extends.DrawingUtil;
+using static UndyneFight_Ex.DrawingLab;
+using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.DrawingLab;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Entities.EasingUtil;
-using System;
 
 namespace Rhythm_Recall.Waves
 {
@@ -637,7 +636,7 @@ namespace Rhythm_Recall.Waves
             {
                 ScreenDrawing.ScreenAngle = (float)Math.Pow(0.85f, Gametime - BeatTime(134)) * 90;
             }
-            if(InBeat(134))
+            if (InBeat(134))
             {
                 ScreenDrawing.BoxBackColor = Color.White;
                 ScreenDrawing.BackGroundColor = Color.White;

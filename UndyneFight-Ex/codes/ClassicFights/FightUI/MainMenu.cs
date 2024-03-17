@@ -46,7 +46,7 @@ namespace UndyneFight_Ex.Fight
             {
                 instance = this;
                 Depth = 0.2f;
-                Centre = new Vector2(128 * 2 - 20, 450);
+                Centre = new Vector2((128 * 2) - 20, 450);
             }
             private bool isCollide = false;
             public override Vector2 HeartStayPosition => Centre - new Vector2(38, 0);
@@ -74,7 +74,7 @@ namespace UndyneFight_Ex.Fight
             {
                 instance = this;
                 Depth = 0.2f;
-                Centre = new Vector2(128 * 3 + 20, 450);
+                Centre = new Vector2((128 * 3) + 20, 450);
             }
 
             private bool isCollide = false;
@@ -103,7 +103,7 @@ namespace UndyneFight_Ex.Fight
             {
                 instance = this;
                 Depth = 0.2f;
-                Centre = new Vector2(128 * 4 + 50, 450);
+                Centre = new Vector2((128 * 4) + 50, 450);
             }
             private bool isCollide = false;
             public override Vector2 HeartStayPosition => Centre - new Vector2(38, 0);

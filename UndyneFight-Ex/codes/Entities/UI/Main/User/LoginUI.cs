@@ -87,7 +87,7 @@ namespace UndyneFight_Ex.Entities
             int y = 0, x = 0;
             foreach (var info in PlayerManager.playerInfos.Values)
             {
-                TextSelection selection = new(info.PlayerName, new Vector2(170 + 300 * x, 100 + 50 * y))
+                TextSelection selection = new(info.PlayerName, new Vector2(170 + (300 * x), 100 + (50 * y)))
                 {
                     TextColor = info.VIP ? Color.Gold : Color.White,
                     SetSelectionAction = () =>
@@ -106,7 +106,7 @@ namespace UndyneFight_Ex.Entities
                 PushSelection(selection);
             }
 
-            PushSelection(new TextSelection("Register", new Vector2(320, 170 + 50 * y))
+            PushSelection(new TextSelection("Register", new Vector2(320, 170 + (50 * y)))
             {
                 Size = 1.0f,
                 TextColor = Color.MediumPurple,

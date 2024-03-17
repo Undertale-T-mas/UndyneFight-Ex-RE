@@ -97,7 +97,7 @@ namespace UndyneFight_Ex.Entities
         public override void Update()
         {
             appearTime++;
-            Centre = Centre * 0.9f + new Vector2(320, 482) * 0.1f;
+            Centre = (Centre * 0.9f) + (new Vector2(320, 482) * 0.1f);
 
             if (appearTime % 4 == 0 && EnabledGolden)
             {
@@ -125,7 +125,7 @@ namespace UndyneFight_Ex.Entities
                         for (int i = 1; i < cur.Length; i++)
                         {
                             if ((cur[i].Way - cur[i - 1].Way + 40) % 4 == 2) continue;
-                            this.AddChild(new MultiTag(cur[i], cur[i - 1]));
+                            AddChild(new MultiTag(cur[i], cur[i - 1]));
                         }
                     }
                     timeSame.Clear();

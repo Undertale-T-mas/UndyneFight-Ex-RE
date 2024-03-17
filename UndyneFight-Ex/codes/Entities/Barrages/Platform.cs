@@ -83,7 +83,7 @@ namespace UndyneFight_Ex.Entities
                 if (ins && (!hasBeenInside)) hasBeenInside = true;
                 if (hasBeenInside && (!ins)) Dispose();
             }
-            scale = createWithScaling ? scale * 0.85f + 0.15f : 1.0f;
+            scale = createWithScaling ? (scale * 0.85f) + 0.15f : 1.0f;
             appearTime += 0.5f;
             Vector2 v = PositionRoute(this);
             this.detla = v;

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UndyneFight_Ex.Entities;
 using static UndyneFight_Ex.DrawingLab;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders.Lighting;
 using static UndyneFight_Ex.MathUtil;
 
 namespace UndyneFight_Ex
@@ -38,7 +37,7 @@ namespace UndyneFight_Ex
         {
             Vector2 circlePos = s1.position, lineVec = s2.v2 - s2.v1, circleTop = circlePos - s2.v1;
             float redist = Vector2.Dot(circleTop, lineVec / lineVec.Length());
-            float dist = MathF.Sqrt(Vector2.Dot(circlePos, circlePos) - redist * redist);
+            float dist = MathF.Sqrt(Vector2.Dot(circlePos, circlePos) - (redist * redist));
             return dist <= s1.radius && GetDistance((s2.v2 + s2.v1) / 2, s1.position) <= lineVec.Length() / 2;
         }
     }
@@ -124,7 +123,7 @@ namespace UndyneFight_Ex
                 float k = (v1.Y - v2.Y) / (v1.X - v2.X);
                 A = k;
                 B = -1;
-                C = -A * Centre.X - B * Centre.Y;
+                C = (-A * Centre.X) - (B * Centre.Y);
             }
             if (isCollide && Heart.SoulType == 2)
             {
@@ -181,7 +180,7 @@ namespace UndyneFight_Ex
                 float k = (v1.Y - v2.Y) / (v1.X - v2.X);
                 A = k;
                 B = -1;
-                C = -A * Centre.X - B * Centre.Y;
+                C = (-A * Centre.X) - (B * Centre.Y);
             }
         }
 
@@ -189,9 +188,9 @@ namespace UndyneFight_Ex
         private Vector2 Centre;
 
         public float Rotation => rotation;
-        public float NormalRotation => rotation - PI / 2f;
+        public float NormalRotation => rotation - (PI / 2f);
 
-        private float Distance(Player.Heart heart) => (float)((A * heart.Centre.X + B * heart.Centre.Y + C) / Math.Sqrt(A * A + B * B));
+        private float Distance(Player.Heart heart) => (float)(((A * heart.Centre.X) + (B * heart.Centre.Y) + C) / Math.Sqrt((A * A) + (B * B)));
 
         private bool isCollide;
         public bool sticky = true;
@@ -200,7 +199,7 @@ namespace UndyneFight_Ex
         public bool IsCollideWith(Player.Heart player)
         {
             if (!IsEnable) return false;
-            if (isCollide = Math.Abs(Distance(player)) <= 8.01f + width && GetDistance(player.Centre, Centre) <= (length / 2 + 6))
+            if (isCollide = Math.Abs(Distance(player)) <= 8.01f + width && GetDistance(player.Centre, Centre) <= ((length / 2) + 6))
             {
                 float dx = player.Centre.X - Centre.X, dy = player.Centre.Y - Centre.Y;
                 Vector2 v1 = new(dx, dy);
@@ -269,7 +268,7 @@ namespace UndyneFight_Ex
 
         public Vector2 GetCentre()
         {
-            return new Vector2(X + Width / 2, Y + Height / 2);
+            return new Vector2(X + (Width / 2), Y + (Height / 2));
         }
 
         public void SetCentre(Vector2 Centre)
@@ -286,8 +285,8 @@ namespace UndyneFight_Ex
         public bool Intersects(CollideRect collideRectAno)
         {
             Vector2 C1 = GetCentre(), C2 = collideRectAno.GetCentre();
-            float X_Max = Width / 2 + collideRectAno.Width / 2;
-            float Y_Max = Height / 2 + collideRectAno.Height / 2;
+            float X_Max = (Width / 2) + (collideRectAno.Width / 2);
+            float Y_Max = (Height / 2) + (collideRectAno.Height / 2);
             return Math.Abs((C1 - C2).X) <= X_Max && Math.Abs((C1 - C2).Y) <= Y_Max;
         }
 
@@ -393,7 +392,7 @@ namespace UndyneFight_Ex
         public static CollideRect operator *(CollideRect left, float right)
         {
             Vector2 vect = left.GetCentre();
-            return new CollideRect(vect.X - left.Width * right / 2, vect.Y - left.Height * right / 2, left.Width * right, left.Height * right);
+            return new CollideRect(vect.X - (left.Width * right / 2), vect.Y - (left.Height * right / 2), left.Width * right, left.Height * right);
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using UndyneFight_Ex.Settings;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.FightResources.Sounds;
+using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.Settings.SettingsManager.DataLibrary;
 
 namespace UndyneFight_Ex.Entities
@@ -308,7 +307,7 @@ namespace UndyneFight_Ex.Entities
                     (GameStates.CurrentScene as SongFightingScene).PlayerInstance.GameAnalyzer.PushData(new Player.ArrowData(time, score, GametimeF));
 
                 float abs = MathF.Abs(time);
-                if (abs <= 2.0f && JudgeState == JudgementState.Strict && !sameDir) Fight.AdvanceFunctions.PushBonus(5 - abs * 2.5f);
+                if (abs <= 2.0f && JudgeState == JudgementState.Strict && !sameDir) Fight.AdvanceFunctions.PushBonus(5 - (abs * 2.5f));
 
                 if (score == 3 && time > 0)
                     time /= 1.9f;
@@ -318,7 +317,7 @@ namespace UndyneFight_Ex.Entities
 
                 bool percise = perciseWarning;
                 bool generateTip = percise ? (score != 3) : (score <= 2);
-                if(this.JudgeType == JudgementType.Hold) { generateTip = false; }
+                if (JudgeType == JudgementType.Hold || ForceDisableTimeTips) { generateTip = false; }
                 if (generateTip)
                 {
                     Color tipscolor = Color.CornflowerBlue;

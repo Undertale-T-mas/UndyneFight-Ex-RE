@@ -18,7 +18,7 @@ namespace UndyneFight_Ex.Entities
                 collidingBox = new CollideRect(Vector2.Zero, new(575, 91));
                 this.result = result;
                 bool direction = index % 2 == 0;
-                Centre = new Vector2(direction ? -320 : 960, index * 100 + 113);
+                Centre = new Vector2(direction ? -320 : 960, (index * 100) + 113);
                 ValueEasing.EaseBuilder builder = new();
                 builder.Insert(60, ValueEasing.EaseOutQuint(Centre.X, 320, 60));
                 builder.Run(s => Centre = new Vector2(s, Centre.Y));

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -7,7 +6,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.Remake.UI.DEBUG;
 using static UndyneFight_Ex.GameInterface.UFEXSettings;
 using static UndyneFight_Ex.Remake.Network.UFSocketData;

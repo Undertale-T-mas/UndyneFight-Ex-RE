@@ -1508,7 +1508,7 @@ namespace Rhythm_Recall.Waves
                 {
                     CreateGB(new GreenSoulGB(80, Rand(0, 3), 1, bpm * 10));
                     CreateArrow(80, LastRand, 6.7f, 1, 0);
-                    CreateGB(new GreenSoulGB(80+bpm*14, Rand(0, 3), 1, bpm * 4));
+                    CreateGB(new GreenSoulGB(80 + bpm * 14, Rand(0, 3), 1, bpm * 4));
                     CreateArrow(80 + bpm * 14, LastRand, 6.7f, 1, 0);
                     float BeattimeB = 0;
                     string[] Bluearrowway =
@@ -1649,7 +1649,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void Intro79and80()
                 {
-                    CreateGB(new GreenSoulGB(80+bpm*16, Rand(0, 3), 1, bpm * 10));
+                    CreateGB(new GreenSoulGB(80 + bpm * 16, Rand(0, 3), 1, bpm * 10));
                     CreateArrow(80 + bpm * 16, LastRand, 6.7f, 1, 0);
                     CreateGB(new GreenSoulGB(80 + bpm * 30, Rand(0, 3), 1, bpm * 4));
                     CreateArrow(80 + bpm * 30, LastRand, 6.7f, 1, 0);

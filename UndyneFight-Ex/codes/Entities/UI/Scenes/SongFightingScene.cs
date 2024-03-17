@@ -1,13 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
-using Microsoft.Xna.Framework;
-using System.Net.NetworkInformation;
-using UndyneFight_Ex.Fight;
-using static UndyneFight_Ex.Fight.Functions;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.DebugState;
+using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.GameStates;
-using Microsoft.Xna.Framework.Audio;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -35,12 +32,12 @@ namespace UndyneFight_Ex.Entities
             public override void Draw()
             {
 #if DEBUG
-                FightResources.Font.NormalFont.CentreDraw(GameMain.UpdateCost.ToString("F3"), new(100, 150), Color.White, 0.7f, 0.1f); 
-                FightResources.Font.NormalFont.CentreDraw(KeyCheckTime1.ToString("F3"), new(50, 200), Color.White, 0.7f, 0.1f); 
-                FightResources.Font.NormalFont.CentreDraw(KeyCheckTime2.ToString("F3"), new(150, 200), Color.White, 0.7f, 0.1f); 
+                FightResources.Font.NormalFont.CentreDraw(GameMain.UpdateCost.ToString("F3"), new(100, 150), Color.White, 0.7f, 0.1f);
+                FightResources.Font.NormalFont.CentreDraw(KeyCheckTime1.ToString("F3"), new(50, 200), Color.White, 0.7f, 0.1f);
+                FightResources.Font.NormalFont.CentreDraw(KeyCheckTime2.ToString("F3"), new(150, 200), Color.White, 0.7f, 0.1f);
 #endif
             }
-            
+
             public override void Update()
             {
                 timer += 0.5f;
@@ -63,7 +60,7 @@ namespace UndyneFight_Ex.Entities
                     {
                         data[index] = fatherScene.GlobalDelta;
                         index++;
-                        if(index == data.Length)
+                        if (index == data.Length)
                         {
                             for (int i = 0; i < data.Length; i++) avg += data[i] / data.Length;
                         }
@@ -78,9 +75,9 @@ namespace UndyneFight_Ex.Entities
                     cur[^1] = realTime - GametimeF;
                     for (int i = 0; i < cur.Length - 1; i++) cur[i] = cur[i + 1];
                     GlobalAVG = 0;
-                    for (int i = 0; i < cur.Length; i++) GlobalAVG += cur[i] / cur.Length; 
+                    for (int i = 0; i < cur.Length; i++) GlobalAVG += cur[i] / cur.Length;
                 }
-                if(index >= data.Length)
+                if (index >= data.Length)
                 {
                     if (MathF.Abs(GlobalAVG - avg + del2) > deltaDured)
                         fatherScene.music.TrySetPosition(avg + GametimeF + del2);
@@ -90,7 +87,7 @@ namespace UndyneFight_Ex.Entities
 
         public void SetSongPosition(float position)
         {
-            this.music.TrySetPosition(position);
+            music.TrySetPosition(position);
         }
 
         public class SceneParams
@@ -115,15 +112,13 @@ namespace UndyneFight_Ex.Entities
                 Loader.RootDirectory = "";
                 if (musicPath[..7] != "Content")
                     Loader.RootDirectory = "Content";
-                if (!MusicOptimized)
-                    musicIns = new(musicPath, Loader);
-                else musicIns = new(musicPath + ".ogg", Loader);
+                musicIns = !MusicOptimized ? new(musicPath, Loader) : new(musicPath + ".ogg", Loader);
                 if (SongIllustration != null && SongIllustration.IsDisposed)
                 {
                     bool t2;
                     string name = SongIllustration.Name;
                     string tmp2 = string.Empty;
-                    if (t2 = (name[..7] != "Content"))
+                    if (t2 = name[..7] != "Content")
                     {
                         tmp2 = Loader.RootDirectory;
                         Loader.RootDirectory = "Content";
@@ -266,7 +261,7 @@ namespace UndyneFight_Ex.Entities
                 StateShower ss = StateShower.instance;
                 if (isPaused)
                 {
-                    ss.PauseTime = this.pauseTime;
+                    ss.PauseTime = pauseTime;
                 }
                 ResetFightState(false);
                 ResetScene(new WinScene(ss, PlayerInstance.GameAnalyzer));
@@ -302,7 +297,7 @@ namespace UndyneFight_Ex.Entities
             InstanceCreate(Time = new TimeShower());
             StartBattle();
             if ((mode & GameMode.PauseDeny) == 0)
-                this.Pausable = true;
+                Pausable = true;
             PlayerInstance = new Player();
             InstanceCreate(PlayerInstance);
             waveset.Start();
@@ -365,10 +360,10 @@ namespace UndyneFight_Ex.Entities
             {
                 music.Resume();
                 isPaused = false;
-            } 
+            }
             else
             {
-                this.ScoreState.PauseUsed();
+                ScoreState.PauseUsed();
                 isPaused = true;
                 music.Pause();
             }
