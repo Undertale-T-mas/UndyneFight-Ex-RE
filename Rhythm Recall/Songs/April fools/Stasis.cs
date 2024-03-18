@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Linq;
-using System.Collections.Generic;
+using System.Collections.Generic;    
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Fight;
@@ -267,7 +267,7 @@ namespace AprilExtends
         public void Extreme()
         {
             Arrow[] voids = GetAll<Arrow>("Hold");
-            for(int a=0;a<voids.Length;a++)
+            for (int a = 0; a < voids.Length; a++)
             {
                 int x = a;
                 voids[x].JudgeType = Arrow.JudgementType.Hold;
@@ -312,7 +312,7 @@ namespace AprilExtends
                         l1.Alpha = m;
                         l2.Alpha = m;
                     });
-                    
+
                     CreateEntity(l1);
                     CreateEntity(l2);
                     l2.ObliqueMirror = true;
@@ -542,7 +542,7 @@ namespace AprilExtends
             {
                 RegisterFunctionOnce("LineEvent00", () =>
                 {
-                    
+
                     CentreEasing.EaseBuilder c = new();
                     c.Insert(BeatTime(2), CentreEasing.EaseInQuad(new(320, 240), new(-100, 240), BeatTime(2)));
                     ValueEasing.EaseBuilder alpha = new();
@@ -744,7 +744,7 @@ namespace AprilExtends
             }
             if (InBeat(64))
             {
-                
+
                 //RegisterFunctionOnce("Line1", () =>
                 //{
                 //    CentreEasing.EaseBuilder ce = new();
@@ -915,7 +915,7 @@ namespace AprilExtends
                 AddInstance(eA);
                 eA.ApplyTime = BeatTime(4);
                 eA.RotationEase = LinkEase(
-                    Stable(T(2),45),
+                    Stable(T(2), 45),
                     EaseOut(BeatTime(2), 45, 0, EaseState.Back));
                 eA.TagApply("A");
                 CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
@@ -954,7 +954,7 @@ namespace AprilExtends
                         s = m;
                         arrow.Delay(m);
                     });
-                    CreateEntity(arrow);        
+                    CreateEntity(arrow);
                 });
             }
             if (InBeat(112))
@@ -1002,7 +1002,7 @@ namespace AprilExtends
                         ScreenDrawing.ScreenScale = m;
                     });
                 });
-                
+
                 CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
                 {
                     "$0(R1@A)(ScreenSBack)","","","",    "$0","","","",
@@ -1037,7 +1037,7 @@ namespace AprilExtends
                 eA.TagApply("A");
                 eA.PositionEase = LinkEase(
                     Stable(T(14), 250, 200),
-                    Combine(EaseOut(T(2),-250,EaseState.Sine),EaseIn(T(2),-200,EaseState.Sine))
+                    Combine(EaseOut(T(2), -250, EaseState.Sine), EaseIn(T(2), -200, EaseState.Sine))
                     );
                 eA.AlphaEase = LinkEase(false,
                     Stable(T(14), 0),
@@ -1468,7 +1468,6 @@ namespace AprilExtends
             }
             if (InBeat(206))
             {
-                
                 RegisterFunctionOnce("ArrowEffect", () =>
                 {
                     Arrow[] tagA = GetAll<Arrow>("A");
@@ -1485,7 +1484,7 @@ namespace AprilExtends
                         }
                         o = e;
                     },
-                        Stable(BeatTime(2),-400),
+                        Stable(BeatTime(2), -400),
                         EaseOut(BeatTime(4), 400, EaseState.Elastic)
                     );
                     Arrow[] tagB = GetAll<Arrow>("B");
@@ -1514,7 +1513,7 @@ namespace AprilExtends
                     },
                         EaseIn(BeatTime(8), 0.8f, EaseState.Expo),
                         EaseOut(BeatTime(4), -0.9f, EaseState.Elastic),
-                        EaseInOut(BeatTime(4), 0 ,0.1f, EaseState.Cubic)
+                        EaseInOut(BeatTime(4), 0, 0.1f, EaseState.Cubic)
                     );
                     RunEase((r) =>
                     {
@@ -1575,6 +1574,7 @@ namespace AprilExtends
             }
             if (InBeat(243))
             {
+
                 RegisterFunctionOnce("Box", () =>
                 {
                     //     320,160
@@ -1650,12 +1650,12 @@ namespace AprilExtends
                         EaseOut(BeatTime(3), 0, 120, EaseState.Expo),
                         EaseIn(BeatTime(9), 0, 1800, EaseState.Cubic)
                     );
-                    
-                    Functions.Heart.controlingBox.GreenSoulAlpha = 0.01f;
+
+                    Functions.Heart.controlingBox.GreenSoulAlpha = 0f;
                     //DelayBeat(16 + 8, () =>
                     //{
                     //    Heart.controlingBox.GreenSoulAlpha = 0.5f;
-                        
+
                     //});
                     //{
                     //    //box.SetPosition(2, new Vector2(320 - Sin(r) * 60, 240 + Cos(r) * 60));//
@@ -1691,7 +1691,7 @@ namespace AprilExtends
                     "($0)($21)","","($2)($01)","",    "($0)($21)","","($2)($01)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
                     "($0)($21)","","($0)($21)","",    "($0)($21)","","($0)($21)","",
-                    
+
                     "($0)($1)($21)($31)","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
@@ -1839,96 +1839,142 @@ namespace AprilExtends
             }
             if (InBeat(272 + 32 + 16))
             {
-                float side = 4;
-                float rot = 0;
-                //RunEase(r =>
-                //    CreateEntity(new Hexagon(Heart, r, 1))
-                //,
-                //    EaseOut(BeatTime(1.5f), 0, 90, EaseState.Circ), 
-                //    EaseOut(BeatTime(1.5f), 0, -90, EaseState.Circ)
-                //);
-                //CreateEntity(new RegularPolygon(Heart, 4, 0, BeatTime(4)));
-                RunEase((s) =>
-                {
-                    side = s;
-                }
-                ,
-                    EaseOut(BeatTime(1.5f), 4, 5, EaseState.Expo),
-                    EaseOut(BeatTime(1.5f), 5, 6, EaseState.Cubic)
-                );
-                RunEase((r) =>
-                {
-                    rot = r;
-                }
-                ,
-                    EaseOut(BeatTime(1.5f), 0, 180, EaseState.Circ),
-                    EaseOut(BeatTime(2.5f), 0, -180, EaseState.Cubic)
-                );
-                RegularPolygon polygon = new(Functions.Heart, 4, 0, 1);
-                AddInstance(new TimeRangedEvent(BeatTime(16), () =>
-                {
-                    CreateEntity(new RegularPolygon(Functions.Heart, side, rot, 2));
-                }));
-                //Player.Heart mission = FatherObject as Player.Heart;
-                //Player.Heart.Shield shield1 = new(1, mission) { UpdateKeys = new InputIdentity[] { InputIdentity.MainRight, InputIdentity.MainDown, InputIdentity.MainLeft, InputIdentity.MainUp } };
-                //Player.Heart.Shield shield2 = new(1, mission) { UpdateKeys = new InputIdentity[] { InputIdentity.SecondRight, InputIdentity.SecondUp, InputIdentity.Q, InputIdentity.None } };
-                //Shields.AddShield(shield1);
-                //AddChild(shield1);
-                //AddChild(shield2);
-                //CShield();
-                //Player.Heart.ShieldManager shields = new();
+                ScreenDrawing.UISettings.CreateUISurface();
+                InstantSetGreenBox();
+                Functions.Heart.controlingBox.GreenSoulAlpha = 0.5f;
+                BoxUtils.Vertexify();
+                var box = BoxUtils.VertexBoxInstance;
 
-
-                //var shield = new Heart.Shield.Modify();
-                //shield.RotateAngle(60);
-                //var shield = new Heart.Shield.Modify();
-                //shield.SetRotateAngle(90);
-                //shield.SetKeys(InputIdentity.)
-                //for (int i = 0; i < 720; i++)
-                //{
-                //    SetBox(new Vector2(Sin(i * 2), Cos(i)), 84, 84);
-                //}
-                //AddInstance(new InstantEvent(0, () =>
-                //{
-                //    shields.AddShield(shield1);
-                //}));
-        ////        public class Modify
-        ////  {
-        ////    public static int Type { get; set; } = 1;
-        ////    public static int Angle { get; set; } = 90;
-        ////    public static int way { get; set; } = 360 / Angle;
-        ////    public static InputIdentity[] Keys { get; set; } = new InputIdentity[way];
-        ////    /// <summary>
-        ////    /// 设置每个方向的角度
-        ////    /// 设置的角度应可被360°整除！
-        ////    /// </summary>
-        ////    /// <param name="angle">你想要的角度</param>
-        ////    public void SetRotateAngle(int angle)
-        ////    {
-        ////        Angle = angle;
-        ////    }
-        ////    /// <summary>
-        ////    /// 设置按键
-        //    /// 设置的按键个数应与方向个数相同！
-        //    /// </summary>
-        //    /// <param name="keys">你想选择的按键</param>
-        //    public void SetKeys(InputIdentity[] keys)
-        //      {
-        //        Keys = keys;
-        //      }
-        //    public void SetType(int type)
-        //      {
-        //        Type = type;
-        //      }
-        //  }
-        //public float Angle { get; set; } = Modify.Angle;
-        //public InputIdentity[] Keys { get; set; } = Modify.Keys;
-        //public int Type = Modify.Type;
-        CreateChart(BeatTime(4), BeatTime(1), 6, new string[]
+                box.SetPosition(0, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90));
+                box.SetPosition(1, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72));
+                box.SetPosition(2, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72 * 2));
+                box.SetPosition(3, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72 * 3));
+                box.SetPosition(box.Split(3, 1), new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72 * 4));
+                Delay(T(1.5f), () =>
+                {
+                    box.SetPosition(0, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 60 * 2));
+                    box.SetPosition(1, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 60 * 3));
+                    box.SetPosition(2, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 60 * 4));
+                    box.SetPosition(3, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 60 * 5));
+                    box.SetPosition(4, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 60 * 6));
+                    box.SetPosition(box.Split(4, 1), new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 60 * 7));
+                });
+                Delay(T(3f), () =>
+                {
+                    box.SetPosition(0, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90));
+                    box.SetPosition(1, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72));
+                    box.SetPosition(2, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72 * 2));
+                    box.SetPosition(3, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72 * 3));
+                    box.SetPosition(4, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72 * 4));
+                    box.SetPosition(5, new Vector2(320, 240) + MathUtil.GetVector2(MathF.Sqrt(2) * 42, -90 + 72 * 4));
+                });
+                Delay(T(4f), () =>
+                {
+                    box.SetPosition(0, new Vector2(320 + 42, 240 - 42));
+                    box.SetPosition(1, new Vector2(320 + 42, 240 + 42));
+                    box.SetPosition(2, new Vector2(320 - 42, 240 + 42));
+                    box.SetPosition(3, new Vector2(320 - 42, 240 - 42));
+                    box.SetPosition(4, new Vector2(320 - 42, 240 - 42));
+                    box.SetPosition(5, new Vector2(320 - 42, 240 - 42));
+                    Delay(T(1f), () => BoxUtils.DeVertexify(new(320 - 42, 240 - 42, 84, 84)));
+                });
+                RegisterFunctionOnce("PushLeft", () =>
+                {
+                    var eas = LinkEase(Stable(0, 0, 0), EaseOut(T(2.5f), new Vector2(50, 0), EaseState.Quad), EaseIn(T(4f), new Vector2(-15, 0), EaseState.Sine));
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                    var rot = LinkEase(
+                        Stable(0, 0),
+                        EaseOut(T(0.5f), -10, EaseState.Quad),
+                        EaseIn(T(0.5f), 10, EaseState.Quad),
+                        EaseOut(T(0.5f), 10, EaseState.Quad),
+                        EaseIn(T(0.5f), -15, EaseState.Quad),
+                        EaseOut(T(0.5f), 5, EaseState.Quad));
+                    RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, rot);
+                });
+                RegisterFunctionOnce("PushRight", () =>
+                {
+                    var eas = LinkEase(Stable(0, 0, 0), EaseOut(T(2.5f), new Vector2(-50, 0), EaseState.Quad), EaseIn(T(4f), new Vector2(15, 0), EaseState.Sine));
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                    var rot = LinkEase(
+                        Stable(0, 0),
+                        EaseOut(T(0.5f), 10, EaseState.Quad),
+                        EaseIn(T(0.5f), -10, EaseState.Quad),
+                        EaseOut(T(0.5f), -10, EaseState.Quad),
+                        EaseIn(T(0.5f), 15, EaseState.Quad),
+                        EaseOut(T(0.5f), -5, EaseState.Quad));
+                    RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, rot);
+                });
+                RegisterFunctionOnce("InstantBack", () =>
+                {
+                    var eas = LinkEase(false,
+                        Stable(2, -15, 0),
+                        Stable(2, 15, 0),
+                        Stable(2, -14, 0),
+                        Stable(2, 14, 0),
+                        Stable(2, -12, 0),
+                        Stable(2, 12, 0),
+                        Stable(2, -9, 0),
+                        Stable(2, 9, 0),
+                        Stable(2, -6, 0),
+                        Stable(2, 6, 0),
+                        Stable(2, -4, 0),
+                        Stable(2, 4, 0),
+                        Stable(2, -3, 0),
+                        Stable(2, 3, 0),
+                        Stable(2, 0, 0)
+                        );
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                });
+                CreateChart(0, BeatTime(1), 7f, new string[]
                 {
                     "","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
+                    "$2","","$3","",    "$0","","$1","",
+                    //
+                    "(#1#$2)(D1)(PushLeft)","","","",    "(D1)","","","",
+                    "($2)(D1)","","","",    "(D1)","","+2","",
+                    "+31","","+2","",    "(D)(D1)","","","",
+                    "(D1)","","+2","",    "(+11)","","+2","",
+
+                    "(D)(D1)","","","",    "D1","","","",
+                    "(D)(D1)","","","",    "(D1)","","+2","",
+                    "+31","","+2","",    "(D)(D1)","","","",
+                    "(D1)","","+2","",    "(+11)","","+2","",
+
+                    "(#0.4#+11)(#0.4#+2)(InstantBack)","","","",    "","","","",
+                    "($1)(D1)","","","",    "(D1)","","+2","",
+                    "+31","","+2","",    "(D)(D1)","","","",
+                    "(D1)","","+2","",    "(+11)","","+2","",
+
+                    "(D)(D1)","","","",    "D1","","","",
+                    "(D)(D1)","","","",    "(D1)","","+2","",
+                    "+31","","+2","",    "(D)(D1)","","","",
+                    "(D1)","","+2","",    "(+11)","","+2","",
+                    //
+                    "(#0.4#$01)(PushRight)","","","",    "D","","","",
+                    "(R)(D1)","","","",    "(D1)","","+2","",
+                    "+31","","+2","",    "(D)(D1)","","","",
+                    "(D1)","","+2","",    "(+11)","","+2","",
+
+                    "(D)(D1)","","","",    "D1","","","",
+                    "(D)(D1)","","","",    "(D1)","","+2","",
+                    "+31","","+2","",    "(D)(D1)","","","",
+                    "(D1)","","+2","",    "(+11)","","+2","",
+
+                    "(#0.4#+11)(#0.4#+2)(InstantBack)","","","",    "D","","","",
+                    "(D)(D1)","","","",    "(D1)","","+2","",
+                    "+21","","+2","",    "(D)(D1)","","","",
+                    "(D1)","","+2","",    "(+21)","","+2","",
+
+                    "$0","","$21","",    "$11","","$01","",
+                    "$1","","$21","",    "$11","","$01","",
+                    "$2","","$21","",    "$11","","$01","",
+                    "$3","","$21","",    "$11","","$01","",
+                    //
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
                     "","","","",    "","","","",
 
                     "","","","",    "","","","",
@@ -1940,6 +1986,327 @@ namespace AprilExtends
                     "","","","",    "","","","",
                     "","","","",    "","","","",
                     "","","","",    "","","","",
+
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                });
+            }
+            if (InBeat(272 + 32 + 32+16))
+            {
+                RegisterFunctionOnce("PushLeft", () =>
+                {
+                    var eas = LinkEase(Stable(0, 0, 0), EaseOut(T(2.5f), new Vector2(40, 0), EaseState.Quad), EaseIn(T(4f), new Vector2(-15, 0), EaseState.Sine));
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                    var rot = LinkEase(
+                        Stable(0, 0),
+                        EaseOut(T(0.5f), -5, EaseState.Quad),
+                        EaseIn(T(0.5f), 5, EaseState.Quad),
+                        EaseOut(T(0.5f), 5, EaseState.Quad),
+                        EaseIn(T(0.5f), -8, EaseState.Quad),
+                        EaseOut(T(0.5f), 3, EaseState.Quad));
+                    RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, rot);
+                });
+                RegisterFunctionOnce("PushRight", () =>
+                {
+                    var eas = LinkEase(Stable(0, 0, 0), EaseOut(T(2.5f), new Vector2(-40, 0), EaseState.Quad), EaseIn(T(4f), new Vector2(15, 0), EaseState.Sine));
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                    var rot = LinkEase(
+                        Stable(0, 0),
+                        EaseOut(T(0.5f), 5, EaseState.Quad),
+                        EaseIn(T(0.5f), -5, EaseState.Quad),
+                        EaseOut(T(0.5f), -5, EaseState.Quad),
+                        EaseIn(T(0.5f), 8, EaseState.Quad),
+                        EaseOut(T(0.5f), -3, EaseState.Quad));
+                    RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, rot);
+                });
+                RegisterFunctionOnce("InstantBack", () =>
+                {
+                    var eas = LinkEase(false,
+                        Stable(2, -15, 0),
+                        Stable(2, 15, 0),
+                        Stable(2, -14, 0),
+                        Stable(2, 14, 0),
+                        Stable(2, -12, 0),
+                        Stable(2, 12, 0),
+                        Stable(2, -9, 0),
+                        Stable(2, 9, 0),
+                        Stable(2, -6, 0),
+                        Stable(2, 6, 0),
+                        Stable(2, -4, 0),
+                        Stable(2, 4, 0),
+                        Stable(2, -3, 0),
+                        Stable(2, 3, 0),
+                        Stable(2, 0, 0)
+                        );
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                });
+                RegisterFunctionOnce("InstantBack2", () =>
+                {
+                    var eas = LinkEase(false,
+                        Stable(2, -15, 0),
+                        Stable(2, 15, 0),
+                        Stable(2, -14, 0),
+                        Stable(2, 14, 0),
+                        Stable(2, -12, 0),
+                        Stable(2, 12, 0),
+                        Stable(2, -9, 0),
+                        Stable(2, 9, 0),
+                        Stable(2, -10, 0),
+                        Stable(2, 10, 0),
+                        Stable(2, -11, 0),
+                        Stable(2, 11, 0),
+                        Stable(2, -10, 0),
+                        Stable(2, 10, 0),
+                        Stable(2, -9, 0),
+                        Stable(2, 9, 0),
+                        Stable(2, -6, 0),
+                        Stable(2, 6, 0),
+                        Stable(2, -4, 0),
+                        Stable(2, 4, 0),
+                        Stable(2, -3, 0),
+                        Stable(2, 3, 0),
+                        Stable(2, 0, 0)
+                        );
+                    RunEase((s) => { ScreenDrawing.ScreenPositionDelta = s; }, eas);
+                });
+                
+                CreateChart(T(4), BeatTime(1), 7f, new string[]
+                {
+                    "($01)($2)(PushLeft)","","","",    "(D1)","","","",
+                    "(D)(D1)","","","",    "($21)($0)","","$11","",
+                    "$1","","$11","",    "($01)($2)","","","",
+                    "($21)($0)","","$11","",    "$1","","$11","",
+
+                    "($01)($2)","","","",    "D1","","","",
+                    "(D)(D1)","","","",    "($21)($0)","","$11","",
+                    "$1","","$11","",    "($01)($2)","","","",
+                    "($21)($0)","","$11","",    "$1","","$11","",
+
+                    "($01)($2)(InstantBack)","","","",    "D","","","",
+                    "(D)(D1)","","","",    "($21)($0)","","$11","",
+                    "$1","","$11","",    "($01)($2)","","","",
+                    "($21)($0)","","$11","",    "$1","","$11","",
+
+                    "($21)($0)","","","",    "D","","","",
+                    "(D)(D1)","","","",    "($21)($0)","","($11)","",
+                    "(^$0'1.2)(^$2'1.2)","","","",    "","","(^$0'1.2)(^$2'1.2)","",
+                    "","","","",    "(^$0'1.2)(^$2'1.2)","","","",
+
+                    "($21)($0)(PushRight)","","","",    "(D1)","","","",
+                    "(D)(D1)","","","",    "($01)($2)","","$11","",
+                    "$1","","$11","",    "($21)($0)","","","",
+                    "($01)($2)","","$11","",    "$1","","$11","",
+
+                    "($21)($0)","","","",    "D1","","","",
+                    "(D)(D1)","","","",    "($01)($2)","","$11","",
+                    "$1","","$11","",    "($21)($0)","","","",
+                    "($01)($2)","","$11","",    "$1","","$11","",
+
+                    "(#0.5#$21)(#0.5#$0)(InstantBack2)","($21'3)($0'3)","($21'3)($0'3)","($21'3)($0'3)",    "(#5.5#$21)(#5.5#$0)","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                    "","","","",    "","","","",
+                });
+            }
+            if (InBeat(272 + 32 + 32+32 + 16))
+            {
+                RegisterFunctionOnce("RotIn", () =>
+                {
+                    var eas = LinkEase(Stable(0, 0), 
+                        EaseIn(T(2f), 2, EaseState.Sine),
+                        EaseOut(T(2f), 2, EaseState.Sine),
+                        //
+                        EaseIn(T(2f), -1.5f, EaseState.Sine),
+                        EaseOut(T(2f), -1.5f, EaseState.Sine),
+                        EaseIn(T(2f), 1.5f, EaseState.Sine),
+                        EaseOut(T(2f), 1.5f, EaseState.Sine),
+
+                        EaseIn(T(2f), -1.5f, EaseState.Sine),
+                        EaseOut(T(2f), -1.5f, EaseState.Sine),
+                        EaseIn(T(2f), 1.5f, EaseState.Sine),
+                        EaseOut(T(2f), 1.5f, EaseState.Sine),
+
+                        EaseIn(T(2f), -1.5f, EaseState.Sine),
+                        EaseOut(T(2f), -1.5f, EaseState.Sine),
+                        EaseIn(T(2f), 1.5f, EaseState.Sine),
+                        EaseOut(T(2f), 1.5f, EaseState.Sine),
+
+                        EaseIn(T(2f), -1.5f, EaseState.Sine),
+                        EaseOut(T(2f), -1.5f, EaseState.Sine),
+                        EaseIn(T(2f), 1.5f, EaseState.Sine),
+                        EaseOut(T(2f), 1.5f, EaseState.Sine),
+                        //
+                        EaseIn(T(2f), -4, EaseState.Sine),
+                        EaseOut(T(2f), -4, EaseState.Sine),
+
+                        EaseIn(T(2f), 1.5f, EaseState.Sine),
+                        EaseOut(T(2f), 1.5f, EaseState.Sine),
+                        EaseIn(T(2f), -1.5f, EaseState.Sine),
+                        EaseOut(T(2f), -1.5f, EaseState.Sine),
+
+                        EaseIn(T(2f), 1.5f, EaseState.Sine),
+                        EaseOut(T(2f), 1.5f, EaseState.Sine),
+                        EaseIn(T(2f), -1.5f, EaseState.Sine),
+                        EaseOut(T(2f), -1.5f, EaseState.Sine),
+
+                        EaseIn(T(2f), 1.5f, EaseState.Sine),
+                        EaseOut(T(2f), 1.5f, EaseState.Sine),
+                        EaseIn(T(2f), -1.5f, EaseState.Sine),
+                        EaseOut(T(2f), -1.5f, EaseState.Sine),
+                        //
+                        EaseIn(T(2f), 2f, EaseState.Sine),
+                        EaseOut(T(2f), 2f, EaseState.Sine)
+                        );
+                    RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, eas);
+                });
+                RegisterFunctionOnce("Box", () =>
+                {
+                    var eas = LinkEase(Stable(0, 320, 240),
+                        EaseIn(T(2),new Vector2(0,11),EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 11), EaseState.Sine),
+                        //
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseIn(T(2), new Vector2(0, 22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 22), EaseState.Sine),
+
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseIn(T(2), new Vector2(0, 22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 22), EaseState.Sine),
+
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseIn(T(2), new Vector2(0, 22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 22), EaseState.Sine),
+
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseIn(T(2), new Vector2(0, 22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 22), EaseState.Sine),
+                        //
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseIn(T(2), new Vector2(0, 22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 22), EaseState.Sine),
+
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseIn(T(2), new Vector2(0, 22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 22), EaseState.Sine),
+
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseIn(T(2), new Vector2(0, 22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 22), EaseState.Sine),
+
+                        EaseIn(T(2), new Vector2(0, -22), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, -22), EaseState.Sine),
+
+                        EaseIn(T(2), new Vector2(0, 11), EaseState.Sine),
+                        EaseOut(T(2), new Vector2(0, 11), EaseState.Sine)
+                        );
+                    RunEase((s) => { InstantSetBox(s, 84, 84);InstantTP(s); }, eas);
+                });
+                RegisterFunctionOnce("ScaleOut", () =>
+                {
+                    var eas = LinkEase(Stable(0, 1), EaseOut(T(8), 0.2f, EaseState.Sine));
+                    RunEase((s) => { ScreenDrawing.ScreenScale = s; }, eas);
+                });
+                CreateChart(0, BeatTime(1), 7f, new string[]
+                {
+                    "RotIn(Box)","","","",   "","","","",
+                    "","","","",   "","","","",
+                    "","","","",   "","","","",
+                    "","","","",   "","","","",
+
+                    "R","","","",    "R","","","",
+                    "R","","","",    "R","","+0","",
+                    "+0","","+0","",    "+0","","","",
+                    "R","","+0","",    "+0","","+0","",
+
+                    "+0","","","",    "R","","","",
+                    "R","","","",    "R","","+0","",
+                    "+0","","+0","",    "+0","","","",
+                    "R","","+0","",    "+0","","+0","",
+
+                    "+0","","","",    "R","","","",
+                    "R","","","",    "R","","+0","",
+                    "+2","","+2","",    "+0","","","",
+                    "R","","+0","",    "+2","","+2","",
+
+                    "+0","","","",    "R","","+0","",
+                    "+2","","+2","",    "+0","","","",
+                    "R","","+0","",    "+2","","+2","",
+                    "+0","","","",    "","","","",
+                    //
+                    "R1","","","",    "R1","","","",
+                    "R1","","","",    "R1","","+01","",
+                    "+01","","+01","",    "+01","","","",
+                    "R1","","+01","",    "+01","","+01","",
+
+                    "+01","","","",    "R1","","","",
+                    "R1","","","",    "R1","","+01","",
+                    "+01","","+01","",    "+01","","","",
+                    "R1","","+01","",    "+01","","+01","",
+
+                    "+01","","","",    "R1","","","",
+                    "R1","","","",    "R1","","+01","",
+                    "+21","","+21","",    "+01","","","",
+                    "R1","","+21","",    "+21","","","",
+
+                    "R1","","","",    "R1","","+01","",
+                    "+21","","+21","",    "+01","","","",
+                    "R1","","+01","",    "+21","","+21","",
+                    "+01","","","",    "","","","",
+                    //
+                    "R","","","",    "R1","","","",
+                    "R1","","","",    "R","","+01","",
+                    "+2","","+01","",    "+2","","","",
+                    "R","","+01","",    "+2","","+01","",
+
+                    "+2","","","",    "R1","","","",
+                    "R1","","","",    "R","","+01","",
+                    "+2","","+01","",    "+2","","","",
+                    "R","","+01","",    "+2","","+01","",
+
+                    "+0","","","",    "R1","","","",
+                    "R1","","","",    "R","","+01","",
+                    "+2","","+01","",    "+2","","","",
+                    "R","","+01","",    "+2","","+01","",
+
+                    "+2","","","",    "R1","","","",
+                    "R1","","","",    "R","","+01","",
+                    "+2","","+01","",    "+2","","","",
+                    "R","","+01","",    "+2","","+01","",
+                    //
+                    "+2","","","",    "R1","","","",
+                    "R1","","","",    "R","","+21","",
+                    "+0","","+21","",    "+0","","","",
+                    "R","","+21","",    "+0","","+21","",
+
+                    "+0","","","",    "R1","","","",
+                    "R1","","","",    "R","","+21","",
+                    "+0","","+21","",    "+0","","","",
+                    "R","","+21","",    "+0","","+21","",
+
+                    "+0","","","",    "R1","","","",
+                    "R1","","","",    "R","","+21","",
+                    "+0","","+21","",    "+0","","","",
+                    "R","","+21","",    "+0","","+21","",
+
+                    "+0(ScaleOut)","","","",    "R","","","",
+                    "R","","","",    "R","","","",
+                    "","","","",    "R","","","",
+                    "R","","","",    "R","","","",
+
                 });
             }
         }
@@ -2078,10 +2445,10 @@ namespace AprilExtends
             HeartAttribute.DamageTaken = 1;
             TP();
             SetSoul(1);
-            bool jump = true;
+            bool jump = false;
             if (jump)
             {
-                int beat = 128;
+                int beat = 272 + 32 +32+32+ 16;
                 //   int beat = 326;
                 //    int beat = 198 + 64;
                 GametimeDelta = -5.5f + BeatTime(beat);
