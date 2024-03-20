@@ -69,7 +69,7 @@ namespace UndyneFight_Ex
             }
             DynamicSong _dynamicSong;
             List<DynamicSongInstance> allInstances = new();
-
+            
             private void Update() { 
                 this.allInstances.RemoveAll(s => s.State == SoundState.Stopped); 
             }
@@ -108,6 +108,7 @@ namespace UndyneFight_Ex
 
             internal void SetPosition(float position)
             {
+                if (this.allInstances.Count == 0) return;
                 this.allInstances[0].SetPosition(position / 62.5f * 1000f);
             }
 
