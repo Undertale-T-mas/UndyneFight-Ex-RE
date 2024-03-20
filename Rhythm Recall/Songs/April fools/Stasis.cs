@@ -10,6 +10,7 @@ using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
+using UndyneFight_Ex.Remake;
 
 namespace AprilExtends
 {
@@ -2121,6 +2122,10 @@ namespace AprilExtends
             throw new NotImplementedException();
         }
 
+        float T(float t) 
+        {
+            return BeatTime(t);
+        } 
         public override void Start()
         {
             float i = 0;
