@@ -125,6 +125,7 @@ Alternate: Space";
             SongSet test = new("Test");
             test.Push(typeof(JinseiRE));
             test.Push(typeof(Determination));
+            test.Push(typeof(QZKago));
             test.Push(typeof(AprilExtends.BocchiTheRock));
             test.Push(typeof(AFleetingOath));
             test.Push(typeof(AprilExtends.Stasis));

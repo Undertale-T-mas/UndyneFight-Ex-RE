@@ -3110,6 +3110,12 @@
 /processorParam:Quality=Best
 /build:Musics/sustenance of moon/song.wav
 
+#begin Musics/t+pazolite - QZKago Requiem.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/t+pazolite - QZKago Requiem.mp3;Musics/QZKago Requiem.mp3
+
 #begin Musics/The Funeral/song.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
