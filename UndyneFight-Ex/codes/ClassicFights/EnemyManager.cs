@@ -125,8 +125,8 @@ namespace UndyneFight_Ex.Fight
                 }
                 if (appearTime >= 0)
                 {
-                    float scale = Math.Min(0.11f, appearTime * 0.015f + 0.015f);
-                    enemy.hp = remainHP * scale + enemy.hp * (1 - scale);
+                    float scale = Math.Min(0.11f, (appearTime * 0.015f) + 0.015f);
+                    enemy.hp = (remainHP * scale) + (enemy.hp * (1 - scale));
                     currentHPBar.Width = enemy.hp / enemy.maxHp * enemy.HPBarLength;
                 }
                 if (appearTime >= FightStates.actionDelay)

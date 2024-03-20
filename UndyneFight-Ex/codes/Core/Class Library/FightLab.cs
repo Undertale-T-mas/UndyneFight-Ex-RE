@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
@@ -754,8 +753,7 @@ namespace UndyneFight_Ex.Fight
         {
             for (int a = 0; a < et.Length; a++)
             {
-                int x = a;
-                InstanceCreate(et[x]);
+                InstanceCreate(et[a]);
             }
         }
         /// <summary>
@@ -765,6 +763,13 @@ namespace UndyneFight_Ex.Fight
         public static void AddInstance(GameObject go)
         {
             InstanceCreate(go);
+        }
+        public static void AddInstances(params GameObject[] go)
+        {
+            for (int a = 0; a < go.Length; a++)
+            {
+                InstanceCreate(go[a]);
+            }
         }
         public static void ArrowApply(string tag, Action<Arrow> action)
         {
@@ -848,7 +853,7 @@ namespace UndyneFight_Ex.Fight
         public static void SetBox(Vector2 centre, float width, float height)
         {
             if (FightBox.instance is RectangleBox)
-                (FightBox.instance as RectangleBox).MoveTo(new CollideRect(centre - new Vector2(width, height) / 2, new(width, height)));
+                (FightBox.instance as RectangleBox).MoveTo(new CollideRect(centre - (new Vector2(width, height) / 2), new(width, height)));
             else throw new NotImplementedException();
         }
         /// <summary>
@@ -859,7 +864,7 @@ namespace UndyneFight_Ex.Fight
         /// <param name="height">宽的高度</param>
         public static void SetBox(float YCentre, float width, float height)
         {
-            SetBox(320 - width / 2, 320 + width / 2, YCentre - height / 2, YCentre + height / 2);
+            SetBox(320 - (width / 2), 320 + (width / 2), YCentre - (height / 2), YCentre + (height / 2));
         }
 
         /// <summary>
@@ -872,7 +877,7 @@ namespace UndyneFight_Ex.Fight
         public static void InstantSetBox(Vector2 centre, float width, float height)
         {
             if (FightBox.instance is RectangleBox)
-                (FightBox.instance as RectangleBox).InstanceMove(new CollideRect(centre - new Vector2(width, height) / 2, new(width, height)));
+                (FightBox.instance as RectangleBox).InstanceMove(new CollideRect(centre - (new Vector2(width, height) / 2), new(width, height)));
             else throw new NotImplementedException();
         }
         /// <summary>
@@ -896,7 +901,7 @@ namespace UndyneFight_Ex.Fight
         /// <param name="height">宽的高度</param>
         public static void InstantSetBox(float YCentre, float width, float height)
         {
-            InstantSetBox(320 - width / 2, 320 + width / 2, YCentre - height / 2, YCentre + height / 2);
+            InstantSetBox(320 - (width / 2), 320 + (width / 2), YCentre - (height / 2), YCentre + (height / 2));
         }
 
         /// <summary>
@@ -1029,7 +1034,7 @@ namespace UndyneFight_Ex.Fight
         }
         public static void PlaySound(params Microsoft.Xna.Framework.Audio.SoundEffect[] effect)
         {
-            for(int a=0;a<effect.Length;a++)
+            for (int a = 0; a < effect.Length; a++)
             {
                 PlaySound(effect[a]);
             }
@@ -1067,13 +1072,13 @@ namespace UndyneFight_Ex.Fight
         }
         public static Player.Heart CreateHeart(float yCentre, float width, float height)
         {
-            CollideRect rect = new(new Vector2(320 - width / 2, yCentre - height / 2), new(width, height));
-            return Heart.InstantSplit(rect); 
+            CollideRect rect = new(new Vector2(320 - (width / 2), yCentre - (height / 2)), new(width, height));
+            return Heart.InstantSplit(rect);
         }
 
         public static void Reset()
         {
-            GametimeDelta = 0; 
+            GametimeDelta = 0;
             CustomAnalyzer = null;
             colorLastArrow = new int[10];
             DirectionAllocate = new int[10];

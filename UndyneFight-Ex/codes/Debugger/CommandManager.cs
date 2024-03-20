@@ -303,9 +303,9 @@ namespace UndyneFight_Ex.Debugging
                         if (isFixed) continue;
                         isFixed = true;
                         if (realCursorPos.X + 5 > InternalCommandSystem.RenderOffset + ScreenSize.X)
-                            InternalCommandSystem.RenderOffset = (realCursorPos.X + 5 - ScreenSize.X) * 0.1f + InternalCommandSystem.RenderOffset * 0.9f;
+                            InternalCommandSystem.RenderOffset = ((realCursorPos.X + 5 - ScreenSize.X) * 0.1f) + (InternalCommandSystem.RenderOffset * 0.9f);
                         if (realCursorPos.X < InternalCommandSystem.RenderOffset + 24)
-                            InternalCommandSystem.RenderOffset = (realCursorPos.X - 24) * 0.1f + InternalCommandSystem.RenderOffset * 0.9f;
+                            InternalCommandSystem.RenderOffset = ((realCursorPos.X - 24) * 0.1f) + (InternalCommandSystem.RenderOffset * 0.9f);
                     }
                 }
             }

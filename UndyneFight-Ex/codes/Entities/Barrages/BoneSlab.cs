@@ -133,35 +133,35 @@ namespace UndyneFight_Ex.Entities
                     BoneProtruded?.Invoke();
                 if (LengthRoute != null && lengthRouteParam != null)
                 {
-                    if (appearTime <= appearDelay + boneslabOuttime * 2)
+                    if (appearTime <= appearDelay + (boneslabOuttime * 2))
                     {
-                        float d = (appearTime - appearDelay * 1.0f) / (boneslabOuttime * 2);
-                        float e = d * d * 0.85f + 0.15f;
+                        float d = (appearTime - (appearDelay * 1.0f)) / (boneslabOuttime * 2);
+                        float e = (d * d * 0.85f) + 0.15f;
                         missionHeight = LengthRoute(this);
-                        currentHeight = missionHeight * e + currentHeight * (1 - e);
+                        currentHeight = (missionHeight * e) + (currentHeight * (1 - e));
                     }
                     else if (appearTime <= appearDelay + totalTime)
                         currentHeight = LengthRoute(this);
                     else
-                        currentHeight -= ((appearTime - appearDelay - totalTime) / 1.2f + 0.5f) * (float)Math.Sqrt(missionHeight) / 7 * (7f / boneslabOuttime);
+                        currentHeight -= (((appearTime - appearDelay - totalTime) / 1.2f) + 0.5f) * (float)Math.Sqrt(missionHeight) / 7 * (7f / boneslabOuttime);
                     goto A;
                 }
                 if (appearTime <= appearDelay + boneslabOuttime)
                 {
                     currentHeight += missionHeight / 20f;
-                    currentHeight = missionHeight * 0.22f + currentHeight * 0.78f;
+                    currentHeight = (missionHeight * 0.22f) + (currentHeight * 0.78f);
                     currentHeight = Math.Min(currentHeight, missionHeight);
                 }
                 else if (appearTime >= appearDelay + totalTime)
-                    currentHeight -= ((appearTime - appearDelay - totalTime) / 1.2f + 0.5f) * (float)Math.Sqrt(missionHeight) / 7 * (7f / boneslabOuttime);
+                    currentHeight -= (((appearTime - appearDelay - totalTime) / 1.2f) + 0.5f) * (float)Math.Sqrt(missionHeight) / 7 * (7f / boneslabOuttime);
                 else currentHeight = missionHeight;
 
                 A: if (currentHeight < -4) Dispose();
             }
-            renderPlace.X = (float)Math.Cos(quarterAngle + GetRadian(Rotation)) * box.CollidingBox.Width / 2 + box.Centre.X;
-            renderPlace.Y = (float)Math.Sin(quarterAngle + GetRadian(Rotation)) * box.CollidingBox.Height / 2 + box.Centre.Y;
-            _warningLine.X = -(float)Math.Cos(quarterAngle + GetRadian(Rotation)) * missionHeight + renderPlace.X;
-            _warningLine.Y = -(float)Math.Sin(quarterAngle + GetRadian(Rotation)) * missionHeight + renderPlace.Y;
+            renderPlace.X = ((float)Math.Cos(quarterAngle + GetRadian(Rotation)) * box.CollidingBox.Width / 2) + box.Centre.X;
+            renderPlace.Y = ((float)Math.Sin(quarterAngle + GetRadian(Rotation)) * box.CollidingBox.Height / 2) + box.Centre.Y;
+            _warningLine.X = (-(float)Math.Cos(quarterAngle + GetRadian(Rotation)) * missionHeight) + renderPlace.X;
+            _warningLine.Y = (-(float)Math.Sin(quarterAngle + GetRadian(Rotation)) * missionHeight) + renderPlace.Y;
         }
 
         public void GetCollide(Player.Heart heart)

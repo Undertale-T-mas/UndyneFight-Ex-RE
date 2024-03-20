@@ -1,17 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Remake;
-using UndyneFight_Ex.SongSystem;
-using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
+using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.MathUtil;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 
 namespace Rhythm_Recall.Waves
 {
@@ -60,7 +55,7 @@ namespace Rhythm_Recall.Waves
                         this.Visible = Alpha >= 0.0f && (FatherObject as Entity).Visible;
                     }
                     public override void Draw()
-                    { 
+                    {
                         if (Vertex)
                             this.SpriteBatch.DrawVertex(this.Image, this.Depth, Vertexs);
                         else
@@ -104,7 +99,8 @@ namespace Rhythm_Recall.Waves
                         case 0:
                             compBody.Image = bodyPreR;
 
-                            compBody.ChangeState(9, (s) => {
+                            compBody.ChangeState(9, (s) =>
+                            {
                                 s.Centre = curPos + delta;
                                 if (s.StateChangedTime >= 8) s.Image = body;
                                 else if (s.StateChangedTime >= 4f) s.Image = bodyR;
@@ -127,7 +123,8 @@ namespace Rhythm_Recall.Waves
                         case 2:
                             compBody.Image = bodyPreR;
 
-                            compBody.ChangeState(9, (s) => {
+                            compBody.ChangeState(9, (s) =>
+                            {
                                 s.Centre = curPos + delta;
                                 if (s.StateChangedTime >= 7) s.Image = body;
                             });
@@ -208,7 +205,7 @@ namespace Rhythm_Recall.Waves
                 }
 
                 public override void Update()
-                { 
+                {
                 }
             }
         }

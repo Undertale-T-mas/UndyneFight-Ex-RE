@@ -176,7 +176,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         private int _activateTime = 0;
 
-        public bool Activated => _activateTime > 2; 
+        public bool Activated => _activateTime >= 1; 
         public bool DrawEnabled => _activated;
 
         public SelectingModule Focus => this.currentFocus;

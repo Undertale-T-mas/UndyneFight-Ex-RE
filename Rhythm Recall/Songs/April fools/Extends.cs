@@ -2,6 +2,7 @@
 using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
+using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
 using static Extends.DrawingUtil;
 using static UndyneFight_Ex.Entities.EasingUtil;
@@ -49,32 +50,22 @@ namespace Extends
                 }
                 stop = false;
             }
-            //if (easeis) for (int t = 0; t < easings.Length; t++) positions[t] = easeresult[t];
             for (int t = 0; t < positions.Length - 1; t++)
             {
                 Line l = new(positions[t], positions[t + 1])
                 { Alpha = Alpha, Depth = Depth, DrawingColor = DrawingColor, Width = Width };
                 CreateEntity(l);
-                AddInstance(new TimeRangedEvent(0.5f, () =>
-                {
-                    l.Dispose();
-                }));
+                AddInstance(new TimeRangedEvent(0.5f, () => l.Dispose()));
             }
-
         }
-        public override void Update()
-        {
-
-        }
+        public override void Update() { }
     }
     public class Star : Entity, ICollideAble, ICustomMotion
     {
         public class StarShadow : Entity
         {
             public Vector2 speed;
-            public float alpha;
-            public float rotatespeed;
-            public float scale;
+            public float alpha, rotatespeed, scale;
             public Color color = Color.White;
             public StarShadow(float alpha, float angle, Vector2 center, float rotatespeed, float scale, Color color)
             {
@@ -88,7 +79,6 @@ namespace Extends
             }
             public override void Draw()
             {
-
                 Depth = 0.74f;
                 alpha -= 0.08f;
                 FormalDraw(Image, Centre, color * alpha, scale, Rotation * MathF.PI / 180, ImageCentre);
@@ -163,21 +153,20 @@ namespace Extends
         Color light = Color.White * 0.25f;
         public override void Draw()
         {
-
             Depth = 0.75f;
-
             FormalDraw(Image, Centre, new Color(drawcolor.R + light.R, drawcolor.G + light.G, drawcolor.B + light.B, drawcolor.A + light.A), Scale, Rotation * MathF.PI / 180, ImageCentre);
-            if (appeartime % 2 == 0 && starshadow)
-                Shadow(Centre, Rotation);
-            if (appeartime >= 12 * 60) Dispose();
         }
         public override void Update()
         {
             if (easeif) ease.Invoke(this);
             Rotation += rotatespeed;
             TestDispose();
-            if (appeartime % 22 == 0) light = ChangeLight(light);
-
+            if (appeartime % 2 == 0 && starshadow)
+            {
+                Shadow(Centre, Rotation);
+                if (appeartime % 22 == 0) light = ChangeLight(light);
+            }
+            if (appeartime >= 720) Dispose();
         }
         int scoreResult = 3;
         private bool hasHit = false;
@@ -206,7 +195,8 @@ namespace Extends
 
             int offset = 3 - (int)JudgeState;
             bool needAP = ((CurrentScene as FightScene).Mode & GameMode.PerfectOnly) != 0;
-            if (res < 0) { if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(Heart); hasHit = true; }
+            if (res < 0) {
+                if (!hasHit) UndyneFight_Ex.Fight.AdvanceFunctions.PushScore(0); LoseHP(Heart); hasHit = true; }
             else if (res <= 1.6f - offset * 0.4f)
             {
                 if (scoreResult >= 2) { scoreResult = 1; Player.CreateCollideEffect(Color.LawnGreen, 3f); }
@@ -295,7 +285,7 @@ namespace Extends
         public Fireball(Vector2 centre, float scale)
         {
             easeif = false;
-            Centre = centre; ;
+            Centre = centre;
             Scale = scale;
         }
         int index = 0;
@@ -310,10 +300,10 @@ namespace Extends
 
         public void GetCollide(Player.Heart heart)
         {
-            bool result = Collide(heart.Centre);
-            if (colorType == 0 && result) LoseHP(heart);
-            else if (colorType == 1 && heart.IsMoved && result) LoseHP(heart);
-            else if (colorType == 2 && !heart.IsMoved && result) LoseHP(heart);
+            if (!Collide(heart.Centre)) return;
+            if (colorType == 0) LoseHP(heart);
+            else if (colorType == 1 && heart.IsMoved) LoseHP(heart);
+            else if (colorType == 2 && !heart.IsMoved) LoseHP(heart);
         }
 
         public override void Update()
@@ -491,8 +481,7 @@ namespace Extends
     public class FakeArrow : Entity
     {
         float duration;
-        public float scale;
-        public float depth = 0.75f;
+        public float scale, depth = 0.75f;
         public FakeArrow(int color, int rotatingType, int breakType, Vector2 center, float duration, float scale, float rotation)
         {
             Image = Sprites.arrow[color, rotatingType, breakType];
@@ -508,11 +497,7 @@ namespace Extends
             FormalDraw(Image, Centre, Color.White, scale, Rotation / 180 * MathF.PI, ImageCentre);
         }
 
-        public override void Update()
-        {
-            timer++;
-            if (timer >= duration) Dispose();
-        }
+        public override void Update() { if (timer++ >= duration) Dispose(); }
         public void ChangeType(int color, int rotatingType, int breakType)
         {
             Image = Sprites.arrow[color, rotatingType, breakType];
@@ -749,23 +734,10 @@ namespace Extends
 
         public class DownBonesea : Entity
         {
-            public float duration = 0;
-            public float quantity = 0;
-            public float distance = 0;
-            public float length = 0;
-            public float speed = 0;
+            public float duration = 0, quantity = 0, distance = 0, length = 0, speed = 0;
             public int colortype = 0;
             public bool way = true;
-            public DownBonesea(float quantity, float distance, float length, bool way, float speed, float duration)
-            {
-                this.duration = duration;
-                this.quantity = quantity;
-                this.distance = distance;
-                this.length = length;
-                this.speed = speed;
-                this.way = way;
-            }
-            public DownBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype)
+            public DownBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype = 0)
             {
                 this.duration = duration;
                 this.quantity = quantity;
@@ -775,61 +747,32 @@ namespace Extends
                 this.way = way;
                 this.colortype = colortype;
             }
-            public override void Draw()
-            {
-
-            }
+            public override void Draw() { }
             float time = 0;
-            public bool marcksore;
+            public bool markscore;
             private int appearTime;
             public string[] tags = { "noany" };
             public override void Update()
             {
-                appearTime += 1;
+                appearTime++;
                 if (appearTime == 1)
                 {
-                    if (way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            DownBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-                        }
-                    if (!way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            DownBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-
-                        }
+                    for (int a = 0; a < quantity; a++)
+                    {
+                        float b = a * distance * speed;
+                        DownBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
+                        CreateBone(bone1);
+                    }
                 }
-                if (time >= duration)
-                {
-                    Dispose();
-                }
-                time++;
+                if (time++ >= duration) Dispose();
             }
         }
         public class UpBonesea : Entity
         {
-            public float duration = 0;
-            public float quantity = 0;
-            public float distance = 0;
-            public float length = 0;
-            public float speed = 0;
+            public float duration = 0, quantity = 0, distance = 0, length = 0, speed = 0;
             public int colortype = 0;
             public bool way = true;
-            public UpBonesea(float quantity, float distance, float length, bool way, float speed, float duration)
-            {
-                this.duration = duration;
-                this.quantity = quantity;
-                this.distance = distance;
-                this.length = length;
-                this.speed = speed;
-                this.way = way;
-            }
-            public UpBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype)
+            public UpBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype = 0)
             {
                 this.duration = duration;
                 this.quantity = quantity;
@@ -839,61 +782,32 @@ namespace Extends
                 this.way = way;
                 this.colortype = colortype;
             }
-            public override void Draw()
-            {
-
-            }
+            public override void Draw() { }
             int appearTime;
             float time = 0;
-            public bool marcksore;
+            public bool markscore;
             public string[] tags = { "noany" };
             public override void Update()
             {
-                appearTime += 1;
+                appearTime++;
                 if (appearTime == 1)
                 {
-                    if (way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            UpBone bone1 = new(false, BoxStates.Left - b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-                        }
-                    if (!way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            UpBone bone1 = new(true, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-
-                        }
+                    for (int a = 0; a < quantity; a++)
+                    {
+                        float b = a * distance * speed;
+                        UpBone bone1 = new(!way, way ? BoxStates.Left - b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
+                        CreateBone(bone1);
+                    }
                 }
-                if (time >= duration)
-                {
-                    Dispose();
-                }
-                time++;
+                if (time++ >= duration) Dispose();
             }
         }
         public class LeftBonesea : Entity
         {
-            public float duration = 0;
-            public float quantity = 0;
-            public float distance = 0;
-            public float length = 0;
-            public float speed = 0;
+            public float duration = 0, quantity = 0, distance = 0, length = 0, speed = 0;
             public int colortype = 0;
             public bool way = true;
-            public LeftBonesea(float quantity, float distance, float length, bool way, float speed, float duration)
-            {
-                this.duration = duration;
-                this.quantity = quantity;
-                this.distance = distance;
-                this.length = length;
-                this.speed = speed;
-                this.way = way;
-            }
-            public LeftBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype)
+            public LeftBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype = 0)
             {
                 this.duration = duration;
                 this.quantity = quantity;
@@ -903,61 +817,32 @@ namespace Extends
                 this.way = way;
                 this.colortype = colortype;
             }
-            public override void Draw()
-            {
-
-            }
+            public override void Draw() { }
             int appearTime;
             float time = 0;
-            public bool marcksore;
+            public bool markscore;
             public string[] tags = { "noany" };
             public override void Update()
             {
                 appearTime++;
                 if (appearTime == 1)
                 {
-                    if (way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            LeftBone bone1 = new(true, BoxStates.Left + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-                        }
-                    if (!way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            LeftBone bone1 = new(false, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-
-                        }
+                    for (int a = 0; a < quantity; a++)
+                    {
+                        float b = a * distance * speed;
+                        LeftBone bone1 = new(way, way ? BoxStates.Left + b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
+                        CreateBone(bone1);
+                    }
                 }
-                if (time >= duration)
-                {
-                    Dispose();
-                }
-                time++;
+                if (time++ >= duration) Dispose();
             }
         }
         public class RightBonesea : Entity
         {
-            public float duration = 0;
-            public float quantity = 0;
-            public float distance = 0;
-            public float length = 0;
-            public float speed = 0;
+            public float duration = 0, quantity = 0, distance = 0, length = 0, speed = 0;
             public int colortype = 0;
             public bool way = true;
-            public RightBonesea(float quantity, float distance, float length, bool way, float speed, float duration)
-            {
-                this.duration = duration;
-                this.quantity = quantity;
-                this.distance = distance;
-                this.length = length;
-                this.speed = speed;
-                this.way = way;
-            }
-            public RightBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype)
+            public RightBonesea(float quantity, float distance, float length, bool way, float speed, float duration, int colortype = 0)
             {
                 this.duration = duration;
                 this.quantity = quantity;
@@ -967,47 +852,29 @@ namespace Extends
                 this.way = way;
                 this.colortype = colortype;
             }
-            public override void Draw()
-            {
-
-            }
+            public override void Draw() { }
             int appearTime;
             float time = 0;
-            public bool marcksore;
+            public bool markscore;
             public string[] tags = { "noany" };
             public override void Update()
             {
                 appearTime++;
                 if (appearTime == 1)
                 {
-                    if (way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            RightBone bone1 = new(true, BoxStates.Left + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-                        }
-                    if (!way)
-                        for (int a = 0; a < quantity; a++)
-                        {
-                            float b = a * distance * speed;
-                            RightBone bone1 = new(false, BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = marcksore, Tags = tags };
-                            CreateBone(bone1);
-
-                        }
+                    for (int a = 0; a < quantity; a++)
+                    {
+                        float b = a * distance * speed;
+                        RightBone bone1 = new(way, way ? BoxStates.Left + b : BoxStates.Right + b, speed, length) { ColorType = colortype, MarkScore = markscore, Tags = tags };
+                        CreateBone(bone1);
+                    }
                 }
-                if (time >= duration)
-                {
-                    Dispose();
-                }
-                time++;
+                if (time++ >= duration) Dispose();
             }
         }
         public class RotBone : Entity
         {
-            public float rotate = 0;
-            public float length = 0;
-            public float speed = 0;
+            public float rotate = 0, length = 0, speed = 0;
             public bool way = true;
             int colorType = 0;
             Color drawcolor = Color.White;
@@ -1034,33 +901,8 @@ namespace Extends
                     }
                 }
             }
-            public static Vector2 point;
-            public static Vector2 deviation;
-            public static Vector2 distance;
+            public static Vector2 point, deviation, distance;
             public int pointtype;
-            /*{
-                set
-                {
-                    switch (value)
-                    {
-                        case 0:
-                            point = new Vector2(BoxStates.Left, BoxStates.Down);
-                            break; 
-                        case 1:
-                            point = new Vector2(BoxStates.Right, BoxStates.Down);
-                            break;
-                        case 2:
-                            point = new Vector2(BoxStates.Right, BoxStates.Up);
-                            break;
-                        case 3:
-                            point = new Vector2(BoxStates.Left, BoxStates.Up);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException("rvalue", value, "The rvalue can only be 0, 1, 2 or 3");
-                    }
-                }
-            }*/
-
             public RotBone(float length, float speed, float rotate, bool way, int pointtype)
             {
                 this.rotate = rotate;
@@ -1069,64 +911,48 @@ namespace Extends
                 this.way = way;
                 this.pointtype = pointtype;
             }
-            //new Vector2(Cos(90 - rotate+90*Poin) * length / 2, -Sin(90 - rotate) * length / 2)+new Vector2(length / Tan(rotate)* Cos(rotate), length / Tan(rotate)* Sin(rotate)));
-            /*Vector2 vec = new Vector2(BoxStates.Left + length / Tan(rot) * Cos(rot), BoxStates.Down + length / Tan(rot) * Sin(rot));
-            Vector2 vec2 = new Vector2(Cos(90 - rot) * length / 2, -Sin(90 - rot) * length / 2);
-            CreateBone(new CustomBone(vec+vec2, Motions.PositionRoute.linear, rot, length)
-            {
-                PositionRouteParam = new float[] { Cos(30 - 180) * 2, Sin(30 - 180) * 2 },
-                        IsMasked = true
-                    });*/
-            public override void Draw()
-            {
-
-            }
+            public override void Draw() { }
             int appeartime = 0;
             public override void Update()
             {
                 appeartime++;
                 if (appeartime == 1)
                 {
-                    if (pointtype == 0)
-                        CreateBone(new CustomBone(
+                    switch (pointtype)
+                    {
+                        case 0:
+                            CreateBone(new CustomBone(
                             new Vector2(BoxStates.Left, BoxStates.Down)
                             + new Vector2(length / Tan(rotate) * Cos(rotate), length / Tan(rotate) * Sin(rotate))
                             + new Vector2(Cos(90 - rotate) * length / 2, -Sin(90 - rotate) * length / 2),
-                            Motions.PositionRoute.linear,
-                            rotate,
-                            length)
-                        { PositionRouteParam = new float[] { Cos(rotate - 180) * speed, Sin(rotate - 180) * speed } }
-                            );
-                    if (pointtype == 1)
-                        CreateBone(new CustomBone(
+                            Motions.PositionRoute.linear, rotate, length)
+                            { PositionRouteParam = new float[] { Cos(rotate - 180) * speed, Sin(rotate - 180) * speed } });
+                            break;
+                        case 1:
+                            CreateBone(new CustomBone(
                             new Vector2(BoxStates.Right, BoxStates.Down)
-                            + new Vector2(-length / Tan(rotate + 90) * Cos(rotate + 90), -length / Tan(rotate + 90) * Sin(rotate + 90))
-                            + new Vector2(Cos(90 - rotate + 90) * length / 2, -Sin(90 - rotate + 90) * length / 2),
-                            Motions.PositionRoute.linear,
-                            rotate + 90,
-                            length)
-                        { PositionRouteParam = new float[] { Cos(rotate - 180 + 90) * speed, Sin(rotate - 180 + 90) * speed } }
-                            );
-                    if (pointtype == 2)
-                        CreateBone(new CustomBone(
-                            new Vector2(BoxStates.Right, BoxStates.Up)
-                            + new Vector2(length / Tan(rotate + 180) * Cos(rotate + 180), length / Tan(rotate + 180) * Sin(rotate + 180))
-                            + new Vector2(Cos(90 - rotate + 180) * length / 2, -Sin(90 - rotate + 180) * length / 2),
-                            Motions.PositionRoute.linear,
-                            rotate + 180,
-                            length)
-                        { PositionRouteParam = new float[] { Cos(rotate - 180 + 180) * speed, Sin(rotate - 180 + 180) * speed } }
-                            );
-                    if (pointtype == 3)
-                        CreateBone(new CustomBone(
-                            new Vector2(BoxStates.Left, BoxStates.Up)
-                            + new Vector2(-length / Tan(rotate + 270) * Cos(rotate + 270), -length / Tan(rotate + 270) * Sin(rotate + 270))
-                            + new Vector2(Cos(90 - rotate + 270) * length / 2, -Sin(90 - rotate + 270) * length / 2),
-                            Motions.PositionRoute.linear,
-                            rotate + 270,
-                            length)
-                        { PositionRouteParam = new float[] { Cos(rotate - 180 + 270) * speed, Sin(rotate - 180 + 270) * speed } }
-                            );
+                              + new Vector2(-length / Tan(rotate + 90) * Cos(rotate + 90), -length / Tan(rotate + 90) * Sin(rotate + 90))
+                              + new Vector2(Cos(90 - rotate + 90) * length / 2, -Sin(90 - rotate + 90) * length / 2),
+                                Motions.PositionRoute.linear, rotate + 90, length)
+                            { PositionRouteParam = new float[] { Cos(rotate - 180 + 90) * speed, Sin(rotate - 180 + 90) * speed } });
+                            break;
+                        case 2:
+                            CreateBone(new CustomBone(
+                                new Vector2(BoxStates.Right, BoxStates.Up)
+                                + new Vector2(length / Tan(rotate + 180) * Cos(rotate + 180), length / Tan(rotate + 180) * Sin(rotate + 180))
+                                + new Vector2(Cos(90 - rotate + 180) * length / 2, -Sin(90 - rotate + 180) * length / 2),
+                                Motions.PositionRoute.linear, rotate + 180, length)
+                            { PositionRouteParam = new float[] { Cos(rotate - 180 + 180) * speed, Sin(rotate - 180 + 180) * speed } });
+                            break;
+                        case 3:
+                            CreateBone(new CustomBone(
+                                new Vector2(BoxStates.Left, BoxStates.Up)
+                                + new Vector2(-length / Tan(rotate + 270) * Cos(rotate + 270), -length / Tan(rotate + 270) * Sin(rotate + 270))
+                                + new Vector2(Cos(90 - rotate + 270) * length / 2, -Sin(90 - rotate + 270) * length / 2),
+                                Motions.PositionRoute.linear, rotate + 270, length)
+                            { PositionRouteParam = new float[] { Cos(rotate - 180 + 270) * speed, Sin(rotate - 180 + 270) * speed } });
+                            break;
+                    }
                 }
             }
         }
@@ -1136,9 +962,7 @@ namespace Extends
         public class LeftNote : Entity
         {
             Func<ICustomMotion, Vector2> Eases;
-            float EasesTime = 0;
-            float Delay = 0;
-            float Speed = 0;
+            float EasesTime = 0, Delay = 0, Speed = 0;
 
             public LeftNote(float delay, float speed, int color, int type, Func<ICustomMotion, Vector2> eases, float easestime)
             {
@@ -1156,8 +980,7 @@ namespace Extends
             public override void Update()
             {
                 Depth = 0.99f;
-                Timer++;
-                if (Timer == 1)
+                if (Timer++ == 1)
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Heart.Centre.X - (Delay * Speed + 42) + Offset.X, Heart.Centre.Y + Offset.Y));
@@ -1176,9 +999,7 @@ namespace Extends
         public class RightNote : Entity
         {
             Func<ICustomMotion, Vector2> Eases;
-            float EasesTime = 0;
-            float Delay = 0;
-            float Speed = 0;
+            float EasesTime = 0, Delay = 0, Speed = 0;
 
             public RightNote(float delay, float speed, int color, int type, Func<ICustomMotion, Vector2> eases, float easestime)
             {
@@ -1196,8 +1017,7 @@ namespace Extends
             public override void Update()
             {
                 Depth = 0.99f;
-                Timer++;
-                if (Timer == 1)
+                if (Timer++ == 1)
                 {
                     CentreEasing.EaseBuilder ce = new();
                     ce.Insert(0, CentreEasing.Stable(Heart.Centre.X + (Delay * Speed + 42) + Offset.X, Heart.Centre.Y + Offset.Y));
@@ -1216,51 +1036,11 @@ namespace Extends
     }
     public static class DrawingUtil
     {
-        /// <summary>
-        /// 交叉骨头的生成方法之一（角度之差均等）
-        /// </summary>
-        /// <param name="start">骨头开始的位置（废话</param>
-        /// <param name="speed">骨头向x和y方向移动的速度</param>
-        /// <param name="length">骨头长度（废话</param>
-        /// <param name="num">生成骨头的数量</param>
-        public static void CrossBone(Vector2 start, Vector2 speed, float length, float num)
+        public static void CrossBone(Vector2 start, Vector2 speed, float length, float num, int color = 0, float RotSpeed = 4)
         {
             for (int i = 0; i < num; i++)
             {
-                CreateBone(new CustomBone(new(start.X, start.Y), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
-                {
-                    PositionRouteParam = new float[] { speed.X, speed.Y },
-                    LengthRouteParam = new float[] { length, 114514 },
-                    RotationRouteParam = new float[] { 4, 180 / num * i },
-                });
-            }
-        }
-        /// <summary>
-        /// 交叉骨头的生成方法之二（角度之差均等）
-        /// </summary>
-        /// <param name="start">骨头开始的位置（废话</param>
-        /// <param name="speed">骨头向x和y方向移动的速度</param>
-        /// <param name="length">骨头长度（废话</param>
-        /// <param name="num">生成骨头的数量</param>
-        /// <param name="color">生成骨头的颜色（只能写0，1，2）</param>
-        public static void CrossBone(Vector2 start, Vector2 speed, float length, float num, int color)
-        {
-            for (int i = 0; i < num; i++)
-            {
-                CreateBone(new CustomBone(new(start.X, start.Y), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
-                {
-                    PositionRouteParam = new float[] { speed.X, speed.Y },
-                    LengthRouteParam = new float[] { length, 114514 },
-                    RotationRouteParam = new float[] { 4, 180 / num * i },
-                    ColorType = color
-                });
-            }
-        }
-        public static void CrossBone(Vector2 start, Vector2 speed, float length, float num, int color, float RotSpeed)
-        {
-            for (int i = 0; i < num; i++)
-            {
-                CreateBone(new CustomBone(new(start.X, start.Y), Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
+                CreateBone(new CustomBone(start, Motions.PositionRoute.linear, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
                 {
                     PositionRouteParam = new float[] { speed.X, speed.Y },
                     LengthRouteParam = new float[] { length, 114514 },
@@ -1272,102 +1052,67 @@ namespace Extends
         public static void LineShadow(int times, Line line)
         {
             for (int i = 0; i < times; i++)
-            {
-                int t = i;
-                line.InsertRetention(new(t * 0.5f, 0.24f - 0.24f / times * t));
-
-            }
+                line.InsertRetention(new(i / 2, 0.24f - 0.24f / times * i));
         }
         public static void LineShadow(float deep, int times, Line line)
         {
-            for (int i = 0; i < times; i++)
-            {
-                int t = i;
-                line.InsertRetention(new(t * 0.5f, deep - deep / times * t));
-            }
+            for (int i = 0; i < times; i++)line.InsertRetention(new(i / 2, deep - deep / times * i));
         }
         public static void LineShadow(float delay, float deep, int times, Line line)
         {
             for (int i = 0; i < times; i++)
-            {
-                int t = i;
-                line.InsertRetention(new(t * delay, deep - deep / times * t));
-            }
+                line.InsertRetention(new(i * delay, deep - deep / times * i));
         }
         public static void SetScreenScale(float size, float duration)
         {
-            float start = ScreenDrawing.ScreenScale;
-            float end = size;
-            float del = start - end;
-            float t = 0;
+            float start = ScreenDrawing.ScreenScale, end = size, del = start - end, t = 0;
             AddInstance(new TimeRangedEvent(0, duration, () =>
             {
-                float x = t / (duration - 1);
-                float f = 2 * x - x * x;
+                float x = t / (duration - 1), f = 2 * x - x * x;
                 ScreenDrawing.ScreenScale = start - del * f;
                 t++;
             }));
         }
         public static void MinusScreenScale(float MaxSize, float time)
         {
-            float start = ScreenDrawing.ScreenScale;
-            float end = start - MaxSize;
-            float del = start - end;
-            float t = 0;
+            float start = ScreenDrawing.ScreenScale, end = start - MaxSize, del = start - end, t = 0;
             AddInstance(new TimeRangedEvent(0, time / 2f, () =>
             {
-                float x = t / (time / 2f - 1);
-                float f = 2 * x - x * x;
+                float x = t / (time / 2f - 1), f = 2 * x - x * x;
                 ScreenDrawing.ScreenScale = start - del * f;
                 t++;
             }));
-            float t2 = 0;
-            float start2 = start - MaxSize;
-            float end2 = start;
-            float del2 = start2 - end2;
+            float t2 = 0, start2 = start - MaxSize, end2 = start, del2 = start2 - end2;
             AddInstance(new TimeRangedEvent(time / 2f, time / 2f, () =>
             {
-                float x = t2 / (time / 2f - 1);
-                float f = x * x;
+                float x = t2 / (time / 2f - 1), f = x * x;
                 ScreenDrawing.ScreenScale = start2 - del2 * f;
                 t2++;
             }));
         }
         public static void ScreenAngle(float angle, float time)
         {
-            float start = ScreenDrawing.ScreenAngle;
-            float end = angle;
-            float del = start - end;
-            float t = 0;
+            float start = ScreenDrawing.ScreenAngle, end = angle, del = start - end, t = 0;
             AddInstance(new TimeRangedEvent(0, time, () =>
             {
-                float x = t / (time - 1);
-                float f = 2 * x - x * x;
+                float x = t / (time - 1), f = 2 * x - x * x;
                 ScreenDrawing.ScreenAngle = start - del * f;
                 t++;
             }));
         }
         public static void PlusRotate(float MaxAngle, float time)
         {
-            float start = ScreenDrawing.ScreenAngle;
-            float end = start + MaxAngle;
-            float del = start - end;
-            float t = 0;
+            float start = ScreenDrawing.ScreenAngle, end = start + MaxAngle, del = start - end, t = 0;
             AddInstance(new TimeRangedEvent(0, time / 2f, () =>
             {
-                float x = t / (time / 2f);
-                float f = 2 * x - x * x;
+                float x = t / (time / 2f), f = 2 * x - x * x;
                 ScreenDrawing.ScreenAngle = start - del * f;
                 t++;
             }));
-            float t2 = 0;
-            float start2 = start + MaxAngle;
-            float end2 = start;
-            float del2 = start2 - end2;
+            float t2 = 0, start2 = start + MaxAngle, end2 = start, del2 = start2 - end2;
             AddInstance(new TimeRangedEvent(time / 2f + 1, time / 2f, () =>
             {
-                float x = t2 / (time / 2f);
-                float f = x * x;
+                float x = t2 / (time / 2f), f = x * x;
                 ScreenDrawing.ScreenAngle = start2 - del2 * f;
                 t2++;
             }));
@@ -1375,25 +1120,17 @@ namespace Extends
         public static void PlusScreenScale(float MaxSize, float time)
         {
             time = (int)time;
-            float start = ScreenDrawing.ScreenScale;
-            float end = start + MaxSize;
-            float del = start - end;
-            float t = 0;
+            float start = ScreenDrawing.ScreenScale, end = start + MaxSize, del = start - end, t = 0;
             AddInstance(new TimeRangedEvent(0, time / 2f, () =>
             {
-                float x = t / (time / 2f);
-                float f = 2 * x - x * x;
+                float x = t / (time / 2f), f = 2 * x - x * x;
                 ScreenDrawing.ScreenScale = start - del * f;
                 t++;
             }));
-            float t2 = 0;
-            float start2 = start + MaxSize;
-            float end2 = start;
-            float del2 = start2 - end2;
+            float t2 = 0, start2 = start + MaxSize, end2 = start, del2 = start2 - end2;
             AddInstance(new TimeRangedEvent(time / 2f + 1, time / 2f, () =>
             {
-                float x = t2 / (time / 2f);
-                float f = x * x;
+                float x = t2 / (time / 2f), f = x * x;
                 ScreenDrawing.ScreenScale = start2 - del2 * f;
                 t2++;
             }));
@@ -1403,11 +1140,9 @@ namespace Extends
             for (int a = 0; a < 4; a++)
             {
                 AddInstance(new TimeRangedEvent(a * 2f, 1, () =>
-                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-2f, 2f), Rand(-2f, 2f)); }
-                ));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-2f, 2f), Rand(-2f, 2f))));
                 AddInstance(new TimeRangedEvent((a + 1) * 2f, 1, () =>
-                { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
-));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0)));
             }
         }
         public static void Shock(float interval, float range)
@@ -1415,11 +1150,9 @@ namespace Extends
             for (int a = 0; a < 5; a++)
             {
                 AddInstance(new TimeRangedEvent(a * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-range, range), Rand(-range, range)); }
-                ));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-range, range), Rand(-range, range))));
                 AddInstance(new TimeRangedEvent((a + 1) * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0); }
-));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0)));
             }
         }
         public static void Shock(float interval, float range, float times)
@@ -1427,13 +1160,9 @@ namespace Extends
             for (int a = 0; a < times; a++)
             {
                 AddInstance(new TimeRangedEvent(a * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-range, range), Rand(-range, range)); }
-                ));
+                ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-range, range), Rand(-range, range))));
                 AddInstance(new TimeRangedEvent((a + 1) * interval, 1, () =>
-                {
-                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
-                }
-                ));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0)));
             }
         }
         public static void Shock(float interval, float rangeX, float rangeY, float times)
@@ -1441,30 +1170,18 @@ namespace Extends
             for (int a = 0; a < times; a++)
             {
                 AddInstance(new TimeRangedEvent(a * interval, 1, () =>
-                { ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-rangeX, rangeX), Rand(-rangeY, rangeY)); }
-                ));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(Rand(-rangeX, rangeX), Rand(-rangeY, rangeY))));
                 AddInstance(new TimeRangedEvent((a + 1) * interval, 1, () =>
-                {
-                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
-                }
-                ));
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0)));
             }
         }
         public static void Rain(float speed, float rotate, bool way)
         {
             float a = way ? -45 : 45;
             Linerotatelong rain = new(Rand(-200, 860), a, rotate + 270 + Rand(-2.5f, 2.5f), 180, Rand(0.2f, 0.4f), Rand(9, 55), Color.White)
-            {
-                width = Rand(2, 4)
-            };
-            if (Rand(1, 3) == 1)
-            {
-                CreateEntity(rain);
-            }
-            else
-            {
-                for (int b = 0; b < 2; b++) CreateEntity(rain);
-            }
+            { width = Rand(2, 4) };
+            if (Rand(1, 3) == 1) CreateEntity(rain);
+            else for (int b = 0; b < 2; b++) CreateEntity(rain);
             AddInstance(new TimeRangedEvent(0, 180, () =>
             {
                 rain.xCenter += Cos(rotate + 90) * speed;
@@ -1475,7 +1192,7 @@ namespace Extends
         {
             if (inDuration == 0)
             {
-                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(inDuration + duration + outDuration), Color.Black, 1);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(inDuration + duration + outDuration), Color.Black, 1);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(duration, outDuration + 1, () =>
                 {
@@ -1488,23 +1205,19 @@ namespace Extends
             }
             else
             {
-                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(inDuration + duration + outDuration), Color.Black, 0);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(inDuration + duration + outDuration), Color.Black, 0);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(inDuration + 1, () =>
-                {
-                    maskSquare.alpha += 1 / inDuration;
-                }));
+                    maskSquare.alpha += 1 / inDuration));
                 AddInstance(new TimeRangedEvent(inDuration + 1 + duration, outDuration + 1, () =>
-                {
-                    maskSquare.alpha -= 1 / outDuration;
-                }));
+                    maskSquare.alpha -= 1 / outDuration));
             }
         }
         public static void BetterBlackScreen(float induration, float duration, float outduration, Color color)
         {
             if (induration == 0)
             {
-                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(induration + duration + outduration), color, 1);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(induration + duration + outduration), color, 1);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(duration, outduration + 1, () =>
                 {
@@ -1518,42 +1231,31 @@ namespace Extends
             }
             else
             {
-                MaskSquare maskSquare = new(0, 0, 640, 480, (int)(induration + duration + outduration), color, 0);
+                MaskSquare maskSquare = new(-320, -240, 960, 720, (int)(induration + duration + outduration), color, 0);
                 CreateEntity(maskSquare);
                 AddInstance(new TimeRangedEvent(induration + 1, () =>
-                {
-                    maskSquare.alpha += 1 / induration;
-                }));
+                    maskSquare.alpha += 1 / induration));
                 AddInstance(new TimeRangedEvent(induration + 1 + duration, outduration + 1, () =>
-                {
-                    maskSquare.alpha -= 1 / outduration;
-                }));
+                    maskSquare.alpha -= 1 / outduration));
             }
         }
         public static void RotateWithBack(float duration, float range)
         {
             ScreenDrawing.CameraEffect.RotateTo(range, duration / 2);
             AddInstance(new InstantEvent(duration / 2 + 1, () =>
-            {
-                ScreenDrawing.CameraEffect.RotateTo(0, duration / 2 - 1);
-            }));
+                ScreenDrawing.CameraEffect.RotateTo(0, duration / 2 - 1)));
         }
         public static void RotateSymmetricBack(float duration, float range)
         {
             ScreenDrawing.CameraEffect.RotateTo(range, duration / 3);
             AddInstance(new InstantEvent(duration / 3 + 1, () =>
-            {
-                ScreenDrawing.CameraEffect.RotateTo(-range, duration / 3 - 1);
-            }));
+                ScreenDrawing.CameraEffect.RotateTo(-range, duration / 3 - 1)));
             AddInstance(new InstantEvent(duration / 3 * 2 + 1, () =>
-            {
-                ScreenDrawing.CameraEffect.RotateTo(0, duration / 3 - 1);
-            }));
+                ScreenDrawing.CameraEffect.RotateTo(0, duration / 3 - 1)));
         }
         public static void LerpGreenBox(float duration, Vector2 getto, float lerpcount)
         {
-            Vector2 c = BoxStates.Centre;
-            Vector2 h = Heart.Centre;
+            Vector2 c = BoxStates.Centre, h = Heart.Centre;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 InstantSetBox(BoxStates.Centre * (1 - lerpcount) + getto * lerpcount, 84, 84);
@@ -1563,40 +1265,21 @@ namespace Extends
         public static void LerpScreenPos(float duration, Vector2 getto, float lerpcount)
         {
             AddInstance(new TimeRangedEvent(duration, () =>
-            {
-                ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * (1 - lerpcount) + getto * lerpcount;
-            }));
+                ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * (1 - lerpcount) + getto * lerpcount ));
         }
         public static void LerpScreenScale(float duration, float getto, float lerpcount)
         {
             AddInstance(new TimeRangedEvent(duration, () =>
-            {
-                ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * (1 - lerpcount) + getto * lerpcount;
-            }));
+                ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * (1 - lerpcount) + getto * lerpcount));
         }
-        /*public static void SinGreenBox(float duration, Vector2 range)
-        {
-            float sin = 0;
-            AddInstance(new TimeRangedEvent(duration, () =>
-            {
-                sin += 1 / duration;
-                InstantSetBox(Sin(sin)*range)
-            }));
-        }*/
         public static void LerpNormalBox(float duration, Vector2 getto, float lerpcount)
         {
             AddInstance(new TimeRangedEvent(duration, () =>
-            {
-                InstantSetBox(BoxStates.Centre * (1 - lerpcount) + getto * lerpcount, BoxStates.Width, BoxStates.Height);
-            }));
+                InstantSetBox(BoxStates.Centre * (1 - lerpcount) + getto * lerpcount, BoxStates.Width, BoxStates.Height)));
         }
         public class MaskSquare : Entity
         {
-            public float duration = 0;
-            public float LeftUpX = 0;
-            public float LeftUpY = 0;
-            public float width = 0;
-            public float height = 0;
+            public float duration = 0, LeftUpX = 0, LeftUpY = 0, width = 0, height = 0;
             public Color color = Color.White;
             public MaskSquare(float LeftUpX, float LeftUpY, float width, float height, float duration, Color color, float alpha)
             {
@@ -1609,31 +1292,20 @@ namespace Extends
                 this.alpha = alpha;
                 Depth = 0.99f;
             }
-            public float alpha = 1;
-            public float time = 0;
-            public float speed = 1;
+            public float alpha = 1, time = 0, speed = 1;
             public override void Draw()
             {
                 FormalDraw(Sprites.pixUnit, new CollideRect(LeftUpX, LeftUpY, width, height).ToRectangle(), color * alpha);
                 Depth = 0.99f;
-
             }
             public override void Update()
             {
-                time++;
-                if (time == duration)
-                {
-                    Dispose();
-                }
-
+                if (time++ == duration) Dispose();
             }
         }
         public class SpecialBox : RectangleBox
         {
-            public float duration = 0;
-            public float width = 84 - 2;
-            public float height = 84 - 2;
-            public float rotate = 0;
+            public float duration = 0, width = 84 - 2, height = 84 - 2, rotate = 0;
             public SpecialBox(float duration, float rotate, Player.Heart p) : base(p)
             {
                 this.duration = duration;
@@ -1644,29 +1316,17 @@ namespace Extends
             {
                 collidingBox = Area;
             }
-            public float alpha = 1;
+            public float alpha = 1, speed = 1;
             public int time = 0;
-            public float speed = 1;
+            private float dist = MathF.Sqrt(42 * 42 * 2);
             public override void Draw()
             {
-                /*FormalDraw(Sprites.pixiv,
-                    new Vector2(Heart.Centre.X + width / 2, Heart.Centre.Y + height / 2),
-                    new CollideRect(Heart.Centre.X, Heart.Centre.Y, width, height).ToRectangle(),
-                    Color.Black,
-                    1,
-                    rotate,
-                    new Vector2(Heart.Centre.X + width/2, Heart.Centre.Y + height/2)
-                    );*/
                 for (int a = 0; a < 4; a++)
-                    DrawingLab.DrawLine(Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 45 + rotate + a * 90), Heart.Centre + MathUtil.GetVector2(MathF.Sqrt(42 * 42 * 2), 45 + rotate + 90 + a * 90), 4.2f, Color.White * 0.5f, 0.99f);
+                    DrawingLab.DrawLine(Heart.Centre + MathUtil.GetVector2(dist, 45 + rotate + a * 90), Heart.Centre + MathUtil.GetVector2(dist, 45 + rotate + 90 + a * 90), 4.2f, Color.White * 0.5f, 0.99f);
             }
             public override void Update()
             {
-                time++;
-                if (time == duration)
-                {
-                    Dispose();
-                }
+                if (time++ == duration) Dispose();
             }
 
             public override void MoveTo(object v)
@@ -1681,12 +1341,7 @@ namespace Extends
         }
         public class NormalLine : Entity
         {
-            public float duration = 0;
-            public float x1 = 0;
-            public float y1 = 0;
-            public float x2 = 0;
-            public float y2 = 0;
-            public float width = 3;
+            public float duration = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0, width = 3;
             public Color color = Color.White;
             public NormalLine(float x1, float y1, float x2, float y2, float duration, float alpha, Color color)
             {
@@ -1710,10 +1365,8 @@ namespace Extends
                 this.alpha = alpha;
                 this.color = color;
             }
-            public float alpha = 1;
             public int time = 0;
-            public float speed = 1;
-            public float depth = 0.99f;
+            public float alpha = 1, speed = 1, depth = 0.99f;
             public override void Draw()
             {
                 DrawingLab.DrawLine(new(x1, y1), new(x2, y2), width, color * alpha, depth);
@@ -1721,21 +1374,12 @@ namespace Extends
             }
             public override void Update()
             {
-                time++;
-                if (time >= duration)
-                {
-                    Dispose();
-                }
-
+                if (time++ >= duration) Dispose();
             }
         }
         public class Linerotate : Entity
         {
-            public float duration = 0;
-            public float xCenter = 0;
-            public float yCenter = 0;
-            public float rotate = 0;
-            public float width = 4;
+            public float duration = 0, xCenter = 0, yCenter = 0, rotate = 0, width = 4;
             public Color color = Color.White;
             public Linerotate(float xCenter, float yCenter, float rotate, float duration, float alpha, Color color)
             {
@@ -1747,28 +1391,20 @@ namespace Extends
                 this.color = color;
             }
             public Linerotate(float xCenter, float yCenter, float rotate, float duration, float alpha) : this(xCenter, yCenter, rotate, duration, alpha, Color.White) { }
-            public float alpha = 1;
             public int time = 0;
-            public float speed = 1;
-            public float depth = 0.2f;
+            public float alpha = 1, speed = 1, depth = 0.2f;
             public override void Draw()
             {
-                if (rotate % 180 != 0)
-                    DrawingLab.DrawLine(new(xCenter - 1f / Tan(rotate) * yCenter, 0), new(xCenter + 1f / Tan(rotate) * (480 - yCenter), 480), width, color * alpha, depth);
-                else
-                    DrawingLab.DrawLine(new(0, yCenter), new(640, yCenter), width, color * alpha, depth);
+                DrawingLab.DrawLine(
+                    (rotate % 180 != 0) ? new(xCenter - 1f / Tan(rotate) * yCenter, 0) : new(0, yCenter),
+                    (rotate % 180 != 0) ? new(xCenter + 1f / Tan(rotate) * (480 - yCenter), 480) : new(640, yCenter),
+                    width, color * alpha, depth);
                 Depth = 0.2f;
             }
 
             public override void Update()
             {
-                time++;
-                if (time >= duration)
-                {
-                    Dispose();
-                }
-
-            }
+                if (time++ >= duration) Dispose();            }
         }
         public static void CreateTagLine(Linerotate Line, string[] Tags)
         {
@@ -1797,12 +1433,7 @@ namespace Extends
         }
         public class Linerotatelong : Entity
         {
-            public float duration = 0;
-            public float xCenter = 0;
-            public float yCenter = 0;
-            public float rotate = 0;
-            public float length = 0;
-            public float width = 4;
+            public float duration = 0, xCenter = 0, yCenter = 0, rotate = 0, length = 0, width = 4;
             public Color color = Color.White;
             public Linerotatelong(float xCenter, float yCenter, float rotate, float duration, float alpha, float length, Color color)
             {
@@ -1814,41 +1445,26 @@ namespace Extends
                 this.length = length;
                 this.color = color;
             }
-            public float alpha = 1;
             public int time = 0;
-            public float speed = 1;
+            public float alpha = 1, speed = 1;
             public override void Draw()
             {
                 DrawingLab.DrawLine(
                     new Vector2(xCenter, yCenter),
-                    new Vector2(
-                        xCenter + Cos(rotate) * length,
-                        yCenter + Sin(rotate) * length),
-                        width,
-                        color * alpha,
-                        0.99f);
+                    new Vector2(xCenter + Cos(rotate) * length, yCenter + Sin(rotate) * length),
+                        width, color * alpha, 0.99f);
                 Depth = 0.99f;
             }
 
             public override void Update()
             {
-                time++;
-                if (time == duration)
-                {
-                    Dispose();
-                }
-
+                if (time++ == duration) Dispose();
             }
         }
         public class SolidPolygon : Entity
         {
             public int accuracy = 0;
-            public float duration = 0;
-            public float xCenter = 0;
-            public float yCenter = 0;
-            public float radius = 0;
-            public float rotate = 0;
-            public float rotatec = 0;
+            public float duration = 0, xCenter = 0, yCenter = 0, radius = 0, rotate = 0, rotatec = 0;
             public Color color = Color.White;
             public SolidPolygon(float xCenter, float yCenter, float radius, float duration, float alpha, float rotate, float rotatec, Color color, int accuracy)
             {
@@ -1862,44 +1478,34 @@ namespace Extends
                 this.rotate = rotate;
                 this.rotatec = rotatec;
             }
-            public float alpha = 1;
             public int time = 0;
-            public float speed = 1;
+            public float alpha = 1, speed = 1;
             public override void Draw()
             {
-
                 for (int i = 0; i < accuracy; i += 1)
                 {
                     int rotateb = accuracy * 180 - 360;
+                    float rot1 = rotateb / accuracy * i + rotatec, rot2 = rotateb / accuracy * (i + 1) + rotatec;
                     DrawingLab.DrawLine(
-                        new Vector2(xCenter + Cos(rotateb / accuracy * i + rotatec) * radius + Cos(rotate) * radius,
-                                    yCenter + Sin(rotateb / accuracy * i + rotatec) * radius + Sin(rotate) * radius),
-                        new Vector2(xCenter + Cos(rotateb / accuracy * (i + 1) + rotatec) * radius + Cos(rotate) * radius,
-                                    yCenter + Sin(rotateb / accuracy * (i + 1) + rotatec) * radius + Sin(rotate) * radius),//rotatec是绕点旋转，rotate是绕中心旋转
-                        4,
-                        color * alpha,
-                        0.99f);
+                        //rotatec是绕点旋转，rotate是绕中心旋转
+                        new Vector2(xCenter + Cos(rot1) * radius + Cos(rotate) * radius,
+                                    yCenter + Sin(rot1) * radius + Sin(rotate) * radius),
+                        new Vector2(xCenter + Cos(rot2) * radius + Cos(rotate) * radius,
+                                    yCenter + Sin(rot2) * radius + Sin(rotate) * radius),
+                        4, color * alpha, 0.99f);
                     Depth = 0.99f;
                 }
             }
 
             public override void Update()
             {
-                time++;
-                if (time == duration)
-                {
-                    Dispose();
-                }
-
+                if (time++ == duration) Dispose();
             }
         }
         public class HollowPolygon : Entity
         {
             public int accuracy = 0;
-            public float duration = 0;
-            public float xCenter = 0;
-            public float yCenter = 0;
-            public float radius = 0;
+            public float duration = 0, xCenter = 0, yCenter = 0, radius = 0;
             public Color color = Color.White;
             public HollowPolygon(float xCenter, float yCenter, float radius, float duration, float alpha, Color color, int accuracy)
             {
@@ -1911,34 +1517,27 @@ namespace Extends
                 this.accuracy = accuracy;
                 this.radius = radius;
             }
-            public float alpha = 1;
             public int time = 0;
-            public float speed = 1;
+            public float alpha = 1, speed = 1;
             public override void Draw()
             {
                 for (int i = 0; i < accuracy; i += 1)
                 {
                     int rotate = 360;
+                    float rot1 = rotate / accuracy * i, rot2 = rotate / accuracy * (i + 1);
                     DrawingLab.DrawLine(
-                        new Vector2(xCenter + Cos(rotate / accuracy * i) * radius,
-                                    yCenter + Sin(rotate / accuracy * i) * radius),
-                        new Vector2(xCenter + Cos(rotate / accuracy * (i + 1)) * radius,
-                                    yCenter + Sin(rotate / accuracy * (i + 1)) * radius),
-                        4,
-                        color * alpha,
-                        0.99f);
+                        new Vector2(xCenter + Cos(rot1) * radius,
+                                    yCenter + Sin(rot1) * radius),
+                        new Vector2(xCenter + Cos(rot2) * radius,
+                                    yCenter + Sin(rot2) * radius),
+                        4, color * alpha, 0.99f);
                     Depth = 0.99f;
                 }
             }
 
             public override void Update()
             {
-                time++;
-                if (time == duration)
-                {
-                    Dispose();
-                }
-
+                if (time++ == duration) Dispose();
             }
         }
     }
@@ -2028,18 +1627,14 @@ namespace Extends
         public static void AlphaLerp(Linerotate Line, float duration, float lerpto, float count)
         {
             AddInstance(new TimeRangedEvent(duration, () =>
-            {
-                Line.alpha = lerpto * count + Line.alpha * (1 - count);
-            }));
+                Line.alpha = lerpto * count + Line.alpha * (1 - count)));
         }
         /// <summary>
         /// 线段的Alpha-二次方,该函数为增加range的alpha
         /// </summary>
         public static void AlphaSquare(Linerotate Line, float duration, float range)
         {
-            float speed = 0;
-            float realrange = MathF.Sqrt(range);
-            float count = Line.alpha;
+            float speed = 0, realrange = MathF.Sqrt(range), count = Line.alpha;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.alpha = count + realrange * realrange * speed;
@@ -2051,9 +1646,7 @@ namespace Extends
         /// </summary>
         public static void AlphaSquareTo(Linerotate Line, float duration, float range)
         {
-            float speed = 0;
-            float realrange = Line.alpha - MathF.Sqrt(range);
-            float count = Line.alpha;
+            float speed = 0, realrange = Line.alpha - MathF.Sqrt(range), count = Line.alpha;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.alpha = count + realrange * realrange * speed;
@@ -2072,9 +1665,7 @@ namespace Extends
                 {
                     NormalLine[] L = GetAll<NormalLine>(LineTags);
                     int x = a;
-                    float speed = 0;
-                    float realrange = MathF.Sqrt(range);
-                    float count = L[x].alpha;
+                    float speed = 0, realrange = MathF.Sqrt(range), count = L[x].alpha;
                     AddInstance(new TimeRangedEvent(duration, () =>
                     {
                         L[x].alpha = count + realrange * realrange * speed;
@@ -2085,9 +1676,7 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float realrange = MathF.Sqrt(range);
-                float count = Line[x].alpha;
+                float speed = 0, realrange = MathF.Sqrt(range), count = Line[x].alpha;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].alpha = count + realrange * realrange * speed;
@@ -2104,9 +1693,7 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float realrange = Line[x].alpha - MathF.Sqrt(range);
-                float count = Line[x].alpha;
+                float speed = 0, realrange = Line[x].alpha - MathF.Sqrt(range), count = Line[x].alpha;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].alpha = count + realrange * realrange * speed;
@@ -2132,7 +1719,6 @@ namespace Extends
                     speed += 360 / frequency;
                 }));
             }
-
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
@@ -2179,9 +1765,7 @@ namespace Extends
             {
                 int x = a;
                 AddInstance(new TimeRangedEvent(duration, () =>
-                {
-                    Line[x].alpha = lerpto * count + Line[x].alpha * (1 - count);
-                }));
+                    Line[x].alpha = lerpto * count + Line[x].alpha * (1 - count)));
             }
         }
         public static void LAlphaLerp(string LineTags, float duration, float lerpto, float count)
@@ -2191,9 +1775,7 @@ namespace Extends
             {
                 int x = a;
                 AddInstance(new TimeRangedEvent(duration, () =>
-                {
-                    Line[x].alpha = lerpto * count + Line[x].alpha * (1 - count);
-                }));
+                    Line[x].alpha = lerpto * count + Line[x].alpha * (1 - count)));
             }
         }
         /// <summary>
@@ -2264,11 +1846,8 @@ namespace Extends
         /// </summary>
         public static void VecSquare(Linerotate Line, float duration, Vector2 range)
         {
-            float speed = 0;
-            float rangeX = MathF.Sqrt(range.X);
-            float rangeY = MathF.Sqrt(range.X);
-            float count = Line.xCenter;
-            float count1 = Line.yCenter;
+            float speed = 0, rangeX = MathF.Sqrt(range.X), rangeY = MathF.Sqrt(range.X),
+                count = Line.xCenter, count1 = Line.yCenter;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.xCenter = count + rangeX * rangeX * speed;
@@ -2281,11 +1860,9 @@ namespace Extends
         /// </summary>
         public static void VecSquareTo(Linerotate Line, float duration, Vector2 range)
         {
-            float speed = 0;
-            float rangeX = Line.xCenter - MathF.Sqrt(range.X);
-            float rangeY = Line.yCenter - MathF.Sqrt(range.Y);
-            float count = Line.xCenter;
-            float count1 = Line.yCenter;
+            float speed = 0,
+                rangeX = Line.xCenter - MathF.Sqrt(range.X), rangeY = Line.yCenter - MathF.Sqrt(range.Y),
+                count = Line.xCenter, count1 = Line.yCenter;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.xCenter = count + rangeX * rangeX * speed;
@@ -2331,8 +1908,7 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float addx = 0;
-                float addy = 0;
+                float addx = 0, addy = 0;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].xCenter += addx;
@@ -2348,8 +1924,7 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float addx = speed.X;
-                float addy = speed.Y;
+                float addx = speed.X, addy = speed.Y;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].xCenter += addx;
@@ -2366,11 +1941,8 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float rangeX = MathF.Sqrt(range.X);
-                float rangeY = MathF.Sqrt(range.X);
-                float count = Line[x].xCenter;
-                float count1 = Line[x].yCenter;
+                float speed = 0, rangeX = MathF.Sqrt(range.X), rangeY = MathF.Sqrt(range.X),
+                count = Line[x].xCenter, count1 = Line[x].yCenter;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].xCenter = count + rangeX * rangeX * speed;
@@ -2389,11 +1961,9 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float rangeX = Line[x].xCenter - MathF.Sqrt(range.X);
-                float rangeY = Line[x].yCenter - MathF.Sqrt(range.Y);
-                float count = Line[x].xCenter;
-                float count1 = Line[x].yCenter;
+                float speed = 0,
+                    rangeX = Line[x].xCenter - MathF.Sqrt(range.X), rangeY = Line[x].yCenter - MathF.Sqrt(range.Y),
+                count = Line[x].xCenter, count1 = Line[x].yCenter;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].xCenter = count + rangeX * rangeX * speed;
@@ -2474,18 +2044,14 @@ namespace Extends
         public static void RotLerp(Linerotate Line, float duration, float lerpto, float count)
         {
             AddInstance(new TimeRangedEvent(duration, () =>
-            {
-                Line.rotate = lerpto * count + Line.rotate * (1 - count);
-            }));
+                Line.rotate = lerpto * count + Line.rotate * (1 - count)));
         }
         /// <summary>
         /// 线段的Rotate-二次方,该函数为增加range的alpha
         /// </summary>
         public static void RotSquare(Linerotate Line, float duration, float range)
         {
-            float speed = 0;
-            float realrange = MathF.Sqrt(range);
-            float count = Line.rotate;
+            float speed = 0, realrange = MathF.Sqrt(range), count = Line.rotate;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.rotate = count + realrange * realrange * speed;
@@ -2497,9 +2063,7 @@ namespace Extends
         /// </summary>
         public static void RotSquareTo(Linerotate Line, float duration, float range)
         {
-            float speed = 0;
-            float realrange = Line.rotate - MathF.Sqrt(range);
-            float count = Line.rotate;
+            float speed = 0, realrange = Line.rotate - MathF.Sqrt(range), count = Line.rotate;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.rotate = count + realrange * realrange * speed;
@@ -2533,9 +2097,7 @@ namespace Extends
             {
                 int x = a;
                 AddInstance(new TimeRangedEvent(duration, () =>
-                {
-                    Line[x].rotate = lerpto * count + Line[x].rotate * (1 - count);
-                }));
+                    Line[x].rotate = lerpto * count + Line[x].rotate * (1 - count)));
             }
         }
         public static void LRotLerp(string LineTags, float duration, float lerpto, float count)
@@ -2545,9 +2107,7 @@ namespace Extends
             {
                 int x = a;
                 AddInstance(new TimeRangedEvent(duration, () =>
-                {
-                    Line[x].rotate = lerpto * count + Line[x].rotate * (1 - count);
-                }));
+                    Line[x].rotate = lerpto * count + Line[x].rotate * (1 - count)));
             }
         }
         /// <summary>
@@ -2559,9 +2119,7 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float realrange = MathF.Sqrt(range);
-                float count = Line[x].rotate;
+                float speed = 0, realrange = MathF.Sqrt(range), count = Line[x].rotate;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].rotate = count + realrange * realrange * speed;
@@ -2578,9 +2136,7 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float realrange = Line[x].rotate - MathF.Sqrt(range);
-                float count = Line[x].rotate;
+                float speed = 0, realrange = Line[x].rotate - MathF.Sqrt(range), count = Line[x].rotate;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].rotate = count + realrange * realrange * speed;
@@ -2650,22 +2206,16 @@ namespace Extends
         public static void ColorLerp(Linerotate Line, float duration, Color lerpto, float count)
         {
             AddInstance(new TimeRangedEvent(duration, () =>
-            {
-                Line.color = Color.Lerp(Line.color, lerpto, count);
-            }));
+                Line.color = Color.Lerp(Line.color, lerpto, count)));
         }
         /// <summary>
         /// 线段的Color-二次方,该函数为增加range的alpha
         /// </summary>
         public static void ColorSquare(Linerotate Line, float duration, Color range)
         {
-            float speed = 0;
-            float rangeR = MathF.Sqrt(range.R);
-            float rangeG = MathF.Sqrt(range.G);
-            float rangeB = MathF.Sqrt(range.G);
-            float R = Line.color.R;
-            float G = Line.color.G;
-            float B = Line.color.B;
+            float speed = 0,
+            rangeR = MathF.Sqrt(range.R), rangeG = MathF.Sqrt(range.G), rangeB = MathF.Sqrt(range.G),
+            R = Line.color.R, G = Line.color.G, B = Line.color.B;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.color.R = (byte)(int)(R + rangeR * rangeR * speed);
@@ -2679,13 +2229,9 @@ namespace Extends
         /// </summary>
         public static void ColorSquareTo(Linerotate Line, float duration, Color range)
         {
-            float speed = 0;
-            float rangeR = range.R - MathF.Sqrt(range.R);
-            float rangeG = range.G - MathF.Sqrt(range.G);
-            float rangeB = range.B - MathF.Sqrt(range.G);
-            float R = Line.color.R;
-            float G = Line.color.G;
-            float B = Line.color.B;
+            float speed = 0,
+            rangeR = range.R - MathF.Sqrt(range.R), rangeG = range.G - MathF.Sqrt(range.G), rangeB = range.B - MathF.Sqrt(range.G),
+            R = Line.color.R, G = Line.color.G, B = Line.color.B;
             AddInstance(new TimeRangedEvent(duration, () =>
             {
                 Line.color.R = (byte)(int)(R + rangeR * rangeR * speed);
@@ -2723,9 +2269,7 @@ namespace Extends
             {
                 int x = a;
                 AddInstance(new TimeRangedEvent(duration, () =>
-                {
-                    Line[x].color = Color.Lerp(Line[x].color, lerpto, count);
-                }));
+                    Line[x].color = Color.Lerp(Line[x].color, lerpto, count)));
             }
         }
         /// <summary>
@@ -2737,13 +2281,9 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float rangeR = MathF.Sqrt(range.R);
-                float rangeG = MathF.Sqrt(range.G);
-                float rangeB = MathF.Sqrt(range.G);
-                float R = Line[x].color.R;
-                float G = Line[x].color.G;
-                float B = Line[x].color.B;
+                float speed = 0,
+                rangeR = MathF.Sqrt(range.R), rangeG = MathF.Sqrt(range.G), rangeB = MathF.Sqrt(range.G),
+                R = Line[x].color.R, G = Line[x].color.G, B = Line[x].color.B;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].color.R = (byte)(int)(R + rangeR * rangeR * speed);
@@ -2762,13 +2302,9 @@ namespace Extends
             for (int a = 0; a < Line.Length; a++)
             {
                 int x = a;
-                float speed = 0;
-                float rangeR = range.R - MathF.Sqrt(range.R);
-                float rangeG = range.G - MathF.Sqrt(range.G);
-                float rangeB = range.B - MathF.Sqrt(range.G);
-                float R = Line[x].color.R;
-                float G = Line[x].color.G;
-                float B = Line[x].color.B;
+                float speed = 0,
+                rangeR = range.R - MathF.Sqrt(range.R), rangeG = range.G - MathF.Sqrt(range.G), rangeB = range.B - MathF.Sqrt(range.G),
+                R = Line[x].color.R, G = Line[x].color.G, B = Line[x].color.B;
                 AddInstance(new TimeRangedEvent(duration, () =>
                 {
                     Line[x].color.R = (byte)(int)(R + rangeR * rangeR * speed);
@@ -2784,29 +2320,17 @@ namespace Extends
         public static void LineShadow(int times, Line line)
         {
             for (int i = 0; i < times; i++)
-            {
-                int t = i;
-                line.InsertRetention(new(t * 0.5f, 0.24f - 0.24f / times * t));
-
-            }
+                line.InsertRetention(new(i / 2, 0.24f - 0.24f / times * i));
         }
         public static void LineShadow(float deep, int times, Line line)
         {
             for (int i = 0; i < times; i++)
-            {
-                int t = i;
-                line.InsertRetention(new(t * 0.5f, deep - deep / times * t));
-
-            }
+                line.InsertRetention(new(i / 2, deep - deep / times * i));
         }
         public static void LineShadow(float delay, float deep, int times, Line line)
         {
             for (int i = 0; i < times; i++)
-            {
-                int t = i;
-                line.InsertRetention(new(t * delay, deep - deep / times * t));
-
-            }
+                line.InsertRetention(new(i * delay, deep - deep / times * i));
         }
         public static void SetOffset(Arrow arrow, float offset)
         {

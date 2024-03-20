@@ -23,8 +23,8 @@ namespace UndyneFight_Ex
 
             float trueX, trueY;
             if (size.X >= size.Y * Aspect) { trueX = size.Y * Aspect; trueY = size.Y; }
-            else { trueY = size.X /Aspect; trueX = size.X; }
-            screenDistance = Sqrt(trueX * trueX + trueY * trueY) / 2;
+            else { trueY = size.X / Aspect; trueX = size.X; }
+            screenDistance = Sqrt((trueX * trueX) + (trueY * trueY)) / 2;
             basicAngle = Atan2(-trueX, -trueY);
 
             Vector4 extending = GameStates.CurrentScene.CurrentDrawingSettings.Extending;
@@ -32,11 +32,11 @@ namespace UndyneFight_Ex
             float f = CurrentDrawingSettings.screenAngle + quarterAngle;
             float true_angle = basicAngle + f;
             float true_scale = Min(size.X / defaultSize.X, size.Y / defaultSize.Y) * CurrentDrawingSettings.screenScale;
-            float x = (float)(screenDistance * -Cos(true_angle) * CurrentDrawingSettings.screenScale) + (CurrentDrawingSettings.screenDelta.X + GameStates.CurrentScene.CurrentDrawingSettings.shakings.X) * true_scale + trueX / 2;
-            float y = (float)(screenDistance * Sin(true_angle) * CurrentDrawingSettings.screenScale) + (CurrentDrawingSettings.screenDelta.Y + GameStates.CurrentScene.CurrentDrawingSettings.shakings.Y) * true_scale + trueY / 2 + extending.W * trueY;
+            float x = (float)(screenDistance * -Cos(true_angle) * CurrentDrawingSettings.screenScale) + ((CurrentDrawingSettings.screenDelta.X + GameStates.CurrentScene.CurrentDrawingSettings.shakings.X) * true_scale) + (trueX / 2);
+            float y = (float)(screenDistance * Sin(true_angle) * CurrentDrawingSettings.screenScale) + ((CurrentDrawingSettings.screenDelta.Y + GameStates.CurrentScene.CurrentDrawingSettings.shakings.Y) * true_scale) + (trueY / 2) + (extending.W * trueY);
             matrix = new Matrix
                 (Sin(f) * true_scale, Cos(f) * true_scale, 0f, 0f,
-                0 - Cos(f) * true_scale, Sin(f) * true_scale, 0f, 0f,
+                0 - (Cos(f) * true_scale), Sin(f) * true_scale, 0f, 0f,
                 0f, 0f, 1f, 0f,
                 x, y, 0f, 1f);
             #endregion

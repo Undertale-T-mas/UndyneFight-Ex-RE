@@ -1,16 +1,15 @@
-﻿using Extends;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.SongSystem;
 using static Extends.DrawingUtil;
+using static UndyneFight_Ex.DrawingLab;
+using static UndyneFight_Ex.Entities.EasingUtil;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.DrawingLab;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Entities.EasingUtil;
-using System;
 
 namespace Rhythm_Recall.Waves
 {
@@ -637,7 +636,7 @@ namespace Rhythm_Recall.Waves
             {
                 ScreenDrawing.ScreenAngle = (float)Math.Pow(0.85f, Gametime - BeatTime(134)) * 90;
             }
-            if(InBeat(134))
+            if (InBeat(134))
             {
                 ScreenDrawing.BoxBackColor = Color.White;
                 ScreenDrawing.BackGroundColor = Color.White;
@@ -663,7 +662,7 @@ namespace Rhythm_Recall.Waves
                 float posX = (Gametime - BeatTime(138.4f)) * 0.2f;
                 float posY = Sin(Gametime / BeatTime(16) * 360) * 15;
                 SetBox(400 - posX, 640 - posX, 150 + posY, 270 + posY);
-                CreateEntity(new Particle(Color.White * Rand(0.3f, 0.9f), new Vector2(0, 0), 3, new Vector2(Rand(0, 640), Rand(0, 480))) { Depth = 2 });
+                CreateEntity(new Particle(Color.White * Rand(0.3f, 0.9f), new Vector2(0), 3, new Vector2(Rand(0, 640), Rand(0, 480))) { Depth = 2 });
             }
             if (InBeat(138.4f, 138 + 128 - 16) && At0thBeat(8))
             {
@@ -716,7 +715,7 @@ namespace Rhythm_Recall.Waves
                 CreateBone(new DownBone(true, 2f, 55) { ColorType = 1 });
                 CreateBone(new DownBone(false, 4f, 55) { ColorType = 2 });
             }
-            if (InBeat(266, 394 - 4) && At0thBeat(3.8f))
+            if (InBeat(266, 394 - 8) && At0thBeat(4f))
             {
                 PlaySound(Sounds.pierce);
                 ScreenDrawing.CameraEffect.Convulse(10, BeatTime(2.9f), At0thBeat(7.6f));

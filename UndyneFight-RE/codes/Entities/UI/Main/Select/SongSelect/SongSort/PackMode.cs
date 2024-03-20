@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System; 
 using UndyneFight_Ex.SongSystem;
 
 namespace UndyneFight_Ex.Remake.UI

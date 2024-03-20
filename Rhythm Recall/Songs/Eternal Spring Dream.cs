@@ -5,12 +5,12 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
 using UndyneFight_Ex.SongSystem;
+using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.FightResources.Sprites;
 using static UndyneFight_Ex.FightResources.Sounds;
+using static UndyneFight_Ex.FightResources.Sprites;
 using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.MathUtil;
-using static UndyneFight_Ex.Fight.AdvanceFunctions;
 
 namespace Rhythm_Recall.Waves
 {
@@ -1590,14 +1590,16 @@ namespace Rhythm_Recall.Waves
                 {
                     LengthRouteParam = new float[] { 300, BeatTime(120 - 4) },
                     RotationRouteParam = new float[] { 1.5f, 0 },
-                    ColorType = 1
+                    ColorType = 1,
+                    Tags = new string[] { "a" }
                 });
                 CreateBone(new CustomBone(new Vector2(320, 240), Motions.PositionRoute.stableValue, Motions.LengthRoute.autoFold, Motions.RotationRoute.linear)
                 {
                     LengthRouteParam = new float[] { 300, BeatTime(120 - 4) },
                     RotationRouteParam = new float[] { 1.5f, 0 },
                     ColorType = 2,
-                    RotationDelta = 90
+                    RotationDelta = 90,
+                    Tags = new string[] { "a" }
                 });
             }
             if (InBeat(1152 + 2, 1280 - 10 - 16) && AtKthBeat(32, BeatTime(8)))
@@ -1618,7 +1620,13 @@ namespace Rhythm_Recall.Waves
                         }
                     }
             }
-
+            if (InBeat(1280 - 6, 1280))
+            {
+                foreach (Bone b in GetAll<CustomBone>("a"))
+                {
+                    b.Alpha -= 0.01f;
+                }
+            }
             if (InBeat(1280 - 4))
             {
                 for (int i = 1; i <= 3; i++)

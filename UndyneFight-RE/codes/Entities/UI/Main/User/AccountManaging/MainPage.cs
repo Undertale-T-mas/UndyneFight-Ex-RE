@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Input;
-using System.Net.Sockets;
-using UndyneFight_Ex.SongSystem;
-using System.ComponentModel.Design.Serialization;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Fight;
-using UndyneFight_Ex.IO;
 using UndyneFight_Ex.UserService;
-using UndyneFight_Ex.Remake.Texts;
 using static UndyneFight_Ex.UserService.RatingCalculater.RatingList;
 using static UndyneFight_Ex.FightResources.Font;
 using static UndyneFight_Ex.GameStates;
@@ -33,6 +20,7 @@ namespace UndyneFight_Ex.Remake.UI
 
         User AccountData;
         SingleSong[] data = new SingleSong[9];
+        int datacount=0;
         RatingCalculater.RatingList list;
         public AccountManager()
         {
@@ -56,6 +44,8 @@ namespace UndyneFight_Ex.Remake.UI
                 if (list.StrictDonors.Count == 0) break;
                 data[i] = list.StrictDonors.Max;
                 list.StrictDonors.Remove(list.StrictDonors.Max);
+                datacount=i;
+                
             }
         }
         Color[] vertexColors;
@@ -154,7 +144,7 @@ namespace UndyneFight_Ex.Remake.UI
 
             Color TextColor;
             string RatingText, DifficultyText, SongName;
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i <= datacount; i++)
             {
                 TextColor = i switch
                 {

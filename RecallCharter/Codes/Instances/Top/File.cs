@@ -70,14 +70,14 @@ namespace RecallCharter
                 window.Attach();
                 window.AddChild(new Label()
                 {
-                    CollidingBox = new(new Vector2(14, 41), new Vector2(0, 0)),
+                    CollidingBox = new(new Vector2(14, 41), new Vector2(0)),
                     Text = "文件夹名",
                     Depth = 0.51f,
                     FontColor = Color.White
                 }); 
                 window.AddChild(new Label()
                 {
-                    CollidingBox = new(new Vector2(9, 94), new Vector2(0, 0)),
+                    CollidingBox = new(new Vector2(9, 94), new Vector2(0)),
                     Text = "创建新谱面后，将音乐自行\n放入该文件夹中",
                     Depth = 0.51f,
                     Scale = 0.9f,
@@ -119,7 +119,7 @@ namespace RecallCharter
             this.Depth = 0.1f;
             this.Text = "文件";
             this.MouseOnColor = Color.Gray;
-            this.collidingBox = new(new Vector2(0, 0), new Vector2(90, 42));
+            this.collidingBox = new(new Vector2(0), new Vector2(90, 42));
         } 
     }
 }

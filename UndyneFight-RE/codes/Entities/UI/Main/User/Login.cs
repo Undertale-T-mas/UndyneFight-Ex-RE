@@ -89,7 +89,7 @@ namespace UndyneFight_Ex.Remake.UI
             private void DoBack()
             {
                 this._virtualFather.FatherObject.Dispose();
-                InstanceCreate(new DEBUG.IntroUI());
+                InstanceCreate(new IntroUI());
             }
 
             private void DoConfirm()
@@ -109,8 +109,8 @@ namespace UndyneFight_Ex.Remake.UI
                     SaveGlobal();
                     this.FatherObject?.FatherObject?.Dispose();
                     Login(_account.Result);
-                    DEBUG.IntroUI introUI;
-                    InstanceCreate(introUI = new DEBUG.IntroUI());
+                    IntroUI introUI;
+                    InstanceCreate(introUI = new IntroUI());
                     SendLoginRequest();
                 }
                 else
@@ -209,6 +209,10 @@ namespace UndyneFight_Ex.Remake.UI
                 if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
                     currentFocus?.ConfirmKeyDown();
+                }
+                if (IsKeyPressed120f(InputIdentity.Cancel))
+                {
+                    DoBack();
                 }
             }
 

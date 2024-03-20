@@ -123,6 +123,8 @@ Alternate: Space";
 
             #region Test Charts
             SongSet test = new("Test");
+            test.Push(typeof(JinseiRE));
+            test.Push(typeof(Determination));
             test.Push(typeof(AprilExtends.BocchiTheRock));
             test.Push(typeof(AFleetingOath));
             test.Push(typeof(AprilExtends.Stasis));
@@ -159,15 +161,14 @@ Alternate: Space";
 #endif
             GameStartUp.SetMainSongs(new List<Type>() {
 #if DEBUG
-                typeof(狂风_余音),
                 typeof(UselessThreshold),
                 typeof(Prospector),
                 typeof(Shadow),
                 typeof(DreamTravel),
-                typeof(_1111),
                 typeof(LunaticGaze),
                 typeof(NCWLQ),
 #endif
+                typeof(RetracingBeneath),
                 typeof(Song_That_Might_Play_When_You_Fight_Sans),
                 typeof(DreadNaught),
                 typeof(Conflict),

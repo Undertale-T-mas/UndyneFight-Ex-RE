@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Entities.Advanced;
 using static UndyneFight_Ex.Fight.Functions;
 
 namespace UndyneFight_Ex.SongSystem
@@ -60,7 +58,7 @@ namespace UndyneFight_Ex.SongSystem
     {
         IWaveSet GameContent { get; }
         Dictionary<string, Difficulty> DifficultyPanel { get; }
-    } 
+    }
 
     /// <summary>
     /// 曲目模板
@@ -74,9 +72,8 @@ namespace UndyneFight_Ex.SongSystem
         /// <param name="beatTime">一个节拍占据的帧数</param>
         public WaveConstructor(float beatTime)
         {
-            _singleBeat = beatTime;
-            SingleBeat = beatTime;
-            DelayEnabled = true; 
+            SingleBeat = _singleBeat = beatTime;
+            DelayEnabled = true;
         }
         /// <summary>
         /// 一个节拍占据的帧数
@@ -334,7 +331,7 @@ namespace UndyneFight_Ex.SongSystem
             {
                 return null;
             }
-            if(string.IsNullOrWhiteSpace(origin)) { return null; }
+            if (string.IsNullOrWhiteSpace(origin)) { return null; }
             string originCopy = origin;
             string[] entityTags = ProduceTag(ref origin);
             bool isFunction = false;
@@ -387,7 +384,7 @@ namespace UndyneFight_Ex.SongSystem
             {
                 arrowAttribute |= ArrowAttribute.Tap;
                 curSpecialI++;
-                if (this.Settings.GreenTap)
+                if (Settings.GreenTap)
                 {
                     arrowAttribute |= ArrowAttribute.ForceGreen;
                 }
@@ -464,7 +461,7 @@ namespace UndyneFight_Ex.SongSystem
                     arr.Tags = entityTags;
                 if (arr.RotateType == -1)
                     ;
-                if (isvoid) arr.VolumeFactor *= this.Settings.VoidArrowVolume;
+                if (isvoid) arr.VolumeFactor *= Settings.VoidArrowVolume;
                 LastArrow = arr;
 
                 if (ArrowProcesser != null) ArrowProcesser(arr);
@@ -504,17 +501,17 @@ namespace UndyneFight_Ex.SongSystem
             {
                 isFunction = true;
                 if (args != "")
-                { 
+                {
                     string[] argStrings = args.Split(',');
                     float[] argsFloat = new float[argStrings.Length];
-                    for(int i = 0; i < argsFloat.Length; i++) argsFloat[i] = MathUtil.FloatFromString(argStrings[i]);
+                    for (int i = 0; i < argsFloat.Length; i++) argsFloat[i] = MathUtil.FloatFromString(argStrings[i]);
 
                     if (delayMode)
                     {
                         Action action = chartingActions[origin];
                         GameObject[] list = { new InstantEvent(delay, () => {
                             Arguments = argsFloat;
-                            action.Invoke(); 
+                            action.Invoke();
                         }) };
                         return list;
                     }
@@ -636,7 +633,7 @@ namespace UndyneFight_Ex.SongSystem
         public static bool DelayEnabled { private get; set; } = true;
 
         public static float[] Temps { get; private set; } = new float[100];
-        public static float[] Arguments { get; private set; } 
+        public static float[] Arguments { get; private set; }
         /// <summary>
         /// 便携的谱面创建，"" 或者 "/" 是空拍，用法如下（神他妈复杂）（打*为可有可无）<br/>
         /// 箭头：<br/>
@@ -648,12 +645,12 @@ namespace UndyneFight_Ex.SongSystem
         /// 组合：(R)(+0)才是两个叠在一起，R(+0)会无效<br/>
         /// GB：#xx#yz<br/>
         /// #xx#表示停留节拍，y表示方向（用法和箭头相同），z表示颜色<br/>
-        /// 使用 'x 重置arrowspeed; 使用 << >> 调节 节拍时间</x><br/>
+        /// 使用 'x 重置arrowspeed; 使用 >> 调节 节拍时间<br/>
         /// 事件用RegisterFunction()或RegisterFunctionOnce()然后放进字符里面<br/>
         /// 比如RegisterFunctionOnce("func", ()=> {});<br/>
         /// "(func)(R)"，即会发动事件和做一根随机蓝矛<br/>
         /// "!!X*/Y"，即会在接下来的Y拍切成8 * X 分音符<br/>
-        /// 事件还可以在前面加上"<参数,参数...>"的形式自定义参数，在写谱的时候可以加入</x><br/>
+        /// 事件还可以在前面加上"参数,参数..."的形式自定义参数，在写谱的时候可以加入<br/>
         /// 在事件里使用Arguments[x]参数，就同等于自定义参数，顺序为0123..如果使用了Arguments而不填会报错
         /// </summary>
         /// <param name="Delay">延迟时间，一般用来让箭头不闪现入场</param>

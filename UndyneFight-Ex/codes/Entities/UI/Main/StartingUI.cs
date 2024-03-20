@@ -239,7 +239,7 @@ namespace UndyneFight_Ex.Entities
 
                 public override void Update()
                 {
-                    Depth = 0.6f - showingScale * 0.3f - (enabled ? 0.1f : 0);
+                    Depth = 0.6f - (showingScale * 0.3f) - (enabled ? 0.1f : 0);
                     if (!enabled) showingScale *= 0.85f;
                 }
             }
@@ -247,7 +247,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            DrawingLab.DrawRectangle(new CollideRect(new Vector2(320 - 145 / 2f, 304 - 145 / 2f), new(145, 145)), Color.White, 3, 0.9f);
+            DrawingLab.DrawRectangle(new CollideRect(new Vector2(320 - (145 / 2f), 304 - (145 / 2f)), new(145, 145)), Color.White, 3, 0.9f);
             base.Draw();
         }
 

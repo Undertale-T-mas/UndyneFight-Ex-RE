@@ -1,7 +1,5 @@
-﻿using System;
-
-namespace UndyneFight_Ex.Remake.Network
-{ 
+﻿namespace UndyneFight_Ex.Remake.Network
+{
     public interface IMessageResult
     {
         public void Analysis(string message);   

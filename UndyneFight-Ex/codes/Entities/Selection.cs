@@ -256,10 +256,10 @@ namespace UndyneFight_Ex.Entities
 
             public override void Update()
             {
-                collidingBox.Y -= 0.1f + alpha * 0.4f;
+                collidingBox.Y -= 0.1f + (alpha * 0.4f);
                 alpha *= 0.9f;
                 alpha -= 0.03f;
-                size += ((2 - alpha) / 40f + 0.04f) / 1.6f;
+                size += (((2 - alpha) / 40f) + 0.04f) / 1.6f;
                 if (alpha < 0) Dispose();
             }
         }
@@ -335,8 +335,8 @@ namespace UndyneFight_Ex.Entities
             if (alpha < 1f) alpha += 0.025f;
             else alpha = 1f;
             currentSize = isSelected
-                ? currentSize * (1 - sizeChangeSpeed) + maxSize * sizeChangeSpeed
-                : currentSize * (1 - sizeChangeSpeed) + sizeChangeSpeed;
+                ? (currentSize * (1 - sizeChangeSpeed)) + (maxSize * sizeChangeSpeed)
+                : (currentSize * (1 - sizeChangeSpeed)) + sizeChangeSpeed;
         }
 
         public virtual void SelectionEvent()

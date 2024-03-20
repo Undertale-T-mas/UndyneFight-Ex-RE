@@ -23,7 +23,7 @@ namespace UndyneFight_Ex.Fight
                 if (item == FightStates.items[0])
                 {
                     appearTime++;
-                    positionDelta = positionDelta * 0.8f + deltaMission * 0.2f;
+                    positionDelta = (positionDelta * 0.8f) + (deltaMission * 0.2f);
                 }
                 if (IsCollide && appearTime >= 10) CalculateDelta();
                 Delta = positionDelta;

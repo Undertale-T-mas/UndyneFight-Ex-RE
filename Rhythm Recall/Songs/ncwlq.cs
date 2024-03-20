@@ -1,19 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using UndyneFight_Ex;
-using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Entities.Advanced;
-using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
-using UndyneFight_Ex.Fight;
-using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.Functions;
-using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-using static UndyneFight_Ex.FightResources;
-using static UndyneFight_Ex.MathUtil;
-using vec2 = Microsoft.Xna.Framework.Vector2;
-using col = Microsoft.Xna.Framework.Color;
 
 namespace Rhythm_Recall.Waves
 {
@@ -62,7 +51,8 @@ namespace Rhythm_Recall.Waves
                 }
             );
         }
-        public void Start() {
+        public void Start()
+        {
             GametimeDelta = -BeatTime(4 - 0.25f) + 5.35f;
             SetGreenBox();
             TP();
@@ -72,8 +62,8 @@ namespace Rhythm_Recall.Waves
             bool jump = false;
             if (jump)
             {
-                float beat; 
-                beat = 63; 
+                float beat;
+                beat = 63;
                 GametimeDelta += BeatTime(beat);
 
                 PlayOffset = BeatTime(beat);
@@ -108,13 +98,15 @@ namespace Rhythm_Recall.Waves
 
         private void EXIntro2()
         {
-            RegisterFunctionOnce("setR", () => {
+            RegisterFunctionOnce("setR", () =>
+            {
                 SetSoul(0);
                 SetBox(300, 660, 140);
                 TP(50, 300);
                 DelayBeat(0.25f, () => TP(50, 300));
                 DelayBeat(0.5f, () => TP(50, 300));
-                DelayBeat(0.75f, () => {
+                DelayBeat(0.75f, () =>
+                {
                     SetSoul(2);
                     HeartAttribute.Gravity = 0.0f;
                     Heart.GiveForce(270, 0.6f);
@@ -125,25 +117,25 @@ namespace Rhythm_Recall.Waves
                     // pre
                     "", "", "", "",    "setR", "", "", "",
 
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",   
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
 
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",   
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
 
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",   
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
 
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
-                    "", "", "", "",    "", "", "", "",    
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
+                    "", "", "", "",    "", "", "", "",
             });
         }
         private void EXIntro1()
@@ -171,13 +163,14 @@ namespace Rhythm_Recall.Waves
                     "d1", "", "d1", "",    "d1", "", "d1", "",
                     "d1", "", "d1", "",    "d1", "", "d1", "",
                     "d1", "", "d1", "",    "d1", "", "d1", "",
-                    "d1", "", "d1", "",    
+                    "d1", "", "d1", "",
 
             });
         }
         private void EXIntro3()
         {
-            RegisterFunctionOnce("setG", () => {
+            RegisterFunctionOnce("setG", () =>
+            {
                 TP();
                 SetGreenBox();
                 TP();
@@ -207,7 +200,7 @@ namespace Rhythm_Recall.Waves
                     "d1", "", "d1", "",    "d1", "", "d1", "",
                     "d1", "", "d1", "",    "d1", "", "d1", "",
                     "d1", "", "d1", "",    "d1", "", "d1", "",
-                    "d1", "", "d1", "",    "d1", "",  
+                    "d1", "", "d1", "",    "d1", "",
             });
         }
 

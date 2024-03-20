@@ -14,9 +14,7 @@ namespace Rhythm_Recall.Waves
         Dictionary<string, Difficulty> dif = new();
         public Song_That_Might_Play_When_You_Fight_Sans()
         {
-            dif.Add("Div.4", Difficulty.Noob);
-            dif.Add("Div.3", Difficulty.Easy);
-            dif.Add("Div.2", Difficulty.Normal);
+            dif.Add("Div.2", Difficulty.Easy);
             dif.Add("Div.1", Difficulty.Hard);
         }
         public IWaveSet GameContent => new Project();
@@ -24,7 +22,7 @@ namespace Rhythm_Recall.Waves
         class Project : WaveConstructor, IWaveSet
         {
             public Project() : base(62.5f / (120f / 60f)) { }
-           
+
             public string Music => "Song That Might Play When You Fight Sans";
             public string FightName => "Song That Might Play When You Fight Sans";
             public SongInformation Attributes => new Information();
@@ -37,27 +35,21 @@ namespace Rhythm_Recall.Waves
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Hard, 14f),
-                        new(Difficulty.Normal, 14f),
                         new(Difficulty.Easy, 6f),
-                        new(Difficulty.Noob, 6f),
                     }
                 );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Hard, 14.5f),
-                        new(Difficulty.Normal, 12f),
                         new(Difficulty.Easy, 7f),
-                        new(Difficulty.Noob, 5f),
                     }
                 );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                     new KeyValuePair<Difficulty, float>[]
                     {
                         new(Difficulty.Hard, 16.5f),
-                        new(Difficulty.Normal, 14f),
                         new(Difficulty.Easy, 10f),
-                        new(Difficulty.Noob, 6f),
                     }
                     );
                 public Information() { this.MusicOptimized = true; }
@@ -87,7 +79,7 @@ namespace Rhythm_Recall.Waves
                     PlayOffset = T(beat);
                     ScreenDrawing.ScreenAngle = 0;
                     InstantSetBox(240, 84, 84);
-                   
+
                 }
             }
             public void Easy()
@@ -1265,16 +1257,16 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("B1", () =>
                     {
-                        CreateBone(new DownBone(true, 4, 45) { ColorType=1});
+                        CreateBone(new DownBone(true, 4, 45) { ColorType = 1 });
                         CreateBone(new UpBone(false, 4, 45) { ColorType = 2 });
                         PlaySound(Sounds.pierce);
                     });//Bone1
                     RegisterFunctionOnce("RDB", () =>
                     {
-                        CreateBone(new UpBone(false, 7f, 27+20));
-                        CreateBone(new LeftBone(false, 7f, 27+20));
-                        CreateBone(new RightBone(true, 7f, 27-20));
-                        CreateBone(new DownBone(true, 7f, 27-20));
+                        CreateBone(new UpBone(false, 7f, 27 + 20));
+                        CreateBone(new LeftBone(false, 7f, 27 + 20));
+                        CreateBone(new RightBone(true, 7f, 27 - 20));
+                        CreateBone(new DownBone(true, 7f, 27 - 20));
                         PlaySound(Sounds.pierce);
                     });//RightDownBone
                     RegisterFunctionOnce("MB", () =>
@@ -1287,24 +1279,24 @@ namespace Rhythm_Recall.Waves
                     });//MiddleBone
                     RegisterFunctionOnce("LUB", () =>
                     {
-                        CreateBone(new UpBone(false, 7f, 27-20));
-                        CreateBone(new LeftBone(false, 7f, 27-20));
-                        CreateBone(new RightBone(true, 7f, 27+20));
-                        CreateBone(new DownBone(true, 7f, 27+20));
+                        CreateBone(new UpBone(false, 7f, 27 - 20));
+                        CreateBone(new LeftBone(false, 7f, 27 - 20));
+                        CreateBone(new RightBone(true, 7f, 27 + 20));
+                        CreateBone(new DownBone(true, 7f, 27 + 20));
                         PlaySound(Sounds.pierce);
                     });//LeftUpBone
                     RegisterFunctionOnce("CB", () =>
                     {
                         CreateBone(new CentreCircleBone(0, 3, 120, T(0.7f)));
-                        DelayBeat(0.25f, () => { CreateBone(new CentreCircleBone(T(0.25f) * 3 + 90, 3, 120, T(0.7f-0.25f)) { IsMasked=true}); PlaySound(Sounds.pierce); });
+                        DelayBeat(0.25f, () => { CreateBone(new CentreCircleBone(T(0.25f) * 3 + 90, 3, 120, T(0.7f - 0.25f)) { IsMasked = true }); PlaySound(Sounds.pierce); });
                         PlaySound(Sounds.pierce);
                     });//CentreBone
                     RegisterFunctionOnce("RGB", () =>
                     {
                         CreateGB(new NormalGB(new(320 - 50, 240 - 100), new(320 - 50, 0), new(1, 1), 90, BeatTime(1.25f), T(1.5f)));
-                        DelayBeat(0.25f, () => { CreateGB(new NormalGB(new(320 + 50, 240 - 50), new(640, 240-50), new(1, 1), 180, BeatTime(1f), T(1.5f))); });           
-                        DelayBeat(0.5f, () => {CreateGB(new NormalGB(new(320 + 50, 240 + 50), new(320 + 50, 480), new(1, 1), 270, BeatTime(0.75f), T(1.5f)));});
-                        DelayBeat(0.75f, () =>{CreateGB(new NormalGB(new(320 - 100, 240 + 50), new(0, 240+50), new(1, 1), 0, BeatTime(0.5f), T(0.25f)));});
+                        DelayBeat(0.25f, () => { CreateGB(new NormalGB(new(320 + 50, 240 - 50), new(640, 240 - 50), new(1, 1), 180, BeatTime(1f), T(1.5f))); });
+                        DelayBeat(0.5f, () => { CreateGB(new NormalGB(new(320 + 50, 240 + 50), new(320 + 50, 480), new(1, 1), 270, BeatTime(0.75f), T(1.5f))); });
+                        DelayBeat(0.75f, () => { CreateGB(new NormalGB(new(320 - 100, 240 + 50), new(0, 240 + 50), new(1, 1), 0, BeatTime(0.5f), T(0.25f))); });
                     });//ReadyGB
                     RegisterFunctionOnce("OB", () =>
                     {
@@ -1323,16 +1315,16 @@ namespace Rhythm_Recall.Waves
                         PlaySound(Sounds.Ding);
                         SetBox(320 - 42, 320 + 42, 240 - 120, 240 + 120);
                     });//BlueSoul
-                    RegisterFunctionOnce("HBU", () => 
+                    RegisterFunctionOnce("HBU", () =>
                     {
-                        CreateBone(new LeftBone(true,7, Arguments[0]));
+                        CreateBone(new LeftBone(true, 7, Arguments[0]));
                         CreateBone(new RightBone(true, 7, Arguments[0]));
                         PlaySound(Sounds.pierce);
                     });//HideBoneUp
                     RegisterFunctionOnce("HBD", () =>
                     {
                         CreateBone(new LeftBone(false, 7, Arguments[0]));
-                        CreateBone(new RightBone(false, 7, Arguments[0])); 
+                        CreateBone(new RightBone(false, 7, Arguments[0]));
                         PlaySound(Sounds.pierce);
                     });//HideBoneUp
                     RegisterFunctionOnce("BWR", () =>
@@ -1340,7 +1332,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(new Boneslab(0, 40, 0, T(0.5f)));
                         CreateEntity(new Boneslab(180, 40, 0, T(0.5f)));
                         CreateEntity(new Boneslab(90, 40, 0, T(0.5f)));
-                        CreateEntity(new Boneslab(270, 40, 0, T(0.5f)) {ColorType=2 });
+                        CreateEntity(new Boneslab(270, 40, 0, T(0.5f)) { ColorType = 2 });
                         PlaySound(Sounds.pierce);
                     });
                     RegisterFunctionOnce("BWL", () =>
@@ -1348,7 +1340,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(new Boneslab(0, 40, 0, T(0.5f)));
                         CreateEntity(new Boneslab(180, 40, 0, T(0.5f)));
                         CreateEntity(new Boneslab(90, 40, 0, T(0.5f)) { ColorType = 2 });
-                        CreateEntity(new Boneslab(270, 40, 0, T(0.5f)) );
+                        CreateEntity(new Boneslab(270, 40, 0, T(0.5f)));
                         PlaySound(Sounds.pierce);
                     });
                     RegisterFunctionOnce("Pow", () =>
@@ -1360,13 +1352,13 @@ namespace Rhythm_Recall.Waves
                     RegisterFunctionOnce("Plank", () =>
                     {
                         CreateEntity(new Boneslab(180, 30, T(1), T(4f)));
-                        var a = LinkEase(Stable(0, new V(380, 240 - 80)), 
-                            EaseOut(T(1f), new V(380, 240 - 80), new V(350 - 90, 240 - 80),EaseState.Sine),
-                            EaseOut(T(1f), new V(350 - 90, 240 - 80), new V(380, 240 - 80),EaseState.Sine),
+                        var a = LinkEase(Stable(0, new V(380, 240 - 80)),
                             EaseOut(T(1f), new V(380, 240 - 80), new V(350 - 90, 240 - 80), EaseState.Sine),
-                            EaseOut(T(1f), new V(350 - 90, 240 - 80), new V(380, 240 - 80), EaseState.Sine), 
+                            EaseOut(T(1f), new V(350 - 90, 240 - 80), new V(380, 240 - 80), EaseState.Sine),
+                            EaseOut(T(1f), new V(380, 240 - 80), new V(350 - 90, 240 - 80), EaseState.Sine),
+                            EaseOut(T(1f), new V(350 - 90, 240 - 80), new V(380, 240 - 80), EaseState.Sine),
                             EaseOut(T(1f), new V(380, 240 - 80), new V(350 - 90, 240 - 80), EaseState.Sine));
-                        CreatePlatform(new Platform(0, new V(0),a, 180, 30));
+                        CreatePlatform(new Platform(0, new V(0), a, 180, 30));
                     });
                     CreateChart(0, T(1), 6.5f, new string[]
                     {
@@ -1382,7 +1374,7 @@ namespace Rhythm_Recall.Waves
 
                         "","","","",   "<20>HBU","","<20>HBU","",
                         "<20>HBD","","","",   "<20>HBD","","<20>HBD","",
-                        "(BWR)(<-25>Drum)(<7,0.7,0>Con)","","","",   "","","(BWL)(<7,0.7,1>Con)","", 
+                        "(BWR)(<-25>Drum)(<7,0.7,0>Con)","","","",   "","","(BWL)(<7,0.7,1>Con)","",
                         "","","","",   "(BWR)(<7,0.7,0>Con)","","","",
 
                         "","","","",   "Pow","","OB1","",

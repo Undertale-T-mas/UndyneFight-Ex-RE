@@ -18,17 +18,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>False</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release2|AnyCPU'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release2|AnyCPU'">
+		<Optimize>True</Optimize>
+	</PropertyGroup>
   <ItemGroup>
     <Compile Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
+    <Compile Remove="bin\Debug\net6.0\Content\Musics\Jinsei Reset Button\**" />
     <Compile Remove="Content\bin\**" />
     <Compile Remove="Content\obj\**" />
     <EmbeddedResource Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
+    <EmbeddedResource Remove="bin\Debug\net6.0\Content\Musics\Jinsei Reset Button\**" />
     <EmbeddedResource Remove="Content\bin\**" />
     <EmbeddedResource Remove="Content\obj\**" />
     <None Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
+    <None Remove="bin\Debug\net6.0\Content\Musics\Jinsei Reset Button\**" />
     <None Remove="Content\bin\**" />
     <None Remove="Content\obj\**" />
   </ItemGroup>

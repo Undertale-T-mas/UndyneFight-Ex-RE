@@ -37,7 +37,7 @@ namespace UndyneFight_Ex
                         Vector2 center = new(320, 240);
                         Vector2 position = new(textCoordinates.X, 240 * textCoordinates.Y);
                         Vector2 usingPolar = Turnpolar(position - center);
-                        Vector2 usingPosition = Turnposition(new Vector2(usingPolar.X, MathF.Asin(usingPolar.Y / (center.Length() * Intensity)) / fBallArgument * (center.Length() * Intensity))) * 1.57f
+                        Vector2 usingPosition = (Turnposition(new Vector2(usingPolar.X, MathF.Asin(usingPolar.Y / (center.Length() * Intensity)) / fBallArgument * (center.Length() * Intensity))) * 1.57f)
                         + center;
                         Vector2 usingTextureCoord = new(usingPosition.X / 320, usingPosition.Y / 240);
                         return usingTextureCoord;

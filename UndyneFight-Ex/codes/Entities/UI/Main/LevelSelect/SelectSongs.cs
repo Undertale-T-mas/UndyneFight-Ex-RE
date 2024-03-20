@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.IO.File;
 using UndyneFight_Ex.SongSystem;
 using UndyneFight_Ex.UserService;
+using static System.IO.File;
 using static UndyneFight_Ex.ChampionShips.ChampionShip;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources.Sounds;
@@ -254,7 +254,7 @@ namespace UndyneFight_Ex.Entities
 
             public static void Move()
             {
-                currentDelta = currentDelta * 0.8f + missionDelta * 0.2f;
+                currentDelta = (currentDelta * 0.8f) + (missionDelta * 0.2f);
             }
 
             public class ShinyTextEffect : Entity
@@ -273,15 +273,15 @@ namespace UndyneFight_Ex.Entities
                 }
                 public override void Draw()
                 {
-                    FightResources.Font.NormalFont.Draw(texts, Centre - new Vector2(0, size * 14 - 14), showingColor * alpha, size, 0.9f);
+                    FightResources.Font.NormalFont.Draw(texts, Centre - new Vector2(0, (size * 14) - 14), showingColor * alpha, size, 0.9f);
                 }
 
                 public override void Update()
                 {
-                    collidingBox.Y -= 0.1f + alpha * 0.4f;
+                    collidingBox.Y -= 0.1f + (alpha * 0.4f);
                     alpha *= 0.9f;
                     alpha -= 0.03f;
-                    size += ((2 - alpha) / 40f + 0.04f) / 1.6f;
+                    size += (((2 - alpha) / 40f) + 0.04f) / 1.6f;
                     if (alpha < 0) Dispose();
                 }
             }
@@ -338,7 +338,7 @@ namespace UndyneFight_Ex.Entities
             public override void Draw()
             {
                 float size1 = currentSize * size;
-                FightResources.Font.NormalFont.Draw(texts, startLocation + currentDelta - new Vector2(0, size1 * 14 - 14), showingColor * alpha, size1, 0.9f);
+                FightResources.Font.NormalFont.Draw(texts, startLocation + currentDelta - new Vector2(0, (size1 * 14) - 14), showingColor * alpha, size1, 0.9f);
             }
 
             public void Selected()
@@ -351,8 +351,8 @@ namespace UndyneFight_Ex.Entities
                 if (alpha < 1f) alpha += 0.025f;
                 else alpha = 1f;
                 currentSize = isSelected
-                    ? currentSize * (1 - sizeChangeSpeed) + maxSize * sizeChangeSpeed
-                    : currentSize * (1 - sizeChangeSpeed) + sizeChangeSpeed;
+                    ? (currentSize * (1 - sizeChangeSpeed)) + (maxSize * sizeChangeSpeed)
+                    : (currentSize * (1 - sizeChangeSpeed)) + sizeChangeSpeed;
                 Centre = currentDelta + startLocation;
             }
 
@@ -383,8 +383,8 @@ namespace UndyneFight_Ex.Entities
             public override void Update()
             {
                 sel ??= FatherObject as SongSelector;
-                Vector2 mission = new(320, 480 * sel.currentSelect + 240);
-                Centre = Centre * 0.85f + mission * 0.15f;
+                Vector2 mission = new(320, (480 * sel.currentSelect) + 240);
+                Centre = (Centre * 0.85f) + (mission * 0.15f);
             }
         }
 
@@ -504,7 +504,7 @@ namespace UndyneFight_Ex.Entities
                         string tmp = Scene.Loader.RootDirectory;
                         Scene.Loader.RootDirectory = "";
                         BackGround v;
-                        AddChild(v = new BackGround(songImage = Scene.Loader.Load<Texture2D>($"{filePath}\\paint"), camera, new(320, 240 + y * 480)));
+                        AddChild(v = new BackGround(songImage = Scene.Loader.Load<Texture2D>($"{filePath}\\paint"), camera, new(320, 240 + (y * 480))));
                         v.Alpha = 0.3f;
                         backs.Add(v);
                         Scene.Loader.RootDirectory = tmp;
@@ -512,7 +512,7 @@ namespace UndyneFight_Ex.Entities
                     filePath += "\\song";
                 }
 
-                TextSelectionEx selection = new(name, new Vector2(100, 160 + 52 * y))
+                TextSelectionEx selection = new(name, new Vector2(100, 160 + (52 * y)))
                 {
                     SetSelectionAction = () =>
                     {
@@ -831,8 +831,8 @@ namespace UndyneFight_Ex.Entities
                 if (colorfulDraw)
                 {
                     for (int i = 0; i < 3; i++)
-                        FightResources.Font.NormalFont.CentreDraw(texts, Centre + MathUtil.GetVector2(20, appearTime * 1.4f + i * 120),
-                            new Color(DrawingLab.HsvToRgb(i * 120 + appearTime, 125, 125, 255)) * alpha * 0.8f, GetSize, 0.9f);
+                        FightResources.Font.NormalFont.CentreDraw(texts, Centre + MathUtil.GetVector2(20, (appearTime * 1.4f) + (i * 120)),
+                            new Color(DrawingLab.HsvToRgb((i * 120) + appearTime, 125, 125, 255)) * alpha * 0.8f, GetSize, 0.9f);
                 }
             }
             public override void SelectionEvent()
@@ -988,21 +988,21 @@ namespace UndyneFight_Ex.Entities
         {
             if (info.AP)
             {
-                var TextY = 417 + Sin(appearTime) * 10;
+                var TextY = 417 + (Sin(appearTime) * 10);
                 var Angle = Sin(appearTime * 0.07f) * 0.25f;
                 GlobalResources.Font.NormalFont.CentreDraw("All Perfect", new Vector2(320, TextY), Color.Gold * alpha, 1.0f, Angle, 0.1f);
                 for (int i = 0; i < 4; i++)
                 {
                     GlobalResources.Font.NormalFont.CentreDraw("All Perfect",
-                        new Vector2(320, TextY) + MathUtil.GetVector2(Cos(appearTime) * 12, appearTime * 1.0f + i * 90),
-                        new Color(DrawingLab.HsvToRgb(appearTime * 1.3f + i * 60, 255, 255, 255)) * alpha * 0.75f, 1.0f, Angle, 0.1f);
+                        new Vector2(320, TextY) + MathUtil.GetVector2(Cos(appearTime) * 12, (appearTime * 1.0f) + (i * 90)),
+                        new Color(DrawingLab.HsvToRgb((appearTime * 1.3f) + (i * 60), 255, 255, 255)) * alpha * 0.75f, 1.0f, Angle, 0.1f);
                 }
             }
             else if (info.AC)
             {
                 GlobalResources.Font.NormalFont.CentreDraw(
                     "No Hit",
-                    new Vector2(320, 417 + Sin(appearTime) * 10),
+                    new Vector2(320, 417 + (Sin(appearTime) * 10)),
                     MarkColor((SkillMark)Convert.ToInt32(info.Mark)) * alpha,
                     GameMain.MissionSpriteBatch
                 );

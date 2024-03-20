@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
@@ -52,7 +51,7 @@ namespace Rhythm_Recall.Waves
             get
             {
                 SongSet fightSet = new("Summer Camp - B");
-                 
+
                 fightSet.Push(typeof(BIG_SHOT));
                 fightSet.Push(typeof(Spider_Dance));
                 fightSet.Push(typeof(Traveler_at_Sunset));

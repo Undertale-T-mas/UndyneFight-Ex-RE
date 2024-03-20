@@ -116,7 +116,7 @@ namespace UndyneFight_Ex.Entities
                 for (int i = 0; i < songs.Length; i++)
                 {
                     NormalFont.Draw("* " + songs[i].Item1,
-                        Centre + new Vector2(x * 224 - 166, y * 30 - 13), DifficultyColor(songs[i].Item2),
+                        Centre + new Vector2((x * 224) - 166, (y * 30) - 13), DifficultyColor(songs[i].Item2),
                         0.69f, 0.94f);
 
                     x++;

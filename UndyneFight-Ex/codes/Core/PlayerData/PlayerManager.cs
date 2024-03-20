@@ -20,9 +20,9 @@ namespace UndyneFight_Ex
                     s[i] = Convert.ToInt32(divs[i]);
                 DateTime cur = DateTime.Now;
                 t[0] = cur.Year; t[1] = cur.Month; t[2] = cur.Day; t[3] = cur.Hour; t[4] = cur.Minute; t[5] = cur.Second;
-                int timeDelta = (t[0] - s[0]) * 31622400 + (t[1] - s[1]) * 2592000 + (t[2] - s[2]) * 86400 + (t[3] - s[3]) * 3600 + (t[4] - s[4]) * 60 + t[5] - s[5];
+                int timeDelta = ((t[0] - s[0]) * 31622400) + ((t[1] - s[1]) * 2592000) + ((t[2] - s[2]) * 86400) + ((t[3] - s[3]) * 3600) + ((t[4] - s[4]) * 60) + t[5] - s[5];
 
-                
+
             }
 
             Directory.CreateDirectory("Mods\\Scripts");
@@ -55,13 +55,7 @@ namespace UndyneFight_Ex
         }
         public static string TryLogin(string name, string password)
         {
-            if (playerInfos.ContainsKey(name))
-            {
-                if (playerInfos[name].CheckPassword(password))
-                    return "Success!";
-                else return "Wrong password!";
-            }
-            else return "No such user!";
+            return playerInfos.ContainsKey(name) ? playerInfos[name].CheckPassword(password) ? "Success!" : "Wrong password!" : "No such user!";
         }
 
         public static void Save()

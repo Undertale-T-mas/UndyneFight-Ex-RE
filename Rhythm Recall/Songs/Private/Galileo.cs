@@ -672,8 +672,9 @@ namespace Rhythm_Recall.Waves
                 GametimeDelta = 0;
                 //GametimeDelta = BeatTime(80);
                 //GametimeDelta = BeatTime(144);
-                GametimeDelta = BeatTime(231);
-                PlayOffset = GametimeDelta;
+                //GametimeDelta = BeatTime(231);
+                GametimeDelta += 1.5f;
+                PlayOffset = GametimeDelta - 1.5f;
             }
             #region Functions
             private static void ThrowBones()

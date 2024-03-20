@@ -42,7 +42,7 @@ namespace UndyneFight_Ex.Entities
                             break;
                     }*/
             public Color StateColor { get; init; }
-           public Action<Heart> MoveFunction { get; init; }
+            public Action<Heart> MoveFunction { get; init; }
             public MoveState(Color color, Action<Heart> moveFunction)
             {
                 StateColor = color;
@@ -54,7 +54,8 @@ namespace UndyneFight_Ex.Entities
             public MoveState CurrentMoveState => _currentMoveState;
             private MoveState _currentMoveState;
 
-            private static MoveState _red = new(Color.Red, (s) => {
+            private static MoveState _red = new(Color.Red, (s) =>
+            {
                 Move.mission = s;
                 if (s.isOranged)
                 {
@@ -64,11 +65,13 @@ namespace UndyneFight_Ex.Entities
                 {
                     Move.MoveAsRed();
                 }
-            });   
-            private static MoveState _green = new(new Color(0, 255, 0), (s) => {
-                Move.mission = s; 
-            });            
-            private static MoveState _blue = new(Color.Blue, (s) => {
+            });
+            private static MoveState _green = new(new Color(0, 255, 0), (s) =>
+            {
+                Move.mission = s;
+            });
+            private static MoveState _blue = new(Color.Blue, (s) =>
+            {
                 Move.mission = s;
                 if (s.isOranged)
                 {
@@ -79,18 +82,20 @@ namespace UndyneFight_Ex.Entities
                     Move.MoveAsBlue();
                 }
             });
-            private static MoveState _purple = new(Color.MediumPurple, (s) => {
+            private static MoveState _purple = new(Color.MediumPurple, (s) =>
+            {
                 Move.mission = s;
                 Move.MoveAsPurple();
             });
-            private static MoveState _gray = new(Color.MediumPurple, (s) => {
+            private static MoveState _gray = new(Color.MediumPurple, (s) =>
+            {
                 Move.mission = s;
                 Move.MoveAsGray();
             });
             public void ChangeState(MoveState state)
             {
-                this.isOranged = false;
-                this._currentMoveState = state;
+                isOranged = false;
+                _currentMoveState = state;
                 lastChangeTime = 0;
                 SoulType = -1;
                 Player manager = FatherObject as Player;

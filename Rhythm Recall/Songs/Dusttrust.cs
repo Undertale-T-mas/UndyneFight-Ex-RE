@@ -128,7 +128,7 @@ namespace Rhythm_Recall.Waves
                     }));
                     AddInstance(new TimeRangedEvent(12, 1, () =>
                     {
-                        shader.Parameters["distance"].SetValue(new Vector2(0, 0));
+                        shader.Parameters["distance"].SetValue(new Vector2(0));
                     }));
                 }
                 public static void Supershake()
@@ -288,6 +288,7 @@ namespace Rhythm_Recall.Waves
                     PlaySound(switchScene);
                     SetSoul(2);
                     Heart.GiveForce(270, 0);
+                    Heart.JumpTimeLimit = 0;
                     float speed = 0;
                     AddInstance(new TimeRangedEvent(0, bpm * 16, () =>
                     {
@@ -307,7 +308,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void part4()
                 {
-
+                    Heart.JumpTimeLimit = 3;
                     Heart.Gravity = 9.8f;
                     SetSoul(2);
                     Heart.GiveForce(270, 1);
@@ -1255,7 +1256,6 @@ namespace Rhythm_Recall.Waves
                 {
                     ResetBarrage();
                     ScreenDrawing.BoundColor = new(243, 3, 218);
-                    float bound = 0;
                     CreateEntity(new Boneslab(0, 0, 1, (int)(bpm * 16 * 10) + 8, Motions.LengthRoute.sin, new float[] { 40, bpm * 33, bpm * 16.5f, 55 }));
                     CreateEntity(new Boneslab(180, 0, 1, (int)(bpm * 16 * 10) + 8, Motions.LengthRoute.sin, new float[] { 40, bpm * 33, 0, 55 }));
                     for (int a = 0; a < 22; a++)
@@ -1630,10 +1630,10 @@ namespace Rhythm_Recall.Waves
                 {
                     AddInstance(new TimeRangedEvent(bpm * 2, 1, () =>
                     {
-                        CreateEntity(new DownBonesea(30, 2, 84 * 1.5f / 2 - 13, true, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
-                        CreateEntity(new UpBonesea(30, 2, 84 * 1.5f / 2 - 13, true, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
-                        CreateEntity(new DownBonesea(30, 2, 84 * 1.5f / 2 - 13, false, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
-                        CreateEntity(new UpBonesea(30, 2, 84 * 1.5f / 2 - 13, false, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
+                        CreateEntity(new DownBonesea(30, 2, 84 * 1.5f / 2 - 13, true, 15, 1000) { tags = new string[] { "w" }, markscore = true });
+                        CreateEntity(new UpBonesea(30, 2, 84 * 1.5f / 2 - 13, true, 15, 1000) { tags = new string[] { "w" }, markscore = true });
+                        CreateEntity(new DownBonesea(30, 2, 84 * 1.5f / 2 - 13, false, 15, 1000) { tags = new string[] { "w" }, markscore = true });
+                        CreateEntity(new UpBonesea(30, 2, 84 * 1.5f / 2 - 13, false, 15, 1000) { tags = new string[] { "w" }, markscore = true });
                     }));
                 }
                 public static void fight15()
@@ -2392,6 +2392,7 @@ namespace Rhythm_Recall.Waves
                 public static void SpecialKnife(Vector2 center, float rotate, bool trafic, float trafictime, bool value)
                 {
                     DrawingUtil.Linerotate head = new(center.X, center.Y, rotate + 180, trafictime, 1, Color.Red * 0.75f);
+                    head.depth = 1f;
                     head.width = 1.5f;
                     CreateEntity(head);
                     AddInstance(new TimeRangedEvent(trafictime, 1, () =>
@@ -2416,6 +2417,7 @@ namespace Rhythm_Recall.Waves
                         if (!value) PlaySound(largeKnife, 0.7f);
                         DrawingUtil.Linerotate Line = new(center.X, center.Y, rot, bpm * 32, 1, Color.Red * 0.75f);
                         Line.width = 0;
+                        Line.depth = 1;
                         CreateEntity(Line);
                         DrawingUtil.Shock(1.2f, 1.3f, 3);
                         AddInstance(new TimeRangedEvent(5, bpm * 9, () =>
@@ -3451,10 +3453,10 @@ namespace Rhythm_Recall.Waves
                 }
                 public static void fight14()
                 {
-                    CreateEntity(new DownBonesea(10, 2, 84 * 1.5f / 2 - 20, true, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
-                    CreateEntity(new UpBonesea(10, 2, 84 * 1.5f / 2 - 20, true, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
-                    CreateEntity(new DownBonesea(10, 2, 84 * 1.5f / 2 - 20, false, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
-                    CreateEntity(new UpBonesea(10, 2, 84 * 1.5f / 2 - 20, false, 15, 1000) { tags = new string[] { "w" }, marcksore = true });
+                    CreateEntity(new DownBonesea(10, 2, 84 * 1.5f / 2 - 20, true, 15, 1000) { tags = new string[] { "w" }, markscore = true });
+                    CreateEntity(new UpBonesea(10, 2, 84 * 1.5f / 2 - 20, true, 15, 1000) { tags = new string[] { "w" }, markscore = true });
+                    CreateEntity(new DownBonesea(10, 2, 84 * 1.5f / 2 - 20, false, 15, 1000) { tags = new string[] { "w" }, markscore = true });
+                    CreateEntity(new UpBonesea(10, 2, 84 * 1.5f / 2 - 20, false, 15, 1000) { tags = new string[] { "w" }, markscore = true });
                 }
                 public static void fight15()
                 {
@@ -4166,7 +4168,7 @@ namespace Rhythm_Recall.Waves
                 {
                     shader.Parameters["distance"].SetValue(new Vector2(0.001f, 0.001f));
                     TP();
-                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0);
                     ScreenDrawing.ScreenScale = 1;
                     for (int b = 0; b < 4; b++)
                         PlaySound(switchScene);
@@ -4416,7 +4418,7 @@ namespace Rhythm_Recall.Waves
                 {
                     shader.Parameters["distance"].SetValue(new Vector2(0.001f, 0.001f));
                     TP();
-                    ScreenDrawing.ScreenPositionDelta = new Vector2(0, 0);
+                    ScreenDrawing.ScreenPositionDelta = new Vector2(0);
                     ScreenDrawing.ScreenScale = 1;
                     for (int b = 0; b < 4; b++)
                         PlaySound(switchScene);

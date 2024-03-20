@@ -56,47 +56,14 @@ namespace Rhythm_Recall.Waves
                     );
             }
             public SongInformation Attributes => new ThisInformation();
-            private class KickCounter : Entity
-            {
-                public override void Draw()
-                {
-                    Font.NormalFont.CentreDraw(count + 1 + "", new Microsoft.Xna.Framework.Vector2(320, 80), Color.White, GameStates.SpriteBatch);
-                    if (time > 0)
-                    {
-                        Font.NormalFont.CentreDraw("Time = " + (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 120), Color.White, GameStates.SpriteBatch);
-                        Font.NormalFont.CentreDraw("Frame = " + 60 * (count * 1.0f / time), new Microsoft.Xna.Framework.Vector2(320, 160), Color.White, GameStates.SpriteBatch);
-                    }
-                }
 
-                private int count = -1;
-                private float time = 0;
-
-                public override void Update()
-                {
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate) && time == 0)
-                    {
-                        count = 0;
-                        time += 0.001f;
-                        return;
-                    }
-                    if (time == 0) return;
-                    time++;
-                    if (GameStates.IsKeyPressed(InputIdentity.Alternate))
-                    {
-                        count++;
-                        PlaySound(Sounds.pierce);
-                    }
-                }
-            }
-
-            public Game() : base(5.46f)
-            {
-
-            }
+            public Game() : base(5.46f) { }
 
             public void Start()
             {
                 GametimeDelta = BeatTime(-8);
+                //GametimeDelta = BeatTime(1090);
+                PlayOffset = GametimeDelta + BeatTime(8);
                 SetBox(290, 180, 170);
                 SetSoul(2);
                 if (GameStates.difficulty == 4)
@@ -113,11 +80,11 @@ namespace Rhythm_Recall.Waves
                     GametimeDelta = 0;
                     PlayOffset = GametimeDelta;
                 }
-                // CreateEntity(new KickCounter());
             }
 
             public void Noob()
             {
+                #region Intro Blue
                 if (InBeat(0.2f))
                 {
                     CreatePlatform(new Platform(1, new Vector2(250, 290), Motions.PositionRoute.XAxisSin, 90, 45, BeatTime(128 - 8))
@@ -157,7 +124,7 @@ namespace Rhythm_Recall.Waves
                     Heart.GiveForce(0, 4);
                     SetBox(290, 200, 150);
                 }
-                if (InBeat(128 + 4, 256 - 4) && At0thBeat(7.89f))
+                if (InBeat(125, 256 - 4) && At0thBeat(8f))
                 {
                     PlaySound(Sounds.pierce);
                     CreateBone(new DownBone(false, 4, 20));
@@ -180,6 +147,8 @@ namespace Rhythm_Recall.Waves
                 {
                     CreateBone(new DownBone(false, 5f, 10) { MarkScore = false });
                 }
+                #endregion
+                #region Purple
                 if (InBeat(384))
                 {
                     SetBox(290, 240, 150);
@@ -202,7 +171,8 @@ namespace Rhythm_Recall.Waves
                         PositionRouteParam = new float[] { -3, 0 }
                     });
                 }
-
+                #endregion
+                #region Green 1
                 if (InBeat(512 - 4))
                 {
                     SetSoul(1);
@@ -213,7 +183,7 @@ namespace Rhythm_Recall.Waves
                 {
                     int way = 0, color = 0;
                     float time = BeatTime(8 + 2.73f);
-                    Fortimes(8, () =>
+                    Fortimes(12, () =>
                     {
                         way ^= 1;
                         color ^= 1;
@@ -226,21 +196,53 @@ namespace Rhythm_Recall.Waves
                         });
                     });
                 }
-                if (InBeat(768 + 6))
+                #endregion
+                #region Orange
+                if (InBeat(909))
                 {
                     SetBox(290, 200, 160);
                     SetSoul(2);
                     Heart.IsOranged = true;
                 }
+                if (InBeat(910, 1100) && At0thBeat(8))
+                {
+                    PlaySound(Sounds.pierce);
+                    CreateBone(new DownBone(true, 5, 20));
+                    CreateBone(new DownBone(false, 5, 20));
+                }
+                #endregion
+                #region Green 2
+                if (InBeat(1100))
+                {
+                    SetSoul(1);
+                    TP();
+                    SetGreenBox();
+                }
+                if (InBeat(1096))
+                {
+                    int way = 0, color = 0;
+                    float time = BeatTime(8 + 2.73f);
+                    Fortimes(11, () =>
+                    {
+                        way ^= 1;
+                        color ^= 1;
+                        Fortimes(8, () =>
+                        {
+                            CreateArrow(time, way, 7.0f, color, 0);
+                            time += BeatTime(2.013f);
+                            CreateArrow(time, way + 2, 7.0f, color, 0);
+                            time += BeatTime(2.013f);
+                        });
+                    });
+                }
+                #endregion
             }
 
             public void Easy() { }
 
             public void Normal() { }
 
-            public void Hard()
-            {
-            }
+            public void Hard() { }
 
             #region Functions
             private static float Abs(float num)
@@ -1416,10 +1418,7 @@ namespace Rhythm_Recall.Waves
                 }
             }
 
-            public void ExtremePlus()
-            {
-                throw new System.NotImplementedException();
-            }
+            public void ExtremePlus() { }
 
             public string FightName => "Master Spark";
 

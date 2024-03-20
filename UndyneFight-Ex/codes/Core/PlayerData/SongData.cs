@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.IO;
 using UndyneFight_Ex.SongSystem;
 
@@ -22,13 +23,14 @@ namespace UndyneFight_Ex.UserService
 
             public float Accuracy { get; set; }
             public float PauseTime { get; set; }
-
+            bool record { set => StateShower.ResultShower.record = value; }
             public void UpdateNew(SongResult result)
             {
+                bool Best = record = result.Accuracy > Accuracy;
                 int newScore = result.Score;
-                if(result.Accuracy > this.Accuracy)
+                if (Best)
                 {
-                    this.PauseTime = result.PauseTime;
+                    PauseTime = result.PauseTime;
                 }
                 score = Math.Max(newScore, score);
                 isAC |= result.AC;
@@ -269,7 +271,7 @@ namespace UndyneFight_Ex.UserService
                     alls.Add(v.Item2);
                 }
             }
-            for (int i = 0; alls.Count < 7; i++) alls.Add(0 - i * 0.0001f);
+            for (int i = 0; alls.Count < 7; i++) alls.Add(0 - (i * 0.0001f));
             float ideal = 0.001f;
             for (int i = 0; i < 7; i++)
             {
@@ -337,14 +339,14 @@ namespace UndyneFight_Ex.UserService
                     if (!songType.ContainsKey(song.SongName)) continue;
                     var dif = GetDifficulty(songType[song.SongName], j.Key);
 
-                    best7.Add(dif.Item2 * ReRate(cur.Accuracy) + MathUtil.GetRandom(-0.00001f, 0.00001f));
+                    best7.Add((dif.Item2 * ReRate(cur.Accuracy)) + MathUtil.GetRandom(-0.00001f, 0.00001f));
                     if (cur.Mark != SkillMark.Failed) comp1 = MathF.Max(comp1, dif.Item1);
                     if (cur.AP) ap1 = MathF.Max(ap1, dif.Item3);
                     if (cur.AC) fc1 = MathF.Max(fc1, dif.Item3);
                 }
             }
-            for (int i = 0; best7.Count < 7; i++) best7.Add(0 - i * 0.00001f);
-            for (int i = 0; alls.Count < 7; i++) alls.Add(0 - i * 0.00001f);
+            for (int i = 0; best7.Count < 7; i++) best7.Add(0 - (i * 0.00001f));
+            for (int i = 0; alls.Count < 7; i++) alls.Add(0 - (i * 0.00001f));
             float sum = 0.001f, ideal = 0.001f;
             for (int i = 0; i < 7; i++)
             {
@@ -363,7 +365,7 @@ namespace UndyneFight_Ex.UserService
         {
             if (accuracy > 1) return 1;
             float del = 1 - accuracy;
-            float lim = MathF.Pow(del * 3, 0.7f) / 2.4f + del * 2.0f;
+            float lim = (MathF.Pow(del * 3, 0.7f) / 2.4f) + (del * 2.0f);
             return MathF.Max(0, 1 - lim);
         }
     }

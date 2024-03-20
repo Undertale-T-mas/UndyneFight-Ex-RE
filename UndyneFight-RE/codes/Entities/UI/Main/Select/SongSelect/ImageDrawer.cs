@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System; 
-using UndyneFight_Ex.IO;
+using System;
 
 namespace UndyneFight_Ex.Remake.UI
 {

@@ -27,7 +27,7 @@ namespace UndyneFight_Ex.Entities
             }
             public static void Move()
             {
-                currentDelta = currentDelta * 0.8f + missionDelta * 0.2f;
+                currentDelta = (currentDelta * 0.8f) + (missionDelta * 0.2f);
             }
 
             public class ShinyTextEffect : Entity
@@ -51,10 +51,10 @@ namespace UndyneFight_Ex.Entities
 
                 public override void Update()
                 {
-                    collidingBox.Y -= 0.1f + alpha * 0.4f;
+                    collidingBox.Y -= 0.1f + (alpha * 0.4f);
                     alpha *= 0.9f;
                     alpha -= 0.03f;
-                    size += ((2 - alpha) / 40f + 0.04f) / 1.6f;
+                    size += (((2 - alpha) / 40f) + 0.04f) / 1.6f;
                     if (alpha < 0) Dispose();
                 }
             }
@@ -122,8 +122,8 @@ namespace UndyneFight_Ex.Entities
                 if (alpha < 1f) alpha += 0.025f;
                 else alpha = 1f;
                 currentSize = isSelected
-                    ? currentSize * (1 - sizeChangeSpeed) + maxSize * sizeChangeSpeed
-                    : currentSize * (1 - sizeChangeSpeed) + sizeChangeSpeed;
+                    ? (currentSize * (1 - sizeChangeSpeed)) + (maxSize * sizeChangeSpeed)
+                    : (currentSize * (1 - sizeChangeSpeed)) + sizeChangeSpeed;
                 Centre = currentDelta + startCentre;
             }
 
@@ -216,7 +216,7 @@ namespace UndyneFight_Ex.Entities
                 List<string> parts2 = IOProcess.Divider(res, '.');
 
                 int plc = i;
-                TextSelectionEx selection = new(parts2[0], new Vector2(x * 640 + 320, y * 60 + 100))
+                TextSelectionEx selection = new(parts2[0], new Vector2((x * 640) + 320, (y * 60) + 100))
                 {
                     SetSelectionAction = () => { LoadLevel(files[plc]); }
                 };

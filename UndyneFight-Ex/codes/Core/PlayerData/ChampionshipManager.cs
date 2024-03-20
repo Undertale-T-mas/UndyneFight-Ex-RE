@@ -36,11 +36,7 @@ namespace UndyneFight_Ex.UserService
 
         public string ChampionshipDivision(string championship)
         {
-            if (string.IsNullOrEmpty(championship))                
-                return null;
-            if (championshipData.ContainsKey(championship))
-                return championshipData[championship];
-            else return null;
+            return string.IsNullOrEmpty(championship) ? null : championshipData.ContainsKey(championship) ? championshipData[championship] : null;
         }
     }
 

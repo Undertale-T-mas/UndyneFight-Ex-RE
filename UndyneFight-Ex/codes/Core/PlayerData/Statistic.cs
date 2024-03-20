@@ -83,7 +83,7 @@ namespace UndyneFight_Ex.UserService
             dialogAvailable = SettingsManager.DataLibrary.dialogAvailable;
             drawingQuality = (int)SettingsManager.DataLibrary.drawingQuality;
             samplerState = SamplerState;
-            
+
             SaveInfo info = new("Settings{");
             info.PushNext(new SaveInfo("masterVolume:" + masterVolume));
             info.PushNext(new SaveInfo("spearBlockingVolume:" + spearBlockingVolume));

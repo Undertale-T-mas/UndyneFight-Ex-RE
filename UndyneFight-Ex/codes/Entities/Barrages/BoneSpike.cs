@@ -64,7 +64,7 @@ namespace UndyneFight_Ex.Entities
             if (alpha < 1 && appearTime <= 12) alpha += 0.1f;
             if (appearTime >= waitingTime)
             {
-                currentSpeed = currentSpeed * 0.9f + Speed * 0.1f;
+                currentSpeed = (currentSpeed * 0.9f) + (Speed * 0.1f);
                 Centre += GetVector2(currentSpeed, Rotation);
             }
             appearTime++;
@@ -85,11 +85,11 @@ namespace UndyneFight_Ex.Entities
                 float k = (float)Math.Tan(GetRadian(Rotation + 90));
                 A = k;
                 B = -1;
-                C = -A * Centre.X - B * Centre.Y;
-                dist = (float)((A * Heart.Centre.X + B * Heart.Centre.Y + C) / Math.Sqrt(A * A + B * B));
+                C = (-A * Centre.X) - (B * Centre.Y);
+                dist = (float)(((A * Heart.Centre.X) + (B * Heart.Centre.Y) + C) / Math.Sqrt((A * A) + (B * B)));
             }
 
-            float res = Math.Max(Math.Abs(dist) - 6f, GetDistance(Heart.Centre, Centre) - Length / 2f - 3.5f);
+            float res = Math.Max(Math.Abs(dist) - 6f, GetDistance(Heart.Centre, Centre) - (Length / 2f) - 3.5f);
 
             if ((colorType == 1 && Heart.IsStable) || (colorType == 2 && Heart.IsMoved)) return;
             if (res < 0)

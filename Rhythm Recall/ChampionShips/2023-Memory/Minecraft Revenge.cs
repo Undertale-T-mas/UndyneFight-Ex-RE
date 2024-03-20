@@ -370,7 +370,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(2);
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 240 - 100));
-                        ce.Insert(BeatTime(31) - 1, CentreEasing.Circle(new Vector2(0, 0), 100, BeatTime(8), 270));
+                        ce.Insert(BeatTime(31) - 1, CentreEasing.Circle(new Vector2(0), 100, BeatTime(8), 270));
                         ce.Run((s) => { InstantSetBox(s, 220, 140); InstantTP(s.X, Heart.Centre.Y); });
                     });
                     RegisterFunctionOnce("Bone1", () =>
@@ -438,7 +438,7 @@ namespace Rhythm_Recall.Waves
                         SetSoul(2);
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 240 - 100));
-                        ce.Insert(BeatTime(15) - 1, CentreEasing.Circle(new Vector2(0, 0), 100, BeatTime(8), 270));
+                        ce.Insert(BeatTime(15) - 1, CentreEasing.Circle(new Vector2(0), 100, BeatTime(8), 270));
                         ce.Run((s) => { InstantSetBox(s, 220, 140); InstantTP(s.X, Heart.Centre.Y); });
                     });
                     RegisterFunctionOnce("Back", () =>
@@ -1486,11 +1486,11 @@ namespace Rhythm_Recall.Waves
 
                         CentreEasing.EaseBuilder ce = new();
                         ce.Insert(0, CentreEasing.Stable(320, 240 - 100));
-                        ce.Insert(BeatTime(15) - 1, CentreEasing.Circle(new Vector2(0, 0), 110, BeatTime(8), 270));
+                        ce.Insert(BeatTime(15) - 1, CentreEasing.Circle(new Vector2(0), 110, BeatTime(8), 270));
                         ce.Run((s) => { SetPlayerBoxMission(main); InstantSetBox(s, 220, 140); InstantTP(s.X, Heart.Centre.Y); });
                         CentreEasing.EaseBuilder ce2 = new();
                         ce2.Insert(0, CentreEasing.Stable(320, 240 + 100));
-                        ce2.Insert(BeatTime(15) - 1, CentreEasing.Circle(new Vector2(0, 0), 110, BeatTime(8), 270 + 180));
+                        ce2.Insert(BeatTime(15) - 1, CentreEasing.Circle(new Vector2(0), 110, BeatTime(8), 270 + 180));
                         ce2.Run((s) => { SetPlayerBoxMission(extra); InstantSetBox(s, 220, 140); InstantTP(s.X, Heart.Centre.Y); });
                     });
                     RegisterFunctionOnce("Bone1", () =>

@@ -77,9 +77,9 @@ namespace UndyneFight_Ex.Entities.Advanced
                     return;
                 }
             }
-            float movePercent = 1f / shakeDelay * 0.4f + 1f * 0.6f;
+            float movePercent = (1f / shakeDelay * 0.4f) + (1f * 0.6f);
             movePercent *= 0.7f;
-            ScreenShakeDelta = ScreenShakeDelta * (1 - movePercent) + shakeVector[_index] * movePercent;
+            ScreenShakeDelta = (ScreenShakeDelta * (1 - movePercent)) + (shakeVector[_index] * movePercent);
             appearTime += 0.5f;
         }
         public override void Dispose()

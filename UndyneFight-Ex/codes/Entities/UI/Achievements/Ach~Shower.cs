@@ -24,7 +24,7 @@ namespace UndyneFight_Ex.Achievements
             achievementPresenting = achievement;
             collidingBox.Width = 108;
             collidingBox.Height = 120;
-            Centre = new Vector2(320 + (posX - 2) * 119, 84 + posY * 125);
+            Centre = new Vector2(320 + ((posX - 2) * 119), 84 + (posY * 125));
             LocateCard();
         }
         public AchievementBlock CopyBlock()
@@ -152,7 +152,7 @@ namespace UndyneFight_Ex.Achievements
 
         public static void Initialze()
         {
-            int pageCount = 1 + (AchievementManager.achievements.Count - 1) / 18;
+            int pageCount = 1 + ((AchievementManager.achievements.Count - 1) / 18);
             achievementLists = new Achievement[pageCount, 15];
 
             SortedSet<Achievement> achievementSort = new();

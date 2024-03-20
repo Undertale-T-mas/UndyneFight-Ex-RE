@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -10,7 +9,7 @@ namespace UndyneFight_Ex.Entities
     {
         Func<ICustomMotion, Vector2> PositionRoute { get; set; }
         Func<ICustomMotion, float> RotationRoute { get; set; }
-        
+
         float[] RotationRouteParam { get; set; }
         float[] PositionRouteParam { get; set; }
 
@@ -37,7 +36,7 @@ namespace UndyneFight_Ex.Entities
             /// <summary>
             /// 线性旋转，旋转角速度为参数0，初始角度为参数1
             /// </summary>
-            public static Func<ICustomMotion, float> linear = (s) => { return s.RotationRouteParam[0] * s.AppearTime + s.RotationRouteParam[1]; };
+            public static Func<ICustomMotion, float> linear = (s) => { return (s.RotationRouteParam[0] * s.AppearTime) + s.RotationRouteParam[1]; };
             public static Func<ICustomMotion, float> stableValue = (s) => { return s.RotationRouteParam[0]; };
         }
         public static class LengthRoute
@@ -45,11 +44,11 @@ namespace UndyneFight_Ex.Entities
             /// <summary>
             /// 参数0为长度，阐释1位持续时间
             /// </summary>
-            public static Func<ICustomLength, float> autoFold = (s) => { float dec = Math.Max(0, s.AppearTime - s.LengthRouteParam[1]); return s.LengthRouteParam[0] - dec * dec / 12f; };
+            public static Func<ICustomLength, float> autoFold = (s) => { float dec = Math.Max(0, s.AppearTime - s.LengthRouteParam[1]); return s.LengthRouteParam[0] - (dec * dec / 12f); };
             /// <summary>
             /// 正弦轨迹的三次方运动。其振幅波长和初相为参数0，1和2，函数均值为3
             /// </summary>
-            public static Func<ICustomLength, float> sin3 = (s) => { return s.LengthRouteParam[3] + s.LengthRouteParam[0] * (float)Math.Pow(Math.Sin((s.AppearTime + s.LengthRouteParam[2]) / s.LengthRouteParam[1] * Math.PI * 2), 3); };
+            public static Func<ICustomLength, float> sin3 = (s) => { return s.LengthRouteParam[3] + (s.LengthRouteParam[0] * (float)Math.Pow(Math.Sin((s.AppearTime + s.LengthRouteParam[2]) / s.LengthRouteParam[1] * Math.PI * 2), 3)); };
             public static Func<ICustomLength, float> stableValue = (s) => { return s.LengthRouteParam[0]; };
             /// <summary>
             /// 正弦轨迹运动。其振幅波长和初相为参数0，1和2，函数均值为3
@@ -58,7 +57,7 @@ namespace UndyneFight_Ex.Entities
         }
         public static class PositionRoute
         {
-            public static Func<ICustomMotion, Vector2> stableValue = (s) => { return new Vector2(0, 0); };
+            public static Func<ICustomMotion, Vector2> stableValue = (s) => { return new Vector2(0); };
             public static Func<ICustomMotion, Vector2> cameFromUp = (s) => { return new Vector2(0, 0 - (float)(Math.Pow(0.85, s.AppearTime) * 600)); };
             public static Func<ICustomMotion, Vector2> cameFromDown = (s) => { return new Vector2(0, 0 + (float)(Math.Pow(0.85, s.AppearTime) * 600)); };
             public static Func<ICustomMotion, Vector2> cameFromLeft = (s) => { return new Vector2(0 - (float)(Math.Pow(0.85, s.AppearTime) * 600), 0); };
@@ -81,7 +80,7 @@ namespace UndyneFight_Ex.Entities
             public static Func<ICustomMotion, Vector2> YAxisSin2 = (s) =>
             {
                 return new Vector2((float)(s.PositionRouteParam[1] *
-                        (2 * Math.Pow(Math.Sin((s.AppearTime + s.PositionRouteParam[3]) / s.PositionRouteParam[2] * Math.PI * 1), 2) - 1)),
+                        ((2 * Math.Pow(Math.Sin((s.AppearTime + s.PositionRouteParam[3]) / s.PositionRouteParam[2] * Math.PI * 1), 2)) - 1)),
                         s.PositionRouteParam[0] * s.AppearTime);
             };
             /// <summary>
@@ -89,17 +88,17 @@ namespace UndyneFight_Ex.Entities
             /// </summary>
             public static Func<ICustomMotion, Vector2> circle = (s) =>
             {
-                float alpha = s.AppearTime * s.PositionRouteParam[1] + s.PositionRouteParam[2];
+                float alpha = (s.AppearTime * s.PositionRouteParam[1]) + s.PositionRouteParam[2];
                 return new Vector2(s.PositionRouteParam[0] * Fight.Functions.Cos(alpha), s.PositionRouteParam[0] * Fight.Functions.Sin(alpha));
             };
             /// <summary>
             /// 沿着x轴以参数0为初速度参数1为加速度匀加速运动，沿着y轴按照正弦轨迹运动，其振幅波长和初相为参数1和2和3。
             /// </summary>
-            public static Func<ICustomMotion, Vector2> XAccAxisSin = (s) => { return new Vector2(s.AppearTime * s.AppearTime / 2 * s.PositionRouteParam[1] + s.PositionRouteParam[0] * s.AppearTime, (float)(s.PositionRouteParam[2] * Math.Sin((s.AppearTime + s.PositionRouteParam[4]) / s.PositionRouteParam[3] * Math.PI * 2))); };
+            public static Func<ICustomMotion, Vector2> XAccAxisSin = (s) => { return new Vector2((s.AppearTime * s.AppearTime / 2 * s.PositionRouteParam[1]) + (s.PositionRouteParam[0] * s.AppearTime), (float)(s.PositionRouteParam[2] * Math.Sin((s.AppearTime + s.PositionRouteParam[4]) / s.PositionRouteParam[3] * Math.PI * 2))); };
             /// <summary>
             /// 沿着x轴以参数0为初速度参数1为加速度匀加速运动，沿着y轴按照线性速度运动
             /// </summary>
-            public static Func<ICustomMotion, Vector2> XAccYLinear = (s) => { return new Vector2(s.AppearTime * s.AppearTime / 2 * s.PositionRouteParam[1] + s.PositionRouteParam[0] * s.AppearTime, s.PositionRouteParam[2] * s.AppearTime); };
+            public static Func<ICustomMotion, Vector2> XAccYLinear = (s) => { return new Vector2((s.AppearTime * s.AppearTime / 2 * s.PositionRouteParam[1]) + (s.PositionRouteParam[0] * s.AppearTime), s.PositionRouteParam[2] * s.AppearTime); };
 
             /// <summary>
             /// 沿着y轴以参数0,1,2作为振幅波长初相运动，沿着x轴以参数3,4,5作为振幅波长初相运动
@@ -220,14 +219,14 @@ namespace UndyneFight_Ex
         }
 
         public override void Update()
-        { 
+        {
         }
 
         public event Action OnDraw;
 
         public override void Draw()
         {
-            if(OnDraw != null) OnDraw.Invoke();
+            if (OnDraw != null) OnDraw.Invoke();
             else base.Draw();
         }
     }
@@ -238,15 +237,16 @@ namespace UndyneFight_Ex
 
         private Vector2 _anchor;
         private bool _anchorEnabled = false;
-        public Vector2 Anchor { 
-            get => _anchorEnabled ? _anchor : ImageCentre; 
-            set { _anchor = value; _anchorEnabled = true; } 
+        public Vector2 Anchor
+        {
+            get => _anchorEnabled ? _anchor : ImageCentre;
+            set { _anchor = value; _anchorEnabled = true; }
         }
 
         public override void Draw()
         {
             if (Alpha <= 0 || Image == null) return;
-            
+
             FormalDraw(Image, Centre, BlendColor * Alpha, Scale, Rotation, Anchor);
         }
     }
@@ -255,26 +255,26 @@ namespace UndyneFight_Ex
         public Color BlendColor { set; private get; } = Color.White;
         public float Alpha { get; set; } = 1f;
 
-        public string Text { private get; set; }    
-        public TextEntity( string text, Vector2 centre)
+        public string Text { private get; set; }
+        public TextEntity(string text, Vector2 centre)
         {
-            this.Text = text;
-            this.Centre = centre;
+            Text = text;
+            Centre = centre;
         }
         public GLFont Font { get; set; } = FightResources.Font.NormalFont;
         public override void Draw()
         {
-            Font.CentreDraw(Text, Centre, this.BlendColor * this.Alpha, this.Scale,  AngleMode ? MathUtil.GetRadian(this.Rotation) : this.Rotation, this.Depth);
+            Font.CentreDraw(Text, Centre, BlendColor * Alpha, Scale, AngleMode ? MathUtil.GetRadian(Rotation) : Rotation, Depth);
         }
 
         public override void Update()
-        { 
+        {
         }
     }
     public abstract class Entity : GameObject
     {
         public bool Visible { get; set; } = true;
-        public bool AngleMode { set; get; } = false; 
+        public bool AngleMode { set; get; } = false;
         private float DrawingRotation(float rotation) => AngleMode ? MathUtil.GetRadian(rotation) : rotation;
 
         public Entity()
@@ -290,46 +290,46 @@ namespace UndyneFight_Ex
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(1, 1), rotation, rotateCentre)) return;
-            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth );
-        
+            GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth);
+
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(1, 1), rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, 1.0f, SpriteEffects.None, Depth);
-          
+
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new(drawingScale, drawingScale), rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth);
-         
+
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Rectangle? texArea, Color color, Vector2 drawingScale, float rotation, Vector2 rotateCentre, SpriteEffects spriteEffects)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, drawingScale, rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, texArea, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, spriteEffects, Depth);
-          
+
         }
         public void FormalDraw(Texture2D tex, CollideRect area, Color color)
         {
             GameMain.MissionSpriteBatch.Draw(tex, area, null, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth);
-        
+
         }
         public void FormalDraw(Texture2D tex, Rectangle area, Rectangle restrict, Color color)
         {
             GameMain.MissionSpriteBatch.Draw(tex, area, restrict, color * controlLayer.drawingAlpha, 0, Vector2.Zero, SpriteEffects.None, Depth);
-         
+
         }
         public void FormalDraw(Texture2D tex, Vector2 centre, Color color, float drawingScale, float rotation, Vector2 rotateCentre)
         {
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, new Vector2(drawingScale, drawingScale), rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth);
-         
+
         }
 
         public void FormalDraw(Texture2D tex, Vector2 centre, Color color, Vector2 drawingScale, float rotation, Vector2 rotateCentre)
@@ -337,13 +337,13 @@ namespace UndyneFight_Ex
             rotation = DrawingRotation(rotation);
             if (NotInScene(tex, centre, drawingScale, rotation, rotateCentre)) return;
             GameMain.MissionSpriteBatch.Draw(tex, centre, null, color * controlLayer.drawingAlpha, rotation, rotateCentre, drawingScale, SpriteEffects.None, Depth);
-       
+
         }
 
         private bool NotInScene(Texture2D tex, Vector2 centre, Vector2 drawingScale, float rotation, Vector2 rotateCentre)
         {
             if (!DrawOptimize) return false;
-            float scale = 1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale) * (MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f + 1) * 1.212f;
+            float scale = 1 / MathF.Abs(CurrentScene.CurrentDrawingSettings.screenScale) * ((MathF.Abs(MathF.Sin(CurrentScene.CurrentDrawingSettings.screenAngle * 2)) * 0.414f) + 1) * 1.212f;
             Vector4 extend = CurrentScene.CurrentDrawingSettings.Extending;
             float scrWidth = CurrentScene.CurrentDrawingSettings.defaultWidth;
             float scrHeight = scrWidth / GameStates.Aspect;
@@ -406,7 +406,7 @@ namespace UndyneFight_Ex
             }
             init
             {
-                this.collidingBox = value;
+                collidingBox = value;
             }
         }
 
@@ -580,9 +580,7 @@ namespace UndyneFight_Ex
         public Tuple<bool, GameEventArgs> TryDetect(string tagName)
         {
             var result = GameStates.DetectEvent(tagName);
-            if (result == null) return new(false, null);
-            if (result.Count == 0) return new(false, null);
-            return new(true, result[0]);
+            return result == null ? new(false, null) : result.Count == 0 ? new(false, null) : new(true, result[0]);
         }
         public string[] Tags
         {
@@ -672,8 +670,8 @@ namespace UndyneFight_Ex
         public List<Entity> GetDrawableTree()
         {
             List<Entity> list = new();
-            if (BeingUpdated && this is Entity) 
-                if((this as Entity).Visible) list.Add(this as Entity);
+            if (BeingUpdated && this is Entity)
+                if ((this as Entity).Visible) list.Add(this as Entity);
             foreach (GameObject child in ChildObjects)
             {
                 list.AddRange(child.GetDrawableTree());

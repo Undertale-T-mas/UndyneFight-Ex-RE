@@ -3152,7 +3152,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder c1 = new();
                         c1.Insert(BeatTime(1.55f), CentreEasing.Linear(new Vector2(640, 240), new Vector2(0 - 160, 240), BeatTime(1.55f)));
                         CentreEasing.EaseBuilder c2 = new();
-                        c2.Insert(BeatTime(1.55f), CentreEasing.Linear(new Vector2(640 + 160, 0), new Vector2(0, 0), BeatTime(1.55f)));
+                        c2.Insert(BeatTime(1.55f), CentreEasing.Linear(new Vector2(640 + 160, 0), new Vector2(0), BeatTime(1.55f)));
                         Line line = new(c1.GetResult(), c2.GetResult()) { Alpha = 0.85f * 0.65f };
                         CreateEntity(line);
                         for (int i = 0; i < 3; i++)
@@ -3397,7 +3397,7 @@ namespace Rhythm_Recall.Waves
                         CentreEasing.EaseBuilder c1 = new();
                         c1.Insert(BeatTime(1.55f), CentreEasing.Linear(new Vector2(640, 240), new Vector2(0 - 160, 240), BeatTime(1.55f)));
                         CentreEasing.EaseBuilder c2 = new();
-                        c2.Insert(BeatTime(1.55f), CentreEasing.Linear(new Vector2(640 + 160, 0), new Vector2(0, 0), BeatTime(1.55f)));
+                        c2.Insert(BeatTime(1.55f), CentreEasing.Linear(new Vector2(640 + 160, 0), new Vector2(0), BeatTime(1.55f)));
                         Line line = new(c1.GetResult(), c2.GetResult()) { Alpha = 0.85f };
                         CreateEntity(line);
                         for (int i = 0; i < 3; i++)

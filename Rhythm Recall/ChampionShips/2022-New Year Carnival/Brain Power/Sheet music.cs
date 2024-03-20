@@ -71,17 +71,17 @@ namespace Rhythm_Recall.Waves
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.ExtremePlus, 20.5f),
+                            //new(Difficulty.ExtremePlus, 20.5f),
                         }
                     );
                 public override Dictionary<Difficulty, float> ComplexDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.ExtremePlus, 20.6f),
+                            //new(Difficulty.ExtremePlus, 20.6f),
                         }
                     );
                 public override Dictionary<Difficulty, float> APDifficulty => new(
                         new KeyValuePair<Difficulty, float>[] {
-                            new(Difficulty.ExtremePlus, 26.9f),
+                            //new(Difficulty.ExtremePlus, 26.9f),
                         }
                     );
                 public override bool Hidden
@@ -636,7 +636,7 @@ namespace Rhythm_Recall.Waves
                         foreach (var box in FightBox.boxs)
                         {
                             for (int i = 0; i < 4; i++)
-                                box.Vertexs[i].MissionPosition -= new Vector2(0, 140); 
+                                box.Vertexs[i].MissionPosition -= new Vector2(0, 140);
                         }
                     }
                     if (GametimeF == 4495 + 2 * 22 + 11)

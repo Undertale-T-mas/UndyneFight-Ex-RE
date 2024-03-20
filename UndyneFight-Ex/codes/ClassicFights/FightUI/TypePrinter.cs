@@ -283,7 +283,7 @@ namespace UndyneFight_Ex.Fight
                 }
                 if (text[i] == '\r' || text[i] == '\n')
                 {
-                    currentPosition = new Vector2(Position.X, currentPosition.Y + LinesDistance * maxSize);
+                    currentPosition = new Vector2(Position.X, currentPosition.Y + (LinesDistance * maxSize));
                     maxSize = 0.0f;
                     continue;
                 }
@@ -307,7 +307,7 @@ namespace UndyneFight_Ex.Fight
                     textdel = MathUtil.Rotate(textdel, Rotation);
 
                     for (int x = 0; x <= 4; x++)
-                        printingSettings.renderFont.Draw(text[i] + "", currentPosition + printingSettings.charPositionDelta - textdel * (x + 1) * 0.07f, col * (0.5f - x * 0.1f), printingSettings.TextSize * (1.14f + x * 0.14f), Depth);
+                        printingSettings.renderFont.Draw(text[i] + "", currentPosition + printingSettings.charPositionDelta - (textdel * (x + 1) * 0.07f), col * (0.5f - (x * 0.1f)), printingSettings.TextSize * (1.14f + (x * 0.14f)), Depth);
                 }
 
                 Vector2 size = printingSettings.renderFont.SFX.MeasureString(text[i] + "");

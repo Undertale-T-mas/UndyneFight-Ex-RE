@@ -7,7 +7,7 @@ namespace UndyneFight_Ex
 {
     public class ModDynamic
     {
-        public const string UFExVersion = "0.2.0";
+        public const string UFExVersion = "0.2.1";
 
         private List<Type> _fightTypes = new();
 

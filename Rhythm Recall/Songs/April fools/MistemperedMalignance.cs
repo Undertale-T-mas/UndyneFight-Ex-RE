@@ -99,7 +99,7 @@ namespace Rhythm_Recall.Waves
                 }));
                 AddInstance(new TimeRangedEvent(12, 1, () =>
                 {
-                    shader.Parameters["distance"].SetValue(new Vector2(0, 0));
+                    shader.Parameters["distance"].SetValue(new Vector2(0));
                 }));
             }
             public static void Shadershake(float Wave, float Radian, float duration)

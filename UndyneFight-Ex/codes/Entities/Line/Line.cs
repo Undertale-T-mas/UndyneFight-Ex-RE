@@ -52,15 +52,10 @@ namespace UndyneFight_Ex.Entities
         /// 垂线的开关（90°线）
         /// </summary>
         public bool VerticalLine { private get; set; } = false;
-        public Line(Vector2 vec1, Vector2 vec2) : this(EasingUtil.CentreEasing.Stable(vec1), EasingUtil.CentreEasing.Stable(vec2))
-        {
-        }
-        public Line(Vector2 centre, float rotation) : this(centre, EasingUtil.ValueEasing.Stable(rotation))
-        {
-        }
-        public Line(float Xcentre, float rotation) : this(EasingUtil.CentreEasing.Stable(Xcentre, 240), EasingUtil.ValueEasing.Stable(rotation))
-        {
-        }
+        public bool AlphaBlend { private get; set; } = false;
+        public Line(Vector2 vec1, Vector2 vec2) : this(EasingUtil.CentreEasing.Stable(vec1), EasingUtil.CentreEasing.Stable(vec2)) { }
+        public Line(Vector2 centre, float rotation) : this(centre, EasingUtil.ValueEasing.Stable(rotation)) { }
+        public Line(float Xcentre, float rotation) : this(EasingUtil.CentreEasing.Stable(Xcentre, 240), EasingUtil.ValueEasing.Stable(rotation)) { }
         public Line(Func<ICustomMotion, Vector2> easing1, Func<ICustomMotion, Vector2> easing2)
         {
             UpdateIn120 = true;
@@ -69,9 +64,7 @@ namespace UndyneFight_Ex.Entities
             AddChild(vec1);
             AddChild(vec2);
         }
-        public Line(Vector2 centre, Func<ICustomMotion, float> rotationEasing) : this(EasingUtil.CentreEasing.Stable(centre), rotationEasing)
-        {
-        }
+        public Line(Vector2 centre, Func<ICustomMotion, float> rotationEasing) : this(EasingUtil.CentreEasing.Stable(centre), rotationEasing) { }
         public Line(Func<ICustomMotion, Vector2> centreEasing, Func<ICustomMotion, float> rotationEasing)
         {
             UpdateIn120 = true;
@@ -84,19 +77,18 @@ namespace UndyneFight_Ex.Entities
                 rotation = rotationEasing.Invoke(s);
                 centre = centreEasing.Invoke(s);
                 float jr = rotation;
-                if (jr < 0) jr += 3600;
-                jr %= 180f;
+                jr = MathUtil.Posmod(jr, 180);
                 Vector2 result;
                 xCalc = jr < 45 || jr > 135f;
                 if (xCalc)
                 {
                     float dist = centre.X + 640;
-                    result = new(-640, centre.Y - Tan(rotation) * dist);
+                    result = new(-640, centre.Y - (Tan(rotation) * dist));
                 }
                 else
                 {
                     float dist = centre.Y + 480;
-                    result = new(centre.X - dist / Tan(rotation), -480);
+                    result = new(centre.X - (dist / Tan(rotation)), -480);
                 }
                 return result;
             };
@@ -106,12 +98,12 @@ namespace UndyneFight_Ex.Entities
                 if (xCalc)
                 {
                     float dist = 1280 - centre.X;
-                    result = new(1280, centre.Y + Tan(rotation) * dist);
+                    result = new(1280, centre.Y + (Tan(rotation) * dist));
                 }
                 else
                 {
                     float dist = 960 - centre.Y;
-                    result = new(centre.X + dist / Tan(rotation), 960);
+                    result = new(centre.X + (dist / Tan(rotation)), 960);
                 }
                 return result;
             };
@@ -142,26 +134,29 @@ namespace UndyneFight_Ex.Entities
             AddChild(vec1);
             AddChild(vec2);
         }
-
+        void DrawTargetLine(Vector2 Start, Vector2 End)
+        {
+            DrawLine(Start, End, Width, AlphaBlend ? Color.Lerp(DrawingColor, ScreenDrawing.BackGroundColor, Alpha) : (DrawingColor * Alpha), Depth, Image);
+        }
         public override void Draw()
         {
-            if (Alpha < 0) return;
-            DrawLine(vec1.CentrePosition, vec2.CentrePosition, Width, DrawingColor * Alpha, Depth, Image);
+            if (Alpha <= 0) return;
+            DrawTargetLine(vec1.CentrePosition, vec2.CentrePosition);
             if (VerticalMirror)
-                DrawLine(new Vector2(vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth, Image);
+                DrawTargetLine(new Vector2(vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y));
             if (TransverseMirror)
-                DrawLine(new Vector2(640 - vec1.CentrePosition.X, vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth, Image);
+                DrawTargetLine(new Vector2(640 - vec1.CentrePosition.X, vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, vec2.CentrePosition.Y));
             if (ObliqueMirror)
-                DrawLine(new Vector2(640 - vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y), Width, DrawingColor * Alpha, Depth, Image);
+                DrawTargetLine(new Vector2(640 - vec1.CentrePosition.X, 480 - vec1.CentrePosition.Y), new Vector2(640 - vec2.CentrePosition.X, 480 - vec2.CentrePosition.Y));
             if (VerticalLine)
             {
-                DrawLine(new Vector2(-vec1.CentrePosition.Y - 80, vec1.CentrePosition.X - 80), new Vector2(-vec2.CentrePosition.Y - 80, vec2.CentrePosition.X - 80), Width, DrawingColor * Alpha, Depth, Image);
+                DrawTargetLine(new Vector2(-vec1.CentrePosition.Y - 80, vec1.CentrePosition.X - 80), new Vector2(-vec2.CentrePosition.Y - 80, vec2.CentrePosition.X - 80));
                 if (TransverseMirror)
-                    DrawLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), vec1.CentrePosition.X - 80), new Vector2(640 - (560 - vec2.CentrePosition.Y), vec2.CentrePosition.X - 80), Width, DrawingColor * Alpha, Depth, Image);
+                    DrawTargetLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), vec1.CentrePosition.X - 80), new Vector2(640 - (560 - vec2.CentrePosition.Y), vec2.CentrePosition.X - 80));
                 if (VerticalMirror)
-                    DrawLine(new Vector2(560 - vec1.CentrePosition.Y, 480 - (vec1.CentrePosition.X - 80)), new Vector2(560 - vec2.CentrePosition.Y, 480 - (vec2.CentrePosition.X - 80)), Width, DrawingColor * Alpha, Depth, Image);
+                    DrawTargetLine(new Vector2(560 - vec1.CentrePosition.Y, 480 - (vec1.CentrePosition.X - 80)), new Vector2(560 - vec2.CentrePosition.Y, 480 - (vec2.CentrePosition.X - 80)));
                 if (ObliqueMirror)
-                    DrawLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), 480 - (vec1.CentrePosition.X - 80)), new Vector2(640 - (560 - vec2.CentrePosition.Y), 480 - (vec2.CentrePosition.X - 80)), Width, DrawingColor * Alpha, Depth, Image);
+                    DrawTargetLine(new Vector2(640 - (560 - vec1.CentrePosition.Y), 480 - (vec1.CentrePosition.X - 80)), new Vector2(640 - (560 - vec2.CentrePosition.Y), 480 - (vec2.CentrePosition.X - 80)));
             }
         }
 
@@ -169,73 +164,63 @@ namespace UndyneFight_Ex.Entities
         public new Vector2 Centre => (vec1.CentrePosition + vec2.CentrePosition) / 2;
         public new float Rotation => MathUtil.Direction(vec1.CentrePosition, vec2.CentrePosition);
 
-        public override void Update()
-        {
-        }
+        public override void Update() { }
 
         public void AlphaDecrease(float time)
         {
-            float total = Alpha;
-            float once = total / time;
-            InstanceCreate(new TimeRangedEvent(time + 5, () => { Alpha -= once; }));
-            InstanceCreate(new InstantEvent(time + 5, () => { Dispose(); }));
+            float total = Alpha, once = total / time;
+            InstanceCreate(new TimeRangedEvent(time + 5, () => Alpha -= once));
+            InstanceCreate(new InstantEvent(time + 5, () => Dispose()));
         }
-        public void DelayAlphaDecrease(float delay,float time)
+        public void DelayAlphaDecrease(float delay, float time)
         {
             InstanceCreate(new InstantEvent(delay, () =>
             {
-                float total = Alpha;
-                float once = total / time;
-                InstanceCreate(new TimeRangedEvent(time + 5, () => { Alpha -= once; }));
-                InstanceCreate(new InstantEvent(time + 5, () => { Dispose(); }));
+                float total = Alpha, once = total / time;
+                InstanceCreate(new TimeRangedEvent(time + 5, () => Alpha -= once));
+                InstanceCreate(new InstantEvent(time + 5, () => Dispose()));
             }));
         }
-        public void DelayAlphaDecrease(float delay,float time, float val)
+        public void DelayAlphaDecrease(float delay, float time, float val)
         {
             InstanceCreate(new InstantEvent(delay, () =>
             {
-                float total = val;
-                float once = total / time;
-                InstanceCreate(new TimeRangedEvent(time + 5, () => { Alpha -= once; }));
-               
+                float total = val, once = total / time;
+                InstanceCreate(new TimeRangedEvent(time + 5, () => Alpha -= once));
+
             }));
         }
         public void AlphaIncrease(float time, float val)
         {
-            float total = val;
-            float once = total / time;
-            InstanceCreate(new TimeRangedEvent(time, () => { Alpha += once; }));
+            float total = val, once = total / time;
+            InstanceCreate(new TimeRangedEvent(time, () => Alpha += once));
         }
-        public void DelayAlphaIncrease(float delay,float time, float val)
+        public void DelayAlphaIncrease(float delay, float time, float val)
         {
             InstanceCreate(new InstantEvent(delay, () =>
             {
-                float total = val;
-                float once = total / time;
-                InstanceCreate(new TimeRangedEvent(time, () => { Alpha += once; }));
+                float total = val, once = total / time;
+                InstanceCreate(new TimeRangedEvent(time, () => Alpha += once));
             }));
         }
         public void AlphaDecrease(float time, float val)
         {
-            float total = val;
-            float once = total / time;
-            InstanceCreate(new TimeRangedEvent(time, () => { Alpha -= once; }));
+            float total = val, once = total / time;
+            InstanceCreate(new TimeRangedEvent(time, () => Alpha -= once));
             InstanceCreate(new InstantEvent(time, () => { if (Alpha < 0) Dispose(); }));
         }
         public void AlphaDecreaseAndIncrease(float time, float val)
         {
-            float total = val;
-            float once = total / time;
-            InstanceCreate(new TimeRangedEvent(time / 4, () => { Alpha -= once * 4; }));
-            InstanceCreate(new TimeRangedEvent(time / 4, time / 4 * 3, () => { Alpha += once * 4 / 3; }));
+            float total = val, once = total / time;
+            InstanceCreate(new TimeRangedEvent(time / 4, () => Alpha -= once * 4));
+            InstanceCreate(new TimeRangedEvent(time / 4, time / 4 * 3, () => Alpha += once * 4 / 3));
             InstanceCreate(new InstantEvent(time, () => { if (Alpha < 0) Dispose(); }));
         }
         public void AlphaIncreaseAndDecrease(float time, float val)
         {
-            float total = val;
-            float once = total / time;
-            InstanceCreate(new TimeRangedEvent(time / 4, () => { Alpha += once * 4; }));
-            InstanceCreate(new TimeRangedEvent(time / 4, time / 4 * 3, () => { Alpha -= once * 4 / 3; }));
+            float total = val, once = total / time;
+            InstanceCreate(new TimeRangedEvent(time / 4, () => Alpha += once * 4));
+            InstanceCreate(new TimeRangedEvent(time / 4, time / 4 * 3, () => Alpha -= once * 4 / 3));
             InstanceCreate(new InstantEvent(time, () => { if (Alpha < 0) Dispose(); }));
         }
         public Line Split(bool clear)
@@ -244,20 +229,20 @@ namespace UndyneFight_Ex.Entities
                 ? this
                 : new Line(vec1.CentrePosition, vec2.CentrePosition) { Alpha = Alpha, Depth = Depth, DrawingColor = DrawingColor, };
         }
-        public void AddShadow(float timeLag,float alphaFactor)
-        {          
-            this.InsertRetention(new RetentionEffect(timeLag, alphaFactor));
+        public void AddShadow(float timeLag, float alphaFactor)
+        {
+            InsertRetention(new RetentionEffect(timeLag, alphaFactor));
         }
         public void AddShadow(RetentionEffect r)
         {
-            this.InsertRetention(r);           
+            InsertRetention(r);
         }
         public void AddShadow(params RetentionEffect[] r)
         {
             for (int a = 0; a < r.Length; a++)
             {
                 int x = a;
-                this.InsertRetention(r[x]);
+                InsertRetention(r[x]);
             }
         }
         private struct LineState

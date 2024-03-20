@@ -1357,7 +1357,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GametimeF > 44 * 62.5f + 30 && GametimeF < 45 * 62.5f + 10)
                 {
-                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(0, 0) * 0.1f;
+                    ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(0) * 0.1f;
                 }
                 if (GametimeF == 44 * 62.5f + 30)
                 {
@@ -1467,7 +1467,7 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(0, 62.5f, () =>
                     {
                         ScreenDrawing.ScreenScale = ScreenDrawing.ScreenScale * 0.9f + 1 * 0.1f;
-                        ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(0, 0) * 0.1f;
+                        ScreenDrawing.ScreenPositionDelta = ScreenDrawing.ScreenPositionDelta * 0.9f + new Vector2(0) * 0.1f;
                     }));
                 }
                 if (GametimeF > 49 * 62.5f + 30 && GametimeF < 50 * 62.5f)

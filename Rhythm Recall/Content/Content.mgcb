@@ -2186,12 +2186,6 @@
 /processorParam:Quality=Best
 /build:Musics/#1e86f2/song.wav
 
-#begin Musics/1111/song.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/1111/song.mp3
-
 #begin Musics/A Fleeting Oath/Neko Hacker,鬼頭明里 - 刹那の誓い (TV Version).wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -2209,48 +2203,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Musics/A Fleeting Oath/刹那の誓い.jpg;Musics/A Fleeting Oath/paint.jpg
-
-#begin Musics/a/a.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/a/a.ogg;Musics/a/song.ogg
-
-#begin Musics/a/astro00001.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Musics/a/astro00001.png;Musics/a/paint.png
-
-#begin Musics/ad,!U)~ZRr]/intro.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/ad,!U)~ZRr]/intro.wav
-
-#begin Musics/ad,!U)~ZRr]/paint.jpeg
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Musics/ad,!U)~ZRr]/paint.jpeg
-
-#begin Musics/ad,!U)~ZRr]/song.wav
-/importer:WavImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/ad,!U)~ZRr]/song.wav
 
 #begin Musics/Asgore/Hand.png
 /importer:TextureImporter
@@ -2708,6 +2660,30 @@
 /processorParam:TextureFormat=Color
 /build:Musics/Indihome/ipp00001.png;Musics/Indihome/paint.png
 
+#begin Musics/Jinsei Reset Button/Color Reversal.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Musics/Jinsei Reset Button/Color Reversal.fx
+
+#begin Musics/Jinsei Reset Button/Jinsei Reset Button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Musics/Jinsei Reset Button/Jinsei Reset Button.png;Musics/Jinsei Reset Button/paint.png
+
+#begin Musics/Jinsei Reset Button/untitledA.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Jinsei Reset Button/untitledA.mp3;Musics/Jinsei Reset Button/song.mp3
+
 #begin Musics/Let's go now/paint.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2953,6 +2929,12 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Resurrection/song.mp3
+
+#begin Musics/Retracing beneath/song.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Retracing beneath/song.wav
 
 #begin Musics/RIP/muhai.fx
 /importer:EffectImporter
@@ -3460,12 +3442,6 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Weekender/Hey! Say! JUMP - ウィークエンダー [Official Music Video].mp3;Musics/Weekender/song.mp3
-
-#begin Musics/狂风·余音/song.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/狂风·余音/song.mp3
 
 #begin Shop/Souvenir/MemoryBronze.png
 /importer:TextureImporter

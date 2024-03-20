@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using UndyneFight_Ex.Fight;
 using static System.MathF;
 using static UndyneFight_Ex.GameStates;

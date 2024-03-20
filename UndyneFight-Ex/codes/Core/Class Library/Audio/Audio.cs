@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Media; 
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 
 namespace UndyneFight_Ex
 {
@@ -69,16 +68,17 @@ namespace UndyneFight_Ex
             }
             DynamicSong _dynamicSong;
             List<DynamicSongInstance> allInstances = new();
-            
-            private void Update() { 
-                this.allInstances.RemoveAll(s => s.State == SoundState.Stopped); 
+
+            private void Update()
+            {
+                allInstances.RemoveAll(s => s.State == SoundState.Stopped);
             }
 
-            public bool IsEnd { get { this.Update(); return allInstances.Count == 0; } }
+            public bool IsEnd { get { Update(); return allInstances.Count == 0; } }
 
-            public bool OnPlay { get { this.Update(); return allInstances.Count > 0; } }
+            public bool OnPlay { get { Update(); return allInstances.Count > 0; } }
 
-            public float Volume { set { this.allInstances[0].Volume = value; } }
+            public float Volume { set { allInstances[0].Volume = value; } }
 
             public TimeSpan GetDuration()
             {
@@ -94,32 +94,32 @@ namespace UndyneFight_Ex
 
             public void Stop()
             {
-                this.allInstances.ForEach(s => { s.Stop(); });
-                this.allInstances.Clear();
+                allInstances.ForEach(s => { s.Stop(); });
+                allInstances.Clear();
             }
 
             float lastPosition = 0.0f;
             internal float GetPosition()
             {
-                if (this.allInstances.Count > 0)
-                    lastPosition = this.allInstances[^1].GetPosition();
+                if (allInstances.Count > 0)
+                    lastPosition = allInstances[^1].GetPosition();
                 return lastPosition;
             }
 
             internal void SetPosition(float position)
             {
-                if (this.allInstances.Count == 0) return;
-                this.allInstances[0].SetPosition(position / 62.5f * 1000f);
+                if (allInstances.Count == 0) return;
+                allInstances[0].SetPosition(position / 62.5f * 1000f);
             }
 
             public void Resume()
             {
-                this.allInstances[0].Pause();
+                allInstances[0].Pause();
             }
 
             public void Pause()
             {
-                this.allInstances[0].Resume();
+                allInstances[0].Resume();
             }
         }
         private class SongPlayer : IAudioSource
@@ -173,7 +173,7 @@ namespace UndyneFight_Ex
         }
         IAudioSource source;
         public float Volume { set => source.Volume = value; }
-        public Audio(string path) : this(path, Fight.Functions.Loader) {  }
+        public Audio(string path) : this(path, Fight.Functions.Loader) { }
         public Audio(string path, ContentManager loader)
         {
             if (path.EndsWith(".ogg"))
@@ -193,20 +193,22 @@ namespace UndyneFight_Ex
         public Audio(Song song)
         {
             source = new SongPlayer(song); source.Volume = 1f;
-        } 
+        }
         public bool OnPlay => source.OnPlay;
         public float PlayPosition { private get; set; }
         public TimeSpan SongDuration => source.GetDuration();
         public void Play()
         {
-            if (MathF.Abs(PlayPosition) > 0.01f) {
+            if (MathF.Abs(PlayPosition) > 0.01f)
+            {
                 if (source is SongPlayer)
-                    (source as SongPlayer).SetPosition(PlayPosition); 
+                    (source as SongPlayer).SetPosition(PlayPosition);
             }
             source.Start();
-            if (MathF.Abs(PlayPosition) > 0.01f) { 
-                if (source is DynamicSongPlayer) 
-                    (source as DynamicSongPlayer).SetPosition(PlayPosition); 
+            if (MathF.Abs(PlayPosition) > 0.01f)
+            {
+                if (source is DynamicSongPlayer)
+                    (source as DynamicSongPlayer).SetPosition(PlayPosition);
             }
         }
         public void Stop()
@@ -217,7 +219,7 @@ namespace UndyneFight_Ex
 
         public bool TrySetPosition(float position)
         {
-            if(source is DynamicSongPlayer)
+            if (source is DynamicSongPlayer)
             {
                 (source as DynamicSongPlayer).SetPosition(position);
                 return true;
@@ -231,7 +233,7 @@ namespace UndyneFight_Ex
                 result = true;
                 return (float)(MediaPlayer.PlayPosition.TotalMilliseconds * 62.5 / 1000);
             }
-            else if(source is DynamicSongPlayer)
+            else if (source is DynamicSongPlayer)
             {
                 result = true;
                 return (source as DynamicSongPlayer).GetPosition() / 1000f * 62.5f;
@@ -241,12 +243,12 @@ namespace UndyneFight_Ex
         }
 
         internal void Resume()
-        { 
+        {
             source.Resume();
         }
 
         internal void Pause()
-        { 
+        {
             source.Pause();
         }
     }

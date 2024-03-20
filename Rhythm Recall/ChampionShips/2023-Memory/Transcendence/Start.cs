@@ -173,6 +173,7 @@ namespace Rhythm_Recall.Waves
                 public override string AttributeAuthor => "T-mas & Walar & IceAgeDOT" + (GameStates.difficulty == 5 ? " & TK" : "");
                 public override string PaintAuthor => "Normist & OtokP";
                 public override string SongAuthor => "SK_kent";
+                public override string Extra => GameStates.difficulty == 5 ? "This chart is only for display and not for completion" : "";
                 public override bool Hidden
                 {
                     get
@@ -192,6 +193,11 @@ namespace Rhythm_Recall.Waves
 #endif
                         HashSet<Difficulty> difficulties = new();
                         int v = PlayerManager.CurrentUser.Custom.Nexts["reTranscendence"].Nexts["info"].IntValue;
+                        var check = false;
+                        check = PlayerManager.currentPlayer != null && PlayerManager.PlayerSkill >= 90;
+#if DEBUG
+                        check = true;
+#endif
                         for (int i = 0; i <= v; i++) difficulties.Add((Difficulty)i);
                         return difficulties;
                     }

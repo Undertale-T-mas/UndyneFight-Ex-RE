@@ -19,6 +19,7 @@ namespace UndyneFight_Ex.Entities
         public float Alpha { protected set => alpha = value; get => alpha; }
 
         private bool hasHit = false;
+        public bool ForceDispose { set { hasBeenInside = value; } get { return hasBeenInside; } }
         private bool hasBeenInside = false;
         protected bool autoDispose = true;
 
@@ -75,7 +76,7 @@ namespace UndyneFight_Ex.Entities
                                     return;
                                 }
                             }*/
-                            
+
                             var Normal = 0;
                             //Left
                             if (Centre.X <= 30)
@@ -98,7 +99,7 @@ namespace UndyneFight_Ex.Entities
                                 Normal = 180;
                             }
 
-                            Rotation = 2 * Normal - Rotation;
+                            Rotation = (2 * Normal) - Rotation;
                             _.ReboundCount--;
                         }
                         else Dispose();
@@ -128,8 +129,8 @@ namespace UndyneFight_Ex.Entities
             {
                 float k = (float)Math.Tan(GetRadian(Rotation));
                 A = k;
-                C = -A * Centre.X - B * Centre.Y;
-                dist = (float)((A * heart.Centre.X + B * heart.Centre.Y + C) / Math.Sqrt(A * A + B * B));
+                C = (-A * Centre.X) - (B * Centre.Y);
+                dist = (float)(((A * heart.Centre.X) + (B * heart.Centre.Y) + C) / Math.Sqrt((A * A) + (B * B)));
             }
 
             float res = Math.Max(Math.Abs(dist) - 6.5f, GetDistance(heart.Centre, Centre + GetVector2(12, Rotation)) - 31 + 12);
@@ -145,12 +146,12 @@ namespace UndyneFight_Ex.Entities
                     LoseHP(heart);
                     hasHit = true;
                 }
-                else if (res <= 1.6f - offset * 0.4f)
+                else if (res <= 1.6f - (offset * 0.4f))
                 {
                     //Okay
                     if (score >= 2) { score = 1; heart.CreateCollideEffect2(Color.LawnGreen, 3f); }
                 }
-                else if (res <= 3.9f - offset * 1.1f)
+                else if (res <= 3.9f - (offset * 1.1f))
                 {
                     //Nice
                     if (score >= 3) { score = 2; heart.CreateCollideEffect2(Color.LightBlue, 6f); }

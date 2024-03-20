@@ -565,7 +565,7 @@ namespace Rhythm_Recall.Waves
                         });
                         game.DelayBeat(0.95f, () =>
                         {
-                            shader.Parameters["distance"].SetValue(new Vector2(0, 0));
+                            shader.Parameters["distance"].SetValue(new Vector2(0));
                         });
                     });
                 }

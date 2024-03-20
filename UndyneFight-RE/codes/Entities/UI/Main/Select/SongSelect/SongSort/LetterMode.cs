@@ -40,6 +40,8 @@ namespace UndyneFight_Ex.Remake.UI
                         else waveSet = (obj as IChampionShip).GameContent;
                         if (waveSet.Attributes == null || waveSet.Attributes.Hidden) continue;
                         var letter = waveSet.FightName[0];
+                        if (!string.IsNullOrEmpty(waveSet.Attributes.DisplayName))
+                            letter = waveSet.Attributes.DisplayName[0];
 
                         TryAdd(Specifier(letter), type);
                     }

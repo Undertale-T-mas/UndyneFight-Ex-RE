@@ -65,7 +65,7 @@ namespace UndyneFight_Ex.Entities.Advanced
             if (frozenColor != Color.Black)
             {
                 BoundDistance = (appearTime <= totalTime)
-                ? BoundDistance * 0.87f + Vector4.One * frozenDepth * 0.13f
+                ? (BoundDistance * 0.87f) + (Vector4.One * frozenDepth * 0.13f)
                 : BoundDistance *= 0.87f;
             }
             appearTime++;
@@ -73,13 +73,13 @@ namespace UndyneFight_Ex.Entities.Advanced
                 ScreenScale -= (16 - appearTime) / 720f;
             if (appearTime >= 8 && appearTime <= 36)
             {
-                GameMain.GameSpeed = GameMain.gameSpeed * 0.8f + scale * 0.2f;
+                GameMain.GameSpeed = (GameMain.gameSpeed * 0.8f) + (scale * 0.2f);
             }
             if (appearTime >= totalTime)
             {
-                ScreenScale = GameMain.CurrentDrawingSettings.screenScale * 0.91f + oldScreenSize * 0.09f;
-                BackGroundColor = new Color(GameMain.CurrentDrawingSettings.backGroundColor.ToVector4() * 0.9f + oldScreenColor.ToVector4() * 0.1f);
-                GameMain.GameSpeed = (1 - scale) * (appearTime - totalTime) / 45f + scale;
+                ScreenScale = (GameMain.CurrentDrawingSettings.screenScale * 0.91f) + (oldScreenSize * 0.09f);
+                BackGroundColor = new Color((GameMain.CurrentDrawingSettings.backGroundColor.ToVector4() * 0.9f) + (oldScreenColor.ToVector4() * 0.1f));
+                GameMain.GameSpeed = ((1 - scale) * (appearTime - totalTime) / 45f) + scale;
             }
             if (appearTime >= totalTime + 45)
             {
