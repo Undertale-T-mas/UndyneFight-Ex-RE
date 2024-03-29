@@ -1,4 +1,5 @@
-﻿using UndyneFight_Ex;
+﻿using System;
+using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
 namespace Rhythm_Recall.Waves
@@ -13,8 +14,14 @@ namespace Rhythm_Recall.Waves
                 fightSet.Push(typeof(Astronomia));
                 fightSet.Push(typeof(HellTaker));
                 //2024 April
+#if DEBUG
                 fightSet.Push(typeof(Goyang));
-                //fightSet.Push(typeof(IndihomePaketPhoenix));
+#else
+                if ((DateTime.Now.Second & 1) == 0)
+                    fightSet.Push(typeof(IndihomePaketPhoenix));
+                else
+                    fightSet.Push(typeof(Goyang));
+#endif
                 fightSet.Push(typeof(NeverGonnaGiveYouUp));
                 return new ChampionShip(fightSet)
                 {

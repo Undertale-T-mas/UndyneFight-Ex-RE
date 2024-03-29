@@ -607,30 +607,17 @@ namespace UndyneFight_Ex.Fight
                     lastArrow = Rand(0, 3);
                     return colorLastArrow[color] = lastArrow;
                 case 'D':
-                    cur = Rand(0, 3);
-                    while (lastArrow == cur)
-                        cur = Rand(0, 3);
-
-                    lastArrow = cur;
-                    return colorLastArrow[color] = lastArrow;
                 case 'd':
                     cur = Rand(0, 3);
                     while (colorLastArrow[color] == cur)
                         cur = Rand(0, 3);
-
                     return colorLastArrow[color] = lastArrow = cur;
                 case 'N':
+                case 'n':
                     int none = wayTag[1] - '0';
                     cur = Rand(0, 3);
                     while (cur == none)
                         cur = Rand(0, 3);
-                    return colorLastArrow[color] = lastArrow = cur;
-                case 'n':
-                    int none2 = wayTag[1] - '0';
-                    cur = Rand(0, 3);
-                    while (cur == none2 || cur == colorLastArrow[color])
-                        cur = Rand(0, 3);
-
                     return colorLastArrow[color] = lastArrow = cur;
                 case '+':
                     lastArrow += wayTag[1] - '0';

@@ -71,7 +71,7 @@ namespace Rhythm_Recall.Waves
 				HeartAttribute.MaxHP = HeartAttribute.HP = 41;
 				HeartAttribute.DamageTaken = 4;
 				SetSoul(0);
-				InstantSetBox(0, 0, 0);
+				InstantSetBox(new Vector2(-10, -10), 0, 0);
 				RunEase((s) => ScreenDrawing.MasterAlpha = s, EaseOut(BeatTime(32), 0, 1, EaseState.Linear));
 			}
 			Circle CircleBox;
@@ -431,7 +431,8 @@ namespace Rhythm_Recall.Waves
 					EaseOut(BeatTime(2), 1, thick, EaseState.Quad),
 					EaseOut(BeatTime(1.5f), thick, 0, EaseState.Quad)));
 					RunEase((s) => c.Radius = s, LinkEase(false,
-					EaseIn(BeatTime(3.5f), 1, thick * 1.5f, EaseState.Quad)));
+						Stable(BeatTime(1), 1),
+						EaseIn(BeatTime(3), 1, thick * 2f, EaseState.Quad)));
 					CreateEntity(c);
 					DelayBeat(3.5f, () => c.Dispose());
 				}
