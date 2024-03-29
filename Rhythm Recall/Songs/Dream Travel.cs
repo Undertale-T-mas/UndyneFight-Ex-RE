@@ -23,8 +23,6 @@ namespace Rhythm_Recall.Waves
 		Dictionary<string, Difficulty> dif = new();
 		public DreamTravel()
 		{
-			dif.Add("Div.3", Difficulty.Easy);
-			dif.Add("Div.2", Difficulty.Hard);
 			dif.Add("Div.1", Difficulty.Extreme);
 		}
 		public IWaveSet GameContent => new Project();
@@ -202,7 +200,7 @@ namespace Rhythm_Recall.Waves
 			private void Effect()
 			{
 				if (GametimeF == 144 * 62.5f) EndSong();
-				bool IsEx = GameStates.difficulty == 3;
+				bool IsEx = GameStates.difficulty == 4;
 				if (InBeat(0, 120) && At0thBeat(2))
 				{
 					CreateEntity(new Line(
@@ -497,11 +495,11 @@ namespace Rhythm_Recall.Waves
 			{
 				Effect();
 			}
-			public void Extreme()
+			public void Hard()
 			{
 				Effect();
 			}
-			public void Hard()
+			public void Extreme()
 			{
 				Effect();
 				if (InBeat(32))
