@@ -125,7 +125,7 @@ Alternate: Space";
             #region Test Charts
             SongSet test = new("Test");
             test.Push(typeof(Donki));
-            test.Push(typeof(LunaticPrincess));
+            test.Push(typeof(LunaticGaze));
             test.Push(typeof(JinseiRE));
             test.Push(typeof(Determination));
             test.Push(typeof(QZKago));

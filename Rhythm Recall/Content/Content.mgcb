@@ -2888,6 +2888,24 @@
 /processorParam:Quality=Best
 /build:Musics/Prospector/song.mp3
 
+#begin Musics/QZKago Requiem/bandicam 2024-03-30 01-30-28-079.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Musics/QZKago Requiem/bandicam 2024-03-30 01-30-28-079.jpg;Musics/QZKago Requiem/paint.jpg
+
+#begin Musics/QZKago Requiem/t+pazolite - QZKago Requiem.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/QZKago Requiem/t+pazolite - QZKago Requiem.mp3;Musics/QZKago Requiem/song.mp3
+
 #begin Musics/Rainshower/paint.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3109,12 +3127,6 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/sustenance of moon/song.wav
-
-#begin Musics/t+pazolite - QZKago Requiem.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/t+pazolite - QZKago Requiem.mp3;Musics/QZKago Requiem.mp3
 
 #begin Musics/The Funeral/song.mp3
 /importer:Mp3Importer

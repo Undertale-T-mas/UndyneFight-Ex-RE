@@ -24,14 +24,17 @@
   <ItemGroup>
     <Compile Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
     <Compile Remove="bin\Debug\net6.0\Content\Musics\Jinsei Reset Button\**" />
+    <Compile Remove="bin\Debug\net6.0\Content\Musics\QZKago Requiem\**" />
     <Compile Remove="Content\bin\**" />
     <Compile Remove="Content\obj\**" />
     <EmbeddedResource Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
     <EmbeddedResource Remove="bin\Debug\net6.0\Content\Musics\Jinsei Reset Button\**" />
+    <EmbeddedResource Remove="bin\Debug\net6.0\Content\Musics\QZKago Requiem\**" />
     <EmbeddedResource Remove="Content\bin\**" />
     <EmbeddedResource Remove="Content\obj\**" />
     <None Remove="bin\Debug\net6.0\Content\Musics\A Fleeting Oath\**" />
     <None Remove="bin\Debug\net6.0\Content\Musics\Jinsei Reset Button\**" />
+    <None Remove="bin\Debug\net6.0\Content\Musics\QZKago Requiem\**" />
     <None Remove="Content\bin\**" />
     <None Remove="Content\obj\**" />
   </ItemGroup>
