@@ -14,6 +14,7 @@ using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.IO.IOEvent;
 using static Rhythm_Recall.Resources;
 using UndyneFight_Ex;
+using AprilExtends;
 
 namespace Rhythm_Recall
 {
@@ -123,6 +124,8 @@ Alternate: Space";
 
             #region Test Charts
             SongSet test = new("Test");
+            test.Push(typeof(Donki));
+            test.Push(typeof(LunaticPrincess));
             test.Push(typeof(JinseiRE));
             test.Push(typeof(Determination));
             test.Push(typeof(QZKago));
@@ -141,7 +144,6 @@ Alternate: Space";
             test.Push(typeof(AprilExtends.GrievousLady));
             test.Push(typeof(AprilExtends.LostMemory));
             test.Push(typeof(AprilExtends.EtherStrike));
-            test.Push(typeof(AprilExtends.GrievousLady));
             test.Push(typeof(AprilExtends.Rrharil));
             test.Push(typeof(AprilExtends.HorizonBlue));
             test.Push(typeof(AprilExtends.Pentiment));
