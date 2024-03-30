@@ -481,7 +481,10 @@ namespace UndyneFight_Ex
         {
             MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
         }
-
+        public void CentreDraw(string texts, Vector2 location, Color color, Vector2 scale, float rotation, float depth)
+        {
+            MissionSpriteBatch.DrawString(this, texts, location, color * Surface.Normal.drawingAlpha, rotation, SFX.MeasureString(texts) / 2, scale, SpriteEffects.None, depth);
+        }
         internal unsafe int GetGlyphIndexOrDefault(char c)
         {
             return charIndex[c];

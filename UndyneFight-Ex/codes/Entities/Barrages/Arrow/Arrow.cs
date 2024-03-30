@@ -109,8 +109,13 @@ namespace UndyneFight_Ex.Entities
             //if (!VoidMode) Image = Sprites.arrow[ArrowColor, backColor, 0];
             //if (VoidMode) Image = Sprites.voidarrow[ArrowColor];
             Image = VoidMode ? Sprites.voidarrow[ArrowColor] : Sprites.arrow[ArrowColor, backColor, 0];
-            Depth = 0.5f - (ArrowColor / 200f);
-            FormalDraw(Image, Centre, new Color(0.98f, 0.98f, 0.98f, ArrowColor == 1 ? 0.75f : 0.25f) * Alpha, DrawingScale * Scale, GetRadian(Rotation + additiveRotation + SelfRotationOffset), ImageCentre);
+            Depth = 0.5f - ArrowColor / 200f;
+            if (!BSet.final)
+                FormalDraw(Image, Centre, new Color(0.98f, 0.98f, 0.98f, ArrowColor == 1 ? 0.75f : 0.25f) * Alpha, DrawingScale * Scale, GetRadian(Rotation + additiveRotation + SelfRotationOffset), ImageCentre);
+            else if (BSet.col)
+                FormalDraw(Image, Centre, new Color(1f, 1f, 1f, 1) * Alpha, DrawingScale * Scale, GetRadian(Rotation + additiveRotation + SelfRotationOffset), ImageCentre);
+            else
+                FormalDraw(Image, Centre, new Color(0.01f, 0.01f, 0.01f, 1) * Alpha, DrawingScale * Scale, GetRadian(Rotation + additiveRotation + SelfRotationOffset), ImageCentre);
 
             if (GoldenMarkIntensity > 0 && EnableGoldMark)
             {

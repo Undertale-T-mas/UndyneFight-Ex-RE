@@ -48,7 +48,8 @@ namespace UndyneFight_Ex.Entities
                 1 => ArrowStuck,
                 _ => throw new Exception()
             };
-
+            if (BSet.final)
+                HitSound = Ding;
             PlaySound(HitSound, volume * scale * VolumeFactor);
         }
         private void Init()
@@ -327,8 +328,11 @@ namespace UndyneFight_Ex.Entities
                     if (ArrowColor == 2) { tipscolor = Color.Lime; xVec = 270; }
                     if (ArrowColor == 3) { tipscolor = Color.MediumPurple; xVec = 370; }
                     if (score >= 4) tipscolor = Color.Lerp(tipscolor, Color.Lime * 0.7f, 0.45f);
-                    if (time > -1) CreateEntity(new TimeTips(new(xVec, 200), tipscolor, "early", new(0, 1)));
-                    else CreateEntity(new TimeTips(new(xVec, 280), tipscolor, "late", new(0, -1)));
+                    if (!BSet.final)
+                    {
+                        if (time > -1) CreateEntity(new TimeTips(new(xVec, 200), tipscolor, "early", new(0, 1)));
+                        else CreateEntity(new TimeTips(new(xVec, 280), tipscolor, "late", new(0, -1)));
+                    }
                 }
             }
             if (score < 3 && score != 0 && ((CurrentScene as FightScene).Mode & GameMode.PerfectOnly) != 0)

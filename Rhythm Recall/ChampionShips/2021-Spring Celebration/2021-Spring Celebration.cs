@@ -32,7 +32,12 @@ namespace Rhythm_Recall.Waves
                     //IconPath = "ChampionShips\\TIcon",
                     //IconPath = "ChampionShips\\TCS",
                     IconPath = "ChampionShips\\cup_highres",
-                    CheckTime = () => { return ChampionShip.ChampionShipStates.End; }
+                    CheckTime = () => 
+                    {
+                        if (BSet.problem) { return ChampionShip.ChampionShipStates.NotStart; }
+                        else
+                        { return ChampionShip.ChampionShipStates.End; }
+                    }
                 };
             }
         }

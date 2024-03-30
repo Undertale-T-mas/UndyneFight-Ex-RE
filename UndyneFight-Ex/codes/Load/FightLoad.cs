@@ -111,6 +111,7 @@ namespace UndyneFight_Ex
         {
             List<Type> result = new();
             result.AddRange(from v in MainGameSongs.Values select v);
+            if(!BSet.problem)
             foreach (SongSet s in ExtraSongSets) result.AddRange(from v in s.Values select v);
             foreach (ChampionShip c in ChampionShips) if (c.CheckTime.Invoke() == ChampionShip.ChampionShipStates.End)
                     result.AddRange(from v in c.Fights.Values select v);

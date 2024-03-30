@@ -19,7 +19,8 @@ namespace Rhythm_Recall
         }
         public SetUpDrawing()
         {
-            AddChild(new ImageEntity(Resources.BackGround) { Scale = 1.5f, Centre = new(480, 360), Alpha = 0.37f });
+            if (!BSet.problem)
+                AddChild(new ImageEntity(Resources.BackGround) { Size = new(1.5f), Centre = new(480, 360), Alpha = 0.37f });
         }
 
         private Vector2 detla = new Vector2(320, 240) * 6;
@@ -46,13 +47,16 @@ namespace Rhythm_Recall
 
         public override void Draw()
         {
-            DrawString("RHYTHM", (new Vector2(190 + RhythmX, 70) - detla) * 1.5f, scale * 1.5f);
-            DrawString("RECALL", (new Vector2(450 + RecallX, 144) + detla) * 1.5f, scale * 1.5f);
+            if (!BSet.problem)
+            {
+                DrawString("RHYTHM", (new Vector2(190 + RhythmX, 70) - detla) * 1.5f, scale * 1.5f);
+                DrawString("RECALL", (new Vector2(450 + RecallX, 144) + detla) * 1.5f, scale * 1.5f);
+            }
         }
 
         public override void Update()
         {
-            if (appearTime == 0)
+            if (appearTime == 0 && !BSet.problem)
             {
                 this.AddChild(new BlockMaker());
             }

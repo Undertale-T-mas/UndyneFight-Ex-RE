@@ -63,10 +63,10 @@ namespace UndyneFight_Ex
             //  this.finalTarget = Surface.Normal.RenderPaint; 
 
             GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(BSet.SideColor);
 
             MissionSpriteBatch.Begin(SpriteSortMode.Immediate, null, Microsoft.Xna.Framework.Graphics.SamplerState.PointClamp);
-            MissionSpriteBatch.Draw(finalTarget, screenSize / 2, null, Color.White, 0, finalTarget.Bounds.Size.ToVector2() / 2,
+            MissionSpriteBatch.Draw(finalTarget, screenSize / 2, null, BSet.windowcolor, 0, finalTarget.Bounds.Size.ToVector2() / 2,
                 Min(screenSize.X / finalTarget.Width, screenSize.Y / finalTarget.Height), SpriteEffects.None, 0.5f);
             MissionSpriteBatch.End();
 

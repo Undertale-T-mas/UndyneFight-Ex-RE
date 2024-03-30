@@ -217,8 +217,8 @@ namespace UndyneFight_Ex
                 if (IsKeyPressed120f(Keys.D9)) GameMain.GameSpeed = 2f;
             }
             if (IsKeyPressed120f(Keys.H) && CurrentScene is FightScene) (CurrentScene as FightScene).PlayerInstance.hpControl.Regenerate();
-#endif  
-            if (IsKeyPressed120f(Keys.F2) && isInBattle)
+#endif
+            if (IsKeyPressed120f(Keys.F2) && isInBattle && BSet.again)
             {
                 EndFight();
             }

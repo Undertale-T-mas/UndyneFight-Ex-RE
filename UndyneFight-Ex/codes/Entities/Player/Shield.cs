@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using System.Collections.Generic;
 using UndyneFight_Ex.Fight;
@@ -54,7 +55,8 @@ namespace UndyneFight_Ex.Entities
                     }
                     public override void Draw()
                     {
-                        FormalDraw(Image, Centre, new Color(drawingColor, 0.6f) * alpha * user.Alpha, MathHelper.ToRadians(Rotation + (user.FixArrow ? 0 : user.Rotation)), ImageCentre);
+                        if (!BSet.final)
+                            FormalDraw(Image, Centre, new Color(drawingColor, 0.6f) * alpha * user.Alpha, MathHelper.ToRadians(Rotation + (user.FixArrow ? 0 : user.Rotation)), ImageCentre);
                     }
 
                     public int Direction { get; init; }
@@ -98,7 +100,7 @@ namespace UndyneFight_Ex.Entities
                 }
 
                 private Color drawingColor;
-
+                private float alpha;
                 public void Hold(int pos)
                 {
                     if (pos == -1)
@@ -164,17 +166,23 @@ namespace UndyneFight_Ex.Entities
                     UpdateIn120 = true;
                     this.user = user;
                     Depth = 0.43f - (type * 0.005f);
-                    Image = FightResources.Sprites.shield;
+                    Image = BSet.final ? FightResources.Sprites.oldshield[0] : FightResources.Sprites.shield;
                     Rotation = 0;
-
-                    drawingColor = type switch
+                    if (!BSet.final)
                     {
-                        0 => new(0, 128, 255),
-                        1 => Color.Red,
-                        2 => Color.Yellow,
-                        3 => new(255, 128, 255),
-                        _ => throw new ArgumentException(),
-                    };
+                        drawingColor = type switch
+                        {
+                            0 => new(0, 128, 255),
+                            1 => Color.Red,
+                            2 => Color.Yellow,
+                            3 => new(255, 128, 255),
+                            _ => throw new ArgumentException(),
+                        };
+                    }
+                    else
+                    {
+                        drawingColor = Color.White;
+                    }
                     ColorType = type;
                 }
 
@@ -202,7 +210,14 @@ namespace UndyneFight_Ex.Entities
                         }
 #endif
 
-                    FormalDraw(Image, Centre + MathUtil.GetVector2(pushDelta, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(drawingColor, 0.6f) * user.Alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
+                    Image = BSet.final ? FightResources.Sprites.oldshield[0] : FightResources.Sprites.shield;
+                    if (BSet.final && !BSet.col)
+                    {
+                        FormalDraw(Image, Centre + MathUtil.GetVector2(pushDelta, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(255, 255, 255, 255) * alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
+                        alpha = MathHelper.Lerp(alpha, 1, 0.02f);
+                    }
+                    else
+                        FormalDraw(Image, Centre + MathUtil.GetVector2(pushDelta, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(drawingColor, 0.6f) * user.Alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
                 }
 
                 public override void Update()
@@ -304,9 +319,13 @@ namespace UndyneFight_Ex.Entities
                         }
                         effect = new ShieldShinyEffect(this, cl);
                     }
-                    GameStates.InstanceCreate(effect);
+                    if (!BSet.final)
+                    {
+                        GameStates.InstanceCreate(effect);
 
-                    MakeParticle(type);
+                        MakeParticle(type);
+                    }
+
                 }
 
                 private void MakeParticle(int type)
@@ -378,7 +397,8 @@ namespace UndyneFight_Ex.Entities
 
                     public override void Draw()
                     {
-                        FormalDraw(Image, Centre, drawingColor * MathF.Min(1, (float)Math.Pow(2.1f - drawingScale, 2.1f)), Vector2.Lerp(Vector2.One, missionSize, drawingScale - 1), MathUtil.GetRadian(Rotation + (attracter as IShieldImage).User.Rotation), ImageCentre);
+                        if (!BSet.final)
+                            FormalDraw(Image, Centre, drawingColor * MathF.Min(1, (float)Math.Pow(2.1f - drawingScale, 2.1f)), Vector2.Lerp(Vector2.One, missionSize, drawingScale - 1), MathUtil.GetRadian(Rotation + (attracter as IShieldImage).User.Rotation), ImageCentre);
                     }
                 }
                 public void CheckKey()
@@ -607,12 +627,12 @@ namespace UndyneFight_Ex.Entities
 
                 public override void Draw()
                 {
-                    if (enabled)
+                    if (enabled && !BSet.final)
                     {
                         FormalDraw(Image, Centre, curColor * 0.6f * (FatherObject.FatherObject as Heart).Alpha, Rotation, ImageCentre);
                         float scale = MathF.Min(1, drawConsumption);
                         if (drawConsumption > 0.004f)
-                            FormalDraw(Image,
+                            FormalDraw(FightResources.Sprites.ShieldCircle,
                                 Centre + new Vector2(0, Image.Height * (1 - scale)),
                                 new CollideRect(0, Image.Height * (1 - scale), Image.Width,
                                 Image.Height * scale).ToRectangle(),

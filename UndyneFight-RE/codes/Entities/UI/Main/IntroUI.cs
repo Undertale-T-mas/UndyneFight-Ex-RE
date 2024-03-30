@@ -13,6 +13,7 @@ using static UndyneFight_Ex.GameStates;
 using static UndyneFight_Ex.Remake.Resources;
 using static UndyneFight_Ex.Remake.Resources.UI;
 using static UndyneFight_Ex.FightResources.Sprites;
+using UndyneFight_Ex.Fight;
 
 namespace UndyneFight_Ex.Remake.UI.DEBUG
 {
@@ -81,20 +82,34 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
         }
         public IntroUI()
         {
-            if (music == null || !music.Onplay)
+            if (!BSet.problem)
             {
-                SmartMusicPlayer smartPlayer = new();
-                smartPlayer.InsertPeriod(new MusicPlayer(Musics.DreamDiver_INTRO), 2407.5f, false);
-                smartPlayer.InsertPeriod(new MusicPlayer(Musics.DreamDiver_LOOP), 4808.5f, true);
-                InstanceCreate(smartPlayer); smartPlayer.Play();
-                music = smartPlayer;
+                if (music == null || !music.Onplay)
+                {
+                    SmartMusicPlayer smartPlayer = new();
+                    smartPlayer.InsertPeriod(new MusicPlayer(Musics.DreamDiver_INTRO), 2407.5f, false);
+                    smartPlayer.InsertPeriod(new MusicPlayer(Musics.DreamDiver_LOOP), 4808.5f, true);
+                    InstanceCreate(smartPlayer); smartPlayer.Play();
+                    music = smartPlayer;
+                }
             }
-
             InstanceCreate(new InstantEvent(2, () =>
             {
                 var render = GameStates.CurrentScene.BackgroundRendering;
                 GameStates.CurrentScene.CurrentDrawingSettings.backGroundColor = Color.White;
                 render.InsertProduction(_backGenerater = new BackGenerator(0.6f));
+                if (BSet.problem)
+                {
+                    Functions.ScreenDrawing.ActivateShader(FightResources.Shaders.Gray);
+                    FightResources.Shaders.Gray.Intensity = 1;
+                    Functions.ScreenDrawing.Shaders.Glitching g = new(0.963f);
+                    GameStates.CurrentScene.SceneRendering.InsertProduction(g);
+                    g.AverageInterval = 0;
+                    g.AverageDelta = 1.2f;
+                    g.BlockScale = 1f;
+                    g.Intensity = 50;
+                }
+
             }));
 
             this.Activate();
@@ -111,12 +126,26 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
             start.DefaultScale = 1.5f;
             setting.DefaultScale = 1.5f;
             account.DefaultScale = 1.5f;
-            this.AddChild(mail);
-            this.AddChild(start);
-            this.AddChild(setting);
-            this.AddChild(account);
-            //this.AddChild(showPage);
-            this.AddChild(contributor);
+            SelectUI.Initialize();
+            if (BSet.problem)
+            {
+                mail = new(this, new(-200, -200), Mail);
+                AddChild(mail);
+                start = new(this, new(x, 430), specialStart);
+                AddChild(start);
+            }
+            else
+            {
+                AddChild(mail);
+                this.AddChild(start);
+            }
+            if (!BSet.problem)
+            {
+                this.AddChild(setting);
+                this.AddChild(account);
+                //this.AddChild(showPage);
+                this.AddChild(contributor);
+            }
 
 
             DefaultFocus = 1;
@@ -206,6 +235,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                 foreach (Entity entity in all) { entity.Draw(); }
             }
             cursor.Draw();
+            if(!BSet.problem)
             FightResources.Font.NormalFont.Draw("V. 2024 April Fools", new vec2(10, 680), col.White, 1, 1);
         }
 

@@ -22,6 +22,10 @@ namespace UndyneFight_Ex.Entities
             int d = (int)(Fight.Functions.GametimeF / 62.5f * 60f);
             if (d < 0) d = 0;
             int min = d / 3600, sec = d / 60 % 60, ms = d % 60;
+            if (BSet.timestop)
+            {
+                min = sec = ms = 66;
+            }
             FightResources.Font.NormalFont.CentreDraw($"{min}:{(sec < 10 ? "0" : "") + sec}:{(ms < 10 ? "0" : "") + ms}",
                 new Vector2(94, 20), col);
 #if DEBUG

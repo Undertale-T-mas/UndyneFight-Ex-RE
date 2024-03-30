@@ -47,8 +47,9 @@ namespace UndyneFight_Ex.Entities
         public override void Draw()
         {
             Vector2 hpPos = Vertical ? new Vector2(CollidingBox.GetCentre().X, FullRect.Down + 45) : new Vector2(CollidingBox.X - 30, CollidingBox.GetCentre().Y);
-            FormalDraw(Image, hpPos, CurrentDrawingSettings.UIColor, 1.1f, 0.0f, ImageCentre);
-            if (HeartAttribute.KR && PlayerInstance.hpControl.KRHPExist)
+            if (!BSet.timestop)
+                FormalDraw(Image, hpPos, CurrentDrawingSettings.UIColor, 1.1f, 0.0f, ImageCentre);
+            if (HeartAttribute.KR && PlayerInstance.hpControl.KRHPExist&&!BSet.timestop)
             {
                 NormalFont.CentreDraw("*KR*", FullRect.GetCentre(), Color.Purple, 1.0f, 0.1f);
                 Depth = 0.06f;
@@ -89,6 +90,8 @@ namespace UndyneFight_Ex.Entities
                     hpString += $"/ {(Heart.Shields.Circle.Consumption * 8) - 8:F2}";
                 }
             }
+            if (BSet.timestop)
+                hpString = "nothing";
             if (!Vertical)
             {
                 FightFont.Draw(hpString, new Vector2(FullRect.Right + 20, collidingBox.Y + 1), Buffed ? Color.Gold : CurrentDrawingSettings.UIColor);

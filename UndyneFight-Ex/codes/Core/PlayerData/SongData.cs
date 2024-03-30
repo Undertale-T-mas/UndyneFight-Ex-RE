@@ -128,6 +128,9 @@ namespace UndyneFight_Ex.UserService
         {
             if (!songStates.ContainsKey(dif)) songStates.Add(dif, new SongState(dif, result));
             songStates[dif].UpdateNew(result);
+            var scene = GameStates.CurrentScene as SongFightingScene;
+            if (scene.Mode == GameMode.None)
+                BSet.GetACC(result.Accuracy, songName, dif);
         }
         public SongData(string name)
         {

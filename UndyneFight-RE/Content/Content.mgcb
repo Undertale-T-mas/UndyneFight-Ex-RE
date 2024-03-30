@@ -712,6 +712,18 @@
 /processorParam:TextureFormat=Color
 /build:ReEngine/UI/scrollArrow.png
 
+#begin ReEngine/UI/specialstart.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ReEngine/UI/specialstart.png
+
 #begin ReEngine/UI/start.png
 /importer:TextureImporter
 /processor:TextureProcessor

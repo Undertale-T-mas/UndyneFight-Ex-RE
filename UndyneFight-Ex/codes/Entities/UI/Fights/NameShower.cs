@@ -52,6 +52,7 @@ namespace UndyneFight_Ex.Entities
             }
 
             string trueLV = (level != "") ? level : difficulty.ToString();
+            if (!BSet.timestop)
             FightFont.Draw("lv " + trueLV,
                 lvPos, GameMain.CurrentDrawingSettings.UIColor * nameAlpha);
         }

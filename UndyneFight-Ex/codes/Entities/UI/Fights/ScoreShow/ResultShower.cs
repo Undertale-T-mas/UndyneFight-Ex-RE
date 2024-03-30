@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.GameStates;
-using static UndyneFight_Ex.GlobalResources.Font;
 using static UndyneFight_Ex.MathUtil;
 using static UndyneFight_Ex.PlayerManager;
+using static UndyneFight_Ex.GlobalResources.Font;
+using System.Collections.Generic;
+using UndyneFight_Ex.Fight;
+using System.ComponentModel.Design;
 
 namespace UndyneFight_Ex.Entities
 {
@@ -247,30 +249,55 @@ namespace UndyneFight_Ex.Entities
 
                 if (curSelection == 2)
                     RatingDraw();
+                if (!BSet.problem)
+                {
+                    NormalFont.CentreDraw($"Result of {(!string.IsNullOrEmpty(gamePlayed.Attributes.DisplayName) ? gamePlayed.Attributes.DisplayName : gamePlayed.FightName)}:", new Vector2(320, 35), Color.White * alpha, 1.1f, 0.5f);
 
-                NormalFont.CentreDraw($"Result of {(!string.IsNullOrEmpty(gamePlayed.Attributes.DisplayName) ? gamePlayed.Attributes.DisplayName : gamePlayed.FightName)}:", new Vector2(320, 35), Color.White * alpha, 1.1f, 0.5f);
+                    // modifier used:
+                    float centre = ratingResult == null ? 320 : 400;
+                    NormalFont.CentreDraw("Modifiers: " + ModesUsed, new Vector2(centre, 391), Color.White * alpha, 0.8f, 0.5f);
 
-                // modifier used:
-                float centre = ratingResult == null ? 320 : 400;
-                NormalFont.CentreDraw("Modifiers: " + ModesUsed, new Vector2(centre, 391), Color.White * alpha, 0.8f, 0.5f);
+                    //speed
+                    NormalFont.CentreDraw($"Arrow speed: {Math.Round(Settings.SettingsManager.DataLibrary.ArrowSpeed, 2)}x", new Vector2(centre, 414), Color.White * alpha, 0.8f, 0.5f);
 
-                //speed
-                NormalFont.CentreDraw($"Arrow speed: {Math.Round(Settings.SettingsManager.DataLibrary.ArrowSpeed, 2)}x", new Vector2(centre, 414), Color.White * alpha, 0.8f, 0.5f);
+                    // selection
+                    NormalFont.CentreDraw("Z: Leave\nR: Restart", new Vector2(centre, 447), Color.White * alpha, 0.8f, 0.5f);
 
-                // selection
-                NormalFont.CentreDraw("Z: Leave\nR: Restart", new Vector2(centre, 447), Color.White * alpha, 0.8f, 0.5f);
+                    DrawingLab.DrawRectangle(new CollideRect(new Vector2(12, 78), new Vector2(177, 70)), Color.White * alpha, 3f, 0.5f);
+                    NormalFont.Draw("Difficulty:", new Vector2(22, 87), Color.White * alpha, 0.8f, 0);
+                    NormalFont.Draw(topText, new Vector2(20, 113), topColor * alpha, 0.8f, 0);
+                }
+                else
+                {
+                    NormalFont.CentreDraw($"XXXXX XXXXX XXXXXX XXXXXX", new Vector2(320, 35), Color.White * alpha, 1.1f, 0.5f);
 
-                DrawingLab.DrawRectangle(new CollideRect(new Vector2(12, 78), new Vector2(177, 70)), Color.White * alpha, 3f, 0.5f);
-                NormalFont.Draw("Difficulty:", new Vector2(22, 87), Color.White * alpha, 0.8f, 0);
-                NormalFont.Draw(topText, new Vector2(20, 113), topColor * alpha, 0.8f, 0);
+                    // modifier used:
+                    float centre = ratingResult == null ? 320 : 400;
+                    // selection
+                    NormalFont.CentreDraw("Z: XXXXX", new Vector2(centre, 427), Color.White * alpha, 1.2f, 0.5f);
+
+                    DrawingLab.DrawRectangle(new CollideRect(new Vector2(12, 78), new Vector2(177, 70)), Color.White * alpha, 3f, 0.5f);
+                    if (!BSet.problem)
+                    {
+                        NormalFont.Draw("Difficulty:", new Vector2(22, 87), Color.White * alpha, 0.8f, 0);
+                        NormalFont.Draw(topText, new Vector2(20, 113), topColor * alpha, 0.8f, 0);
+                    }
+                    else
+                    {
+                        NormalFont.Draw("XXXXXXXXXX", new Vector2(22, 87), Color.White * alpha, 0.8f, 0);
+                        NormalFont.Draw("XXXXXXXXXXX", new Vector2(20, 113), topColor * alpha, 0.8f, 0);
+                    }
+                }
                 // MarkDraw();
                 string[] texts = { "Play\nsummary", "Graph\nanalyze", "Resources\ngained" };
+                if (BSet.problem)
+                    texts = new string[] { "XXXX\nXXXXXXX", "XXXXX\nXXXXXXX", "XXXXXXXX\nXXXXXX" };
                 for (int i = 0; i < 3; i++)
                 {
                     Color color = Color.White;
                     if (i == curSelection) color = Color.Gold;
-                    NormalFont.Draw(texts[i], new Vector2(25, 167 + (69 * i)), color * alpha, 0.8f, 0.2f);
-                    DrawingLab.DrawLine(new Vector2(19, 225 + (69 * i)), new(177, 225 + (69 * i)), 2f, color * alpha, 0.2f);
+                    NormalFont.Draw(texts[i], new Vector2(25, 167 + 69 * i), color * alpha, 0.8f, 0.2f);
+                    DrawingLab.DrawLine(new Vector2(19, 225 + 69 * i), new(177, 225 + 69 * i), 2f, color * alpha, 0.2f);
                 }
                 DrawingLab.DrawRectangle(new CollideRect(new Vector2(12, 158), new Vector2(177, 215)), Color.White * alpha, 3, 0.5f);
             }
@@ -280,102 +307,126 @@ namespace UndyneFight_Ex.Entities
                 string text = mark.ToString();
                 if (plus) text += "+";
                 float height = 325;
-                switch (mark)
-                {
-                    case SkillMark.Impeccable:
-                        NormalFont.CentreDraw(
-                            text, new(414, height + (Fight.Functions.Sin(appearTime * 1.6f) * 18)),
-                            Color.Goldenrod * alpha, 2.0f, GetRadian(Fight.Functions.Sin(appearTime * 2.5f) * 7), 0.9f);
-                        break;
-                    case SkillMark.Eminent:
-                        NormalFont.CentreDraw(
-                            text, new(414, height + (Fight.Functions.Sin(appearTime * 1.6f) * 18)),
-                            Color.OrangeRed * alpha, 2.0f, GetRadian(Fight.Functions.Sin(appearTime * 1f) * 4), 0.9f);
-                        break;
-                    case SkillMark.Excellent:
-                        NormalFont.CentreDraw(
-                            text, new(414, height + (Fight.Functions.Sin(appearTime * 1.6f) * 9)),
-                            Color.MediumPurple * alpha, 2.0f, GetRadian(7), 0.9f);
-                        break;
-                    case SkillMark.Respectable:
-                        NormalFont.CentreDraw(
-                            text, new(414, height),
-                            Color.LightSkyBlue * alpha, 2.0f, 0, 0.9f);
-                        break;
-                    case SkillMark.Acceptable:
-                        NormalFont.CentreDraw(
-                            text, new(414, height),
-                            Color.SpringGreen * alpha, 2.0f, 0, 0.9f);
-                        break;
-                    case SkillMark.Ordinary:
-                        NormalFont.CentreDraw(
-                            text, new(414, height),
-                            Color.Green * alpha, 2.0f, 0, 0.9f);
-                        break;
-                    case SkillMark.Failed:
-                        NormalFont.CentreDraw(
-                            text, new(414, height),
-                            Color.DarkRed * alpha, 2.5f, 0, 0.9f);
-                        break;
-                }
+                if (!BSet.problem)
+                    switch (mark)
+                    {
+                        case SkillMark.Impeccable:
+                            NormalFont.CentreDraw(
+                                text, new(414, height + Fight.Functions.Sin(appearTime * 1.6f) * 18),
+                                Color.Goldenrod * alpha, 2.0f, GetRadian(Fight.Functions.Sin(appearTime * 2.5f) * 7), 0.9f);
+                            break;
+                        case SkillMark.Eminent:
+                            NormalFont.CentreDraw(
+                                text, new(414, height + Fight.Functions.Sin(appearTime * 1.6f) * 18),
+                                Color.OrangeRed * alpha, 2.0f, GetRadian(Fight.Functions.Sin(appearTime * 1f) * 4), 0.9f);
+                            break;
+                        case SkillMark.Excellent:
+                            NormalFont.CentreDraw(
+                                text, new(414, height + Fight.Functions.Sin(appearTime * 1.6f) * 9),
+                                Color.MediumPurple * alpha, 2.0f, GetRadian(7), 0.9f);
+                            break;
+                        case SkillMark.Respectable:
+                            NormalFont.CentreDraw(
+                                text, new(414, height),
+                                Color.LightSkyBlue * alpha, 2.0f, 0, 0.9f);
+                            break;
+                        case SkillMark.Acceptable:
+                            NormalFont.CentreDraw(
+                                text, new(414, height),
+                                Color.SpringGreen * alpha, 2.0f, 0, 0.9f);
+                            break;
+                        case SkillMark.Ordinary:
+                            NormalFont.CentreDraw(
+                                text, new(414, height),
+                                Color.Green * alpha, 2.0f, 0, 0.9f);
+                            break;
+                        case SkillMark.Failed:
+                            NormalFont.CentreDraw(
+                                text, new(414, height),
+                                Color.DarkRed * alpha, 2.5f, 0, 0.9f);
+                            break;
+                    }
+                else
+                    NormalFont.CentreDraw(
+                            "XXXXXXX", new(414, height),
+                            Color.Red * alpha, 2.0f, 0, 0.9f);
             }
 
             private void SummaryDraw()
             {
                 MarkDraw();
-                NormalFont.Draw("Your score:", new Vector2(214, 89 + 7), Color.White * alpha, 1.0f, 0.5f);
-                NormalFont.Draw(score.ToString(), new Vector2(392, 85 + 7), Color.White * alpha, 1.2f, 0.5f);
-                NormalFont.Draw($"({MathF.Round(accuracy * 100, 1)}%)", new Vector2(516, 99), Color.Silver * alpha, 0.93f, 0.5f);
-                if (record)
-                    NormalFont.Draw("New Record!", new Vector2(442, 251), Color.Gold * alpha * (0.5f + (Fight.Functions.Sin(appearTime * 4) / 2f)), 1, 0.5f);
-                DrawingLab.DrawLine(new Vector2(212, 145), new Vector2(616, 145), 2, Color.Silver, 0.4f);
-
-                if (accuracy > 0)
+                if (!BSet.problem)
                 {
-                    if (judgeState == JudgementState.Strict) NormalFont.Draw("(S)", new(555, 208), Color.Red * alpha, 1.0f, 0.5f);
-                    else if (judgeState == JudgementState.Balanced) NormalFont.Draw("(B)", new(555, 208), Color.Yellow * alpha, 1.0f, 0.5f);
-                    else NormalFont.Draw("(L)", new(555, 208), Color.Lime * alpha, 1.0f, 0.5f);
-                }
+                    NormalFont.Draw("Your score:", new Vector2(214, 89 + 7), Color.White * alpha, 1.0f, 0.5f);
+                    NormalFont.Draw(score.ToString(), new Vector2(392, 85 + 7), Color.White * alpha, 1.2f, 0.5f);
+                    NormalFont.Draw($"({MathF.Round(accuracy * 100, 1)}%)", new Vector2(516, 99), Color.Silver * alpha, 0.93f, 0.5f);
+                    if (record)
+                        NormalFont.Draw("new record!", new Vector2(442, 251), Color.Gold * alpha * (0.5f + Fight.Functions.Sin(appearTime * 4) * 0.5f), 1.0f, 0.5f);
+                    DrawingLab.DrawLine(new Vector2(212, 145), new Vector2(616, 145), 2, Color.Silver, 0.4f);
 
-                if (AP)
-                {
-                    FormalDraw(FightResources.Sprites.allPerfectText, new(300, 166), Color.White * alpha, 0, Vector2.Zero);
-                    /*
-                    GlobalResources.Font.NormalFont.Draw(" ALL PERFECT ", new Vector2(100 + 8, 195 + detla), Color.Gold * 0.8f * alpha);
-                    for (int i = 0; i < 4; i++)
+                    if (accuracy > 0)
                     {
-                        GlobalResources.Font.NormalFont.Draw(" ALL PERFECT ", new Vector2(100 + 8, 195 + detla) + MathLab.GetVector2(12, appearTime * 1.0f + i * 90), new Color(DrawingLab.HsvToRgb(appearTime * 1.3f + i * 60, 255, 255, 255)) * 0.75f * alpha);
-                    }*/
+                        if (judgeState == JudgementState.Strict) NormalFont.Draw("(S)", new(555, 208), Color.Red * alpha, 1.0f, 0.5f);
+                        else if (judgeState == JudgementState.Balanced) NormalFont.Draw("(B)", new(555, 208), Color.Yellow * alpha, 1.0f, 0.5f);
+                        else NormalFont.Draw("(L)", new(555, 208), Color.Lime * alpha, 1.0f, 0.5f);
+                    }
+
+                    if (AP)
+                    {
+                        FormalDraw(FightResources.Sprites.allPerfectText, new(300, 166), Color.White * alpha, 0, Vector2.Zero);
+                        /*
+                        GlobalResources.Font.NormalFont.Draw(" ALL PERFECT ", new Vector2(100 + 8, 195 + detla), Color.Gold * 0.8f * alpha);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            GlobalResources.Font.NormalFont.Draw(" ALL PERFECT ", new Vector2(100 + 8, 195 + detla) + MathLab.GetVector2(12, appearTime * 1.0f + i * 90), new Color(DrawingLab.HsvToRgb(appearTime * 1.3f + i * 60, 255, 255, 255)) * 0.75f * alpha);
+                        }*/
+                    }
+                    else
+                    {
+                        if (accuracy > 0)
+                        {
+                            if (AC)
+                            {
+                                NormalFont.Draw("NO HIT", new Vector2(214, 166), Color.Orange * alpha);
+                            }
+                            else
+                            {
+                                NormalFont.Draw("miss", new Vector2(214, 166), Color.Red * alpha);
+                                NormalFont.Draw(missCount.ToString(), new Vector2(214 + 79, 166), Color.LightGray * alpha);
+                            }
+
+                            NormalFont.Draw("okay", new Vector2(346, 166), Color.Green * alpha);
+                            NormalFont.Draw(okayCount.ToString(), new Vector2(346 + 79, 166), Color.LightGray * alpha);
+                            NormalFont.Draw("nice", new Vector2(478, 166), Color.LightBlue * alpha);
+                            NormalFont.Draw(niceCount.ToString(), new Vector2(478 + 79, 166), Color.LightGray * alpha);
+                        }
+                        else NormalFont.CentreDraw("!NO BARRAGE!", new Vector2(400, 216), Color.Red * alpha);
+                    }
+
+                    if (accuracy > 0)
+                    {
+                        NormalFont.Draw("perfect", new Vector2(214, 208), Color.Yellow * alpha);
+                        NormalFont.Draw($"{perfectCount} = {(int)(perfectPercent * 100)}." +
+                            $"{(int)(perfectPercent * 10000) - ((int)(perfectPercent * 100)) * 100}%", new Vector2(214 + 125, 208), Color.LightGray * alpha);
+                        NormalFont.Draw($"Early:{perfectECount} Late:{perfectLCount}", new(214, 238), Color.Orange * alpha, 0.7f, 0);
+                        NormalFont.Draw("Max Combo:" + maxCombo, new Vector2(214, 251), Color.Silver * alpha);
+                    }
                 }
                 else
                 {
-                    if (accuracy > 0)
-                    {
-                        if (AC)
-                        {
-                            NormalFont.Draw("NO HIT", new Vector2(214, 166), Color.Orange * alpha);
-                        }
-                        else
-                        {
-                            NormalFont.Draw("miss", new Vector2(214, 166), Color.Red * alpha);
-                            NormalFont.Draw(missCount.ToString(), new Vector2(214 + 79, 166), Color.LightGray * alpha);
-                        }
-
-                        NormalFont.Draw("okay", new Vector2(346, 166), Color.Green * alpha);
-                        NormalFont.Draw(okayCount.ToString(), new Vector2(346 + 79, 166), Color.LightGray * alpha);
-                        NormalFont.Draw("nice", new Vector2(478, 166), Color.LightBlue * alpha);
-                        NormalFont.Draw(niceCount.ToString(), new Vector2(478 + 79, 166), Color.LightGray * alpha);
-                    }
-                    else NormalFont.CentreDraw("!NO BARRAGE!", new Vector2(400, 216), Color.Red * alpha);
-                }
-
-                if (accuracy > 0)
-                {
-                    NormalFont.Draw("perfect", new Vector2(214, 208), Color.Yellow * alpha);
-                    NormalFont.Draw($"{perfectCount} = {(int)(perfectPercent * 100)}." +
-                        $"{(int)(perfectPercent * 10000) - (((int)(perfectPercent * 100)) * 100)}%", new Vector2(214 + 125, 208), Color.LightGray * alpha);
-                    NormalFont.Draw($"Early:{perfectECount} Late:{perfectLCount}", new(214, 238), Color.Orange * alpha, 0.7f, 0);
-                    NormalFont.Draw("Max Combo:" + maxCombo, new Vector2(214, 251), Color.Silver * alpha);
+                    NormalFont.Draw("XXXX XXXXX:", new Vector2(214, 89 + 7), Color.White * alpha, 1.0f, 0.5f);
+                    NormalFont.Draw("000000", new Vector2(392, 85 + 7), Color.White * alpha, 1.2f, 0.5f);
+                    NormalFont.Draw($"(666%)", new Vector2(516, 99), Color.Silver * alpha, 0.93f, 0.5f);
+                    NormalFont.Draw("XXXX", new Vector2(214, 166), Color.Red * alpha);
+                    NormalFont.Draw("0", new Vector2(214 + 79, 166), Color.LightGray * alpha);
+                    NormalFont.Draw("XXXX", new Vector2(346, 166), Color.Red * alpha);
+                    NormalFont.Draw("0", new Vector2(346 + 79, 166), Color.LightGray * alpha);
+                    NormalFont.Draw("XXXX", new Vector2(478, 166), Color.Red * alpha);
+                    NormalFont.Draw("0", new Vector2(478 + 79, 166), Color.LightGray * alpha);
+                    NormalFont.Draw("XXXXXXX", new Vector2(214, 208), Color.Red * alpha);
+                    NormalFont.Draw($"0 = -0." +
+                        $"0%", new Vector2(214 + 125, 208), Color.LightGray * alpha);
+                    NormalFont.Draw("XXX XXXXX:" + "---", new Vector2(214, 251), Color.Silver * alpha);
                 }
             }
 
@@ -391,27 +442,27 @@ namespace UndyneFight_Ex.Entities
                 {
                     NormalFont.Draw("No progress", new Vector2(431, 88), Color.Silver);
                 }
-                Vector3 Rating = SingleCalculateRating(new Vector3(dif[0], dif[1], dif[2]), rerate);
+                Vector3 rating = SingleCalculateRating(new Vector3(dif[0], dif[1], dif[2]), rerate);
                 DrawingLab.DrawLine(new Vector2(210, 237.5f), new Vector2(618, 237.5f), 2, Color.White, 0.5f);
                 NormalFont.Draw("->", new Vector2(211, 156), Color.Silver, 0.9f, 0.1f);
                 NormalFont.Draw("*", new Vector2(330, 156), Color.White, 0.9f, 0.1f);
                 NormalFont.Draw($"{FloatToString(rerate * 100, 1)}%({FloatToString(accuracy * 100, 1)}%)", new Vector2(354, 156), Color.White, 0.9f, 0.1f);
-                if ((RatingSelection == 0 && !AP) || AP)
+                if (ratingSelection == 0 && !AP || AP)
                 {
                     NormalFont.Draw("->", new Vector2(211, 286), Color.Silver, 0.9f, 0.1f);
                     NormalFont.Draw("*", new Vector2(330, 286), Color.White, 0.9f, 0.1f);
                     NormalFont.Draw($"{FloatToString(rerate * 100, 1)}%({FloatToString(accuracy * 100, 1)}%)", new Vector2(354, 286), Color.White, 0.9f, 0.1f);
                 }
-                if (RatingSelection == 0)
+                if (ratingSelection == 0)
                 {
                     NormalFont.Draw("Complete:", new Vector2(211, 126), new(0, 255, 0), 0.95f, 0.1f);
                     NormalFont.Draw(difficultyText[0], new Vector2(261, 156), topColor, 0.9f, 0.1f);
-                    NormalFont.Draw("Complete Rating:", new Vector2(211, 189), Color.White);
-                    NormalFont.Draw($"{Rating.Z:F2}", new Vector2(520, 186), Color.PowderBlue, 1.2f, 0.1f);
+                    NormalFont.Draw("Complete rating:", new Vector2(211, 189), Color.White);
+                    NormalFont.Draw($"{rating.Z:F2}", new Vector2(520, 186), Color.PowderBlue, 1.2f, 0.1f);
                     NormalFont.Draw("Complex:", new Vector2(211, 256), Color.White, 0.95f, 0.1f);
                     NormalFont.Draw(difficultyText[1], new Vector2(261, 286), topColor, 0.9f, 0.1f);
-                    NormalFont.Draw("Complex Rating:", new Vector2(211, 319), Color.White);
-                    NormalFont.Draw($"{Rating.X:F2}", new Vector2(520, 316), Color.PowderBlue, 1.2f, 0.1f);
+                    NormalFont.Draw("Complex rating:", new Vector2(211, 319), Color.White);
+                    NormalFont.Draw($"{rating.X:F2}", new Vector2(520, 316), Color.PowderBlue, 1.2f, 0.1f);
                 }
                 else
                 {
@@ -419,15 +470,15 @@ namespace UndyneFight_Ex.Entities
                     {
                         NormalFont.Draw("FullCombo:", new Vector2(211, 126), Color.Gold, 0.95f, 0.1f);
                         NormalFont.Draw(difficultyText[2], new Vector2(261, 156), topColor, 0.9f, 0.1f);
-                        NormalFont.Draw("FullCombo Rating:", new Vector2(211, 189), Color.White);
-                        NormalFont.Draw($"{Rating.Y:F2}", new Vector2(520, 186), Color.Gold, 1.2f, 0.1f);
+                        NormalFont.Draw("FullCombo rating:", new Vector2(211, 189), Color.White);
+                        NormalFont.Draw($"{rating.Y:F2}", new Vector2(520, 186), Color.Gold, 1.2f, 0.1f);
                     }
                     if (AP)
                     {
                         NormalFont.Draw("AllPerfect:", new Vector2(211, 256), Color.Yellow, 0.95f, 0.1f);
                         NormalFont.Draw(difficultyText[2], new Vector2(261, 286), topColor, 0.9f, 0.1f);
-                        NormalFont.Draw("AllPerfect Rating:", new Vector2(211, 319), Color.White);
-                        NormalFont.Draw($"{Rating.Y:F2}", new Vector2(520, 316), Color.Yellow, 1.2f, 0.1f);
+                        NormalFont.Draw("AllPerfect rating:", new Vector2(211, 319), Color.White);
+                        NormalFont.Draw($"{rating.Y:F2}", new Vector2(520, 316), Color.Yellow, 1.2f, 0.1f);
                     }
                 }
             }
@@ -466,7 +517,7 @@ namespace UndyneFight_Ex.Entities
                     }
                 }
 
-                for (int i = 0; alls.Count < 7; i++) alls.Add(0 - (i * 0.00001f));
+                for (int i = 0; alls.Count < 7; i++) alls.Add(0 - i * 0.00001f);
                 float sum = 0.001f, ideal = 0.001f;
                 for (int i = 0; i < 7; i++)
                 {
@@ -484,11 +535,12 @@ namespace UndyneFight_Ex.Entities
             {
                 if (accuracy > 1) return 1;
                 float del = 1 - accuracy;
-                float lim = (MathF.Pow(del * 3, 0.7f) / 2.4f) + (del * 2.0f);
+                float lim = MathF.Pow(del * 3, 0.7f) / 2.4f + del * 2.0f;
                 return MathF.Max(0, 1 - lim);
             }
             float accuracy = 0, rerate = 0;
-            int curSelection = 0, RatingSelection = 0;
+            int curSelection = 0, ratingSelection = 0;
+            float intensity = 0;
             public override void Update()
             {
                 appearTime += 0.5f;
@@ -519,42 +571,60 @@ namespace UndyneFight_Ex.Entities
                 }
                 accuracy = GetScorePercent();
                 rerate = ReRate(accuracy);
-
-                int lastSelection = curSelection, lastSelection2 = RatingSelection;
-                if (IsKeyPressed120f(InputIdentity.MainDown))
+                int lastSelection = curSelection, lastSelection2 = ratingSelection;
+                if (IsKeyPressed120f(InputIdentity.MainDown) && !BSet.problem)
                 {
                     curSelection++;
                 }
-                if (IsKeyPressed120f(InputIdentity.MainUp))
+                if (IsKeyPressed120f(InputIdentity.MainUp) && !BSet.problem)
                 {
                     curSelection--;
+                }
+                if (BSet.problem)
+                {
+                    BSet.windowcolor = Color.DarkRed;
+                    if (IsKeyPressed120f(InputIdentity.MainUp) ||
+                    IsKeyPressed120f(InputIdentity.MainDown) ||
+                    IsKeyPressed120f(InputIdentity.Reset))
+                    {
+                        Functions.PlaySound(FightResources.Sounds.playerHurt);
+                        intensity = 100;
+                        Functions.ScreenDrawing.MakeFlicker(Color.Red);
+                    }
                 }
                 if (curSelection == 2 && AC)
                 {
                     if (IsKeyPressed120f(InputIdentity.MainLeft))
-                        RatingSelection = 0;
+                        ratingSelection = 0;
                     if (IsKeyPressed120f(InputIdentity.MainRight))
-                        RatingSelection = 1;
+                        ratingSelection = 1;
                 }
                 curSelection = Posmod(curSelection, 3);
-                if (lastSelection != curSelection || lastSelection2 != RatingSelection) Fight.Functions.PlaySound(FightResources.Sounds.changeSelection);
+                if (lastSelection != curSelection || lastSelection2 != ratingSelection) Fight.Functions.PlaySound(FightResources.Sounds.changeSelection);
 
                 analyzeShow.Enabled = curSelection == 1;
 
                 if (IsKeyPressed120f(InputIdentity.Confirm))
                 {
-                    if (ratingResult == null || !ratingResult.ProgressMade || encouraged)
+                    if (BSet.problem)
                         CreateNextUI();
-                    else if (!encouraged)
+                    else
                     {
-                        encouraged = true;
-                        ratingResult.IntoCentre();
+                        if (ratingResult == null || !ratingResult.ProgressMade || encouraged)
+                            CreateNextUI();
+                        else if (!encouraged)
+                        {
+                            encouraged = true;
+                            ratingResult.IntoCentre();
+                        }
                     }
                 }
-                if (IsKeyPressed120f(InputIdentity.Reset))
+                if (IsKeyPressed120f(InputIdentity.Reset) && !BSet.problem)
                 {
                     StartSong();
                 }
+                Functions.ScreenDrawing.ScreenPositionDelta = GetVector2(intensity, Functions.Rand(0f, 360f));
+                intensity *= 0.89f;
             }
 
             private void CreateNextUI()

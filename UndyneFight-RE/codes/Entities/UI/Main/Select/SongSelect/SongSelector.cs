@@ -200,10 +200,9 @@ namespace UndyneFight_Ex.Remake.UI
                         championshipPack.Add(new SongPack(championShip.Fights));
                     }
                 }
-                List<SongPack> result = new()
-                {
-                    mainPack
-                };
+                List<SongPack> result = new();
+                if (!BSet.problem)
+                    result = new() { mainPack };
                 result.AddRange(extraPacks);
                 result.AddRange(championshipPack);
 
@@ -225,14 +224,18 @@ namespace UndyneFight_Ex.Remake.UI
                 this._virtualFather = this.FatherObject as VirtualFather;
 
                 this.AddChild(new ImageDrawer());
-                this.AddChild(new SortInterface(this));
-                this.AddChild(this._packMode = new PackMode(this));
-                this.AddChild(this._diffClearMode = new DiffClearMode(this));
-                this.AddChild(this._diffComplexMode = new DiffComplexMode(this));
-                this.AddChild(this._letterMode = new LetterMode(this));
-                
-                this.AddChild(this._sortOrder = new(this));
-                
+                if (!BSet.problem)
+                {
+                    this.AddChild(new SortInterface(this));
+                    this.AddChild(this._packMode = new PackMode(this));
+                    this.AddChild(this._diffClearMode = new DiffClearMode(this));
+                    this.AddChild(this._diffComplexMode = new DiffComplexMode(this));
+                    this.AddChild(this._letterMode = new LetterMode(this));
+                    this.AddChild(this._sortOrder = new(this));
+                }
+                else
+                    this.AddChild(this._packMode = new PackMode(this));
+
                 this._packMode.Activate();
                 this._currentSongList = _packMode;
             }

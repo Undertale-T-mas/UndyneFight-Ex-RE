@@ -32,12 +32,16 @@ namespace Rhythm_Recall.Waves
 
                     CheckTime = () =>
                     {
-                        DateTime cur = DateTime.UtcNow;
-                        if (cur < s) return ChampionShip.ChampionShipStates.NotStart;
-                        else if (cur < e) return ChampionShip.ChampionShipStates.Starting;
-                        else if (cur.Day == e.Day && cur.Month == e.Month && cur.Year == e.Year)
-                            return ChampionShip.ChampionShipStates.NotAvailable;
-                        else return ChampionShip.ChampionShipStates.End;
+                        if (BSet.problem) { return ChampionShip.ChampionShipStates.NotStart; }
+                        else
+                        {
+                            DateTime cur = DateTime.UtcNow;
+                            if (cur < s) return ChampionShip.ChampionShipStates.NotStart;
+                            else if (cur < e) return ChampionShip.ChampionShipStates.Starting;
+                            else if (cur.Day == e.Day && cur.Month == e.Month && cur.Year == e.Year)
+                                return ChampionShip.ChampionShipStates.NotAvailable;
+                            else return ChampionShip.ChampionShipStates.End;
+                        }
                     }
 
                 };
@@ -72,12 +76,16 @@ namespace Rhythm_Recall.Waves
 
                     CheckTime = () =>
                     {
-                        DateTime cur = DateTime.UtcNow;
-                        if (cur < s) return ChampionShip.ChampionShipStates.NotStart;
-                        else if (cur < e) return ChampionShip.ChampionShipStates.Starting;
-                        else if (cur.Day == e.Day && cur.Month == e.Month && cur.Year == e.Year)
-                            return ChampionShip.ChampionShipStates.NotAvailable;
-                        else return ChampionShip.ChampionShipStates.End;
+                        if (BSet.problem) { return ChampionShip.ChampionShipStates.NotStart; }
+                        else
+                        {
+                            DateTime cur = DateTime.UtcNow;
+                            if (cur < s) return ChampionShip.ChampionShipStates.NotStart;
+                            else if (cur < e) return ChampionShip.ChampionShipStates.Starting;
+                            else if (cur.Day == e.Day && cur.Month == e.Month && cur.Year == e.Year)
+                                return ChampionShip.ChampionShipStates.NotAvailable;
+                            else return ChampionShip.ChampionShipStates.End;
+                        }
                     }
 
                 };

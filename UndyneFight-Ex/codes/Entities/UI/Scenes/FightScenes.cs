@@ -29,11 +29,14 @@ namespace UndyneFight_Ex.Entities
 
         public void PlayDeath()
         {
-            playerAlive = false;
-            PlayerDied();
-
-            Achievements.AchievementManager.CheckUserAchievements();
-            GameStates.InstanceCreate(new Player.BrokenHeart());
+            if (BSet.again) 
+            {
+                playerAlive = false;
+                PlayerDied();
+                BSet.ResetALL();
+                Achievements.AchievementManager.CheckUserAchievements();
+                GameStates.InstanceCreate(new Player.BrokenHeart());
+            }
         }
         protected abstract void PlayerDied();
 
@@ -80,17 +83,20 @@ namespace UndyneFight_Ex.Entities
         }
         public override void Update()
         {
+
             if (appearTime == 0)
                 Fight.ClassicFightEnterance.CreateClassicFight(current);
             appearTime++;
             base.Update();
-
-            restartTimer = IsKeyDown(InputIdentity.Reset) ? restartTimer + 1 : 0;
-            if (restartTimer >= 45)
+            if (BSet.again)
             {
-                ResetFightState(true);
-                GameStates.InstanceCreate(new Player.BrokenHeart());
-                ResetScene(new TryAgainScene(Fight.ClassicFightEnterance.currentFight, mode));
+                restartTimer = IsKeyDown(InputIdentity.Reset) ? restartTimer + 1 : 0;
+                if (restartTimer >= 45)
+                {
+                    ResetFightState(true);
+                    GameStates.InstanceCreate(new Player.BrokenHeart());
+                    ResetScene(new TryAgainScene(Fight.ClassicFightEnterance.currentFight, mode));
+                }
             }
         }
     }

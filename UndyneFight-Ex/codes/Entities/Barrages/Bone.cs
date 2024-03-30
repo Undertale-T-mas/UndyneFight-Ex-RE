@@ -437,6 +437,7 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
+            if (BSet.timestop) return;
             if (AlphaRoute != null)
                 alpha = AlphaRoute(this);
             else if (AlphaIncrease)
