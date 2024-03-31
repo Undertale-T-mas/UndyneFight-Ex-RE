@@ -112,7 +112,6 @@ Alternate: Space";
             GameStartUp.PushChampionShip(Summer_Camp_Ⅲ_A.GetChampionShip);
             GameStartUp.PushChampionShip(Summer_Camp_Ⅲ_B.GetChampionShip);
             GameStartUp.PushChampionShip(Monochrome.GetChampionShip);
-            GameStartUp.PushChampionShip(BadAppleTemp.GetChampionShip);
             SetAchievement();
             SetChallenge();
 #if !OSTPublish

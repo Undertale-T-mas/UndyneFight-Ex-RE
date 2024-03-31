@@ -49,7 +49,7 @@ namespace Rhythm_Recall.Waves
                     CheckTime = () =>
                     {
 #if DEBUG
-                        return ChampionShip.ChampionShipStates.End;
+                        //return ChampionShip.ChampionShipStates.End;
 #endif        
                         if (PlayerManager.CurrentUser != null)
                             return PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("reBadApple") ? ChampionShip.ChampionShipStates.End : ChampionShip.ChampionShipStates.NotStart;

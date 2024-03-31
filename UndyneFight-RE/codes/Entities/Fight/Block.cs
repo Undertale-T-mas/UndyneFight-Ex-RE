@@ -34,7 +34,7 @@ namespace UndyneFight_Ex.Remake.Entities
 
         protected override float GetDistance(Player.Heart heart)
         {
-            return Alpha == 1 ? Vector2.Distance(heart.Centre, this.Centre) : Vector2.Distance(new Vector2(-9000), this.Centre);
+             return Vector2.Distance(heart.Centre, this.Centre);
         }
 
         protected override void OnShot(SoulBullet bullet)
@@ -78,7 +78,7 @@ namespace UndyneFight_Ex.Remake.Entities
 
         protected override float GetDistance(Player.Heart heart)
         {
-            return Alpha == 1 ? Vector2.Distance(heart.Centre, this.Centre) : Vector2.Distance(new Vector2(-9000), this.Centre);
+            return Vector2.Distance(heart.Centre, this.Centre);
         }
 
         protected override void OnShot(SoulBullet bullet)

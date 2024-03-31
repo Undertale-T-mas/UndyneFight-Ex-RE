@@ -5,7 +5,6 @@ using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
 using UndyneFight_Ex.Entities.Advanced;
 using UndyneFight_Ex.SongSystem;
-using UndyneFight_Ex.UserService;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
 using static UndyneFight_Ex.Fight.Functions;
 using static UndyneFight_Ex.FightResources.Sounds;
@@ -313,7 +312,7 @@ namespace Rhythm_Recall.Waves
                 );
         }
         public SongInformation Attributes => new ThisInformation();
-        int MaxHP;
+
         public void Start()
         {
             SetBox(290, 140, 140);
@@ -324,28 +323,6 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.KR = true;
                 HeartAttribute.KRDamage = 7f;
                 Heart.Speed = 3;
-                if (difficulty == 4 && PlayerManager.CurrentUser != null)
-                {
-                    var songs = PlayerManager.CurrentUser.SongManager;
-                    Dictionary<string, SongData> dic = new();
-                    foreach (var v in songs.AllDatas)
-                    {
-                        dic.Add(v.SongName, v);
-                    }
-                    if (dic.ContainsKey("Bad apple"))
-                    {
-                        if (
-                        dic["Bad apple"].CurrentSongStates.ContainsKey(Difficulty.Extreme))
-                        {
-                            if (!PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("BadApple%"))
-                            {
-                                MaxHP = 80;
-                                HeartAttribute.MaxHP = 80;
-                            }
-                        }
-                    }
-
-                }
             }
         }
 
@@ -1374,7 +1351,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(512))
             {
                 PlaySound(heal);
-                HeartAttribute.MaxHP = MaxHP;
+                HeartAttribute.MaxHP = 92;
             }
             if (InBeat(258, 500) && At0thBeat(8))
             {
@@ -1423,7 +1400,7 @@ namespace Rhythm_Recall.Waves
             {
                 SetSoul(2);
                 PlaySound(heal);
-                HeartAttribute.MaxHP = MaxHP;
+                HeartAttribute.MaxHP = 92;
                 SetBox(310f, 320f, 210f);
                 CreatePlatform(new Platform(1, new Vector2(320, 380), Motions.PositionRoute.YAxisSin, 0, 49, BeatTime(252))
                 {
@@ -1526,7 +1503,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(768))
             {
                 PlaySound(heal);
-                HeartAttribute.MaxHP = MaxHP;
+                HeartAttribute.MaxHP = 92;
                 Heart.Speed = 3.3f;
                 SetSoul(2);
                 CreatePlatform(new Platform(1, new Vector2(320, 345), Motions.PositionRoute.YAxisSin, 0, 48, BeatTime(252))
@@ -1563,7 +1540,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(1024))
             {
                 PlaySound(heal);
-                HeartAttribute.MaxHP = MaxHP;
+                HeartAttribute.MaxHP = 92;
                 SetSoul(2);
                 SetBox(290, 160, 180);
                 Heart.GiveForce(180, 4);
@@ -1667,7 +1644,7 @@ namespace Rhythm_Recall.Waves
                 SetBox(290, 380, 240);
                 SetSoul(2);
                 PlaySound(heal);
-                HeartAttribute.MaxHP = MaxHP;
+                HeartAttribute.MaxHP = 92;
                 Heart.movingKey = new InputIdentity[] { InputIdentity.MainRight, InputIdentity.MainDown, InputIdentity.MainLeft, InputIdentity.MainUp };
             }
             if (InBeat(1280 + 12, 1536 - 24) && GametimeF % 4 == 1)
@@ -1743,7 +1720,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(1536))
             {
                 PlaySound(heal);
-                HeartAttribute.MaxHP = MaxHP;
+                HeartAttribute.MaxHP = 92;
                 for (int i = 0; i < 4; i++)
                     CreateEntity(new Boneslab(i * 90, 10, 40, (int)BeatTime(120 + 128)));
                 Heart.Gravity = 3.0f;
@@ -1788,7 +1765,7 @@ namespace Rhythm_Recall.Waves
             if (InBeat(1792))
             {
                 PlaySound(heal);
-                HeartAttribute.MaxHP = MaxHP;
+                HeartAttribute.MaxHP = 92;
                 HeartAttribute.KRDamage = 5;
                 InstantSetBox(240, 1644, 1484);
                 ResetBarrage();

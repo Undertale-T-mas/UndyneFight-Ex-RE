@@ -18,7 +18,7 @@ namespace Rhythm_Recall
         {
             //   UndyneFight_Ex.ChampionShips.LicenseMaker.GetScore(Waves.Memory2022.GetChampionShip);
             BadAppleRE.Final = new("Musics\\BadAppleRE\\Font\\Final", cm);
-            BadAppleRE.BadAppleFont = new("Musics\\BadAppleRE\\Font\\BadAppleFont", cm);
+            BadAppleRE.Final = new("Musics\\BadAppleRE\\Font\\BadAppleFont", cm);
             BadAppleRE.inyou = cm.Load<Texture2D>("Musics\\BadAppleRE\\inyou");
             BadAppleRE.bubble = cm.Load<Texture2D>("Musics\\BadAppleRE\\bubble");
             foreach (char ch in _loads)
@@ -33,7 +33,6 @@ namespace Rhythm_Recall
                 st += $"{i}";
                 BadAppleRE.BreakScreen[i] = cm.Load<Texture2D>($"Musics\\BadAppleRE\\BreakScreen\\BlackMove_{st}");
             }
-            
             List<int> temp = new();
             for (int i = 0; i < 835; i++) temp.Add(i);
             foreach (var t in temp)
@@ -53,7 +52,6 @@ namespace Rhythm_Recall
                 }
                 BadAppleRE.anomalyVideo[t] = cm.Load<Texture2D>($"Musics\\BadAppleRE\\anomaly\\Screen_{st}");
             }
-            
             block = cm.Load<Texture2D>("Sprites\\Blocks\\block");
             blockTmas = cm.Load<Texture2D>("Sprites\\Blocks\\blockTmas");
             blockOtokp = cm.Load<Texture2D>("Sprites\\Blocks\\blockOtokp");

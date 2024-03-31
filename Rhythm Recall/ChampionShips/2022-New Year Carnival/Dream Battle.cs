@@ -2482,20 +2482,6 @@ namespace Rhythm_Recall.Waves
                     ScreenAngle(0, BeatTime(64));
                     ScreenDrawing.ScreenScale = 4;
                 }
-                if (GameStates.difficulty == 4) 
-                {
-                    if (PlayerManager.CurrentUser != null)
-                    {
-                        if (PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("BadApple%"))
-                        {
-                            int count = PlayerManager.CurrentUser.Custom.Nexts["BadApple%"].IntValue;
-                            if (count == 1)
-                            {
-                                HeartAttribute.MaxHP = 16;
-                            }
-                        }
-                    }
-                }
             }
         }
     }

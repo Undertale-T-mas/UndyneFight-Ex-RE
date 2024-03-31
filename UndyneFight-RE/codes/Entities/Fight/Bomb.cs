@@ -65,7 +65,7 @@ namespace UndyneFight_Ex.Remake.Entities
                 Vector2 c1 = heart.Centre, c2 = this.Centre;
                 return Min(Abs(c1.X - c2.X), Abs(c1.Y - c2.Y)) + 3;
             }
-            return Alpha == 1 ? Vector2.Distance(heart.Centre, this.Centre) : Vector2.Distance(new Vector2(-9000), this.Centre);
+            return Vector2.Distance(heart.Centre, this.Centre);
         }
         private bool isShot = false;
         protected override void OnShot(SoulBullet bullet)

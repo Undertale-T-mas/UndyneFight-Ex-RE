@@ -2214,18 +2214,7 @@ namespace Rhythm_Recall.Waves
                 //GametimeDelta = this.BeatTime(1532);
                 //GametimeDelta += BeatTime(1758);
                 PlayOffset = GametimeDelta + 43f;
-                // SetSoul(0);
-                if (PlayerManager.CurrentUser != null&&GameStates.difficulty==3) 
-                {
-                    if (PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("BadApple%"))
-                    {
-                        int count = PlayerManager.CurrentUser.Custom.Nexts["BadApple%"].IntValue;
-                        if (count == 0)
-                        {
-                            HeartAttribute.MaxHP = 4;
-                        }
-                    }
-                }
+                // SetSoul(0); 
             }
         }
     }
