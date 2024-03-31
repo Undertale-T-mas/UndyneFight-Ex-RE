@@ -2,11 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using UndyneFight_Ex;
-using UndyneFight_Ex.GameInterface;
 using UndyneFight_Ex.UserService;
 using static Rhythm_Recall.Resources.Championships;
-using static UndyneFight_Ex.BSet;
 using static UndyneFight_Ex.GameInterface.GameStartUp;
 
 namespace Rhythm_Recall
@@ -17,41 +14,11 @@ namespace Rhythm_Recall
         public static void Initialize(ContentManager cm)
         {
             //   UndyneFight_Ex.ChampionShips.LicenseMaker.GetScore(Waves.Memory2022.GetChampionShip);
-            BadAppleRE.Final = new("Musics\\BadAppleRE\\Font\\Final", cm);
-            BadAppleRE.Final = new("Musics\\BadAppleRE\\Font\\BadAppleFont", cm);
-            BadAppleRE.inyou = cm.Load<Texture2D>("Musics\\BadAppleRE\\inyou");
-            BadAppleRE.bubble = cm.Load<Texture2D>("Musics\\BadAppleRE\\bubble");
             foreach (char ch in _loads)
             {
                 charTextures[ch] = cm.Load<Texture2D>($"FontTexture\\{ch}\\{ch}");
             }
-            for (int i = 0; i < BadAppleRE.BreakScreen.Length; i++)
-            {
-                string st = "0";
-                char[] s = $"{i}".ToCharArray();
-                for (int i2 = 0; i2 < 4 - s.Length; i2++) st += "0";
-                st += $"{i}";
-                BadAppleRE.BreakScreen[i] = cm.Load<Texture2D>($"Musics\\BadAppleRE\\BreakScreen\\BlackMove_{st}");
-            }
-            List<int> temp = new();
-            for (int i = 0; i < 835; i++) temp.Add(i);
-            foreach (var t in temp)
-            {
-                string st = "";
-                if (t < 10)
-                {
-                    st = "0000" + t.ToString();
-                }
-                else if (t < 100)
-                {
-                    st = "000" + t.ToString();
-                }
-                else
-                {
-                    st = "00" + t.ToString();
-                }
-                BadAppleRE.anomalyVideo[t] = cm.Load<Texture2D>($"Musics\\BadAppleRE\\anomaly\\Screen_{st}");
-            }
+
             block = cm.Load<Texture2D>("Sprites\\Blocks\\block");
             blockTmas = cm.Load<Texture2D>("Sprites\\Blocks\\blockTmas");
             blockOtokp = cm.Load<Texture2D>("Sprites\\Blocks\\blockOtokp");
@@ -92,15 +59,7 @@ namespace Rhythm_Recall
                     Image = cm.Load<Texture2D>("Souvenir\\MemoryBronze")
                 }); ;
         }
-        public static class BadAppleRE
-        {
-            public static Texture2D[] BreakScreen = new Texture2D[106];
-            public static Texture2D[] anomalyVideo = new Texture2D[835];
-            public static GLFont Final;
-            public static GLFont BadAppleFont;
-            public static Texture2D inyou;
-            public static Texture2D bubble;
-        }
+
         static Random rander;
         public static Dictionary<char, Texture2D> charTextures = new();
         private static Texture2D blockTail, block, blockTmas, blockOtokp;

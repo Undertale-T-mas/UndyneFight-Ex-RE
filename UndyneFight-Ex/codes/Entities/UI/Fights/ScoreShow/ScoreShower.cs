@@ -131,7 +131,6 @@ namespace UndyneFight_Ex.Entities
 
             public override void Draw()
             {
-                if (BSet.final) return;
                 if (combo != 0)
                 {
                     FightResources.Font.NormalFont.CentreDraw("x" + combo, Centre + new Vector2(30 * scale, 32 * scale), color * alpha, Math.Min(10, appearTime) / 10f * scale, 0.45f);
@@ -142,7 +141,6 @@ namespace UndyneFight_Ex.Entities
 
             public override void Update()
             {
-                if (BSet.final) Dispose();
                 appearTime++;
                 if (appearTime == 60)
                 {
@@ -220,23 +218,15 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            if (BSet.timestop)
+            Color UICol = GameMain.CurrentDrawingSettings.UIColor;
+            GLFont F = FightResources.Font.NormalFont;
+            F.CentreDraw(score.Value.ToString(), new Vector2(640 - 72, 20), UICol, 1, Depth);
+            if (totalCount != 0)
             {
-                FightResources.Font.NormalFont.CentreDraw("aHR0cHM6Ly93d3cueW91dHViZS5jb2", new Vector2(400, 20), GameMain.CurrentDrawingSettings.UIColor);
-                FightResources.Font.NormalFont.CentreDraw("0vQGNvbXBsZXRlZF9wYXNzd29yZA==", new Vector2(400, 50), GameMain.CurrentDrawingSettings.UIColor);
+                F.CentreDraw($"{MathF.Round((float)(perfect * 100.0 / totalCount), 1)}%", new Vector2(640 - 72, 40), UICol, FontScale * 0.8f, Depth);
+                //F.CentreDraw($"m/a:{MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1)}%", new Vector2(92, 80), UICol);
             }
-            else
-            {
-                Color UICol = GameMain.CurrentDrawingSettings.UIColor;
-                GLFont F = FightResources.Font.NormalFont;
-                F.CentreDraw(score.Value.ToString(), new Vector2(640 - 72, 20), UICol, 1, Depth);
-                if (totalCount != 0)
-                {
-                    F.CentreDraw($"{MathF.Round((float)(perfect * 100.0 / totalCount), 1)}%", new Vector2(640 - 72, 40), UICol, FontScale * 0.8f, Depth);
-                    //F.CentreDraw($"m/a:{MathF.Round((float)((okay + nice + perfect) * 100.0 / totalCount), 1)}%", new Vector2(92, 80), UICol);
-                }
-                current?.Draw();
-            }
+            current?.Draw();
         }
 
         public override void Update()

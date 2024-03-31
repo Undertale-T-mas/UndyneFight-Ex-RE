@@ -452,7 +452,7 @@ namespace UndyneFight_Ex.Entities
                 Depth = 0.3f;
                 int protectTime = (FatherObject as Player).hpControl.protectTime;
                 Color drawingColor = isOranged ? Color.Orange : _currentMoveState.StateColor;
-                if (protectTime > 0 && !BSet.timestop)
+                if (protectTime > 0)
                 {
                     FormalDraw(Image, Centre, drawingColor * ((protectTime % 30) > 8 ? 0.6f : 1.0f) * Alpha, MathUtil.GetRadian(Rotation), ImageCentre);
                 }
@@ -540,7 +540,7 @@ namespace UndyneFight_Ex.Entities
             /// 改变颜色。
             /// </summary>
             /// <param name="type">灵魂状态。0表示红，1表示绿，2表示蓝，3表示橙，4表示紫，5表示灰</param>
-            public void ChangeColor(int type, bool i=true)
+            public void ChangeColor(int type)
             {
                 isOranged = type == 3;
                 lastChangeTime = 0;
@@ -556,11 +556,8 @@ namespace UndyneFight_Ex.Entities
                     case 4:
                         GameStates.InstanceCreate(new PurpleFiller(-1, this));
                         break;
-                    case 6:
-                        GameStates.InstanceCreate(new PurpleFiller(-1, this));
-                        break;
                 }
-                this._currentMoveState = type switch
+                _currentMoveState = type switch
                 {
                     0 => _red,
                     1 => _green,
@@ -571,7 +568,7 @@ namespace UndyneFight_Ex.Entities
                     _ => throw new ArgumentOutOfRangeException(nameof(type)),
                 };
                 SoulType = type;
-                if (i) CreateShinyEffect(_currentMoveState.StateColor); 
+                CreateShinyEffect(_currentMoveState.StateColor);
                 Player manager = FatherObject as Player;
                 manager.GameAnalyzer.PushData(new SoulChangeData(SoulType, ID, GametimeF));
             }

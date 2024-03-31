@@ -13,10 +13,9 @@ namespace UndyneFight_Ex.Remake.Entities
     {
         public float WaveTime { get; set; } = 50.0f;
         public float BulletDepth { get; set; } = 0.5f;
-        public bool damage { get; set; } = true;
+
         private class MettBullet : Barrage
         {
-            public bool damage { get; set; } = true;
             public MettBullet(Vector2 pos, float waveTime)
             {
                 this.Image = FightSprites.MettBullet;
@@ -36,7 +35,7 @@ namespace UndyneFight_Ex.Remake.Entities
             }
             protected override float GetDistance(Player.Heart heart)
             {
-                return damage ? Vector2.Distance(heart.Centre, this.Centre) : Vector2.Distance(new Vector2(-9000), this.Centre);
+                return Vector2.Distance(heart.Centre, this.Centre);
             }
         }
         ParasolMett()
@@ -92,7 +91,7 @@ namespace UndyneFight_Ex.Remake.Entities
         }
         protected override float GetDistance(Player.Heart heart)
         {
-            return damage ? Vector2.Distance(heart.Centre, this.Centre) : Vector2.Distance(new Vector2(-9000), this.Centre);
+            return Vector2.Distance(heart.Centre, this.Centre);
         }
 
         protected override void OnShot(SoulBullet bullet)
@@ -105,7 +104,7 @@ namespace UndyneFight_Ex.Remake.Entities
         private void MakeShoot()
         {
             index = 0;
-            this.AddChild(new InstantEvent(7, () => { GameStates.InstanceCreate(new MettBullet(this.Centre, this.WaveTime) { Depth = this.BulletDepth, damage = this.damage }); }));
+            this.AddChild(new InstantEvent(7, () => { GameStates.InstanceCreate(new MettBullet(this.Centre, this.WaveTime) { Depth = this.BulletDepth }); }));
         }
         int index = -1;
 

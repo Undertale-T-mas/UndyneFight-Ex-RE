@@ -92,7 +92,7 @@ namespace UndyneFight_Ex.Entities
                 Move.mission = s;
                 Move.MoveAsGray();
             });
-            public void ChangeState(MoveState state,bool effect)
+            public void ChangeState(MoveState state)
             {
                 isOranged = false;
                 _currentMoveState = state;
@@ -100,7 +100,6 @@ namespace UndyneFight_Ex.Entities
                 SoulType = -1;
                 Player manager = FatherObject as Player;
                 manager.GameAnalyzer.PushData(new SoulChangeData(-1, ID, Fight.Functions.GametimeF));
-                if(effect)
                 CreateShinyEffect(_currentMoveState.StateColor);
             }
         }

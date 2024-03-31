@@ -24,19 +24,15 @@ namespace Rhythm_Recall.Waves
                     IconPath = "ChampionShips\\red_cup",
                     CheckTime = () =>
                     {
-                        if (BSet.problem) { return ChampionShip.ChampionShipStates.NotStart; }
-                        else
-                        {
-                            DateTime s = DateTime.Now;
-                            int dayType = s.Year < 2021 || (s.Year == 2021 && s.Month < 5)
-                                ? -1
-                                : s.Month == 5 && s.Year == 2021 && s.Day <= 2 ? -1 : s.Month == 5 && s.Year == 2021 && s.Day == 3 ? 0 : 1;
-                            if (dayType == -1) return ChampionShip.ChampionShipStates.NotStart;
-                            if (dayType == 1) return ChampionShip.ChampionShipStates.End;
-                            TimeSpan t = s.TimeOfDay;
-                            bool res = (t.Hours > 13 || t.Hours == 13 && t.Minutes >= 45) && (t.Hours < 15 || (t.Hours == 15 && t.Minutes < 43));
-                            return res ? ChampionShip.ChampionShipStates.Starting : ChampionShip.ChampionShipStates.NotAvailable;
-                        }
+                        DateTime s = DateTime.Now;
+                        int dayType = s.Year < 2021 || (s.Year == 2021 && s.Month < 5)
+                            ? -1
+                            : s.Month == 5 && s.Year == 2021 && s.Day <= 2 ? -1 : s.Month == 5 && s.Year == 2021 && s.Day == 3 ? 0 : 1;
+                        if (dayType == -1) return ChampionShip.ChampionShipStates.NotStart;
+                        if (dayType == 1) return ChampionShip.ChampionShipStates.End;
+                        TimeSpan t = s.TimeOfDay;
+                        bool res = (t.Hours > 13 || t.Hours == 13 && t.Minutes >= 45) && (t.Hours < 15 || (t.Hours == 15 && t.Minutes < 43));
+                        return res ? ChampionShip.ChampionShipStates.Starting : ChampionShip.ChampionShipStates.NotAvailable;
                     }
 
                 };

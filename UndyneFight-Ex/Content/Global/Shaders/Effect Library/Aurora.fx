@@ -9,9 +9,9 @@
 
 //uniform float iRotation;
 uniform float3 iRGB1, iRGB2;
-uniform float iTime;
-uniform float iSlope, iAddition;
-uniform float type;
+uniform float iTime; 
+uniform float iSlope, iAddition; 
+
 
 sampler2D SpriteTextureSampler : register(s0);
 
@@ -22,10 +22,10 @@ struct VertexShaderOutput
     float4 Position : SV_POSITION;
     float4 Color : COLOR0;
     float2 TextureCoordinates : TEXCOORD0;
-};
+};  
 
 float4 MainPS(VertexShaderOutput input) : COLOR
-{
+{ 
     float2 uv = input.TextureCoordinates;
     float o = tex2D(SpriteTextureSampler, uv * 0.25 + float2(0, iTime * 0.025)).r;
     float d = tex2D(hashSample, uv * 0.25 - float2(0, iTime * 0.02 + o * 0.02)).r * 2.0 - 1.0;
@@ -33,12 +33,8 @@ float4 MainPS(VertexShaderOutput input) : COLOR
     v = 1.0 - abs(v * 2.0 - 1.0);
     v = pow(v, 2.0 + sin((iTime * 0.2 + d * 0.25) * 6.28) * 0.5);
     
-    float3 col = float3(0, 0, 0);
+    float3 col = float3(0, 0, 0); 
     float x1 = (1.0 - uv.x * 0.75);
-    if (type == 1)
-    {
-        x1 = 1.0;
-    }
     float y1 = 1.0 - abs(uv.y * iSlope - iAddition);
     col += (x1 * iRGB1 + y1 * iRGB2) * v;
     

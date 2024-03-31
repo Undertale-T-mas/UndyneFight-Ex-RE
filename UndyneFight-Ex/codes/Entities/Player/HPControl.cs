@@ -91,7 +91,6 @@ namespace UndyneFight_Ex.Entities
             }
             public void LoseHP(Heart heart)
             {
-                if (BSet.timestop) return;
                 if (protectTime > 0)
                     return;
 
@@ -168,7 +167,7 @@ namespace UndyneFight_Ex.Entities
                     GameStates.CheatAffirmed();
 
                 bool PracticeDisbled = ((CurrentScene as FightScene).Mode & GameMode.Practice) == 0;
-                if (hp <= 0&&BSet.again)
+                if (hp <= 0)
                 {
                     if (PracticeDisbled)
                     {

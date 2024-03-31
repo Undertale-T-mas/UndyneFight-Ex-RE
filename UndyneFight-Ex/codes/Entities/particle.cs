@@ -59,7 +59,6 @@ namespace UndyneFight_Ex.Entities
 
         public override void Update()
         {
-            if (BSet.timestop) return;
             appearTime++;
             timeLeft = duration - appearTime;
             if (timeLeft < 0) Dispose();
@@ -165,14 +164,11 @@ namespace UndyneFight_Ex.Entities
 
         public override void Draw()
         {
-            if (!BSet.timestop)
-                FormalDraw(Image, Centre, color * light, size, Rotation, ImageCentre);
-            else FormalDraw(Image, Centre, Color.White * light, size, Rotation, ImageCentre);
+            FormalDraw(Image, Centre, color * light, size, Rotation, ImageCentre);
         }
 
         public override void Update()
         {
-            if (BSet.timestop) return;
             if (light >= darkingSpeed / 255f)
                 light -= darkingSpeed / 255f;
             else Dispose();

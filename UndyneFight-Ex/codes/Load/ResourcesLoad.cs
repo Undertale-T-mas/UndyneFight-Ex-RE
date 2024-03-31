@@ -308,8 +308,6 @@ namespace UndyneFight_Ex
             Sprites.bullet =        loader.Load<Texture2D>("Sprites\\bullet\\gunBullet");
             Sprites.goldenBrim =    loader.Load<Texture2D>("Sprites\\bullet\\golden_tip");
 
-            Sprites.oldshield[0] = loader.Load<Texture2D>("Sprites\\SOUL\\old\\shield_blue");
-            Sprites.oldshield[1] = loader.Load<Texture2D>("Sprites\\SOUL\\old\\shield_red");
             Sprites.shield =             loader.Load<Texture2D>("Sprites\\SOUL\\shield");
             Sprites.shinyShield =        loader.Load<Texture2D>("Sprites\\SOUL\\shield_shiny");
             Sprites.ShieldCircle =       loader.Load<Texture2D>("Sprites\\SOUL\\circle");
@@ -443,7 +441,6 @@ namespace UndyneFight_Ex
             /// 盾牌
             /// </summary>
             public static Texture2D shield;
-            public static Texture2D[] oldshield=new Texture2D[2];
             public static Texture2D shinyShield;
             public static Texture2D ShieldCircle { get; internal set; }
             public static Texture2D ConsumptionCrystal { get; internal set; }

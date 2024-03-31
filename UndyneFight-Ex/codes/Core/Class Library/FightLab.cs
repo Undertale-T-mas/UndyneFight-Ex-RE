@@ -425,16 +425,16 @@ namespace UndyneFight_Ex.Fight
         /// 改变玩家灵魂状态。
         /// </summary>
         /// <param name="type">灵魂状态。0表示红，1表示绿，2表示蓝，3表示橙，4表示紫，5表示灰</param>
-        public static void SetSoul(int type,bool effect=true)
+        public static void SetSoul(int type)
         {
-            Player.heartInstance.ChangeColor(type,effect);
+            Player.heartInstance.ChangeColor(type);
         }
         /// <summary>
         /// 改变玩家灵魂状态。
         /// </summary> 
-        public static void SetSoul(Player.MoveState state,bool effect=true)
+        public static void SetSoul(Player.MoveState state)
         {
-            Player.heartInstance.ChangeState(state,effect);
+            Player.heartInstance.ChangeState(state);
         }
 
         private static Arrow last;
@@ -1046,20 +1046,12 @@ namespace UndyneFight_Ex.Fight
                 if (s is Bone || s is Platform || s is Spear || s is NormalGB) { s.Kill(); }
             });
         }
-        public static void DisposeBarrage()
-        {
-            Objects.ForEach(s =>
-            {
-                if (s is Bone || s is Platform || s is Spear || s is NormalGB) { s.Dispose(); }
-            });
-        }
         /// <summary>
         /// 立刻结束当前游戏
         /// </summary>
         public static void EndSong()
         {
             (CurrentScene as SongFightingScene).ForceEnd();
-            BSet.ResetALL();
         }
         public static Player.Heart CreateHeart(CollideRect startingBoxPos)
         {

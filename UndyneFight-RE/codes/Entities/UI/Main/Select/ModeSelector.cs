@@ -42,7 +42,7 @@ namespace UndyneFight_Ex.Remake.UI
                         this.ColorNormal = cur switch
                         {
                             0 => Color.White,
-                            1 => PlayerManager.CurrentUser != null || BSet.problem ? Color.White : Color.DarkRed,
+                            1 => PlayerManager.CurrentUser != null ? Color.White : Color.DarkRed,
                             2 => Color.DarkRed,
                             _ => throw new NotImplementedException()
                         };
@@ -224,7 +224,7 @@ namespace UndyneFight_Ex.Remake.UI
                         this._virtualFather.SongSelect.Activate();
                     else if(startButton.Type == 1)
                     {
-                        if (PlayerManager.CurrentUser == null||BSet.problem) return;
+                        if (PlayerManager.CurrentUser == null) return;
                         this.Dispose();
                         this._virtualFather.Dispose();
                         this._virtualFather.FatherObject?.Dispose();

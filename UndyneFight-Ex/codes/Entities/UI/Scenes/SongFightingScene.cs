@@ -207,7 +207,6 @@ namespace UndyneFight_Ex.Entities
                     if ((mode & GameMode.RestartDeny) != GameMode.RestartDeny)
                     {
                         PlayDeath();
-                        if(BSet.again)
                         return;
                     }
                 }

@@ -28,7 +28,6 @@ namespace UndyneFight_Ex.Entities
         public Color CoinColor { get; set; } = Color.Gold;
         public override void Draw()
         {
-            if (BSet.problem) return;
             if (!enabled) return;
             Depth = 0.99f;
             var BoxMiddle = collidingBox.Height / 2;

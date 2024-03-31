@@ -27,7 +27,6 @@ namespace UndyneFight_Ex.Remake.Network
         }
         public override void Draw()
         {
-            if (BSet.problem) return;
             CollideRect rect = new(location, size);
             Vector2 titlePos = rect.GetCentre() - new Vector2(0, 21);
             Vector2 infoPos = rect.GetCentre() + new Vector2(0, 21);

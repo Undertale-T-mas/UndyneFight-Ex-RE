@@ -83,7 +83,7 @@ namespace UndyneFight_Ex
             Graphics.PreferredBackBufferHeight = 480;
             Graphics.PreferredBackBufferWidth = 640;
             Window.AllowUserResizing = true;
-            Window.Title = BSet.Windowname;
+            Window.Title = $"Rhythm Recall v0.2.2 (UF-Ex [V{ModDynamic.UFExVersion}])";
             Graphics.ApplyChanges();
 
             // TODO: Add your initialization logic here
@@ -262,9 +262,7 @@ namespace UndyneFight_Ex
                 escPressed = true;
             }
             else escPressed = false;
-            if (GameStates.IsKeyPressed120f(InputIdentity.FullScreen) && !BSet.FullScreen) ToggleFullScreen();
-
-            if (BSet.FullScreen && !_isFullScreen) ToggleFullScreen();
+            if (GameStates.IsKeyPressed120f(InputIdentity.FullScreen)) ToggleFullScreen();
             #endregion
 
             Update120F = GameMain.gameTime == (int)GameMain.gameTime;

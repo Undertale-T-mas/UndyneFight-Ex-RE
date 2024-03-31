@@ -259,8 +259,7 @@ namespace UndyneFight_Ex.Entities
                         }
                     if (appearTime - waitingTime >= timeDelta)
                     {
-                        if (!BSet.final)
-                            missionPlayer.Shields.MakeShieldParticle(drawingColor, missionPlayer.FixArrow ? missionRotation : missionRotation + missionPlayer.Rotation);
+                        missionPlayer.Shields.MakeShieldParticle(drawingColor, missionPlayer.FixArrow ? missionRotation : missionRotation + missionPlayer.Rotation);
                         //check collision
                         CalcPush(dir);
                         PushDown();

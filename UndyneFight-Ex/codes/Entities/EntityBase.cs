@@ -247,7 +247,7 @@ namespace UndyneFight_Ex
         {
             if (Alpha <= 0 || Image == null) return;
 
-            FormalDraw(Image, Centre, BlendColor * Alpha, Size == Vector2.Zero ? new Vector2(Scale):Size, Rotation, Anchor);
+            FormalDraw(Image, Centre, BlendColor * Alpha, Scale, Rotation, Anchor);
         }
     }
     public class TextEntity : Entity
@@ -397,7 +397,7 @@ namespace UndyneFight_Ex
 
         public float Rotation { get; set; }
         public float Scale { get; set; } = 1.0f;
-        public Vector2 Size { get; set; } = Vector2.Zero;
+
         public CollideRect CollidingBox
         {
             get
