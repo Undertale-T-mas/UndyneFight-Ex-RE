@@ -248,7 +248,6 @@ namespace UndyneFight_Ex
 #if DEBUG
             Stopwatch watch = new(); watch.Start();
 #endif
-            Window.Title = BSet.Windowname;
             _totalElapsedMS += gameTime.ElapsedGameTime.Milliseconds;
             if (_totalElapsedMS > 100f) _totalElapsedMS /= 2f;
             #region Event for times
