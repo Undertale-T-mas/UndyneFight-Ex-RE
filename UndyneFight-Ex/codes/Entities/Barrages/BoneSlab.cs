@@ -98,7 +98,10 @@ namespace UndyneFight_Ex.Entities
             this.totalTime = (int)totalTime;
             this.appearDelay = (int)appearDelay;
         }
-
+        public void UpdateColor() 
+        {
+            drawingColor = GameMain.CurrentDrawingSettings.themeColor;
+        }
         public override void Draw()
         {
             if (trueRotation == 90 || trueRotation == 270)

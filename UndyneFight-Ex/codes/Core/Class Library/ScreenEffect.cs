@@ -600,6 +600,7 @@ namespace UndyneFight_Ex.Fight
                     public float AverageDelta { get; set; } = 1f;
                     public float RGBSplitIntensity = 0.0f;
                     public float BlockScale = 1.0f;
+                    public Vector2 Duration = new Vector2(18,40);
                     private class Updater : GameObject
                     {
                         Glitching father;
@@ -629,7 +630,7 @@ namespace UndyneFight_Ex.Fight
                                         Delta = new Vector2(Rand(-6, 6), Rand(-6, 6)); break;
                                 }
                                 Delta *= father.AverageDelta;
-                                lastTime = Rand(18, 40);
+                                lastTime = Rand((int)father.Duration.X, (int)father.Duration.Y);
                             }
                             int lastTime;
                             public int ColorType { get; private set; }

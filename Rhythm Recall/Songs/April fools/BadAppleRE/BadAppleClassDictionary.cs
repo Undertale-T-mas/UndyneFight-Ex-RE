@@ -2098,6 +2098,7 @@ namespace Rhythm_Recall.Waves
                 public EfEn(V centre, Texture2D image)
                 {
                     this.centre = centre;
+                    Size = V.One;
                     type = 0;
                     this.Image = image;
                 }
@@ -2915,18 +2916,14 @@ namespace Rhythm_Recall.Waves
                 var box = BoxUtils.VertexBoxInstance;
                 V vec = boxvec;
                 V v = BoxSize;
-                box.Vertexs[0].CurrentPosition = box.Vertexs[0].MissionPosition
-                    = vec + GetVector2(MathF.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2)),
-                                                brot + MathF.Atan2(v.Y / 2, v.X / 2) * 180 / MathF.PI);
-                box.Vertexs[1].CurrentPosition = box.Vertexs[1].MissionPosition
-                    = vec + GetVector2(MathF.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2)),
-                                                brot + MathF.Atan2(v.Y / 2, v.X / -2) * 180 / MathF.PI);
-                box.Vertexs[2].CurrentPosition = box.Vertexs[2].MissionPosition
-                    = vec + GetVector2(MathF.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2)),
-                                                brot + MathF.Atan2(v.Y / -2, v.X / -2) * 180 / MathF.PI);
-                box.Vertexs[3].CurrentPosition = box.Vertexs[3].MissionPosition
-                    = vec + GetVector2(MathF.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2)),
-                                                brot + MathF.Atan2(v.Y / -2, v.X / 2) * 180 / MathF.PI);
+                box.InstantSetPosition(0, vec + GetVector2((float)(Math.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2))),
+                                                brot + (float)(Math.Atan2(v.Y / 2, v.X / 2) * 180 / Math.PI)));
+                box.InstantSetPosition(1, vec + GetVector2((float)(Math.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2))),
+                                                brot + (float)(Math.Atan2(v.Y / 2, v.X / -2) * 180 / Math.PI)));
+                box.InstantSetPosition(2, vec + GetVector2((float)(Math.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2))),
+                                                brot + (float)(Math.Atan2(v.Y / -2, v.X / -2) * 180 / Math.PI)));
+                box.InstantSetPosition(3, vec + GetVector2((float)(Math.Sqrt((v.X / 2) * (v.X / 2) + (v.Y / 2) * (v.Y / 2))),
+                                                brot + (float)(Math.Atan2(v.Y / -2, v.X / 2) * 180 / Math.PI)));
             }
 
             public void BreakBone(float number, Vector2 vec, float speed, float len, float startrot)
@@ -3153,7 +3150,6 @@ namespace Rhythm_Recall.Waves
                 }
             }
             
-
         }
     }
 }

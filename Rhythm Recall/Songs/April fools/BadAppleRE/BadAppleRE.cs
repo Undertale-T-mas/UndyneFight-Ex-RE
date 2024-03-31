@@ -4691,7 +4691,6 @@ namespace Rhythm_Recall.Waves
             {
                 ExtendEffect();
                 TextEffect();
-                /*
                 #region Intro undyne
                 if (InBeat(0.9f))
                 {
@@ -4701,12 +4700,6 @@ namespace Rhythm_Recall.Waves
 
                     SceneRendering.InsertProduction(shader);
                     DelayBeat(38.1f, () => { shader.Dispose(); });
-                    if (PlayerManager.CurrentUser != null && PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("CompleteBadAppleRE")) 
-                    {
-                        Unlocker s = new Unlocker();
-                        AddInstance(s);
-                        DelayBeat(50, () => s.Dispose());
-                    }
 
                 }
                 if (InBeat(2f))
@@ -5339,9 +5332,9 @@ namespace Rhythm_Recall.Waves
                     rainer.Dispose();
 
                     BoundColor = CW;
-
                     var glitch = new ScreenDrawing.Shaders.Glitching(0.834572f);
                     var blur = new Blur(0.9735f);
+                    glitch.Duration = new V(3,3);
                     glitch.AverageInterval = 0;
                     glitch.Intensity = 1280;
                     glitch.AverageDelta = 1.2f;
@@ -8240,7 +8233,7 @@ namespace Rhythm_Recall.Waves
                     {
                         PlaySound(Sounds.change);
                         CentreEasing.EaseBuilder e = new();
-                        e.Insert(T(8), CentreEasing.Accerlating(new(Rand(2f, 6f)*RandSignal(), Rand(-7.00f, -10.00f)), new(0, 0.4f)));
+                        e.Insert(T(8), CentreEasing.Accelerating(new(Rand(2f, 6f)*RandSignal(), Rand(-7.00f, -10.00f)), new(0, 0.4f)));
                         Extends.Star s = new(e.GetResult(), 0.6f) { rotate = false };
                         CreateEntity(s);
                         e.Run((m) => { s.Centre = new V(320, 100) + m; });
@@ -8256,12 +8249,12 @@ namespace Rhythm_Recall.Waves
                         PlaySound(Sounds.change);
                         PlaySound(Sounds.change);
                         CentreEasing.EaseBuilder e = new();
-                        e.Insert(T(8), CentreEasing.Accerlating(new(Rand(4f, 6f) * RandSignal(), Rand(-7.00f, -10.00f)), new(0, 0.4f)));
+                        e.Insert(T(8), CentreEasing.Accelerating(new(Rand(4f, 6f) * RandSignal(), Rand(-7.00f, -10.00f)), new(0, 0.4f)));
                         Extends.Star s = new(new V(320, 100), 0.6f) { rotate = false };
                         CreateEntity(s);
                         e.Run((m) => { s.Centre = new V(320, 100) + m; });
                         CentreEasing.EaseBuilder e1 = new();
-                        e1.Insert(T(8), CentreEasing.Accerlating(new(Rand(4f, 6f) * RandSignal(), Rand(-7.00f, -10.00f)), new(0, 0.4f)));
+                        e1.Insert(T(8), CentreEasing.Accelerating(new(Rand(4f, 6f) * RandSignal(), Rand(-7.00f, -10.00f)), new(0, 0.4f)));
                         Extends.Star s1 = new(new V(320, 100), 0.6f) { rotate = false };
                         CreateEntity(s1);
                         e1.Run((m) => { s1.Centre = new V(320, 100) + m; });
@@ -8604,7 +8597,6 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(7.9f, () => { clone.Dispose(); });
                 }
                 #endregion*/
-                /*
                 #region FreedomDive
                 if (InBeat(454))
                 {
@@ -8694,7 +8686,6 @@ namespace Rhythm_Recall.Waves
 
                 }
                 #endregion*/
-                /*
                 #region EndTime
                 if (InBeat(470))
                 {
@@ -9957,7 +9948,7 @@ namespace Rhythm_Recall.Waves
                     BSet.timestop = true;
                     BSet.final = true;
                     NameShower.name = "e78b90e381aee789a1e4b8b9";
-                    //again = false;
+                    again = false;
                     HPBar.HPLoseColor = Color.Black * 0;
                     HPBar.HPExistColor = Color.White * 0;
                     DelayBeat(4, () => { shaderProduction.Dispose(); });
@@ -9997,7 +9988,7 @@ namespace Rhythm_Recall.Waves
                     Glitch = new GlitchPro(0.94f);
                     SceneRendering.InsertProduction(Glitch);
                     BSet.Windowname = "何もかも終わり";
-                    //BSet.FullScreen = true;
+                    BSet.FullScreen = true;
                     shaderProduction1 = ActivateShader(n, 0.95829f);
                     n.circmode = true;
                     n.intensity = 0.003f;
@@ -10186,6 +10177,7 @@ namespace Rhythm_Recall.Waves
                         {
                             AddInstance(new InstantEvent(i * hz, () =>
                             {
+                                em.Scale = 1;
                                 sp++;
                                 em.Image = Resources.BadAppleRE.BreakScreen[sp];
                                 em.Alpha = 1f;
@@ -10801,6 +10793,7 @@ namespace Rhythm_Recall.Waves
                 #region LastPart
                 if (InBeat(552 + 96))
                 {
+                    FightBox.instance.AlphaBlend = false;
                     BSet.final=true;
                     BSet.col = false;
                     ResetBarrage();
@@ -10842,6 +10835,7 @@ namespace Rhythm_Recall.Waves
                     FightResources.Shaders.Aurora.Type = 1;
                     BlurG = new ScreenDrawing.Shaders.Glitching(0.8234f);
                     BlurB = new ScreenDrawing.Shaders.Blur(0.893234f);
+                    BlurG.Duration = new V(3,3);
                     BlurG.Intensity = 100;
                     BlurG.BlockScale = 1f;
                     BlurG.AverageDelta = 2;
@@ -10859,7 +10853,7 @@ namespace Rhythm_Recall.Waves
                     InstantSetBox(240, 280, 100);
                     InstantSetBox(240, 300, 100);
                     BoxUtils.Vertexify();
-
+                    FightBox.instance.AlphaBlend = false;
                     float i = 0;
                     BoundColor = Color.Orange;
                     BoxSize = new V(300, 150);
@@ -10871,6 +10865,7 @@ namespace Rhythm_Recall.Waves
                         float cos = Sin(i * 1.3f) * 20;
                         ScreenPositionDelta = new V(cos, sin);
                         ScreenDrawing.ScreenAngle = Sin(i * -1.5f) * 20;
+
                         BoxStates.CurrentBox.InstantSetAlpha(0.3f + Sin(i * 5) * 0.3f);
                         Functions.Heart.InstantSetRotation(Sin(i * -0.5f) * 8);
                         brot = Sin(i) * 15;
@@ -10905,8 +10900,9 @@ namespace Rhythm_Recall.Waves
                     ease.TagApply("s");
                     RegisterFunctionOnce("SR", () =>
                     {
-
+                        
                         SetSoul(1, false);
+                        BSet.LastShield = true;
                         RunEase((s) => { BoxSize = s; },
                         LinkEase(Stable(0, BoxSize), EaseOut(T(8f), new V(84, 84) - BoxSize, ES.Quart)));
                         RunEase((s) => { InstantTP(s); }, LinkEase(Stable(0, Functions.Heart.Centre),
@@ -11168,6 +11164,7 @@ namespace Rhythm_Recall.Waves
                               "End time - ParaDOXXX\n" +
                               "Transcendence - T-mas & Tlottgodinf\n" +
                               "                & zkronO & Walar\n" +
+                              "R.I.P. - Tlottgodinf & zkron0" +
                               "Death By Glamour - Tlottgodinf\n" +
                               "Asgore - Tlottgodinf\n" +
                               "The World Revolving - Tlottgodinf\n" +
@@ -11183,8 +11180,8 @@ namespace Rhythm_Recall.Waves
                         Ef text2 = new(tex, new V(320, 20), C.White * 2, 0.7f) { AutoDispose = false, scf2 = true };
                         CreateEntity(text);
                         CreateEntity(text2);
-                        text.vecOut(new V(320, 860 + 0.15f * T(128)), new V(320, -390 - 0.15f * T(128)), T(190), ES.Linear);
-                        text2.vecOut(new V(320, 860 + 0.15f * T(128)), new V(320, -390 - 0.15f * T(128)), T(190), ES.Linear);
+                        text.vecOut(new V(320, 860 + 0.16f * T(128)), new V(320, -390 - 0.16f * T(128)), T(190), ES.Linear);
+                        text2.vecOut(new V(320, 860 + 0.16f * T(128)), new V(320, -390 - 0.16f * T(128)), T(190), ES.Linear);
                         DelayBeat(190, () =>
                         {
                             tex = "Rhythm Recall by T-mas";
@@ -11281,11 +11278,11 @@ namespace Rhythm_Recall.Waves
                         //+552+90
                         //+552+90+16+64
                         ) ;
-                    //NameShower.level = 3;
-                    bool Debug = true;
+                    bool Debug = false;
                     bool finalsetting = false;
                     PlayOffset = gametime;
                     AutoEnd = false;
+                    pause = false;
                     //
                     GametimeDelta = gametime + (gametime == 0 ? T(0.8f) : T(0.7f));
                     base.Start();
@@ -11357,40 +11354,6 @@ namespace Rhythm_Recall.Waves
                     nega= new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\SquareNega"));
                     #endregion
 
-                }
-                if ((int)CurrentDifficulty == 0) 
-                {
-                    float gametime = T(0
-                        //+7
-                        //+38
-                        //+70
-                        //+130
-                        //+164
-                        //+180
-                        //+196
-                        //+210
-                        //+230
-                        +260
-                        //+324
-                        //+345
-                        //+358
-                        //+390
-                        //+422
-                        //+435
-                        //+450
-                        //+486
-                        //+502
-                        //+546
-                        //+598
-                        //+610
-                        //+552+90
-                        //+552+90+16+64
-                        );
-                    //NameShower.level = 3;
-                    PlayOffset = gametime;
-                    AutoEnd = false;
-                        //
-                        GametimeDelta = gametime + (gametime == 0 ? T(0.8f) : T(0.7f));
                 }
             }
             public Texture2D[] texture = new Texture2D[835];

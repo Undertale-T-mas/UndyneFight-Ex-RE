@@ -17,11 +17,13 @@ namespace UndyneFight_Ex
         public static bool final { get; set; } = false;
         public static bool again { get; set; } = true;
         public static bool col { get; set; } = false;
+        public static bool LastShield { get; set; } = false;
         public static string Windowname { set; get; } = $"Rhythm Recall v0.2.2 (UF-Ex [V{ModDynamic.UFExVersion}])";
         public static bool timestop { get; set; } = false;
         public static bool FullScreen { get; set; } = false;
         public static Color SideColor { get; set; } = Color.Black;
         public static Color windowcolor { get; set; } = Color.White;
+        public static bool pause { get; set; } = true;
         public static bool problem { get; set; } = false;
         private static string ESD = "Eternal Spring Dream", NOK = "Night Of Knights", DB = "Dream Battle";
         public static void GetACC(float ACC, string songname, Difficulty dif)
@@ -78,6 +80,8 @@ namespace UndyneFight_Ex
             timestop = false;
             FullScreen = false;
             col = false;
+            LastShield = false;
+            pause = true;
             RemoveUI1();
             RemoveUI2();
             RemoveUI3();

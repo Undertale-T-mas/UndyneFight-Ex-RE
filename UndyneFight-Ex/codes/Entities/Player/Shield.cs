@@ -211,13 +211,16 @@ namespace UndyneFight_Ex.Entities
 #endif
 
                     Image = BSet.final ? FightResources.Sprites.oldshield[0] : FightResources.Sprites.shield;
-                    if (BSet.final && !BSet.col)
+                    if (BSet.LastShield)
                     {
-                        FormalDraw(Image, Centre + MathUtil.GetVector2(pushDelta, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(255, 255, 255, 255) * alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
-                        alpha = MathHelper.Lerp(alpha, 1, 0.02f);
+                        FormalDraw(Image, Centre + MathUtil.GetVector2(pushDelta, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), Color.Black * alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
+                        alpha = MathHelper.Lerp(alpha, 1, 0.01f);
                     }
                     else
+                    {
+                        alpha = 0;
                         FormalDraw(Image, Centre + MathUtil.GetVector2(pushDelta, Rotation + 180 + (user.FixArrow ? 0 : (user.FixArrow ? 0 : user.Rotation))), new Color(drawingColor, 0.6f) * user.Alpha, MathHelper.ToRadians(Rotation + user.Rotation), ImageCentre);
+                    }
                 }
 
                 public override void Update()

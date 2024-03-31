@@ -202,8 +202,10 @@ namespace UndyneFight_Ex.Remake.UI
                 }
                 List<SongPack> result = new();
                 if (!BSet.problem)
+                {
                     result = new() { mainPack };
-                result.AddRange(extraPacks);
+                    result.AddRange(extraPacks);
+                }
                 result.AddRange(championshipPack);
 
                 loaded = true;

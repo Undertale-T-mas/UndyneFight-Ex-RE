@@ -65,7 +65,7 @@ namespace UndyneFight_Ex.Entities
         float curAlpha = 1.0f;
 
         private bool _doDraw = false;
-        private bool AlphaBlend = true;
+        public bool AlphaBlend = true;
 
         public override void Update()
         {
@@ -220,7 +220,11 @@ namespace UndyneFight_Ex.Entities
         {
             Vertexs[originID].MissionPosition = position;
         }
-
+        public void InstantSetPosition(int originID, Vector2 position)
+        {
+            this.Vertexs[originID].MissionPosition = position;
+            this.Vertexs[originID].CurrentPosition = position;
+        }
         public override void Update()
         {
             base.Update();

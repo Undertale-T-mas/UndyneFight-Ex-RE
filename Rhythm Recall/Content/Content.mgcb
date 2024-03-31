@@ -12304,9 +12304,9 @@
 
 #begin Musics/BadAppleRE/anomaly/音声test.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Musics/BadAppleRE/anomaly/音声test.mp3
+/build:Musics/BadAppleRE/anomaly/音声test.mp3;Musics/BadAppleRE/anomaly/anomaly_sound.mp3
 
 #begin Musics/BadAppleRE/BreakScreen/BlackMove_00000.png
 /importer:TextureImporter
@@ -13740,6 +13740,9 @@
 
 #begin Musics/BadAppleRE/Shader/Noise.xnb
 /copy:Musics/BadAppleRE/Shader/Noise.xnb
+
+#begin Musics/BadAppleRE/Shader/SCSplit.xnb
+/copy:Musics/BadAppleRE/Shader/SCSplit.xnb
 
 #begin Musics/BadAppleRE/Shader/SideBlur.fx
 /importer:EffectImporter

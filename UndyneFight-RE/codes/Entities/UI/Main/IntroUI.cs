@@ -104,6 +104,7 @@ namespace UndyneFight_Ex.Remake.UI.DEBUG
                     FightResources.Shaders.Gray.Intensity = 1;
                     Functions.ScreenDrawing.Shaders.Glitching g = new(0.963f);
                     GameStates.CurrentScene.SceneRendering.InsertProduction(g);
+                    g.Duration = new vec2(3);
                     g.AverageInterval = 0;
                     g.AverageDelta = 1.2f;
                     g.BlockScale = 1f;

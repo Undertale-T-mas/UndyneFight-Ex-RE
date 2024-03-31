@@ -1070,6 +1070,11 @@ namespace UndyneFight_Ex.Fight
             CollideRect rect = new(new Vector2(320 - (width / 2), yCentre - (height / 2)), new(width, height));
             return Heart.InstantSplit(rect);
         }
+        public static Player.Heart CreateHeart(Vector2 vec, float width, float height)
+        {
+            CollideRect rect = new(new Vector2(vec.X - width / 2, vec.Y - height / 2), new(width, height));
+            return Heart.InstantSplit(rect);
+        }
 
         public static void Reset()
         {

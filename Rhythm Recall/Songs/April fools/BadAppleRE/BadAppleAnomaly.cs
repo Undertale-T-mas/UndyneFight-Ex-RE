@@ -167,9 +167,7 @@ namespace Rhythm_Recall.Waves
 
             int debug = 2;
             public void Normal()
-            {
-               
-            }
+            { }
             public void Easy() { }
             public void Extreme() { }
         }
