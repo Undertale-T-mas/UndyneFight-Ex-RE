@@ -11242,7 +11242,6 @@ namespace Rhythm_Recall.Waves
                 if ((int)CurrentDifficulty >=4)
                 {
                     Waveform = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\Waveform"));
-                    NameShower.name = "mentosu";
                     ResetRendering();
                     BSet.final = false;
                     BSet.timestop = false;
