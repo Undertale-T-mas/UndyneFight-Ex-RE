@@ -483,7 +483,7 @@ namespace UndyneFight_Ex.Entities
                 wave = res1 ? (tem as IChampionShip).GameContent : (tem as IWaveSet);
                 if (wave.Attributes != null && wave.Attributes.Hidden) continue;
 
-                string name = wave.FightName;
+                string name = wave.Attributes.DisplayName == "" ? wave.FightName : wave.Attributes.DisplayName;
 
                 string filePath = $"Content\\Musics\\{wave.Music}";
 

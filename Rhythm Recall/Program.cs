@@ -15,6 +15,7 @@ using static UndyneFight_Ex.IO.IOEvent;
 using static Rhythm_Recall.Resources;
 using UndyneFight_Ex;
 using AprilExtends;
+using Rhythm_Recall.Engine;
 
 namespace Rhythm_Recall
 {
@@ -172,7 +173,6 @@ Alternate: Space";
                 typeof(NCWLQ),
 #endif
                 typeof(RetracingBeneath),
-                typeof(UNOwen),
                 typeof(Song_That_Might_Play_When_You_Fight_Sans),
                 typeof(DreadNaught),
                 typeof(Conflict),
@@ -185,7 +185,7 @@ Alternate: Space";
                 typeof(Dusttrust),
                 typeof(Resurrection),
                 typeof(Letsgonow),
-                typeof(GOODWORLD),
+                (AprilSettings.IsAprilFool ? typeof(UNOwen) : typeof(GOODWORLD)),
             });
 #if OSTPublish
             GameStartUp.MainSceneIntro = () => { GameStates.SelectMode(0); ClassicalGUI.CreateFightSelector(); };
@@ -194,7 +194,9 @@ Alternate: Space";
             try
             {
 #endif
-            UndyneFight_Ex.Remake.Initialize.MainInitialize();
+            bool NewUI = AprilSettings.IsAprilFool ? UndyneFight_Ex.Fight.Functions.RandBool() : true;
+            if (true)
+                UndyneFight_Ex.Remake.Initialize.MainInitialize();
             GameStartUp.StartGame();
 #if ThrowError
             }

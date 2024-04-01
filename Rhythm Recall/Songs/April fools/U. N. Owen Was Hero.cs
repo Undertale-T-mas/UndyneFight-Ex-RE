@@ -1,13 +1,12 @@
 using Extends;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Rhythm_Recall.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
-using UndyneFight_Ex.Remake.Texts;
-using UndyneFight_Ex.Remake;
 using UndyneFight_Ex.SongSystem;
 using static UndyneFight_Ex.Entities.SimplifiedEasing;
 using static UndyneFight_Ex.Fight.AdvanceFunctions;
@@ -31,6 +30,7 @@ namespace Rhythm_Recall.Waves
 			public override string SongAuthor => "Toby Fox X ZUN";
 			public override string BarrageAuthor => "TK + Eden";
 			public override string AttributeAuthor => "TK";
+			public override string DisplayName => AprilSettings.IsAprilFool ? "GOODWORLD" : "";
 			public override string Extra => GameStates.difficulty == 3 ? "Kagura Stage" : "Danmaku Stage";
 			public override Dictionary<Difficulty, float> CompleteDifficulty => new(
 				new KeyValuePair<Difficulty, float>[]
@@ -70,7 +70,8 @@ namespace Rhythm_Recall.Waves
 				InstantTP(320, 999);
 				SetSoul(0);
 				Interactive.AddPerfectEvent(() => Score += (int)(GameStates.CurrentScene as SongFightingScene).JudgeState switch { 3 => 100, 2 => 98, 1 => 96 });
-				Interactive.AddNiceEvent(() => Score += 40);
+				Interactive.AddNiceEvent(() => { Score += 40; Graze++; });
+				Interactive.AddOkayEvent(() => Graze++);
 				HeartAttribute.MaxHP = 9;
 				HeartAttribute.HP = 3;
 				for (int i = 0; i < Bullet.Length; Bullet[i] = Loader.Load<Texture2D>($"{Root}Bullet {i++}")) { }
@@ -1004,7 +1005,7 @@ namespace Rhythm_Recall.Waves
 		private static Texture2D[] Word = new Texture2D[5], Idle = new Texture2D[4], Move = new Texture2D[2], Bullet = new Texture2D[11];
 		private static vec2 ScrCen = new(320, 240);
 		private static Flan[] FlanEnemy = new Flan[4];
-		int Score = 0;
+		int Score = 0, Graze = 0;
 		/// <summary>
 		/// Score reuqired, achieved
 		/// </summary>
@@ -1085,6 +1086,7 @@ namespace Rhythm_Recall.Waves
 							Score = "0" + Score;
 						F.Draw(Score, new vec2(480, 87), col.White, 0.75f, 0.5f);
 						F.Draw("HP: ", new vec2(455, 115), col.White, 0.5f, 0.5f);
+						F.Draw($"Graze:{game.Graze}", new vec2(455, 143), col.White, 0.5f, 0.5f);
 #if DEBUG
 						F.Draw($"Inst C: {GetAll<Entity>().Length}", new vec2(455, 175), col.White, 0.5f, 0.5f);
 						F.Draw($"Beat: {MathF.Round(GametimeF / game.SingleBeat, 2)}", new vec2(455, 195), col.White, 0.5f, 0.5f);

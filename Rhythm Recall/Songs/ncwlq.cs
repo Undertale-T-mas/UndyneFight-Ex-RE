@@ -10,7 +10,7 @@ namespace Rhythm_Recall.Waves
     {
         public NCWLQ() : base(62.5f / (150f / 60f)) { }
         public string Music => "ncwlq";
-        public string FightName => "You havn't ever left (Euphoric Hardstyle Remix)";
+        public string FightName => "You haven't ever left (Euphoric Hardstyle Remix)";
         public SongInformation Attributes => new Information();
 
         public RenderProduction[] productionSlots = new RenderProduction[25];

@@ -108,6 +108,7 @@ namespace UndyneFight_Ex.Remake.UI
             public ISelectChunk CurrentActivate { get; set; }
 
             public IWaveSet SongSelected { get; private set; }
+            public object SongSelectedIs { get; private set; }
             public HashSet<Difficulty> DifficultyPanel { get; private set; }
 
             public void SelectSong(object result)
@@ -122,6 +123,7 @@ namespace UndyneFight_Ex.Remake.UI
                 {
                     DifficultyPanel = new();
                     for (int i = 0; i <= 4; i++) DifficultyPanel.Add((Difficulty)i);
+                    SongSelectedIs = result;
                     this.SongSelected = result as IWaveSet;
                 }
                 else if (result is IChampionShip)
@@ -129,6 +131,7 @@ namespace UndyneFight_Ex.Remake.UI
                     DifficultyPanel = new();
                     IChampionShip championShip;
                     this.SongSelected = (championShip = result as IChampionShip).GameContent;
+                    SongSelectedIs = championShip;
                     foreach (Difficulty difficulty in championShip.DifficultyPanel.Values) {
                         var Attributes = championShip.GameContent.Attributes;
                         if (Attributes == null) break;

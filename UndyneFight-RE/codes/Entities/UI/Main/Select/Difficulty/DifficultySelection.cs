@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using UndyneFight_Ex.SongSystem;
 using static Microsoft.Xna.Framework.MathHelper;
 using static UndyneFight_Ex.Fight.Functions;
@@ -71,13 +72,27 @@ namespace UndyneFight_Ex.Remake.UI
                         default:
                             throw new ArgumentException();
                     }
+                    if (_father._virtualFather.SongSelectedIs is IChampionShip)
+                    {
+                        IChampionShip ChampSongSelected = _father._virtualFather.SongSelectedIs as IChampionShip;
+                        int i = 0, j = 0;
+                        _difName = new string[] { "", "", "", "", "", "" };
+                        Difficulty[] hasDif = ChampSongSelected.DifficultyPanel.Values.ToArray();
+                        string[] Names = ChampSongSelected.DifficultyPanel.Keys.ToArray();
+                        while (i < 5)
+                        {
+                            _difName[i] = hasDif.Contains((Difficulty)i) ? Names[j] : "";
+                            i++;
+                            if (_difName[i] != "")
+                                j++;
+                        }
+                    }
                 }
                 Color _color;
-                string _difText;
-                string _text;
+                string _difText, _text;
+                string[] _difName = new string[]{ };
 
-                float _scale = 1.0f;
-                float _move = 0.0f;
+                float _scale = 1.0f, _move = 0.0f;
 
                 public Difficulty Difficulty => _difficulty;
 
@@ -87,8 +102,17 @@ namespace UndyneFight_Ex.Remake.UI
                     var fightFont = FightResources.Font.FightFont;
                     fightFont.CentreDraw(_text, Centre - new Vector2(-1, 12 + _move), Color.Lerp(_color, _drawingColor, _scale));
                     normalFont.CentreDraw(_difText, Centre + new Vector2(1, 12 - _move), Color.Lerp(_color, _drawingColor, _scale), 0.7f, 0.1f);
-
-                    if(this._move > 0.1f)
+#if DEBUG
+                    Difficulty? CurDif = _father._virtualFather.CurrentDifficulty;
+                    CurDif ??= Difficulty.NotSelected;
+                    if (_difName.Length != 0 && CurDif != Difficulty.NotSelected)
+                    {
+                        for (int i = 0; i < _difName.Length; i++)
+                            if ((int)Difficulty == i)
+                                normalFont.CentreDraw(_difName[i], new Vector2(800, 570), Color.Lerp(_color, _drawingColor, _scale), 1.7f, 0.1f);
+                    }
+#endif
+                    if (this._move > 0.1f)
                     {
                         DrawingLab.DrawLine(Centre + new Vector2(-10, 26), Centre + new Vector2(10, 26), 3.0f, _color * (_move / 2.5f), 0.2f);
                     }
