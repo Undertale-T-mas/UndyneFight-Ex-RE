@@ -42,7 +42,7 @@ namespace UndyneFight_Ex
                     dic["Bad apple"].CurrentSongStates.ContainsKey(Difficulty.Extreme)
                     )
                     {
-                        if (dic["Bad apple"].CurrentSongStates[Difficulty.Extreme].Accuracy != 0)
+                        if (dic["Bad apple"].CurrentSongStates[Difficulty.Extreme].Accuracy !=0)
                         {
                             var data = PlayerManager.CurrentUser.Custom;
                             int count = -1;
