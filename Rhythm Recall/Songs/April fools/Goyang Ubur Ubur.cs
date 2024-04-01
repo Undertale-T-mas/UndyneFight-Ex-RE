@@ -198,7 +198,7 @@ namespace Rhythm_Recall.Waves
 				if (InBeat(146)) SetBox(260, 180, 100);
 				if (InBeat(147)) SetBox(250, 120, 90);
 				if (InBeat(148)) { SetGreenBox(); TP(); }
-				if (InBeat(148.5f)) SetSoul(1);
+				if (InBeat(148.5f)) { SetSoul(1); TP(); }
 				if (InBeat(145, 148) && At0thBeat(1))
 				{
 					float Cur = ScreenDrawing.ScreenScale;
