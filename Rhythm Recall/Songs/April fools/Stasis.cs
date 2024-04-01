@@ -92,8 +92,11 @@ namespace AprilExtends
 
         public Stasis() : base(62.5f / (180 / 60)) { }
         public string Music => "Stasis";
-
+#if DEBUG
         public string FightName => "Stasis";
+#else
+            public string FightName => "Maware setsugetsuka"; 
+#endif 
 
         public SongInformation Attributes => new ThisInformation();
 

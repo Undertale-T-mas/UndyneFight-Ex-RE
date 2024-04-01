@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhythm_Recall.Engine;
+using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
@@ -14,7 +15,10 @@ namespace Rhythm_Recall.Waves
 
                 fightSet.Push(typeof(NightofKnights));
                 fightSet.Push(typeof(DreamBattle));
-                fightSet.Push(typeof(FreedomDive));
+                if (AprilSettings.IsAprilFool)
+                    fightSet.Push(typeof(QZKago));
+                else
+                    fightSet.Push(typeof(FreedomDive));
                 //    if (System.IO.File.Exists("Datas\\Global\\Unlock1.Tmpf"))
                 //       fightSet.Push(typeof(BrainPower));
                 // fightSet.Push(typeof(Igallta)); 

@@ -1,9 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using static UndyneFight_Ex.Fight.Functions;
 
 namespace Rhythm_Recall.Engine
 {
+    public static class AprilSettings
+    {
+        public static bool IsAprilFool
+        {
+            get
+            {
+                DateTime time = DateTime.Now;
+                if (time.Month == 4 && time.Day == 1) return true;
+                return false;
+            }
+        }
+    }
     internal class EnemyComponment
     {
         public EnemyComponment(string resourcePath)

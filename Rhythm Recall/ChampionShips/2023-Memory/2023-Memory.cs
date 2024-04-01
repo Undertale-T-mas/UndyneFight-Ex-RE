@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhythm_Recall.Engine;
+using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
@@ -16,7 +17,10 @@ namespace Rhythm_Recall.Waves
                 fightSet.Push(typeof(HopesAndDreams));
                 fightSet.Push(typeof(Transcendence));
                 fightSet.Push(typeof(SpecialOne));
-                fightSet.Push(typeof(MinecraftRevenge));
+                if (!AprilSettings.IsAprilFool)
+                    fightSet.Push(typeof(MinecraftRevenge));
+                else
+                    fightSet.Push(typeof(Donki));
                 //fightSet.Push(typeof(Igallta));
 
                 int year = 2023;

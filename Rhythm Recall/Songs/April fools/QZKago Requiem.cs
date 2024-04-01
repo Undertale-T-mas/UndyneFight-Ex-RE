@@ -1,6 +1,7 @@
 ﻿using Extends;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Rhythm_Recall.Engine;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
@@ -27,7 +28,11 @@ namespace Rhythm_Recall.Waves
         {
             public Project() : base(62.5f / (257f / 60f)) { }
             public string Music => "QZKago Requiem";
+#if DEBUG
             public string FightName => "QZKago Requiem";
+#else
+            public string FightName => AprilSettings.IsAprilFool ? "Freedom Dive" : "QZKago Requiem"; 
+#endif 
             public SongInformation Attributes => new Information();
             class Information : SongInformation
             {

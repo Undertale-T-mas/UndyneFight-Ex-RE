@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhythm_Recall.Engine;
+using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
@@ -17,7 +18,7 @@ namespace Rhythm_Recall.Waves
 #if DEBUG
                 fightSet.Push(typeof(Goyang));
 #else
-                if ((DateTime.Now.Second & 1) == 0)
+                if ((DateTime.Now.Second & 1) == 0 || !AprilSettings.IsAprilFool)
                     fightSet.Push(typeof(IndihomePaketPhoenix));
                 else
                     fightSet.Push(typeof(Goyang));

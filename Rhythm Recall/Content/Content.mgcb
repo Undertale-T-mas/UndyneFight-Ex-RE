@@ -2342,6 +2342,12 @@
 /processorParam:Quality=Best
 /build:Musics/Determination.mp3
 
+#begin Musics/Donki/song.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Donki/song.ogg
+
 #begin Musics/Dreadnaught/Dreadnaught V3.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -2587,6 +2593,9 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/GOODWORLD/song.mp3
+
+#begin Musics/Goyang Ubur Ubur/song.ogg
+/copy:Musics/Goyang Ubur Ubur/song.ogg
 
 #begin Musics/Grievous Lady/Effects.fx
 /importer:EffectImporter

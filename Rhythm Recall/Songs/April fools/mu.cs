@@ -1,5 +1,6 @@
 using Extends;
 using Microsoft.Xna.Framework;
+using Rhythm_Recall.Engine;
 using System.Collections.Generic;
 using UndyneFight_Ex;
 using UndyneFight_Ex.Entities;
@@ -31,7 +32,7 @@ namespace Rhythm_Recall.Waves
             public Game() : base(62.5f / (190f / 60f)) { }
             public string Music => "mu";
 
-            public string FightName => "mu";
+            public string FightName => AprilSettings.IsAprilFool ? "GOODRAGE" : "mu";
             private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(

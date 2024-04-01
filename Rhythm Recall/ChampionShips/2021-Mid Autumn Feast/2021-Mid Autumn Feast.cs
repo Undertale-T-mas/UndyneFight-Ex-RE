@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhythm_Recall.Engine;
+using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
@@ -13,8 +14,10 @@ namespace Rhythm_Recall.Waves
                 SongSet fightSet = new("Mid Autumn I");
                 fightSet.Push(typeof(SpaceDrift));
                 fightSet.Push(typeof(SustenanceOfMoon));
-                fightSet.Push(typeof(SpiningSetsugekka));
-
+                if (AprilSettings.IsAprilFool)
+                    fightSet.Push(typeof(AprilExtends.Stasis));
+                else
+                    fightSet.Push(typeof(SpiningSetsugekka));
                 int year = 2021;
                 int month = 9;
                 int day = 21;

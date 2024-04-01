@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Rhythm_Recall.Engine;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -33,7 +34,7 @@ namespace Rhythm_Recall.Waves
 			{
 				public override string SongAuthor => "Maimi Tanaka";
 				public override string BarrageAuthor => "TanaKa";
-				public override string DisplayName => "Miracle Shopping";
+				public override string DisplayName => !AprilSettings.IsAprilFool ? "Miracle Shopping": "Minecraft Revenge";
 				public override string Extra => GameStates.difficulty == 3 ? "Master" : "Re: Master  :thinking:";
 				public override Dictionary<Difficulty, float> CompleteDifficulty => new(
 					new KeyValuePair<Difficulty, float>[]

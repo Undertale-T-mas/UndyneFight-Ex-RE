@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Rhythm_Recall.Engine;
 using System;
 using System.Collections.Generic;
 using UndyneFight_Ex;
@@ -30,7 +31,11 @@ namespace AprilExtends
             }
             public string Music => "Seraphim (Long Ver.)";
 
+#if DEBUG
             public string FightName => "Seraphim (Long Ver.)";
+#else
+            public string FightName => AprilSettings.IsAprilFool ? "Underfell" : "Seraphim (Long Ver.)"; 
+#endif
             private class ThisInformation : SongInformation
             {
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new(

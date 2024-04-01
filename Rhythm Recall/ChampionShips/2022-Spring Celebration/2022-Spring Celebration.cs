@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhythm_Recall.Engine;
+using System;
 using UndyneFight_Ex;
 using UndyneFight_Ex.ChampionShips;
 
@@ -13,7 +14,10 @@ namespace Rhythm_Recall.Waves
                 SongSet fightSet = new("Spring Event II");
                 fightSet.Push(typeof(Gooddrill));
                 fightSet.Push(typeof(Goodtek));
-                fightSet.Push(typeof(Goodrage));
+                if (AprilSettings.IsAprilFool)
+                    fightSet.Push(typeof(mu));
+                else
+                    fightSet.Push(typeof(Goodrage));
                 //     fightSet.Push(typeof(Igallta)); 
 
                 int year = 2022;
