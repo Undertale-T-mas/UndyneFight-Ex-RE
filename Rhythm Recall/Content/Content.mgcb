@@ -2342,6 +2342,12 @@
 /processorParam:Quality=Best
 /build:Musics/Determination.mp3
 
+#begin Musics/Donki/maimai-PVミラクルショッピング旧筐体PV観賞用.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Donki/maimai-PVミラクルショッピング旧筐体PV観賞用.ogg;Musics/Donki/song.ogg
+
 #begin Musics/Dreadnaught/Dreadnaught V3.wav
 /importer:WavImporter
 /processor:SongProcessor
