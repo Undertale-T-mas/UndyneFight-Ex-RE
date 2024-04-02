@@ -32,6 +32,7 @@ using System.Threading;
 using Microsoft.Xna.Framework.Input;
 using System.ComponentModel.Design;
 using static Rhythm_Recall.Resources.BadAppleRE;
+using static Rhythm_Recall.Resources;
 
 namespace Rhythm_Recall.Waves
 {
@@ -11241,6 +11242,7 @@ namespace Rhythm_Recall.Waves
                 }));
                 if ((int)CurrentDifficulty >=4)
                 {
+
                     Waveform = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\Waveform"));
                     ResetRendering();
                     BSet.final = false;
@@ -11310,7 +11312,16 @@ namespace Rhythm_Recall.Waves
                     {
                         CreateEntity(new Entitycount());
                     }
-
+                    int count = 0;
+                    AddInstance(new TimeRangedEvent(105,()=>
+                    {
+                        string st = "0";
+                        char[] s = $"{count}".ToCharArray();
+                        for (int i2 = 0; i2 < 4 - s.Length; i2++) st += "0";
+                        st += $"{count}";
+                        BadAppleRE.BreakScreen[count] = Loader.Load<Texture2D>($"Musics\\BadAppleRE\\BreakScreen\\BlackMove_{st}");
+                        count++;
+                    }));
                     #region shaders 
                     Effect3D = FightResources.Shaders.Camera;
                     Effect3D.TextureSize = new V(640, 480);
@@ -11355,7 +11366,6 @@ namespace Rhythm_Recall.Waves
 
                 }
             }
-            public Texture2D[] texture = new Texture2D[835];
             public static void anomaly()
             {
                 BadApple_RE.IntoUnlockScene();

@@ -25,34 +25,9 @@ namespace Rhythm_Recall
             {
                 charTextures[ch] = cm.Load<Texture2D>($"FontTexture\\{ch}\\{ch}");
             }
-            for (int i = 0; i < BadAppleRE.BreakScreen.Length; i++)
-            {
-                string st = "0";
-                char[] s = $"{i}".ToCharArray();
-                for (int i2 = 0; i2 < 4 - s.Length; i2++) st += "0";
-                st += $"{i}";
-                BadAppleRE.BreakScreen[i] = cm.Load<Texture2D>($"Musics\\BadAppleRE\\BreakScreen\\BlackMove_{st}");
-            }
             
-            List<int> temp = new();
-            for (int i = 0; i < 835; i++) temp.Add(i);
-            foreach (var t in temp)
-            {
-                string st = "";
-                if (t < 10)
-                {
-                    st = "0000" + t.ToString();
-                }
-                else if (t < 100)
-                {
-                    st = "000" + t.ToString();
-                }
-                else
-                {
-                    st = "00" + t.ToString();
-                }
-                BadAppleRE.anomalyVideo[t] = cm.Load<Texture2D>($"Musics\\BadAppleRE\\anomaly\\Screen_{st}");
-            }
+            
+            
             
             block = cm.Load<Texture2D>("Sprites\\Blocks\\block");
             blockTmas = cm.Load<Texture2D>("Sprites\\Blocks\\blockTmas");
