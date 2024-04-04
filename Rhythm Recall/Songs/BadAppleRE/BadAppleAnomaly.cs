@@ -162,12 +162,9 @@ namespace Rhythm_Recall.Waves
                     AddInstance(new TimeRangedEvent(417, () => 
                     {
                         string st = "";
-                        if (t < 10)
-                            st = "0000" + t.ToString();
-                        else if (t < 100)
-                            st = "000" + t.ToString();
-                        else
-                            st = "00" + t.ToString();
+                        for (int i = 0; i < 5-t.ToString().ToCharArray().Length; i++)
+                            st += "0";
+                        st += t.ToString();
                         BadAppleRE.anomalyVideo[t] = Loader.Load<Texture2D>($"Musics\\BadAppleRE\\anomaly\\Screen_{st}");
                         t++;
                     })
