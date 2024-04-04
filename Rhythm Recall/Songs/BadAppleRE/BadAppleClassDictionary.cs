@@ -59,11 +59,7 @@ namespace Rhythm_Recall.Waves
 
             Shader shader1;
             Shader shader2;
-            RenderProduction shaderProduction2;
-            RenderProduction shaderProduction1;
-            RenderProduction shaderProduction3;
-            RenderProduction shaderProduction4;
-            RenderProduction shaderProduction5;
+            RenderProduction shaderProduction1, shaderProduction2, shaderProduction3, shaderProduction4, shaderProduction5;
             RenderProduction SidePro;
             RenderProduction Glitch;
             RenderProduction WaveformR = null;
@@ -2293,7 +2289,6 @@ namespace Rhythm_Recall.Waves
                     base.Start();
                 }
             }
-
             #region 3dEffect
             public class Bone3d : Entity
             {
