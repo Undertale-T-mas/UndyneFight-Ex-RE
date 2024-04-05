@@ -128,6 +128,7 @@ Alternate: Space";
             test.Push(typeof(Donki));
             test.Push(typeof(LunaticGaze));
             test.Push(typeof(JinseiRE));
+            test.Push(typeof(virtus));
             test.Push(typeof(Determination));
             test.Push(typeof(QZKago));
             test.Push(typeof(mu));
