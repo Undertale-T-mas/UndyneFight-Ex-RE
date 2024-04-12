@@ -324,7 +324,7 @@ namespace Rhythm_Recall.Waves
                 HeartAttribute.KR = true;
                 HeartAttribute.KRDamage = 7f;
                 Heart.Speed = 3;
-                if (difficulty == 4 && PlayerManager.CurrentUser != null)
+                if (difficulty == 4 && PlayerManager.CurrentUser != null&&BSet.BAAD)
                 {
                     var songs = PlayerManager.CurrentUser.SongManager;
                     Dictionary<string, SongData> dic = new();

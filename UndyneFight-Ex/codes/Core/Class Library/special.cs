@@ -7,11 +7,11 @@ using UndyneFight_Ex.Fight;
 using UndyneFight_Ex.SongSystem;
 using UndyneFight_Ex.UserService;
 using static UndyneFight_Ex.Fight.Functions.ScreenDrawing.Shaders;
-
+using System;
 namespace UndyneFight_Ex
 {
 
-    public class BSet
+    public static class BSet
     {
 
         public static bool final { get; set; } = false;
@@ -26,9 +26,18 @@ namespace UndyneFight_Ex
         public static bool pause { get; set; } = true;
         public static bool problem { get; set; } = false;
         private static string ESD = "Eternal Spring Dream", NOK = "Night Of Knights", DB = "Dream Battle";
+        public static bool BAAD 
+        { 
+            get =>
+#if DEBUG
+                DateTime.Now.Day == 14;
+#else
+                true
+#endif
+        }
         public static void GetACC(float ACC, string songname, Difficulty dif)
         {
-            if (PlayerManager.CurrentUser != null)
+            if (PlayerManager.CurrentUser != null&&BAAD)
             {
                 var songs = PlayerManager.CurrentUser.SongManager;
                 Dictionary<string, SongData> dic = new();
@@ -59,7 +68,7 @@ namespace UndyneFight_Ex
                                 songname == NOK && count == 0)
                                 data.Nexts["BadApple%"]["value"] = "1";
                             else if
-                                (ACC > 0.94f && dif == Difficulty.Extreme &&
+                                (ACC > 0.95f && dif == Difficulty.Extreme &&
                                 songname == DB && count == 1)
                             {
                                 data.Nexts["BadApple%"]["value"] = "2";

@@ -2484,7 +2484,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GameStates.difficulty == 4) 
                 {
-                    if (PlayerManager.CurrentUser != null)
+                    if (PlayerManager.CurrentUser != null&&BSet.BAAD)
                     {
                         if (PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("BadApple%"))
                         {

@@ -111,7 +111,6 @@ Alternate: Space";
 
             GameStartUp.PushChampionShip(Summer_Camp_Ⅲ_A.GetChampionShip);
             GameStartUp.PushChampionShip(Summer_Camp_Ⅲ_B.GetChampionShip);
-            GameStartUp.PushChampionShip(Monochrome.GetChampionShip);
             GameStartUp.PushChampionShip(BadAppleTemp.GetChampionShip);
             SetAchievement();
             SetChallenge();
@@ -172,6 +171,7 @@ Alternate: Space";
                 typeof(LunaticGaze),
                 typeof(NCWLQ),
 #endif
+                typeof(BadApple_RE),
                 typeof(RetracingBeneath),
                 typeof(Song_That_Might_Play_When_You_Fight_Sans),
                 typeof(DreadNaught),

@@ -2215,7 +2215,7 @@ namespace Rhythm_Recall.Waves
                 //GametimeDelta += BeatTime(1758);
                 PlayOffset = GametimeDelta + 43f;
                 // SetSoul(0);
-                if (PlayerManager.CurrentUser != null&&GameStates.difficulty==3) 
+                if (PlayerManager.CurrentUser != null&&GameStates.difficulty==3&&BSet.BAAD) 
                 {
                     if (PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("BadApple%"))
                     {
