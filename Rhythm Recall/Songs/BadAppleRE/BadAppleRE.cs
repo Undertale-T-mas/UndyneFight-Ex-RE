@@ -3632,8 +3632,8 @@ namespace Rhythm_Recall.Waves
                                 }
                                 ef.vecOut(ef.centre, new V(temp3, temp4), T(2f), ES.Sine);
                                 ef.rotOut(ef.rot, 0, T(2f), ES.Sine);
-                                ef.vecIn(new V(temp3, temp4), new V(temp3 - 640, temp4 + Rand(-200, 200)), T(3-0.2f*temp), T(2), ES.Sine);
-                                ef.rotIn(0, 180, T(3), T(2), ES.Sine);
+                                ef.vecIn(new V(temp3, temp4), new V(temp3 - 640, temp4 + Rand(-200, 200)), T(3-0.2f*temp), T(2), ES.Quad);
+                                ef.rotIn(0, 720*RandSignal(), T(3), T(2), ES.Quad);
                             });
                             InOrOut *= -1;
                         }
@@ -4245,11 +4245,11 @@ namespace Rhythm_Recall.Waves
                         char[] text = "悲しむなんて".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(100 + i * 50, 200), C.Gray, 0) { shader = true, Alpha = 0 };
+                            Ef ef = new($"{text[i]}", new V(100 + i * 50, 200), C.Gray, 0) { Alpha = 0, edging = true };
                             //ef.vecOut();
-                            ef.sizeOut(new V(1.5f, 0), new V(1.5f), T(i * 0.5f), T(2), Cu);
+                            ef.sizeOut(new V(1.5f, 0), new V(1.5f), T(i * 0.5f), T(2), ES.Circ);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
-                            ef.sizeOut(new V(1.5f), new V(1.5f, 0), T(i * 0.5f + 2), T(2), Cu);
+                            ef.sizeOut(new V(1.5f), new V(1.5f, 0), T(i * 0.5f + 2), T(2), ES.Circ);
                             ef.alphaOut(1, 0, T(i * 0.5f + 2), T(2), Cu);
                             CreateEntity(ef);
                             ef.AutoDis(T(i * 0.5f + 6));
@@ -4260,7 +4260,7 @@ namespace Rhythm_Recall.Waves
                         char[] text = "疲れるだけよ".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(350 + i * 50, 300), C.DarkRed, 0) { shader = true, Alpha = 0 };
+                            Ef ef = new($"{text[i]}", new V(350 + i * 50, 300), C.DarkRed, 0) { Alpha = 0, edging = true };
                             //ef.vecOut();
                             ef.sizeOut(new V(1.5f, 0), new V(1.5f), T(i * 0.5f), T(2), Cu);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
@@ -4275,7 +4275,7 @@ namespace Rhythm_Recall.Waves
                         char[] text = "何も感じず".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(220 + i * 50, 100), new(90, 112, 125), 0) { shader = true, Alpha = 0 };
+                            Ef ef = new($"{text[i]}", new V(220 + i * 50, 100), new(90, 112, 125), 0) { Alpha = 0, edging = true };
                             //ef.vecOut();
                             ef.sizeOut(new V(1.5f, 0), new V(1.5f), T(i * 0.5f), T(2), Cu);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
@@ -4290,7 +4290,7 @@ namespace Rhythm_Recall.Waves
                         char[] text = "過ごせばいいの".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(320 - 3 * 70 + i * 70, 100), C.DarkRed, 0) { shader = true, Alpha = 0 };
+                            Ef ef = new($"{text[i]}", new V(320 - 3 * 70 + i * 70, 100), C.DarkRed, 0) { Alpha = 0, edging = true };
                             //ef.vecOut();
                             ef.sizeOut(new V(2f, 0), new V(2f), T(i * 0.5f), T(2), Cu);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
@@ -4406,7 +4406,7 @@ namespace Rhythm_Recall.Waves
                 {
                     RegisterFunctionOnce("Ef1", () =>
                     {
-                        Ef ef = new("も\nし\n私\nか\nら", CW, 1.5f);
+                        Ef ef = new("も\nし\n私\nか\nら", CW, 1.5f) { edging = true };
                         ef.vecOut(new V(-100, 240), new V(150, 240), T(2), Cu);
                         ef.vecIn(new V(150, 240), new V(150, 700), T(2), T(2), Cu);
                         ef.rotIn(0, 45, T(2), T(2), Cu);
@@ -4415,7 +4415,7 @@ namespace Rhythm_Recall.Waves
                     });
                     RegisterFunctionOnce("Ef2", () =>
                     {
-                        Ef ef = new("動\nく\nの\nな\nら\nば", CW, 1.5f);
+                        Ef ef = new("動\nく\nの\nな\nら\nば", CW, 1.5f) { edging = true };
                         ef.vecOut(new V(740, 240), new V(490, 240), T(2), Cu);
                         ef.vecIn(new V(490, 240), new V(490, 700), T(2), T(2), Cu);
                         ef.rotIn(0, -45, T(2), T(2), Cu);
@@ -4428,8 +4428,8 @@ namespace Rhythm_Recall.Waves
                             EaseIn(T(1f), 2, ES.Cubic)));
                         RunEase((s) => { ScreenDrawing.ScreenAngle = s; }, LinkEase(Stable(0, 0),
                             EaseIn(T(1f), 45, ES.Cubic)));
-                        Ef ef = new("全て", WCentre, C.Gold, 3f) { scf2 = true };
-                        Ef ef2 = new("変えるのなら", WCentre, C.Aqua, 2f) { Alpha = 0 };
+                        Ef ef = new("全て", WCentre, C.Red, 3f) { scf2 = true, edging = true };
+                        Ef ef2 = new("変えるのなら", WCentre, C.Gold, 2f) { Alpha = 0, edging = true };
                         ef.rotOut(180, 380, T(4), Cu);
                         ef.sizeOut(V.Zero, new V(4), T(4), Cu);
                         ef2.alphaOut(0, 1, T(1), 1, Cu);
@@ -4685,11 +4685,162 @@ namespace Rhythm_Recall.Waves
                     });
                 }
                 #endregion
+                #region 動くのならば、動くのならば、すべて壊すわ、すべて壊すわ
+                if (InBeat(552 + 95f)) 
+                {
+                    string[] text = new[] 
+                    {
+                        "動くのならば",
+                        "すべて壊すわ","すべて壊すわ",
+                        "悲しむならば","悲しむならば",
+                        "私の心","白く変われる?",
+                        "貴方のことも","私のことも",
+                        "全てのことも","まだ知らないの",
+                        "重い目蓋を","開けたのならば",
+                        "全て壊すのなら","黒になれ"
+                    };
+                    int count = 0;
+                    RegisterFunctionOnce("Efs", () =>
+                    {
+                        var str = text[count].ToCharArray();
+                        List<V> vec = new();
+                        for (int i = 0; i < str.Length; i++)
+                        {
+                            var pos = new V(Rand(20f, 620), Rand(20f, 460));
+                            vec.Add(pos);
+                            for (int i2 = 0; i2 < vec.Count - 1; i2++)
+                                while ((vec[i2] - pos).Length() < 100)
+                                    pos = new V(Rand(50f, 590), Rand(50, 430));
+                            Ef ef = new(str[i].ToString(), pos, C.Black, 1) { font = Final2, Alpha = 0 };
+                            ef.alphaOut(0, 1, T(i * 0.5f), T(2), ES.Linear);
+                            ef.alphaOut(1, 0, T(2 + i * 0.5f), T(2), ES.Linear);
+                            ef.AutoDis(T(4.5f + i * 0.5f));
+                            CreateEntity(ef);
+                            ef.scf = true;
+                            Ef ef2 = new(str[i].ToString(), ef.Centre, C.Black, 1) { font = Final2, Alpha = 0 };
+                            ef2.alphaOut(0, 1, T(i * 0.5f), T(2), ES.Linear);
+                            ef2.alphaOut(1, 0, T(2 + i * 0.5f), T(2), ES.Linear);
+                            ef2.AutoDis(T(4 + i * 0.5f));
+                            CreateEntity(ef2);
+                            ef2.scf2 = true;
+                            ef.scf = true;
+                            var time = Rand(0, 360f);
+                            var runx = Rand(0.7f, 1.8f) * RandSignal();
+                            var runy = Rand(0.7f, 1.8f) * RandSignal();
+                            var runrot = Rand(0.7f, 1.8f) * RandSignal();
+                            var rot = Rand(5f, 15f) * RandSignal();
+                            ForBeat(32, () =>
+                            {
+                                ef.centre = ef.Centre + new V(Sin((time + Gametime / 3f) * runx) * 10, Sin((time + Gametime / 3f) * runx) * 10);
+                                ef.rot = Sin(time + Gametime / 10f) * rot;
+                                ef2.centre = ef2.Centre + new V(Sin((time + Gametime / 3f) * runx) * 10, Sin((time + Gametime / 3f) * runx) * 10);
+                                ef2.rot = Sin(time + Gametime / 10f) * rot;
+                            });
+                        }
+                        count++;
+                    });
+                    RegisterFunctionOnce("Ef1", () => 
+                    {
+                        var str = text[count].ToCharArray();
+                        List<V> vec = new();
+                        for (int i = 0; i < str.Length; i++)
+                        {
+                            var pos = new V(Rand(20f, 620), Rand(20f, 460));
+                            vec.Add(pos);
+                            for (int i2 = 0; i2 < vec.Count - 1; i2++)
+                                while ((vec[i2] - pos).Length() < 100)
+                                    pos = new V(Rand(20f, 620), Rand(20, 460));
+                            Ef ef = new(str[i].ToString(),pos, C.Black, 1) {font=Final2,Alpha=0 };
+                            ef.alphaOut(0,1,T(i*0.5f),T(2),ES.Linear);
+                            ef.AutoDis(T(6));
+                            CreateEntity(ef);
+                            ef.scf = true;
+                            Ef ef2 = new(str[i].ToString(), ef.Centre, C.Black, 1) { font = Final2, Alpha = 0 };
+                            ef2.alphaOut(0, 1, T(i * 0.5f), T(2), ES.Linear);
+                            ef2.AutoDis(T(6));
+                            CreateEntity(ef2);
+                            ef2.scf2 = true;
+                            ef.scf = true;
+                            var time = Rand(0,360f);
+                            var runx = Rand(0.7f,1.8f) * RandSignal();
+                            var runy = Rand(0.7f, 1.8f) * RandSignal();
+                            var runrot = Rand(0.7f, 1.8f) * RandSignal();
+                            var rot = Rand(5f, 15f) * RandSignal();
+                            ForBeat(32, () => 
+                            {
+                                ef.centre = ef.Centre + new V(Sin((time+Gametime/3f)*runx)*10, Sin((time + Gametime / 3f) * runx) * 10);
+                                ef.rot = Sin(time+Gametime/10f)*runrot+rot;
+                                ef2.centre = ef.Centre + new V(Sin((time + Gametime / 3f) * runx) * 10, Sin((time + Gametime / 3f) * runx) * 10);
+                                ef2.rot = Sin(time + Gametime / 10f)*runrot + rot;
+                            });
+                            DelayBeat(2, () =>
+                            {
+                                RunEase(s => ef.Centre = s, LinkEase(EaseIn(T(4),ef.Centre,new V(320,240),ES.Quad)));
+                                RunEase(s => rot = s, LinkEase(EaseIn(T(4), rot, MathF.Atan2(ef.Centre.Y-240,ef.Centre.X-320)*180f/MathF.PI, ES.Quad)));
+                            });
+                            DelayBeat(4, () => WhiteOut(T(2)));
+                            DelayBeat(5.99f, () => ef.Alpha=ef2.Alpha=0);
+                        }
+                        count++;
+                    });
+                    RegisterFunctionOnce("Ef2", () => 
+                    {
+                        var str = "黒になれ".ToCharArray();
+                        for (int i = 0; i < 4; i++) 
+                        {
+                            Ef ef = new(str[i].ToString(),new V(320,240), C.Black, 1.5f) { font = Final2 };
+                            Ef ef2 = new(str[i].ToString(), new V(320, 240), C.Black, 1.5f) { font = Final2 };
+                            CreateEntity(new[] {ef,ef2 });
+                            ef.scf = true;
+                            ef2.scf2 = true;
+                            RunEase(s => ef.Centre = s, EaseOut(T(8), new V(320, 240), new V(320 - 100 * 1.5f + i * 100f,320),ES.Back));
+                            var time = Rand(0, 360f);
+                            var runx = Rand(0.7f, 1.8f) * RandSignal();
+                            var runy = Rand(0.7f, 1.8f) * RandSignal();
+                            var runrot = Rand(0.7f, 1.8f) * RandSignal();
+                            var rot = Rand(5f, 15f) * RandSignal();
+                            RunEase(s => rot = s, EaseOut(T(8), -(i - 2) * 10, 0, ES.Back));
+                            ForBeat(100, () => 
+                            {
+                                ef.centre = ef2.centre= ef.Centre + new V(Sin((time + Gametime / 3f) * runx) * 10, Sin((time + Gametime / 3f) * runx) * 10);
+                                ef.rot = ef2.rot = Sin(time + Gametime / 10f) * runrot + rot;
+
+                            });
+                            foreach (var t in new[] { ef, ef2 })
+                            {
+                                t.alphaOut(1, 0, T(8), T(8), ES.Linear);
+                                t.AutoDis(T(16.5f));
+                            }
+                        }
+                    });
+                    for (int i = 1; i < text.Length+1; i++)
+                    {
+                        if (i-1 < text.Length - 2)
+                            CreateChart(T(4 * i), T(2), 0, new string[]
+                            {
+                        "Efs"
+                            });
+
+                        if (i-1 == text.Length - 2)
+                            CreateChart(T(4 * i), T(2), 0, new string[]
+                            {
+                        "Ef1"
+                            });
+
+                        if (i-1 == text.Length - 1)
+                            CreateChart(T(4 * i+1.5f), T(2), 0, new string[]
+                            {
+                        "Ef2"
+                            });
+                    }
+                }
+                #endregion
 
             }
 
             public void ExtremePlus()
             {
+                
                 ExtendEffect();
                 TextEffect();
                 #region Intro undyne
@@ -6568,7 +6719,6 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(32, () => { filter.Dispose(); });
                 }
                 #endregion
-                
                 #region Sustenance of moon
                 if (InBeat(260)) { SceneOut(Color.Black, T(4)); }
                 if (InBeat(262))
@@ -6803,7 +6953,6 @@ namespace Rhythm_Recall.Waves
                     WhiteOut(T(4));
                 }
                 #endregion
-                
                 #region BIG SHOT+Helltaker
                 if (InBeat(328))
                 {
@@ -8598,6 +8747,7 @@ namespace Rhythm_Recall.Waves
                     DelayBeat(7.9f, () => { clone.Dispose(); });
                 }
                 #endregion*/
+                
                 #region FreedomDive
                 if (InBeat(454))
                 {
@@ -8686,7 +8836,7 @@ namespace Rhythm_Recall.Waves
                         LinkEase(Stable(0, 0), EaseOut(T(4f), 1, ES.Linear)));
 
                 }
-                #endregion*/
+                #endregion
                 #region EndTime
                 if (InBeat(470))
                 {
@@ -9799,6 +9949,7 @@ namespace Rhythm_Recall.Waves
                         {"#2#$21(#2#$0)(Shake)", });
                 }
                 #endregion*/
+                
                 #region EtherStrike + Eternal Spring Dream
                 if (InBeat(520))
                 {
@@ -9949,7 +10100,7 @@ namespace Rhythm_Recall.Waves
                     BSet.timestop = true;
                     BSet.final = true;
                     NameShower.name = "e78b90e381aee789a1e4b8b9";
-                    again = false;
+                    //again = false;
                     HPBar.HPLoseColor = Color.Black * 0;
                     HPBar.HPExistColor = Color.White * 0;
                     DelayBeat(4, () => { shaderProduction.Dispose(); });
@@ -9989,7 +10140,7 @@ namespace Rhythm_Recall.Waves
                     Glitch = new GlitchPro(0.94f);
                     SceneRendering.InsertProduction(Glitch);
                     BSet.Windowname = "何もかも終わり";
-                    BSet.FullScreen = true;
+                    //BSet.FullScreen = true;
                     shaderProduction1 = ActivateShader(n, 0.95829f);
                     n.circmode = true;
                     n.intensity = 0.003f;
@@ -10790,7 +10941,7 @@ namespace Rhythm_Recall.Waves
                     }, LinkEase(EaseOut(T(4),0,1,ES.Sine),EaseOut(T(8),1,0,ES.Sine)));
                 }
                 #endregion
-                #endregion*/
+                #endregion*/*/
                 #region LastPart
                 if (InBeat(552 + 96))
                 {
@@ -10799,7 +10950,7 @@ namespace Rhythm_Recall.Waves
                     BSet.col = false;
                     ResetBarrage();
                     var scene = CurrentScene as SongFightingScene;
-                    complete = (scene.Mode != GameMode.None||HeartAttribute.HP <1);
+                    complete = (scene.Mode != GameMode.None||HeartAttribute.HP ==0);
                     complete = !complete;
                     if (BadShader == null)
                     {
@@ -10834,13 +10985,13 @@ namespace Rhythm_Recall.Waves
                     FightResources.Shaders.Aurora.ThemeColorB = Color.Black;
                     FightResources.Shaders.Aurora.Slope = 1000;
                     FightResources.Shaders.Aurora.Type = 1;
-                    BlurG = new ScreenDrawing.Shaders.Glitching(0.8234f);
+                    BlurG = new ScreenDrawing.Shaders.Glitching(0.46362f);
                     BlurB = new ScreenDrawing.Shaders.Blur(0.893234f);
                     BlurG.Duration = new V(3,3);
                     BlurG.Intensity = 100;
                     BlurG.BlockScale = 1f;
                     BlurG.AverageDelta = 2;
-                    BlurG.AverageInterval = 1;
+                    BlurG.AverageInterval = 0;
                     SceneRendering.InsertProduction(BlurG);
                     SceneRendering.InsertProduction(BlurB);
                     production1 = ActivateShader(FightResources.Shaders.Wave, 0.9387498f);
@@ -10873,9 +11024,9 @@ namespace Rhythm_Recall.Waves
                         LeftBoundDistance = 400 + Sin(i * 2) * 100;
                         RightBoundDistance = 400 + Sin(i * 2) * 100;
                         DownBoundDistance = 400 + Sin(i * 2) * 100;
-                        FightResources.Shaders.Blur.Sigma = 0.5f + Sin(i) * 3;
-                        FightResources.Shaders.Blur.Factor = new V(Sin(i * 2), Cos(i * 4));
-                        BlurB.Sigma = Sin(i * 0.7f) * 2;
+                        FightResources.Shaders.Blur.Sigma = 0.5f + Sin(i) * 0.2f;
+                        FightResources.Shaders.Blur.Factor = new V(1+Sin(i * 2.3479f)*0.5f, 1+Cos(i * 4.234798f)*0.5f);
+                        BlurB.Sigma = Sin(i * 0.7f) * 0.5f+1.5f;
                     }));
 
                     ScreenDrawing.BoxBackColor = Color.Black * 0.3f;
@@ -10885,7 +11036,7 @@ namespace Rhythm_Recall.Waves
                 }
                 if (InBeat(552 + 96))
                 {
-                    SidePro.Dispose();
+                    SidePro?.Dispose();
                     foreach (Bone l in GetAll<Bone>())
                     {
                         l.Dispose();
@@ -11174,7 +11325,7 @@ namespace Rhythm_Recall.Waves
                               "Travelar at Sunset\n" +
                               "T-mas & zkronO \n " +
                               "& TK & Tlottgodinf\n\n" +
-                              "BadAppleRE - mentosu\n" +
+                              "BadApple!! - mentosu\n" +
                               "Anomaly作成ソフト - Aviutl & Audacity"
                             ;
                         Ef text = new(tex, new V(320, 20), C.White * 2, 0.7f) { AutoDispose = false, scf = true };
@@ -11240,7 +11391,7 @@ namespace Rhythm_Recall.Waves
                     var scene = CurrentScene as SongFightingScene;
                     if (scene.Mode == GameMode.Buffed) GameStates.ResetScene(new GameMenuScene());
                 }));
-                if ((int)CurrentDifficulty >=4)
+                if ((int)CurrentDifficulty >= 4)
                 {
 
                     Waveform = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\Waveform"));
@@ -11278,7 +11429,7 @@ namespace Rhythm_Recall.Waves
                         //+610
                         //+552+90
                         //+552+90+16+64
-                        ) ;
+                        );
                     bool Debug = false;
                     bool finalsetting = false;
                     PlayOffset = gametime;
@@ -11313,7 +11464,7 @@ namespace Rhythm_Recall.Waves
                         CreateEntity(new Entitycount());
                     }
                     int count = 0;
-                    AddInstance(new TimeRangedEvent(105,()=>
+                    AddInstance(new TimeRangedEvent(105, () =>
                     {
                         string st = "0";
                         char[] s = $"{count}".ToCharArray();
@@ -11357,14 +11508,16 @@ namespace Rhythm_Recall.Waves
                     rainer.Speed = 2000f;
                     rainer.Scale = -10f;
                     Shader t = new(Loader.Load<Effect>("Musics\\BadAppleRE\\shader\\BlurX"));
-                    btest = new(t);
+                    btest = new();
                     Shader t2 = new(Loader.Load<Effect>("Musics\\BadAppleRE\\shader\\BlurY"));
-                    btest2 = new(t2);
+                    btest2 = new();
                     Shader t3 = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\Noise"));
-                    nega= new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\SquareNega"));
+                    nega = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\SquareNega"));
                     #endregion
-
                 }
+                else AnomalyStart();
+                btest = new();
+                btest2 = new();
             }
             public static void anomaly()
             {

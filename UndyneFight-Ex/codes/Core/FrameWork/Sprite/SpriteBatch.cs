@@ -283,6 +283,10 @@ namespace UndyneFight_Ex
         {
             _batcher.Insert(new PrimitiveItem(TextureSortKey(depth), vertexs));
         }
+        public void DrawVertex(float depth, int[] indices,params VertexPositionColor[] vertexs)
+        {
+            _batcher.Insert(new PrimitiveItem(TextureSortKey(depth), indices, vertexs));
+        }
         /// <summary>
         /// Give the vertexs information of sprite to draw on the current RenderTarget
         /// </summary>

@@ -24,6 +24,7 @@ using static UndyneFight_Ex.BSet;
 using C = Microsoft.Xna.Framework.Color;
 using ES = UndyneFight_Ex.Entities.SimplifiedEasing.EaseState;
 using V = Microsoft.Xna.Framework.Vector2;
+using V3 = Microsoft.Xna.Framework.Vector3;
 using System.Text;
 using System.Xml.Schema;
 using static System.Net.Mime.MediaTypeNames;
@@ -127,6 +128,7 @@ namespace Rhythm_Recall.Waves
                     centre = vec;
                     Size = new V(size / 8);
                     Depth = 1;
+                    Centre = centre;
 
                 }
                 public Ef(string text, Vector2 vec, Color col, float size, float depth)
@@ -136,6 +138,7 @@ namespace Rhythm_Recall.Waves
                     centre = vec;
                     Size = new V(size / 8);
                     Depth = depth;
+                    Centre = centre;
                 }
                 public Ef(string text, Color col, float size)
                 {
@@ -144,6 +147,7 @@ namespace Rhythm_Recall.Waves
                     centre = V.Zero;
                     Size = new V(size / 8);
                     Depth = 1;
+                    Centre = centre;
                 }
 
                 bool s = true;
@@ -237,7 +241,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public void AutoDis(float time)
                 {
-                    AddInstance(new InstantEvent(time, () => { Dispose(); }));
+                    AddInstance(new InstantEvent(time, () => { Alpha = 0; Dispose(); }));
                 }
                 #region easing
                 public void vecOut(V vec1, V vec2, float time, ES type)
@@ -1002,8 +1006,8 @@ namespace Rhythm_Recall.Waves
             }
             public static void ShaderblackBall(float size, Shader shader)
             {
-                shader.Parameters["size"].SetValue(size);
-                shader.Parameters["Type"].SetValue(3);
+                shader?.Parameters["size"].SetValue(size);
+                shader?.Parameters["Type"].SetValue(3);
             }
             #endregion
 
@@ -2594,7 +2598,7 @@ namespace Rhythm_Recall.Waves
                     DrawTexture(obj, V.Zero, Blend1);
                     DrawTexture(obj, GetVector2(intensity, rot), Blend2);
                     DrawTexture(obj, GetVector2(intensity, rot + 180), Blend3);
-                    return MissionTarget;
+                    return HelperTarget;
                 }
             }
             #region easing
@@ -2757,7 +2761,7 @@ namespace Rhythm_Recall.Waves
                 public float sigma { get; set; }
                 public float intensity { get; set; } = 1;
                 public float factor { get; set; } = 1;
-                public BlurPlus1(Effect eff) : base(eff)
+                public BlurPlus1() : base(Loader.Load<Effect>("Musics\\BadAppleRE\\shader\\BlurX"))
                 {
                     StableEvents = (x) =>
                     {
@@ -2773,7 +2777,7 @@ namespace Rhythm_Recall.Waves
                 public float sigma { get; set; }
                 public float intensity { get; set; } = 1;
                 public float factor { get; set; } = 1;
-                public BlurPlus2(Effect eff) : base(eff)
+                public BlurPlus2() : base(Loader.Load<Effect>("Musics\\BadAppleRE\\shader\\BlurY"))
                 {
                     StableEvents = (x) =>
                     {
@@ -3144,7 +3148,118 @@ namespace Rhythm_Recall.Waves
                     return t;
                 }
             }
-            
+            public class VertexDictionary : GameObject
+            {
+                public V3[] Shield1 { get; set; }
+                public V3[] Shield2 { get; set; }
+                public V[] Arrow { get; set; }
+                public VertexDictionary()
+                {
+                    StartP();
+                    Arrow = new V[]
+                    {
+                            new V(Px(-4), Py(-3)),
+                            new V(Px(0), Py(-2)),
+                            new V(Px(-4), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(-2), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(-1), Py(0f)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(-1), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(-1), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(-1), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(1), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(1), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(1), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(1), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(2), Py(0)),
+                            new V(Px(0), Py(1)),
+                            new V(Px(4), Py(0)),
+                            new V(Px(0), Py(-2)),
+                            new V(Px(13), Py(0)),
+                            new V(Px(0), Py(-7)),
+                            new V(Px(-13), Py(0)),
+                            new V(Px(0), Py(3))
+                    };
+                    size = 1;
+                    StartP();
+                    Shield1 = new V3[]
+                    {
+                        new V3(Px(18.5f),Py(9.5f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(4f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(4f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(4f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(4f),0),
+                        new V3(Px(1f),Py(0f),0),
+                        new V3(Px(0f),Py(3f),0),
+                        new V3(Px(4f),Py(0f),0),
+                        new V3(Px(0),Py(-60),0),
+                        new V3(Px(-3f),Py(0f),0)
+                    };
+                    StartP();
+                    size = 1f;
+                    Shield2 = new[] {
+                    new V3(Px(18.5f), Py(8.5f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(-1f), 0),
+                        new V3(Px(2f), Py(0f), 0),
+                        new V3(Px(0f), Py(1f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(4f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(3f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(3f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(4f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(3f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(3f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(4f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(3f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(4f), 0),
+                        new V3(Px(0f), Py(0f), 0),
+                        new V3(Px(1f), Py(0f), 0),
+                        new V3(Px(0f), Py(-50f), 0),
+                    };
+                    
+                }
+
+                public override void Update()
+                {
+                }
+            }
+
         }
     }
 }

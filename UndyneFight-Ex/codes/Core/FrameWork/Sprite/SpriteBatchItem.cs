@@ -34,7 +34,7 @@ namespace UndyneFight_Ex
                 Vertexs = new VertexPositionColorTexture[vertexs.Length];
                 for (int i = 0; i < vertexs.Length; i++)
                     Vertexs[i] = new(vertexs[i].Position, vertexs[i].Color, new(0, 0));
-                int count = vertexs.Length - 2;
+                int count = vertexs.Length-2;
                 Indices = new int[count * 3];
 
                 for (int i = 0; i < count; i++)
