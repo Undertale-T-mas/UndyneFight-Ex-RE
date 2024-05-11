@@ -3734,6 +3734,12 @@
 /processorParam:DebugMode=Auto
 /build:Musics/BadAppleRE/Shader/SideBlur.fx
 
+#begin Musics/BadAppleRE/Shader/SideFoggy.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Musics/BadAppleRE/Shader/SideFoggy.fx
+
 #begin Musics/BadAppleRE/Shader/Split.fx
 /importer:EffectImporter
 /processor:EffectProcessor

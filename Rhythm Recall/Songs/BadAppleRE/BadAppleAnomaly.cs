@@ -40,6 +40,7 @@ using static Rhythm_Recall.Resources.BadAppleRE;
 using static Rhythm_Recall.Resources;
 using System.Linq.Expressions;
 using static Rhythm_Recall.Waves.BadApple_RE;
+using System.Runtime.Intrinsics;
 namespace Rhythm_Recall.Waves
 {
     internal partial class BadApple_RE : IChampionShip
@@ -124,6 +125,7 @@ namespace Rhythm_Recall.Waves
                 public C color=C.White;
                 public new Vector3 Rotation=V3.Zero;
                 private bool trianglecustom = false;
+                public bool doubletriangle = false;
                 public Vertex(C color,V pos, params V3[] posi) 
                 {
                     this.color = color;
@@ -138,9 +140,64 @@ namespace Rhythm_Recall.Waves
                     for (int i = 0; i < posi2.Length; i++) point2.Add(posi2[i]);
                     trianglecustom = true;
                 }
+                private void tri1() 
+                {
+                    List<V> point1 = new();
+                    foreach (var t in this.point)
+                        point1.Add(To2d(Rotation, t));
+                    List<VertexPositionColor> vertex1 = new();
+                    List<VertexPositionColor> vertex2 = new();
+                    var centre = V.Zero;
+                    for (var i = 0; i < point1.Count / 2 + 1; i++) centre += point1[i];
+                    centre /= point1.Count / 2 + 1;
+                    vertex1.Add(new(new Vector3(centre + Centre, 0), color));
+                    centre = V.Zero;
+                    for (var i = point1.Count / 2; i < point1.Count; i++) centre += point1[i];
+                    centre /= point1.Count / 2;
+                    vertex2.Add(new(new Vector3(centre + Centre, 0), color));
+                    for (var i = 0; i < point1.Count / 2 + 1; i++) vertex1.Add(new(new Vector3(Centre + point1[i], 0), color));
+                    vertex1.Add(new(new V3(Centre + (point1[0] + point1[^1]) / 2, 0), color));
+                    for (var i = point1.Count / 2; i < point1.Count; i++) vertex2.Add(new(new Vector3(Centre + point1[i], 0), color));
+                    vertex2.Add(new(new V3(Centre + (point1[1] + point1[^1]) / 2, 0), color));
+                    SpriteBatch.DrawVertex(Depth, vertex1.ToArray());
+                    SpriteBatch.DrawVertex(Depth, vertex2.ToArray());
+                }
+                private void tri2()
+                {
+                    List<V> point1 = new();
+                    foreach (var t in this.point2)
+                        point1.Add(To2d(Rotation, t));
+                    List<VertexPositionColor> vertex1 = new();
+                    List<VertexPositionColor> vertex2 = new();
+                    var centre = V.Zero;
+                    for (var i = 0; i < point1.Count / 2 + 1; i++) centre += point1[i];
+                    centre /= point1.Count / 2 + 1;
+                    vertex1.Add(new(new Vector3(centre + Centre, 0), color));
+                    centre = V.Zero;
+                    for (var i = point1.Count / 2; i < point1.Count; i++) centre += point1[i];
+                    centre /= point1.Count / 2;
+                    vertex2.Add(new(new Vector3(centre + Centre, 0), color));
+                    for (var i = 0; i < point1.Count / 2 + 1; i++) vertex1.Add(new(new Vector3(Centre + point1[i], 0), color));
+                    vertex1.Add(new(new V3(Centre + (point1[0] + point1[^1]) / 2, 0), color));
+                    for (var i = point1.Count / 2; i < point1.Count; i++) vertex2.Add(new(new Vector3(Centre + point1[i], 0), color));
+                    vertex2.Add(new(new V3(Centre + (point1[1] + point1[^1]) / 2, 0), color));
+                    SpriteBatch.DrawVertex(Depth, vertex1.ToArray());
+                    SpriteBatch.DrawVertex(Depth, vertex2.ToArray());
+                }
                 public override void Draw()
                 {
-                    if (!trianglecustom)
+                    if (doubletriangle) 
+                    {
+                        tri1();
+                        tri2();
+                        V vec = V.Zero;
+                        foreach (var t in point) vec += To2d(Rotation,t);
+                        foreach (var t in point2) vec += To2d(Rotation, t);
+                        vec /= point.Count + point2.Count;
+                        List<VertexPositionColor> vertex = new();
+                        vertex.Add(new(new V3(),color));
+                    }
+                    else if (!trianglecustom)
                     {
                         List<V> point = new();
                         foreach (var t in this.point)
@@ -149,7 +206,7 @@ namespace Rhythm_Recall.Waves
                         foreach (var t in point) vertex.Add(new(new Vector3(t + Centre, 0), color));
                         SpriteBatch.DrawVertex(Depth, vertex.ToArray());
                     }
-                    else 
+                    else
                     {
                         List<V> point1 = new();
                         List<V> point2 = new();
@@ -158,21 +215,21 @@ namespace Rhythm_Recall.Waves
                         foreach (var t in this.point2)
                             point2.Add(To2d(Rotation, t));
                         List<VertexPositionColor> vertex = new();
-                        for (int i = 0; i < MathF.Max(point1.Count, point2.Count);i++) 
+                        for (int i = 0; i < MathF.Max(point1.Count, point2.Count); i++)
                         {
-                            vertex.Add(new(new V3(point1[i]+Centre,0),color));
-                            if(point2.Count>i)
-                            vertex.Add(new(new V3(point2[i] + Centre, 0), color));
+                            vertex.Add(new(new V3(point1[i] + Centre, 0), color));
+                            if (point2.Count > i)
+                                vertex.Add(new(new V3(point2[i] + Centre, 0), color));
                         }
-                        int[] ints = new int[vertex.Count*3];
-                        for (int i = 0; i < vertex.Count; i++) 
+                        int[] ints = new int[vertex.Count * 3];
+                        for (int i = 0; i < vertex.Count; i++)
                         {
                             int t1 = i * 3, t2 = i * 3 + 1, t3 = i * 3 + 2;
                             ints[t1] = i;
                             ints[t2] = i + 1;
                             ints[t3] = i + 2;
                         }
-                        SpriteBatch.DrawVertex(Depth,ints, vertex.ToArray());
+                        SpriteBatch.DrawVertex(Depth, ints, vertex.ToArray());
                     }
                 }
                 public Vector2 To2d(Vector3 rot,Vector3 pos)
@@ -358,12 +415,216 @@ namespace Rhythm_Recall.Waves
                     return new V3(xy.Easing(s),0);
                 });
             }
+            private V screenp = V.Zero;
+            private void shake() 
+            {
+                float vec = 15;
+                ForBeat120(300, () => 
+                {
+                    vec *= 0.98f;
+                    screenp = new V(
+                        vec * Rand(0.0f, 1.0f) * RandSignal(),
+                        vec * Rand(0.0f, 1.0f) * RandSignal());
+                });
+            }
+            public static Audio audio;
             public void Hard()
             {
+                if (InBeat(3.5f)) 
+                {
+                    audio = new(Loader.Load<SoundEffect>("Musics\\BadAppleRE\\anomaly\\anomaly_sound"));
+                    audio.Play();
+                }
                 if (InBeat(4)) 
                 {
-                    PlaySound(Loader.Load<SoundEffect>("Musics\\BadAppleRE\\anomaly\\anomaly_sound"));
-                    CreateEntity(new AppleSongInfo());
+                    shake();
+                    const float delay = 2;
+                    ForBeat(1000, () => ScreenPositionDelta = screenp+new V(Sin(Gametime * 1.62f) * 5, Sin(Gametime * 1.386f) * 5));
+                    RunEase(s => BackGroundColor = C.White * s, EaseOut(T(2), 0.3f, 0, ES.Expo));
+                    EfEn ef = new(V.Zero, Sprites.player) { Size = new V(6) };
+                    ef.rotEase(false, 0, -36f, T(6), ES.Quart);
+                    ef.vecEase(false, new V(320, 550), new V(320, 240), T(6), ES.Expo);
+                    ef.SizeEase(true, new V(6), new V(3), T(8-delay), T(2), ES.Expo);
+                    ef.SizeEase(false, new V(3), new V(1), T(10-delay), T(2), ES.Expo);
+                    ef.rotEase(true, -36, -16f, T(8-delay), T(2), ES.Quart);
+                    ef.rotEase(false, -16, 15f, T(10-delay), T(2), ES.Quart);
+                    CreateEntity(ef);
+                    DelayBeat(0, () =>
+                    {
+                        Shader s = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\SideFoggy"));
+                        ActivateShader(s, 1);
+                        ForBeat(1000, () =>
+                        {
+                            s.Parameters["Iintensity"].SetValue(0.7f + Rand(0.0f, 0.04f) * RandSignal());
+                            s.Parameters["itime"].SetValue(Gametime / 50f);
+
+                        });
+                    });
+                    DelayBeat(7-delay, () => RunEase(s => ScreenDrawing.ScreenAngle = s, EaseIn(T(4), 0, 375 / 2f, ES.Quad), EaseOut(T(4), 375 / 2f, ES.Circ)));
+                    for (int i = 0; i < 70; i++)
+                    {
+                        var t = Rand(0f, 640f);
+                        var r = new V(t + Rand(5f, 20f) * RandSignal(), Rand(10f, 470f));
+                        Vertex m = new(CW, V.Zero,
+                            new V3(GV(Rand(30f, 50f), 0), 0),
+                            new V3(GV(Rand(30f, 50f), 60), 0),
+                            new V3(GV(Rand(30f, 50f), 120), 0));
+                        m.PosMotion(
+                            EaseOut(T(6), new V(t, 500), r, ES.Expo));
+                        var rot = GetAngle(MathF.Atan2(r.Y - 240, r.X - 320));
+                        var v1 = Rand(50f, 300f) * RandSignal();
+                        var v2 = Rand(50f, 300f) * RandSignal();
+                        m.RotMotion(V3Unit(
+                            LinkEase(
+                            EaseOut(T(6), 0, v1, ES.Expo)),
+                            LinkEase(
+                            EaseOut(T(6), 0, v2, ES.Expo)),
+                            LinkEase(
+                            EaseOut(T(6), 0, rot, ES.Expo))));
+
+                        CreateEntity(m);
+                        if (i < 20 || i > 30)
+                        {
+                            StartP();
+                            m.VertexMotion(T(8-delay), T(4), ES.Expo, ET.InOut,
+                            null,
+                            vertexs.Arrow);
+                            int way = i % 4;
+                            var alpha = Rand(1, 5) * RandSignal();
+                            var randrot = RandSignal() * 360;
+                            var len = (r - new V(320, 240)).Length();
+                            if (len < 100) RunEase(s => len = s, Stable(T(8-delay), len), EaseInOut(T(4), len, Rand(70f, 100f), ES.Cubic));
+                            ValueEasing.EaseBuilder t3 = new();
+                            t3.Insert(T(3.5f), (s) =>
+                            {
+                                return EaseInOut(T(4), rot, way * 90 + randrot, ES.Sine).Easing(s);
+                            });
+                            t3.Insert(T(4f), (s) =>
+                            {
+                                return EaseOut(T(4), way * 90 + randrot, way * 90 + randrot + alpha, ES.Sine).Easing(s);
+                            });
+                            ValueEasing.EaseBuilder t5 = new();
+                            t5.Insert(T(4f), (s) =>
+                            {
+                                return EaseInOut(T(4), v1, 360, ES.Cubic).Easing(s);
+                            });
+                            ValueEasing.EaseBuilder t6 = new();
+                            t6.Insert(T(4f), (s) =>
+                            {
+                                return EaseInOut(T(4), v2, 0, ES.Cubic).Easing(s);
+                            });
+                            DelayBeat(8-delay, () =>
+                            {
+                                t3.Run(s =>
+                                {
+                                    m.Centre = new V(320, 240) + GV(len, s);
+                                });
+                                m.AddChild(new Vertex.Motion2(t5, t6, t3, T(8)));
+                            });
+                        }
+                        else if (i < 28)
+                        {
+                            if (i < 22)
+                            {
+                                m.RotMotion(V3Unit(
+                                    EaseInOut(T(4), v1, 360, ES.Expo),
+                                    EaseInOut(T(4), v2, 0, ES.Quad),
+                                    EaseInOut(T(4), rot, 0, ES.Circ)), T(8-delay));
+                                m.VertexMotion(T(8-delay), T(4), ES.Cubic, ET.InOut, null,
+                                    i % 2 == 0 ? GV(42, 180) + new V(0, -3) : GV(42, 0) + new V(0, 3),
+                                    GV(42, 180) + new V(0, 3),
+                                    GV(42, 0) + new V(0, -3));
+                                m.PosMotion(EaseInOut(T(4), r, WCentre + GV(42, -90), ES.Cubic), T(8-delay));
+                            }
+                            else if (i < 24)
+                            {
+                                m.RotMotion(V3Unit(
+                                    EaseInOut(T(4), v1, 360, ES.Expo),
+                                    EaseInOut(T(4), v2, 0, ES.Quad),
+                                    EaseInOut(T(4), rot, 0, ES.Circ)), T(8-delay));
+                                m.VertexMotion(T(8-delay), T(4), ES.Cubic, ET.InOut, null,
+                                    i % 2 == 0 ? GV(42, 90) + new V(3, 0) : GV(42, -90) + new V(-3, 0),
+                                    GV(42, -90) + new V(3, 0),
+                                    GV(42, 90) + new V(-3, 0));
+                                m.PosMotion(EaseInOut(T(4), r, WCentre + GV(42, 0), ES.Cubic), T(8-delay));
+                            }
+                            else if (i < 26)
+                            {
+                                m.RotMotion(V3Unit(
+                                    EaseInOut(T(4), v1, 360, ES.Expo),
+                                    EaseInOut(T(4), v2, 0, ES.Quad),
+                                    EaseInOut(T(4), rot, 0, ES.Circ)), T(8-delay));
+                                m.VertexMotion(T(8-delay), T(4), ES.Cubic, ET.InOut, null,
+                                    i % 2 == 0 ? GV(42, -90) + new V(-3, 0) : GV(42, 90) + new V(3, 0),
+                                    GV(42, -90) + new V(3, 0),
+                                    GV(42, 90) + new V(-3, 0));
+                                m.PosMotion(EaseInOut(T(4), r, WCentre + GV(42, 180), ES.Cubic), T(8-delay));
+                            }
+                            else if (i < 28)
+                            {
+                                m.RotMotion(V3Unit(
+                                    EaseInOut(T(4), v1, 360, ES.Expo),
+                                    EaseInOut(T(4), v2, 0, ES.Quad),
+                                    EaseInOut(T(4), rot, 0, ES.Circ)), T(8-delay));
+                                m.VertexMotion(T(8-delay), T(4), ES.Cubic, ET.InOut, null,
+                                    i % 2 == 0 ? GV(42, 180) + new V(0, -3) : GV(42, 0) + new V(0, 3),
+                                    GV(42, 180) + new V(0, 3),
+                                    GV(42, 0) + new V(0, -3));
+                                m.PosMotion(EaseInOut(T(4), r, WCentre + GV(42, 90), ES.Cubic), T(8-delay));
+                            }
+                        }
+                        else if (i < 30)
+                        {
+                            m.VertexMotion(T(8-delay), T(4), vertexs.Shield1, vertexs.Shield2, ES.Cubic, ET.InOut);
+                            float rand = Rand(0, 4) * 90 + Rand(1, 45f) * RandSignal();
+                            m.PosMotion(EaseInOut(T(4), r, new V(320, 240) + GV(5, rand) + GV(5, rand - 90), ES.Cubic), T(8-delay));
+                            m.RotMotion(V3Unit(
+                                    EaseInOut(T(4), v1, 360, ES.Expo),
+                                    EaseInOut(T(4), v2, 0, ES.Quad),
+                                    EaseInOut(T(8), rot, rand, ES.Circ)), T(8-delay));
+                        }
+                        else m.PosMotion(EaseInOut(T(4), m.Centre, new V(m.Centre.X, -200), ES.Circ), T(8-delay));
+                    }
+                    Shader s = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\BlockTest"));
+                    s.Parameters["blocksize"].SetValue(14);
+                    ActivateShader(s);
+                    SC h = new(0.6f);
+                    SceneRendering.InsertProduction(h);
+                    btest.sigma = 1f;
+                    btest2.sigma = 1f;
+                    btest.intensity = 2;
+                    btest2.intensity = 2;
+                    btest.factor = 2;
+                    btest2.factor = 2;
+                    RGBS n = new(0.2f);
+                    SceneRendering.InsertProduction(n);
+                    ForBeat(120, () =>
+                    {
+                        Shader s = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\BlockTest"));
+                        s.Parameters["time"].SetValue(Gametime);
+                    });
+                    RunEase(s =>
+                    {
+                        Shader t = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\BlockTest"));
+                        t.Parameters["intensity"].SetValue(s);
+                        n.intensity = s * 200;
+
+                    }, Stable(T(6-delay), 0.02f), EaseInOut(T(4), 0, 0.1f, ES.Cubic), EaseInOut(T(4), 0, -0.1f, ES.Cubic));
+                    RunEase(s =>
+                    {
+                        Shader t = new(Loader.Load<Effect>("Musics\\BadAppleRE\\Shader\\BlockTest"));
+                        t.Parameters["length"].SetValue(0);
+
+                    }, EaseInOut(T(8-delay), 0, 0.05f, ES.Cubic));
+                }
+                if (InBeat(4, 1000)) 
+                {
+                    for (int i = 0; i < 40; i++)
+                    {
+                        EfEn ef = new(new V(Rand(0, 640f), Rand(0, 480f)), Sprites.lightBall) { Size = new V(0.05f) };
+                        CreateEntity(ef);
+                        ef.AutoDis(2);
+                    }
                 }
             }
             public void AnomalyStart()
@@ -379,11 +640,11 @@ namespace Rhythm_Recall.Waves
             }
             static V pix=V.Zero;
             static float size = 1.5f;
-            private static float Px(float count,float c=1.5f) 
+            private static float Px(float count,float c=4f) 
             {
                 return pix.X += count * size;
             }
-            private static float Py(float count,float c=1.5f)
+            private static float Py(float count,float c=4f)
             {
                 return pix.Y += count * size;
             }
@@ -395,7 +656,8 @@ namespace Rhythm_Recall.Waves
             {
                 if (GameStates.IsKeyPressed120f(Keys.D1)) 
                 {
-                    ForBeat(1000, () => ScreenPositionDelta = new V(Sin(Gametime*1.62f)*5,Sin(Gametime*1.386f)*5));
+                    shake();
+                    ForBeat(1000, () => ScreenPositionDelta = screenp+new V(Sin(Gametime*1.62f)*5,Sin(Gametime*1.386f)*5));
                     RunEase(s => BackGroundColor = C.White*s, EaseOut(T(2), 0.3f, 0, ES.Expo));
                     EfEn ef = new(V.Zero, Sprites.player) {Size=new V(6) };
                     ef.rotEase(false,0,-36f,T(4),ES.Quart);
@@ -660,6 +922,80 @@ namespace Rhythm_Recall.Waves
                     vertex.VertexMotion(T(4),T(4),vertexs.Shield1,vertexs.Shield2,ES.Cubic,ET.InOut);
                     CreateEntity(vertex);
                 }
+                if (GameStates.IsKeyPressed120f(Keys.D4)) 
+                {
+                    size = 4;
+                    StartP();
+                    V3[] v1 = new[] 
+                    {
+                        new V3(Px(3),Py(0),0),
+                        new V3(Px(0),Py(-16),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(-2),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(-3),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(-1),0),
+                        new V3(Px(-2),Py(0),0),
+                        new V3(Px(0),Py(1),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(1),0),
+                        new V3(Px(-2),Py(0),0),
+                        new V3(Px(0),Py(-1),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(-1),0),
+                        new V3(Px(-2),Py(0),0),
+                        new V3(Px(0),Py(1),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(3),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(2),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(16),0),
+
+                    };
+                    StartP();
+                    V3[] v2 = new[] 
+                    {
+                        new V3(Px(-3),Py(0),0),
+                        new V3(Px(0),Py(16),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(2),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(3),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(1),0),
+                        new V3(Px(2),Py(0),0),
+                        new V3(Px(0),Py(-1),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(-1),0),
+                        new V3(Px(2),Py(0),0),
+                        new V3(Px(0),Py(1),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(1),0),
+                        new V3(Px(2),Py(0),0),
+                        new V3(Px(0),Py(-1),0),
+                        new V3(Px(1),Py(0),0),
+                        new V3(Px(0),Py(-3),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(-2),0),
+                        new V3(Px(-1),Py(0),0),
+                        new V3(Px(0),Py(-16),0),
+                    };
+                    Vertex ver = new(C.White,new V(320,240),V3.Zero,V3.Zero,V3.Zero);
+                    ver.VertexMotion(T(4),T(4),v1,v2,ES.Cubic,ET.InOut);
+                    CreateEntity(ver);
+                    DelayBeat(4f, () => ver.doubletriangle=true);
+                }
+                if (GameStates.IsKeyPressed120f(Keys.D5)) 
+                {
+                    var rgb = new RGBSplitting(0.3f)
+                    {
+                        Disturbance = true,
+                        RandomDisturb = 10
+                    };
+                    SceneRendering.InsertProduction(rgb);
+                }
             }
             public void Extreme() 
             {
@@ -672,6 +1008,7 @@ namespace Rhythm_Recall.Waves
             public anomaly()
             {
                 this.AddChild(game = new Game());
+                UpdateIn120 = true;
             }
 
 
@@ -692,13 +1029,15 @@ namespace Rhythm_Recall.Waves
                 base.Update();
 
 #if DEBUG
-                if (GameStates.IsKeyDown(InputIdentity.Reset))
+                if (GameStates.IsKeyPressed120f(InputIdentity.Reset))
+                    BadApple_RE.Game.anomaly();
+                if (GameStates.IsKeyPressed120f(Keys.D)) 
                 {
                     SongFightingScene.SceneParams @params =
                         new(new BadApple_RE.Game(), null, 5, "Content\\Musics\\BadAppleRE\\song",
                         GameStates.CurrentScene is SongFightingScene
                     ? (GameStates.CurrentScene as SongFightingScene).JudgeState
-                    : JudgementState.Strict, GameMode.RestartDeny);
+                    : JudgementState.Strict);
                     GameStates.ResetScene(new SongLoadingScene(@params));
                 }
 
