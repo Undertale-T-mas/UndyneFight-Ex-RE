@@ -194,8 +194,19 @@ namespace Rhythm_Recall.Waves
                         foreach (var t in point) vec += To2d(Rotation,t);
                         foreach (var t in point2) vec += To2d(Rotation, t);
                         vec /= point.Count + point2.Count;
+                        List<V> point1t = new();
+                        foreach (var t in this.point)
+                            point1t.Add(To2d(Rotation, t));
+                        List<V> point2t = new();
+                        foreach (var t in this.point2)
+                            point2t.Add(To2d(Rotation, t));
                         List<VertexPositionColor> vertex = new();
-                        vertex.Add(new(new V3(),color));
+                        vertex.Add(new(new V3(vec+Centre,0),color));
+                        vertex.Add(new(new V3((point1t[7] + point1t[8])/2+Centre,0),color));
+                        vertex.Add(new(new V3(point2t[^1]+Centre,0), color));
+                        vertex.Add(new(new V3((point2t[7] + point2t[8]) / 2 + Centre, 0), color));
+                        vertex.Add(new(new V3(point1t[^1] + Centre, 0), color));
+                        SpriteBatch.DrawVertex(Depth,vertex.ToArray());
                     }
                     else if (!trianglecustom)
                     {
@@ -243,7 +254,7 @@ namespace Rhythm_Recall.Waves
                 }
                 public override void Update()
                 {
-                    
+                    //Rotation += new V3(0.2f);
                 }
                 public void RotMotion(EaseUnit<V3> pos,float delay=0)=> AddInstance(new InstantEvent(delay, () => AddChild(new Motion(pos))));
 
@@ -283,6 +294,13 @@ namespace Rhythm_Recall.Waves
                             p=Rand(0,pt.Count-1);
                         }
                     }));
+                }
+                public void VertexMotion(float delay, float time, V[] pos1, V[] pos2, EaseState type, ET t) 
+                {
+                    List<V3> vec1 = new(),vec2=new();
+                    foreach (var r in pos1) vec1.Add(new V3(r,0));
+                    foreach (var r in pos2) vec2.Add(new V3(r, 0));
+                    VertexMotion(delay,time, vec1.ToArray(),vec2.ToArray(),type,t);
                 }
                 public void VertexMotion(float delay, float time,V3[] pos1,V3[] pos2, EaseState type, ET t, V? vec = null)
                 {
@@ -874,7 +892,7 @@ namespace Rhythm_Recall.Waves
                         new V3(60,-50,0)
                         );
                     CreateEntity(t);
-                    CreateEntity(new Line(500,90));
+                    //CreateEntity(new Line(500,90));
                     t.VertexMotion(100, T(4),ES.Expo,ET.InOut,
                         new V(Px(7),0),
                         new V(Px(-4), Py(-3)),
@@ -924,12 +942,12 @@ namespace Rhythm_Recall.Waves
                 }
                 if (GameStates.IsKeyPressed120f(Keys.D4)) 
                 {
-                    size = 4;
+                    size = 1.5f;
                     StartP();
                     V3[] v1 = new[] 
                     {
                         new V3(Px(3),Py(0),0),
-                        new V3(Px(0),Py(-16),0),
+                        new V3(Px(0),Py(-12),0),
                         new V3(Px(1),Py(0),0),
                         new V3(Px(0),Py(-2),0),
                         new V3(Px(1),Py(0),0),
@@ -951,14 +969,14 @@ namespace Rhythm_Recall.Waves
                         new V3(Px(1),Py(0),0),
                         new V3(Px(0),Py(2),0),
                         new V3(Px(1),Py(0),0),
-                        new V3(Px(0),Py(16),0),
+                        new V3(Px(0),Py(12),0),
 
                     };
                     StartP();
                     V3[] v2 = new[] 
                     {
                         new V3(Px(-3),Py(0),0),
-                        new V3(Px(0),Py(16),0),
+                        new V3(Px(0),Py(12),0),
                         new V3(Px(-1),Py(0),0),
                         new V3(Px(0),Py(2),0),
                         new V3(Px(-1),Py(0),0),
@@ -980,10 +998,10 @@ namespace Rhythm_Recall.Waves
                         new V3(Px(-1),Py(0),0),
                         new V3(Px(0),Py(-2),0),
                         new V3(Px(-1),Py(0),0),
-                        new V3(Px(0),Py(-16),0),
+                        new V3(Px(0),Py(-12),0),
                     };
                     Vertex ver = new(C.White,new V(320,240),V3.Zero,V3.Zero,V3.Zero);
-                    ver.VertexMotion(T(4),T(4),v1,v2,ES.Cubic,ET.InOut);
+                    ver.VertexMotion(T(4),T(4),vertexs.Arrow,vertexs.Arrow,ES.Cubic,ET.InOut);
                     CreateEntity(ver);
                     DelayBeat(4f, () => ver.doubletriangle=true);
                 }
