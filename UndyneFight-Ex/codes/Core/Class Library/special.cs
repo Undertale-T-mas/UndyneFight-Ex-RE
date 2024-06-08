@@ -27,12 +27,12 @@ namespace UndyneFight_Ex
         public static bool problem { get; set; } = false;
         private static string ESD = "Eternal Spring Dream", NOK = "Night Of Knights", DB = "Dream Battle";
         public static bool BAAD 
-        { 
+        {
             get =>
 #if DEBUG
                 DateTime.Now.Day == 14;
 #else
-                true
+                true;
 #endif
         }
         public static void GetACC(float ACC, string songname, Difficulty dif)

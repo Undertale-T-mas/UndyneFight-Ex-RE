@@ -57,14 +57,14 @@ namespace Rhythm_Recall.Waves
 
                 public override V ExtraPosition => new V(90, 250);
 #if !DEBUG
-                public override bool Hidden 
-                { 
-                    get 
-                    {
+                //public override bool Hidden 
+                //{ 
+                //    get 
+                //    {
 
-                        return PlayerManager.CurrentUser == null || !PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("reBadApple");
-                    } 
-                }
+                //        return PlayerManager.CurrentUser == null || !PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("reBadApple");
+                //    } 
+                //}
 #endif
 
                 public override Dictionary<Difficulty, float> CompleteDifficulty => new Dictionary<Difficulty, float>(
@@ -4245,7 +4245,7 @@ namespace Rhythm_Recall.Waves
                         char[] text = "悲しむなんて".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(100 + i * 50, 200), C.Gray, 0) { Alpha = 0, edging = true };
+                            Ef ef = new($"{text[i]}", new V(100 + i * 50, 200), C.Gray, 0) { Alpha = 0, edging = true,scf=true };
                             //ef.vecOut();
                             ef.sizeOut(new V(1.5f, 0), new V(1.5f), T(i * 0.5f), T(2), ES.Circ);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
@@ -4260,7 +4260,7 @@ namespace Rhythm_Recall.Waves
                         char[] text = "疲れるだけよ".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(350 + i * 50, 300), C.DarkRed, 0) { Alpha = 0, edging = true };
+                            Ef ef = new($"{text[i]}", new V(350 + i * 50, 300), C.DarkRed, 0) { Alpha = 0, edging = true, scf = true };
                             //ef.vecOut();
                             ef.sizeOut(new V(1.5f, 0), new V(1.5f), T(i * 0.5f), T(2), Cu);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
@@ -4275,7 +4275,7 @@ namespace Rhythm_Recall.Waves
                         char[] text = "何も感じず".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(220 + i * 50, 100), new(90, 112, 125), 0) { Alpha = 0, edging = true };
+                            Ef ef = new($"{text[i]}", new V(220 + i * 50, 100), new(90, 112, 125), 0) { Alpha = 0, edging = true, scf = true };
                             //ef.vecOut();
                             ef.sizeOut(new V(1.5f, 0), new V(1.5f), T(i * 0.5f), T(2), Cu);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
@@ -4290,7 +4290,7 @@ namespace Rhythm_Recall.Waves
                         char[] text = "過ごせばいいの".ToCharArray();
                         for (int i = 0; i < text.Length; i++)
                         {
-                            Ef ef = new($"{text[i]}", new V(320 - 3 * 70 + i * 70, 100), C.DarkRed, 0) { Alpha = 0, edging = true };
+                            Ef ef = new($"{text[i]}", new V(320 - 3 * 70 + i * 70, 100), C.DarkRed, 0) { Alpha = 0, edging = true, scf = true };
                             //ef.vecOut();
                             ef.sizeOut(new V(2f, 0), new V(2f), T(i * 0.5f), T(2), Cu);
                             ef.alphaOut(0, 1, T(i * 0.5f), T(2), Cu);
