@@ -10100,7 +10100,7 @@ namespace Rhythm_Recall.Waves
                     BSet.timestop = true;
                     BSet.final = true;
                     NameShower.name = "e78b90e381aee789a1e4b8b9";
-                    //again = false;
+                    again = false;
                     HPBar.HPLoseColor = Color.Black * 0;
                     HPBar.HPExistColor = Color.White * 0;
                     DelayBeat(4, () => { shaderProduction.Dispose(); });

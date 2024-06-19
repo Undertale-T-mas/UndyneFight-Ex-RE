@@ -3603,10 +3603,10 @@ namespace Rhythm_Recall.Waves
                         RunEase(s => { SetPlayerBoxMission(1); BoxStates.Centre = s; InstantTP(s); }, EaseOut(
                                BeatTime(0.85f), new Vector2(320 - 66, 240 + 44), new(320, 240), EaseState.Cubic)
                            );
-                        RunEase(s => { SetPlayerBoxMission(1); BoxStates.CurrentBox.GreenSoulAlpha = s * 0.5f; Heart.Alpha = s; },
-                            Stable(0.6f, 1.0f),
-                            EaseOut(BeatTime(0.25f), 1.0f, 0.0f, EaseState.Cubic)
-                        );
+                        RunEase(s => { SetPlayerBoxMission(1); FightBox.instance.AlphaBlend = false; BoxStates.CurrentBox.GreenSoulAlpha = s * 0.5f; Heart.Alpha = s; },
+                             Stable(0.6f, 1.0f),
+                             EaseOut(BeatTime(0.25f), 1.0f, 0.0f, EaseState.Cubic)
+                         );
                     });
 
 

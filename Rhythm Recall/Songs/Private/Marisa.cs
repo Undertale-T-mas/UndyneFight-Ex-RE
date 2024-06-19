@@ -274,7 +274,7 @@ namespace Rhythm_Recall.Waves
             #endregion
             public void Extreme()
             {
-
+                Extreme();
                 ShakeStep();
                 var time = GametimeF;
                 ScreenDrawing.ThemeColor = Color.Lerp(Color.DeepPink, Color.LightPink, Abs(Sin(time * 1.5f)));
