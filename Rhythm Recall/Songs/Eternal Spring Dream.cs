@@ -340,13 +340,13 @@ namespace Rhythm_Recall.Waves
                         {
                             if (!PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("BadApple%"))
                             {
-                                MaxHP = 80;
                                 HeartAttribute.MaxHP = 80;
                             }
                         }
                     }
 
                 }
+                MaxHP = (int)HeartAttribute.MaxHP;
             }
         }
 
