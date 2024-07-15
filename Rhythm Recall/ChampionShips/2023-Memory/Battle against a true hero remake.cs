@@ -438,15 +438,19 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "",    "Spear", "", "", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "", "",
+
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
+
                     "", "Spear", "", "",    "Spear", "", "", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "", "",
+
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
+
                     "", "Spear", "", "",    "Spear", "", "", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "", "",
@@ -574,6 +578,7 @@ namespace Rhythm_Recall.Waves
 
                     string[] rhythm = {
                                         "RotateLSoft", "", "", "",
+
                     "R", "", "", "",    "", "", "+0", "",
                     "", "", "", "",    "R", "", "", "",
                     "", "", "+0", "",    "", "", "", "",
@@ -4420,15 +4425,19 @@ namespace Rhythm_Recall.Waves
                     "", "", "", "",    "Spear", "", "Spear", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "Spear", "",
+
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "Spear", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
+
                     "", "Spear", "", "",    "Spear", "", "Spear", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "Spear", "",
+
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "Spear", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
+
                     "", "Spear", "", "",    "Spear", "", "Spear", "",
                     "Spear", "", "", "Spear",    "", "", "Spear", "",
                     "", "Spear", "", "",    "Spear", "", "", "",
