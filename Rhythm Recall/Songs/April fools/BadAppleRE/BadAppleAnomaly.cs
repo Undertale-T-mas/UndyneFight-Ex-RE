@@ -36,7 +36,6 @@ using Microsoft.Xna.Framework.Media;
 using UndyneFight_Ex.IO;
 using Microsoft.Xna.Framework.Input;
 using static Rhythm_Recall.Resources.BadAppleRE;
-using static Rhythm_Recall.Resources;
 
 namespace Rhythm_Recall.Waves
 {
@@ -153,32 +152,12 @@ namespace Rhythm_Recall.Waves
                     Font.NormalFont.LimitDraw("Bad Apple!!", new V(10, 35), MainCol, NameX - 15, 99999, 1.5f, 0.2f);
                 }
             }
-            bool start = false;
             public void Hard()
             {
-                if (InBeat(0)) 
-                {
-                    int t = 0;
-                    AddInstance(new TimeRangedEvent(417, () => 
-                    {
-                        string st = "";
-                        if (t < 10)
-                            st = "0000" + t.ToString();
-                        else if (t < 100)
-                            st = "000" + t.ToString();
-                        else
-                            st = "00" + t.ToString();
-                        BadAppleRE.anomalyVideo[t] = Loader.Load<Texture2D>($"Musics\\BadAppleRE\\anomaly\\Screen_{st}");
-                        t++;
-                    })
-                    { UpdateIn120 = true });
-                    BadAppleRE.anomalyVideo[834] = Loader.Load<Texture2D>($"Musics\\BadAppleRE\\anomaly\\Screen_00835");
-                }
-                
-                if (anomalyVideo[^200]!=null&&!start)
+                if (InBeat(0))
                 {
                     CreateEntity(new anomalyScreen());
-                    start = true;
+
                 }
             }
             public void AnomalyStart()
@@ -188,9 +167,7 @@ namespace Rhythm_Recall.Waves
 
             int debug = 2;
             public void Normal()
-            {
-                anomaly();
-            }
+            { }
             public void Easy() { }
             public void Extreme() { }
         }
