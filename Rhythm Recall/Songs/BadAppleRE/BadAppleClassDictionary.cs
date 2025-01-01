@@ -3156,7 +3156,6 @@ namespace Rhythm_Recall.Waves
                 public VertexDictionary()
                 {
                     StartP();
-                    size = 1;
                     Arrow = new V[]
                     {
                             new V(Px(-4), Py(-3)),
