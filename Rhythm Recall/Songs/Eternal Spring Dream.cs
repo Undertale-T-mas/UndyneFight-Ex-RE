@@ -335,8 +335,7 @@ namespace Rhythm_Recall.Waves
                     if (dic.ContainsKey("Bad apple"))
                     {
                         if (
-                            dic["Bad apple"].CurrentSongStates.ContainsKey(Difficulty.Extreme)&&
-                            dic["Bad apple"].CurrentSongStates[Difficulty.Extreme].Accuracy != 0)
+                        dic["Bad apple"].CurrentSongStates.ContainsKey(Difficulty.Extreme))
                         {
                             if (!PlayerManager.CurrentUser.Custom.Nexts.ContainsKey("BadApple%"))
                             {
