@@ -151,12 +151,11 @@ namespace Rhythm_Recall.Waves
                 ScreenDrawing.ScreenScale = 2f;
                 CreateEntity(sans = new Sans(Loader));
                 bool jump = false;
-                FightBox.instance.AlphaBlend = false;
                 if (GameStates.difficulty == 0) jump = false;
                 if (jump)
                 {
                     float beat;
-                    beat = 926;
+                    beat = 1020;
                     sans.Alpha = 0.0f;
                     GametimeDelta += BeatTime(beat);
 
