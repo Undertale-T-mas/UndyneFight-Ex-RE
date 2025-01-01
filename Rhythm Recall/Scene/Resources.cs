@@ -17,7 +17,6 @@ namespace Rhythm_Recall
         public static void Initialize(ContentManager cm)
         {
             //   UndyneFight_Ex.ChampionShips.LicenseMaker.GetScore(Waves.Memory2022.GetChampionShip);
-            BadAppleRE.Final2 = new("Musics\\BadAppleRE\\Font\\LastFont", cm);
             BadAppleRE.Final = new("Musics\\BadAppleRE\\Font\\Final", cm);
             BadAppleRE.BadAppleFont = new("Musics\\BadAppleRE\\Font\\BadAppleFont", cm);
             BadAppleRE.inyou = cm.Load<Texture2D>("Musics\\BadAppleRE\\inyou");
@@ -73,9 +72,9 @@ namespace Rhythm_Recall
         public static class BadAppleRE
         {
             public static Texture2D[] BreakScreen = new Texture2D[106];
+            public static Texture2D[] anomalyVideo = new Texture2D[835];
             public static GLFont Final;
             public static GLFont BadAppleFont;
-            public static GLFont Final2;
             public static Texture2D inyou;
             public static Texture2D bubble;
         }
