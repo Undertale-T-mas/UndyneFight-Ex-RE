@@ -11521,7 +11521,6 @@ namespace Rhythm_Recall.Waves
             }
             public static void anomaly()
             {
-                audio?.Stop();
                 BadApple_RE.IntoUnlockScene();
             }
         }
